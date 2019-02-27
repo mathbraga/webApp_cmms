@@ -17,8 +17,8 @@ import {
   AppNavbarBrand,
   AppSidebarToggler
 } from "@coreui/react";
-import logo from "../../assets/img/brand/senado-federal-logo.svg";
-import sygnet from "../../assets/img/brand/senado-federal-logo.svg";
+import logo from "../../assets/img/brand/logo.svg";
+import sygnet from "../../assets/img/brand/sygnet.svg";
 
 class MainHeader extends Component {
   render() {
@@ -35,14 +35,8 @@ class MainHeader extends Component {
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
             <Link to="/" className="nav-link">
-              Link 01
+              Painel Principal
             </Link>
-          </NavItem>
-          <NavItem className="px-3">
-            <Link to="/users">Link 02</Link>
-          </NavItem>
-          <NavItem className="px-3">
-            <NavLink href="#">Link 03</NavLink>
           </NavItem>
         </Nav>
 

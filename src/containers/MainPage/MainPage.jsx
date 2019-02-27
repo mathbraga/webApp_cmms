@@ -15,6 +15,9 @@ import {
   AppSidebarNav
 } from "@coreui/react";
 
+// sidebar nav config
+import navigation from "../../_nav";
+
 const MainHeader = React.lazy(() => import("./MainHeader"));
 
 class MainPage extends Component {
@@ -24,12 +27,23 @@ class MainPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="app">
         <AppHeader fixed>
           <Suspense fallback={this.loading()}>
             <MainHeader />
           </Suspense>
         </AppHeader>
+        <div className="app-body">
+          <AppSidebar fixed display="lg">
+            <AppSidebarHeader />
+            <AppSidebarForm />
+            <Suspense>
+              <AppSidebarNav navConfig={navigation} {...this.props} />
+            </Suspense>
+            <AppSidebarFooter />
+            <AppSidebarMinimizer />
+          </AppSidebar>
+        </div>
       </div>
     );
   }
