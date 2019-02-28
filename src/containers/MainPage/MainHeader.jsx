@@ -27,7 +27,7 @@ class MainHeader extends Component {
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
-          full={{ src: logo, width: 89, height: 25, alt: "Senado Logo" }}
+          full={{ src: logo, height: 35, alt: "Senado Logo" }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: "Senado Logo" }}
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
