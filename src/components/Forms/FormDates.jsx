@@ -17,12 +17,12 @@ class FormDates extends Component {
     return (
       <Card>
         <CardHeader>
-          <strong>Período do Consumo</strong>
+          <strong>Período de consumo</strong>
         </CardHeader>
         <CardBody>
           <FormGroup row>
             <Label htmlFor="initialDate" sm={"auto"}>
-              <strong>Início:</strong>
+              <strong>Mês inicial:</strong>
             </Label>
             <Col sm={2}>
               <Input
@@ -33,7 +33,7 @@ class FormDates extends Component {
               />
             </Col>
             <Label htmlFor="finalDate" sm={"auto"}>
-              <strong>Fim:</strong>
+              <strong>Mês final:</strong>
             </Label>
             <Col sm={2}>
               <Input
@@ -44,7 +44,7 @@ class FormDates extends Component {
               />
             </Col>
             <Label htmlFor="finalDate" sm={{ size: "auto", offset: 0 }}>
-              <strong>Unidade Consumidora:</strong>
+              <strong>Medidor:</strong>
             </Label>
             <Col sm={3}>
               <Input type="select" name="consumerUnit" id="exampleSelect">

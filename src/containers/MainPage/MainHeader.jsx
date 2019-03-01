@@ -35,7 +35,7 @@ class MainHeader extends Component {
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
             <Link to="/" className="nav-link">
-              Painel Principal
+              Início
             </Link>
           </NavItem>
         </Nav>

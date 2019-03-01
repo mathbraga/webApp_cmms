@@ -1,7 +1,7 @@
 export default {
   items: [
     {
-      name: "Painel Principal",
+      name: "Início",
       url: "/dashboard",
       icon: "cui-monitor"
     },
@@ -11,12 +11,12 @@ export default {
       icon: "icon-speedometer",
       children: [
         {
-          name: "Água e Esgoto",
+          name: "Água e esgoto",
           url: "/consumo/agua",
           icon: "icon-drop"
         },
         {
-          name: "Energia Elétrica",
+          name: "Energia elétrica",
           url: "/consumo/energia",
           icon: "cui-lightbulb"
         }
