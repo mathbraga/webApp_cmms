@@ -12,7 +12,9 @@ import {
 } from "reactstrap";
 
 class FormDates extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <Card>
@@ -27,9 +29,11 @@ class FormDates extends Component {
             <Col sm={2}>
               <Input
                 type="text"
+                name="initialDate"
                 id="initialDate"
                 placeholder="mm/yyyy"
                 required
+                onChange={this.props.onChange}
               />
             </Col>
             <Label htmlFor="finalDate" sm={"auto"}>
@@ -38,16 +42,23 @@ class FormDates extends Component {
             <Col sm={2}>
               <Input
                 type="text"
+                name="finalDate"
                 id="finalDate"
                 placeholder="mm/yyyy"
                 required
+                onChange={this.props.onChange}
               />
             </Col>
             <Label htmlFor="finalDate" sm={{ size: "auto", offset: 0 }}>
               <strong>Medidor:</strong>
             </Label>
             <Col sm={3}>
-              <Input type="select" name="consumerUnit" id="exampleSelect">
+              <Input
+                type="select"
+                name="consumerUnit"
+                id="exampleSelect"
+                onChange={this.props.onChange}
+              >
                 <option value="1">620.190-50 - Unidade de Apoio I</option>
                 <option value="2">620.190-51</option>
                 <option value="3">620.190-52</option>

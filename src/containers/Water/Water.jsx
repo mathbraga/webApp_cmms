@@ -6,19 +6,13 @@ import { CardColumns } from "reactstrap";
 
 class Water extends Component {
   render() {
-    return(
+    return (
       <div>
-        
         <FormDates />
-        
         <CardColumns className="cols-2">
-
           <Chart />
-
           <SimpleTable />
-
         </CardColumns>
-      
       </div>
     );
   }
