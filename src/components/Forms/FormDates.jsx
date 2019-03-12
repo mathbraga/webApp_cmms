@@ -35,28 +35,46 @@ class FormDates extends Component {
                 placeholder="mm/aaaa"
                 value={this.props.initialDate}
                 required
-                onChange={this.props.onChange}
+                onChange={this.props.onChangeDate}
               />
             </Col>
             <Label htmlFor="finalDate" sm={"auto"}>
               <strong>Mês final:</strong>
             </Label>
             <Col sm={2}>
-              <Input
-                type="text"
-                name="finalDate"
-                id="finalDate"
-                placeholder="mm/aaaa"
-                value={this.props.finalDate}
-                required
-                onChange={this.props.onChange}
-              />
+              {!this.props.oneMonth ? (
+                <Input
+                  type="text"
+                  name="finalDate"
+                  id="finalDate"
+                  placeholder="mm/aaaa"
+                  value={this.props.finalDate}
+                  required
+                  onChange={this.props.onChangeDate}
+                />
+              ) : (
+                <Input
+                  type="text"
+                  name="finalDate"
+                  id="finalDate"
+                  placeholder="mm/aaaa"
+                  value={this.props.finalDate}
+                  required
+                  onChange={this.props.onChangeDate}
+                  disabled
+                />
+              )}
             </Col>
             <Label htmlFor="finalDate" sm={{ size: "auto", offset: 0 }}>
               <strong>Medidor:</strong>
             </Label>
             <Col sm={3.5}>
-              <Input type="select" name="consumerUnit" id="exampleSelect">
+              <Input
+                type="select"
+                name="consumerUnit"
+                id="exampleSelect"
+                onChange={this.props.onUnitChange}
+              >
                 {this.props.consumerUnits.map(unit => (
                   <option value={unit.key}>
                     {unit.num} - {unit.name}
@@ -68,6 +86,23 @@ class FormDates extends Component {
               <Button type="submit" size="md" color="primary">
                 Pesquisar
               </Button>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Col md="3">
+              <FormGroup check className="checkbox">
+                <Input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="mes_unico"
+                  name="mes_unico"
+                  value={1}
+                  onChange={this.props.onChangeOneMonth}
+                />
+                <Label check className="form-check-label" htmlFor="mes_unico">
+                  Pesquisar somente um mês
+                </Label>
+              </FormGroup>
             </Col>
           </FormGroup>
         </CardBody>

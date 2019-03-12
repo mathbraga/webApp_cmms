@@ -30,20 +30,36 @@ class Water extends Component {
       options: "",
       initialDate: "",
       finalDate: "",
-      consumerUnit: ""
+      consumerUnit: "101",
+      oneMonth: 0
     };
   }
 
   handleChangeOnDates = handleDates.bind(this);
 
+  handleOneMonth = event => {
+    this.setState({
+      oneMonth: event.target.checked
+    });
+  };
+
+  handleUnitChange = event => {
+    this.setState({
+      consumerUnit: event.target.value
+    });
+  };
+
   render() {
     return (
       <div>
         <FormDates
-          onChange={this.handleChangeOnDates}
+          onChangeDate={this.handleChangeOnDates}
           initialDate={this.state.initialDate}
           finalDate={this.state.finalDate}
           consumerUnits={waterUnits}
+          oneMonth={this.state.oneMonth}
+          onChangeOneMonth={this.handleOneMonth}
+          onUnitChange={this.handleUnitChange}
         />
         <CardColumns className="cols-2">
           <Chart />

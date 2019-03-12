@@ -101,21 +101,37 @@ class Energy extends Component {
       options: options,
       initialDate: "",
       finalDate: "",
-      consumerUnit: ""
+      consumerUnit: "101",
+      oneMonth: false
     };
   }
 
   handleChangeOnDates = handleDates.bind(this);
+
+  handleOneMonth = event => {
+    this.setState({
+      oneMonth: event.target.checked
+    });
+  };
+
+  handleUnitChange = event => {
+    this.setState({
+      consumerUnit: event.target.value
+    });
+  };
 
   render() {
     return (
       <div>
         <div>
           <FormDates
-            onChange={this.handleChangeOnDates}
+            onChangeDate={this.handleChangeOnDates}
             initialDate={this.state.initialDate}
             finalDate={this.state.finalDate}
+            oneMonth={this.state.oneMonth}
             consumerUnits={energyUnits}
+            onChangeOneMonth={this.handleOneMonth}
+            onUnitChange={this.handleUnitChange}
           />
         </div>
         <div>
