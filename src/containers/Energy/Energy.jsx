@@ -4,6 +4,7 @@ import Chart from "../../components/Charts/Chart";
 import SimpleTable from "../../components/Tables/SimpleTable";
 import { CardColumns, CardGroup, Col, Row } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
+import { handleDates } from "../../utils/handleDates";
 
 const data = {
   labels: [
@@ -77,36 +78,7 @@ class Energy extends Component {
     };
   }
 
-  handleChangeOnDates = event => {
-    const { name, value } = event.target;
-    const justNumbers = value.replace(/\D/g, "");
-
-    if (value.length > 7) {
-      return;
-    }
-
-    console.log(value);
-    if (value.length === 3 && value[2] === "/") {
-      this.setState({
-        [name]: value
-      });
-      return;
-    }
-
-    if (justNumbers.length <= 2) {
-      this.setState({
-        [name]: justNumbers
-      });
-    } else {
-      const newDate =
-        justNumbers.slice(0, 2) +
-        "/" +
-        justNumbers.slice(2, justNumbers.length);
-      this.setState({
-        [name]: newDate
-      });
-    }
-  };
+  handleChangeOnDates = handleDates.bind(this);
 
   render() {
     return (
