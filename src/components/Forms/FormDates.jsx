@@ -15,6 +15,7 @@ class FormDates extends Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     return (
       <Card>
@@ -28,10 +29,11 @@ class FormDates extends Component {
             </Label>
             <Col sm={2}>
               <Input
-                type="text"
                 name="initialDate"
                 id="initialDate"
-                placeholder="mm/yyyy"
+                type="text"
+                placeholder="mm/aaaa"
+                value={this.props.initialDate}
                 required
                 onChange={this.props.onChange}
               />
@@ -44,7 +46,8 @@ class FormDates extends Component {
                 type="text"
                 name="finalDate"
                 id="finalDate"
-                placeholder="mm/yyyy"
+                placeholder="mm/aaaa"
+                value={this.props.finalDate}
                 required
                 onChange={this.props.onChange}
               />
@@ -53,12 +56,7 @@ class FormDates extends Component {
               <strong>Medidor:</strong>
             </Label>
             <Col sm={3}>
-              <Input
-                type="select"
-                name="consumerUnit"
-                id="exampleSelect"
-                onChange={this.props.onChange}
-              >
+              <Input type="select" name="consumerUnit" id="exampleSelect">
                 <option value="1">620.190-50 - Unidade de Apoio I</option>
                 <option value="2">620.190-51</option>
                 <option value="3">620.190-52</option>

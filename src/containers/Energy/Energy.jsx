@@ -79,16 +79,44 @@ class Energy extends Component {
 
   handleChangeOnDates = event => {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+    const justNumbers = value.replace(/\D/g, "");
+
+    if (value.length > 7) {
+      return;
+    }
+
+    console.log(value);
+    if (value.length === 3 && value[2] === "/") {
+      this.setState({
+        [name]: value
+      });
+      return;
+    }
+
+    if (justNumbers.length <= 2) {
+      this.setState({
+        [name]: justNumbers
+      });
+    } else {
+      const newDate =
+        justNumbers.slice(0, 2) +
+        "/" +
+        justNumbers.slice(2, justNumbers.length);
+      this.setState({
+        [name]: newDate
+      });
+    }
   };
 
   render() {
     return (
       <div>
         <div>
-          <FormDates onChange={this.handleChangeOnDates} />
+          <FormDates
+            onChange={this.handleChangeOnDates}
+            initialDate={this.state.initialDate}
+            finalDate={this.state.finalDate}
+          />
         </div>
         <div>
           <CardColumns className="cols-2">
