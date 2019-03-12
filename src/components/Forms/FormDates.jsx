@@ -55,13 +55,13 @@ class FormDates extends Component {
             <Label htmlFor="finalDate" sm={{ size: "auto", offset: 0 }}>
               <strong>Medidor:</strong>
             </Label>
-            <Col sm={3}>
+            <Col sm={3.5}>
               <Input type="select" name="consumerUnit" id="exampleSelect">
-                <option value="1">620.190-50 - Unidade de Apoio I</option>
-                <option value="2">620.190-51</option>
-                <option value="3">620.190-52</option>
-                <option value="4">620.190-53</option>
-                <option value="5">Todos</option>
+                {this.props.consumerUnits.map(unit => (
+                  <option value={unit.key}>
+                    {unit.num} - {unit.name}
+                  </option>
+                ))}
               </Input>
             </Col>
             <Col>

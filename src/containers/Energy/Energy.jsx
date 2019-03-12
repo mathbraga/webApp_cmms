@@ -66,6 +66,33 @@ const options = {
   maintainAspectRatio: false
 };
 
+const energyUnits = [
+  { key: 101, num: "466453-1", name: "Setran" },
+  { key: 102, num: "471550-0", name: "SQS 309 BL G - Zelador" },
+  { key: 103, num: "471551-9", name: "SQS 309 BL G - Serviço" },
+  { key: 104, num: "471552-7", name: "SQS 309 BL C - Zelador" },
+  { key: 105, num: "471553-5", name: "SQS 309 BL C - Serviço" },
+  { key: 106, num: "471554-3", name: "SQS 309 BL D - Zelador" },
+  { key: 107, num: "471555-1", name: "SQS 309 BL D - Serviço" },
+  { key: 108, num: "472913-7", name: "SHIS QL 12 CJ 11" },
+  { key: 109, num: "491042-7", name: "Gráfico - SEEP" },
+  { key: 110, num: "491747-2", name: "Anexo II - Garagem Med. 2" },
+  { key: 111, num: "491750-2", name: "Anexo II - Garagem Med. 1" },
+  { key: 112, num: "493169-6", name: "Ed. Principal e Anexo I" },
+  { key: 113, num: "510213-8", name: "Torre Televisão" },
+  { key: 114, num: "605120-0", name: "Unidades de Apoio" },
+  { key: 115, num: "623849-1", name: "Ar-Condicionado Med. 1" },
+  { key: 116, num: "675051-6", name: "Prodasen" },
+  { key: 117, num: "856960-6", name: "SQS 309 BL C - Bomba Incêndio" },
+  { key: 118, num: "856967-3", name: "SQS 309 BL D - Bomba Incêndio" },
+  { key: 119, num: "856969-X", name: "SQS 309 BL G - Bomba Incêndio" },
+  { key: 120, num: "966027-5", name: "Interlegis" },
+  { key: 121, num: "1089425-X", name: "Posto Colorado/Antena" },
+  { key: 122, num: "1100496-7", name: "Palácio do Comércio" },
+  { key: 123, num: "1951042-X", name: "SCEN TR 03 LT 01" },
+  { key: 199, num: "Todos", name: "Todas Un. Consumidoras" }
+];
+
 class Energy extends Component {
   constructor(props) {
     super(props);
@@ -88,6 +115,7 @@ class Energy extends Component {
             onChange={this.handleChangeOnDates}
             initialDate={this.state.initialDate}
             finalDate={this.state.finalDate}
+            consumerUnits={energyUnits}
           />
         </div>
         <div>
