@@ -12,7 +12,10 @@ import {
 } from "reactstrap";
 
 class FormDates extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <Card>
@@ -26,39 +29,80 @@ class FormDates extends Component {
             </Label>
             <Col sm={2}>
               <Input
-                type="text"
+                name="initialDate"
                 id="initialDate"
-                placeholder="mm/yyyy"
+                type="text"
+                placeholder="mm/aaaa"
+                value={this.props.initialDate}
                 required
+                onChange={this.props.onChangeDate}
               />
             </Col>
             <Label htmlFor="finalDate" sm={"auto"}>
               <strong>Mês final:</strong>
             </Label>
             <Col sm={2}>
-              <Input
-                type="text"
-                id="finalDate"
-                placeholder="mm/yyyy"
-                required
-              />
+              {!this.props.oneMonth ? (
+                <Input
+                  type="text"
+                  name="finalDate"
+                  id="finalDate"
+                  placeholder="mm/aaaa"
+                  value={this.props.finalDate}
+                  required
+                  onChange={this.props.onChangeDate}
+                />
+              ) : (
+                <Input
+                  type="text"
+                  name="finalDate"
+                  id="finalDate"
+                  placeholder="mm/aaaa"
+                  value={this.props.finalDate}
+                  required
+                  onChange={this.props.onChangeDate}
+                  disabled
+                />
+              )}
             </Col>
             <Label htmlFor="finalDate" sm={{ size: "auto", offset: 0 }}>
               <strong>Medidor:</strong>
             </Label>
-            <Col sm={3}>
-              <Input type="select" name="consumerUnit" id="exampleSelect">
-                <option value="1">620.190-50 - Unidade de Apoio I</option>
-                <option value="2">620.190-51</option>
-                <option value="3">620.190-52</option>
-                <option value="4">620.190-53</option>
-                <option value="5">Todos</option>
+            <Col sm={3.5}>
+              <Input
+                type="select"
+                name="consumerUnit"
+                id="exampleSelect"
+                onChange={this.props.onUnitChange}
+              >
+                {this.props.consumerUnits.map(unit => (
+                  <option value={unit.key}>
+                    {unit.num} - {unit.name}
+                  </option>
+                ))}
               </Input>
             </Col>
             <Col>
               <Button type="submit" size="md" color="primary">
                 Pesquisar
               </Button>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Col md="3">
+              <FormGroup check className="checkbox">
+                <Input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="mes_unico"
+                  name="mes_unico"
+                  value={1}
+                  onChange={this.props.onChangeOneMonth}
+                />
+                <Label check className="form-check-label" htmlFor="mes_unico">
+                  Pesquisar somente um mês
+                </Label>
+              </FormGroup>
             </Col>
           </FormGroup>
         </CardBody>
