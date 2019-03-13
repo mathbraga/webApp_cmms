@@ -26,11 +26,12 @@ export function queryEnergyTable() {
     };
 
     // Query table and return results
-    this.state.dynamo.query(params, function(err, data){
+    this.state.dynamo.query(params, (err, data) => {
         if(err) {
             console.log(err);
         } else {
             console.log(data);
+            this.setState({dataChart: data});
         }
     });
 }

@@ -113,7 +113,8 @@ class Energy extends Component {
       initialDate: "",
       finalDate: "",
       consumer: "101",
-      oneMonth: false
+      oneMonth: false,
+      dataChart: []
     };
   }
 
