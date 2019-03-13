@@ -5,6 +5,7 @@ import SimpleTable from "../../components/Tables/SimpleTable";
 import { CardColumns, CardGroup, Col, Row } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { handleDates } from "../../utils/handleDates";
+import EnergyOneUnitDash from "./EnergyOneUnitDash";
 
 const data = {
   labels: [
@@ -135,12 +136,13 @@ class Energy extends Component {
           />
         </div>
         <div>
-          <CardColumns className="cols-2">
+          <EnergyOneUnitDash />
+          {/* <CardColumns className="cols-2">
             <div>
               <Chart data={this.state.data} options={this.state.options} />
               <SimpleTable />
             </div>
-          </CardColumns>
+          </CardColumns> */}
         </div>
       </div>
     );
