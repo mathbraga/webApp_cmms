@@ -109,7 +109,7 @@ class Energy extends Component {
     this.state = {
       data: data,
       options: options,
-      db: dynamo,
+      dynamo: dynamo,
       initialDate: "",
       finalDate: "",
       consumer: "101",

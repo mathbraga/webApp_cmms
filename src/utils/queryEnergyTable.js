@@ -1,7 +1,7 @@
 export function queryEnergyTable() {
 
     // Transform form inputs into integers
-    const month1 = this.state.initialDate.slice(5) + this.state.initialDate.slice(0,2);
+    var month1 = this.state.initialDate.slice(5) + this.state.initialDate.slice(0,2);
     if(this.state.oneMonth) {
         var month2 = month1;
     } else {
@@ -10,23 +10,23 @@ export function queryEnergyTable() {
 
     // Define params for query
     const params = {
-            TableName: "EnergyTable",
-            KeyConditionExpression: 'med = :med AND aamm BETWEEN :aamm1 AND :aamm2',
-            ExpressionAttributeValues: {
-                ':med': {
-                    "N": this.state.consumer
-                    },
-                ':aamm1': {
-                    "N": month1
+        TableName: "EnergyTable",
+        KeyConditionExpression: 'med = :med AND aamm BETWEEN :aamm1 AND :aamm2',
+        ExpressionAttributeValues: {
+            ':med': {
+                "N": this.state.consumer
                 },
-                ':aamm2': {
-                    "N": month2
-                }
+            ':aamm1': {
+                "N": month1
+            },
+            ':aamm2': {
+                "N": month2
             }
+        }
     };
 
     // Query table and return results
-    this.state.db.query(params, function(err, data){
+    this.state.dynamo.query(params, function(err, data){
         if(err) {
             console.log(err);
         } else {
