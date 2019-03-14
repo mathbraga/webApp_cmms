@@ -1,1 +1,43 @@
 // Here you can add other styles
+.widget-title {
+  font-weight: 600;
+}
+
+.widget-container {
+  border-left-width: 8px;
+  border-left-color: #647780;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  min-width: 200px;
+}
+
+.widget-container:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+}
+
+.widget-body {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.widget-image {
+  max-width: 100%;
+  max-height: 100%;
+  padding: 4px;
+}
+
+.widget-container-image {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.dash-subtitle {
+  font-size: 80%;
+  font-weight: 400;
+  color: #73818f !important;
+}
+
+h4 {
+  margin: 0;
+}
