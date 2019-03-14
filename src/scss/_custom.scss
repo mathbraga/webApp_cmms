@@ -1,4 +1,5 @@
 // Here you can add other styles
+
 .widget-title {
   font-weight: 600;
 }
@@ -9,6 +10,9 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
   min-width: 200px;
+  max-height: 105px;
+  height: 105px;
+  padding-bottom: 10px;
 }
 
 .widget-container:hover {
@@ -23,6 +27,8 @@
 .widget-image {
   max-width: 100%;
   max-height: 100%;
+  width: 70px;
+  height: 70px;
   padding: 4px;
 }
 
@@ -30,6 +36,7 @@
   display: flex;
   flex-flow: column;
   justify-content: center;
+  max-height: 100%;
 }
 
 .dash-subtitle {
@@ -40,4 +47,29 @@
 
 h4 {
   margin: 0;
+}
+
+.dash-title-info {
+  font-size: 90%;
+  font-weight: 400;
+  color: #73818f !important;
+}
+
+.widget-container-center {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.dash-title {
+  float: left;
+  padding-right: 15px;
+  margin-right: 15px;
+  border-right: 1.5px solid #acb5b9;
+}
+
+.widget-division {
+  padding-left: 4px;
+  float: left;
+  border-left: 2px solid #acb5b9;
 }
