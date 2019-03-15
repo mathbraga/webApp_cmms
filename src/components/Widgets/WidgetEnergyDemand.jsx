@@ -7,23 +7,21 @@ class WidgetEnergyDemand extends Component {
     return (
       <Card className="widget-container">
         <CardBody className="widget-body">
-          <Row>
+          <Row className="widget-container-text">
             <Col md="3">
-              <div>
-                <div className="widget-title">Demanda P</div>
-                <div>100 kW</div>
-                <div className="widget-title" style={{ "padding-top": "5px" }}>
-                  Demanda FP
-                </div>
-                <div>120 kW</div>
+              <div className="widget-title">Demanda P</div>
+              <div>100 kW</div>
+              <div className="widget-title" style={{ "padding-top": "5px" }}>
+                Demanda FP
               </div>
+              <div>120 kW</div>
             </Col>
             <Col md="3">
               <div className="widget-division">
-                <div className="widget-title">Contratado P</div>
+                <div className="widget-title">Contrato P</div>
                 <div>150 kW</div>
                 <div className="widget-title" style={{ "padding-top": "5px" }}>
-                  Contratado FP
+                  Contrato FP
                 </div>
                 <div>180 kW</div>
               </div>
@@ -39,12 +37,10 @@ class WidgetEnergyDemand extends Component {
               </div>
             </Col>
             <Col md="3" className="widget-container-image">
-              <div>
-                <img
-                  className="widget-image"
-                  src={require("../../assets/icons/iconfinder_a_5_2578124.png")}
-                />
-              </div>
+              <img
+                className="widget-image"
+                src={require("../../assets/icons/iconfinder_a_5_2578124.png")}
+              />
             </Col>
           </Row>
         </CardBody>

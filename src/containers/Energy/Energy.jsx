@@ -125,7 +125,7 @@ class Energy extends Component {
     return (
       <div>
         <div>
-          <FormDates
+          {/* <FormDates
             onChangeDate={this.handleChangeOnDates}
             initialDate={this.state.initialDate}
             finalDate={this.state.finalDate}
@@ -133,16 +133,10 @@ class Energy extends Component {
             consumerUnits={energyUnits}
             onChangeOneMonth={this.handleOneMonth}
             onUnitChange={this.handleUnitChange}
-          />
+          /> */}
         </div>
         <div>
           <EnergyOneUnitDash />
-          {/* <CardColumns className="cols-2">
-            <div>
-              <Chart data={this.state.data} options={this.state.options} />
-              <SimpleTable />
-            </div>
-          </CardColumns> */}
         </div>
       </div>
     );

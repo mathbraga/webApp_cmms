@@ -7,7 +7,7 @@ class WidgetEnergyProblem extends Component {
     return (
       <Card className="widget-container">
         <CardBody className="widget-body">
-          <Row>
+          <Row className="widget-container-text">
             <Col md="8">
               <div>
                 <div className="widget-title">Problemas</div>
@@ -19,12 +19,10 @@ class WidgetEnergyProblem extends Component {
               </div>
             </Col>
             <Col md="4" className="widget-container-image">
-              <div>
-                <img
-                  className="widget-image"
-                  src={require("../../assets/icons/iconfinder_Moneyidea_2103632.png")}
-                />
-              </div>
+              <img
+                className="widget-image"
+                src={require("../../assets/icons/iconfinder_101_Warning_183416.png")}
+              />
             </Col>
           </Row>
         </CardBody>

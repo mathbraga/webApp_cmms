@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+import { Card, CardHeader, CardBody, Row, Col, Button } from "reactstrap";
 import WidgetEnergyUsage from "../../components/Widgets/WidgetEnergyUsage";
 import WidgetEnergyDemand from "../../components/Widgets/WidgetEnergyDemand";
 import WidgetEnergyProblem from "../../components/Widgets/WidgetEnergyProblem";
+import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
 
 class EnergyOneUnitDash extends Component {
   state = {};
@@ -25,7 +26,12 @@ class EnergyOneUnitDash extends Component {
                 </div>
               </div>
             </Col>
-            <Col md="6" />
+            <Col md="6" className="container-left">
+              <Button color="ghost-primary">
+                <i className="cui-magnifying-glass" />
+                &nbsp;Nova Pesquisa
+              </Button>
+            </Col>
           </Row>
         </CardHeader>
         <CardBody>
@@ -38,6 +44,11 @@ class EnergyOneUnitDash extends Component {
             </Col>
             <Col md="3">
               <WidgetEnergyProblem />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <ReportEnergyOneUnit />
             </Col>
           </Row>
         </CardBody>
