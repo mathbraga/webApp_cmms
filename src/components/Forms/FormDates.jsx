@@ -71,20 +71,24 @@ class FormDates extends Component {
             <Col sm={3.5}>
               <Input
                 type="select"
-                name="consumerUnit"
+                name="consumer"
                 id="exampleSelect"
                 onChange={this.props.onUnitChange}
               >
-                {this.props.consumerUnits.map(unit => (
-                  <option value={unit.key}>
-                    {unit.num} - {unit.name}
+                {this.props.consumers.map(consumer => (
+                  <option value={consumer.key}>
+                    {consumer.num} - {consumer.name}
                   </option>
                 ))}
               </Input>
             </Col>
             <Col>
-              <Button type="submit" size="md" color="primary">
-                Pesquisar
+              <Button
+                type="submit"
+                size="md"
+                color="primary"
+                onClick={this.props.onQuery}
+              >Pesquisar
               </Button>
             </Col>
           </FormGroup>
@@ -94,12 +98,12 @@ class FormDates extends Component {
                 <Input
                   className="form-check-input"
                   type="checkbox"
-                  id="mes_unico"
-                  name="mes_unico"
+                  id="oneMonth"
+                  name="oneMonth"
                   value={1}
                   onChange={this.props.onChangeOneMonth}
                 />
-                <Label check className="form-check-label" htmlFor="mes_unico">
+                <Label check className="form-check-label" htmlFor="oneMonth">
                   Pesquisar somente um mês
                 </Label>
               </FormGroup>
