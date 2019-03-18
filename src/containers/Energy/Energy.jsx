@@ -139,7 +139,13 @@ class Energy extends Component {
   };
 
   showFormDates = event => {
-    this.setState({ showResult: false });
+    this.setState({
+      showResult: false,
+      initialDate: "",
+      finalDate: "",
+      consumer: "101",
+      oneMonth: false
+    });
   };
 
   render() {
