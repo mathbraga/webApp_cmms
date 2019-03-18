@@ -114,7 +114,7 @@ class Energy extends Component {
       finalDate: "",
       consumer: "101",
       oneMonth: false,
-      dataChart: []
+      queryResponse: []
     };
   }
 
