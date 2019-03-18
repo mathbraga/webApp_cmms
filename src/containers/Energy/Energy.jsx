@@ -114,7 +114,8 @@ class Energy extends Component {
       finalDate: "",
       consumer: "101",
       oneMonth: false,
-      queryResponse: []
+      queryResponse: [],
+      error: false
     };
   }
 
