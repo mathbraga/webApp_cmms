@@ -5,6 +5,8 @@ import SimpleTable from "../../components/Tables/SimpleTable";
 import { CardColumns, CardGroup, Col, Row } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { handleDates } from "../../utils/handleDates";
+import AWS from "aws-sdk";
+import { queryEnergyTable } from "../../utils/queryEnergyTable";
 
 const data = {
   labels: [
@@ -66,7 +68,7 @@ const options = {
   maintainAspectRatio: false
 };
 
-const energyUnits = [
+const consumers = [
   { key: 101, num: "466453-1", name: "Setran" },
   { key: 102, num: "471550-0", name: "SQS 309 BL G - Zelador" },
   { key: 103, num: "471551-9", name: "SQS 309 BL G - Serviço" },
@@ -93,20 +95,32 @@ const energyUnits = [
   { key: 199, num: "Todos", name: "Todas Un. Consumidoras" }
 ];
 
+// AWS initialization and variables
+AWS.config.region = "us-east-2";
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: "us-east-2:03b9854f-67a5-4d77-819d-8ee654f8ad1b"});
+var dynamo = new AWS.DynamoDB({
+  apiVersion: "2012-08-10",
+  endpoint: "https://dynamodb.us-east-2.amazonaws.com"
+});
+
 class Energy extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: data,
       options: options,
+      dynamo: dynamo,
       initialDate: "",
       finalDate: "",
-      consumerUnit: "101",
-      oneMonth: false
+      consumer: "101",
+      oneMonth: false,
+      queryResponse: [],
+      error: false
     };
   }
 
   handleChangeOnDates = handleDates.bind(this);
+  handleQuery = queryEnergyTable.bind(this);
 
   handleOneMonth = event => {
     this.setState({
@@ -116,7 +130,7 @@ class Energy extends Component {
 
   handleUnitChange = event => {
     this.setState({
-      consumerUnit: event.target.value
+      consumer: event.target.value
     });
   };
 
@@ -129,9 +143,10 @@ class Energy extends Component {
             initialDate={this.state.initialDate}
             finalDate={this.state.finalDate}
             oneMonth={this.state.oneMonth}
-            consumerUnits={energyUnits}
+            consumers={consumers}
             onChangeOneMonth={this.handleOneMonth}
             onUnitChange={this.handleUnitChange}
+            onQuery={this.handleQuery}
           />
         </div>
         <div>
