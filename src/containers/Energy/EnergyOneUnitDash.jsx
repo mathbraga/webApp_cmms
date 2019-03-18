@@ -4,6 +4,8 @@ import WidgetEnergyUsage from "../../components/Widgets/WidgetEnergyUsage";
 import WidgetEnergyDemand from "../../components/Widgets/WidgetEnergyDemand";
 import WidgetEnergyProblem from "../../components/Widgets/WidgetEnergyProblem";
 import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
+import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
+import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
 
 class EnergyOneUnitDash extends Component {
   state = {};
@@ -44,6 +46,14 @@ class EnergyOneUnitDash extends Component {
             </Col>
             <Col md="3">
               <WidgetEnergyProblem />
+            </Col>
+          </Row>
+          <Row>
+            <Col md="6">
+              <ReportInfoEnergy />
+            </Col>
+            <Col md="6">
+              <ReportCalculationsEnergy />
             </Col>
           </Row>
           <Row>
