@@ -9,8 +9,8 @@ export function queryEnergyTable() {
       this.state.finalDate.slice(5) + this.state.finalDate.slice(0, 2);
   }
 
-  // Define params for query
-  const params = {
+  // Query EnergyTable and return results
+  this.state.dynamo.query({
     TableName: "EnergyTable",
     KeyConditionExpression: "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
     ExpressionAttributeValues: {
@@ -24,10 +24,7 @@ export function queryEnergyTable() {
         N: month2
       }
     }
-  };
-
-  // Query table and return results
-  this.state.dynamo.query(params, (err, data) => {
+  }, (err, data) => {
     if (err) {
       console.log(err);
       alert("There was an error. Please insert search parameters again.");
@@ -42,8 +39,32 @@ export function queryEnergyTable() {
       });
       console.log(data);
       this.setState({
+        // error: false,
+        queryResponse1: data
+        // showResult: true
+      });
+    }
+  });
+
+  // Query EnergyInfo and return results
+  this.state.dynamo.query({
+    TableName: "EnergyInfo",
+    KeyConditionExpression: "med = :med",
+    ExpressionAttributeValues: {
+      ":med": {
+        N: this.state.consumer
+      }
+    }
+  }, (err, data) => {
+    if (err) {
+      console.log(err);
+      alert("There was an error. Please insert search parameters again.");
+      this.setState({ error: true });
+    } else {
+      console.log(data);
+      this.setState({
         error: false,
-        queryResponse: data,
+        queryResponse2: data,
         showResult: true
       });
     }
