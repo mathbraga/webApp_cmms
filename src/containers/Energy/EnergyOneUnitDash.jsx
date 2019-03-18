@@ -8,7 +8,9 @@ import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
 
 class EnergyOneUnitDash extends Component {
-  state = {};
+  constructor(props){
+    super(props);
+  }
   render() {
     return (
       <Card>
@@ -16,7 +18,7 @@ class EnergyOneUnitDash extends Component {
           <Row>
             <Col md="6">
               <div className="widget-title dash-title">
-                <h4>192.605-0</h4>
+                <h4>{this.props.result2.Items[0].idceb.S}</h4>
                 <div className="dash-subtitle">Medidor: Unidades de Apoio</div>
               </div>
               <div className="widget-container-center">
@@ -58,7 +60,7 @@ class EnergyOneUnitDash extends Component {
           </Row>
           <Row>
             <Col>
-              <ReportEnergyOneUnit />
+              <ReportEnergyOneUnit result1={this.props.result1} result2={this.props.result2}/>
             </Col>
           </Row>
         </CardBody>

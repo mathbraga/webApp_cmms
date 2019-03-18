@@ -15,10 +15,6 @@ import classNames from "classnames";
 
 
 class ReportInfoEnergy extends Component {
-  // constructor(props){
-  //   super(props);
-  // }
-  // state = {};
   render() {
     return (
       <Card>
