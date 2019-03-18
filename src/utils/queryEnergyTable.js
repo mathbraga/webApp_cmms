@@ -29,11 +29,11 @@ export function queryEnergyTable() {
     this.state.dynamo.query(params, (err, data) => {
         if (err) {
             console.log(err);
-            console.log("There was an error.")
+            alert("There was an error. Please insert search parameters again.")
             this.setState({error: true});
         } else {
             data.Items.map(element => { // Each 'element' is an item returned from the database table; map function loops through all items, changing the variable data
-              Object.keys(element).map((key, index) => { // Each key is an attribute of the database table; map function loops through all attributes, changing strings into numbers
+              Object.keys(element).map(key => { // Each key is an attribute of the database table; map function loops through all attributes, changing strings into numbers
                 element[key] = Number(element[key].N); // Transforms each element[key].N (string) into Number
               });
             });
