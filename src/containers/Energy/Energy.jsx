@@ -119,7 +119,7 @@ class Energy extends Component {
       oneMonth: false,
       queryResponse: [],
       error: false,
-      showResult: false
+      showResult: true
     };
   }
 
