@@ -154,7 +154,7 @@ class Energy extends Component {
       <div>
         <div>
           {this.state.showResult ? (
-            <EnergyOneUnitDash handleClick={this.showFormDates} />
+            <EnergyOneUnitDash handleClick={this.showFormDates} result1={this.state.queryResponse1} result2={this.state.queryResponse2}/>
           ) : (
             <FormDates
               onChangeDate={this.handleChangeOnDates}

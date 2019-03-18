@@ -50,7 +50,7 @@ class EnergyOneUnitDash extends Component {
           </Row>
           <Row>
             <Col md="6">
-              <ReportInfoEnergy />
+              <ReportInfoEnergy result2={this.props.result2}/>
             </Col>
             <Col md="6">
               <ReportCalculationsEnergy />
