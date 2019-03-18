@@ -98,7 +98,9 @@ const consumers = [
 
 // AWS initialization and variables
 AWS.config.region = "us-east-2";
-AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: "us-east-2:03b9854f-67a5-4d77-819d-8ee654f8ad1b"});
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+  IdentityPoolId: "us-east-2:03b9854f-67a5-4d77-819d-8ee654f8ad1b"
+});
 var dynamo = new AWS.DynamoDB({
   apiVersion: "2012-08-10",
   endpoint: "https://dynamodb.us-east-2.amazonaws.com"
@@ -116,7 +118,8 @@ class Energy extends Component {
       consumer: "101",
       oneMonth: false,
       queryResponse: [],
-      error: false
+      error: false,
+      showResult: false
     };
   }
 
@@ -135,23 +138,28 @@ class Energy extends Component {
     });
   };
 
+  showFormDates = event => {
+    this.setState({ showResult: false });
+  };
+
   render() {
     return (
       <div>
         <div>
-          {/* <FormDates
-            onChangeDate={this.handleChangeOnDates}
-            initialDate={this.state.initialDate}
-            finalDate={this.state.finalDate}
-            oneMonth={this.state.oneMonth}
-            consumers={consumers}
-            onChangeOneMonth={this.handleOneMonth}
-            onUnitChange={this.handleUnitChange}
-            onQuery={this.handleQuery}
-          /> */}
-        </div>
-        <div>
-          <EnergyOneUnitDash />
+          {this.state.showResult ? (
+            <EnergyOneUnitDash handleClick={this.showFormDates} />
+          ) : (
+            <FormDates
+              onChangeDate={this.handleChangeOnDates}
+              initialDate={this.state.initialDate}
+              finalDate={this.state.finalDate}
+              oneMonth={this.state.oneMonth}
+              consumers={consumers}
+              onChangeOneMonth={this.handleOneMonth}
+              onUnitChange={this.handleUnitChange}
+              onQuery={this.handleQuery}
+            />
+          )}
         </div>
       </div>
     );
