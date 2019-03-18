@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
-// import { renderRoutes } from 'react-router-config';
 import Loadable from "react-loadable";
 import "./App.scss";
 

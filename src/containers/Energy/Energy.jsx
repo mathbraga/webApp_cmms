@@ -5,6 +5,7 @@ import SimpleTable from "../../components/Tables/SimpleTable";
 import { CardColumns, CardGroup, Col, Row } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { handleDates } from "../../utils/handleDates";
+import EnergyOneUnitDash from "./EnergyOneUnitDash";
 import AWS from "aws-sdk";
 import { queryEnergyTable } from "../../utils/queryEnergyTable";
 
@@ -138,7 +139,7 @@ class Energy extends Component {
     return (
       <div>
         <div>
-          <FormDates
+          {/* <FormDates
             onChangeDate={this.handleChangeOnDates}
             initialDate={this.state.initialDate}
             finalDate={this.state.finalDate}
@@ -147,15 +148,10 @@ class Energy extends Component {
             onChangeOneMonth={this.handleOneMonth}
             onUnitChange={this.handleUnitChange}
             onQuery={this.handleQuery}
-          />
+          /> */}
         </div>
         <div>
-          <CardColumns className="cols-2">
-            <div>
-              <Chart data={this.state.data} options={this.state.options} />
-              <SimpleTable />
-            </div>
-          </CardColumns>
+          <EnergyOneUnitDash />
         </div>
       </div>
     );

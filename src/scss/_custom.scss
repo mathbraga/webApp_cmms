@@ -1,1 +1,124 @@
 // Here you can add other styles
+
+.widget-title {
+  font-weight: 600;
+}
+
+.widget-container {
+  border-left-width: 8px;
+  border-left-color: #9796a5;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  min-width: 200px;
+  height: 110px;
+}
+
+.widget-container:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+}
+
+.widget-body {
+  padding-top: 8px;
+  padding-bottom: 12px;
+}
+
+.widget-image {
+  width: 100%;
+  min-width: 60px;
+  padding: 4px;
+  max-width: 70px;
+  max-height: 80px;
+}
+
+.widget-container-image {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.widget-container-text {
+  height: 100%;
+}
+
+.dash-subtitle {
+  font-size: 80%;
+  font-weight: 400;
+  color: #73818f;
+}
+
+h4 {
+  margin: 0;
+}
+
+.dash-title-info {
+  font-size: 90%;
+  font-weight: 400;
+  color: #73818f !important;
+}
+
+.widget-container-center {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.dash-title {
+  float: left;
+  padding-right: 15px;
+  margin-right: 15px;
+  border-right: 1.5px solid #acb5b9;
+}
+
+.widget-division {
+  padding-left: 4px;
+  float: left;
+  border-left: 2px solid #acb5b9;
+}
+
+.col-widget {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container-left {
+  display: flex;
+  justify-content: flex-end;
+}
+
+th.sub-1-table {
+  padding-left: 30px;
+  font-size: 0.9em;
+}
+
+th.sub-2-table {
+  padding-left: 60px;
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
+tbody tr:hover {
+  background-color: #ffff99;
+}
+
+tr.main-table {
+  background-color: #e6e6e6;
+}
+
+.header-table {
+  background-color: #d3d3d4;
+}
+
+td.main-table {
+  font-weight: 700;
+}
+
+td.sub-1-table {
+  font-weight: 600;
+  padding-left: 10px;
+}
+
+td.sub-2-table {
+  padding-left: 20px;
+}
