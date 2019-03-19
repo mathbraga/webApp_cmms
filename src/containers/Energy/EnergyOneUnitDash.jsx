@@ -49,7 +49,7 @@ class EnergyOneUnitDash extends Component {
           </Row>
           <Row>
             <Col md="6">
-              <ReportInfoEnergy result2={this.props.result2}/>
+              <ReportInfoEnergy result2={this.props.result2} />
             </Col>
             <Col md="6">
               <ReportCalculationsEnergy />
@@ -57,7 +57,7 @@ class EnergyOneUnitDash extends Component {
           </Row>
           <Row>
             <Col>
-              <ReportEnergyOneUnit result1={this.props.result1} result2={this.props.result2}/>
+              <ReportEnergyOneUnit result1={this.props.result1} />
             </Col>
           </Row>
         </CardBody>
