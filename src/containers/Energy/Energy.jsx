@@ -142,7 +142,8 @@ class Energy extends Component {
 
   showFormDates = event => {
     this.setState({
-      showResult: false,
+      showResult1: false,
+      showResult2: false,
       initialDate: "",
       finalDate: "",
       consumer: "101",
