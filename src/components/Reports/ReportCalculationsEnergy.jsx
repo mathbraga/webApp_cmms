@@ -22,7 +22,10 @@ class ReportCalculationsEnergy extends Component {
         </CardHeader>
         <CardBody>
           <CardTitle>
-            <strong>Demanda Ideal</strong>
+            <div className="calc-title">Demanda Ideal</div>
+            <div className="calc-subtitle">
+              Mês do Cálculo: <strong>Jan/2018</strong>
+            </div>
           </CardTitle>
           <Row>
             <Col md="6">
