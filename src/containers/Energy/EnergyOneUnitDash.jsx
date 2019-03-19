@@ -57,13 +57,7 @@ class EnergyOneUnitDash extends Component {
           </Row>
           <Row>
             <Col>
-<<<<<<< HEAD
               <ReportEnergyOneUnit result1={this.props.result1} />
-||||||| merged common ancestors
-              <ReportEnergyOneUnit result1={this.props.result1} result2={this.props.result2}/>
-=======
-              <ReportEnergyOneUnit result1={this.props.result1}/>
->>>>>>> 36b634c80567e2036ea968918863ee06badac502
             </Col>
           </Row>
         </CardBody>
