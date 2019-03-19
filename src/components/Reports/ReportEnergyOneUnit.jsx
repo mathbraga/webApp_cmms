@@ -34,14 +34,14 @@ const rowNames = [
   { name: "EREX P", type: "sub-2", unit: "R$", attr: "erexp" },
   { name: "EREX FP", type: "sub-2", unit: "R$", attr: "erexf" },
   { name: "Valor Total", type: "sub-1", unit: "R$", attr: "" },
+  { name: "Tributos", type: "main", unit: "", attr: "" },
+  { name: "Base de Cáculo", type: "sub-2", unit: "R$", attr: "basec" },
+  { name: "Valor", type: "sub-2", unit: "R$", attr: "trib" },
   { name: "Resumo dos Valores", type: "main", unit: "", attr: "" },
   { name: "Energia", type: "sub-2", unit: "R$", attr: "" },
   { name: "CIP", type: "sub-2", unit: "R$", attr: "cip" },
   { name: "Descontos/Compensação", type: "sub-2", unit: "R$", attr: "desc" },
   { name: "Juros/Multas", type: "sub-2", unit: "R$", attr: "jma" },
-  { name: "Tributos", type: "main", unit: "", attr: "" },
-  { name: "Base de Cáculo", type: "sub-2", unit: "R$", attr: "basec" },
-  { name: "Valor", type: "sub-2", unit: "R$", attr: "trib" },
   { name: "Total Bruto", type: "main", unit: "R$", attr: "vbru" },
   { name: "Total Líquido", type: "main", unit: "R$", attr: "vliq" }
 ];
