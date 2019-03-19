@@ -13,7 +13,7 @@ export function queryEnergyTable() {
   if(this.state.consumer === "199") {
     
     // LISTA DE MEDIDORES
-    const meters = [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123];
+    const meters = ["101", "102", "103", "104", "105", "106", "107", "108", "109", "110", "111", "112", "113", "114", "115", "116", "117", "118", "119", "120", "121", "122", "123"];
     
     // QUERY TODO O PERÍODO (LOOP PARA CADA MEDIDOR)
     const resultAll = [];
@@ -50,11 +50,6 @@ export function queryEnergyTable() {
       queryResponse1: resultAll,
       showResult1: true,
     });
-    //     }
-    //   })
-    // })
-
-
 
   } else {
     // Query EnergyTable and return results
