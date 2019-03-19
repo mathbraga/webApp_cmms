@@ -26,17 +26,11 @@ class ReportInfoEnergy extends Component {
         </CardHeader>
         <CardBody>
           <Table responsive size="sm">
-            {/* <thead>
-              <tr className="header-table">
-                <th>Informações</th>
-                <th />
-              </tr>
-            </thead> */}
             <tbody>
               {rowNames.map(info => (
                 <tr>
                   <th>{info.name}</th>
-                  <td>{this.props.result2.Items[0][info.attr].S}</td>
+                  <td>{this.props.data[info.attr].S}</td>
                 </tr>
               ))}
             </tbody>
