@@ -8,9 +8,6 @@ import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
 
 class EnergyOneUnitDash extends Component {
-  constructor(props){
-    super(props);
-  }
   render() {
     return (
       <Card>
