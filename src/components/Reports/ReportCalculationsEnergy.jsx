@@ -21,34 +21,42 @@ class ReportCalculationsEnergy extends Component {
           <i className="fa fa-align-justify" /> <strong>Cálculos</strong>
         </CardHeader>
         <CardBody>
-          <CardTitle>Demanda Contratada</CardTitle>
+          <CardTitle>
+            <strong>Demanda Ideal</strong>
+          </CardTitle>
           <Row>
             <Col md="6">
-              <div>
-                <div>200 kW</div>
-                <div>
+              <div className="container-demand">
+                <div className="demand-new">200 kW</div>
+                <div className="demand-subtitle">
                   <strong>Ponta</strong> - Valor Ideal
                 </div>
               </div>
             </Col>
             <Col md="6">
-              <div>200 kW</div>
-              <div>
-                <strong>Ponta</strong> - Valor Atual
+              <div className="container-demand">
+                <div className="demand-new">200 kW</div>
+                <div className="demand-subtitle">
+                  <strong>Fora Ponta</strong> - Valor Ideal
+                </div>
               </div>
             </Col>
           </Row>
           <Row>
             <Col md="6">
-              <div>200 kW</div>
-              <div>
-                <strong>Fora Ponta</strong> - Valor Ideal
+              <div className="container-old-demand">
+                <div className="demand-value">200 kW</div>
+                <div className="demand-subtitle">
+                  <strong>Ponta</strong> - Valor Contratado
+                </div>
               </div>
             </Col>
             <Col md="6">
-              <div>200 kW</div>
-              <div>
-                <strong>Fora Ponta</strong> - Valor Ideal
+              <div className="container-old-demand">
+                <div className="demand-value">200 kW</div>
+                <div className="demand-subtitle">
+                  <strong>Fora Ponta</strong> - Valor Contratado
+                </div>
               </div>
             </Col>
           </Row>
