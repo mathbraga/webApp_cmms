@@ -28,8 +28,14 @@ class EnergyOneUnitDash extends Component {
                 </div>
               </div>
             </Col>
-            <Col md="6" className="container-left">
-              <Button color="ghost-primary" onClick={this.props.handleClick}>
+            <Col md="4" />
+            <Col md="2" className="container-left">
+              <Button
+                block
+                outline
+                color="primary"
+                onClick={this.props.handleClick}
+              >
                 <i className="cui-magnifying-glass" />
                 &nbsp;Nova Pesquisa
               </Button>
