@@ -1,6 +1,16 @@
 import React, { Component } from "react";
-import { Card, CardBody, Col, Row, Table, Badge, CardHeader } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  Col,
+  Row,
+  Table,
+  Badge,
+  CardHeader,
+  CardTitle
+} from "reactstrap";
 import classNames from "classnames";
+import DoubleBarChart from "../Charts/DoubleBarChart";
 
 class ReportCalculationsEnergy extends Component {
   state = {};
@@ -11,28 +21,48 @@ class ReportCalculationsEnergy extends Component {
           <i className="fa fa-align-justify" /> <strong>Cálculos</strong>
         </CardHeader>
         <CardBody>
-          <Table responsive borderless size="sm">
-            <tbody>
-              <tr>
-                <th className="main-table">Demanda</th>
-                <th className="main-table">Ponta</th>
-                <th className="main-table">Fora de Ponta</th>
-                <th />
-              </tr>
-              <tr>
-                <th className="sub-2-table">Valor Ideal</th>
-                <td>110 kW</td>
-                <td>110 kW</td>
-                <td />
-              </tr>
-              <tr>
-                <th className="sub-2-table">Valor Atual</th>
-                <td>110 kW</td>
-                <td>110 kW</td>
-                <td>Ok</td>
-              </tr>
-            </tbody>
-          </Table>
+          <CardTitle>
+            <div className="calc-title">Demanda Ideal</div>
+            <div className="calc-subtitle">
+              Mês do Cálculo: <strong>Jan/2018</strong>
+            </div>
+          </CardTitle>
+          <Row>
+            <Col md="6">
+              <div className="container-demand">
+                <div className="demand-new">200 kW</div>
+                <div className="demand-subtitle">
+                  <strong>Ponta</strong> - Valor Ideal
+                </div>
+              </div>
+            </Col>
+            <Col md="6">
+              <div className="container-demand">
+                <div className="demand-new">200 kW</div>
+                <div className="demand-subtitle">
+                  <strong>Fora Ponta</strong> - Valor Ideal
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col md="6">
+              <div className="container-old-demand">
+                <div className="demand-value">200 kW</div>
+                <div className="demand-subtitle">
+                  <strong>Ponta</strong> - Valor Contratado
+                </div>
+              </div>
+            </Col>
+            <Col md="6">
+              <div className="container-old-demand">
+                <div className="demand-value">200 kW</div>
+                <div className="demand-subtitle">
+                  <strong>Fora Ponta</strong> - Valor Contratado
+                </div>
+              </div>
+            </Col>
+          </Row>
         </CardBody>
       </Card>
     );
