@@ -7,7 +7,30 @@ import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
 import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
 
+const monthList = {
+  "01": "Jan",
+  "02": "Fev",
+  "03": "Mar",
+  "04": "Abr",
+  "05": "Mai",
+  "06": "Jun",
+  "07": "Jul",
+  "08": "Ago",
+  "09": "Set",
+  "10": "Out",
+  "11": "Nov",
+  "12": "Dez"
+};
+
 class EnergyOneUnitDash extends Component {
+  constructor(props) {
+    super(props);
+    this.dateString =
+      monthList[props.result1.Items[0].aamm.toString().slice(2)] +
+      "/20" +
+      props.result1.Items[0].aamm.toString().slice(0, 2);
+  }
+
   render() {
     return (
       <Card>
@@ -16,14 +39,17 @@ class EnergyOneUnitDash extends Component {
             <Col md="6">
               <div className="widget-title dash-title">
                 <h4>{this.props.result2.Items[0].idceb.S}</h4>
-                <div className="dash-subtitle">Medidor: Unidades de Apoio</div>
+                <div className="dash-subtitle">
+                  Medidor: <strong>**Unidades de Apoio**</strong>
+                </div>
               </div>
               <div className="widget-container-center">
                 <div className="dash-title-info">
-                  Período: <strong>Jan/2018</strong>
+                  Período: <strong>{this.dateString}</strong>
                 </div>
                 <div className="dash-title-info">
-                  Ligação: <strong>VERDE</strong>
+                  Ligação:{" "}
+                  <strong>{this.props.result2.Items[0].modtar.S}</strong>
                 </div>
               </div>
             </Col>
@@ -44,13 +70,13 @@ class EnergyOneUnitDash extends Component {
         <CardBody>
           <Row>
             <Col md="3">
-              <WidgetEnergyUsage />
+              <WidgetEnergyUsage data={this.props.result1.Items[0]} />
             </Col>
             <Col md="6">
-              <WidgetEnergyDemand />
+              <WidgetEnergyDemand data={this.props.result1.Items[0]} />
             </Col>
             <Col md="3">
-              <WidgetEnergyProblem />
+              <WidgetEnergyProblem data={this.props.result1.Items[0]} />
             </Col>
           </Row>
           <Row>
@@ -63,7 +89,7 @@ class EnergyOneUnitDash extends Component {
           </Row>
           <Row>
             <Col>
-              <ReportEnergyOneUnit result1={this.props.result1} />
+              <ReportEnergyOneUnit data={this.props.result1.Items[0]} />
             </Col>
           </Row>
         </CardBody>

@@ -8,28 +8,78 @@ const rowNames = [
   { name: "Consumo total", type: "sub-2", unit: "kWh", attr: "kwh" },
   { name: "Consumo ponta", type: "sub-2", unit: "kWh", attr: "kwhp" },
   { name: "Consumo fora de ponta", type: "sub-2", unit: "kWh", attr: "kwhf" },
-  { name: "Demanda contratada (única - Verde)", type: "sub-2", unit: "kW", attr: "dc" },
+  {
+    name: "Demanda contratada (única - Verde)",
+    type: "sub-2",
+    unit: "kW",
+    attr: "dc"
+  },
   { name: "Demanda contratada ponta", type: "sub-2", unit: "kW", attr: "dcp" },
-  { name: "Demanda contratada fora de ponta", type: "sub-2", unit: "kW", attr: "dcf" },
+  {
+    name: "Demanda contratada fora de ponta",
+    type: "sub-2",
+    unit: "kW",
+    attr: "dcf"
+  },
   { name: "Demanda medida ponta", type: "sub-2", unit: "kW", attr: "dmp" },
-  { name: "Demanda medida fora de ponta", type: "sub-2", unit: "kW", attr: "dmf" },
+  {
+    name: "Demanda medida fora de ponta",
+    type: "sub-2",
+    unit: "kW",
+    attr: "dmf"
+  },
   { name: "Demanda faturada ponta", type: "sub-2", unit: "kW", attr: "dfp" },
-  { name: "Demanda faturada fora de ponta", type: "sub-2", unit: "kW", attr: "dff" },
-  { name: "Valor da demanda faturada ponta", type: "sub-2", unit: "R$", attr: "vdfp" },
-  { name: "Valor da demanda faturada fora de ponta", type: "sub-2", unit: "kW", attr: "vdff" },
-  { name: "Valor da ultrapassagem de demanda ponta", type: "sub-2", unit: "R$", attr: "vudp" },
-  { name: "Valor da ultrapassagem de demanda fora de ponta", type: "sub-2", unit: "kW", attr: "vudf" },
+  {
+    name: "Demanda faturada fora de ponta",
+    type: "sub-2",
+    unit: "kW",
+    attr: "dff"
+  },
+  {
+    name: "Valor da demanda faturada ponta",
+    type: "sub-2",
+    unit: "R$",
+    attr: "vdfp"
+  },
+  {
+    name: "Valor da demanda faturada fora de ponta",
+    type: "sub-2",
+    unit: "kW",
+    attr: "vdff"
+  },
+  {
+    name: "Valor da ultrapassagem de demanda ponta",
+    type: "sub-2",
+    unit: "R$",
+    attr: "vudp"
+  },
+  {
+    name: "Valor da ultrapassagem de demanda fora de ponta",
+    type: "sub-2",
+    unit: "kW",
+    attr: "vudf"
+  },
   { name: "EREX ponta", type: "sub-2", unit: "R$", attr: "erexp" },
   { name: "EREX fora de ponta", type: "sub-2", unit: "R$", attr: "erexf" },
-  { name: "Juros, multas e atualização monetária", type: "sub-2", unit: "R$", attr: "jma" },
+  {
+    name: "Juros, multas e atualização monetária",
+    type: "sub-2",
+    unit: "R$",
+    attr: "jma"
+  },
   { name: "Valor bruto", type: "sub-2", unit: "R$", attr: "vbru" },
   { name: "Tributos federais", type: "sub-2", unit: "R$", attr: "trib" },
   { name: "ICMS", type: "sub-2", unit: "R$", attr: "kwh" },
   { name: "CIP", type: "sub-2", unit: "R$", attr: "cip" },
   { name: "Base de cálculo", type: "sub-2", unit: "R$", attr: "basec" },
-  { name: "Descontos e/ou compensações", type: "sub-2", unit: "R$", attr: "desc" },
-  { name: "Valor líquido", type: "sub-2", unit: "R$", attr: "vliq" } 
-]
+  {
+    name: "Descontos e/ou compensações",
+    type: "sub-2",
+    unit: "R$",
+    attr: "desc"
+  },
+  { name: "Valor líquido", type: "sub-2", unit: "R$", attr: "vliq" }
+];
 
 // const testValues = [
 //   { name: "Consumo", value: "" },
@@ -75,6 +125,9 @@ const rowNames = [
 // ];
 
 class ReportEnergyOneUnit extends Component {
+  formatNumber(number) {
+    return number.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
+  }
   render() {
     return (
       <Card>
@@ -87,11 +140,11 @@ class ReportEnergyOneUnit extends Component {
             <thead>
               <tr className="header-table">
                 <th />
-                <th>{this.props.result1.Items[0].aamm.toString()}</th>
+                <th>{this.props.data.aamm.toString()}</th>
                 <th>Observações</th>
               </tr>
             </thead>
-            
+
             <tbody>
               {rowNames.map((column, i) => (
                 <tr className={column.type + "-table"}>
@@ -100,8 +153,8 @@ class ReportEnergyOneUnit extends Component {
                     {column.unit === ""
                       ? ""
                       : column.unit === "R$"
-                        ? "R$ " + this.props.result1.Items[0][column.attr]
-                        : this.props.result1.Items[0][column.attr] + " " + column.unit}
+                      ? "R$ " + this.props.data[column.attr]
+                      : this.props.data[column.attr] + " " + column.unit}
                   </td>
                   <td>Ok</td>
                 </tr>
