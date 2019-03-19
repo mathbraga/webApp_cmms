@@ -40,8 +40,8 @@ export function queryEnergyTable() {
       console.log(data);
       this.setState({
         // error: false,
-        queryResponse1: data
-        // showResult: true
+        queryResponse1: data,
+        showResult1: true
       });
     }
   });
@@ -65,7 +65,7 @@ export function queryEnergyTable() {
       this.setState({
         error: false,
         queryResponse2: data,
-        showResult: true
+        showResult2: true
       });
     }
   });
