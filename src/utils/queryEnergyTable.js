@@ -10,14 +10,17 @@ export function queryEnergyTable() {
   }
 
   // Check if consumer is 'all'
-  if(this.state.consumer === "199") {
+  if(this.state.chosenMeter === "199") {
     
-    // LISTA DE MEDIDORES
-    const meters = ["101", "102", "103", "104", "105", "106", "107", "108", "109", "110", "111", "112", "113", "114", "115", "116", "117", "118", "119", "120", "121", "122", "123"];
+    // Build array of all meters to query
+    const allMeters = this.state.meters.map(meter => {
+      return (100*parseInt(meter.medtype.N, 10) + parseInt(meter.med.N, 10)).toString();
+    });
+    console.log(allMeters);
     
-    // QUERY TODO O PERÍODO (LOOP PARA CADA MEDIDOR)
+    // Query all meters in chosen period
     const resultAll = [];
-    meters.forEach(meter => {
+    allMeters.forEach(meter => {
       this.state.dynamo.query({
         TableName: "EnergyTable",
         KeyConditionExpression: "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
@@ -47,18 +50,19 @@ export function queryEnergyTable() {
     })
     this.setState({
       error: false,
-      queryResponse1: resultAll,
-      showResult1: true,
+      queryResponse: resultAll,
+      showResult: true,
     });
 
   } else {
-    // Query EnergyTable and return results
+    
+    // Query for only one meter
     this.state.dynamo.query({
       TableName: "EnergyTable",
       KeyConditionExpression: "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
       ExpressionAttributeValues: {
         ":med": {
-          N: this.state.consumer
+          N: this.state.chosenMeter
         },
         ":aamm1": {
           N: month1
@@ -82,33 +86,9 @@ export function queryEnergyTable() {
         });
         console.log(data);
         this.setState({
-          // error: false,
-          queryResponse1: data,
-          showResult1: true
-        });
-      }
-    });
-
-    // Query EnergyInfo and return results
-    this.state.dynamo.query({
-      TableName: "EnergyInfo",
-      KeyConditionExpression: "med = :med",
-      ExpressionAttributeValues: {
-        ":med": {
-          N: this.state.consumer
-        }
-      }
-    }, (err, data) => {
-      if (err) {
-        console.log(err);
-        alert("There was an error. Please insert search parameters again.");
-        this.setState({ error: true });
-      } else {
-        console.log(data);
-        this.setState({
           error: false,
-          queryResponse2: data,
-          showResult2: true
+          queryResponse: data,
+          showResult: true
         });
       }
     });
