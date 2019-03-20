@@ -58,7 +58,7 @@ class Energy extends Component {
   }
 
   componentDidMount() {
-    energyinfoinit(this.state.dynamo, "EnergyInfo").then(data => {
+    energyinfoinit(this.state.dynamo, "Meters").then(data => {
       this.setState({ meters: data });
     });
   }
