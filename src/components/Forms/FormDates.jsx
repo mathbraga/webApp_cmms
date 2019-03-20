@@ -76,8 +76,8 @@ class FormDates extends Component {
                 onChange={this.props.onUnitChange}
               >
                 {this.props.meters.map(meter => (
-                  <option value={(meter.medtype.N*10).toString() + meter.med.N.toString()}>
-                    {(meter.medtype.N*10).toString() + meter.med.N.toString()}
+                  <option value={(100*parseInt(meter.medtype.N, 10) + parseInt(meter.med.N, 10)).toString()}>
+                    {meter.idceb.S + " - " + meter.nome.S}
                   </option>
                 ))}
               </Input>

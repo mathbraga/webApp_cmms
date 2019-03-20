@@ -15,6 +15,7 @@ export function energyinfoinit(dbObject, tableName) {
         reject(Error("Failed to get the items."));
       } else {
         resolve(data.Items);
+        console.log(data.Items);
       }
     });
   });
