@@ -11,9 +11,18 @@ import {
 } from "reactstrap";
 import classNames from "classnames";
 import DoubleBarChart from "../Charts/DoubleBarChart";
+import { queryLastDemands } from "../../utils/queryLastDemands";
 
 class ReportCalculationsEnergy extends Component {
-  state = {};
+  state = { lastItems: false };
+
+  componentDidMount() {
+    queryLastDemands(this.props.dbObject, "101").then(data => {
+      this.setState({ lastItems: data });
+      console.log(data);
+    });
+  }
+
   render() {
     return (
       <Card>

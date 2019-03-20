@@ -160,6 +160,7 @@ class Energy extends Component {
               handleClick={this.showFormDates}
               result1={this.state.queryResponse1}
               result2={this.state.queryResponse2}
+              dbObject={this.state.dynamo}
             />
           ) : (
             <FormDates

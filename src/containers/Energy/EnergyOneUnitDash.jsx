@@ -84,7 +84,7 @@ class EnergyOneUnitDash extends Component {
               <ReportInfoEnergy data={this.props.result2.Items[0]} />
             </Col>
             <Col md="6">
-              <ReportCalculationsEnergy />
+              <ReportCalculationsEnergy dbObject={this.props.dbObject} />
             </Col>
           </Row>
           <Row>
