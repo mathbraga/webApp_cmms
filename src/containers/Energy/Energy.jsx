@@ -6,7 +6,7 @@ import { CardColumns, CardGroup, Col, Row } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { handleDates } from "../../utils/handleDates";
 import EnergyOneUnitDash from "./EnergyOneUnitDash";
-import AWS from "aws-sdk";
+import dynamo, { EnergyInfo } from "../../utils/AWSinit";
 import { queryEnergyTable } from "../../utils/queryEnergyTable";
 
 const data = {
@@ -97,14 +97,14 @@ const consumers = [
 ];
 
 // AWS initialization and variables
-AWS.config.region = "us-east-2";
-AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-  IdentityPoolId: "us-east-2:03b9854f-67a5-4d77-819d-8ee654f8ad1b"
-});
-var dynamo = new AWS.DynamoDB({
-  apiVersion: "2012-08-10",
-  endpoint: "https://dynamodb.us-east-2.amazonaws.com"
-});
+// AWS.config.region = "us-east-2";
+// AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+//   IdentityPoolId: "us-east-2:03b9854f-67a5-4d77-819d-8ee654f8ad1b"
+// });
+// var dynamo = new AWS.DynamoDB({
+//   apiVersion: "2012-08-10",
+//   endpoint: "https://dynamodb.us-east-2.amazonaws.com"
+// });
 
 class Energy extends Component {
   constructor(props) {
