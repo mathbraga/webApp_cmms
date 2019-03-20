@@ -4,8 +4,8 @@ import { Card, CardBody, Col, Row } from "reactstrap";
 class WidgetEnergyUsage extends Component {
   state = {};
 
-  formatNumber(number) {
-    return number.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
+  formatNumber(number, dig = 2) {
+    return number.toLocaleString("pt-BR", { maximumFractionDigits: dig });
   }
 
   render() {
@@ -15,7 +15,7 @@ class WidgetEnergyUsage extends Component {
           <Row>
             <Col md="7" className="col-widget">
               <div className="widget-title">Consumo</div>
-              <div>{this.formatNumber(this.props.data.kwh)} kWh</div>
+              <div>{this.formatNumber(this.props.data.kwh, 0)} kWh</div>
               <div className="widget-title" style={{ "padding-top": "5px" }}>
                 Gasto
               </div>

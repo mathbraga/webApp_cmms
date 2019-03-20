@@ -32,6 +32,11 @@ class EnergyOneUnitDash extends Component {
   }
 
   render() {
+    if (this.props.result1.Items[0].tipo === 1) {
+      this.props.result1.Items[0].dcf = this.props.result1.Items[0].dc;
+      this.props.result1.Items[0].dcp = 0;
+    }
+    console.log(this.props.result2.Items[0]);
     return (
       <Card>
         <CardHeader>
@@ -40,7 +45,7 @@ class EnergyOneUnitDash extends Component {
               <div className="widget-title dash-title">
                 <h4>{this.props.result2.Items[0].idceb.S}</h4>
                 <div className="dash-subtitle">
-                  Medidor: <strong>**Unidades de Apoio**</strong>
+                  Medidor: <strong>{this.props.result2.Items[0].nome.S}</strong>
                 </div>
               </div>
               <div className="widget-container-center">
@@ -84,7 +89,12 @@ class EnergyOneUnitDash extends Component {
               <ReportInfoEnergy data={this.props.result2.Items[0]} />
             </Col>
             <Col md="6">
-              <ReportCalculationsEnergy dbObject={this.props.dbObject} />
+              <ReportCalculationsEnergy
+                dbObject={this.props.dbObject}
+                consumer={this.props.consumer}
+                date={this.dateString}
+                data={this.props.result2.Items[0]}
+              />
             </Col>
           </Row>
           <Row>

@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 const rowNames = [
   { name: "Identificação CEB", attr: "idceb" },
-  { name: "Nome do Medidor", attr: "" },
+  { name: "Nome do Medidor", attr: "nome" },
   { name: "Contrato", attr: "ct" },
   { name: "Classe", attr: "classe" },
   { name: "Subclasse", attr: "subclasse" },
@@ -12,7 +12,7 @@ const rowNames = [
   { name: "Subgrupo", attr: "subgrupo" },
   { name: "Ligação", attr: "lig" },
   { name: "Modalidade tarifária", attr: "modtar" },
-  { name: "Demanda Contratada (P/FP)", attr: "" },
+  { name: "Demanda Contratada (FP/P)", attr: "dem" },
   { name: "Observações", attr: "obs" }
 ];
 
@@ -28,7 +28,15 @@ class ReportInfoEnergy extends Component {
           <Table responsive size="sm">
             <tbody>
               {rowNames.map(info =>
-                this.props.data[info.attr] ? (
+                info.attr === "dem" ? (
+                  <tr>
+                    <th>{info.name}</th>
+                    <td>
+                      {this.props.data["dcf"].N} kW - {this.props.data["dcp"].N}{" "}
+                      kW
+                    </td>
+                  </tr>
+                ) : this.props.data[info.attr] ? (
                   <tr>
                     <th>{info.name}</th>
                     <td>{this.props.data[info.attr].S}</td>

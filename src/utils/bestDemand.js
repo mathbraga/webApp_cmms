@@ -91,6 +91,11 @@ function demandProfile() {
       ) / demandProfileList.percentageFP.length
   };
 
+  if (demandProfile.percentageP < 0.5 || demandProfile.percentageP > 0.95)
+    demandProfile.percentageP = 0.85;
+  if (demandProfile.percentageFP < 0.7 || demandProfile.percentageFP > 1.3)
+    demandProfile.percentageFP = 1;
+
   return demandProfile;
 }
 
@@ -106,7 +111,6 @@ function prepareDemands() {
   const { percentageP, percentageFP } = demandProfile;
 
   const listFullDemands = [];
-  const newList = [];
 
   listDemands.forEach(item => {
     if (item.type === 1) {
@@ -114,15 +118,17 @@ function prepareDemands() {
       listFullDemands.push({
         demandP: demand * percentageP,
         demandFP: demand * percentageFP,
-        usageP: usageP,
-        usageFP: usageFP,
-        type: type,
-        rates: rates
+        usageP: item.usageP,
+        usageFP: item.usageFP,
+        type: item.type,
+        rates: item.rates
       });
+    } else {
+      listFullDemands.push(item);
     }
   });
 
-  newList = cleanData(listFullDemands);
+  const newList = cleanData(listFullDemands);
 
   return newList;
 }
@@ -147,13 +153,13 @@ function costBlue() {
     listDemandFP.push(item.demandFP);
   });
 
-  const minDemandP = Math.min(...listDemandP);
-  const minDemandFP = Math.min(...listDemandFP);
-  const maxDemandP = Math.max(...listDemandP);
-  const maxDemandFP = Math.max(...listDemandFP);
+  const minDemandP = Math.floor(Math.min(...listDemandP));
+  const minDemandFP = Math.floor(Math.min(...listDemandFP));
+  const maxDemandP = Math.floor(Math.max(...listDemandP));
+  const maxDemandFP = Math.floor(Math.max(...listDemandFP));
 
-  for (dp = minDemandP; dp <= maxDemandP; dp = dp + 1) {
-    for (df = minDemandFP; df <= maxDemandFP; df = df + 1) {
+  for (let dp = minDemandP; dp <= maxDemandP; dp = dp + 1) {
+    for (let df = minDemandFP; df <= maxDemandFP; df = df + 1) {
       let value = 0;
       listItems.forEach(e => {
         if (!listItems.rates) listItems.rates = defaultRates;
@@ -217,10 +223,10 @@ function costGreen() {
   listItems.forEach(item => {
     listDemandFP.push(Math.max(item.demandFP, item.demandP));
   });
-  const minDemandFP = Math.min(...listDemandFP);
-  const maxDemandFP = Math.max(...listDemandFP);
+  const minDemandFP = Math.floor(Math.min(...listDemandFP));
+  const maxDemandFP = Math.floor(Math.max(...listDemandFP));
 
-  for (df = minDemandFP; df <= maxDemandFP; df = df + 1) {
+  for (let df = minDemandFP; df <= maxDemandFP; df = df + 1) {
     let value = 0;
     listDemandFP.forEach((e, i) => {
       if (!listItems.rates) listItems.rates = defaultRates;
@@ -252,7 +258,7 @@ function costGreen() {
   return result;
 }
 
-export default function bestDemand(lastItems, lastBlueItems) {
+export function bestDemand(lastItems, lastBlueItems) {
   // Input: 1- list of objects (lastItems) - Object: {demandP, demandFP, usageP, usageFP, type, rates}. Restriction: Types must be 1 or 2.
   //          rates(inside listItems): {rateUsageP, rateUsageFP, rateDemandFP}.
   //        2- list of objects (lastBlueItems) - Object: {demandP, demandFP, type}
@@ -271,14 +277,11 @@ export default function bestDemand(lastItems, lastBlueItems) {
     rateDemandFP: 11.3607806
   };
 
-  const dProfile = demandProfile(lastBlueItems);
-  const newList = prepareDemands(lastItems, dProfile);
+  let dProfile = demandProfile(lastBlueItems);
+  let newList = prepareDemands(lastItems, dProfile);
 
   const resultBlue = costGreen(newList, rates_blue);
   const resultGreen = costBlue(newList, rates_green);
 
-  console.log(resultBlue);
-  console.log(resultGreen);
-
-  return resultBlue, resultGreen;
+  return [resultBlue, resultGreen];
 }

@@ -25,7 +25,6 @@ const rowNames = [
   { name: "Horário Fora de Ponta", type: "sub-1", unit: "", attr: "" },
   { name: "Medido", type: "sub-2", unit: "kW", attr: "dmf" },
   { name: "Contratado", type: "sub-2", unit: "kW", attr: "dcf" },
-  { name: "Contratado", type: "sub-2", unit: "kW", attr: "dc" },
   { name: "Faturado", type: "sub-2", unit: "kW", attr: "dff" },
   { name: "Tarifa", type: "sub-2", unit: "R$/kW", attr: "" },
   { name: "Valor Faturado", type: "sub-2", unit: "R$", attr: "vdff" },

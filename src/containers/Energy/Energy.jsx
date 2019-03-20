@@ -161,6 +161,7 @@ class Energy extends Component {
               result1={this.state.queryResponse1}
               result2={this.state.queryResponse2}
               dbObject={this.state.dynamo}
+              consumer={this.state.consumer}
             />
           ) : (
             <FormDates
