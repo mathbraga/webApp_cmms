@@ -6,68 +6,11 @@ import { CardColumns, CardGroup, Col, Row } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { handleDates } from "../../utils/handleDates";
 import EnergyOneUnitDash from "./EnergyOneUnitDash";
-import dynamo, { EnergyInfo } from "../../utils/AWSinit";
+import { dynamoInit } from "../../utils/dynamoinit";
 import { queryEnergyTable } from "../../utils/queryEnergyTable";
+import { energyinfoinit } from "../../utils/energyinfoinit";
 
-const data = {
-  labels: [
-    "Jan",
-    "Fev",
-    "Mar",
-    "Abr",
-    "Mai",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Set",
-    "Out",
-    "Nov",
-    "Dez"
-  ],
-  datasets: [
-    {
-      label: "kWh (2019)",
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: "rgba(75,192,192,0.4)",
-      borderColor: "rgba(75,192,192,1)",
-      borderCapStyle: "butt",
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: "miter",
-      pointBorderColor: "rgba(75,192,192,1)",
-      pointBackgroundColor: "#fff",
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: "rgba(75,192,192,1)",
-      pointHoverBorderColor: "rgba(220,220,220,1)",
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: [
-        1674268,
-        1766612,
-        1686418,
-        1807377,
-        1692058,
-        1513058,
-        1439933,
-        1426193,
-        1543408,
-        1555367,
-        1764463
-      ]
-    }
-  ]
-};
-
-const options = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false
-};
+const dynamo = dynamoInit();
 
 const consumers = [
   { key: 101, num: "466453-1", name: "Setran" },
@@ -96,22 +39,11 @@ const consumers = [
   { key: 199, num: "Todos", name: "Todas Un. Consumidoras" }
 ];
 
-// AWS initialization and variables
-// AWS.config.region = "us-east-2";
-// AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-//   IdentityPoolId: "us-east-2:03b9854f-67a5-4d77-819d-8ee654f8ad1b"
-// });
-// var dynamo = new AWS.DynamoDB({
-//   apiVersion: "2012-08-10",
-//   endpoint: "https://dynamodb.us-east-2.amazonaws.com"
-// });
-
 class Energy extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: data,
-      options: options,
+      meters: [],
       dynamo: dynamo,
       initialDate: "",
       finalDate: "",
@@ -124,6 +56,14 @@ class Energy extends Component {
       showResult2: false
     };
   }
+
+  componentDidMount() {
+    energyinfoinit(this.state.dynamo, "EnergyInfo").then(data => {
+      this.setState({ meters: data });
+    });
+  }
+
+
 
   handleChangeOnDates = handleDates.bind(this);
   handleQuery = queryEnergyTable.bind(this);
@@ -162,7 +102,7 @@ class Energy extends Component {
               initialDate={this.state.initialDate}
               finalDate={this.state.finalDate}
               oneMonth={this.state.oneMonth}
-              consumers={consumers}
+              meters={this.state.meters}
               onChangeOneMonth={this.handleOneMonth}
               onUnitChange={this.handleUnitChange}
               onQuery={this.handleQuery}
