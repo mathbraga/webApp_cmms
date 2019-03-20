@@ -6,6 +6,7 @@ import { CardColumns, CardGroup, Col, Row } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { handleDates } from "../../utils/handleDates";
 import EnergyOneUnitDash from "./EnergyOneUnitDash";
+import EnergyAllDash from "./EnergyAllDash";
 import { dynamoInit } from "../../utils/dynamoinit";
 import { queryEnergyTable } from "../../utils/queryEnergyTable";
 import { energyinfoinit } from "../../utils/energyinfoinit";
@@ -63,10 +64,11 @@ class Energy extends Component {
     return (
       <div>
         <div>
-          {this.state.showResult1 && this.state.showResult2
-          ? <EnergyOneUnitDash handleClick={this.showFormDates} result1={this.state.queryResponse1} result2={this.state.queryResponse2}/>
-          : (
-            <FormDates
+          {this.state.showResult 
+          ? this.state.chosenMeter === "199"
+            ? <EnergyAllDash/>
+            :<EnergyOneUnitDash handleClick={this.showFormDates} result1={this.state.queryResponse1} result2={this.state.queryResponse2}/>
+          : (<FormDates
               onChangeDate={this.handleChangeOnDates}
               initialDate={this.state.initialDate}
               finalDate={this.state.finalDate}
@@ -75,8 +77,7 @@ class Energy extends Component {
               onChangeOneMonth={this.handleOneMonth}
               onMeterChange={this.handleMeterChange}
               onQuery={this.handleQuery}
-            />
-          )}
+            />)}
         </div>
       </div>
     );

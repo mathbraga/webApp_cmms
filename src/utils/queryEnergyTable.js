@@ -16,7 +16,6 @@ export function queryEnergyTable() {
     const allMeters = this.state.meters.map(meter => {
       return (100*parseInt(meter.medtype.N, 10) + parseInt(meter.med.N, 10)).toString();
     });
-    console.log(allMeters);
     
     // Query all meters in chosen period
     const resultAll = [];
@@ -44,10 +43,11 @@ export function queryEnergyTable() {
               element[key] = Number(element[key].N);
             });
           });
-          resultAll.push(data);
+          resultAll.push(data.Items);
         }
       })    
     })
+    console.log(resultAll);
     this.setState({
       error: false,
       queryResponse: resultAll,
