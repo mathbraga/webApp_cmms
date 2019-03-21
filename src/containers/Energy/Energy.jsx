@@ -49,8 +49,7 @@ class Energy extends Component {
 
   handleOneMonth = event => {
     this.setState({
-      oneMonth: event.target.checked,
-      finalDate: this.state.initialDate
+      oneMonth: event.target.checked
     });
   };
 

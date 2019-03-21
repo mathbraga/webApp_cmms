@@ -2,12 +2,12 @@ export function queryEnergyTable(state, tableName) {
   return new Promise((resolve, reject) => {
     // Transform form inputs into integers
     var month1 = state.initialDate.slice(5) + state.initialDate.slice(0, 2);
-    var month2 = state.finalDate.slice(5) + state.finalDate.slice(0, 2);
-    // if (state.oneMonth) {
-    //   month2 = month1;
-    // } else {
-    //   month2 = state.finalDate.slice(5) + state.finalDate.slice(0, 2);
-    // }
+    var month2 = "";
+    if (state.oneMonth) {
+      month2 = month1;
+    } else {
+      month2 = state.finalDate.slice(5) + state.finalDate.slice(0, 2);
+    }
 
     // Check if consumer is 'all'
     if(state.chosenMeter === "199") {
