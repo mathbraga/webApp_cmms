@@ -45,16 +45,10 @@ export function queryEnergyTable(state, tableName) {
               });
             });
             resultAll.push(data.Items);
-            resolve(data);
           }
+          resolve(resultAll);
         })    
       })
-      console.log(resultAll);
-      // this.setState({
-      //   error: false,
-      //   queryResponse: resultAll,
-      //   showResult: true,
-      // });
 
     } else {
       
@@ -79,6 +73,7 @@ export function queryEnergyTable(state, tableName) {
           alert("There was an error. Please insert search parameters again.");
           reject(Error("Failed to get the items."));
         } else {
+          
           data.Items.map(element => {
             // Each 'element' is an item returned from the database table; map function loops through all items, changing the variable data
             Object.keys(element).map(key => {

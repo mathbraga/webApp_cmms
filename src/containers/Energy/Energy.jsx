@@ -6,7 +6,6 @@ import { CardColumns, CardGroup, Col, Row } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { handleDates } from "../../utils/handleDates";
 import EnergyOneUnitDash from "./EnergyOneUnitDash";
-import EnergyAllDash from "./EnergyAllDash";
 import { dynamoInit } from "../../utils/dynamoinit";
 import { queryEnergyTable } from "../../utils/queryEnergyTable";
 import { energyinfoinit } from "../../utils/energyinfoinit";
@@ -36,14 +35,20 @@ class Energy extends Component {
   handleChangeOnDates = handleDates.bind(this);
 
   handleQuery = event => {
-    this.setState({
-      showResult: true
-    });
-  };
+    queryEnergyTable(this.state, "EnergyTable").then(queryResponse => {
+      console.log(queryResponse);
+      this.setState({
+        queryResponse: queryResponse,
+        showResult: true,
+        error: false
+      });
+    })
+  }
 
   handleOneMonth = event => {
     this.setState({
-      oneMonth: event.target.checked
+      oneMonth: event.target.checked,
+      finalDate: this.state.initialDate
     });
   };
 
@@ -55,8 +60,7 @@ class Energy extends Component {
 
   showFormDates = event => {
     this.setState({
-      showResult1: false,
-      showResult2: false,
+      showResult: false,
       initialDate: "",
       finalDate: "",
       chosenMeter: "199",
@@ -68,7 +72,7 @@ class Energy extends Component {
     return (
       <div>
         <div>
-          {this.state.showResult ? (
+          {false ? ( // this.state.showResult
             <EnergyOneUnitDash
               handleClick={this.showFormDates}
               energyState={this.state}
