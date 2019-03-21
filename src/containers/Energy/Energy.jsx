@@ -11,11 +11,10 @@ import { dynamoInit } from "../../utils/dynamoinit";
 import { queryEnergyTable } from "../../utils/queryEnergyTable";
 import { energyinfoinit } from "../../utils/energyinfoinit";
 
-const dynamo = dynamoInit();
-
 class Energy extends Component {
   constructor(props) {
     super(props);
+    const dynamo = dynamoInit();
     this.state = {
       meters: [],
       dynamo: dynamo,
@@ -23,7 +22,8 @@ class Energy extends Component {
       finalDate: "",
       chosenMeter: "199",
       oneMonth: false,
-      error: false
+      error: false,
+      queryResponse: false
     };
   }
 
@@ -72,6 +72,8 @@ class Energy extends Component {
             <EnergyOneUnitDash
               handleClick={this.showFormDates}
               energyState={this.state}
+              queryResponse={this.state.queryResponse}
+              meters={this.state.meters}
             />
           ) : (
             <FormDates
