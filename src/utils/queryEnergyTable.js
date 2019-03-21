@@ -13,12 +13,12 @@ export function queryEnergyTable(state, tableName) {
     if(state.chosenMeter === "199") {
       
       // Build array of all meters to query
-      const allMeters = state.meters.map(meter => {
+      var allMeters = state.meters.map(meter => {
         return (100*parseInt(meter.medtype.N, 10) + parseInt(meter.med.N, 10)).toString();
       });
       
       // Query all meters in chosen period
-      const resultAll = [];
+      var resultAll = [];
       allMeters.forEach(meter => {
         state.dynamo.query({
           TableName: tableName,
@@ -53,6 +53,7 @@ export function queryEnergyTable(state, tableName) {
     } else {
       
       // Query for only one meter
+      var resultOne = [];
       state.dynamo.query({
         TableName: tableName,
         KeyConditionExpression: "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
@@ -72,15 +73,13 @@ export function queryEnergyTable(state, tableName) {
           alert("There was an error. Please insert search parameters again.");
           reject(Error("Failed to get the items."));
         } else {
-          
           data.Items.map(element => {
-            // Each 'element' is an item returned from the database table; map function loops through all items, changing the variable data
             Object.keys(element).map(key => {
-              // Each key is an attribute of the database table; map function loops through all attributes, changing strings into numbers
-              element[key] = Number(element[key].N); // Transforms each element[key].N (string) into Number
+              element[key] = Number(element[key].N);
             });
           });
-        resolve(data);
+        resultOne.push(data);
+        resolve(resultOne);
         }
       });
     }
