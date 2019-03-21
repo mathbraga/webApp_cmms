@@ -26,21 +26,19 @@ const monthList = {
 class EnergyOneUnitDash extends Component {
   constructor(props) {
     super(props);
-    this.dateString =
-      monthList[props.result1.Items[0].aamm.toString().slice(2)] +
-      "/20" +
-      props.result1.Items[0].aamm.toString().slice(0, 2);
   }
 
   render() {
-    if (this.props.result1.Items[0].tipo === 1) {
-      this.props.result1.Items[0].dcf = this.props.result1.Items[0].dc;
-      this.props.result1.Items[0].dcp = 0;
-    }
-    console.log(this.props.result2.Items[0]);
-    return (
+    // if (this.props.result1.Items[0].tipo === 1) {
+    //   this.props.result1.Items[0].dcf = this.props.result1.Items[0].dc;
+    //   this.props.result1.Items[0].dcp = 0;
+    // }
+    // console.log(this.props.result2.Items[0]);
 
-{/*
+    return <div>Hey!</div>;
+
+    {
+      /*
       <Card>
         <CardHeader>
           <Row>
@@ -164,9 +162,8 @@ class EnergyOneUnitDash extends Component {
             </Row>
           </CardBody>
         </Card>
-      </div> */}
-
-    );
+      </div> */
+    }
   }
 }
 
