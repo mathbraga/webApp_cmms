@@ -6,69 +6,81 @@ import WidgetEnergyProblem from "../../components/Widgets/WidgetEnergyProblem";
 import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
 import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
+import { queryEnergyTable } from "../../utils/queryEnergyTable";
 
 class EnergyOneUnitDash extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    // this.state = {
+    //   queryResponse: []
+    // };
+  }
+
+  // componentDidMount(){
+  //   queryEnergyTable(this.props.energyState, "EnergyTable").then(queryResponse => {
+  //     console.log(queryResponse);
+  //     this.setState({queryResponse: queryResponse});
+  //   });
+  // }
+  
+  
+  
   render() {
     return (
-      <Card>
-        <CardHeader>
-          <Row>
-            <Col md="6">
-              <div className="widget-title dash-title">
-                <h4>192.605-0</h4>
-                <div className="dash-subtitle">Medidor: Unidades de Apoio</div>
-              </div>
-              <div className="widget-container-center">
-                <div className="dash-title-info">
-                  Período: <strong>Jan/2018</strong>
+      <div>
+        <Card>
+          <CardHeader>
+            <Row>
+              <Col md="6">
+                <div className="widget-title dash-title">
+                  {/* <h4>{this.state.queryResponse.Items[0].idceb.S}</h4> */}
+                  <div className="dash-subtitle">Medidor: Unidades de Apoio</div>
                 </div>
-                <div className="dash-title-info">
-                  Ligação: <strong>VERDE</strong>
+                <div className="widget-container-center">
+                  <div className="dash-title-info">
+                    Período: <strong>Jan/2018</strong>
+                  </div>
+                  <div className="dash-title-info">
+                    Ligação: <strong>VERDE</strong>
+                  </div>
                 </div>
-              </div>
-            </Col>
-            <Col md="4" />
-            <Col md="2" className="container-left">
-              <Button
-                block
-                outline
-                color="primary"
-                onClick={this.props.handleClick}
-              >
-                <i className="cui-magnifying-glass" />
-                &nbsp;Nova Pesquisa
-              </Button>
-            </Col>
-          </Row>
-        </CardHeader>
-        <CardBody>
-          <Row>
-            <Col md="3">
-              <WidgetEnergyUsage />
-            </Col>
-            <Col md="6">
-              <WidgetEnergyDemand />
-            </Col>
-            <Col md="3">
-              <WidgetEnergyProblem />
-            </Col>
-          </Row>
-          <Row>
-            <Col md="6">
-              <ReportInfoEnergy />
-            </Col>
-            <Col md="6">
-              <ReportCalculationsEnergy />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <ReportEnergyOneUnit />
-            </Col>
-          </Row>
-        </CardBody>
-      </Card>
+              </Col>
+              <Col md="6" className="container-left">
+                <Button color="ghost-primary" onClick={this.props.handleClick}>
+                  <i className="cui-magnifying-glass" />
+                  &nbsp;Nova Pesquisa
+                </Button>
+              </Col>
+            </Row>
+          </CardHeader>
+          <CardBody>
+            <Row>
+              <Col md="3">
+                <WidgetEnergyUsage />
+              </Col>
+              <Col md="6">
+                <WidgetEnergyDemand />
+              </Col>
+              <Col md="3">
+                <WidgetEnergyProblem />
+              </Col>
+            </Row>
+            <Row>
+              <Col md="6">
+                {/* <ReportInfoEnergy meters={this.props.EnergyState}/> */}
+              </Col>
+              <Col md="6">
+                {/* <ReportCalculationsEnergy /> */}
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <ReportEnergyOneUnit energyState={this.props.energyState}/>
+              </Col>
+            </Row>
+          </CardBody>
+        </Card>
+      </div>
     );
   }
 }
