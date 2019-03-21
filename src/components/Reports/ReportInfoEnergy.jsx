@@ -26,6 +26,7 @@ class ReportInfoEnergy extends Component {
         </CardHeader>
         <CardBody>
           <Table responsive size="sm">
+
             <tbody>
               {rowNames.map(info =>
                 info.attr === "dem" ? (
@@ -45,6 +46,7 @@ class ReportInfoEnergy extends Component {
                   ""
                 )
               )}
+
             </tbody>
           </Table>
         </CardBody>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Card, CardBody, Col, Row, Table, Badge, CardHeader } from "reactstrap";
 import classNames from "classnames";
+import { queryEnergyTable } from "../../utils/queryEnergyTable";
 
 const rowNames = [
   { name: "Consumo", type: "main", unit: "", attr: "" },
@@ -46,9 +47,25 @@ const rowNames = [
 ];
 
 class ReportEnergyOneUnit extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      queryResponse: false
+    };
+  }
+
+  componentWillMount(){
+    queryEnergyTable(this.props.energyState, "EnergyTable").then(queryResponse => {
+      console.log(queryResponse);
+      this.setState({queryResponse: queryResponse});
+    });
+  }
+  
+  
   formatNumber(number) {
     return number.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
   }
+
   render() {
     return (
       <Card>
@@ -57,15 +74,17 @@ class ReportEnergyOneUnit extends Component {
           <strong>Valores faturados</strong>
         </CardHeader>
         <CardBody>
+        {!this.state.queryResponse ? "" : (
           <Table responsive size="sm">
             <thead>
               <tr className="header-table">
                 <th />
-                <th>{this.props.dateString}</th>
+                
+                <th>{this.state.queryResponse.Items[0].aamm.toString()}</th>
                 <th>Observações</th>
               </tr>
             </thead>
-
+            
             <tbody>
               {rowNames.map((column, i) => (
                 <tr className={column.type + "-table"}>
@@ -73,19 +92,21 @@ class ReportEnergyOneUnit extends Component {
                   <td className={column.type + "-table"}>
                     {column.unit === ""
                       ? ""
+
                       : isNaN(this.props.data[column.attr])
                       ? "-"
                       : column.unit === "R$"
-                      ? "R$ " + this.formatNumber(this.props.data[column.attr])
-                      : this.formatNumber(this.props.data[column.attr]) +
+                      ? "R$ " + this.formatNumber(this.state.queryResponse.Items[0][column.attr])
+                      : this.formatNumber(this.state.queryResponse.Items[0][column.attr]) +
                         " " +
                         column.unit}
+
                   </td>
                   <td>Ok</td>
                 </tr>
               ))}
-            </tbody>
-          </Table>
+          </tbody>
+        </Table>)}
         </CardBody>
       </Card>
     );
