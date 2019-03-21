@@ -67,8 +67,11 @@ function demandProfile() {
   // Input: 1- list of objects (initialListDemands) - Object: {demandP, demandFP, type}. Restriction: All types must be equal 2.
   // Output: Object (demandProfile): {percentageP, percentageFP}.
   // Purpose: Calculate what's the percentage of the demandP and demandFP compared to the max of (demandP and demandFP).
+  console.log("Inside demandProfile fuction.");
 
   const [initialListDemands] = arguments;
+  console.log("initialListDemands");
+  console.log(initialListDemands);
   let demandProfileList = { percentageP: [], percentageFP: [] };
   const listDemands = cleanData(initialListDemands);
 
@@ -91,9 +94,17 @@ function demandProfile() {
       ) / demandProfileList.percentageFP.length
   };
 
-  if (demandProfile.percentageP < 0.5 || demandProfile.percentageP > 0.95)
+  if (
+    demandProfile.percentageP < 0.5 ||
+    demandProfile.percentageP > 0.95 ||
+    isNaN(demandProfile.percentageP)
+  )
     demandProfile.percentageP = 0.85;
-  if (demandProfile.percentageFP < 0.7 || demandProfile.percentageFP > 1.3)
+  if (
+    demandProfile.percentageFP < 0.7 ||
+    demandProfile.percentageFP > 1.3 ||
+    isNaN(demandProfile.percentageFP)
+  )
     demandProfile.percentageFP = 1;
 
   return demandProfile;

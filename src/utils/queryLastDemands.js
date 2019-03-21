@@ -5,7 +5,7 @@ export function queryLastDemands(dbObject, med) {
       {
         TableName: "EnergyTable",
         KeyConditionExpression: "med = :med",
-        Limit: 13,
+        Limit: 20,
         ScanIndexForward: false,
         ExpressionAttributeValues: {
           ":med": {

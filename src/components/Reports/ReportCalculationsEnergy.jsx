@@ -19,8 +19,8 @@ class ReportCalculationsEnergy extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bestDemandP: "",
-      bestDemandFP: ""
+      bestDemandP: "-",
+      bestDemandFP: "-"
     };
   }
 
