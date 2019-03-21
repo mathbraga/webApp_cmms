@@ -37,12 +37,11 @@ class Energy extends Component {
 
   handleQuery = event => {
     queryEnergyTable(this.state, "EnergyTable").then(queryResponse => {
+      console.log(queryResponse);
       this.setState({
         queryResponse: queryResponse,
         showResult: true,
         error: false
-      }, () =>{
-        console.log(queryResponse);
       });
     });
   }
@@ -51,7 +50,7 @@ class Energy extends Component {
     this.setState({
       oneMonth: event.target.checked
     });
-  };
+  }
 
   handleMeterChange = event => {
     this.setState({
@@ -73,12 +72,10 @@ class Energy extends Component {
     return (
       <div>
         <div>
-          {false ? ( // this.state.showResult
+          {this.state.showResult ? (
             <EnergyOneUnitDash
               handleClick={this.showFormDates}
               energyState={this.state}
-              queryResponse={this.state.queryResponse}
-              meters={this.state.meters}
             />
           ) : (
             <FormDates
