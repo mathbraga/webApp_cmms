@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Card, CardBody, Col, Row, Table, Badge, CardHeader } from "reactstrap";
 import classNames from "classnames";
+import { queryEnergyTable } from "../../utils/queryEnergyTable";
+
 
 const rowNames = [
   { name: "Consumo", type: "main", unit: "", attr: "" },
@@ -31,50 +33,21 @@ const rowNames = [
   { name: "Valor líquido", type: "sub-2", unit: "R$", attr: "vliq" } 
 ]
 
-// const testValues = [
-//   { name: "Consumo", value: "" },
-//   { name: "Consumo P", value: "" },
-//   { name: "Consumo Medido", value: "12.256" },
-//   { name: "Tarifa", value: "0,456121" },
-//   { name: "Valor", value: "1.256,24" },
-//   { name: "Consumo FP", value: "" },
-//   { name: "Consumo Medido", value: "53.256" },
-//   { name: "Tarifa", value: "0,5461321" },
-//   { name: "Valor", value: "3.526,25" },
-//   { name: "Consumo Faturado", value: "65.562" },
-//   { name: "Valor Total", value: "5.654,21" },
-//   { name: "Demanda", value: "" },
-//   { name: "Demanda P", value: "" },
-//   { name: "Medido", value: "100" },
-//   { name: "Contratado", value: "120" },
-//   { name: "Faturado", value: "120" },
-//   { name: "Tarifa", value: "0,56465" },
-//   { name: "Valor Faturado", value: "1.250,55" },
-//   { name: "Ultrapassagem", value: "0,00" },
-//   { name: "Demanda FP", value: "" },
-//   { name: "Medido", value: "100" },
-//   { name: "Contratado", value: "120" },
-//   { name: "Faturado", value: "120" },
-//   { name: "Tarifa", value: "0,564654" },
-//   { name: "Valor Faturado", value: "1.350,50" },
-//   { name: "Ultrapassagem", value: "0,00" },
-//   { name: "Energia Reativa", value: "" },
-//   { name: "EREX P", value: "0,00" },
-//   { name: "EREX FP", value: "0,00" },
-//   { name: "Valor", value: "0,00" },
-//   { name: "Resumo dos Valores", value: "" },
-//   { name: "Energia", value: "6.562,22" },
-//   { name: "CIP", value: "712,55" },
-//   { name: "Descontos/Compensação", value: "0,00" },
-//   { name: "Juros/Multas", value: "0,00" },
-//   { name: "Tributos", value: "" },
-//   { name: "Base de Cáculo", value: "5.555,21" },
-//   { name: "Valor", value: "4.561,25" },
-//   { name: "Total Bruto", value: "6.545,24" },
-//   { name: "Total Líquido", value: "5.654,25" }
-// ];
-
 class ReportEnergyOneUnit extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      queryResponse: false
+    };
+  }
+
+  componentWillMount(){
+    queryEnergyTable(this.props.energyState, "EnergyTable").then(queryResponse => {
+      console.log(queryResponse);
+      this.setState({queryResponse: queryResponse});
+    });
+  }
+
   render() {
     return (
       <Card>
@@ -83,11 +56,12 @@ class ReportEnergyOneUnit extends Component {
           <strong>Valores faturados</strong>
         </CardHeader>
         <CardBody>
+        {!this.state.queryResponse ? "" : (
           <Table responsive size="sm">
             <thead>
               <tr className="header-table">
                 <th />
-                <th>{this.props.result1.Items[0].aamm.toString()}</th>
+                <th>{this.state.queryResponse.Items[0].aamm.toString()}</th>
                 <th>Observações</th>
               </tr>
             </thead>
@@ -100,14 +74,14 @@ class ReportEnergyOneUnit extends Component {
                     {column.unit === ""
                       ? ""
                       : column.unit === "R$"
-                        ? "R$ " + this.props.result1.Items[0][column.attr]
-                        : this.props.result1.Items[0][column.attr] + " " + column.unit}
+                        ? "R$ " + this.state.queryResponse.Items[0][column.attr]
+                        : this.state.queryResponse.Items[0][column.attr] + column.unit}
                   </td>
                   <td>Ok</td>
                 </tr>
               ))}
-            </tbody>
-          </Table>
+          </tbody>
+        </Table>)}
         </CardBody>
       </Card>
     );

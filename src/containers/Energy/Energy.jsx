@@ -36,7 +36,12 @@ class Energy extends Component {
   }
 
   handleChangeOnDates = handleDates.bind(this);
-  handleQuery = queryEnergyTable.bind(this);
+  
+  handleQuery = event => {
+    this.setState({
+      showResult: true
+    });
+  };
 
   handleOneMonth = event => {
     this.setState({
@@ -67,7 +72,7 @@ class Energy extends Component {
           {this.state.showResult 
           ? this.state.chosenMeter === "199"
             ? <EnergyAllDash/>
-            :<EnergyOneUnitDash handleClick={this.showFormDates} result1={this.state.queryResponse1} result2={this.state.queryResponse2}/>
+            :<EnergyOneUnitDash handleClick={this.showFormDates} energyState={this.state}/>
           : (<FormDates
               onChangeDate={this.handleChangeOnDates}
               initialDate={this.state.initialDate}
