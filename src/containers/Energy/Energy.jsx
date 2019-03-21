@@ -23,9 +23,11 @@ class Energy extends Component {
       finalDate: "",
       chosenMeter: "199",
       oneMonth: false,
-      queryResponse: [],
+      queryResponse1: [],
+      queryResponse2: [],
       error: false,
-      showResult: true
+      showResult1: false,
+      showResult2: false
     };
   }
 
@@ -57,7 +59,8 @@ class Energy extends Component {
 
   showFormDates = event => {
     this.setState({
-      showResult: false,
+      showResult1: false,
+      showResult2: false,
       initialDate: "",
       finalDate: "",
       chosenMeter: "199",
@@ -69,11 +72,11 @@ class Energy extends Component {
     return (
       <div>
         <div>
-          {this.state.showResult 
-          ? this.state.chosenMeter === "199"
-            ? <EnergyAllDash/>
-            :<EnergyOneUnitDash handleClick={this.showFormDates} energyState={this.state}/>
-          : (<FormDates
+
+          {this.state.showResult1 && this.state.showResult2 ? (
+            <EnergyOneUnitDash handleClick={this.showFormDates} energyState={this.state}/>
+          ) : (
+            <FormDates
               onChangeDate={this.handleChangeOnDates}
               initialDate={this.state.initialDate}
               finalDate={this.state.finalDate}

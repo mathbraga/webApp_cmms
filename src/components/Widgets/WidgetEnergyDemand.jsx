@@ -3,37 +3,42 @@ import { Card, CardBody, Col, Row } from "reactstrap";
 
 class WidgetEnergyDemand extends Component {
   state = {};
+
+  formatNumber(number) {
+    return number.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
+  }
+
   render() {
     return (
       <Card className="widget-container">
         <CardBody className="widget-body">
           <Row className="widget-container-text">
             <Col md="3">
-              <div className="widget-title">Demanda P</div>
-              <div>100 kW</div>
+              <div className="widget-title">Demanda FP</div>
+              <div>{this.props.data.dmf} kW</div>
               <div className="widget-title" style={{ "padding-top": "5px" }}>
-                Demanda FP
+                Demanda P
               </div>
-              <div>120 kW</div>
+              <div>{this.props.data.dmp} kW</div>
             </Col>
             <Col md="3">
               <div className="widget-division">
-                <div className="widget-title">Contrato P</div>
-                <div>150 kW</div>
+                <div className="widget-title">Contrato FP</div>
+                <div>{this.props.data.dcf} kW</div>
                 <div className="widget-title" style={{ "padding-top": "5px" }}>
-                  Contrato FP
+                  Contrato P
                 </div>
-                <div>180 kW</div>
+                <div>{this.props.data.dcp} kW</div>
               </div>
             </Col>
             <Col md="3">
               <div className="widget-division">
-                <div className="widget-title">Faturado P</div>
-                <div>150 kW</div>
+                <div className="widget-title">Faturado FP</div>
+                <div>{this.props.data.dff} kW</div>
                 <div className="widget-title" style={{ "padding-top": "5px" }}>
-                  Faturado FP
+                  Faturado P
                 </div>
-                <div>180 kW</div>
+                <div>{this.props.data.dfp} kW</div>
               </div>
             </Col>
             <Col md="3" className="widget-container-image">
