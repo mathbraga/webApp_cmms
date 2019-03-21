@@ -22,7 +22,8 @@ class Energy extends Component {
       chosenMeter: "199",
       oneMonth: false,
       error: false,
-      queryResponse: false
+      queryResponse: false,
+      showResult: false
     };
   }
 
