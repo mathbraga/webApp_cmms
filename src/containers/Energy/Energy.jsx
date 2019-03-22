@@ -17,6 +17,7 @@ class Energy extends Component {
     this.state = {
       meters: [],
       dynamo: dynamo,
+      tableName: "EnergyTable",
       initialDate: "",
       finalDate: "",
       chosenMeter: "199",
@@ -34,17 +35,7 @@ class Energy extends Component {
   }
 
   handleChangeOnDates = handleDates.bind(this);
-
-  handleQuery = event => {
-    queryEnergyTable(this.state, "EnergyTable").then(queryResponse => {
-      console.log(queryResponse.length);
-      this.setState({
-        queryResponse: queryResponse,
-        showResult: true,
-        error: false
-      });
-    });
-  };
+  handleQuery = queryEnergyTable.bind(this);
 
   handleOneMonth = event => {
     this.setState({
