@@ -291,8 +291,8 @@ export function bestDemand(lastItems, lastBlueItems) {
   let dProfile = demandProfile(lastBlueItems);
   let newList = prepareDemands(lastItems, dProfile);
 
-  const resultBlue = costGreen(newList, rates_blue);
-  const resultGreen = costBlue(newList, rates_green);
+  const resultBlue = costBlue(newList, rates_blue);
+  const resultGreen = costGreen(newList, rates_green);
 
   return [resultBlue, resultGreen];
 }

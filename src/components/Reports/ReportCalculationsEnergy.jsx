@@ -6,6 +6,10 @@ import {
   Row,
   Table,
   Badge,
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownItem,
+  DropdownMenu,
   CardHeader,
   CardTitle
 } from "reactstrap";
@@ -19,8 +23,14 @@ class ReportCalculationsEnergy extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showResult: "best",
+      dropdownOpen: false,
       bestDemandP: "-",
-      bestDemandFP: "-"
+      bestDemandFP: "-",
+      bestDemandBlueP: "-",
+      bestDemandBlueFP: "-",
+      bestDemandGreenP: "-",
+      bestDemandGreenFP: "-"
     };
   }
 
@@ -54,7 +64,11 @@ class ReportCalculationsEnergy extends Component {
 
             this.setState({
               bestDemandP: bestResult.dp || "-",
-              bestDemandFP: bestResult.df || "-"
+              bestDemandFP: bestResult.df || "-",
+              bestDemandBlueP: results[0].dp || "-",
+              bestDemandBlueFP: results[0].df || "-",
+              bestDemandGreenP: results[1].dp || "-",
+              bestDemandGreenFP: results[1].df || "-"
             });
           }
         );
@@ -62,9 +76,24 @@ class ReportCalculationsEnergy extends Component {
     );
   }
 
+  toggle = () => {
+    const newState = !this.state.dropdownOpen;
+    this.setState({
+      dropdownOpen: newState
+    });
+  };
+
+  showCalcResult = type => {
+    const func = () => {
+      console.log("OKKKKKKKKK");
+      this.setState({ showResult: type });
+    };
+    return func;
+  };
+
   render() {
     console.log("Calculation:");
-    console.log(this.props.data);
+    console.log(this.state);
     return (
       <Card>
         <CardHeader>
@@ -72,15 +101,56 @@ class ReportCalculationsEnergy extends Component {
         </CardHeader>
         <CardBody>
           <CardTitle>
-            <div className="calc-title">Demanda Ideal</div>
-            <div className="calc-subtitle">
-              Mês do Cálculo: <strong>{this.props.date}</strong>
-            </div>
+            <Row>
+              <Col md="5">
+                <div className="calc-title">Demanda Ideal</div>
+                <div className="calc-subtitle">
+                  Mês do Cálculo: <strong>{this.props.date}</strong>
+                </div>
+              </Col>
+              <Col md="7">
+                <Row className="center-button-container">
+                  <p className="button-calc">Modalidade:</p>
+                  <ButtonDropdown
+                    isOpen={this.state.dropdownOpen}
+                    toggle={() => {
+                      this.toggle();
+                    }}
+                  >
+                    <DropdownToggle caret size="sm">
+                      {this.state.showResult === "best"
+                        ? "Melhor Resultado"
+                        : this.state.showResult === "blue"
+                        ? "Modalidade Azul"
+                        : "Modalidade Verde"}
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem onClick={this.showCalcResult("best")}>
+                        Melhor Resultado
+                      </DropdownItem>
+                      <DropdownItem onClick={this.showCalcResult("blue")}>
+                        Modalidade Azul
+                      </DropdownItem>
+                      <DropdownItem onClick={this.showCalcResult("green")}>
+                        Modalidade Verde
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </ButtonDropdown>
+                </Row>
+              </Col>
+            </Row>
           </CardTitle>
           <Row>
             <Col md="6">
               <div className="container-demand">
-                <div className="demand-new">{this.state.bestDemandFP} kW</div>
+                <div className="demand-new">
+                  {this.state.showResult === "best"
+                    ? this.state.bestDemandFP
+                    : this.state.showResult === "blue"
+                    ? this.state.bestDemandBlueFP
+                    : this.state.bestDemandGreenFP}
+                  kW
+                </div>
                 <div className="demand-subtitle">
                   <strong>Fora Ponta</strong> - Valor Ideal
                 </div>
@@ -88,7 +158,14 @@ class ReportCalculationsEnergy extends Component {
             </Col>
             <Col md="6">
               <div className="container-demand">
-                <div className="demand-new">{this.state.bestDemandP} kW</div>
+                <div className="demand-new">
+                  {this.state.showResult === "best"
+                    ? this.state.bestDemandP
+                    : this.state.showResult === "blue"
+                    ? this.state.bestDemandBlueP
+                    : this.state.bestDemandGreenP}
+                  kW
+                </div>
                 <div className="demand-subtitle">
                   <strong>Ponta</strong> - Valor Ideal
                 </div>
