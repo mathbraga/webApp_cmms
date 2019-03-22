@@ -98,7 +98,7 @@ class ReportCalculationsEnergy extends Component {
           <Row>
             <Col md="6">
               <div className="container-old-demand">
-                <div className="demand-value">{this.props.data.dcf.N} kW</div>
+                <div className="demand-value">{this.props.data.dcf} kW</div>
                 <div className="demand-subtitle">
                   <strong>Fora Ponta</strong> - Valor Contratado
                 </div>
@@ -106,7 +106,7 @@ class ReportCalculationsEnergy extends Component {
             </Col>
             <Col md="6">
               <div className="container-old-demand">
-                <div className="demand-value">{this.props.data.dcp.N} kW</div>
+                <div className="demand-value">{this.props.data.dcp} kW</div>
                 <div className="demand-subtitle">
                   <strong>Ponta</strong> - Valor Contratado
                 </div>
