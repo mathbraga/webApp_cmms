@@ -63,6 +63,8 @@ class ReportCalculationsEnergy extends Component {
   }
 
   render() {
+    console.log("Calculation:");
+    console.log(this.props.data);
     return (
       <Card>
         <CardHeader>

@@ -44,13 +44,13 @@ class Energy extends Component {
         error: false
       });
     });
-  }
+  };
 
   handleOneMonth = event => {
     this.setState({
       oneMonth: event.target.checked
     });
-  }
+  };
 
   handleMeterChange = event => {
     this.setState({

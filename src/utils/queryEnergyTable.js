@@ -10,22 +10,64 @@ export function queryEnergyTable(state, tableName) {
     }
 
     // Check if consumer is 'all'
-    if(state.chosenMeter === "199") {
-      
+    if (state.chosenMeter === "199") {
       // Build array of all meters to query
       var allMeters = state.meters.map(meter => {
-        return (100*parseInt(meter.medtype.N, 10) + parseInt(meter.med.N, 10)).toString();
+        return (
+          100 * parseInt(meter.medtype.N, 10) +
+          parseInt(meter.med.N, 10)
+        ).toString();
       });
-      
+
       // Query all meters in chosen period
       var resultAll = [];
       allMeters.forEach(meter => {
-        state.dynamo.query({
+        state.dynamo.query(
+          {
+            TableName: tableName,
+            KeyConditionExpression:
+              "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
+            ExpressionAttributeValues: {
+              ":med": {
+                N: meter
+              },
+              ":aamm1": {
+                N: month1
+              },
+              ":aamm2": {
+                N: month2
+              }
+            }
+          },
+          (err, data) => {
+            if (err) {
+              alert(
+                "There was an error. Please insert search parameters again."
+              );
+              reject(Error("Failed to get the items."));
+            } else {
+              data.Items.map(element => {
+                Object.keys(element).map(key => {
+                  element[key] = Number(element[key].N);
+                });
+              });
+              resultAll.push(data);
+            }
+          }
+        );
+      });
+      resolve(resultAll);
+    } else {
+      // Query for only one meter
+      var resultOne = [];
+      state.dynamo.query(
+        {
           TableName: tableName,
-          KeyConditionExpression: "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
+          KeyConditionExpression:
+            "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
           ExpressionAttributeValues: {
             ":med": {
-              N: meter
+              N: state.chosenMeter
             },
             ":aamm1": {
               N: month1
@@ -34,7 +76,8 @@ export function queryEnergyTable(state, tableName) {
               N: month2
             }
           }
-        }, (err, data) => {
+        },
+        (err, data) => {
           if (err) {
             alert("There was an error. Please insert search parameters again.");
             reject(Error("Failed to get the items."));
@@ -44,44 +87,11 @@ export function queryEnergyTable(state, tableName) {
                 element[key] = Number(element[key].N);
               });
             });
-            resultAll.push(data);    
-          }
-        })
-      })
-      resolve(resultAll);
-
-    } else {
-      
-      // Query for only one meter
-      var resultOne = [];
-      state.dynamo.query({
-        TableName: tableName,
-        KeyConditionExpression: "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
-        ExpressionAttributeValues: {
-          ":med": {
-            N: state.chosenMeter
-          },
-          ":aamm1": {
-            N: month1
-          },
-          ":aamm2": {
-            N: month2
+            resultOne.push(data);
+            resolve(resultOne);
           }
         }
-      }, (err, data) => {
-        if (err) {
-          alert("There was an error. Please insert search parameters again.");
-          reject(Error("Failed to get the items."));
-        } else {
-          data.Items.map(element => {
-            Object.keys(element).map(key => {
-              element[key] = Number(element[key].N);
-            });
-          });
-        resultOne.push(data);
-        resolve(resultOne);
-        }
-      });
+      );
     }
-  })
+  });
 }

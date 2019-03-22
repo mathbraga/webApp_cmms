@@ -47,21 +47,6 @@ const rowNames = [
 ];
 
 class ReportEnergyOneUnit extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      queryResponse: false
-    };
-  }
-
-  componentWillMount(){
-    queryEnergyTable(this.props.energyState, "EnergyTable").then(queryResponse => {
-      console.log(queryResponse);
-      this.setState({queryResponse: queryResponse});
-    });
-  }
-  
-  
   formatNumber(number) {
     return number.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
   }
@@ -74,39 +59,45 @@ class ReportEnergyOneUnit extends Component {
           <strong>Valores faturados</strong>
         </CardHeader>
         <CardBody>
-        {!this.state.queryResponse ? "" : (
-          <Table responsive size="sm">
-            <thead>
-              <tr className="header-table">
-                <th />
-                
-                <th>{this.state.queryResponse.Items[0].aamm.toString()}</th>
-                <th>Observações</th>
-              </tr>
-            </thead>
-            
-            <tbody>
-              {rowNames.map((column, i) => (
-                <tr className={column.type + "-table"}>
-                  <th className={column.type + "-table"}>{column.name}</th>
-                  <td className={column.type + "-table"}>
-                    {column.unit === ""
-                      ? ""
+          {!this.state.queryResponse ? (
+            ""
+          ) : (
+            <Table responsive size="sm">
+              <thead>
+                <tr className="header-table">
+                  <th />
 
-                      : isNaN(this.props.data[column.attr])
-                      ? "-"
-                      : column.unit === "R$"
-                      ? "R$ " + this.formatNumber(this.state.queryResponse.Items[0][column.attr])
-                      : this.formatNumber(this.state.queryResponse.Items[0][column.attr]) +
-                        " " +
-                        column.unit}
-
-                  </td>
-                  <td>Ok</td>
+                  <th>{this.state.queryResponse.Items[0].aamm.toString()}</th>
+                  <th>Observações</th>
                 </tr>
-              ))}
-          </tbody>
-        </Table>)}
+              </thead>
+
+              <tbody>
+                {rowNames.map((column, i) => (
+                  <tr className={column.type + "-table"}>
+                    <th className={column.type + "-table"}>{column.name}</th>
+                    <td className={column.type + "-table"}>
+                      {column.unit === ""
+                        ? ""
+                        : isNaN(this.props.data[column.attr])
+                        ? "-"
+                        : column.unit === "R$"
+                        ? "R$ " +
+                          this.formatNumber(
+                            this.state.queryResponse.Items[0][column.attr]
+                          )
+                        : this.formatNumber(
+                            this.state.queryResponse.Items[0][column.attr]
+                          ) +
+                          " " +
+                          column.unit}
+                    </td>
+                    <td>Ok</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          )}
         </CardBody>
       </Card>
     );
