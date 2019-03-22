@@ -109,6 +109,7 @@ class EnergyOneUnitDash extends Component {
                   consumer={this.props.energyState.chosenMeter}
                   date={dateString}
                   data={result.queryResponse}
+                  demandContract={result.unit}
                 />
               </Col>
             </Row>

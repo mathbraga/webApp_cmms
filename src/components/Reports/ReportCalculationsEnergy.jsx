@@ -94,10 +94,49 @@ class ReportCalculationsEnergy extends Component {
   render() {
     console.log("Calculation:");
     console.log(this.state);
+    console.log(this.props);
     return (
       <Card>
         <CardHeader>
           <i className="fa fa-align-justify" /> <strong>Cálculos</strong>
+          {/* <Row>
+            <Col md="5">
+              <div className="calc-title">Demanda Ideal</div>
+              <div className="calc-subtitle">
+                Mês do Cálculo: <strong>{this.props.date}</strong>
+              </div>
+            </Col>
+            <Col md="7">
+              <Row className="center-button-container">
+                <p className="button-calc">Modalidade:</p>
+                <ButtonDropdown
+                  isOpen={this.state.dropdownOpen}
+                  toggle={() => {
+                    this.toggle();
+                  }}
+                >
+                  <DropdownToggle caret size="sm">
+                    {this.state.showResult === "best"
+                      ? "Melhor Resultado"
+                      : this.state.showResult === "blue"
+                      ? "Modalidade Azul"
+                      : "Modalidade Verde"}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem onClick={this.showCalcResult("best")}>
+                      Melhor Resultado
+                    </DropdownItem>
+                    <DropdownItem onClick={this.showCalcResult("blue")}>
+                      Modalidade Azul
+                    </DropdownItem>
+                    <DropdownItem onClick={this.showCalcResult("green")}>
+                      Modalidade Verde
+                    </DropdownItem>
+                  </DropdownMenu>
+                </ButtonDropdown>
+              </Row>
+            </Col>
+          </Row> */}
         </CardHeader>
         <CardBody>
           <CardTitle>
@@ -175,7 +214,9 @@ class ReportCalculationsEnergy extends Component {
           <Row>
             <Col md="6">
               <div className="container-old-demand">
-                <div className="demand-value">{this.props.data.dcf} kW</div>
+                <div className="demand-value">
+                  {this.props.demandContract.dcf.N} kW
+                </div>
                 <div className="demand-subtitle">
                   <strong>Fora Ponta</strong> - Valor Contratado
                 </div>
@@ -183,7 +224,9 @@ class ReportCalculationsEnergy extends Component {
             </Col>
             <Col md="6">
               <div className="container-old-demand">
-                <div className="demand-value">{this.props.data.dcp} kW</div>
+                <div className="demand-value">
+                  {this.props.demandContract.dcp.N} kW
+                </div>
                 <div className="demand-subtitle">
                   <strong>Ponta</strong> - Valor Contratado
                 </div>
