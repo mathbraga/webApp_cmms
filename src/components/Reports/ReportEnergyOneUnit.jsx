@@ -1,5 +1,17 @@
 import React, { Component } from "react";
-import { Card, CardBody, Col, Row, Table, Badge, CardHeader } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  Col,
+  Row,
+  Table,
+  Badge,
+  CardHeader,
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 import classNames from "classnames";
 
 const rowNames = [
@@ -46,16 +58,54 @@ const rowNames = [
 ];
 
 class ReportEnergyOneUnit extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dropdownOpen: false
+    };
+  }
   formatNumber(number) {
     return number.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
   }
+  toggle = () => {
+    const newState = !this.state.dropdownOpen;
+    this.setState({
+      dropdownOpen: newState
+    });
+  };
 
   render() {
     return (
       <Card>
         <CardHeader>
-          <i className="fa fa-align-justify" />{" "}
-          <strong>Valores faturados</strong>
+          <Row>
+            <Col md="4">
+              <div className="calc-title">Fatura Detalhada</div>
+              <div className="calc-subtitle">
+                Mês de Referência: <strong>{this.props.date}</strong>
+              </div>
+            </Col>
+            <Col md="8">
+              <Row className="center-button-container">
+                <p className="button-calc">Comparar com:</p>
+                <ButtonDropdown
+                  isOpen={this.state.dropdownOpen}
+                  toggle={() => {
+                    this.toggle();
+                  }}
+                >
+                  <DropdownToggle caret size="sm">
+                    Últimos 12 meses (média)
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem>Últimos 12 meses (média)</DropdownItem>
+                    <DropdownItem>Último mês</DropdownItem>
+                    <DropdownItem>Mesmo período (12 meses atrás)</DropdownItem>
+                  </DropdownMenu>
+                </ButtonDropdown>
+              </Row>
+            </Col>
+          </Row>
         </CardHeader>
         <CardBody>
           <Table responsive size="sm">

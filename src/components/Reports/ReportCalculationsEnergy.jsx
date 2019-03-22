@@ -85,7 +85,6 @@ class ReportCalculationsEnergy extends Component {
 
   showCalcResult = type => {
     const func = () => {
-      console.log("OKKKKKKKKK");
       this.setState({ showResult: type });
     };
     return func;
@@ -98,8 +97,7 @@ class ReportCalculationsEnergy extends Component {
     return (
       <Card>
         <CardHeader>
-          <i className="fa fa-align-justify" /> <strong>Cálculos</strong>
-          {/* <Row>
+          <Row>
             <Col md="5">
               <div className="calc-title">Demanda Ideal</div>
               <div className="calc-subtitle">
@@ -136,49 +134,9 @@ class ReportCalculationsEnergy extends Component {
                 </ButtonDropdown>
               </Row>
             </Col>
-          </Row> */}
+          </Row>
         </CardHeader>
         <CardBody>
-          <CardTitle>
-            <Row>
-              <Col md="5">
-                <div className="calc-title">Demanda Ideal</div>
-                <div className="calc-subtitle">
-                  Mês do Cálculo: <strong>{this.props.date}</strong>
-                </div>
-              </Col>
-              <Col md="7">
-                <Row className="center-button-container">
-                  <p className="button-calc">Modalidade:</p>
-                  <ButtonDropdown
-                    isOpen={this.state.dropdownOpen}
-                    toggle={() => {
-                      this.toggle();
-                    }}
-                  >
-                    <DropdownToggle caret size="sm">
-                      {this.state.showResult === "best"
-                        ? "Melhor Resultado"
-                        : this.state.showResult === "blue"
-                        ? "Modalidade Azul"
-                        : "Modalidade Verde"}
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem onClick={this.showCalcResult("best")}>
-                        Melhor Resultado
-                      </DropdownItem>
-                      <DropdownItem onClick={this.showCalcResult("blue")}>
-                        Modalidade Azul
-                      </DropdownItem>
-                      <DropdownItem onClick={this.showCalcResult("green")}>
-                        Modalidade Verde
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </ButtonDropdown>
-                </Row>
-              </Col>
-            </Row>
-          </CardTitle>
           <Row>
             <Col md="6">
               <div className="container-demand">

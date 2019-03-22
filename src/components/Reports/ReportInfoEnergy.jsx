@@ -21,12 +21,17 @@ class ReportInfoEnergy extends Component {
     return (
       <Card>
         <CardHeader>
-          <i className="fa fa-align-justify" />{" "}
-          <strong>Informações do medidor</strong>
+          <Row>
+            <Col md="12">
+              <div className="calc-title">Informações do Medidor</div>
+              <div className="calc-subtitle">
+                Mês de Referência: <strong>{this.props.date}</strong>
+              </div>
+            </Col>
+          </Row>
         </CardHeader>
         <CardBody>
           <Table responsive size="sm">
-
             <tbody>
               {rowNames.map(info =>
                 info.attr === "dem" ? (
@@ -46,7 +51,6 @@ class ReportInfoEnergy extends Component {
                   ""
                 )
               )}
-
             </tbody>
           </Table>
         </CardBody>

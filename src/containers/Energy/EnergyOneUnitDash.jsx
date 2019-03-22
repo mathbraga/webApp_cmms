@@ -101,7 +101,7 @@ class EnergyOneUnitDash extends Component {
             </Row>
             <Row>
               <Col md="6">
-                <ReportInfoEnergy data={result.unit} />
+                <ReportInfoEnergy data={result.unit} date={dateString} />
               </Col>
               <Col md="6">
                 <ReportCalculationsEnergy
@@ -118,6 +118,7 @@ class EnergyOneUnitDash extends Component {
                 <ReportEnergyOneUnit
                   data={result.queryResponse}
                   dateString={dateString}
+                  date={dateString}
                 />
               </Col>
             </Row>
@@ -127,59 +128,5 @@ class EnergyOneUnitDash extends Component {
     );
   }
 }
-//  <div>
-//   <Card>
-//     <CardHeader>
-//       <Row>
-//         <Col md="6">
-//           <div className="widget-title dash-title">
-//             <h4>{this.state.queryResponse.Items[0].idceb.S}</h4>
-//             <div className="dash-subtitle">Medidor: Unidades de Apoio</div>
-//           </div>
-//           <div className="widget-container-center">
-//             <div className="dash-title-info">
-//               Período: <strong>Jan/2018</strong>
-//             </div>
-//             <div className="dash-title-info">
-//               Ligação: <strong>VERDE</strong>
-//             </div>
-//           </div>
-//         </Col>
-//         <Col md="6" className="container-left">
-//           <Button color="ghost-primary" onClick={this.props.handleClick}>
-//             <i className="cui-magnifying-glass" />
-//             &nbsp;Nova Pesquisa
-//           </Button>
-//         </Col>
-//       </Row>
-//     </CardHeader>
-//     <CardBody>
-//       <Row>
-//         <Col md="3">
-//           <WidgetEnergyUsage />
-//         </Col>
-//         <Col md="6">
-//           <WidgetEnergyDemand />
-//         </Col>
-//         <Col md="3">
-//           <WidgetEnergyProblem />
-//         </Col>
-//       </Row>
-//       <Row>
-//         <Col md="6">
-//           <ReportInfoEnergy meters={this.props.EnergyState}/>
-//         </Col>
-//         <Col md="6">
-//           <ReportCalculationsEnergy />
-//         </Col>
-//       </Row>
-//       <Row>
-//         <Col>
-//           <ReportEnergyOneUnit energyState={this.props.energyState}/>
-//         </Col>
-//       </Row>
-//     </CardBody>
-//   </Card>
-// </div>
 
 export default EnergyOneUnitDash;
