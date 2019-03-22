@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardBody, Col, Row, Table, Badge, CardHeader } from "reactstrap";
 import classNames from "classnames";
-import { queryEnergyTable } from "../../utils/queryEnergyTable";
 
 const rowNames = [
   { name: "Consumo", type: "main", unit: "", attr: "" },
@@ -59,45 +58,35 @@ class ReportEnergyOneUnit extends Component {
           <strong>Valores faturados</strong>
         </CardHeader>
         <CardBody>
-          {!this.state.queryResponse ? (
-            ""
-          ) : (
-            <Table responsive size="sm">
-              <thead>
-                <tr className="header-table">
-                  <th />
+          <Table responsive size="sm">
+            <thead>
+              <tr className="header-table">
+                <th />
+                <th>{this.props.dateString}</th>
+                <th>Observações</th>
+              </tr>
+            </thead>
 
-                  <th>{this.state.queryResponse.Items[0].aamm.toString()}</th>
-                  <th>Observações</th>
+            <tbody>
+              {rowNames.map((column, i) => (
+                <tr className={column.type + "-table"}>
+                  <th className={column.type + "-table"}>{column.name}</th>
+                  <td className={column.type + "-table"}>
+                    {column.unit === ""
+                      ? ""
+                      : isNaN(this.props.data[column.attr])
+                      ? "-"
+                      : column.unit === "R$"
+                      ? "R$ " + this.formatNumber(this.props.data[column.attr])
+                      : this.formatNumber(this.props.data[column.attr]) +
+                        " " +
+                        column.unit}
+                  </td>
+                  <td>Ok</td>
                 </tr>
-              </thead>
-
-              <tbody>
-                {rowNames.map((column, i) => (
-                  <tr className={column.type + "-table"}>
-                    <th className={column.type + "-table"}>{column.name}</th>
-                    <td className={column.type + "-table"}>
-                      {column.unit === ""
-                        ? ""
-                        : isNaN(this.props.data[column.attr])
-                        ? "-"
-                        : column.unit === "R$"
-                        ? "R$ " +
-                          this.formatNumber(
-                            this.state.queryResponse.Items[0][column.attr]
-                          )
-                        : this.formatNumber(
-                            this.state.queryResponse.Items[0][column.attr]
-                          ) +
-                          " " +
-                          column.unit}
-                    </td>
-                    <td>Ok</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          )}
+              ))}
+            </tbody>
+          </Table>
         </CardBody>
       </Card>
     );
