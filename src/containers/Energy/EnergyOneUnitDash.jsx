@@ -7,6 +7,7 @@ import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
 import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
 import { queryEnergyTable } from "../../utils/queryEnergyTable";
+import Chart from "../../components/Charts/Chart";
 
 const monthList = {
   "01": "Jan",
@@ -85,7 +86,7 @@ class EnergyOneUnitDash extends Component {
             </Row>
             <Row>
               <Col md="6">
-                {/* <ReportInfoEnergy data={this.props.result2.Items[0]} /> */}
+                <Chart data={this.props.energyState.chartConfig.data} options={this.props.energyState.chartConfig.options}/>
               </Col>
               <Col md="6">
                 {/* <ReportCalculationsEnergy

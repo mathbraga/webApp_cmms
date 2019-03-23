@@ -1,4 +1,4 @@
-// import buildChartData from './buildChartData';
+import buildChartData from './buildChartData';
 
 export function queryEnergyTable() {
   // Transform form inputs into integers
@@ -69,9 +69,10 @@ export function queryEnergyTable() {
   });
   console.log(queryResponse);
   Promise.all(arrayPromises).then(() => {
-    // buildChartData(queryResponse);
+    let chartConfig = buildChartData(queryResponse, month1, month2);
     this.setState({
       queryResponse: queryResponse,
+      chartConfig: chartConfig,
       showResult: true,
       error: false
     });
