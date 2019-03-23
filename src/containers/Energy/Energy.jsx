@@ -63,7 +63,7 @@ class Energy extends Component {
     return (
       <div>
         <div>
-          {this.state.showResult ? (
+          {false ? (
             <EnergyOneUnitDash
               handleClick={this.showFormDates}
               energyState={this.state}

@@ -48,12 +48,19 @@ export function queryEnergyTable() {
             alert("There was an error. Please insert search parameters again.");
             reject();
           } else {
+            // queryResponse.push([]);
+            // data.Items.map(element => {
+            //   queryResponse[queryResponse.length - 1].push(Object.assign(element));
+            // });
+            // RESPONSE IN FORMAT {aamm: {N: "1801"}}
+            
             data.Items.map(element => {
               Object.keys(element).map(key => {
                 element[key] = Number(element[key].N);
               });
             });
             queryResponse.push(data);
+            
           }
           resolve();
         }
