@@ -69,12 +69,20 @@ export function queryEnergyTable() {
   });
   console.log(queryResponse);
   Promise.all(arrayPromises).then(() => {
-    let chartConfig = buildChartData(queryResponse, month1, month2);
-    this.setState({
-      queryResponse: queryResponse,
-      chartConfig: chartConfig,
-      showResult: true,
-      error: false
-    });
+    if(!this.state.oneMonth){
+      var chartConfig = buildChartData(queryResponse, month1, month2);
+      this.setState({
+        queryResponse: queryResponse,
+        chartConfig: chartConfig,
+        showResult: true,
+        error: false
+      });
+    } else {
+      this.setState({
+        queryResponse: queryResponse,
+        showResult: true,
+        error: false
+      });
+    }
   });
 }

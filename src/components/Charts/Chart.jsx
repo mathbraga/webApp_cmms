@@ -3,13 +3,19 @@ import { Line } from 'react-chartjs-2';
 import { Card, CardBody, CardHeader } from 'reactstrap';
 
 class Chart extends Component {
-
   constructor(props){
     super(props);
+    this.state = {
+      chartConfig: {}
+    };
+  }
+
+  componentDidMount(){
+    this.setState({chartConfig: this.props.energyState.chartConfig});
   }
 
   render() {
-
+    
     return (
       <div className="animated fadeIn">
         {/* <CardColumns className="cols-2"> */}
@@ -24,7 +30,7 @@ class Chart extends Component {
             </CardHeader>
             <CardBody>
               <div className="chart-wrapper">
-                <Line data={this.props.data} options={this.props.options}/> 
+                <Line data={this.state.chartConfig.data} options={this.state.chartConfig.options}/> 
               </div>
             </CardBody>
           </Card>
