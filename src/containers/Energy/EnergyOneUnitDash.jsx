@@ -85,17 +85,17 @@ class EnergyOneUnitDash extends Component {
               </Col>
             </Row>
             <Row>
-              <Col md="6">
+              <Col md="12">
                 <Chart energyState={this.props.energyState}/>
               </Col>
-              <Col md="6">
+              {/* <Col md="6"> */}
                 {/* <ReportCalculationsEnergy
                   dbObject={this.props.dbObject}
                   consumer={this.props.consumer}
                   date={this.dateString}
                   data={this.props.result2.Items[0]}
                 /> */}
-              </Col>
+              {/* </Col> */}
             </Row>
             <Row>
               <Col>

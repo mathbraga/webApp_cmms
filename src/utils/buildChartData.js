@@ -106,7 +106,8 @@ export default function buildChartData(queryResponse, month1, month2){
           }
         }]
       }
-    }
+    },
+    answers: answers
   };
 
   return chartConfig;
