@@ -278,18 +278,11 @@ export function bestDemand(lastItems, lastBlueItems) {
     rateDemandFP: 16.6779735
   };
 
-  console.log("bestDemands:");
-  console.log(lastItems);
-  console.log(lastBlueItems);
   let dProfile = demandProfile(lastBlueItems);
-  console.log(dProfile);
   let newList = prepareDemands(lastItems, dProfile);
-  console.log(newList);
 
   const resultBlue = costBlue(newList, rates_blue);
-  console.log(resultBlue);
   const resultGreen = costGreen(newList, rates_green);
-  console.log(resultGreen);
 
   return [resultBlue, resultGreen];
 }

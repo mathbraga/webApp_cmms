@@ -91,9 +91,6 @@ class ReportCalculationsEnergy extends Component {
   };
 
   render() {
-    console.log("Calculation:");
-    console.log(this.state);
-    console.log(this.props);
     return (
       <Card>
         <CardHeader>
@@ -101,7 +98,7 @@ class ReportCalculationsEnergy extends Component {
             <Col md="5">
               <div className="calc-title">Demanda Ideal</div>
               <div className="calc-subtitle">
-                Mês do Cálculo: <strong>{this.props.date}</strong>
+                Mês do Cálculo: <strong>{this.props.dateString}</strong>
               </div>
             </Col>
             <Col md="7">

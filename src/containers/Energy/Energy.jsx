@@ -37,7 +37,6 @@ class Energy extends Component {
 
   handleQuery = event => {
     queryEnergyTable(this.state, "EnergyTable").then(queryResponse => {
-      console.log(queryResponse);
       this.setState({
         queryResponse: queryResponse,
         showResult: true,

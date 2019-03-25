@@ -7,21 +7,7 @@ import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
 import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
 import { queryEnergyTable } from "../../utils/queryEnergyTable";
-
-const monthList = {
-  "01": "Jan",
-  "02": "Fev",
-  "03": "Mar",
-  "04": "Abr",
-  "05": "Mai",
-  "06": "Jun",
-  "07": "Jul",
-  "08": "Ago",
-  "09": "Set",
-  "10": "Out",
-  "11": "Nov",
-  "12": "Dez"
-};
+import { transformDateString } from "../../utils/transformDateString";
 
 class EnergyOneUnitDash extends Component {
   render() {
@@ -36,15 +22,8 @@ class EnergyOneUnitDash extends Component {
       if (number.toString() === this.props.energyState.chosenMeter)
         result.unit = item;
     });
-    console.log("Result:");
-    console.log(result);
-    console.log("props:");
-    console.log(this.props);
 
-    const dateString =
-      monthList[result.queryResponse.aamm.toString().slice(2)] +
-      "/20" +
-      result.queryResponse.aamm.toString().slice(0, 2);
+    const dateString = transformDateString(result.queryResponse.aamm);
 
     // if (this.props.result1.Items[0].tipo === 1) {
     //   this.props.result1.Items[0].dcf = this.props.result1.Items[0].dc;
@@ -107,7 +86,7 @@ class EnergyOneUnitDash extends Component {
                 <ReportCalculationsEnergy
                   dbObject={this.props.energyState.dynamo}
                   consumer={this.props.energyState.chosenMeter}
-                  date={dateString}
+                  dateString={dateString}
                   data={result.queryResponse}
                   demandContract={result.unit}
                 />
@@ -118,7 +97,9 @@ class EnergyOneUnitDash extends Component {
                 <ReportEnergyOneUnit
                   data={result.queryResponse}
                   dateString={dateString}
-                  date={dateString}
+                  dbObject={this.props.energyState.dynamo}
+                  consumer={this.props.energyState.chosenMeter}
+                  date={result.queryResponse.aamm}
                 />
               </Col>
             </Row>
