@@ -23,7 +23,7 @@ class ReportCalculationsEnergy extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showResult: "best",
+      typeOfResult: "best",
       dropdownOpen: false,
       bestDemandP: "-",
       bestDemandFP: "-",
@@ -85,7 +85,7 @@ class ReportCalculationsEnergy extends Component {
 
   showCalcResult = type => {
     const func = () => {
-      this.setState({ showResult: type });
+      this.setState({ typeOfResult: type });
     };
     return func;
   };
@@ -114,9 +114,9 @@ class ReportCalculationsEnergy extends Component {
                   }}
                 >
                   <DropdownToggle caret size="sm">
-                    {this.state.showResult === "best"
+                    {this.state.typeOfResult === "best"
                       ? "Melhor Resultado"
-                      : this.state.showResult === "blue"
+                      : this.state.typeOfResult === "blue"
                       ? "Modalidade Azul"
                       : "Modalidade Verde"}
                   </DropdownToggle>
@@ -141,9 +141,9 @@ class ReportCalculationsEnergy extends Component {
             <Col md="6">
               <div className="container-demand">
                 <div className="demand-new">
-                  {this.state.showResult === "best"
+                  {this.state.typeOfResult === "best"
                     ? this.state.bestDemandFP
-                    : this.state.showResult === "blue"
+                    : this.state.typeOfResult === "blue"
                     ? this.state.bestDemandBlueFP
                     : this.state.bestDemandGreenFP}
                   kW
@@ -156,9 +156,9 @@ class ReportCalculationsEnergy extends Component {
             <Col md="6">
               <div className="container-demand">
                 <div className="demand-new">
-                  {this.state.showResult === "best"
+                  {this.state.typeOfResult === "best"
                     ? this.state.bestDemandP
-                    : this.state.showResult === "blue"
+                    : this.state.typeOfResult === "blue"
                     ? this.state.bestDemandBlueP
                     : this.state.bestDemandGreenP}
                   kW

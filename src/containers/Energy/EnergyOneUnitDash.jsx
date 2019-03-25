@@ -69,7 +69,7 @@ class EnergyOneUnitDash extends Component {
                     Período: <strong>{dateString}</strong>
                   </div>
                   <div className="dash-title-info">
-                    Ligação: <strong>{result.unit.modtar.S}</strong>
+                    Modalidade: <strong>{result.unit.modtar.S}</strong>
                   </div>
                 </div>
               </Col>

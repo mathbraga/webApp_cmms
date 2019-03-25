@@ -61,17 +61,27 @@ class ReportEnergyOneUnit extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      typeOfComparison: "mean",
       dropdownOpen: false
     };
   }
+
   formatNumber(number) {
     return number.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
   }
+
   toggle = () => {
     const newState = !this.state.dropdownOpen;
     this.setState({
       dropdownOpen: newState
     });
+  };
+
+  handleChangeComparison = type => {
+    const func = () => {
+      this.setState({ typeOfComparison: type });
+    };
+    return func;
   };
 
   render() {
@@ -95,12 +105,28 @@ class ReportEnergyOneUnit extends Component {
                   }}
                 >
                   <DropdownToggle caret size="sm">
-                    Últimos 12 meses (média)
+                    {this.state.typeOfComparison === "median"
+                      ? "Últimos 12 meses (média)"
+                      : this.state.typeOfComparison === "lastMonth"
+                      ? "Último mês"
+                      : "Mesmo período (12 meses atrás)"}
                   </DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem>Últimos 12 meses (média)</DropdownItem>
-                    <DropdownItem>Último mês</DropdownItem>
-                    <DropdownItem>Mesmo período (12 meses atrás)</DropdownItem>
+                    <DropdownItem
+                      onClick={this.handleChangeComparison("median")}
+                    >
+                      Últimos 12 meses (média)
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={this.handleChangeComparison("lastMonth")}
+                    >
+                      Último mês
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={this.handleChangeComparison("yearAgo")}
+                    >
+                      Mesmo período (12 meses atrás)
+                    </DropdownItem>
                   </DropdownMenu>
                 </ButtonDropdown>
               </Row>
