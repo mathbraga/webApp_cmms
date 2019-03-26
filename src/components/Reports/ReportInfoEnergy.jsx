@@ -24,9 +24,7 @@ class ReportInfoEnergy extends Component {
           <Row>
             <Col md="12">
               <div className="calc-title">Informações do Medidor</div>
-              <div className="calc-subtitle">
-                Mês de Referência: <strong>{this.props.date}</strong>
-              </div>
+              <div className="calc-subtitle">Dados Atuais</div>
             </Col>
           </Row>
         </CardHeader>

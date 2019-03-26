@@ -18,6 +18,7 @@ import DoubleBarChart from "../Charts/DoubleBarChart";
 import { queryLastDemands } from "../../utils/queryLastDemands";
 import { queryLastDemandsBlue } from "../../utils/queryLastDemandsBlue";
 import { bestDemand } from "../../utils/bestDemand";
+import { transformDateString } from "../../utils/transformDateString";
 
 class ReportCalculationsEnergy extends Component {
   constructor(props) {
@@ -30,18 +31,21 @@ class ReportCalculationsEnergy extends Component {
       bestDemandBlueP: "-",
       bestDemandBlueFP: "-",
       bestDemandGreenP: "-",
-      bestDemandGreenFP: "-"
+      bestDemandGreenFP: "-",
+      baseDate: 1201
     };
   }
 
   componentDidMount() {
+    let date = 1201;
     queryLastDemands(this.props.dbObject, this.props.consumer).then(
       lastDemands => {
         queryLastDemandsBlue(this.props.dbObject, this.props.consumer).then(
           lastBlueDemands => {
             const lastItems = [];
             const lastBlues = [];
-            lastDemands.Items.forEach(item =>
+            lastDemands.Items.forEach(item => {
+              date = item.aamm >= date ? item.aamm : date;
               lastItems.push({
                 demandP: item.dmp,
                 demandFP: item.dmf,
@@ -49,8 +53,8 @@ class ReportCalculationsEnergy extends Component {
                 usageFP: item.kwhf,
                 type: item.tipo,
                 rates: {}
-              })
-            );
+              });
+            });
             lastBlueDemands.Items.slice(0, 13).forEach(item =>
               lastBlues.push({
                 demandP: item.dmp,
@@ -68,7 +72,8 @@ class ReportCalculationsEnergy extends Component {
               bestDemandBlueP: results[0].dp || "-",
               bestDemandBlueFP: results[0].df || "-",
               bestDemandGreenP: results[1].dp || "-",
-              bestDemandGreenFP: results[1].df || "-"
+              bestDemandGreenFP: results[1].df || "-",
+              baseDate: date
             });
           }
         );
@@ -98,12 +103,13 @@ class ReportCalculationsEnergy extends Component {
             <Col md="5">
               <div className="calc-title">Demanda Ideal</div>
               <div className="calc-subtitle">
-                Mês do Cálculo: <strong>{this.props.dateString}</strong>
+                Mês de Referência:{" "}
+                <strong>{transformDateString(this.state.baseDate)}</strong>
               </div>
             </Col>
             <Col md="7">
               <Row className="center-button-container">
-                <p className="button-calc">Modalidade:</p>
+                <p className="button-calc">Cálculo para:</p>
                 <ButtonDropdown
                   isOpen={this.state.dropdownOpen}
                   toggle={() => {

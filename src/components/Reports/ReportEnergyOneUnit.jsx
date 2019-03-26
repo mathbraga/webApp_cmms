@@ -35,7 +35,7 @@ const rowNames = [
   },
   {
     name: "Consumo Registrado",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "kWh",
     attr: "kwhp",
     var: true,
@@ -43,7 +43,7 @@ const rowNames = [
   },
   {
     name: "Tarifa",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$/kWh",
     attr: "",
     var: true,
@@ -51,7 +51,7 @@ const rowNames = [
   },
   {
     name: "Valor",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "",
     var: true,
@@ -67,7 +67,7 @@ const rowNames = [
   },
   {
     name: "Consumo Registrado",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "kWh",
     attr: "kwhf",
     var: true,
@@ -75,7 +75,7 @@ const rowNames = [
   },
   {
     name: "Tarifa",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$/kWh",
     attr: "",
     var: true,
@@ -83,7 +83,7 @@ const rowNames = [
   },
   {
     name: "Valor",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "",
     var: true,
@@ -91,7 +91,7 @@ const rowNames = [
   },
   {
     name: "Consumo Total",
-    type: "sub-1",
+    type: "hover-line sub-1",
     unit: "kWh",
     attr: "kwh",
     var: true,
@@ -99,7 +99,7 @@ const rowNames = [
   },
   {
     name: "Valor Total",
-    type: "sub-1",
+    type: "hover-line sub-1",
     unit: "R$",
     attr: "",
     var: false,
@@ -123,7 +123,7 @@ const rowNames = [
   },
   {
     name: "Medido",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "kW",
     attr: "dmp",
     var: true,
@@ -131,7 +131,7 @@ const rowNames = [
   },
   {
     name: "Contratado",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "kW",
     attr: "dcp",
     var: false,
@@ -139,7 +139,7 @@ const rowNames = [
   },
   {
     name: "Faturado",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "kW",
     attr: "dfp",
     var: true,
@@ -147,7 +147,7 @@ const rowNames = [
   },
   {
     name: "Tarifa",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$/kW",
     attr: "",
     var: true,
@@ -155,13 +155,19 @@ const rowNames = [
   },
   {
     name: "Valor Faturado",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "vdfp",
     var: true,
     mean: true
   },
-  { name: "Ultrapassagem", type: "sub-2", unit: "R$", attr: "vudp", var: true },
+  {
+    name: "Ultrapassagem",
+    type: "hover-line sub-2",
+    unit: "R$",
+    attr: "vudp",
+    var: true
+  },
   {
     name: "Horário Fora de Ponta",
     type: "sub-1",
@@ -172,7 +178,7 @@ const rowNames = [
   },
   {
     name: "Medido",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "kW",
     attr: "dmf",
     var: true,
@@ -180,7 +186,7 @@ const rowNames = [
   },
   {
     name: "Contratado",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "kW",
     attr: "dcf",
     var: false,
@@ -188,7 +194,7 @@ const rowNames = [
   },
   {
     name: "Faturado",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "kW",
     attr: "dff",
     var: true,
@@ -196,7 +202,7 @@ const rowNames = [
   },
   {
     name: "Tarifa",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$/kW",
     attr: "",
     var: true,
@@ -204,7 +210,7 @@ const rowNames = [
   },
   {
     name: "Valor Faturado",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "vdff",
     var: true,
@@ -212,7 +218,7 @@ const rowNames = [
   },
   {
     name: "Ultrapassagem",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "vudf",
     var: true,
@@ -228,7 +234,7 @@ const rowNames = [
   },
   {
     name: "EREX P",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "erexp",
     var: true,
@@ -236,7 +242,7 @@ const rowNames = [
   },
   {
     name: "EREX FP",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "erexf",
     var: true,
@@ -244,7 +250,7 @@ const rowNames = [
   },
   {
     name: "Valor Total",
-    type: "sub-1",
+    type: "hover-line sub-1",
     unit: "R$",
     attr: "",
     var: false,
@@ -260,15 +266,15 @@ const rowNames = [
   },
   {
     name: "Base de Cáculo",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "basec",
     var: true,
     mean: true
   },
   {
-    name: "Valor",
-    type: "sub-2",
+    name: "Valor Total",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "trib",
     var: true,
@@ -284,7 +290,7 @@ const rowNames = [
   },
   {
     name: "Energia",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "",
     var: true,
@@ -292,7 +298,7 @@ const rowNames = [
   },
   {
     name: "CIP",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "cip",
     var: true,
@@ -300,7 +306,7 @@ const rowNames = [
   },
   {
     name: "Descontos/Compensação",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "desc",
     var: true,
@@ -308,7 +314,7 @@ const rowNames = [
   },
   {
     name: "Juros/Multas",
-    type: "sub-2",
+    type: "hover-line sub-2",
     unit: "R$",
     attr: "jma",
     var: true,
@@ -316,7 +322,7 @@ const rowNames = [
   },
   {
     name: "Total Bruto",
-    type: "main",
+    type: "hover-line main",
     unit: "R$",
     attr: "vbru",
     var: true,
@@ -324,7 +330,7 @@ const rowNames = [
   },
   {
     name: "Total Líquido",
-    type: "main",
+    type: "hover-line main",
     unit: "R$",
     attr: "vliq",
     var: true,
