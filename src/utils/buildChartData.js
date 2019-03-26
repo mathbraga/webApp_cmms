@@ -65,48 +65,11 @@ export default function buildChartData(queryResponse, month1, month2){
   
   // Build object with params for chart.js
   var chartConfig = {
-    type: 'line',
+    type: "",
     data: {
       labels: periodStrings,
-      datasets: [{
-        label: '',
-        backgroundColor: "rgb(0, 14, 38)",
-        borderColor: "rgb(0, 14, 38)",
-        data: answers.vbru
-      }],
-        fill: false,
     },
-    options: {
-      responsive: true,
-      title: {
-        display: true,
-        text: 'TITLE TEXT'
-      },
-      tooltips: {
-        mode: 'index',
-        intersect: false,
-      },
-      hover: {
-        mode: 'nearest',
-        intersect: true
-      },
-      scales: {
-        xAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Mês'
-          }
-        }],
-        yAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Valor'
-          }
-        }]
-      }
-    },
+    options: {},
     answers: answers
   };
 

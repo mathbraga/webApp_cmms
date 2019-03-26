@@ -32,13 +32,30 @@ class Chart extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selected: "vbru",
+      selected: "",
       chartConfig: {}
     };
   }
 
   componentDidMount(){
-    this.setState({chartConfig: this.props.energyState.chartConfig});
+    this.setState({
+      selected: "vbru",
+      chartConfig: {
+        type: "line",
+        data: {
+          labels: this.props.energyState.chartConfig.data.labels,
+          datasets: [{
+            label: '',
+            backgroundColor: "rgb(0, 14, 38)",
+            borderColor: "rgb(0, 14, 38)",
+            data: this.props.energyState.chartConfig.answers.vbru
+          }],
+          fill: false,
+        },
+        options: this.props.energyState.chartConfig.options,
+        answers: this.props.energyState.chartConfig.answers
+      }
+    });
   }
 
   onChangeYAxis = event => {
@@ -53,13 +70,12 @@ class Chart extends Component {
         data: this.state.chartConfig.answers[event.target.value]
       }],
         fill: false,
-
       },
       options: this.state.chartConfig.options,
       answers: this.state.chartConfig.answers
     }
     this.setState({
-      selected: [event.target.value],
+      selected: event.target.value,
       chartConfig: newChartConfig
     });
   }
@@ -78,24 +94,17 @@ class Chart extends Component {
                 <Col sm={2}></Col>
                 <Col sm={2}>
                   <Row>
-                    <Input type="select" name="yAxis" id="yAxis" onChange={this.onChangeYAxis}>
-                      {Object.keys(this.props.energyState.chartConfig.answers).map(key =>(
-                        this.state.selected === key
-                        ? (
-                          <option
-                            selected="selected"
-                            value={key}
-                          >{yAxisDropdown[key]}
-                          </option>
-                        )
-                        : (
-                          <option
+
+                    <Input type="select" defaultValue="vbru" name="yAxis" id="yAxis" onChange={this.onChangeYAxis}>
+                      {Object.keys(yAxisDropdown).map(key =>(
+                        <option
                           value={key}
-                          >{yAxisDropdown[key]}
-                          </option>
-                        )
+                          key={key}
+                        >{yAxisDropdown[key]}
+                        </option>
                       ))}
                     </Input>
+
                   </Row>
                 </Col>
                 <Col sm={2}></Col>
