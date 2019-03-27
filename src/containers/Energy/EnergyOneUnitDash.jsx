@@ -6,6 +6,7 @@ import WidgetEnergyProblem from "../../components/Widgets/WidgetEnergyProblem";
 import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
 import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
+import ReportEnergyPeriod from "../../components/Reports/ReportEnergyPeriod";
 import { queryEnergyTable } from "../../utils/queryEnergyTable";
 import Chart from "../../components/Charts/Chart";
 
@@ -86,7 +87,7 @@ class EnergyOneUnitDash extends Component {
             </Row>
             <Row>
               <Col md="12">
-                <Chart chartConfigs={this.props.chartConfigs}/>
+                {/* <Chart chartConfigs={this.props.chartConfigs}/> */}
               </Col>
               {/* <Col md="6"> */}
                 {/* <ReportCalculationsEnergy
@@ -99,10 +100,9 @@ class EnergyOneUnitDash extends Component {
             </Row>
             <Row>
               <Col>
-                {/* <ReportEnergyOneUnit
-                  data={this.props.result1.Items[0]}
-                  dateString={this.dateString}
-                /> */}
+                <ReportEnergyPeriod
+                  chartConfigs={this.props.chartConfigs}
+                />
               </Col>
             </Row>
           </CardBody>
