@@ -32,59 +32,18 @@ class Chart extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selected: "",
-      chartConfig: {}
-    };
-  }
-
-  componentDidMount(){
-    this.setState({
       selected: "vbru",
-      chartConfig: {
-        type: "line",
-        data: {
-          labels: this.props.energyState.chartConfig.data.labels,
-          datasets: [{
-            label: '',
-            backgroundColor: "rgb(0, 14, 38)",
-            borderColor: "rgb(0, 14, 38)",
-            data: this.props.energyState.chartConfig.answers.vbru
-          }],
-          fill: false,
-        },
-        options: this.props.energyState.chartConfig.options,
-        answers: this.props.energyState.chartConfig.answers
-      }
-    });
-  }
+    };
 
-  onChangeYAxis = event => {
-    let newChartConfig = {
-      type: this.state.chartConfig.type,
-      data: {
-        labels: this.state.chartConfig.data.labels,
-        datasets: [{
-        label: '',
-        backgroundColor: "rgb(0, 14, 38)",
-        borderColor: "rgb(0, 14, 38)",
-        data: this.state.chartConfig.answers[event.target.value]
-      }],
-        fill: false,
-      },
-      options: this.state.chartConfig.options,
-      answers: this.state.chartConfig.answers
+    this.onChangeYAxis = event => {
+      this.setState({selected: event.target.value});
     }
-    this.setState({
-      selected: event.target.value,
-      chartConfig: newChartConfig
-    });
   }
 
   render() {
     
     return (
       <div className="animated fadeIn">
-        {/* <CardColumns className="cols-2"> */}
           <Card>
             <CardHeader>
               Gráfico de resultados
@@ -113,79 +72,13 @@ class Chart extends Component {
               <Row>
                 <Col md={6}>
                   <Row className="chart-wrapper">
-                    <Line data={this.state.chartConfig.data} options={this.state.chartConfig.options}/>
+                    <Line data={this.props.chartConfigs[this.state.selected].data} options={this.props.chartConfigs[this.state.selected].options}/>
                   </Row>
                 </Col>
               </Row>
 
-
-
-
-
-                    {/* {Object.keys(this.props.energyState.chartConfig.answers).map(key => (
-                      this.state.selected === key
-                        ? (<FormGroup check option>
-                            <Input inline
-                              className="form-check-input"
-                              type="radio"
-                              key={key}
-                              id={key}
-                              name="yAxis"
-                              value={key}
-                              onChange={this.onChangeYAxis}
-                              checked
-                            >
-                            </Input>
-                            <Label check className="form-check-label">
-                              {key}
-                            </Label>
-                          </FormGroup>)
-                          : (<FormGroup check inline>
-                            <Input inline
-                              className="form-check-input"
-                              type="radio"
-                              key={key}
-                              id={key}
-                              name="yAxis"
-                              value={key}
-                              onChange={this.onChangeYAxis}
-                            >
-                            </Input>
-                            <Label check className="form-check-label">
-                              {key}
-                            </Label>
-                          </FormGroup>)
-                        ))}
-                    
-                    
-                    
-                    
-                    
-                    
-                    <Input
-                      type="select"
-                      name="selected"
-                      id="selected"
-                      onChange={this.onChangeYAxis}>
-                    </Input>
-                  </Row>
-                  
-                </Col>
-
-
-
-
-                  <FormGroup row className="radio">
-                    <Label>OPÇÕES</Label>
-                      <div>
-                        
-                      </div>
-                  </FormGroup>
-                </Col>
-              </Row> */}
             </CardBody>
           </Card>
-        {/* </CardColumns> */}
       </div>
     );
   }

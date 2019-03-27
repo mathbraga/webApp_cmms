@@ -67,13 +67,12 @@ export function queryEnergyTable() {
       );
     });
   });
-  console.log(queryResponse);
   Promise.all(arrayPromises).then(() => {
     if(!this.state.oneMonth){
-      var chartConfig = buildChartData(queryResponse, month1, month2);
+      var chartConfigs = buildChartData(queryResponse, month1, month2);
       this.setState({
         queryResponse: queryResponse,
-        chartConfig: chartConfig,
+        chartConfigs: chartConfigs,
         showResult: true,
         error: false
       });

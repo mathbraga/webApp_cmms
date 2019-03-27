@@ -43,7 +43,7 @@ class EnergyOneUnitDash extends Component {
             <Row>
               <Col md="6">
                 <div className="widget-title dash-title">
-                  <h4>{(this.props.energyState.queryResponse[0].Items[0].aamm).toString()}</h4>
+                  {/* <h4>{(this.props.energyState.queryResponse[0].Items[0].aamm).toString()}</h4> */}
                   <div className="dash-subtitle">
                     {/* Medidor: <strong>{this.props.result2.Items[0].nome.S}</strong> */}
                   </div>
@@ -86,7 +86,7 @@ class EnergyOneUnitDash extends Component {
             </Row>
             <Row>
               <Col md="12">
-                <Chart energyState={this.props.energyState}/>
+                <Chart chartConfigs={this.props.chartConfigs}/>
               </Col>
               {/* <Col md="6"> */}
                 {/* <ReportCalculationsEnergy

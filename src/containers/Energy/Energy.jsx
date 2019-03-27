@@ -24,7 +24,7 @@ class Energy extends Component {
       oneMonth: false,
       error: false,
       queryResponse: false,
-      chartConfig: {},
+      chartConfigs: {},
       showResult: false
     };
   }
@@ -67,7 +67,7 @@ class Energy extends Component {
           {this.state.showResult ? (
             <EnergyOneUnitDash
               handleClick={this.showFormDates}
-              energyState={this.state}
+              chartConfigs={this.state.chartConfigs}
             />
           ) : (
             <FormDates

@@ -64,15 +64,54 @@ export default function buildChartData(queryResponse, month1, month2){
   console.log(answers);
   
   // Build object with params for chart.js
-  var chartConfig = {
-    type: "",
-    data: {
-      labels: periodStrings,
-    },
-    options: {},
-    answers: answers
-  };
+  var chartConfigs = {};
+  Object.keys(answers).map(key => {
+    chartConfigs[key] = {
+      type: 'line',
+			data: {
+				labels: periodStrings,
+				datasets: [{
+					label: 'My First dataset',
+					backgroundColor: "rgb(0, 14, 38)",
+					borderColor: "rgb(0, 14, 38)",
+					data: answers[key],
+					fill: false,
+				}],
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Chart.js Line Chart'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Month'
+						}
+					}],
+					yAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Value'
+						}
+					}]
+				}
+			}
+    }
+  })
 
-  return chartConfig;
+  return chartConfigs;
 
 }  
