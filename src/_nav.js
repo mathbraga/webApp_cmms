@@ -6,7 +6,7 @@ export default {
       icon: "cui-monitor"
     },
     {
-      name: "Consumo",
+      name: "Monitor de consumo",
       url: "/consumo",
       icon: "icon-speedometer",
       children: [

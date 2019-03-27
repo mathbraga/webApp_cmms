@@ -75,7 +75,7 @@ class EnergyOneUnitDash extends Component {
                 <WidgetEnergyDemand data={result.queryResponse} />
               </Col>
               <Col md="3">
-                <WidgetEnergyProblem data={result.queryResponse} />
+                <WidgetEnergyProblem data={result} />
               </Col>
             </Row>
             <Row>
