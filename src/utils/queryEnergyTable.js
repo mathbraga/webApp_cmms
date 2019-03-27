@@ -69,6 +69,7 @@ export function queryEnergyTable() {
   });
   Promise.all(arrayPromises).then(() => {
     if(!this.state.oneMonth){
+      console.log(queryResponse);
       var chartConfigs = buildChartData(queryResponse, month1, month2);
       this.setState({
         queryResponse: queryResponse,

@@ -7,23 +7,24 @@ export default function buildChartData(queryResponse, month1, month2){
   var m2 = parseInt(month2, 10);
   var periodStrings = [];
   var periodInts = [];
-  let m = m1;
+  var m = m1;
   while(m <= m2){
-    if(m2 - m <= 11){
-      periodInts.push(m);
-      periodStrings.push(m.toString());
-      m = m + 1;
-    } else {
-      periodInts.push(m);
-      periodStrings.push(m.toString());
-      m = m + 89;
+    periodInts.push(m);
+    periodStrings.push(m.toString());
+    m = m + 1;
+    if(parseInt(m.toString().slice(2), 10) === 13){
+      m = m + 88;
     }
   }
 
+  console.log('periods');
+  console.log(periodInts);
+  console.log(periodStrings);
+    
   // Número de meses deve vir dos parâmetros da pesquisa, não da queryResponse
-  var numMonths = periodInts.length; // Corrigir. Usar lógica com initialDate e finalDate
+  var numMonths = periodInts.length;
    
-  // Inicializa a variável
+  // Inicializa a resposta
   var answers = {basec: [], cip: [], desc: [], dff: [], dfp: [], dmf: [], dmp: [], erexf: [], erexp: [], icms: [], jma: [], kwh: [], kwhf: [], kwhp: [], trib: [], vbru: [], vdff: [], vdfp: [], verexf: [], verexp: [], vliq: [], vudf: [], vudp: []};
 
   // Inicia loop
@@ -63,6 +64,85 @@ export default function buildChartData(queryResponse, month1, month2){
   console.log('answers:');
   console.log(answers);
   
+  // Build object with strings to be used by chartConfigs
+  var helper = {
+     datasetLabel: {
+      vbru: "Valor bruto",
+      vliq: "Valor líquido",
+      basec: "Base de cálculo",
+      jma: "Juros, multas e atualizações monetárias",
+      desc: "Compensações e/ou descontos",
+      trib: "Tributos federais",
+      icms: "ICMS",
+      cip: "Contribuição de iluminação pública - CIP",
+      kwh: "Consumo total",
+      kwhf: "Consumo - Fora de ponta",
+      kwhp: "Consumo - Ponta",
+      erexf: "EREX - Fora de ponta",
+      erexp: "EREX - Ponta",
+      verexf: "Valor EREX - Fora de ponta",
+      verexp: "Valor EREX - Ponta",
+      dmf: "Demanda medida - Fora de ponta",
+      dmp: "Demanda medida - Ponta",
+      dff: "Demanda faturada - Fora de ponta",
+      dfp: "Demanda faturada - Ponta",
+      vdff: "Valor da demanda faturada - Fora de ponta",
+      vdfp: "Valor da demanda faturada - Ponta",
+      vudf: "Valor da ultrapassagem de demanda - Fora de ponta",
+      vudp: "Valor da ultrapassagem de demanda - Ponta"
+    },
+    title: {
+      vbru: "Valor bruto",
+      vliq: "Valor líquido",
+      basec: "Base de cálculo",
+      jma: "Juros, multas e atualizações monetárias",
+      desc: "Compensações e/ou descontos",
+      trib: "Tributos federais",
+      icms: "ICMS",
+      cip: "Contribuição de iluminação pública - CIP",
+      kwh: "Consumo total",
+      kwhf: "Consumo - Fora de ponta",
+      kwhp: "Consumo - Ponta",
+      erexf: "EREX - Fora de ponta",
+      erexp: "EREX - Ponta",
+      verexf: "Valor EREX - Fora de ponta",
+      verexp: "Valor EREX - Ponta",
+      dmf: "Demanda medida - Fora de ponta",
+      dmp: "Demanda medida - Ponta",
+      dff: "Demanda faturada - Fora de ponta",
+      dfp: "Demanda faturada - Ponta",
+      vdff: "Valor da demanda faturada - Fora de ponta",
+      vdfp: "Valor da demanda faturada - Ponta",
+      vudf: "Valor da ultrapassagem de demanda - Fora de ponta",
+      vudp: "Valor da ultrapassagem de demanda - Ponta"
+    },
+    yLabel: {
+      vbru: "R$",
+      vliq: "R$",
+      basec: "R$",
+      jma: "R$",
+      desc: "R$",
+      trib: "R$",
+      icms: "R$",
+      cip: "R$",
+      kwh: "kWh",
+      kwhf: "kWh",
+      kwhp: "kWh",
+      erexf: "EREX - Fora de ponta",
+      erexp: "EREX - Ponta",
+      verexf: "R$",
+      verexp: "R$",
+      dmf: "kW",
+      dmp: "kW",
+      dff: "kW",
+      dfp: "kW",
+      vdff: "R$",
+      vdfp: "R$",
+      vudf: "R$",
+      vudp: "R$"
+    }
+  };
+
   // Build object with params for chart.js
   var chartConfigs = {};
   Object.keys(answers).map(key => {
@@ -71,7 +151,7 @@ export default function buildChartData(queryResponse, month1, month2){
 			data: {
 				labels: periodStrings,
 				datasets: [{
-					label: 'My First dataset',
+					label: helper.datasetLabel[key],
 					backgroundColor: "rgb(0, 14, 38)",
 					borderColor: "rgb(0, 14, 38)",
 					data: answers[key],
@@ -82,7 +162,7 @@ export default function buildChartData(queryResponse, month1, month2){
 				responsive: true,
 				title: {
 					display: true,
-					text: 'Chart.js Line Chart'
+					text: helper.title[key]
 				},
 				tooltips: {
 					mode: 'index',
@@ -97,14 +177,14 @@ export default function buildChartData(queryResponse, month1, month2){
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'Month'
+							labelString: 'Mês'
 						}
 					}],
 					yAxes: [{
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'Value'
+							labelString: helper.yLabel[key]
 						}
 					}]
 				}
