@@ -25,11 +25,10 @@ class EnergyOneUnitDash extends Component {
 
     const dateString = transformDateString(result.queryResponse.aamm);
 
-    // if (this.props.result1.Items[0].tipo === 1) {
-    //   this.props.result1.Items[0].dcf = this.props.result1.Items[0].dc;
-    //   this.props.result1.Items[0].dcp = 0;
-    // }
-    // console.log(this.props.result2.Items[0]);
+    if (result.queryResponse.tipo === 1) {
+      result.queryResponse.dcf = result.queryResponse.dc;
+      result.queryResponse.dcp = 0;
+    }
 
     return (
       <div>

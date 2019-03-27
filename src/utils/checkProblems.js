@@ -2,7 +2,7 @@ export function checkProblems(unitBill) {
   // Input: object (unitBill). Obj: {aamm, basec, cip, datav, dc, dcf, dcp, desc, dff, dfp ,dmf, dmp,
   //                                      erexf, erexp, icms, jma, kwh, kwhf, kwhp, med, tipo, trib, vbru, vdff, bdfp,
   //                                      verexf, verexp, vliq, vudf, vudp}
-  // Output: object with the problems. Obj: {erex, ultrap, multa, comp, dmedida, dcontratada, dfaturada}
+  // Output: object with the problems. Obj: {erex, ultrap, multa, compensacao, dmedida, dcontratada, dfaturada}
   //          erex: {prob, valuep, valuefp}, .....
   // Purpose: Check the following problems. Case of problems:
   //              - The values for "erex, ultrapassagem, multa, compensação" are not 0;
@@ -11,101 +11,110 @@ export function checkProblems(unitBill) {
   //              - Check "demanda faturada".
 
   const result = {
-    erex: { problem: false, valueP: 0, valueFP: 0 },
-    ultrap: { problem: false, valueP: 0, valueFP: 0 },
-    multa: { problem: false, value: 0 },
-    comp: { problem: false, value: 0 },
-    dmedida: { problem: false, tipo: 0, demP: 0, demFP: 0 },
-    dcontratada: { problem: false, tipo: 0, demP: 0, demFP: 0 },
-    dfaturada: {
-      problem: false,
-      tipo: 0,
-      demP: 0,
-      demFP: 0,
-      realP: 0,
-      realFP: 0
-    }
+    erex: { problem: false, value: unitBill.verexp + unitBill.verexf },
+    ultrap: { problem: false, value: unitBill.vudp + unitBill.vudf },
+    multa: { problem: false, value: unitBill.jma },
+    compensacao: { problem: false, value: unitBill.desc },
+    dtipo: { problem: false, value: unitBill.tipo },
+
+    dmedidaP: { problem: false, value: unitBill.dmp },
+    dmedidaFP: { problem: false, value: unitBill.dmf },
+
+    dcontratadaP: { problem: false, value: unitBill.dcp },
+    dcontratadaFP: { problem: false, value: unitBill.dcf },
+
+    dfaturadaP: { problem: false, value: unitBill.dfp, expected: 0 },
+    dfaturadaFP: { problem: false, value: unitBill.dff, expected: 0 }
   };
 
   // Check "EREX"
-  if (unitBill.verexf !== 0) {
+  if (unitBill.verexf !== 0 || unitBill.verexp !== 0) {
     result.erex.problem = true;
-    result.erex.valueFP = unitBill.verexf;
-  }
-  if (unitBill.verexp !== 0) {
-    result.erex.problem = true;
-    result.erex.valueP = unitBill.verexp;
   }
 
   // Check "ultrapassagem"
-  if (unitBill.vudf !== 0) {
+  if (unitBill.vudf !== 0 || unitBill.vudp !== 0) {
     result.ultrap.problem = true;
-    result.ultrap.valueFP = unitBill.vudf;
-  }
-  if (unitBill.vudp !== 0) {
-    result.ultrap.problem = true;
-    result.ultrap.valueP = unitBill.vudp;
   }
 
   // Check "multa"
   if (unitBill.jma !== 0) {
     result.multa.problem = true;
-    result.multa.value = unitBill.jma;
   }
 
-  // Check "multa"
+  // Check "compensação"
   if (unitBill.desc !== 0) {
-    result.comp.problem = true;
-    result.comp.value = unitBill.desc;
+    result.compensacao.problem = true;
   }
 
-  // Check "Demanda contrada e medida"
+  // Check "Demanda contrada, medida e faturada"
   switch (unitBill.tipo) {
     // Case type is "Verde"
     case 1:
       // "Contrada"
       if (unitBill.dc === 0) {
-        result.dcontratada.problem = true;
-        result.dcontratada.tipo = unitBill.tipo;
-        result.dcontratada.demFP = unitBill.dc;
+        result.dcontratadaFP.problem = true;
       }
       // "Medida"
       if (unitBill.dmf === 0) {
-        result.dmedida.problem = true;
-        result.dmedida.tipo = unitBill.tipo;
-        result.dmedida.demFP = unitBill.dc;
+        result.dmedidaFP.problem = true;
+      }
+      // Check "demanda faturada"
+      if (unitBill.dmf < unitBill.dc) {
+        if (unitBill.dff !== unitBill.dc) {
+          result.dfaturadaFP.problem = true;
+        }
+      } else {
+        if (unitBill.dff !== unitBill.dmf) {
+          result.dfaturadaFP.problem = true;
+          result.dfaturadaFP.expected = unitBill.dmf;
+        }
       }
       break;
+
     // Case type is "Azul"
     case 2:
       // Contratada
       if (unitBill.dcp === 0) {
-        result.dcontratada.problem = true;
-        result.dcontratada.tipo = unitBill.tipo;
-        result.dcontratada.demP = unitBill.dcp;
+        result.dcontratadaP.problem = true;
       }
       if (unitBill.dcf === 0) {
-        result.dcontratada.problem = true;
-        result.dcontratada.tipo = unitBill.tipo;
-        result.dcontratada.demFP = unitBill.dcf;
+        result.dcontratadaFP.problem = true;
       }
       // Medida
       if (unitBill.dmp === 0) {
-        result.dmedida.problem = true;
-        result.dmedida.tipo = unitBill.tipo;
-        result.dmedida.demP = unitBill.dmp;
+        result.dmedidaP.problem = true;
       }
       if (unitBill.dmf === 0) {
-        result.dmedida.problem = true;
-        result.dmedida.tipo = unitBill.tipo;
-        result.dmedida.demFP = unitBill.dmf;
+        result.dmedidaFP.problem = true;
+      }
+      // Check "demanda faturada"
+      if (unitBill.dmp < unitBill.dcp) {
+        if (unitBill.dfp !== unitBill.dcp) {
+          result.dfaturadaP.problem = true;
+          result.dfaturadaP.expected = unitBill.dcp;
+        }
+      } else {
+        if (unitBill.dfp !== unitBill.dmp) {
+          result.dfaturadaP.problem = true;
+          result.dfaturadaP.expected = unitBill.dmp;
+        }
+      }
+      if (unitBill.dmf < unitBill.dcf) {
+        if (unitBill.dff !== unitBill.dcf) {
+          result.dfaturadaFP.problem = true;
+          result.dfaturadaFP.expected = unitBill.dcf;
+        }
+      } else {
+        if (unitBill.dff !== unitBill.dmf) {
+          result.dfaturadaFP.problem = true;
+          result.dfaturadaFP.expected = unitBill.dmf;
+        }
       }
       break;
     default:
       break;
   }
-
-  // Check "demanda faturada"
 
   return result;
 }
