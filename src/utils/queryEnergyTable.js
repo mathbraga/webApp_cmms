@@ -10,6 +10,17 @@ export function queryEnergyTable() {
     month2 = this.state.finalDate.slice(5) + this.state.finalDate.slice(0, 2);
   }
 
+  // Check passed arguments
+  if(
+    this.state.initialDate.length < 7 ||
+    this.state.finalDate.length < 7 ||
+    month2 < month1 ||
+    month1 < "1701"
+  ){
+    alert('Por favor, corrija os parâmetros da pesquisa');
+    return;
+  }
+
   // Check if consumer is 'all'
   var allMeters = [];
   if (this.state.chosenMeter === "199") {

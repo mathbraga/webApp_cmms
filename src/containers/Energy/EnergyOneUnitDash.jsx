@@ -7,7 +7,6 @@ import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
 import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
 import ReportEnergyPeriod from "../../components/Reports/ReportEnergyPeriod";
-import { queryEnergyTable } from "../../utils/queryEnergyTable";
 import Chart from "../../components/Charts/Chart";
 
 const monthList = {
@@ -31,12 +30,6 @@ class EnergyOneUnitDash extends Component {
   }
 
   render() {
-    // if (this.props.result1.Items[0].tipo === 1) {
-    //   this.props.result1.Items[0].dcf = this.props.result1.Items[0].dc;
-    //   this.props.result1.Items[0].dcp = 0;
-    // }
-    // console.log(this.props.result2.Items[0]);
-
     return(
       <div>
         <Card>
@@ -74,37 +67,20 @@ class EnergyOneUnitDash extends Component {
             </Row>
           </CardHeader>
           <CardBody>
-            <Row>
-              <Col md="3">
-                {/* <WidgetEnergyUsage data={this.props.result1.Items[0]} /> */}
-              </Col>
-              <Col md="6">
-                {/* <WidgetEnergyDemand data={this.props.result1.Items[0]} /> */}
-              </Col>
-              <Col md="3">
-                {/* <WidgetEnergyProblem data={this.props.result1.Items[0]} /> */}
-              </Col>
-            </Row>
-            <Row>
+            
+            <Row >
+              {/* <Col md="8">
+                <Chart chartConfigs={this.props.chartConfigs}/>
+              </Col> */}
+         
               <Col md="12">
-                {/* <Chart chartConfigs={this.props.chartConfigs}/> */}
-              </Col>
-              {/* <Col md="6"> */}
-                {/* <ReportCalculationsEnergy
-                  dbObject={this.props.dbObject}
-                  consumer={this.props.consumer}
-                  date={this.dateString}
-                  data={this.props.result2.Items[0]}
-                /> */}
-              {/* </Col> */}
-            </Row>
-            <Row>
-              <Col>
                 <ReportEnergyPeriod
                   chartConfigs={this.props.chartConfigs}
                 />
               </Col>
+
             </Row>
+
           </CardBody>
         </Card>
       </div>

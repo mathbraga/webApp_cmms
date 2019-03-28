@@ -17,9 +17,34 @@ export default function buildChartData(queryResponse, month1, month2){
     }
   }
 
-  console.log('periods');
-  console.log(periodInts);
-  console.log(periodStrings);
+  
+  var newPeriodStrings = periodStrings.map(month => {
+    if(month.slice(2) === "01"){
+      return "jan/" + month.slice(0, 2);
+    } else if(month.slice(2) === "02") {
+      return "fev/" + month.slice(0, 2);
+    } else if(month.slice(2) === "03") {
+      return "mar/" + month.slice(0, 2);
+    } else if(month.slice(2) === "04") {
+      return "abr/" + month.slice(0, 2);
+    } else if(month.slice(2) === "05") {
+      return "mai/" + month.slice(0, 2);
+    } else if(month.slice(2) === "06") {
+      return "jun/" + month.slice(0, 2);
+    } else if(month.slice(2) === "07") {
+      return "jul/" + month.slice(0, 2);
+    } else if(month.slice(2) === "08") {
+      return "ago/" + month.slice(0, 2);
+    } else if(month.slice(2) === "09") {
+      return "set/" + month.slice(0, 2);
+    } else if(month.slice(2) === "10") {
+      return "out/" + month.slice(0, 2);
+    } else if(month.slice(2) === "11") {
+      return "nov/" + month.slice(0, 2);
+    } else if(month.slice(2) === "12") {
+      return "dez/" + month.slice(0, 2);
+    }
+  });
     
   // Número de meses deve vir dos parâmetros da pesquisa, não da queryResponse
   var numMonths = periodInts.length;
@@ -151,16 +176,17 @@ export default function buildChartData(queryResponse, month1, month2){
     chartConfigs[key] = {
       type: 'line',
 			data: {
-				labels: periodStrings,
+				labels: newPeriodStrings,
 				datasets: [{
 					label: helper.datasetLabel[key],
-					backgroundColor: "rgb(0, 14, 38)",
-					borderColor: "rgb(0, 14, 38)",
+					backgroundColor: "rgb(0, 0, 0)",
+					borderColor: "rgb(0, 0, 0)",
 					data: answers[key],
 					fill: false,
 				}],
 			},
 			options: {
+        legend: false,
 				responsive: true,
 				title: {
 					display: true,
