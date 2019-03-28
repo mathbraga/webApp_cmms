@@ -6,6 +6,7 @@ import { CardColumns, CardGroup, Col, Row } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { handleDates } from "../../utils/handleDates";
 import EnergyOneUnitDash from "./EnergyOneUnitDash";
+import EnergyResults from "./EnergyResults";
 import { dynamoInit } from "../../utils/dynamoinit";
 import { queryEnergyTable } from "../../utils/queryEnergyTable";
 import { energyinfoinit } from "../../utils/energyinfoinit";
@@ -65,9 +66,8 @@ class Energy extends Component {
       <div>
         <div>
           {this.state.showResult ? (
-            <EnergyOneUnitDash
+            <EnergyResults
               handleClick={this.showFormDates}
-              chartConfigs={this.state.chartConfigs}
               energyState={this.state}
             />
           ) : (
