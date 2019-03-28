@@ -1,8 +1,9 @@
-import buildChartData from './buildChartData';
+import buildChartData from "./buildChartData";
 
 export function queryEnergyTable() {
   // Transform form inputs into integers
-  var month1 = this.state.initialDate.slice(5) + this.state.initialDate.slice(0, 2);
+  var month1 =
+    this.state.initialDate.slice(5) + this.state.initialDate.slice(0, 2);
   var month2 = "";
   if (this.state.oneMonth) {
     month2 = month1;
@@ -11,14 +12,14 @@ export function queryEnergyTable() {
   }
 
   // Check passed arguments
-  if(
+  if (
     this.state.initialDate.length < 7 ||
     this.state.finalDate.length < 7 ||
     this.state.initialDate.slice(0, 2) > "12" ||
     month2 < month1 ||
     month1 < "1701"
-  ){
-    alert('Por favor, corrija os parâmetros da pesquisa');
+  ) {
+    alert("Por favor, corrija os parâmetros da pesquisa");
     return;
   }
 
@@ -46,7 +47,7 @@ export function queryEnergyTable() {
             "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
           ExpressionAttributeValues: {
             ":med": {
-              N: state.chosenMeter
+              N: meter
             },
             ":aamm1": {
               N: month1
@@ -66,7 +67,7 @@ export function queryEnergyTable() {
             //   queryResponse[queryResponse.length - 1].push(Object.assign(element));
             // });
             // RESPONSE IN FORMAT {aamm: {N: "1801"}}
-            
+
             data.Items.map(element => {
               Object.keys(element).map(key => {
                 element[key] = Number(element[key].N);
@@ -74,7 +75,6 @@ export function queryEnergyTable() {
             });
 
             queryResponse.push(data);
-           
           }
           resolve();
         }
@@ -82,7 +82,7 @@ export function queryEnergyTable() {
     });
   });
   Promise.all(arrayPromises).then(() => {
-    if(!this.state.oneMonth){
+    if (!this.state.oneMonth) {
       var chartConfigs = buildChartData(queryResponse, month1, month2);
       this.setState({
         queryResponse: queryResponse,
@@ -99,4 +99,3 @@ export function queryEnergyTable() {
     }
   });
 }
-

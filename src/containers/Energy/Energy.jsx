@@ -38,7 +38,6 @@ class Energy extends Component {
   handleChangeOnDates = handleDates.bind(this);
   handleQuery = queryEnergyTable.bind(this);
 
-
   handleOneMonth = event => {
     this.setState({
       oneMonth: event.target.checked
@@ -69,6 +68,7 @@ class Energy extends Component {
             <EnergyOneUnitDash
               handleClick={this.showFormDates}
               chartConfigs={this.state.chartConfigs}
+              energyState={this.state}
             />
           ) : (
             <FormDates

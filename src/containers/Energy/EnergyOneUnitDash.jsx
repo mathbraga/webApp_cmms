@@ -26,10 +26,8 @@ const monthList = {
   "12": "Dez"
 };
 
-
 class EnergyOneUnitDash extends Component {
   render() {
-
     // Variables
     const { meters } = this.props.energyState;
     const result = {
@@ -50,16 +48,12 @@ class EnergyOneUnitDash extends Component {
     }
 
     return (
-
-    return(
-
       <div>
         <Card>
           <CardHeader>
             <Row>
               <Col md="6">
                 <div className="widget-title dash-title">
-
                   <h4>{result.unit.idceb.S}</h4>
 
                   <div className="dash-subtitle">
@@ -90,7 +84,6 @@ class EnergyOneUnitDash extends Component {
             </Row>
           </CardHeader>
           <CardBody>
-
             <Row>
               <Col md="3">
                 <WidgetEnergyUsage data={result.queryResponse} />
@@ -124,12 +117,9 @@ class EnergyOneUnitDash extends Component {
                   dbObject={this.props.energyState.dynamo}
                   consumer={this.props.energyState.chosenMeter}
                   date={result.queryResponse.aamm}
-
                 />
               </Col>
-
             </Row>
-
           </CardBody>
         </Card>
       </div>
