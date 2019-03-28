@@ -15,7 +15,6 @@ export function queryEnergyTable() {
     this.state.initialDate.length < 7 ||
     this.state.finalDate.length < 7 ||
     this.state.initialDate.slice(0, 2) > "12" ||
-    this.state.finalDate.slice(0, 2) ||
     month2 < month1 ||
     month1 < "1701"
   ){

@@ -1,8 +1,11 @@
 export default function buildChartData(queryResponse, month1, month2){
-  // Número de medidores a serem analisados
+  // Number of meters to loop through queryResponse
   var numMeters = queryResponse.length;
 
-  // Montar array com os aamm do período pesquisado
+  // Build arrays with all 'aamm' of period in query
+  // periodStrings: array of 'aamm' strings
+  // periodInts: array of 'aamm' integers
+  // newPeriodStrings: array of strings in 'mmm/aa' format (mmm represent 3 letters designating the month)
   var m1 = parseInt(month1, 10);
   var m2 = parseInt(month2, 10);
   var periodStrings = [];
@@ -17,48 +20,47 @@ export default function buildChartData(queryResponse, month1, month2){
     }
   }
 
-  
   var newPeriodStrings = periodStrings.map(month => {
-    if(month.slice(2) === "01"){
-      return "jan/" + month.slice(0, 2);
-    } else if(month.slice(2) === "02") {
-      return "fev/" + month.slice(0, 2);
-    } else if(month.slice(2) === "03") {
-      return "mar/" + month.slice(0, 2);
-    } else if(month.slice(2) === "04") {
-      return "abr/" + month.slice(0, 2);
-    } else if(month.slice(2) === "05") {
-      return "mai/" + month.slice(0, 2);
-    } else if(month.slice(2) === "06") {
-      return "jun/" + month.slice(0, 2);
-    } else if(month.slice(2) === "07") {
-      return "jul/" + month.slice(0, 2);
-    } else if(month.slice(2) === "08") {
-      return "ago/" + month.slice(0, 2);
-    } else if(month.slice(2) === "09") {
-      return "set/" + month.slice(0, 2);
-    } else if(month.slice(2) === "10") {
-      return "out/" + month.slice(0, 2);
-    } else if(month.slice(2) === "11") {
-      return "nov/" + month.slice(0, 2);
-    } else if(month.slice(2) === "12") {
-      return "dez/" + month.slice(0, 2);
-    }
-  });
+  if(month.slice(2) === "01"){
+    return "jan/" + month.slice(0, 2);
+  } else if(month.slice(2) === "02") {
+    return "fev/" + month.slice(0, 2);
+  } else if(month.slice(2) === "03") {
+    return "mar/" + month.slice(0, 2);
+  } else if(month.slice(2) === "04") {
+    return "abr/" + month.slice(0, 2);
+  } else if(month.slice(2) === "05") {
+    return "mai/" + month.slice(0, 2);
+  } else if(month.slice(2) === "06") {
+    return "jun/" + month.slice(0, 2);
+  } else if(month.slice(2) === "07") {
+    return "jul/" + month.slice(0, 2);
+  } else if(month.slice(2) === "08") {
+    return "ago/" + month.slice(0, 2);
+  } else if(month.slice(2) === "09") {
+    return "set/" + month.slice(0, 2);
+  } else if(month.slice(2) === "10") {
+    return "out/" + month.slice(0, 2);
+  } else if(month.slice(2) === "11") {
+    return "nov/" + month.slice(0, 2);
+  } else if(month.slice(2) === "12") {
+    return "dez/" + month.slice(0, 2);
+  }
+});
     
-  // Número de meses deve vir dos parâmetros da pesquisa, não da queryResponse
+  // Number of months in the query
   var numMonths = periodInts.length;
    
-  // Inicializa a resposta
+  // Initializes answers array, considering all attributes in EnergyTable
   var answers = {basec: [], cip: [], desc: [], dff: [], dfp: [], dmf: [], dmp: [], erexf: [], erexp: [], icms: [], jma: [], kwh: [], kwhf: [], kwhp: [], trib: [], vbru: [], vdff: [], vdfp: [], verexf: [], verexp: [], vliq: [], vudf: [], vudp: []};
 
-  // Inicia loop
+  // Loops through queryResponse to build answers array
   for(let i = 0; i <= numMonths - 1; i++){
     answers.basec.push(0); answers.cip.push(0); answers.desc.push(0); answers.dff.push(0); answers.dfp.push(0); answers.dmf.push(0); answers.dmp.push(0); answers.erexf.push(0); answers.erexp.push(0); answers.icms.push(0); answers.jma.push(0); answers.kwh.push(0); answers.kwhf.push(0); answers.kwhp.push(0); answers.trib.push(0); answers.vbru.push(0); answers.vdff.push(0); answers.vdfp.push(0); answers.verexf.push(0); answers.verexp.push(0); answers.vliq.push(0); answers.vudf.push(0); answers.vudp.push(0);
     for(let j = 0; j <= numMeters - 1; j++){
-      if(queryResponse[j].Items.length > 0){ // Se o medidor não retornou dados (queryResponseay vazio); não será analisado
-        for(let k = 0; k <= queryResponse[j].Items.length - 1; k++){
-          if(queryResponse[j].Items[k].aamm === periodInts[i]){ // Se o mês corresponde ao pesquisado, podemos somá-lo
+      if(queryResponse[j].Items.length > 0){ // If current meter does not have data, will not be considered for sum
+        for(let k = 0; k <= queryResponse[j].Items.length - 1; k++){ // Block access of inexisting months in a meter
+          if(queryResponse[j].Items[k].aamm === periodInts[i]){ // Check if 'aamm' corresponds to current loop month. If true, the value is added
             answers.basec[i] = answers.basec[i] + queryResponse[j].Items[k].basec;
             answers.cip[i]   = answers.cip[i] + queryResponse[j].Items[k].cip;
             answers.desc[i]  = answers.desc[i] + queryResponse[j].Items[k].desc;
@@ -87,11 +89,8 @@ export default function buildChartData(queryResponse, month1, month2){
       }
     }
   }
-
-  console.log('answers:');
-  console.log(answers);
   
-  // Build object with strings to be used by chartConfigs
+  // Define helper object with strings to be used by chartConfigs
   var helper = {
      datasetLabel: {
       vbru: "Valor bruto",
@@ -170,7 +169,7 @@ export default function buildChartData(queryResponse, month1, month2){
     }
   };
 
-  // Build object with params for chart.js
+  // Build chartConfig as an object of objects
   var chartConfigs = {};
   Object.keys(answers).map(key => {
     chartConfigs[key] = {
@@ -220,6 +219,7 @@ export default function buildChartData(queryResponse, month1, month2){
     }
   })
 
+  // Return chartConfigs object
   return chartConfigs;
 
 }  
