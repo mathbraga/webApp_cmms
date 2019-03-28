@@ -17,12 +17,14 @@ class Energy extends Component {
     this.state = {
       meters: [],
       dynamo: dynamo,
+      tableName: "EnergyTable",
       initialDate: "",
       finalDate: "",
       chosenMeter: "199",
       oneMonth: false,
       error: false,
       queryResponse: false,
+      chartConfigs: {},
       showResult: false
     };
   }
@@ -34,16 +36,8 @@ class Energy extends Component {
   }
 
   handleChangeOnDates = handleDates.bind(this);
+  handleQuery = queryEnergyTable.bind(this);
 
-  handleQuery = event => {
-    queryEnergyTable(this.state, "EnergyTable").then(queryResponse => {
-      this.setState({
-        queryResponse: queryResponse,
-        showResult: true,
-        error: false
-      });
-    });
-  };
 
   handleOneMonth = event => {
     this.setState({
@@ -74,7 +68,7 @@ class Energy extends Component {
           {this.state.showResult ? (
             <EnergyOneUnitDash
               handleClick={this.showFormDates}
-              energyState={this.state}
+              chartConfigs={this.state.chartConfigs}
             />
           ) : (
             <FormDates

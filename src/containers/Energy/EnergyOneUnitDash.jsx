@@ -8,9 +8,28 @@ import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
 import { queryEnergyTable } from "../../utils/queryEnergyTable";
 import { transformDateString } from "../../utils/transformDateString";
+import ReportEnergyPeriod from "../../components/Reports/ReportEnergyPeriod";
+import Chart from "../../components/Charts/Chart";
+
+const monthList = {
+  "01": "Jan",
+  "02": "Fev",
+  "03": "Mar",
+  "04": "Abr",
+  "05": "Mai",
+  "06": "Jun",
+  "07": "Jul",
+  "08": "Ago",
+  "09": "Set",
+  "10": "Out",
+  "11": "Nov",
+  "12": "Dez"
+};
+
 
 class EnergyOneUnitDash extends Component {
   render() {
+
     // Variables
     const { meters } = this.props.energyState;
     const result = {
@@ -31,13 +50,18 @@ class EnergyOneUnitDash extends Component {
     }
 
     return (
+
+    return(
+
       <div>
         <Card>
           <CardHeader>
             <Row>
               <Col md="6">
                 <div className="widget-title dash-title">
+
                   <h4>{result.unit.idceb.S}</h4>
+
                   <div className="dash-subtitle">
                     Medidor: <strong>{result.unit.nome.S}</strong>
                   </div>
@@ -66,6 +90,7 @@ class EnergyOneUnitDash extends Component {
             </Row>
           </CardHeader>
           <CardBody>
+
             <Row>
               <Col md="3">
                 <WidgetEnergyUsage data={result.queryResponse} />
@@ -99,9 +124,12 @@ class EnergyOneUnitDash extends Component {
                   dbObject={this.props.energyState.dynamo}
                   consumer={this.props.energyState.chosenMeter}
                   date={result.queryResponse.aamm}
+
                 />
               </Col>
+
             </Row>
+
           </CardBody>
         </Card>
       </div>
