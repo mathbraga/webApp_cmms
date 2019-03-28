@@ -2,6 +2,7 @@
 
 .widget-title {
   font-weight: 600;
+  padding-right: 10px;
 }
 
 .widget-container {
@@ -98,8 +99,8 @@ th.sub-2-table {
   font-size: 0.9em;
 }
 
-tbody tr:hover {
-  background-color: #ffff99;
+.hover-line:hover {
+  background-color: #e8e8c7;
 }
 
 tr.main-table {
@@ -164,4 +165,20 @@ td.sub-2-table {
 
 th {
   white-space: nowrap;
+}
+
+.center-button-container {
+  align-items: center;
+  height: 100%;
+}
+
+.button-calc {
+  margin-bottom: 0px;
+  margin-right: 20px;
+  font-weight: 400;
+  color: #848484;
+}
+
+.dropdown-toggle {
+  background: #dadada;
 }

@@ -67,11 +67,8 @@ function demandProfile() {
   // Input: 1- list of objects (initialListDemands) - Object: {demandP, demandFP, type}. Restriction: All types must be equal 2.
   // Output: Object (demandProfile): {percentageP, percentageFP}.
   // Purpose: Calculate what's the percentage of the demandP and demandFP compared to the max of (demandP and demandFP).
-  console.log("Inside demandProfile fuction.");
 
   const [initialListDemands] = arguments;
-  console.log("initialListDemands");
-  console.log(initialListDemands);
   let demandProfileList = { percentageP: [], percentageFP: [] };
   const listDemands = cleanData(initialListDemands);
 
@@ -122,7 +119,6 @@ function prepareDemands() {
   const { percentageP, percentageFP } = demandProfile;
 
   const listFullDemands = [];
-
   listDemands.forEach(item => {
     if (item.type === 1) {
       const demand = item.demandFP ? item.demandFP : item.demandP;
@@ -134,7 +130,7 @@ function prepareDemands() {
         type: item.type,
         rates: item.rates
       });
-    } else {
+    } else if (item.type === 0 || item.type === 2) {
       listFullDemands.push(item);
     }
   });
@@ -173,13 +169,8 @@ function costBlue() {
     for (let df = minDemandFP; df <= maxDemandFP; df = df + 1) {
       let value = 0;
       listItems.forEach(e => {
-        if (!listItems.rates) listItems.rates = defaultRates;
-        let {
-          rateUsageP,
-          rateUsageFP,
-          rateDemandP,
-          rateDemandFP
-        } = listItems.rates;
+        if (!e.rates) e.rates = defaultRates;
+        let { rateUsageP, rateUsageFP, rateDemandP, rateDemandFP } = e.rates;
 
         if (!rateUsageP || !rateUsageFP || !rateDemandP || !rateDemandFP) {
           rateUsageP = defaultRates.rateUsageP;
@@ -187,6 +178,7 @@ function costBlue() {
           rateDemandP = defaultRates.rateDemandP;
           rateDemandFP = defaultRates.rateDemandFP;
         }
+
         if (e.demandP <= dp) value += dp * rateDemandP;
         else if (e.demandP <= dp * 1.05) value += e.demandP * rateDemandP;
         else {
@@ -227,7 +219,6 @@ function costGreen() {
 
   const [listItems, defaultRates] = arguments;
 
-  let minValue = 0;
   const result = { df: 0, value: 0 };
 
   const listDemandFP = [];
@@ -240,8 +231,8 @@ function costGreen() {
   for (let df = minDemandFP; df <= maxDemandFP; df = df + 1) {
     let value = 0;
     listDemandFP.forEach((e, i) => {
-      if (!listItems.rates) listItems.rates = defaultRates;
-      let { rateUsageP, rateUsageFP, rateDemandFP } = listItems.rates;
+      if (!listItems[i].rates) listItems[i].rates = defaultRates;
+      let { rateUsageP, rateUsageFP, rateDemandFP } = listItems[i].rates;
       if (!rateUsageP || !rateUsageFP || !rateDemandFP) {
         rateUsageP = defaultRates.rateUsageP;
         rateUsageFP = defaultRates.rateUsageFP;
@@ -259,9 +250,8 @@ function costGreen() {
       value += listItems[i].usageFP * rateUsageFP;
     });
 
-    if (minValue === 0 || value < minValue) {
-      minValue = value;
-      result.value = minValue;
+    if (result.df === 0 || value < result.value) {
+      result.value = value;
       result.df = df;
     }
   }
@@ -269,7 +259,46 @@ function costGreen() {
   return result;
 }
 
-export function bestDemand(lastItems, lastBlueItems) {
+function cost(listItems, rates_blue, rates_green, demF, demP) {
+  let value = 0;
+  const isBlue = !isNaN(demP) && demP > 0;
+  const defaultRates = isBlue ? rates_blue : rates_green;
+
+  listItems.forEach(e => {
+    if (!e.rates) e.rates = defaultRates;
+    let { rateUsageP, rateUsageFP, rateDemandP, rateDemandFP } = e.rates;
+
+    if (!rateUsageP || !rateUsageFP || !rateDemandP || !rateDemandFP) {
+      rateUsageP = defaultRates.rateUsageP;
+      rateUsageFP = defaultRates.rateUsageFP;
+      rateDemandP = defaultRates.rateDemandP;
+      rateDemandFP = defaultRates.rateDemandFP;
+    }
+
+    if (isBlue) {
+      if (e.demandP <= demP) value += demP * rateDemandP;
+      else if (e.demandP <= demP * 1.05) value += e.demandP * rateDemandP;
+      else {
+        value += e.demandP * rateDemandP;
+        value += (e.demandP - demP) * 2 * rateDemandP;
+      }
+    }
+
+    if (e.demandFP <= demF) value += demF * rateDemandFP;
+    else if (e.demandFP <= demF * 1.05) value += e.demandFP * rateDemandFP;
+    else {
+      value += e.demandFP * rateDemandFP;
+      value += (e.demandFP - demF) * 2 * rateDemandFP;
+    }
+
+    value += e.usageP * rateUsageP;
+    value += e.usageFP * rateUsageFP;
+  });
+
+  return value;
+}
+
+export function bestDemand(lastItems, lastBlueItems, demF, demP) {
   // Input: 1- list of objects (lastItems) - Object: {demandP, demandFP, usageP, usageFP, type, rates}. Restriction: Types must be 1 or 2.
   //          rates(inside listItems): {rateUsageP, rateUsageFP, rateDemandFP}.
   //        2- list of objects (lastBlueItems) - Object: {demandP, demandFP, type}
@@ -277,22 +306,25 @@ export function bestDemand(lastItems, lastBlueItems) {
   // Purpose: Return an object with the best demandFP, demandP for each type (green and blue) with the cost.
 
   const rates_blue = {
-    rateUsageP: 0.8343474,
-    rateUsageFP: 0.5768317,
-    rateDemandP: 58.1995765,
-    rateDemandFP: 15.7850649
+    rateUsageP: 0.6691001,
+    rateUsageFP: 0.4577825,
+    rateDemandP: 56.4255609,
+    rateDemandFP: 16.6779735
   };
   const rates_green = {
-    rateUsageP: 1.52702,
-    rateUsageFP: 0.5418282,
-    rateDemandFP: 11.3607806
+    rateUsageP: 2.0387023,
+    rateUsageFP: 0.4577825,
+    rateDemandP: 0,
+    rateDemandFP: 16.6779735
   };
 
   let dProfile = demandProfile(lastBlueItems);
   let newList = prepareDemands(lastItems, dProfile);
 
-  const resultBlue = costGreen(newList, rates_blue);
-  const resultGreen = costBlue(newList, rates_green);
+  const resultBlue = costBlue(newList, rates_blue);
+  const resultGreen = costGreen(newList, rates_green);
+  const costNow = cost(newList, rates_blue, rates_green, demF, demP);
+  const costTime = newList.length;
 
-  return [resultBlue, resultGreen];
+  return [resultBlue, resultGreen, costNow, costTime];
 }

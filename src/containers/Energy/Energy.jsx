@@ -38,6 +38,7 @@ class Energy extends Component {
   handleChangeOnDates = handleDates.bind(this);
   handleQuery = queryEnergyTable.bind(this);
 
+
   handleOneMonth = event => {
     this.setState({
       oneMonth: event.target.checked

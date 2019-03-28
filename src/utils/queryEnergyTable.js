@@ -46,7 +46,7 @@ export function queryEnergyTable() {
             "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
           ExpressionAttributeValues: {
             ":med": {
-              N: meter
+              N: state.chosenMeter
             },
             ":aamm1": {
               N: month1
@@ -55,7 +55,8 @@ export function queryEnergyTable() {
               N: month2
             }
           }
-        }, (err, data) => {
+        },
+        (err, data) => {
           if (err) {
             alert("There was an error. Please insert search parameters again.");
             reject();
@@ -71,8 +72,9 @@ export function queryEnergyTable() {
                 element[key] = Number(element[key].N);
               });
             });
+
             queryResponse.push(data);
-            
+           
           }
           resolve();
         }
@@ -81,7 +83,6 @@ export function queryEnergyTable() {
   });
   Promise.all(arrayPromises).then(() => {
     if(!this.state.oneMonth){
-      console.log(queryResponse);
       var chartConfigs = buildChartData(queryResponse, month1, month2);
       this.setState({
         queryResponse: queryResponse,
@@ -98,3 +99,4 @@ export function queryEnergyTable() {
     }
   });
 }
+

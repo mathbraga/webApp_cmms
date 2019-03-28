@@ -26,7 +26,6 @@ export function queryLastDemandsBlue(dbObject, med) {
               element[key] = Number(element[key].N); // Transforms each element[key].N (string) into Number
             });
           });
-          console.log(data);
           resolve(data);
         }
       }
@@ -61,7 +60,6 @@ export function queryLastDemandsBlue(dbObject, med) {
     //           element[key] = Number(element[key].N); // Transforms each element[key].N (string) into Number
     //         });
     //       });
-    //       console.log(data);
     //       resolve(data);
     //     }
     //   }
