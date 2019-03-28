@@ -26,7 +26,7 @@ const rowNames = [
     mean: false
   },
   {
-    name: "Horário Ponta",
+    name: "Horário ponta",
     type: "sub-1",
     unit: "",
     attr: "",
@@ -34,7 +34,7 @@ const rowNames = [
     mean: false
   },
   {
-    name: "Consumo Registrado",
+    name: "Consumo registrado",
     type: "hover-line sub-2",
     unit: "kWh",
     attr: "kwhp",
@@ -58,7 +58,7 @@ const rowNames = [
     mean: false
   },
   {
-    name: "Horário Fora de Ponta",
+    name: "Horário fora de ponta",
     type: "sub-1",
     unit: "",
     attr: "",
@@ -66,7 +66,7 @@ const rowNames = [
     mean: false
   },
   {
-    name: "Consumo Registrado",
+    name: "Consumo registrado",
     type: "hover-line sub-2",
     unit: "kWh",
     attr: "kwhf",
@@ -90,7 +90,7 @@ const rowNames = [
     mean: false
   },
   {
-    name: "Consumo Total",
+    name: "Consumo total",
     type: "hover-line sub-1",
     unit: "kWh",
     attr: "kwh",
@@ -98,7 +98,7 @@ const rowNames = [
     mean: true
   },
   {
-    name: "Valor Total",
+    name: "Valor total",
     type: "hover-line sub-1",
     unit: "R$",
     attr: "",
@@ -114,12 +114,13 @@ const rowNames = [
     mean: false
   },
   {
-    name: "Horário Ponta",
+    name: "Horário ponta",
     type: "sub-1",
     unit: "",
     attr: "",
     var: false,
-    mean: false
+    mean: false,
+    justBlue: true
   },
   {
     name: "Medido",
@@ -127,7 +128,8 @@ const rowNames = [
     unit: "kW",
     attr: "dmp",
     var: true,
-    mean: true
+    mean: true,
+    justBlue: true
   },
   {
     name: "Contratado",
@@ -135,7 +137,8 @@ const rowNames = [
     unit: "kW",
     attr: "dcp",
     var: false,
-    mean: false
+    mean: false,
+    justBlue: true
   },
   {
     name: "Faturado",
@@ -143,7 +146,8 @@ const rowNames = [
     unit: "kW",
     attr: "dfp",
     var: true,
-    mean: true
+    mean: true,
+    justBlue: true
   },
   {
     name: "Tarifa",
@@ -151,30 +155,34 @@ const rowNames = [
     unit: "R$/kW",
     attr: "",
     var: true,
-    mean: false
+    mean: false,
+    justBlue: true
   },
   {
-    name: "Valor Faturado",
+    name: "Valor faturado",
     type: "hover-line sub-2",
     unit: "R$",
     attr: "vdfp",
     var: true,
-    mean: true
+    mean: true,
+    justBlue: true
   },
   {
     name: "Ultrapassagem",
     type: "hover-line sub-2",
     unit: "R$",
     attr: "vudp",
-    var: true
+    var: true,
+    justBlue: true
   },
   {
-    name: "Horário Fora de Ponta",
+    name: "Horário fora de ponta",
     type: "sub-1",
     unit: "",
     attr: "",
     var: false,
-    mean: false
+    mean: false,
+    justBlue: true
   },
   {
     name: "Medido",
@@ -209,7 +217,7 @@ const rowNames = [
     mean: false
   },
   {
-    name: "Valor Faturado",
+    name: "Valor faturado",
     type: "hover-line sub-2",
     unit: "R$",
     attr: "vdff",
@@ -225,7 +233,7 @@ const rowNames = [
     mean: true
   },
   {
-    name: "Energia Reativa",
+    name: "Energia reativa",
     type: "main",
     unit: "",
     attr: "",
@@ -249,7 +257,7 @@ const rowNames = [
     mean: true
   },
   {
-    name: "Valor Total",
+    name: "Valor total",
     type: "hover-line sub-1",
     unit: "R$",
     attr: "",
@@ -265,7 +273,7 @@ const rowNames = [
     mean: false
   },
   {
-    name: "Base de Cáculo",
+    name: "Base de cáculo",
     type: "hover-line sub-2",
     unit: "R$",
     attr: "basec",
@@ -273,7 +281,7 @@ const rowNames = [
     mean: true
   },
   {
-    name: "Valor Total",
+    name: "Valor total",
     type: "hover-line sub-2",
     unit: "R$",
     attr: "trib",
@@ -281,7 +289,7 @@ const rowNames = [
     mean: true
   },
   {
-    name: "Resumo dos Valores",
+    name: "Resumo dos valores",
     type: "main",
     unit: "",
     attr: "",
@@ -321,7 +329,7 @@ const rowNames = [
     mean: true
   },
   {
-    name: "Total Bruto",
+    name: "Total bruto",
     type: "hover-line main",
     unit: "R$",
     attr: "vbru",
@@ -329,7 +337,7 @@ const rowNames = [
     mean: true
   },
   {
-    name: "Total Líquido",
+    name: "Total líquido",
     type: "hover-line main",
     unit: "R$",
     attr: "vliq",
@@ -432,6 +440,11 @@ class ReportEnergyOneUnit extends Component {
     console.log(resultCompareObject);
     console.log(dateCompareObject);
 
+    if (resultCompareObject && resultCompareObject.tipo === 1) {
+      resultCompareObject.dcf = resultCompareObject.dc;
+      resultCompareObject.dcp = 0;
+    }
+
     return (
       <Card>
         <CardHeader>
@@ -495,49 +508,58 @@ class ReportEnergyOneUnit extends Component {
               </tr>
             </thead>
             <tbody>
-              {rowNames.map((column, i) => (
-                <tr className={column.type + "-table"}>
-                  <th className={column.type + "-table"}>{column.name}</th>
-                  <td className={column.type + "-table"}>
-                    {column.unit === ""
-                      ? ""
-                      : isNaN(this.props.data[column.attr])
-                      ? "-"
-                      : column.unit === "R$"
-                      ? "R$ " + this.formatNumber(this.props.data[column.attr])
-                      : this.formatNumber(this.props.data[column.attr]) +
-                        " " +
-                        column.unit}
-                  </td>
-                  <td className={column.type + "-table"}>
-                    {column.unit === ""
-                      ? ""
-                      : isNaN(resultCompareObject[column.attr])
-                      ? "-"
-                      : column.unit === "R$"
-                      ? "R$ " +
-                        this.formatNumber(resultCompareObject[column.attr])
-                      : this.formatNumber(resultCompareObject[column.attr]) +
-                        " " +
-                        column.unit}
-                  </td>
-                  <td>
-                    {!column.var
-                      ? ""
-                      : isNaN(this.props.data[column.attr]) ||
-                        isNaN(resultCompareObject[column.attr]) ||
-                        !this.props.data[column.attr] ||
-                        !resultCompareObject[column.attr]
-                      ? "-"
-                      : this.formatNumber(
-                          ((this.props.data[column.attr] -
-                            resultCompareObject[column.attr]) /
-                            resultCompareObject[column.attr]) *
-                            100
-                        ) + " %"}
-                  </td>
-                </tr>
-              ))}
+              {rowNames.map((column, i) =>
+                !column.justBlue ||
+                this.props.data.tipo === 2 ||
+                resultCompareObject.tipo === 2 ? (
+                  <tr className={column.type + "-table"}>
+                    <th className={column.type + "-table"}>{column.name}</th>
+                    <td className={column.type + "-table"}>
+                      {column.unit === ""
+                        ? ""
+                        : isNaN(this.props.data[column.attr]) ||
+                          this.props.data[column.attr] === 0
+                        ? "-"
+                        : column.unit === "R$"
+                        ? "R$ " +
+                          this.formatNumber(this.props.data[column.attr])
+                        : this.formatNumber(this.props.data[column.attr]) +
+                          " " +
+                          column.unit}
+                    </td>
+                    <td className={column.type + "-table"}>
+                      {column.unit === ""
+                        ? ""
+                        : isNaN(resultCompareObject[column.attr]) ||
+                          resultCompareObject[column.attr] === 0
+                        ? "-"
+                        : column.unit === "R$"
+                        ? "R$ " +
+                          this.formatNumber(resultCompareObject[column.attr])
+                        : this.formatNumber(resultCompareObject[column.attr]) +
+                          " " +
+                          column.unit}
+                    </td>
+                    <td>
+                      {!column.var
+                        ? ""
+                        : isNaN(this.props.data[column.attr]) ||
+                          isNaN(resultCompareObject[column.attr]) ||
+                          !this.props.data[column.attr] ||
+                          !resultCompareObject[column.attr]
+                        ? "-"
+                        : this.formatNumber(
+                            ((this.props.data[column.attr] -
+                              resultCompareObject[column.attr]) /
+                              resultCompareObject[column.attr]) *
+                              100
+                          ) + " %"}
+                    </td>
+                  </tr>
+                ) : (
+                  ""
+                )
+              )}
             </tbody>
           </Table>
         </CardBody>
