@@ -52,17 +52,20 @@ export default function buildChartData(queryResponse, month1, month2){
   var numMonths = periodInts.length;
    
   // Initializes answers array, considering all attributes in EnergyTable
-  var answers = {basec: [], cip: [], desc: [], dff: [], dfp: [], dmf: [], dmp: [], erexf: [], erexp: [], icms: [], jma: [], kwh: [], kwhf: [], kwhp: [], trib: [], vbru: [], vdff: [], vdfp: [], verexf: [], verexp: [], vliq: [], vudf: [], vudp: []};
+  var answers = {basec: [], cip: [], dc: [], dcf: [], dcp: [], desc: [], dff: [], dfp: [], dmf: [], dmp: [], erexf: [], erexp: [], icms: [], jma: [], kwh: [], kwhf: [], kwhp: [], tipo: [], trib: [], vbru: [], vdff: [], vdfp: [], verexf: [], verexp: [], vliq: [], vudf: [], vudp: []};
 
   // Loops through queryResponse to build answers array
   for(let i = 0; i <= numMonths - 1; i++){
-    answers.basec.push(0); answers.cip.push(0); answers.desc.push(0); answers.dff.push(0); answers.dfp.push(0); answers.dmf.push(0); answers.dmp.push(0); answers.erexf.push(0); answers.erexp.push(0); answers.icms.push(0); answers.jma.push(0); answers.kwh.push(0); answers.kwhf.push(0); answers.kwhp.push(0); answers.trib.push(0); answers.vbru.push(0); answers.vdff.push(0); answers.vdfp.push(0); answers.verexf.push(0); answers.verexp.push(0); answers.vliq.push(0); answers.vudf.push(0); answers.vudp.push(0);
+    answers.basec.push(0); answers.cip.push(0); answers.dc.push(0); answers.dcf.push(0); answers.dcp.push(0); answers.desc.push(0); answers.dff.push(0); answers.dfp.push(0); answers.dmf.push(0); answers.dmp.push(0); answers.erexf.push(0); answers.erexp.push(0); answers.icms.push(0); answers.jma.push(0); answers.kwh.push(0); answers.kwhf.push(0); answers.kwhp.push(0); answers.tipo.push(0); answers.trib.push(0); answers.vbru.push(0); answers.vdff.push(0); answers.vdfp.push(0); answers.verexf.push(0); answers.verexp.push(0); answers.vliq.push(0); answers.vudf.push(0); answers.vudp.push(0);
     for(let j = 0; j <= numMeters - 1; j++){
       if(queryResponse[j].Items.length > 0){ // If current meter does not have data, will not be considered for sum
         for(let k = 0; k <= queryResponse[j].Items.length - 1; k++){ // Block access of inexisting months in a meter
           if(queryResponse[j].Items[k].aamm === periodInts[i]){ // Check if 'aamm' corresponds to current loop month. If true, the value is added
             answers.basec[i] = answers.basec[i] + queryResponse[j].Items[k].basec;
             answers.cip[i]   = answers.cip[i] + queryResponse[j].Items[k].cip;
+            answers.dc[i]   = answers.dc[i] + queryResponse[j].Items[k].dc;
+            answers.dcf[i]   = answers.dcf[i] + queryResponse[j].Items[k].dcf;
+            answers.dcp[i]   = answers.dcp[i] + queryResponse[j].Items[k].dcp;
             answers.desc[i]  = answers.desc[i] + queryResponse[j].Items[k].desc;
             answers.dff[i]   = answers.dff[i] + queryResponse[j].Items[k].dff;
             answers.dfp[i]   = answers.dfp[i] + queryResponse[j].Items[k].dfp;
@@ -75,6 +78,7 @@ export default function buildChartData(queryResponse, month1, month2){
             answers.kwh[i]   = answers.kwh[i] + queryResponse[j].Items[k].kwh;
             answers.kwhf[i]  = answers.kwhf[i] + queryResponse[j].Items[k].kwhf;
             answers.kwhp[i]  = answers.kwhp[i] + queryResponse[j].Items[k].kwhp;
+            answers.tipo[i]  = answers.tipo[i] + queryResponse[j].Items[k].tipo;
             answers.trib[i]  = answers.trib[i] + queryResponse[j].Items[k].trib;
             answers.vbru[i]  = answers.vbru[i] + queryResponse[j].Items[k].vbru;
             answers.vdff[i]  = answers.vdff[i] + queryResponse[j].Items[k].vdff;
@@ -97,6 +101,10 @@ export default function buildChartData(queryResponse, month1, month2){
       vliq: "Valor líquido",
       basec: "Base de cálculo",
       jma: "Juros, multas e atualizações monetárias",
+      dc: "Demanda contratada",
+      dcf: "Demanda contratada - Fora de ponta",
+      dcp: "Demanda contratada - Ponta",
+      tipo: "Tipo",
       desc: "Compensações e/ou descontos",
       trib: "Tributos federais",
       icms: "ICMS",
@@ -122,6 +130,10 @@ export default function buildChartData(queryResponse, month1, month2){
       vliq: "Valor líquido",
       basec: "Base de cálculo",
       jma: "Juros, multas e atualizações monetárias",
+      dc: "Demanda contratada",
+      dcf: "Demanda contratada - Fora de ponta",
+      dcp: "Demanda contratada - Ponta",
+      tipo: "Tipo",
       desc: "Compensações e/ou descontos",
       trib: "Tributos federais",
       icms: "ICMS",
@@ -147,6 +159,10 @@ export default function buildChartData(queryResponse, month1, month2){
       vliq: "R$",
       basec: "R$",
       jma: "R$",
+      dc: "kW",
+      dcf: "kW",
+      dcp: "kW",
+      tipo: "Tipo",
       desc: "R$",
       trib: "R$",
       icms: "R$",
