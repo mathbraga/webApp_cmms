@@ -28,10 +28,14 @@ class ReportCalculationsEnergy extends Component {
       dropdownOpen: false,
       bestDemandP: "-",
       bestDemandFP: "-",
+      bestDemandCost: "-",
       bestDemandBlueP: "-",
       bestDemandBlueFP: "-",
+      bestDemandcostBlue: "-",
       bestDemandGreenP: "-",
       bestDemandGreenFP: "-",
+      bestDemandcostGreen: "-",
+      costNow: "-",
       baseDate: 1201
     };
   }
@@ -62,17 +66,27 @@ class ReportCalculationsEnergy extends Component {
                 type: item.tipo
               })
             );
-            const results = bestDemand(lastItems, lastBlues);
+            const results = bestDemand(
+              lastItems,
+              lastBlues,
+              this.props.demandContract.dcf.N,
+              this.props.demandContract.dcp.N
+            );
             const bestResult =
               results[0].value <= results[1].value ? results[0] : results[1];
 
             this.setState({
               bestDemandP: bestResult.dp || "-",
               bestDemandFP: bestResult.df || "-",
+              bestDemandCost: bestResult.value || "-",
               bestDemandBlueP: results[0].dp || "-",
               bestDemandBlueFP: results[0].df || "-",
+              bestDemandCostBlue: results[0].value || "-",
               bestDemandGreenP: results[1].dp || "-",
               bestDemandGreenFP: results[1].df || "-",
+              bestDemandCostGreen: results[1].value || "-",
+              costNow: results[2],
+              costTime: results[3],
               baseDate: date
             });
           }
@@ -96,6 +110,23 @@ class ReportCalculationsEnergy extends Component {
   };
 
   render() {
+    console.log("State Calculation:");
+    console.log(this.state.bestDemandFP);
+    console.log(this.state.bestDemandP);
+    console.log(this.state.costNow);
+    console.log(this.state.bestDemandcostBlue);
+    console.log(this.state.bestDemandCostGreen);
+
+    let economy =
+      this.state.costNow -
+      (this.state.typeOfResult === "best"
+        ? this.state.bestDemandCost
+        : this.state.typeOfResult === "blue"
+        ? this.state.bestDemandCostBlue
+        : this.state.bestDemandCostGreen);
+    economy = economy > 0 ? economy : 0;
+    economy = (economy / this.state.costTime) * 12;
+
     return (
       <Card>
         <CardHeader>
@@ -140,6 +171,30 @@ class ReportCalculationsEnergy extends Component {
           </Row>
         </CardHeader>
         <CardBody>
+          <Row>
+            <Col md="8">
+              <div className="calc-subtitle">
+                Modalidade Calculada:{" "}
+                <strong>
+                  {this.state.typeOfResult === "best"
+                    ? this.state.bestDemandP === "-"
+                      ? "Verde"
+                      : "Azul"
+                    : this.state.typeOfResult === "blue"
+                    ? "Azul"
+                    : "Verde"}
+                </strong>
+              </div>
+              <div className="calc-subtitle">
+                Potencial de Economia:{" "}
+                <strong>
+                  {Math.trunc((economy / this.state.costNow) * 100) || "-"}% (+-
+                  R$ {Math.ceil(economy / this.state.costNow / 1000) || "-"}{" "}
+                  mil) em 12 meses
+                </strong>
+              </div>
+            </Col>
+          </Row>
           <Row>
             <Col md="6">
               <div className="container-demand">

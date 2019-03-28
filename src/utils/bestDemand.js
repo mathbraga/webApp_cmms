@@ -259,7 +259,46 @@ function costGreen() {
   return result;
 }
 
-export function bestDemand(lastItems, lastBlueItems) {
+function cost(listItems, rates_blue, rates_green, demF, demP) {
+  let value = 0;
+  const isBlue = !isNaN(demP) && demP > 0;
+  const defaultRates = isBlue ? rates_blue : rates_green;
+
+  listItems.forEach(e => {
+    if (!e.rates) e.rates = defaultRates;
+    let { rateUsageP, rateUsageFP, rateDemandP, rateDemandFP } = e.rates;
+
+    if (!rateUsageP || !rateUsageFP || !rateDemandP || !rateDemandFP) {
+      rateUsageP = defaultRates.rateUsageP;
+      rateUsageFP = defaultRates.rateUsageFP;
+      rateDemandP = defaultRates.rateDemandP;
+      rateDemandFP = defaultRates.rateDemandFP;
+    }
+
+    if (isBlue) {
+      if (e.demandP <= demP) value += demP * rateDemandP;
+      else if (e.demandP <= demP * 1.05) value += e.demandP * rateDemandP;
+      else {
+        value += e.demandP * rateDemandP;
+        value += (e.demandP - demP) * 2 * rateDemandP;
+      }
+    }
+
+    if (e.demandFP <= demF) value += demF * rateDemandFP;
+    else if (e.demandFP <= demF * 1.05) value += e.demandFP * rateDemandFP;
+    else {
+      value += e.demandFP * rateDemandFP;
+      value += (e.demandFP - demF) * 2 * rateDemandFP;
+    }
+
+    value += e.usageP * rateUsageP;
+    value += e.usageFP * rateUsageFP;
+  });
+
+  return value;
+}
+
+export function bestDemand(lastItems, lastBlueItems, demF, demP) {
   // Input: 1- list of objects (lastItems) - Object: {demandP, demandFP, usageP, usageFP, type, rates}. Restriction: Types must be 1 or 2.
   //          rates(inside listItems): {rateUsageP, rateUsageFP, rateDemandFP}.
   //        2- list of objects (lastBlueItems) - Object: {demandP, demandFP, type}
@@ -275,6 +314,7 @@ export function bestDemand(lastItems, lastBlueItems) {
   const rates_green = {
     rateUsageP: 2.0387023,
     rateUsageFP: 0.4577825,
+    rateDemandP: 0,
     rateDemandFP: 16.6779735
   };
 
@@ -283,6 +323,8 @@ export function bestDemand(lastItems, lastBlueItems) {
 
   const resultBlue = costBlue(newList, rates_blue);
   const resultGreen = costGreen(newList, rates_green);
+  const costNow = cost(newList, rates_blue, rates_green, demF, demP);
+  const costTime = newList.length;
 
-  return [resultBlue, resultGreen];
+  return [resultBlue, resultGreen, costNow, costTime];
 }
