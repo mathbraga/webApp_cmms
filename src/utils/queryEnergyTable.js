@@ -1,51 +1,26 @@
-import buildChartData from "./buildChartData";
-
-export function queryEnergyTable() {
-  // Transform form inputs into integers
-  var month1 =
-    this.state.initialDate.slice(5) + this.state.initialDate.slice(0, 2);
-  var month2 = "";
-  if (this.state.oneMonth) {
-    month2 = month1;
-  } else {
-    month2 = this.state.finalDate.slice(5) + this.state.finalDate.slice(0, 2);
-  }
-
-  // Check passed arguments
-  if (
-    // Conditions for one any case (one month or period)
-    this.state.initialDate.length < 7 ||
-    this.state.initialDate.slice(0, 2) > "12" ||
-    month1 < "1701" ||
-    // Special conditions for period
-    !this.state.oneMonth && (month2 < month1) ||
-    !this.state.oneMonth && (this.state.finalDate.length < 7)
-  ) 
-  {
-    alert("Por favor, corrija os parâmetros da pesquisa");
-    return;
-  }
-
+export default function queryEnergyTable(state, month1, month2) {
+  return new Promise((resolve, reject) => {
+  
   // Check if consumer is 'all'
   var allMeters = [];
-  if (this.state.chosenMeter === "199") {
+  if (state.chosenMeter === "199") {
     // Build array of all meters to query
-    allMeters = this.state.meters.map(meter => {
+    allMeters = state.meters.map(meter => {
       return (
         100 * parseInt(meter.medtype.N, 10) +
         parseInt(meter.med.N, 10)
       ).toString();
     });
   } else {
-    allMeters = [this.state.chosenMeter];
+    allMeters = [state.chosenMeter];
   }
   // Query all chosen meters
   let queryResponse = [];
   let arrayPromises = allMeters.map(meter => {
     return new Promise((resolve, reject) => {
-      this.state.dynamo.query(
+      state.dynamo.query(
         {
-          TableName: this.state.tableName,
+          TableName: state.tableName,
           KeyConditionExpression:
             "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
           ExpressionAttributeValues: {
@@ -85,20 +60,10 @@ export function queryEnergyTable() {
     });
   });
   Promise.all(arrayPromises).then(() => {
-    if (!this.state.oneMonth) {
-      var chartConfigs = buildChartData(queryResponse, month1, month2);
-      this.setState({
-        queryResponse: queryResponse,
-        chartConfigs: chartConfigs,
-        showResult: true,
-        error: false
-      });
-    } else {
-      this.setState({
-        queryResponse: queryResponse,
-        showResult: true,
-        error: false
-      });
-    }
+    resolve(queryResponse);
   });
+
+});
+
+
 }

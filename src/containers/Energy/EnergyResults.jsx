@@ -1,11 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { Card, CardHeader, CardBody, Row, Col, Button } from "reactstrap";
+import { Redirect, Route, Switch } from "react-router-dom";
 import EnergyResultOM from "./EnergyResultOM";
 import EnergyResultOP from "./EnergyResultOP";
 import EnergyResultAM from "./EnergyResultAM";
 import EnergyResultAP from "./EnergyResultAP";
+import routes from "../../routes";
 
 class EnergyResults extends Component {
+  constructor(props){
+    super(props);
+  }
+
+  loading = () => (
+    <div className="animated fadeIn pt-1 text-center">Loading...</div>
+  );
+  
   render() {
     return (
       <Card>
@@ -27,18 +37,26 @@ class EnergyResults extends Component {
           </Row>
         </CardHeader>
         <CardBody>
-          {this.props.energyState.oneMonth && this.props.energyState.chosenMeter !== "199" &&
-            <EnergyResultOM energyState={this.props.energyState}></EnergyResultOM>
-          }
-          {!this.props.energyState.oneMonth && this.props.energyState.chosenMeter !== "199" &&
-            <EnergyResultOP energyState={this.props.energyState}></EnergyResultOP>
-          }
-          {this.props.energyState.oneMonth && this.props.energyState.chosenMeter === "199" &&
-            <EnergyResultAM energyState={this.props.energyState}></EnergyResultAM>       
-          }
-          {!this.props.energyState.oneMonth && this.props.energyState.chosenMeter === "199" &&
-            <EnergyResultAP energyState={this.props.energyState}></EnergyResultAP>
-          }
+          <Suspense fallback={this.loading()}>
+            <Switch>
+              <Redirect push to={this.props.energyState.newRoute} />
+            </Switch>
+          </Suspense>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
         </CardBody>
       </Card>
     );
