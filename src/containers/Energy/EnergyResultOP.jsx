@@ -1,46 +1,31 @@
 import React, { Component } from "react";
-import { Card, CardHeader, CardBody, Row, Col, Button } from "reactstrap";
-import WidgetEnergyUsage from "../../components/Widgets/WidgetEnergyUsage";
-import WidgetEnergyDemand from "../../components/Widgets/WidgetEnergyDemand";
-import WidgetEnergyProblem from "../../components/Widgets/WidgetEnergyProblem";
-import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
-import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
-import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
-import { queryEnergyTable } from "../../utils/queryEnergyTable";
-import { transformDateString } from "../../utils/transformDateString";
-import ReportEnergyPeriod from "../../components/Reports/ReportEnergyPeriod";
-import { Line } from 'react-chartjs-2';
-import Chart from "../../components/Charts/Chart";
+import ResultCard from "../../components/Cards/ResultCard";
 
 class EnergyResultOP extends Component {
   render() {
-    // Variables
-    const { meters } = this.props.energyState;
-    const { chartConfig } = this.props.energyState;
-    const result = {
-      unit: false,
-      queryResponse: this.props.energyState.queryResponse[0].Items[0]
-    };
+    // Initialize all variables
+    const {
+      meters,
+      initialDate,
+      finalDate,
+      chosenMeter
+    } = this.props.energyState;
+    let unit = {};
     meters.forEach(item => {
-      const number = parseInt(item.med.N) + 100;
-      if (number.toString() === this.props.energyState.chosenMeter)
-        result.unit = item;
+      if (parseInt(item.med.N) + 100 == chosenMeter) unit = item;
     });
 
-    const dateString = transformDateString(result.queryResponse.aamm);
-
-    if (result.queryResponse.tipo === 1) {
-      result.queryResponse.dcf = result.queryResponse.dc;
-      result.queryResponse.dcp = 0;
-    }
-
     return (
-      <div>
-        
-        <h1>TODO: EnergyResultOP</h1>
-
-        
-      </div>
+      <ResultCard
+        unitNumber={unit.idceb.S}
+        unitName={unit.nome.S}
+        initialDate={initialDate}
+        endDate={finalDate}
+        typeOfUnit={unit.modtar.S}
+        handleNewSearch={this.props.handleNewSearch}
+      >
+        <h1>Energy Result for One Unit and Period!!!</h1>
+      </ResultCard>
     );
   }
 }

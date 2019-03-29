@@ -1,30 +1,12 @@
 import React, { Component } from "react";
 import { Card, CardHeader, CardBody, Row, Col, Button } from "reactstrap";
-import WidgetEnergyUsage from "../../components/Widgets/WidgetEnergyUsage";
-import WidgetEnergyDemand from "../../components/Widgets/WidgetEnergyDemand";
-import WidgetEnergyProblem from "../../components/Widgets/WidgetEnergyProblem";
+import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
+import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
+import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
 import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
 import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
-import { queryEnergyTable } from "../../utils/queryEnergyTable";
 import { transformDateString } from "../../utils/transformDateString";
-import ReportEnergyPeriod from "../../components/Reports/ReportEnergyPeriod";
-import Chart from "../../components/Charts/Chart";
-
-const monthList = {
-  "01": "Jan",
-  "02": "Fev",
-  "03": "Mar",
-  "04": "Abr",
-  "05": "Mai",
-  "06": "Jun",
-  "07": "Jul",
-  "08": "Ago",
-  "09": "Set",
-  "10": "Out",
-  "11": "Nov",
-  "12": "Dez"
-};
 
 class EnergyOneUnitDash extends Component {
   render() {
@@ -86,13 +68,13 @@ class EnergyOneUnitDash extends Component {
           <CardBody>
             <Row>
               <Col md="3">
-                <WidgetEnergyUsage data={result.queryResponse} />
+                <WidgetOneColumn data={result.queryResponse} />
               </Col>
               <Col md="6">
-                <WidgetEnergyDemand data={result.queryResponse} />
+                <WidgetThreeColumns data={result.queryResponse} />
               </Col>
               <Col md="3">
-                <WidgetEnergyProblem data={result} />
+                <WidgetWithModal data={result} />
               </Col>
             </Row>
             <Row>
