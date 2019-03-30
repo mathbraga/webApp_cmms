@@ -1,6 +1,6 @@
 import React, { Component, Suspense } from "react";
 import { Card, CardHeader, CardBody, Row, Col, Button } from "reactstrap";
-import { Redirect, Route, Switch , HashRouter, Link} from "react-router-dom";
+import { Redirect, Route, Switch , HashRouter, Router, Link} from "react-router-dom";
 import EnergyResultOM from "./EnergyResultOM";
 import EnergyResultOP from "./EnergyResultOP";
 import EnergyResultAM from "./EnergyResultAM";
@@ -33,9 +33,24 @@ class EnergyResults extends Component {
           </Row>
         </CardHeader>
         <CardBody>
-          
-            <Redirect to={this.props.location.state.newRoute} />
-
+          <Switch location={this.props.energyState.newLocation}>
+            <Route
+              path="/consumo/energia/resultados/OM"
+              component={EnergyResultOM}
+            />
+            <Route
+              path="/consumo/energia/resultados/OP"
+              component={EnergyResultOP}
+            />
+            <Route
+            path="/consumo/energia/resultados/AM"
+            component={EnergyResultAM}
+            />
+            <Route
+            path="/consumo/energia/resultados/AP"
+            component={EnergyResultAP}
+            />
+          </Switch>
         </CardBody>
       </Card>
     );

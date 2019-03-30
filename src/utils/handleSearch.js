@@ -21,7 +21,7 @@ export default function handleSearch(){
     
     // Query table
     queryEnergyTable(this.state.dynamo, this.state.tableName, this.state.chosenMeter, this.state.meters, aamm1, aamm2).then(queryResponse => {
-      var newRoute = defineRoute(this.state.oneMonth, this.state.chosenMeter);
+      var newLocation = defineRoute(this.state.oneMonth, this.state.chosenMeter);
     
       // After query resolve
       if (!this.state.oneMonth) {
@@ -33,7 +33,7 @@ export default function handleSearch(){
           chartConfigs: chartConfigs,
           showResult: true,
           error: false,
-          newRoute: newRoute
+          newLocation: newLocation
         });
       } else {
         // One month case
@@ -42,7 +42,7 @@ export default function handleSearch(){
           queryResponse: queryResponse,
           showResult: true,
           error: false,
-          newRoute: newRoute
+          newLocation: newLocation
         });
       }
     });

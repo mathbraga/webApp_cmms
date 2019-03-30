@@ -14,13 +14,13 @@ const Water = React.lazy(() => import("./containers/Water"));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: "/", exact: true, name: "Início", component: MainPage },
-  { path: "/consumo/energia", exact: true, name: "Energia elétrica", component: Energy },
-  { path: "/consumo/energia/resultados", exact: true, name: "Resultados", component: EnergyResults },
-  { path: "/consumo/energia/resultados/OM", exact: true, name: "OM", component: EnergyResultOM },
-  { path: "/consumo/energia/resultados/OP", exact: true, name: "OP", component: EnergyResultOP },
-  { path: "/consumo/energia/resultados/AM", exact: true, name: "AM", component: EnergyResultAM },
-  { path: "/consumo/energia/resultados/AP", exact: true, name: "AP", component: EnergyResultAP },
-  { path: "/consumo/agua", exact: true, name: "Água e esgoto", component: Water }
+  { path: "/consumo/energia", name: "Energia elétrica", component: Energy },
+  { path: "/consumo/energia/resultados", name: "Resultados", component: EnergyResults },
+  { path: "/consumo/energia/resultados/OM", name: "OM", component: EnergyResultOM },
+  { path: "/consumo/energia/resultados/OP", name: "OP", component: EnergyResultOP },
+  { path: "/consumo/energia/resultados/AM", name: "AM", component: EnergyResultAM },
+  { path: "/consumo/energia/resultados/AP", name: "AP", component: EnergyResultAP },
+  { path: "/consumo/agua", name: "Água e esgoto", component: Water }
 ];
 
 export default routes;
