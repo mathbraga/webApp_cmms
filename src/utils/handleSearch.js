@@ -9,7 +9,7 @@ export default function handleSearch(){
   // Check dates inputs
   if(checkSearchInputs(this.state.initialDate, this.state.finalDate, this.state.oneMonth)){
     
-  // Run functions in case of correct search parameters inputs
+  // Run functions below in case of correct search parameters inputs (checkSearchInputs returns true)
     // Transform dates inputs (from 'mm/yyyy' format to 'yymm' format)
     var aamm1 = aammTransformDate(this.state.initialDate);
     var aamm2 = "";
@@ -20,31 +20,32 @@ export default function handleSearch(){
     }
     
     // Query table
-    queryEnergyTable(this.state, aamm1, aamm2).then(queryResponse => {
+    queryEnergyTable(this.state.dynamo, this.state.tableName, this.state.chosenMeter, this.state.meters, aamm1, aamm2).then(queryResponse => {
       var newRoute = defineRoute(this.state.oneMonth, this.state.chosenMeter);
     
-      // After query resolve, build chartConfigs object in case of period and change state
+      // After query resolve
       if (!this.state.oneMonth) {
-      var chartConfigs = buildChartData(queryResponse, aamm1, aamm2);
-      this.setState({
-        queryResponse: queryResponse,
-        chartConfigs: chartConfigs,
-        showResult: true,
-        error: false,
-        newRoute: newRoute
-      });
-    } else {
-
-      // After query resolve, in case of one month, change state
-      this.setState({
-        queryResponse: queryResponse,
-        showResult: true,
-        error: false,
-        newRoute: newRoute
-      });
-    }
+        // Period case
+        // Build charConfigs object
+        var chartConfigs = buildChartData(queryResponse, aamm1, aamm2);
+        this.setState({
+          queryResponse: queryResponse,
+          chartConfigs: chartConfigs,
+          showResult: true,
+          error: false,
+          newRoute: newRoute
+        });
+      } else {
+        // One month case
+        // TODO: INSERT FUNCTIONS TO MANIPULATE QUERYRESPONSE FOR ONE MONTH
+        this.setState({
+          queryResponse: queryResponse,
+          showResult: true,
+          error: false,
+          newRoute: newRoute
+        });
+      }
     });
-  
   // Browser display an alert message in case of wrong search inputs
   } else {
     alert("Por favor, escolha novos parâmetros de pesquisa");
