@@ -1,6 +1,6 @@
 import React, { Component, Suspense } from "react";
 import { Card, CardHeader, CardBody, Row, Col, Button } from "reactstrap";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch , HashRouter, Link} from "react-router-dom";
 import EnergyResultOM from "./EnergyResultOM";
 import EnergyResultOP from "./EnergyResultOP";
 import EnergyResultAM from "./EnergyResultAM";
@@ -12,10 +12,6 @@ class EnergyResults extends Component {
     super(props);
   }
 
-  loading = () => (
-    <div className="animated fadeIn pt-1 text-center">Loading...</div>
-  );
-  
   render() {
     return (
       <Card>
@@ -37,26 +33,9 @@ class EnergyResults extends Component {
           </Row>
         </CardHeader>
         <CardBody>
-          <Suspense fallback={this.loading()}>
-            <Switch>
-              <Redirect push to={this.props.energyState.newRoute} />
-            </Switch>
-          </Suspense>
+          
+            <Redirect to={this.props.location.state.newRoute} />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
         </CardBody>
       </Card>
     );

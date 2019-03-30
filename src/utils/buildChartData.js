@@ -1,4 +1,4 @@
-export default function buildChartData(queryResponse, month1, month2){
+export default function buildChartData(queryResponse, aamm1, aamm2){
   // Number of meters to loop through queryResponse
   var numMeters = queryResponse.length;
 
@@ -6,8 +6,8 @@ export default function buildChartData(queryResponse, month1, month2){
   // periodStrings: array of 'aamm' strings
   // periodInts: array of 'aamm' integers
   // newPeriodStrings: array of strings in 'mmm/aa' format (mmm represent 3 letters designating the month)
-  var m1 = parseInt(month1, 10);
-  var m2 = parseInt(month2, 10);
+  var m1 = parseInt(aamm1, 10);
+  var m2 = parseInt(aamm2, 10);
   var periodStrings = [];
   var periodInts = [];
   var m = m1;

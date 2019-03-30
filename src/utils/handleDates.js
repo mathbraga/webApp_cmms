@@ -6,7 +6,6 @@ export function handleDates(event) {
     return;
   }
 
-  console.log(value);
   if (value.length === 3 && value[2] === "/") {
     this.setState({
       [name]: value

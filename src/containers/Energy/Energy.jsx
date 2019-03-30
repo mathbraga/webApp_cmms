@@ -10,6 +10,8 @@ import EnergyResults from "./EnergyResults";
 import { dynamoInit } from "../../utils/dynamoinit";
 import handleSearch from "../../utils/handleSearch";
 import { energyinfoinit } from "../../utils/energyinfoinit";
+import { Redirect, Route, Switch , HashRouter, Link} from "react-router-dom";
+
 
 class Energy extends Component {
   constructor(props) {
@@ -67,11 +69,14 @@ class Energy extends Component {
       <div>
         <div>
           {this.state.showResult ? (
-            <EnergyResults
+            <Redirect
+              to={{
+              pathname: "/consumo/energia/resultados",
+              state: this.state,
+            }}
               handleClick={this.showFormDates}
-              energyState={this.state}
             />
-          ) : (
+          ) : ( 
             <FormDates
               onChangeDate={this.handleChangeOnDates}
               initialDate={this.state.initialDate}

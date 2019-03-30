@@ -1,4 +1,4 @@
-export default function queryEnergyTable(state, month1, month2) {
+export default function queryEnergyTable(state, aamm1, aamm2) {
   return new Promise((resolve, reject) => {
   
   // Check if consumer is 'all'
@@ -28,10 +28,10 @@ export default function queryEnergyTable(state, month1, month2) {
               N: meter
             },
             ":aamm1": {
-              N: month1
+              N: aamm1
             },
             ":aamm2": {
-              N: month2
+              N: aamm2
             }
           }
         },

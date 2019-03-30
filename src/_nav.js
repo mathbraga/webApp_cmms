@@ -1,7 +1,7 @@
 export default {
   items: [
     {
-      name: "Início",
+      name: "Dashboard",
       url: "/dashboard",
       icon: "cui-monitor"
     },
