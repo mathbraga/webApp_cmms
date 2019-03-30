@@ -36,19 +36,27 @@ class EnergyResults extends Component {
           <Switch location={this.props.energyState.newLocation}>
             <Route
               path="/consumo/energia/resultados/OM"
-              component={EnergyResultOM}
+              render={() => (
+                <EnergyResultOM energyState={this.props.energyState}/>
+              )}
             />
             <Route
               path="/consumo/energia/resultados/OP"
-              component={EnergyResultOP}
+              render={() => (
+                <EnergyResultOP energyState={this.props.energyState}/>
+              )}
             />
             <Route
-            path="/consumo/energia/resultados/AM"
-            component={EnergyResultAM}
+              path="/consumo/energia/resultados/AM"
+              render={() => (
+                <EnergyResultAM energyState={this.props.energyState}/>
+              )}
             />
             <Route
-            path="/consumo/energia/resultados/AP"
-            component={EnergyResultAP}
+              path="/consumo/energia/resultados/AP"
+              render={() => (
+                <EnergyResultAP energyState={this.props.energyState}/>
+              )}
             />
           </Switch>
         </CardBody>
