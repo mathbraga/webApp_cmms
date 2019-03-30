@@ -1,7 +1,7 @@
 import checkSearchInputs from "./checkSearchInputs";
 import queryEnergyTable from "./queryEnergyTable";
 import buildChartData from "./buildChartData";
-import defineRoute from "./defineRoute";
+import defineNewLocation from "./defineNewLocation";
 import aammTransformDate from "./aammTransformDate";
 
 export default function handleSearch(){
@@ -21,7 +21,7 @@ export default function handleSearch(){
     
     // Query table
     queryEnergyTable(this.state.dynamo, this.state.tableName, this.state.chosenMeter, this.state.meters, aamm1, aamm2).then(queryResponse => {
-      var newLocation = defineRoute(this.state.oneMonth, this.state.chosenMeter);
+      var newLocation = defineNewLocation(this.state.oneMonth, this.state.chosenMeter);
     
       // After query resolve
       if (!this.state.oneMonth) {

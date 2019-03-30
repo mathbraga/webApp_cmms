@@ -1,4 +1,4 @@
-export default function defineRoute(oneMonth, chosenMeter){
+export default function defineNewLocation(oneMonth, chosenMeter){
   if(oneMonth && chosenMeter !== "199"){
     return {
       hash: "",
