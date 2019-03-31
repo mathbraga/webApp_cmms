@@ -1,18 +1,10 @@
-import React, { Component, Suspense } from "react";
+import React, { Component } from "react";
 import FormDates from "../../components/Forms/FormDates";
-import Chart from "../../components/Charts/Chart";
-import SimpleTable from "../../components/Tables/SimpleTable";
-import { CardColumns, CardGroup, Col, Row } from "reactstrap";
-import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { handleDates } from "../../utils/handleDates";
-import EnergyOneUnitDash from "./EnergyOneUnitDash";
 import EnergyResults from "./EnergyResults";
 import { dynamoInit } from "../../utils/dynamoinit";
 import handleSearch from "../../utils/handleSearch";
 import { energyinfoinit } from "../../utils/energyinfoinit";
-import { Redirect, Route, Switch , HashRouter, Router, Link} from "react-router-dom";
-import EnergyResultAP from "./EnergyResultAP";
-
 
 class Energy extends Component {
   constructor(props) {

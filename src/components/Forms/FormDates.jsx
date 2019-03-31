@@ -1,21 +1,7 @@
 import React, { Component } from "react";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Row,
-  Col,
-  Label,
-  Input,
-  FormGroup,
-  Button
-} from "reactstrap";
+import { Card, CardHeader, CardBody, Col, Label, Input, FormGroup, Button } from "reactstrap";
 
 class FormDates extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Card>

@@ -1,17 +1,12 @@
-import React, { Component, Suspense } from "react";
+import React, { Component } from "react";
 import { Card, CardHeader, CardBody, Row, Col, Button } from "reactstrap";
-import { Redirect, Route, Switch , HashRouter, Router, Link} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import EnergyResultOM from "./EnergyResultOM";
 import EnergyResultOP from "./EnergyResultOP";
 import EnergyResultAM from "./EnergyResultAM";
 import EnergyResultAP from "./EnergyResultAP";
-import routes from "../../routes";
 
 class EnergyResults extends Component {
-  constructor(props){
-    super(props);
-  }
-
   render() {
     return (
       <Card>

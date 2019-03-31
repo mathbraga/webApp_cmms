@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from "react";
+import React, { Component } from "react";
 import FormDates from "../../components/Forms/FormDates";
 import Chart from "../../components/Charts/Chart";
 import SimpleTable from "../../components/Tables/SimpleTable";

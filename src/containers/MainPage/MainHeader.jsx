@@ -22,7 +22,6 @@ import sygnet from "../../assets/img/brand/sygnet.svg";
 
 class MainHeader extends Component {
   render() {
-    console.log("Ok");
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />

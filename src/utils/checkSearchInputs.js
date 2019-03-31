@@ -22,7 +22,7 @@ export default function checkSearchInputs(initialDate, finalDate, oneMonth){
       // initialDate after finalDate (year check)
       initialDate.slice(3) > finalDate.slice(3) ||
       // initialDate after finalDate (same year, month check)
-      initialDate.slice(3) === finalDate.slice(3) && initialDate.slice(0, 2) > finalDate.slice(0, 2)
+      (initialDate.slice(3) === finalDate.slice(3) && initialDate.slice(0, 2) > finalDate.slice(0, 2))
       ) {
         return false;
       }
