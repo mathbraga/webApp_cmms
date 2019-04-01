@@ -1,14 +1,9 @@
-import React, { Component, Suspense } from "react";
+import React, { Component } from "react";
 import FormDates from "../../components/Forms/FormDates";
-import Chart from "../../components/Charts/Chart";
-import SimpleTable from "../../components/Tables/SimpleTable";
-import { CardColumns, CardGroup, Col, Row } from "reactstrap";
-import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { handleDates } from "../../utils/handleDates";
-import EnergyOneUnitDash from "./EnergyOneUnitDash";
 import EnergyResults from "./EnergyResults";
 import { dynamoInit } from "../../utils/dynamoinit";
-import { queryEnergyTable } from "../../utils/queryEnergyTable";
+import handleSearch from "../../utils/handleSearch";
 import { energyinfoinit } from "../../utils/energyinfoinit";
 
 class Energy extends Component {
@@ -26,7 +21,8 @@ class Energy extends Component {
       error: false,
       queryResponse: false,
       chartConfigs: {},
-      showResult: false
+      showResult: false,
+      newLocation: ""
     };
   }
 
@@ -37,7 +33,7 @@ class Energy extends Component {
   }
 
   handleChangeOnDates = handleDates.bind(this);
-  handleQuery = queryEnergyTable.bind(this);
+  handleQuery = handleSearch.bind(this);
 
   handleOneMonth = event => {
     this.setState({
@@ -67,10 +63,11 @@ class Energy extends Component {
         <div>
           {this.state.showResult ? (
             <EnergyResults
-              handleClick={this.showFormDates}
               energyState={this.state}
+              handleClick={this.showFormDates}
             />
-          ) : (
+
+          ) : ( 
             <FormDates
               onChangeDate={this.handleChangeOnDates}
               initialDate={this.state.initialDate}

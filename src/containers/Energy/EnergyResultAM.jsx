@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ResultCard from "../../components/Cards/ResultCard";
 
+
 class EnergyResultAM extends Component {
   render() {
     // Initialize all variables

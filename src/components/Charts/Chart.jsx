@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import { Card, CardBody, CardHeader, Row, Col, FormGroup, Input, Label } from 'reactstrap';
+import { Card, CardBody, CardHeader, Row, Col, Input } from 'reactstrap';
 
 const yAxisDropdown = {
   vbru: "Valor bruto",
