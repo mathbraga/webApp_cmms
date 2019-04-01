@@ -188,9 +188,9 @@ class ReportCalculationsEnergy extends Component {
               <div className="calc-subtitle">
                 Potencial de Economia:{" "}
                 <strong>
-                  {Math.trunc((economy / this.state.costNow) * 100) || "-"}% (+-
-                  R$ {Math.ceil(economy / this.state.costNow / 1000) || "-"}{" "}
-                  mil) em 12 meses
+                  {Math.trunc((economy / this.state.costNow) * 100) || "-"}% em
+                  12 meses (+- R${" "}
+                  {Math.ceil(economy / this.state.costNow / 1000) || "-"} mil)
                 </strong>
               </div>
             </Col>

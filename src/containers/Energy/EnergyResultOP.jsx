@@ -1,34 +1,31 @@
 import React, { Component } from "react";
+import ResultCard from "../../components/Cards/ResultCard";
 
 class EnergyResultOP extends Component {
   render() {
-    // Variables
-    // const { meters } = this.props.energyState;
-    // const { chartConfig } = this.props.energyState;
-    // const result = {
-    //   unit: false,
-    //   queryResponse: this.props.energyState.queryResponse[0].Items[0]
-    // };
-    // meters.forEach(item => {
-    //   const number = parseInt(item.med.N) + 100;
-    //   if (number.toString() === this.props.energyState.chosenMeter)
-    //     result.unit = item;
-    // });
-
-    // const dateString = transformDateString(result.queryResponse.aamm);
-
-    // if (result.queryResponse.tipo === 1) {
-    //   result.queryResponse.dcf = result.queryResponse.dc;
-    //   result.queryResponse.dcp = 0;
-    // }
+    // Initialize all variables
+    const {
+      meters,
+      initialDate,
+      finalDate,
+      chosenMeter
+    } = this.props.energyState;
+    let unit = {};
+    meters.forEach(item => {
+      if (parseInt(item.med.N) + 100 == chosenMeter) unit = item;
+    });
 
     return (
-      <div>
-        
-        <h1>TODO: EnergyResultOP</h1>
-
-        
-      </div>
+      <ResultCard
+        unitNumber={unit.idceb.S}
+        unitName={unit.nome.S}
+        initialDate={initialDate}
+        endDate={finalDate}
+        typeOfUnit={unit.modtar.S}
+        handleNewSearch={this.props.handleNewSearch}
+      >
+        <h1>Energy Result for One Unit and Period!!!</h1>
+      </ResultCard>
     );
   }
 }

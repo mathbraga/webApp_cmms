@@ -9,53 +9,32 @@ import EnergyResultAP from "./EnergyResultAP";
 class EnergyResults extends Component {
   render() {
     return (
-      <Card>
-        <CardHeader>
-          <Row>
-            <Col md="6" />
-            <Col md="4" />
-            <Col md="2" className="container-left">
-              <Button
-                block
-                outline
-                color="primary"
-                onClick={this.props.handleClick}
-              >
-                <i className="cui-magnifying-glass" />
-                &nbsp;Nova Pesquisa
-              </Button>
-            </Col>
-          </Row>
-        </CardHeader>
-        <CardBody>
           <Switch location={this.props.energyState.newLocation}>
             <Route
               path="/consumo/energia/resultados/OM"
               render={() => (
-                <EnergyResultOM energyState={this.props.energyState}/>
+                <EnergyResultOM energyState={this.props.energyState} handleNewSearch={this.props.handleClick}/>
               )}
             />
             <Route
               path="/consumo/energia/resultados/OP"
               render={() => (
-                <EnergyResultOP energyState={this.props.energyState}/>
+                <EnergyResultOP energyState={this.props.energyState} handleNewSearch={this.props.handleClick}/>
               )}
             />
             <Route
               path="/consumo/energia/resultados/AM"
               render={() => (
-                <EnergyResultAM energyState={this.props.energyState}/>
+                <EnergyResultAM energyState={this.props.energyState} handleNewSearch={this.props.handleClick}/>
               )}
             />
             <Route
               path="/consumo/energia/resultados/AP"
               render={() => (
-                <EnergyResultAP energyState={this.props.energyState}/>
+                <EnergyResultAP energyState={this.props.energyState} handleNewSearch={this.props.handleClick}/>
               )}
             />
           </Switch>
-        </CardBody>
-      </Card>
     );
   }
 }
