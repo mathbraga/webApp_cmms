@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardBody, Col, Row, Table, Badge, CardHeader } from "reactstrap";
-import classNames from "classnames";
+import { Card, CardBody, Col, Row, Table, CardHeader } from "reactstrap";
 
 const rowNames = [
   { name: "Identificação CEB", attr: "idceb" },

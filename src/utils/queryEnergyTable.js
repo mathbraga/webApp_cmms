@@ -13,12 +13,15 @@ export function queryEnergyTable() {
 
   // Check passed arguments
   if (
+    // Conditions for one any case (one month or period)
     this.state.initialDate.length < 7 ||
-    this.state.finalDate.length < 7 ||
     this.state.initialDate.slice(0, 2) > "12" ||
-    month2 < month1 ||
-    month1 < "1701"
-  ) {
+    month1 < "1701" ||
+    // Special conditions for period
+    !this.state.oneMonth && (month2 < month1) ||
+    !this.state.oneMonth && (this.state.finalDate.length < 7)
+  ) 
+  {
     alert("Por favor, corrija os parâmetros da pesquisa");
     return;
   }
