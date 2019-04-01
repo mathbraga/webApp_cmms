@@ -5,7 +5,7 @@ export function energyinfoinit(dbObject, tableName) {
       KeyConditionExpression: "tipomed = :tipomed",
       ExpressionAttributeValues: {
         ":tipomed": {
-          "N": "1"
+          N: "1"
         }
       }
     }, (err, data) => {

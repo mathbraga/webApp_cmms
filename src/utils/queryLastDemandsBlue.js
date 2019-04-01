@@ -2,7 +2,7 @@ export function queryLastDemandsBlue(dbObject, med) {
   return new Promise((resolve, reject) => {
     dbObject.scan(
       {
-        TableName: "EnergyTable",
+        TableName: "CEB",
         FilterExpression: "med = :med AND tipo = :tipo",
         ExpressionAttributeValues: {
           ":med": {
