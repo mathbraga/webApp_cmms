@@ -13,7 +13,7 @@ class Energy extends Component {
     this.state = {
       meters: [],
       dynamo: dynamo,
-      tableName: "EnergyTable",
+      tableName: "CEB",
       initialDate: "",
       finalDate: "",
       chosenMeter: "199",
@@ -27,7 +27,7 @@ class Energy extends Component {
   }
 
   componentDidMount() {
-    energyinfoinit(this.state.dynamo, "Meters").then(data => {
+    energyinfoinit(this.state.dynamo, "CEB-Medidores").then(data => {
       this.setState({ meters: data });
     });
   }

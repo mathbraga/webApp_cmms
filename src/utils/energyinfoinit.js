@@ -2,10 +2,10 @@ export function energyinfoinit(dbObject, tableName) {
   return new Promise((resolve, reject) => {
     dbObject.query({
       TableName: tableName,
-      KeyConditionExpression: "medtype = :medtype",
+      KeyConditionExpression: "tipomed = :tipomed",
       ExpressionAttributeValues: {
-        ":medtype": {
-          N: "1"
+        ":tipomed": {
+          "N": "1"
         }
       }
     }, (err, data) => {

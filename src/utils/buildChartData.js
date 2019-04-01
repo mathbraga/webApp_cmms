@@ -52,18 +52,17 @@ export default function buildChartData(queryResponse, aamm1, aamm2){
   var numMonths = periodInts.length;
    
   // Initializes answers array, considering all attributes in EnergyTable
-  var answers = {basec: [], cip: [], dc: [], dcf: [], dcp: [], desc: [], dff: [], dfp: [], dmf: [], dmp: [], erexf: [], erexp: [], icms: [], jma: [], kwh: [], kwhf: [], kwhp: [], tipo: [], trib: [], vbru: [], vdff: [], vdfp: [], verexf: [], verexp: [], vliq: [], vudf: [], vudp: []};
+  var answers = {basec: [], cip: [], dcf: [], dcp: [], desc: [], dff: [], dfp: [], dmf: [], dmp: [], uferf: [], uferp: [], icms: [], jma: [], kwh: [], kwhf: [], kwhp: [], tipo: [], trib: [], vbru: [], vdff: [], vdfp: [], verexf: [], verexp: [], vliq: [], vudf: [], vudp: []};
 
   // Loops through queryResponse to build answers array
   for(let i = 0; i <= numMonths - 1; i++){
-    answers.basec.push(0); answers.cip.push(0); answers.dc.push(0); answers.dcf.push(0); answers.dcp.push(0); answers.desc.push(0); answers.dff.push(0); answers.dfp.push(0); answers.dmf.push(0); answers.dmp.push(0); answers.erexf.push(0); answers.erexp.push(0); answers.icms.push(0); answers.jma.push(0); answers.kwh.push(0); answers.kwhf.push(0); answers.kwhp.push(0); answers.tipo.push(0); answers.trib.push(0); answers.vbru.push(0); answers.vdff.push(0); answers.vdfp.push(0); answers.verexf.push(0); answers.verexp.push(0); answers.vliq.push(0); answers.vudf.push(0); answers.vudp.push(0);
+    answers.basec.push(0); answers.cip.push(0); answers.dcf.push(0); answers.dcp.push(0); answers.desc.push(0); answers.dff.push(0); answers.dfp.push(0); answers.dmf.push(0); answers.dmp.push(0); answers.uferf.push(0); answers.uferp.push(0); answers.icms.push(0); answers.jma.push(0); answers.kwh.push(0); answers.kwhf.push(0); answers.kwhp.push(0); answers.tipo.push(0); answers.trib.push(0); answers.vbru.push(0); answers.vdff.push(0); answers.vdfp.push(0); answers.verexf.push(0); answers.verexp.push(0); answers.vliq.push(0); answers.vudf.push(0); answers.vudp.push(0);
     for(let j = 0; j <= numMeters - 1; j++){
       if(queryResponse[j].Items.length > 0){ // If current meter does not have data, will not be considered for sum
         for(let k = 0; k <= queryResponse[j].Items.length - 1; k++){ // Block access of inexisting months in a meter
           if(queryResponse[j].Items[k].aamm === periodInts[i]){ // Check if 'aamm' corresponds to current loop month. If true, the value is added
             answers.basec[i] = answers.basec[i] + queryResponse[j].Items[k].basec;
             answers.cip[i]   = answers.cip[i] + queryResponse[j].Items[k].cip;
-            answers.dc[i]   = answers.dc[i] + queryResponse[j].Items[k].dc;
             answers.dcf[i]   = answers.dcf[i] + queryResponse[j].Items[k].dcf;
             answers.dcp[i]   = answers.dcp[i] + queryResponse[j].Items[k].dcp;
             answers.desc[i]  = answers.desc[i] + queryResponse[j].Items[k].desc;
@@ -71,8 +70,8 @@ export default function buildChartData(queryResponse, aamm1, aamm2){
             answers.dfp[i]   = answers.dfp[i] + queryResponse[j].Items[k].dfp;
             answers.dmf[i]   = answers.dmf[i] + queryResponse[j].Items[k].dmf;
             answers.dmp[i]   = answers.dmp[i] + queryResponse[j].Items[k].dmp;
-            answers.erexf[i] = answers.erexf[i] + queryResponse[j].Items[k].erexf;
-            answers.erexp[i] = answers.erexp[i] + queryResponse[j].Items[k].erexp;
+            answers.uferf[i] = answers.uferf[i] + queryResponse[j].Items[k].uferf;
+            answers.uferp[i] = answers.uferp[i] + queryResponse[j].Items[k].uferp;
             answers.icms[i]  = answers.icms[i] + queryResponse[j].Items[k].icms;
             answers.jma[i]   = answers.jma[i] + queryResponse[j].Items[k].jma;
             answers.kwh[i]   = answers.kwh[i] + queryResponse[j].Items[k].kwh;
