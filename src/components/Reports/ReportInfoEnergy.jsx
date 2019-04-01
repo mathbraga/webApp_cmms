@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardBody, Col, Row, Table, CardHeader } from "reactstrap";
+import ReportCard from "../Cards/ReportCard";
 
 const rowNames = [
   { name: "Identificação CEB", attr: "idceb" },
@@ -18,40 +19,34 @@ const rowNames = [
 class ReportInfoEnergy extends Component {
   render() {
     return (
-      <Card>
-        <CardHeader>
-          <Row>
-            <Col md="12">
-              <div className="calc-title">Informações do Medidor</div>
-              <div className="calc-subtitle">Dados Atuais</div>
-            </Col>
-          </Row>
-        </CardHeader>
-        <CardBody>
-          <Table responsive size="sm">
-            <tbody>
-              {rowNames.map(info =>
-                info.attr === "dem" ? (
-                  <tr>
-                    <th>{info.name}</th>
-                    <td>
-                      {this.props.data["dcf"].N} kW - {this.props.data["dcp"].N}{" "}
-                      kW
-                    </td>
-                  </tr>
-                ) : this.props.data[info.attr] ? (
-                  <tr>
-                    <th>{info.name}</th>
-                    <td>{this.props.data[info.attr].S}</td>
-                  </tr>
-                ) : (
-                  ""
-                )
-              )}
-            </tbody>
-          </Table>
-        </CardBody>
-      </Card>
+      <ReportCard
+        title={"Informações do Medidor"}
+        titleColSize={12}
+        subtitle={"Dados Atuais"}
+      >
+        <Table responsive size="sm">
+          <tbody>
+            {rowNames.map(info =>
+              info.attr === "dem" ? (
+                <tr>
+                  <th>{info.name}</th>
+                  <td>
+                    {this.props.data["dcf"].N} kW - {this.props.data["dcp"].N}{" "}
+                    kW
+                  </td>
+                </tr>
+              ) : this.props.data[info.attr] ? (
+                <tr>
+                  <th>{info.name}</th>
+                  <td>{this.props.data[info.attr].S}</td>
+                </tr>
+              ) : (
+                ""
+              )
+            )}
+          </tbody>
+        </Table>
+      </ReportCard>
     );
   }
 }
