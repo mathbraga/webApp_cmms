@@ -45,16 +45,16 @@ class EnergyResultOM extends Component {
         handleNewSearch={this.props.handleNewSearch}
       >
         <Row>
-          <Col md="3">
+          <Col lg="3" md="6" className="d-none d-md-inline">
             <WidgetOneColumn
               firstTitle={"Consumo"}
               firstValue={formatNumber(result.queryResponse.kwh, 0) + " kWh"}
-              secondTitle={"Gasto"}
-              secondValue={"R$" + formatNumber(result.queryResponse.vbru, 2)}
+              secondTitle={"Valor bruto"}
+              secondValue={"R$ " + formatNumber(result.queryResponse.vbru, 2)}
               image={imageEnergyMoney}
             />
           </Col>
-          <Col md="6">
+          <Col lg="6" className="d-none d-lg-inline">
             <WidgetThreeColumns
               titles={[
                 "Demanda FP",
@@ -75,7 +75,7 @@ class EnergyResultOM extends Component {
               image={imageEnergyPlug}
             />
           </Col>
-          <Col md="3">
+          <Col xs="12" md="6" lg="3" className="d-xs-inline">
             <WidgetWithModal
               data={result}
               title={"Diagnóstico"}
