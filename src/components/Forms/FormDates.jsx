@@ -1,20 +1,29 @@
 import React, { Component } from "react";
-import { Card, CardHeader, CardBody, Col, Label, Input, FormGroup, Button } from "reactstrap";
+import { Card, CardHeader, CardBody, Row, Col, Label, Input, FormGroup, Button } from "reactstrap";
 
 class FormDates extends Component {
   render() {
     return (
       <Card>
         <CardHeader>
-          <strong>Período de consumo</strong>
+          <strong>Pesquisar período</strong>
+          <inline>
+            <em style={{ "color": "grey" }}>&nbsp;&nbsp;&nbsp;&nbsp;Dados desde 01/2017</em>
+          </inline>
         </CardHeader>
         <CardBody>
-          <FormGroup row>
-            <Label htmlFor="initialDate" sm={"auto"}>
-              <strong>Mês inicial:</strong>
-            </Label>
-            <Col sm={2}>
+          
+          <Row>
+
+            <Col xs="auto">
+              <Label htmlFor="initialDate" sm="auto">
+                <strong>Mês inicial:</strong>
+              </Label>
+            </Col>
+
+            <Col xs="auto">
               <Input
+                className="date-input"
                 name="initialDate"
                 id="initialDate"
                 type="text"
@@ -24,12 +33,17 @@ class FormDates extends Component {
                 onChange={this.props.onChangeDate}
               />
             </Col>
-            <Label htmlFor="finalDate" sm={"auto"}>
-              <strong>Mês final:</strong>
-            </Label>
-            <Col sm={2}>
+
+            <Col sm="auto">
+              <Label htmlFor="finalDate" sm="auto">
+                <strong>Mês final:</strong>
+              </Label>
+            </Col>
+
+            <Col sm="auto">
               {!this.props.oneMonth ? (
                 <Input
+                  className="date-input"
                   type="text"
                   name="finalDate"
                   id="finalDate"
@@ -40,6 +54,7 @@ class FormDates extends Component {
                 />
               ) : (
                 <Input
+                  className="date-input"
                   type="text"
                   name="finalDate"
                   id="finalDate"
@@ -51,10 +66,37 @@ class FormDates extends Component {
                 />
               )}
             </Col>
-            <Label htmlFor="finalDate" sm={{ size: "auto", offset: 0 }}>
-              <strong>Medidor:</strong>
-            </Label>
-            <Col sm={3.5}>
+
+            </Row>
+
+
+            <Row>
+            <Col xs={{ size: 6, offset: 3 }}>
+              <FormGroup check className="checkbox">
+                <Input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="oneMonth"
+                  name="oneMonth"
+                  value={1}
+                  onChange={this.props.onChangeOneMonth}
+                />
+                <Label check className="form-check-label" htmlFor="oneMonth">
+                  Somente um mês
+                </Label>
+              </FormGroup>
+            </Col>
+          </Row>
+          
+
+          <Row>
+            <Col sm="auto">
+              <Label htmlFor="finalDate" sm={{ size: "auto", offset: 0 }}>
+                <strong>Medidor:</strong>
+              </Label>
+            </Col>
+
+            <Col sm="auto">
               <Input
                 type="select"
                 name="chosenMeter"
@@ -71,8 +113,14 @@ class FormDates extends Component {
                 ))}
               </Input>
             </Col>
-            <Col>
+
+          </Row>
+
+          <Row>
+
+            <Col xs="auto">
               <Button
+                className=""
                 type="submit"
                 size="md"
                 color="primary"
@@ -80,24 +128,10 @@ class FormDates extends Component {
               >Pesquisar
               </Button>
             </Col>
-          </FormGroup>
-          <FormGroup row>
-            <Col md="3">
-              <FormGroup check className="checkbox">
-                <Input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="oneMonth"
-                  name="oneMonth"
-                  value={1}
-                  onChange={this.props.onChangeOneMonth}
-                />
-                <Label check className="form-check-label" htmlFor="oneMonth">
-                  Pesquisar somente um mês
-                </Label>
-              </FormGroup>
-            </Col>
-          </FormGroup>
+          </Row>
+
+
+
         </CardBody>
       </Card>
     );
