@@ -43,13 +43,9 @@ export default function handleSearch() {
     ).then(data => {
       var queryResponse = [];
       var chartConfigs = {};
-      console.log("data:");
-      console.log(data);
       // AM case
       if (this.state.chosenMeter === "199" && this.state.oneMonth) {
         queryResponse = allMetersSum(data);
-        console.log("AM:");
-        console.log(queryResponse);
         this.setState({
           queryResponse: queryResponse,
           showResult: true,
@@ -62,9 +58,6 @@ export default function handleSearch() {
       if (this.state.chosenMeter === "199" && !this.state.oneMonth) {
         queryResponse = data;
         chartConfigs = buildChartData(queryResponse, aamm1, aamm2);
-        console.log("AP:");
-        console.log(chartConfigs);
-        console.log(queryResponse);
         this.setState({
           queryResponse: queryResponse,
           chartConfigs: chartConfigs,
@@ -97,8 +90,6 @@ export default function handleSearch() {
           chartConfigs: chartConfigs
         });
       }
-      console.log("QR");
-      console.log(queryResponse);
     });
 
     // Browser display an alert message in case of wrong search inputs
