@@ -27,7 +27,7 @@ class WidgetOneColumn extends Component {
       <Card className="widget-container">
         <CardBody className="widget-body">
           <Row>
-            <Col md="7" className="col-widget">
+            <Col xl="7" lg="12">
               <div className="widget-title">{firstTitle}</div>
               <div>{firstValue}</div>
               <div className="widget-title" style={{ "padding-top": "5px" }}>
@@ -35,7 +35,7 @@ class WidgetOneColumn extends Component {
               </div>
               <div>{secondValue}</div>
             </Col>
-            <Col md="5" className="widget-container-image">
+            <Col xl="5" className="d-none d-xl-block widget-container-image">
               <img className="widget-image" src={image} />
             </Col>
           </Row>

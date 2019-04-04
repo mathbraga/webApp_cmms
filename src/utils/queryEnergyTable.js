@@ -6,7 +6,7 @@ export default function queryEnergyTable(dbObject, tableName, chosenMeter, meter
       // Build array of all meters to query
       allMeters = meters.map(meter => {
         return (
-          100 * parseInt(meter.medtype.N, 10) +
+          100 * parseInt(meter.tipomed.N, 10) +
           parseInt(meter.med.N, 10)
         ).toString();
       });

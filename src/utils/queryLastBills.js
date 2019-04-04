@@ -6,7 +6,7 @@ export function queryLastBills(dbObject, med, month1, month2) {
     // Query for only one meter
     dbObject.query(
       {
-        TableName: "EnergyTable",
+        TableName: "CEB",
         KeyConditionExpression: "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
         ExpressionAttributeValues: {
           ":med": {

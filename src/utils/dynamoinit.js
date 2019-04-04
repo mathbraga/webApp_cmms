@@ -3,7 +3,7 @@ import AWS from "aws-sdk";
 export function dynamoInit() {
   AWS.config.region = "us-east-2";
   AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: "us-east-2:03b9854f-67a5-4d77-819d-8ee654f8ad1b"
+    IdentityPoolId: "us-east-2:a92ff2fa-ce00-47d1-b72f-5e3ee87fa955"
   });
   var dynamo = new AWS.DynamoDB({
     apiVersion: "2012-08-10",

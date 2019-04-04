@@ -1,8 +1,17 @@
 // Here you can add other styles
 
+.date-input {
+  width: 100px;
+}
+
+
+
+
+
 .widget-title {
   font-weight: 600;
   padding-right: 10px;
+  overflow: hidden;
 }
 
 .widget-container {
@@ -21,6 +30,7 @@
 .widget-body {
   padding-top: 8px;
   padding-bottom: 12px;
+  overflow: hidden;
 }
 
 .widget-image {
@@ -40,6 +50,7 @@
 
 .widget-container-text {
   height: 100%;
+  overflow: hidden;
 }
 
 .dash-subtitle {
