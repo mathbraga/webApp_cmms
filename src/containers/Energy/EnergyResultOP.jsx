@@ -34,10 +34,10 @@ class EnergyResultOP extends Component {
     );
     this.consMax = applyFuncToAttr(Items, "kwh", Math.max);
     this.consMin = applyFuncToAttr(Items, "kwh", Math.min);
-    this.erexSum = applyFuncToAttr(Items, "erexf", (...values) =>
+    this.erexSum = applyFuncToAttr(Items, "verexf", (...values) =>
       values.reduce((previous, current) => (current += previous))
     );
-    this.erexSum += applyFuncToAttr(Items, "erexp", (...values) =>
+    this.erexSum += applyFuncToAttr(Items, "verexp", (...values) =>
       values.reduce((previous, current) => (current += previous))
     );
     this.multaSum = applyFuncToAttr(Items, "jma", (...values) =>

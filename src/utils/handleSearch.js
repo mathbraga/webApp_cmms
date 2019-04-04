@@ -42,7 +42,7 @@ export default function handleSearch() {
       aamm2
     ).then(data => {
       var queryResponse = [];
-      var charConfigs = {};
+      var chartConfigs = {};
       console.log("data:");
       console.log(data);
       // AM case
@@ -61,13 +61,13 @@ export default function handleSearch() {
       // AP case
       if (this.state.chosenMeter === "199" && !this.state.oneMonth) {
         queryResponse = data;
-        charConfigs = buildChartData(queryResponse, aamm1, aamm2);
+        chartConfigs = buildChartData(queryResponse, aamm1, aamm2);
         console.log("AP:");
-        console.log(charConfigs);
+        console.log(chartConfigs);
         console.log(queryResponse);
         this.setState({
           queryResponse: queryResponse,
-          charConfigs: charConfigs,
+          chartConfigs: chartConfigs,
           showResult: true,
           error: false,
           newLocation: newLocation
@@ -88,12 +88,13 @@ export default function handleSearch() {
       // OP case
       if (this.state.chosenMeter !== "199" && !this.state.oneMonth) {
         queryResponse = data;
-        charConfigs = buildChartData(queryResponse, aamm1, aamm2);
+        chartConfigs = buildChartData(queryResponse, aamm1, aamm2);
         this.setState({
           queryResponse: queryResponse,
           showResult: true,
           error: false,
-          newLocation: newLocation
+          newLocation: newLocation,
+          chartConfigs: chartConfigs
         });
       }
       console.log("QR");

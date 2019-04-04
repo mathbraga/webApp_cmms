@@ -232,7 +232,7 @@ const rowNames = [
     name: "EREX P",
     type: "hover-line sub-2",
     unit: "R$",
-    attr: "erexp",
+    attr: "verexp",
     var: true,
     mean: true
   },
@@ -240,7 +240,7 @@ const rowNames = [
     name: "EREX FP",
     type: "hover-line sub-2",
     unit: "R$",
-    attr: "erexf",
+    attr: "verexf",
     var: true,
     mean: true
   },
@@ -383,10 +383,12 @@ class ReportEnergyOneUnit extends Component {
           let size = 0;
           if (column.attr) {
             this.state.comparisonResponseList.forEach(item => {
-              result[column.attr]
-                ? (result[column.attr] += item[column.attr])
-                : (result[column.attr] = item[column.attr]);
-              size += 1;
+              if (item[column.attr] > 0) {
+                result[column.attr]
+                  ? (result[column.attr] += item[column.attr])
+                  : (result[column.attr] = item[column.attr]);
+                size += 1;
+              }
             });
             result[column.attr] /= size;
           }
@@ -410,10 +412,8 @@ class ReportEnergyOneUnit extends Component {
     const resultCompareObject = compareObject && compareObject.result;
     const dateCompareObject = compareObject && compareObject.dateRequired;
 
-    if (resultCompareObject && resultCompareObject.tipo === 1) {
-      resultCompareObject.dcf = resultCompareObject.dc;
-      resultCompareObject.dcp = 0;
-    }
+    console.log("OneUnit:");
+    console.log(this.props.data);
 
     return (
       <ReportCard

@@ -27,6 +27,8 @@ class ChartReport extends Component {
         key
       ].options.title.text;
     });
+    console.log("ChartReport:");
+    console.log(this.props);
 
     return (
       <ReportCard

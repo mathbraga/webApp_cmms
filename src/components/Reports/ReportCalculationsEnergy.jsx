@@ -54,8 +54,8 @@ class ReportCalculationsEnergy extends Component {
             const results = bestDemand(
               lastItems,
               lastBlues,
-              this.props.demandContract.dcf.N,
-              this.props.demandContract.dcp.N
+              parseInt(this.props.demandContract.dcf.S),
+              parseInt(this.props.demandContract.dcp.S)
             );
             const bestResult =
               results[0].value <= results[1].value ? results[0] : results[1];
@@ -171,7 +171,7 @@ class ReportCalculationsEnergy extends Component {
           <Col md="6">
             <div className="container-old-demand">
               <div className="demand-value">
-                {this.props.demandContract.dcf.N} kW
+                {this.props.demandContract.dcf.S} kW
               </div>
               <div className="demand-subtitle">
                 <strong>Fora Ponta</strong> - Valor Contratado
@@ -181,7 +181,7 @@ class ReportCalculationsEnergy extends Component {
           <Col md="6">
             <div className="container-old-demand">
               <div className="demand-value">
-                {this.props.demandContract.dcp.N} kW
+                {this.props.demandContract.dcp.S} kW
               </div>
               <div className="demand-subtitle">
                 <strong>Ponta</strong> - Valor Contratado

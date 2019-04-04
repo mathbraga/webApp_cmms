@@ -12,12 +12,15 @@ const rowNames = [
   { name: "Subgrupo", attr: "subgrupo" },
   { name: "Ligação", attr: "lig" },
   { name: "Modalidade tarifária", attr: "modtar" },
+  { name: "Locais", attr: "locais" },
   { name: "Demanda Contratada (FP/P)", attr: "dem" },
   { name: "Observações", attr: "obs" }
 ];
 
 class ReportInfoEnergy extends Component {
   render() {
+    console.log("InfoEnergy:");
+    console.log(this.props.data);
     return (
       <ReportCard
         title={"Informações do Medidor"}
@@ -31,7 +34,7 @@ class ReportInfoEnergy extends Component {
                 <tr>
                   <th>{info.name}</th>
                   <td>
-                    {this.props.data["dcf"].N} kW - {this.props.data["dcp"].N}{" "}
+                    {this.props.data["dcf"].S} kW - {this.props.data["dcp"].S}{" "}
                     kW
                   </td>
                 </tr>
