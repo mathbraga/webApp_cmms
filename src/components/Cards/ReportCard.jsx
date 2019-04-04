@@ -71,7 +71,7 @@ class ReportCard extends Component {
                     <DropdownToggle caret size="sm">
                       {dropdownItems[resultID]}
                     </DropdownToggle>
-                    <DropdownMenu>
+                    <DropdownMenu className="dropdown-menu">
                       {Object.keys(dropdownItems).map(itemID => (
                         <DropdownItem onClick={() => showCalcResult(itemID)}>
                           {dropdownItems[itemID]}
@@ -86,7 +86,9 @@ class ReportCard extends Component {
             )}
           </Row>
         </CardHeader>
-        <CardBody>{this.props.children}</CardBody>
+        <CardBody className={this.props.bodyClass}>
+          {this.props.children}
+        </CardBody>
       </Card>
     );
   }

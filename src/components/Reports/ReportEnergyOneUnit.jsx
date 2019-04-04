@@ -350,7 +350,6 @@ class ReportEnergyOneUnit extends Component {
       this.props.date - 100,
       this.props.date
     ).then(lastItems => {
-      console.log("oneUnitReport:");
       this.setState({
         comparisonResponseList: lastItems.Items
       });
@@ -391,9 +390,6 @@ class ReportEnergyOneUnit extends Component {
             });
             result[column.attr] /= size;
           }
-          console.log("Result:");
-          console.log(size);
-          console.log(result);
         });
         break;
     }
@@ -406,9 +402,6 @@ class ReportEnergyOneUnit extends Component {
 
   handleChangeComparison = type => {
     this.setState({ typeOfComparison: type });
-    console.log("Comparison List:");
-    console.log(this.state.comparisonResponseList);
-    console.log(type);
   };
 
   render() {
@@ -416,9 +409,6 @@ class ReportEnergyOneUnit extends Component {
       this.state.comparisonResponseList && this.returnChangeComparisonObject();
     const resultCompareObject = compareObject && compareObject.result;
     const dateCompareObject = compareObject && compareObject.dateRequired;
-    console.log("CompareOjbect:");
-    console.log(resultCompareObject);
-    console.log(dateCompareObject);
 
     if (resultCompareObject && resultCompareObject.tipo === 1) {
       resultCompareObject.dcf = resultCompareObject.dc;

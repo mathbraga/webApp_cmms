@@ -6,6 +6,9 @@ class EnergyResultAP extends Component {
     // Initialize all Variables
     const { meters, initialDate, finalDate } = this.props.energyState;
 
+    console.log("ResultAP:");
+    console.log(this.props);
+
     return (
       <ResultCard
         allUnits

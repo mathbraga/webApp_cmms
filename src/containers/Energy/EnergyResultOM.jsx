@@ -31,11 +31,6 @@ class EnergyResultOM extends Component {
     });
     const dateString = transformDateString(result.queryResponse.aamm);
 
-    // ------------------------------------------
-    console.log("Result:");
-    console.log(result);
-    // ------------------------------------------
-
     return (
       <ResultCard
         unitNumber={result.unit.idceb.S}
