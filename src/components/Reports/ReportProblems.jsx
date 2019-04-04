@@ -65,8 +65,6 @@ const rowNames = {
 class ReportProblems extends Component {
   state = {};
   render() {
-    console.log("ReportProblems:");
-    console.log(this.props.problems);
     return (
       <Modal
         isOpen={this.props.isOpen}

@@ -1,20 +1,8 @@
 import React, { Component } from "react";
-import {
-  Card,
-  CardBody,
-  Col,
-  Row,
-  Table,
-  Badge,
-  CardHeader,
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
-import classNames from "classnames";
+import { Table } from "reactstrap";
 import { queryLastBills } from "../../utils/queryLastBills";
 import { transformDateString } from "../../utils/transformDateString";
+import ReportCard from "../Cards/ReportCard";
 
 const rowNames = [
   {
@@ -351,7 +339,6 @@ class ReportEnergyOneUnit extends Component {
     super(props);
     this.state = {
       typeOfComparison: "lastMonth",
-      dropdownOpen: false,
       comparisonResponseList: false
     };
   }
@@ -363,7 +350,6 @@ class ReportEnergyOneUnit extends Component {
       this.props.date - 100,
       this.props.date
     ).then(lastItems => {
-      console.log("oneUnitReport:");
       this.setState({
         comparisonResponseList: lastItems.Items
       });
@@ -404,9 +390,6 @@ class ReportEnergyOneUnit extends Component {
             });
             result[column.attr] /= size;
           }
-          console.log("Result:");
-          console.log(size);
-          console.log(result);
         });
         break;
     }
@@ -417,18 +400,8 @@ class ReportEnergyOneUnit extends Component {
     return number.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
   }
 
-  toggle = () => {
-    const newState = !this.state.dropdownOpen;
-    this.setState({
-      dropdownOpen: newState
-    });
-  };
-
   handleChangeComparison = type => {
     this.setState({ typeOfComparison: type });
-    console.log("Comparison List:");
-    console.log(this.state.comparisonResponseList);
-    console.log(type);
   };
 
   render() {
@@ -436,9 +409,6 @@ class ReportEnergyOneUnit extends Component {
       this.state.comparisonResponseList && this.returnChangeComparisonObject();
     const resultCompareObject = compareObject && compareObject.result;
     const dateCompareObject = compareObject && compareObject.dateRequired;
-    console.log("CompareOjbect:");
-    console.log(resultCompareObject);
-    console.log(dateCompareObject);
 
     if (resultCompareObject && resultCompareObject.tipo === 1) {
       resultCompareObject.dcf = resultCompareObject.dc;
@@ -446,124 +416,89 @@ class ReportEnergyOneUnit extends Component {
     }
 
     return (
-      <Card>
-        <CardHeader>
-          <Row>
-            <Col md="4">
-              <div className="calc-title">Fatura Detalhada</div>
-              <div className="calc-subtitle">
-                Mês de Referência: <strong>{this.props.dateString}</strong>
-              </div>
-            </Col>
-            <Col md="8">
-              <Row className="center-button-container">
-                <p className="button-calc">Comparar com:</p>
-                <ButtonDropdown
-                  isOpen={this.state.dropdownOpen}
-                  toggle={() => {
-                    this.toggle();
-                  }}
-                >
-                  <DropdownToggle caret size="sm">
-                    {this.state.typeOfComparison === "median"
-                      ? "Últimos 12 meses (média)"
-                      : this.state.typeOfComparison === "lastMonth"
-                      ? "Último mês"
-                      : "Mesmo período (12 meses atrás)"}
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem
-                      onClick={() => this.handleChangeComparison("median")}
-                    >
-                      Últimos 12 meses (média)
-                    </DropdownItem>
-                    <DropdownItem
-                      onClick={() => this.handleChangeComparison("lastMonth")}
-                    >
-                      Último mês
-                    </DropdownItem>
-                    <DropdownItem
-                      onClick={() => this.handleChangeComparison("yearAgo")}
-                    >
-                      Mesmo período (12 meses atrás)
-                    </DropdownItem>
-                  </DropdownMenu>
-                </ButtonDropdown>
-              </Row>
-            </Col>
-          </Row>
-        </CardHeader>
-        <CardBody>
-          <Table responsive size="sm">
-            <thead>
-              <tr className="header-table">
-                <th />
-                <th>{this.props.dateString}</th>
-                <th>
-                  {this.state.typeOfComparison === "median"
-                    ? "Média (12 meses)"
-                    : transformDateString(dateCompareObject)}
-                </th>
-                <th>Variações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rowNames.map((column, i) =>
-                !column.justBlue ||
-                this.props.data.tipo === 2 ||
-                resultCompareObject.tipo === 2 ? (
-                  <tr className={column.type + "-table"}>
-                    <th className={column.type + "-table"}>{column.name}</th>
-                    <td className={column.type + "-table"}>
-                      {column.unit === ""
-                        ? ""
-                        : isNaN(this.props.data[column.attr]) ||
-                          this.props.data[column.attr] === 0
-                        ? "-"
-                        : column.unit === "R$"
-                        ? "R$ " +
-                          this.formatNumber(this.props.data[column.attr])
-                        : this.formatNumber(this.props.data[column.attr]) +
-                          " " +
-                          column.unit}
-                    </td>
-                    <td className={column.type + "-table"}>
-                      {column.unit === ""
-                        ? ""
-                        : isNaN(resultCompareObject[column.attr]) ||
-                          resultCompareObject[column.attr] === 0
-                        ? "-"
-                        : column.unit === "R$"
-                        ? "R$ " +
-                          this.formatNumber(resultCompareObject[column.attr])
-                        : this.formatNumber(resultCompareObject[column.attr]) +
-                          " " +
-                          column.unit}
-                    </td>
-                    <td>
-                      {!column.var
-                        ? ""
-                        : isNaN(this.props.data[column.attr]) ||
-                          isNaN(resultCompareObject[column.attr]) ||
-                          !this.props.data[column.attr] ||
-                          !resultCompareObject[column.attr]
-                        ? "-"
-                        : this.formatNumber(
-                            ((this.props.data[column.attr] -
-                              resultCompareObject[column.attr]) /
-                              resultCompareObject[column.attr]) *
-                              100
-                          ) + " %"}
-                    </td>
-                  </tr>
-                ) : (
-                  ""
-                )
-              )}
-            </tbody>
-          </Table>
-        </CardBody>
-      </Card>
+      <ReportCard
+        title={"Fatura Detalhada"}
+        titleColSize={5}
+        subtitle={"Mês de Referência:"}
+        subvalue={this.props.dateString}
+        dropdown
+        dropdownTitle={"Comparar com:"}
+        dropdownItems={{
+          lastMonth: "Último mês",
+          yearAgo: "Mesmo período (12 meses atrás)",
+          median: "Média (12 meses)"
+        }}
+        showCalcResult={this.handleChangeComparison}
+        resultID={this.state.typeOfComparison}
+      >
+        <Table responsive size="sm">
+          <thead>
+            <tr className="header-table">
+              <th />
+              <th>{this.props.dateString}</th>
+              <th>
+                {this.state.typeOfComparison === "median"
+                  ? "Média (12 meses)"
+                  : transformDateString(dateCompareObject)}
+              </th>
+              <th>Variações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rowNames.map((column, i) =>
+              !column.justBlue ||
+              this.props.data.tipo === 2 ||
+              resultCompareObject.tipo === 2 ? (
+                <tr className={column.type + "-table"}>
+                  <th className={column.type + "-table"}>{column.name}</th>
+                  <td className={column.type + "-table"}>
+                    {column.unit === ""
+                      ? ""
+                      : isNaN(this.props.data[column.attr]) ||
+                        this.props.data[column.attr] === 0
+                      ? "-"
+                      : column.unit === "R$"
+                      ? "R$ " + this.formatNumber(this.props.data[column.attr])
+                      : this.formatNumber(this.props.data[column.attr]) +
+                        " " +
+                        column.unit}
+                  </td>
+                  <td className={column.type + "-table"}>
+                    {column.unit === ""
+                      ? ""
+                      : isNaN(resultCompareObject[column.attr]) ||
+                        resultCompareObject[column.attr] === 0
+                      ? "-"
+                      : column.unit === "R$"
+                      ? "R$ " +
+                        this.formatNumber(resultCompareObject[column.attr])
+                      : this.formatNumber(resultCompareObject[column.attr]) +
+                        " " +
+                        column.unit}
+                  </td>
+                  <td>
+                    {!column.var
+                      ? ""
+                      : isNaN(this.props.data[column.attr]) ||
+                        isNaN(resultCompareObject[column.attr]) ||
+                        !this.props.data[column.attr] ||
+                        !resultCompareObject[column.attr]
+                      ? "-"
+                      : this.formatNumber(
+                          ((this.props.data[column.attr] -
+                            resultCompareObject[column.attr]) /
+                            resultCompareObject[column.attr]) *
+                            100
+                        ) + " %"}
+                  </td>
+                </tr>
+              ) : (
+                ""
+              )
+            )}
+          </tbody>
+        </Table>
+      </ReportCard>
     );
   }
 }
