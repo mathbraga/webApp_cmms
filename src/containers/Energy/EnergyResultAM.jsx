@@ -23,9 +23,6 @@ class EnergyResultAM extends Component {
       queryResponse: queryResponse[0].Items[0]
     };
 
-    console.log("ResultAM:");
-    console.log(this.props);
-
     return (
       <ResultCard
         allUnits
@@ -39,7 +36,7 @@ class EnergyResultAM extends Component {
               firstTitle={"Consumo Total"}
               firstValue={formatNumber(result.queryResponse.kwh, 0) + " kWh"}
               secondTitle={"Gasto Total"}
-              secondValue={"R$" + formatNumber(result.queryResponse.vbru, 2)}
+              secondValue={"R$ " + formatNumber(result.queryResponse.vbru, 2)}
               image={imageEnergyMoney}
             />
           </Col>

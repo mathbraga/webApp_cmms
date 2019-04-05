@@ -4,10 +4,6 @@
   width: 100px;
 }
 
-
-
-
-
 .widget-title {
   font-weight: 600;
   padding-right: 10px;
@@ -230,4 +226,9 @@ th {
 
 .fixed-height {
   height: 100%;
+}
+
+.body-scroll {
+  max-height: 350px;
+  overflow-y: auto;
 }

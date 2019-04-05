@@ -9,6 +9,7 @@ class ReportListMeters extends Component {
         title={"Lista de Medidores"}
         titleColSize={12}
         subtitle={"Dados Atuais"}
+        bodyClass={"body-scroll"}
       >
         <Table responsive size="sm">
           <thead>
@@ -25,11 +26,16 @@ class ReportListMeters extends Component {
                 <th>{unit.idceb.S}</th>
                 <td>{unit.nome.S}</td>
                 <td>{unit.modtar.S}</td>
-                <td>
-                  {unit.dcf.S && parseInt(unit.dcf.S) > 0 ? unit.dcf.S : "-"} kW
-                  / {unit.dcp.S && parseInt(unit.dcp.S) > 0 ? unit.dcp.S : "-"}{" "}
-                  kW
-                </td>
+                {unit.dcf.S == 0 && unit.dcp.S == 0 ? (
+                  <td>-</td>
+                ) : (
+                  <td>
+                    {unit.dcf.S && parseInt(unit.dcf.S) > 0 ? unit.dcf.S : "-"}{" "}
+                    kW /{" "}
+                    {unit.dcp.S && parseInt(unit.dcp.S) > 0 ? unit.dcp.S : "-"}{" "}
+                    kW
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
