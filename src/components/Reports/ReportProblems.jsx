@@ -22,54 +22,68 @@ const rowNames = {
 
 
 
-  dcontratadaP: {
+  dcp: {
     name: "Demanda contratada - Ponta",
-    obs: "Maior que zero somente na modalidade tarifária Azul. Igual a zero nos outros casos.",
+    obs: "Maior que zero somente na modalidade tarifária horária Azul. Igual a zero nos outros casos.",
     expected: "≥ 0 kW"
   },
-  dcontratadaFP: {
+  dcf: {
     name: "Demanda contratada - Fora de ponta",
-    obs: "Igual a zero somente no contratada junto à CEB Distribuição.",
+    obs: "Igual a zero somente na modalidade tarirária convencional",
     expected: "≥ 0 kW"
   },
-  dmedidaP: {
+  dmp: {
     name: "Demanda medida - Ponta",
-    obs: "Demanda medida pela CEB.",
-    expected: "> 0 kW"
+    obs: "Maior demanda de potência ativa registrada no período - Ponta",
+    expected: "≤ Demanda contratada (Ponta)"
   },
-  dmedidaFP: {
+  dmf: {
     name: "Demanda medida - Fora de ponta",
-    obs: "Demanda medida pela CEB.",
-    expected: "> 0 kW"
+    obs: "Maior demanda de potência ativa registrada no período - Fora de ponta",
+    expected: "≤ Demanda contratada (Fora de ponta)"
   },
-  dfaturadaP: {
-    name: "Demanda Faturada Ponta",
-    obs: "Demanda faturada pela CEB.",
-    expected: false
+  dfp: {
+    name: "Demanda faturada - Ponta",
+    obs: "Demanda considerada no faturamento (maior valor entre medida e contratada) - Ponta",
+    expected: "≤ Demanda contratada (Ponta)"
   },
-  dfaturadaFP: {
+  dff: {
     name: "Demanda faturada - Fora de ponta",
-    obs: "Demanda faturada pela CEB.",
-    expected: false
+    obs: "Demanda considerada no faturamento (maior valor entre medida e contratada) - Fora de ponta",
+    expected: "≤ Demanda contratada (Fora de ponta)"
   },
-  ultrap: {
+
+  vudp: {
     name: "Custo da ultrapassagem de demanda - Ponta",
-    obs: "Valor da demanda medida que excedeu a demanda contratada.",
-    expected: "0 kW"
+    obs: "Valor adicional em caso de demanda medida superior à demanda contratada",
+    expected: "= R$ 0"
   },
-  erex: {
-    name: "EREX",
-    obs: "Energia reativa excedente",
-    expected: "Zero" },
-  multa: {
+
+  vudf: {
+    name: "Custo da ultrapassagem de demanda - Fora de ponta",
+    obs: "Valor adicional em caso de demanda medida superior à demanda contratada",
+    expected: "= R$ 0"
+  },
+
+  verexp: {
+    name: "Custo do EREX - Ponta",
+    obs: "Valor adicional em caso de excedentes de energia reativa (fator de potência inferior a 0,92)",
+    expected: "= R$ 0" },
+
+  verexf: {
+    name: "Custo do EREX - Fora de ponta",
+    obs: "Valor adicional em caso de excedentes de energia reativa (fator de potência inferior a 0,92)",
+    expected: "= R$ 0" },
+
+  jma: {
     name: "Multas, juros e atualização monetária",
-    obs: "O valor inclui multas, juros e atualização monetária decorrentes de atraso no pagamento de faturas anteriores",
-    expected: "R$ 0,00"
+    obs: "Valores adicionais decorrentes do atraso no pagamento de faturas anteriores",
+    expected: "= R$ 0"
   },
-  compensacao: {
+  desc: {
     name: "Descontos e compensações",
     obs: "Total de descontos e compensações devido a baixos indicadores de qualidade do serviço, conforme normas da ANEEL, ou correções de valores cobrados indevidamente em faturas anteriores",
-    expected: "R$ 0,00"
+    expected: "= R$ 0"
   }
 };
 
@@ -77,7 +91,7 @@ class ReportProblems extends Component {
   state = {};
   render() {
     return (
-      <Modal
+      <Modal xs="12"
         isOpen={this.props.isOpen}
         toggle={this.props.toggle}
         className={this.props.className}
