@@ -1,27 +1,38 @@
 import React, { Component } from "react";
-import { Card, CardHeader, CardBody, Row, Col, Label, Input, FormGroup, Button } from "reactstrap";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Row,
+  Col,
+  Label,
+  Input,
+  FormGroup,
+  Button
+} from "reactstrap";
 
 class FormDates extends Component {
   render() {
     return (
       <Card>
         <CardHeader>
-          <strong>Pesquisar período</strong>
-          <inline>
-            <em style={{ "color": "grey" }}>&nbsp;&nbsp;&nbsp;&nbsp;Dados desde 01/2017</em>
-          </inline>
+          <Row>
+            <Col md="12">
+              <div className="calc-title">Pesquisar período</div>
+              <div className="calc-subtitle">
+                <em>Dados desde 01/2017</em>
+              </div>
+            </Col>
+          </Row>
         </CardHeader>
         <CardBody>
-          
           <Row>
-
-            <Col xs="auto">
-              <Label htmlFor="initialDate" sm="auto">
+            <Col md="3">
+              <Label htmlFor="initialDate">
                 <strong>Mês inicial:</strong>
               </Label>
             </Col>
-
-            <Col xs="auto">
+            <Col md="3">
               <Input
                 className="date-input"
                 name="initialDate"
@@ -33,14 +44,12 @@ class FormDates extends Component {
                 onChange={this.props.onChangeDate}
               />
             </Col>
-
-            <Col sm="auto">
+            <Col md="3">
               <Label htmlFor="finalDate" sm="auto">
                 <strong>Mês final:</strong>
               </Label>
             </Col>
-
-            <Col sm="auto">
+            <Col md="3">
               {!this.props.oneMonth ? (
                 <Input
                   className="date-input"
@@ -66,12 +75,43 @@ class FormDates extends Component {
                 />
               )}
             </Col>
+          </Row>
 
-            </Row>
+          <Row>
+            <Col sm="4">
+              <Label htmlFor="finalDate">
+                <strong>Medidor:</strong>
+              </Label>
+            </Col>
 
+            <Col sm="8">
+              <Input
+                type="select"
+                name="chosenMeter"
+                id="exampleSelect"
+                onChange={this.props.onMeterChange}
+              >
+                <option value="199">Todos os medidores</option>
+                {this.props.meters.map(meter => (
+                  <option
+                    key={(
+                      100 * parseInt(meter.tipomed.N, 10) +
+                      parseInt(meter.med.N, 10)
+                    ).toString()}
+                    value={(
+                      100 * parseInt(meter.tipomed.N, 10) +
+                      parseInt(meter.med.N, 10)
+                    ).toString()}
+                  >
+                    {meter.idceb.S + " - " + meter.nome.S}
+                  </option>
+                ))}
+              </Input>
+            </Col>
+          </Row>
 
-            <Row>
-            <Col xs={{ size: 6, offset: 3 }}>
+          <Row>
+            <Col md="6">
               <FormGroup check className="checkbox">
                 <Input
                   className="form-check-input"
@@ -87,37 +127,8 @@ class FormDates extends Component {
               </FormGroup>
             </Col>
           </Row>
-          
 
           <Row>
-            <Col sm="auto">
-              <Label htmlFor="finalDate" sm={{ size: "auto", offset: 0 }}>
-                <strong>Medidor:</strong>
-              </Label>
-            </Col>
-
-            <Col sm="auto">
-              <Input
-                type="select"
-                name="chosenMeter"
-                id="exampleSelect"
-                onChange={this.props.onMeterChange}
-              >
-                <option value="199">Todos os medidores</option>
-                {this.props.meters.map(meter => (
-                  <option
-                    key={(100*parseInt(meter.tipomed.N, 10) + parseInt(meter.med.N, 10)).toString()}
-                    value={(100*parseInt(meter.tipomed.N, 10) + parseInt(meter.med.N, 10)).toString()}>
-                    {meter.idceb.S + " - " + meter.nome.S}
-                  </option>
-                ))}
-              </Input>
-            </Col>
-
-          </Row>
-
-          <Row>
-
             <Col xs="auto">
               <Button
                 className=""
@@ -125,13 +136,11 @@ class FormDates extends Component {
                 size="md"
                 color="primary"
                 onClick={this.props.onQuery}
-              >Pesquisar
+              >
+                Pesquisar
               </Button>
             </Col>
           </Row>
-
-
-
         </CardBody>
       </Card>
     );
