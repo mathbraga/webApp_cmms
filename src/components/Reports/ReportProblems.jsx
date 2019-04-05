@@ -13,15 +13,6 @@ import {
 } from "reactstrap";
 
 const rowNames = {
-
-
-
-
-
-
-
-
-
   dcp: {
     name: "Demanda contratada - Ponta",
     obs: "Maior que zero somente na modalidade tarifária horária Azul. Igual a zero nos outros casos.",
@@ -91,13 +82,13 @@ class ReportProblems extends Component {
   state = {};
   render() {
     return (
-      <Modal xs="12"
+      <Modal
         isOpen={this.props.isOpen}
         toggle={this.props.toggle}
         className={this.props.className}
       >
         <ModalHeader toggle={this.props.toggle}>
-          Diagnóstico
+          Relatório
         </ModalHeader>
         <ModalBody>
           <Table bordered>
@@ -112,7 +103,10 @@ class ReportProblems extends Component {
             <tbody>
               {Object.keys(rowNames).map(row => (
                 <tr>
-                  <th scope="row">{rowNames[row].name}</th>
+                  {this.props.problems && this.props.problems[row].problem
+                    ? <th style={{"color": "red"}} scope="row">{rowNames[row].name}</th>
+                    : <th scope="row">{rowNames[row].name}</th>
+                  }
                   <td>
                     {this.props.problems && this.props.problems[row].value}
                   </td>
