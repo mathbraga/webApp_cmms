@@ -9,7 +9,11 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Table
+  Table,
+  Badge,
+  Popover,
+  PopoverHeader,
+  PopoverBody
 } from "reactstrap";
 
 const rowNames = {
@@ -79,7 +83,32 @@ const rowNames = {
 };
 
 class ReportProblems extends Component {
-  state = {};
+  constructor(props){
+    super(props);
+    this.state = {
+      openPopovers: {
+        dcp: false,
+        dcf: false,
+        dmp: false,
+        dmf: false,
+        dfp: false,
+        dff: false,
+        vudp: false,
+        vudf: false,
+        verexp: false,
+        verexf: false,
+        jma: false,
+        desc: false
+      }
+    }
+  }
+
+  togglePO(){
+    this.setState(prevState => {
+      prevState
+    });
+  }
+
   render() {
     return (
       <Modal
@@ -96,22 +125,46 @@ class ReportProblems extends Component {
               <tr>
                 <th>Parâmetro</th>
                 <th>Valor registrado</th>
-                <th>Faixa de normalidade</th>
-                <th>Observações</th>
+                {/* <th>Faixa de normalidade</th>
+                <th>Observações</th> */}
+                <th>Buttons with popovers</th>
               </tr>
             </thead>
             <tbody>
               {Object.keys(rowNames).map(row => (
                 <tr>
-                  {this.props.problems && this.props.problems[row].problem
-                    ? <th style={{"color": "red"}} scope="row">{rowNames[row].name}</th>
-                    : <th scope="row">{rowNames[row].name}</th>
-                  }
+
+                  <th scope="row">{rowNames[row].name}</th>
+                  
                   <td>
                     {this.props.problems && this.props.problems[row].value}
                   </td>
-                  <td>{rowNames[row].expected}</td>
-                  <td>{rowNames[row].obs}</td>
+                  {/* <td>{rowNames[row].expected}</td>
+                  <td>{rowNames[row].obs}</td> */}
+                  <td>
+                    {this.props.problems && this.props.problems[row].problem
+                      ? (
+                        <div>
+                          <Button id={row} color="danger" type="button">VERIFICAR</Button>
+                          {/* <Popover placement="right" isOpen={true} target={row} toggle={""}>
+                            <PopoverHeader>Title</PopoverHeader>
+                            <PopoverBody>Text</PopoverBody>
+                          </Popover> */}
+                        </div>
+                      )
+                      : (
+                        <div>
+                          <Button id={row} color="success" type="button">OK</Button>
+                          {/* <Popover placement="right" isOpen={true} target={row} toggle={""}>
+                            <PopoverHeader>Title</PopoverHeader>
+                            <PopoverBody>Text</PopoverBody>
+                          </Popover> */}
+                        </div>
+                      )
+                    }
+                  </td>
+
+
                 </tr>
               ))}
             </tbody>
