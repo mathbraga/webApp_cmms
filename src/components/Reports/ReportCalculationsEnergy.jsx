@@ -97,14 +97,14 @@ class ReportCalculationsEnergy extends Component {
 
     return (
       <ReportCard
-        title={"Demanda Ideal"}
+        title={"Demanda ideal"}
         titleColSize={6}
-        subtitle={"Mês de Referência:"}
+        subtitle={"Mês de referência:"}
         subvalue={transformDateString(this.state.baseDate)}
         dropdown
         dropdownTitle={"Cálculo para:"}
         dropdownItems={{
-          best: "Melhor Resultado",
+          best: "Melhor resultado",
           blue: "Modalidade Azul",
           green: "Modalide Verde"
         }}
@@ -114,7 +114,7 @@ class ReportCalculationsEnergy extends Component {
         <Row>
           <Col md="8">
             <div className="calc-subtitle">
-              Modalidade Calculada:{" "}
+              Modalidade calculada:{" "}
               <strong>
                 {this.state.typeOfResult === "best"
                   ? this.state.bestDemandP === "-"
@@ -126,11 +126,11 @@ class ReportCalculationsEnergy extends Component {
               </strong>
             </div>
             <div className="calc-subtitle">
-              Potencial de Economia:{" "}
+              Economia simulada:{" "}
               <strong>
-                {Math.trunc((economy / this.state.costNow) * 100) || "-"}% em 12
-                meses (+- R${" "}
-                {Math.ceil(economy / this.state.costNow / 1000) || "-"} mil)
+                {Math.trunc((economy / this.state.costNow) * 100) || "- "}% em 12
+                meses (aprox. R${" "}
+                {Math.ceil(economy / this.state.costNow / 1000) || "- "} mil)
               </strong>
             </div>
           </Col>
@@ -144,10 +144,10 @@ class ReportCalculationsEnergy extends Component {
                   : this.state.typeOfResult === "blue"
                   ? this.state.bestDemandBlueFP
                   : this.state.bestDemandGreenFP}
-                kW
+                &nbsp;kW
               </div>
               <div className="demand-subtitle">
-                <strong>Fora Ponta</strong> - Valor Ideal
+                <strong>Fora de ponta</strong> - Valor ideal
               </div>
             </div>
           </Col>
@@ -159,10 +159,10 @@ class ReportCalculationsEnergy extends Component {
                   : this.state.typeOfResult === "blue"
                   ? this.state.bestDemandBlueP
                   : this.state.bestDemandGreenP}
-                kW
+                &nbsp;kW
               </div>
               <div className="demand-subtitle">
-                <strong>Ponta</strong> - Valor Ideal
+                <strong>Ponta</strong> - Valor ideal
               </div>
             </div>
           </Col>
@@ -174,7 +174,7 @@ class ReportCalculationsEnergy extends Component {
                 {this.props.demandContract.dcf.S} kW
               </div>
               <div className="demand-subtitle">
-                <strong>Fora Ponta</strong> - Valor Contratado
+                <strong>Fora de ponta</strong> - Valor contratado
               </div>
             </div>
           </Col>
@@ -184,7 +184,7 @@ class ReportCalculationsEnergy extends Component {
                 {this.props.demandContract.dcp.S} kW
               </div>
               <div className="demand-subtitle">
-                <strong>Ponta</strong> - Valor Contratado
+                <strong>Ponta</strong> - Valor contratado
               </div>
             </div>
           </Col>

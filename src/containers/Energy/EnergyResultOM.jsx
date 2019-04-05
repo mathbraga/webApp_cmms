@@ -73,10 +73,10 @@ class EnergyResultOM extends Component {
           <Col xs="12" lg="3">
             <WidgetWithModal
               data={result}
-              title={"Diagnóstico"}
-              buttonName={"Relatório"}
+              title={"Diagnóstico:"}
+              buttonName={"Ver detalhes"}
               image={imageEnergyWarning}
-              marker={"erro(s)"}
+              marker={"problema(s)"}
             />
           </Col>
         </Row>

@@ -59,7 +59,10 @@ class WidgetWithModal extends Component {
                 <div className="widget-title">{this.props.title}</div>
                 <Badge color="danger">
                   {" "}
-                  {this.state.numProblems} {this.props.marker}{" "}
+                  {this.state.numProblems}
+                  {" "}
+                  {this.props.marker}
+                  {" "}
                 </Badge>
               </div>
 

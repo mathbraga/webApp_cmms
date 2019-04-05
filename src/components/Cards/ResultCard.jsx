@@ -82,7 +82,7 @@ class ResultCard extends Component {
             <Col md="2" className="container-left">
               <Button block outline color="primary" onClick={handleNewSearch}>
                 <i className="cui-magnifying-glass" />
-                &nbsp;Nova Pesquisa
+                &nbsp;Nova pesquisa
               </Button>
             </Col>
           </Row>

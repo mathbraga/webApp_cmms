@@ -88,7 +88,7 @@ class ReportProblems extends Component {
         className={this.props.className}
       >
         <ModalHeader toggle={this.props.toggle}>
-          Relatório
+          Verificação de problemas da fatura
         </ModalHeader>
         <ModalBody>
           <Table bordered>

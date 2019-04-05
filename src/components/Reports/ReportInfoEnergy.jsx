@@ -4,7 +4,7 @@ import ReportCard from "../Cards/ReportCard";
 
 const rowNames = [
   { name: "Identificação CEB", attr: "idceb" },
-  { name: "Nome do Medidor", attr: "nome" },
+  { name: "Nome do medidor", attr: "nome" },
   { name: "Contrato", attr: "ct" },
   { name: "Classe", attr: "classe" },
   { name: "Subclasse", attr: "subclasse" },
@@ -13,7 +13,7 @@ const rowNames = [
   { name: "Ligação", attr: "lig" },
   { name: "Modalidade tarifária", attr: "modtar" },
   { name: "Locais", attr: "locais" },
-  { name: "Demanda Contratada (FP/P)", attr: "dem" },
+  { name: "Demanda contratada (FP/P)", attr: "dem" },
   { name: "Observações", attr: "obs" }
 ];
 
@@ -23,9 +23,9 @@ class ReportInfoEnergy extends Component {
     console.log(this.props.data);
     return (
       <ReportCard
-        title={"Informações do Medidor"}
+        title={"Informações do medidor"}
         titleColSize={12}
-        subtitle={"Dados Atuais"}
+        subtitle={"Dados atuais"}
       >
         <Table responsive size="sm">
           <tbody>
