@@ -16,7 +16,7 @@ class WidgetWithModal extends Component {
     super(props);
     this.state = {
       numProblems: 0, // Number of problems (marker)
-      problems: false, // There is a problem or not
+      problems: false, // Object with identified problems
       modal: false // Handle the modal (open or closed)
     };
   }

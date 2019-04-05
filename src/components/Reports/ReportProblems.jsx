@@ -13,23 +13,32 @@ import {
 } from "reactstrap";
 
 const rowNames = {
+
+
+
+
+
+
+
+
+
   dcontratadaP: {
-    name: "Demanda Contratada Ponta",
-    obs: "Demanda contratada junto à CEB Distribuição.",
-    expected: "> 0 kW"
+    name: "Demanda contratada - Ponta",
+    obs: "Maior que zero somente na modalidade tarifária Azul. Igual a zero nos outros casos.",
+    expected: "≥ 0 kW"
   },
   dcontratadaFP: {
-    name: "Demanda Contratada Fora de Ponta",
-    obs: "Demanda contratada junto à CEB Distribuição.",
-    expected: "> 0 kW"
+    name: "Demanda contratada - Fora de ponta",
+    obs: "Igual a zero somente no contratada junto à CEB Distribuição.",
+    expected: "≥ 0 kW"
   },
   dmedidaP: {
-    name: "Demanda Medida Ponta",
+    name: "Demanda medida - Ponta",
     obs: "Demanda medida pela CEB.",
     expected: "> 0 kW"
   },
   dmedidaFP: {
-    name: "Demanda Medida Fora de Ponta",
+    name: "Demanda medida - Fora de ponta",
     obs: "Demanda medida pela CEB.",
     expected: "> 0 kW"
   },
@@ -39,25 +48,27 @@ const rowNames = {
     expected: false
   },
   dfaturadaFP: {
-    name: "Demanda Faturada Fora de Ponta",
+    name: "Demanda faturada - Fora de ponta",
     obs: "Demanda faturada pela CEB.",
     expected: false
   },
   ultrap: {
-    name: "Ultrapassagem de Demanda",
+    name: "Custo da ultrapassagem de demanda - Ponta",
     obs: "Valor da demanda medida que excedeu a demanda contratada.",
     expected: "0 kW"
   },
-  erex: { name: "EREX", obs: "Energia Reativa Excedente", expected: "Zero" },
+  erex: {
+    name: "EREX",
+    obs: "Energia reativa excedente",
+    expected: "Zero" },
   multa: {
-    name: "Multas e Juros",
-    obs: "Multas e juros por atraso no pagamento.",
+    name: "Multas, juros e atualização monetária",
+    obs: "O valor inclui multas, juros e atualização monetária decorrentes de atraso no pagamento de faturas anteriores",
     expected: "R$ 0,00"
   },
   compensacao: {
-    name: "Compensação",
-    obs:
-      "Desconto financeiro por violação às regras relativas aos indicadores de qualidade.",
+    name: "Descontos e compensações",
+    obs: "Total de descontos e compensações devido a baixos indicadores de qualidade do serviço, conforme normas da ANEEL, ou correções de valores cobrados indevidamente em faturas anteriores",
     expected: "R$ 0,00"
   }
 };
@@ -72,16 +83,16 @@ class ReportProblems extends Component {
         className={this.props.className}
       >
         <ModalHeader toggle={this.props.toggle}>
-          Diagnóstico de Problemas
+          Diagnóstico
         </ModalHeader>
         <ModalBody>
           <Table bordered>
             <thead>
               <tr>
-                <th>Parâmetros</th>
-                <th>Valor Utilizado</th>
-                <th>Valor esperado</th>
-                <th>Observação</th>
+                <th>Parâmetro</th>
+                <th>Valor registrado</th>
+                <th>Faixa de normalidade</th>
+                <th>Observações</th>
               </tr>
             </thead>
             <tbody>
