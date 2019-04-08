@@ -7,7 +7,7 @@ import allMetersSum from "./allMetersSum";
 import ChartComponent from "react-chartjs-2";
 
 export default function handleSearch() {
-  // Check dates inputs
+  // Check date inputs
   if (
     checkSearchInputs(
       this.state.initialDate,
@@ -17,12 +17,6 @@ export default function handleSearch() {
   ) {
     // Run code below in case of correct search parameters inputs (checkSearchInputs returns true)
 
-    // Define new location
-    var newLocation = defineNewLocation(
-      this.state.oneMonth,
-      this.state.chosenMeter
-    );
-
     // Transform dates inputs (from 'mm/yyyy' format to 'yymm' format)
     var aamm1 = aammTransformDate(this.state.initialDate);
     var aamm2 = "";
@@ -31,6 +25,14 @@ export default function handleSearch() {
     } else {
       aamm2 = aammTransformDate(this.state.finalDate);
     }
+
+    // Define new location
+    var newLocation = defineNewLocation(
+      this.state.oneMonth,
+      this.state.chosenMeter,
+      this.state.initialDate,
+      this.state.finalDate
+    );
 
     // Query table
     queryEnergyTable(

@@ -1,7 +1,9 @@
 // Here you can add other styles
 
 .date-input {
-  width: 100px;
+  border-radius: 5px;
+  min-width: 100px;
+  width: 50%;
 }
 
 .widget-title {
@@ -231,4 +233,20 @@ th {
 .body-scroll {
   max-height: 350px;
   overflow-y: auto;
+}
+
+.label-form {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  margin: 0px 20px;
+}
+
+.input-meters {
+  width: 60%;
+  border-radius: 5px;
+}
+
+.nav-dropdown-items > .nav-item > .nav-link {
+  padding-left: 30px;
 }

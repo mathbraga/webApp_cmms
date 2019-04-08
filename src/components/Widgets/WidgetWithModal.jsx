@@ -48,7 +48,7 @@ class WidgetWithModal extends Component {
       <Card className="widget-container">
         <CardBody className="widget-body">
           <Row className="widget-container-text">
-            <Col xl="8" lg="12">
+            <Col md="9">
               <div
                 style={{
                   display: "flex",
@@ -87,7 +87,7 @@ class WidgetWithModal extends Component {
                 />
               </div>
             </Col>
-            <Col xl="4" className="d-none d-xl-block widget-container-image">
+            <Col md="3" className="widget-container-image">
               <img className="widget-image" src={this.props.image} />
             </Col>
           </Row>

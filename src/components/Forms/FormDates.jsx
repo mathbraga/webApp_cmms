@@ -8,7 +8,8 @@ import {
   Label,
   Input,
   FormGroup,
-  Button
+  Button,
+  CustomInput
 } from "reactstrap";
 
 class FormDates extends Component {
@@ -28,68 +29,63 @@ class FormDates extends Component {
         <CardBody>
           <Row>
             <Col md="3">
-              <Label htmlFor="initialDate">
-                <strong>Mês inicial:</strong>
-              </Label>
-            </Col>
-            <Col md="3">
-              <Input
-                className="date-input"
-                name="initialDate"
-                id="initialDate"
-                type="text"
-                placeholder="mm/aaaa"
-                value={this.props.initialDate}
-                required
-                onChange={this.props.onChangeDate}
-              />
-            </Col>
-            <Col md="3">
-              <Label htmlFor="finalDate" sm="auto">
-                <strong>Mês final:</strong>
-              </Label>
-            </Col>
-            <Col md="3">
-              {!this.props.oneMonth ? (
+              <Row>
+                <Label htmlFor="initialDate" className="label-form">
+                  <strong>Mês inicial:</strong>
+                </Label>
                 <Input
                   className="date-input"
+                  name="initialDate"
+                  id="initialDate"
                   type="text"
-                  name="finalDate"
-                  id="finalDate"
                   placeholder="mm/aaaa"
-                  value={this.props.finalDate}
+                  value={this.props.initialDate}
                   required
                   onChange={this.props.onChangeDate}
                 />
-              ) : (
-                <Input
-                  className="date-input"
-                  type="text"
-                  name="finalDate"
-                  id="finalDate"
-                  placeholder="mm/aaaa"
-                  value={this.props.finalDate}
-                  required
-                  onChange={this.props.onChangeDate}
-                  disabled
-                />
-              )}
+              </Row>
             </Col>
-          </Row>
-
-          <Row>
-            <Col sm="4">
-              <Label htmlFor="finalDate">
+            <Col md="3">
+              <Row>
+                <Label htmlFor="finalDate" className="label-form">
+                  <strong>Mês final:</strong>
+                </Label>
+                {!this.props.oneMonth ? (
+                  <Input
+                    className="date-input"
+                    type="text"
+                    name="finalDate"
+                    id="finalDate"
+                    placeholder="mm/aaaa"
+                    value={this.props.finalDate}
+                    required
+                    onChange={this.props.onChangeDate}
+                  />
+                ) : (
+                  <Input
+                    className="date-input"
+                    type="text"
+                    name="finalDate"
+                    id="finalDate"
+                    placeholder="mm/aaaa"
+                    value={this.props.finalDate}
+                    required
+                    onChange={this.props.onChangeDate}
+                    disabled
+                  />
+                )}
+              </Row>
+            </Col>
+            <Col md="6" style={{ display: "flex" }}>
+              <Label htmlFor="chosenMeter" className="label-form">
                 <strong>Medidor:</strong>
               </Label>
-            </Col>
-
-            <Col sm="8">
               <Input
                 type="select"
                 name="chosenMeter"
                 id="exampleSelect"
                 onChange={this.props.onMeterChange}
+                className="input-meters"
               >
                 <option value="199">Todos os medidores</option>
                 {this.props.meters.map(meter => (
@@ -111,19 +107,20 @@ class FormDates extends Component {
           </Row>
 
           <Row>
-            <Col md="6">
-              <FormGroup check className="checkbox">
-                <Input
-                  className="form-check-input"
+            <Col>
+              <FormGroup
+                check
+                className="checkbox"
+                style={{ padding: " 15px 10px 5px 5px" }}
+              >
+                <CustomInput
                   type="checkbox"
                   id="oneMonth"
                   name="oneMonth"
+                  label="Pesquisar somente um mês"
                   value={1}
                   onChange={this.props.onChangeOneMonth}
                 />
-                <Label check className="form-check-label" htmlFor="oneMonth">
-                  Somente um mês
-                </Label>
               </FormGroup>
             </Col>
           </Row>
@@ -136,6 +133,7 @@ class FormDates extends Component {
                 size="md"
                 color="primary"
                 onClick={this.props.onQuery}
+                style={{ margin: "10px 20px" }}
               >
                 Pesquisar
               </Button>

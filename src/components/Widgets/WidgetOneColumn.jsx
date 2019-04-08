@@ -35,7 +35,7 @@ class WidgetOneColumn extends Component {
               </div>
               <div>{secondValue}</div>
             </Col>
-            <Col xl="5" className="d-none d-xl-block widget-container-image">
+            <Col xl="5" className="widget-container-image">
               <img className="widget-image" src={image} />
             </Col>
           </Row>
