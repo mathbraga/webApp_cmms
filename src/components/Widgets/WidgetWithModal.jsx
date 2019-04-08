@@ -83,6 +83,9 @@ class WidgetWithModal extends Component {
                   {this.props.buttonName}
                 </Button>
                 <ReportProblems
+                  chosenMeter={this.props.chosenMeter}
+                  initialDate={this.props.initialDate}
+                  finalDate={this.props.finalDate}
                   isOpen={this.state.modal}
                   toggle={this.toggleModal}
                   className={"modal-lg " + this.props.className}

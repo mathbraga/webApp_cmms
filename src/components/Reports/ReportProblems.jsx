@@ -111,7 +111,9 @@ class ReportProblems extends Component {
         className={this.props.className}
       >
         <ModalHeader toggle={this.props.toggle}>
-          Verificação de problemas da fatura
+          Verificação de problemas
+          {" - " + this.props.chosenMeter}
+          {" - " + this.props.initialDate}
         </ModalHeader>
         <ModalBody>
           <Table bordered>
