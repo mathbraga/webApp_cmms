@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import TooltipBadge from "../Tooltips/TooltipBadge";
 import { formatNumber } from "../../utils/formatText";
 import {
   Card,
@@ -17,6 +16,7 @@ import {
   PopoverHeader,
   PopoverBody
 } from "reactstrap";
+import BadgeWithTooltips from "../Badges/BadgeWithTooltips";
 
 class ReportProblems extends Component {
   constructor(props){
@@ -68,39 +68,39 @@ class ReportProblems extends Component {
         name: "Custo da ultrapassagem de demanda - Ponta",
         unit: "R$",
         obs: "Valor adicional em caso de demanda medida superior à demanda contratada",
-        expected: "= R$ 0"
+        expected: "= R$ 0,00"
       },
     
       vudf: {
         name: "Custo da ultrapassagem de demanda - Fora de ponta",
         unit: "R$",
         obs: "Valor adicional em caso de demanda medida superior à demanda contratada",
-        expected: "= R$ 0"
+        expected: "= R$ 0,00"
       },
     
       verexp: {
         name: "Custo do EREX - Ponta",
         unit: "R$",
         obs: "Valor adicional em caso de excedentes de energia reativa (fator de potência inferior a 0,92)",
-        expected: "= R$ 0" },
+        expected: "= R$ 0,00" },
     
       verexf: {
         name: "Custo do EREX - Fora de ponta",
         unit: "R$",
         obs: "Valor adicional em caso de excedentes de energia reativa (fator de potência inferior a 0,92)",
-        expected: "= R$ 0" },
+        expected: "= R$ 0,00" },
     
       jma: {
         name: "Multas, juros e atualização monetária",
         unit: "R$",
         obs: "Valores adicionais decorrentes do atraso no pagamento de faturas anteriores",
-        expected: "= R$ 0"
+        expected: "= R$ 0,00"
       },
       desc: {
         name: "Descontos e compensações",
         unit: "R$",
         obs: "Total de descontos e compensações devido a baixos indicadores de qualidade do serviço, conforme normas da ANEEL, ou correções de valores cobrados indevidamente em faturas anteriores",
-        expected: "= R$ 0"
+        expected: "= R$ 0,00"
       }
     };
     
@@ -126,13 +126,28 @@ class ReportProblems extends Component {
               {Object.keys(rowNames).map(row => (
                 <tr>
                   <th scope="row">{rowNames[row].name}</th>
-                  <td style={{ "text-align": "center" }}>
-                    {this.props.problems && formatNumber(this.props.problems[row].value)}
-                  </td>
+                  
+                  {rowNames[row].unit === "R$"
+                    ? (
+                      <td style={{ "text-align": "center" }}>
+                        {"R$ "}
+                        {this.props.problems && formatNumber(this.props.problems[row].value)}
+                      </td>
+                    )
+                    : (
+                      <td style={{ "text-align": "center" }}>
+                        {this.props.problems && formatNumber(this.props.problems[row].value)}
+                        {" " + rowNames[row].unit}
+                      </td>
+                    )
+                  }
+                  
+                  
+                  
                   <td style={{ "text-align": "center" }}>
                     {this.props.problems && this.props.problems[row].problem
                       ? (
-                        <TooltipBadge
+                        <BadgeWithTooltips
                           color="danger"
                           id={row}
                           situation="Verificar"
@@ -142,7 +157,7 @@ class ReportProblems extends Component {
                         />
                       )
                       : (
-                        <TooltipBadge
+                        <BadgeWithTooltips
                           color="success"
                           id={row}
                           situation="OK"

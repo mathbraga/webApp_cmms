@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, Tooltip, PopoverHeader, PopoverBody, Badge } from 'reactstrap';
+import { Badge, Tooltip } from 'reactstrap';
 
-class PopoverItem extends React.Component {
+class BadgeWithTooltips extends React.Component {
   constructor(props) {
     super(props);
 
@@ -39,4 +39,4 @@ class PopoverItem extends React.Component {
   }
 }
 
-export default PopoverItem;
+export default BadgeWithTooltips;
