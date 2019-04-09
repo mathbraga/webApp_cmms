@@ -1,4 +1,4 @@
-export function checkProblems(unitBill) {
+export function checkProblems(unitBill, chosenMeter) {
   // Input: object (unitBill). Obj: {aamm, basec, cip, datav, dc, dcf, dcp, desc, dff, dfp ,dmf, dmp,
   //                                      erexf, erexp, icms, jma, kwh, kwhf, kwhp, med, tipo, trib, vbru, vdff, bdfp,
   //                                      verexf, verexp, vliq, vudf, vudp}
@@ -10,27 +10,40 @@ export function checkProblems(unitBill) {
   //              - If "tipo" is 1 and "demanda contrada, demanda medida (fora)" are 0;
   //              - Check "demanda faturada".
 
-  const result = {
-    dcp: { problem: false, value: unitBill.dcp },
-    dcf: { problem: false, value: unitBill.dcf },
-    
-    dmp: { problem: false, value: unitBill.dmp },
-    dmf: { problem: false, value: unitBill.dmf },
-
-    dfp: { problem: false, value: unitBill.dfp, expected: 0 },
-    dff: { problem: false, value: unitBill.dff, expected: 0 },
-
-    vudp: { problem: false, value: unitBill.vudp },
-    vudf: { problem: false, value: unitBill.vudf },
-
-    verexp: { problem: false, value: unitBill.verexp },
-    verexf: { problem: false, value: unitBill.verexf },
-    
-    jma: { problem: false, value: unitBill.jma },
-    desc: { problem: false, value: unitBill.desc },
-    tipo: { problem: false, value: unitBill.tipo }
-
-  };
+  let result = {};
+  if(chosenMeter === "199"){
+    result = {
+      // dcp: { problem: false, value: unitBill.dcp },
+      // dcf: { problem: false, value: unitBill.dcf },
+      // dmp: { problem: false, value: unitBill.dmp },
+      // dmf: { problem: false, value: unitBill.dmf },
+      // dfp: { problem: false, value: unitBill.dfp, expected: 0 },
+      // dff: { problem: false, value: unitBill.dff, expected: 0 },
+      vudp: { problem: false, value: unitBill.vudp },
+      vudf: { problem: false, value: unitBill.vudf },
+      verexp: { problem: false, value: unitBill.verexp },
+      verexf: { problem: false, value: unitBill.verexf },
+      jma: { problem: false, value: unitBill.jma },
+      desc: { problem: false, value: unitBill.desc }
+      // tipo: { problem: false, value: unitBill.tipo }
+    };
+  } else {
+    result = {
+      dcp: { problem: false, value: unitBill.dcp },
+      dcf: { problem: false, value: unitBill.dcf },
+      dmp: { problem: false, value: unitBill.dmp },
+      dmf: { problem: false, value: unitBill.dmf },
+      dfp: { problem: false, value: unitBill.dfp, expected: 0 },
+      dff: { problem: false, value: unitBill.dff, expected: 0 },
+      vudp: { problem: false, value: unitBill.vudp },
+      vudf: { problem: false, value: unitBill.vudf },
+      verexp: { problem: false, value: unitBill.verexp },
+      verexf: { problem: false, value: unitBill.verexf },
+      jma: { problem: false, value: unitBill.jma },
+      desc: { problem: false, value: unitBill.desc },
+      tipo: { problem: false, value: unitBill.tipo }
+    };
+  }
 
   // Check "EREX"
   if (unitBill.verexf !== 0) {
@@ -60,74 +73,76 @@ export function checkProblems(unitBill) {
     result.desc.problem = true;
   }
 
+
+  if(chosenMeter !== "199"){
   // Check "Demanda contrada, medida e faturada"
-  switch (unitBill.tipo) {
-    // Case type is "Verde"
-    case 1:
-      // "Contrada"
-      if (unitBill.dcf === 0) {
-        result.dcf.problem = true;
-      }
-      // "Medida"
-      if (unitBill.dmf === 0) {
-        result.dmf.problem = true;
-      }
-      // Check "demanda faturada"
-      if (unitBill.dmf < unitBill.dcf) {
-        if (unitBill.dff !== unitBill.dcf) {
-          result.dff.problem = true;
+    switch (unitBill.tipo) {
+      // Case type is "Verde"
+      case 1:
+        // "Contrada"
+        if (unitBill.dcf === 0) {
+          result.dcf.problem = true;
         }
-      } else {
-        if (unitBill.dff !== unitBill.dmf) {
-          result.dff.problem = true;
-          result.dff.expected = unitBill.dmf;
+        // "Medida"
+        if (unitBill.dmf === 0) {
+          result.dmf.problem = true;
         }
-      }
-      break;
+        // Check "demanda faturada"
+        if (unitBill.dmf < unitBill.dcf) {
+          if (unitBill.dff !== unitBill.dcf) {
+            result.dff.problem = true;
+          }
+        } else {
+          if (unitBill.dff !== unitBill.dmf) {
+            result.dff.problem = true;
+            result.dff.expected = unitBill.dmf;
+          }
+        }
+        break;
 
-    // Case type is "Azul"
-    case 2:
-      // Contratada
-      if (unitBill.dcp === 0) {
-        result.dcp.problem = true;
-      }
-      if (unitBill.dcf === 0) {
-        result.dcf.problem = true;
-      }
-      // Medida
-      if (unitBill.dmp === 0) {
-        result.dmp.problem = true;
-      }
-      if (unitBill.dmf === 0) {
-        result.dmf.problem = true;
-      }
-      // Check "demanda faturada"
-      if (unitBill.dmp < unitBill.dcp) {
-        if (unitBill.dfp !== unitBill.dcp) {
-          result.dfp.problem = true;
-          result.dfp.expected = unitBill.dcp;
+      // Case type is "Azul"
+      case 2:
+        // Contratada
+        if (unitBill.dcp === 0) {
+          result.dcp.problem = true;
         }
-      } else {
-        if (unitBill.dfp !== unitBill.dmp) {
-          result.dfp.problem = true;
-          result.dfp.expected = unitBill.dmp;
+        if (unitBill.dcf === 0) {
+          result.dcf.problem = true;
         }
-      }
-      if (unitBill.dmf < unitBill.dcf) {
-        if (unitBill.dff !== unitBill.dcf) {
-          result.dff.problem = true;
-          result.dff.expected = unitBill.dcf;
+        // Medida
+        if (unitBill.dmp === 0) {
+          result.dmp.problem = true;
         }
-      } else {
-        if (unitBill.dff !== unitBill.dmf) {
-          result.dff.problem = true;
-          result.dff.expected = unitBill.dmf;
+        if (unitBill.dmf === 0) {
+          result.dmf.problem = true;
         }
-      }
+        // Check "demanda faturada"
+        if (unitBill.dmp < unitBill.dcp) {
+          if (unitBill.dfp !== unitBill.dcp) {
+            result.dfp.problem = true;
+            result.dfp.expected = unitBill.dcp;
+          }
+        } else {
+          if (unitBill.dfp !== unitBill.dmp) {
+            result.dfp.problem = true;
+            result.dfp.expected = unitBill.dmp;
+          }
+        }
+        if (unitBill.dmf < unitBill.dcf) {
+          if (unitBill.dff !== unitBill.dcf) {
+            result.dff.problem = true;
+            result.dff.expected = unitBill.dcf;
+          }
+        } else {
+          if (unitBill.dff !== unitBill.dmf) {
+            result.dff.problem = true;
+            result.dff.expected = unitBill.dmf;
+          }
+        }
       break;
-    default:
+      default:
       break;
+    }
   }
-
   return result;
 }

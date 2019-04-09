@@ -73,7 +73,8 @@ class EnergyResultAM extends Component {
             </Col> */}
           <Col md="3">
             <WidgetWithModal
-              chosenMeter={result.item}
+              chosenMeter={this.props.energyState.chosenMeter}
+              chosenMeter2={result.item}
               initialDate={initialDate}
               finalDate={finalDate}
               data={result}

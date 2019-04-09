@@ -25,7 +25,7 @@ class WidgetWithModal extends Component {
     // If we have a queryResponse, check for problems
     const result =
       this.props.data.queryResponse &&
-      checkProblems(this.props.data.queryResponse);
+      checkProblems(this.props.data.queryResponse, this.props.chosenMeter);
     // Variable for the number of problems found
     let numProblems = 0;
     Object.keys(result).forEach(key => {
