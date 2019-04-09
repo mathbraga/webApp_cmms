@@ -52,7 +52,8 @@ class EnergyResultOP extends Component {
       initialDate,
       finalDate,
       chosenMeter,
-      dynamo
+      dynamo,
+      oneMonth
     } = this.props.energyState;
 
     const imageEnergyMoney = require("../../assets/icons/money_energy.png");
@@ -71,16 +72,17 @@ class EnergyResultOP extends Component {
     const dateString = transformDateString(this.dateMax);
 
     return (
-      <ResultCard
-        unitNumber={result.unit.idceb.S}
-        unitName={result.unit.nome.S}
-        initialDate={initialDate}
-        endDate={finalDate}
-        typeOfUnit={result.unit.modtar.S}
-        handleNewSearch={this.props.handleNewSearch}
-      >
+      // <ResultCard
+      //   unitNumber={result.unit.idceb.S}
+      //   oneMonth={oneMonth}
+      //   unitName={result.unit.nome.S}
+      //   initialDate={initialDate}
+      //   finalDate={finalDate}
+      //   typeOfUnit={result.unit.modtar.S}
+      //   handleNewSearch={this.props.handleNewSearch}
+      // >
         <Row>
-          <Col md="3">
+          {/* <Col md="3">
             <WidgetOneColumn
               firstTitle={"Consumo Total"}
               firstValue={formatNumber(this.totalKWh, 0) + " kWh"}
@@ -109,40 +111,46 @@ class EnergyResultOP extends Component {
               ]}
               image={imageEnergyPlug}
             />
-          </Col>
+          </Col> */}
           <Col md="3">
             <WidgetWithModal
+              chosenMeter={chosenMeter}
+              unitNumber={result.unit.idceb.S}
+              unitName={result.unit.nome.S}
+              initialDate={initialDate}
+              finalDate={finalDate}
+              typeOfUnit={result.unit.modtar.S}
               data={result}
-              title={"Diagnóstico"}
-              buttonName={"Relatório"}
+              title={"Não há diagnóstico para pesquisa de período"}
+              buttonName={""}
               image={imageEnergyWarning}
-              marker={"erro(s)"}
+              marker={""}
             />
           </Col>
         </Row>
-        <Row>
-          <Col md="6">
-            <ReportInfoEnergy data={result.unit} date={dateString} />
-          </Col>
-          <Col md="6">
-            <ReportCalculationsEnergy
-              dbObject={dynamo}
-              consumer={chosenMeter}
-              dateString={dateString}
-              data={result.queryResponse}
-              demandContract={result.unit}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <ChartReport
-              energyState={this.props.energyState}
-              medName={result.unit.nome.S}
-            />
-          </Col>
-        </Row>
-      </ResultCard>
+        //* <Row>
+          // <Col md="6">
+      //       <ReportInfoEnergy data={result.unit} date={dateString} />
+      //     </Col>
+      //     <Col md="6">
+      //       <ReportCalculationsEnergy
+      //         dbObject={dynamo}
+      //         consumer={chosenMeter}
+      //         dateString={dateString}
+      //         data={result.queryResponse}
+      //         demandContract={result.unit}
+      //       />
+      //     </Col>
+      //   </Row>
+      //   <Row>
+      //     <Col>
+      //       <ChartReport
+      //         energyState={this.props.energyState}
+      //         medName={result.unit.nome.S}
+      //       />
+      //     </Col>
+      //   </Row> 
+      // </ResultCard>
     );
   }
 }

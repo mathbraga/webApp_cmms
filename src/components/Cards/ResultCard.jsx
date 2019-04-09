@@ -35,7 +35,7 @@ class ResultCard extends Component {
 
     if (initialDate && initialDate.length === 7)
       initialDate = dateWithFourDigits(initialDate);
-    if (!oneMonth) finalDate = dateWithFourDigits(finalDate);
+    if (!oneMonth && finalDate) finalDate = dateWithFourDigits(finalDate);
 
     return (
       <Card>
