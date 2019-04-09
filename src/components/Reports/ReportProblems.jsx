@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { formatNumber } from "../../utils/formatText";
+import { transformDateString, dateWithFourDigits } from "../../utils/transformDateString";
 import {
   Card,
   CardBody,
@@ -10,12 +11,8 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Table,
-  Badge,
-  Popover,
-  PopoverHeader,
-  PopoverBody
-} from "reactstrap";
+  Table
+  } from "reactstrap";
 import BadgeWithTooltips from "../Badges/BadgeWithTooltips";
 
 class ReportProblems extends Component {
@@ -25,6 +22,10 @@ class ReportProblems extends Component {
   }
 
   render() {
+
+    let initialDate = dateWithFourDigits(this.props.initialDate);
+    let finalDate = dateWithFourDigits(this.props.finalDate);
+
     let rowNames = {};
     if(this.props.chosenMeter === "199"){
       rowNames = {
@@ -155,9 +156,66 @@ class ReportProblems extends Component {
         className={this.props.className}
       >
         <ModalHeader toggle={this.props.toggle}>
-          Verificação de problemas
+          {/* Verificação de problemas
           {" - " + this.props.chosenMeter}
-          {" - " + this.props.initialDate}
+          {" - " + this.props.initialDate} */}
+
+          <Row>
+            <Col md="6">
+              <div className="widget-title dash-title">
+                <h4>{this.props.allUnits ? "Energia Elétrica" : this.props.unitNumber}</h4>
+                {this.props.allUnits ? (
+                  <div className="dash-subtitle">
+                    Total: <strong>{this.props.numOfUnits} medidores</strong>
+                  </div>
+                ) : (
+                  <div className="dash-subtitle">
+                    Medidor: <strong>{this.props.unitName}</strong>
+                  </div>
+                )}
+              </div>
+              <div className="widget-container-center">
+                {!this.props.oneMonth ? (
+                  <div className="dash-title-info">
+                    Período:{" "}
+                    <strong>
+                      {transformDateString(initialDate)}
+                      {" - "}
+                      {transformDateString(finalDate)}
+                    </strong>
+                  </div>
+                ) : (
+                  <div className="dash-title-info">
+                    Período: <strong>{transformDateString(this.props.initialDate)}</strong>
+                  </div>
+                )}
+                {this.props.allUnits ? (
+                  <div className="dash-title-info">
+                    Várias modalidades tarifárias
+                  </div>
+                ) : (
+                  <div className="dash-title-info">
+                    Modalidade: <strong>{this.props.typeOfUnit}</strong>
+                  </div>
+                )}
+              </div>
+            </Col>
+            {/* <Col md="4" />
+            <Col md="2" className="container-left">
+              <Button block outline color="primary" onClick={handleNewSearch}>
+                <i className="cui-magnifying-glass" />
+                &nbsp;Nova pesquisa
+              </Button>
+            </Col> */}
+          </Row>
+
+
+
+
+
+
+
+
         </ModalHeader>
         <ModalBody>
           <Table bordered>

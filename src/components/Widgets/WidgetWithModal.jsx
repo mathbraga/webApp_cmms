@@ -83,6 +83,12 @@ class WidgetWithModal extends Component {
                   {this.props.buttonName}
                 </Button>
                 <ReportProblems
+                  allUnits={this.props.allUnits}
+                  oneMonth={this.props.oneMonth}
+                  unitNumber={this.props.unitNumber}
+                  unitName={this.props.unitName}
+                  numOfUnits={this.props.numOfUnits}
+                  typeOfUnit={false}
                   chosenMeter={this.props.chosenMeter}
                   initialDate={this.props.initialDate}
                   finalDate={this.props.finalDate}

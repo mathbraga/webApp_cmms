@@ -73,8 +73,13 @@ class EnergyResultAM extends Component {
             </Col> */}
           <Col md="3">
             <WidgetWithModal
+              allUnits={true}
+              oneMonth={oneMonth}
+              unitNumber={false}
+              unitName={"Todos os medidores"}
+              numOfUnits={meters.length}
+              typeOfUnit={false}
               chosenMeter={this.props.energyState.chosenMeter}
-              chosenMeter2={result.item}
               initialDate={initialDate}
               finalDate={finalDate}
               data={result}
