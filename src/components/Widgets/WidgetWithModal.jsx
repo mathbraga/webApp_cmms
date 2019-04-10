@@ -123,7 +123,9 @@ class WidgetWithModal extends Component {
                     "justify-content": "space-between",
                     "align-items": "baseline"
                   }}
-                  >{this.props.title}
+                  >
+                    <br/>
+                    Não há diagnóstico para pesquisa de período.
                   </div>
                 </Col>
                 {/* <Col xl="4" className="d-none d-xl-block widget-container-image">
