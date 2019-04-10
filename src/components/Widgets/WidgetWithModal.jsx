@@ -58,7 +58,7 @@ class WidgetWithModal extends Component {
           <Row className="widget-container-text">
 
           {this.props.oneMonth
-            ? (<div>
+            ? (<>
             <Col xl="8" lg="12">
               <div
                 style={{
@@ -113,7 +113,7 @@ class WidgetWithModal extends Component {
             <Col xl="4" className="d-none d-xl-block widget-container-image">
               <img className="widget-image" src={this.props.image} />
             </Col>
-            </div>)
+            </>)
             : (
               <div>
                 <Col xs="12">

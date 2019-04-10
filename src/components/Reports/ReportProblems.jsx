@@ -208,14 +208,6 @@ class ReportProblems extends Component {
               </Button>
             </Col> */}
           </Row>
-
-
-
-
-
-
-
-
         </ModalHeader>
         <ModalBody>
           <Table bordered>
@@ -240,7 +232,7 @@ class ReportProblems extends Component {
                     )
                     : (
                       <td style={{ "text-align": "center" }}>
-                        {this.props.problems && formatNumber(this.props.problems[row].value)}
+                        {this.props.problems && formatNumber(this.props.problems[row].value, 0)}
                         {" " + rowNames[row].unit}
                       </td>
                     )
