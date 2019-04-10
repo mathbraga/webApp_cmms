@@ -62,6 +62,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
     dfp: [],
     dmf: [],
     dmp: [],
+    dms: [],
     uferf: [],
     uferp: [],
     icms: [],
@@ -92,6 +93,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
     answers.dfp.push(0);
     answers.dmf.push(0);
     answers.dmp.push(0);
+    answers.dms.push(0);
     answers.uferf.push(0);
     answers.uferp.push(0);
     answers.icms.push(0);
@@ -126,6 +128,11 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
             answers.dfp[i] = answers.dfp[i] + queryResponse[j].Items[k].dfp;
             answers.dmf[i] = answers.dmf[i] + queryResponse[j].Items[k].dmf;
             answers.dmp[i] = answers.dmp[i] + queryResponse[j].Items[k].dmp;
+            answers.dms[i] =
+              answers.dms[i] +
+              (queryResponse[j].Items[k].dmf > queryResponse[j].Items[k].dmp
+                ? queryResponse[j].Items[k].dmf
+                : queryResponse[j].Items[k].dmp);
             answers.uferf[i] =
               answers.uferf[i] + queryResponse[j].Items[k].uferf;
             answers.uferp[i] =
@@ -176,6 +183,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
       verexp: "Valor EREX - Ponta",
       dmf: "Demanda medida - Fora de ponta",
       dmp: "Demanda medida - Ponta",
+      dms: "Demanda medida - Diária", // Somatório das maiores demandas do dia
       dff: "Demanda faturada - Fora de ponta",
       dfp: "Demanda faturada - Ponta",
       vdff: "Valor da demanda faturada - Fora de ponta",
@@ -204,6 +212,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
       verexp: "Valor EREX - Ponta",
       dmf: "Demanda medida - Fora de ponta",
       dmp: "Demanda medida - Ponta",
+      dms: "Demanda medida - Diária",
       dff: "Demanda faturada - Fora de ponta",
       dfp: "Demanda faturada - Ponta",
       vdff: "Valor da demanda faturada - Fora de ponta",
@@ -232,6 +241,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
       verexp: "R$",
       dmf: "kW",
       dmp: "kW",
+      dms: "kW",
       dff: "kW",
       dfp: "kW",
       vdff: "R$",

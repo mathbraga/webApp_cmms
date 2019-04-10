@@ -21,21 +21,7 @@ class WidgetWithModal extends Component {
     };
   }
 
-  componentDidMount() {
-    // If we have a queryResponse, check for problems
-    const result =
-      this.props.data.queryResponse &&
-      checkProblems(this.props.data.queryResponse);
-    // Variable for the number of problems found
-    let numProblems = 0;
-    Object.keys(result).forEach(key => {
-      if (result[key].problem === true) numProblems += 1;
-    });
-    this.setState({
-      numProblems: numProblems,
-      problems: result
-    });
-  }
+  componentDidMount() {}
 
   toggleModal = () => {
     this.setState({
@@ -48,7 +34,7 @@ class WidgetWithModal extends Component {
       <Card className="widget-container">
         <CardBody className="widget-body">
           <Row className="widget-container-text">
-            <Col md="9">
+            <Col xl="8" lg="12">
               <div
                 style={{
                   display: "flex",
@@ -79,15 +65,9 @@ class WidgetWithModal extends Component {
                 >
                   {this.props.buttonName}
                 </Button>
-                <ReportProblems
-                  isOpen={this.state.modal}
-                  toggle={this.toggleModal}
-                  className={"modal-lg " + this.props.className}
-                  problems={this.state.problems}
-                />
               </div>
             </Col>
-            <Col md="3" className="widget-container-image">
+            <Col xl="4" className="d-none d-xl-block widget-container-image">
               <img className="widget-image" src={this.props.image} />
             </Col>
           </Row>

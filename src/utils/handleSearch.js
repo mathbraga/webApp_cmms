@@ -7,7 +7,7 @@ import allMetersSum from "./allMetersSum";
 import ChartComponent from "react-chartjs-2";
 
 export default function handleSearch() {
-  // Check dates inputs
+  // Check date inputs
   if (
     checkSearchInputs(
       this.state.initialDate,
@@ -17,12 +17,6 @@ export default function handleSearch() {
   ) {
     // Run code below in case of correct search parameters inputs (checkSearchInputs returns true)
 
-    // Define new location
-    var newLocation = defineNewLocation(
-      this.state.oneMonth,
-      this.state.chosenMeter
-    );
-
     // Transform dates inputs (from 'mm/yyyy' format to 'yymm' format)
     var aamm1 = aammTransformDate(this.state.initialDate);
     var aamm2 = "";
@@ -31,6 +25,14 @@ export default function handleSearch() {
     } else {
       aamm2 = aammTransformDate(this.state.finalDate);
     }
+
+    // Define new location
+    var newLocation = defineNewLocation(
+      this.state.oneMonth,
+      this.state.chosenMeter,
+      this.state.initialDate,
+      this.state.finalDate
+    );
 
     // Query table
     queryEnergyTable(
@@ -43,13 +45,9 @@ export default function handleSearch() {
     ).then(data => {
       var queryResponse = [];
       var chartConfigs = {};
-      console.log("data:");
-      console.log(data);
       // AM case
       if (this.state.chosenMeter === "199" && this.state.oneMonth) {
         queryResponse = allMetersSum(data);
-        console.log("AM:");
-        console.log(queryResponse);
         this.setState({
           queryResponse: queryResponse,
           showResult: true,
@@ -62,9 +60,6 @@ export default function handleSearch() {
       if (this.state.chosenMeter === "199" && !this.state.oneMonth) {
         queryResponse = data;
         chartConfigs = buildChartData(queryResponse, aamm1, aamm2);
-        console.log("AP:");
-        console.log(chartConfigs);
-        console.log(queryResponse);
         this.setState({
           queryResponse: queryResponse,
           chartConfigs: chartConfigs,
@@ -97,8 +92,6 @@ export default function handleSearch() {
           chartConfigs: chartConfigs
         });
       }
-      console.log("QR");
-      console.log(queryResponse);
     });
 
     // Browser display an alert message in case of wrong search inputs

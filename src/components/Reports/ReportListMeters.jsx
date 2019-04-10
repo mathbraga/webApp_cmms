@@ -2,34 +2,42 @@ import React, { Component } from "react";
 import { Card, CardBody, Col, Row, Table, CardHeader } from "reactstrap";
 import ReportCard from "../Cards/ReportCard";
 
-class ReportInfoEnergy extends Component {
+class ReportListMeters extends Component {
   render() {
     return (
       <ReportCard
         title={"Lista de Medidores"}
         titleColSize={12}
         subtitle={"Dados Atuais"}
+        bodyClass={"body-scroll"}
       >
         <Table responsive size="sm">
+          <thead>
+            <tr>
+              <th />
+              <th>Medidor</th>
+              <th>Modalidade</th>
+              <th>Demanda (FP / P)</th>
+            </tr>
+          </thead>
           <tbody>
-            {rowNames.map(info =>
-              info.attr === "dem" ? (
-                <tr>
-                  <th>{info.name}</th>
+            {this.props.meters.map(unit => (
+              <tr>
+                <th>{unit.idceb.S}</th>
+                <td>{unit.nome.S}</td>
+                <td>{unit.modtar.S}</td>
+                {unit.dcf.S == 0 && unit.dcp.S == 0 ? (
+                  <td>-</td>
+                ) : (
                   <td>
-                    {this.props.data["dcf"].N} kW - {this.props.data["dcp"].N}{" "}
+                    {unit.dcf.S && parseInt(unit.dcf.S) > 0 ? unit.dcf.S : "-"}{" "}
+                    kW /{" "}
+                    {unit.dcp.S && parseInt(unit.dcp.S) > 0 ? unit.dcp.S : "-"}{" "}
                     kW
                   </td>
-                </tr>
-              ) : this.props.data[info.attr] ? (
-                <tr>
-                  <th>{info.name}</th>
-                  <td>{this.props.data[info.attr].S}</td>
-                </tr>
-              ) : (
-                ""
-              )
-            )}
+                )}
+              </tr>
+            ))}
           </tbody>
         </Table>
       </ReportCard>
@@ -37,4 +45,4 @@ class ReportInfoEnergy extends Component {
   }
 }
 
-export default ReportInfoEnergy;
+export default ReportListMeters;

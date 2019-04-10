@@ -1,5 +1,10 @@
-export default function defineNewLocation(oneMonth, chosenMeter){
-  if(oneMonth && chosenMeter !== "199"){
+export default function defineNewLocation(
+  oneMonth,
+  chosenMeter,
+  initialDate,
+  finalDate
+) {
+  if ((oneMonth || initialDate === finalDate) && chosenMeter !== "199") {
     return {
       hash: "",
       pathname: "/consumo/energia/resultados/OM",
@@ -7,7 +12,7 @@ export default function defineNewLocation(oneMonth, chosenMeter){
       state: {}
     };
   }
-  if(!oneMonth && chosenMeter !== "199"){
+  if (!oneMonth && chosenMeter !== "199") {
     return {
       hash: "",
       pathname: "/consumo/energia/resultados/OP",
@@ -15,7 +20,7 @@ export default function defineNewLocation(oneMonth, chosenMeter){
       state: {}
     };
   }
-  if(oneMonth && chosenMeter === "199"){
+  if ((oneMonth || initialDate === finalDate) && chosenMeter === "199") {
     return {
       hash: "",
       pathname: "/consumo/energia/resultados/AM",
@@ -23,7 +28,7 @@ export default function defineNewLocation(oneMonth, chosenMeter){
       state: {}
     };
   }
-  if(!oneMonth && chosenMeter === "199"){
+  if (!oneMonth && chosenMeter === "199") {
     return {
       hash: "",
       pathname: "/consumo/energia/resultados/AP",
