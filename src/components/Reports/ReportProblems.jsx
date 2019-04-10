@@ -161,7 +161,7 @@ class ReportProblems extends Component {
           {" - " + this.props.initialDate} */}
 
           <Row>
-            <Col md="6">
+            <Col md="12">
               <div className="widget-title dash-title">
                 <h4>{this.props.allUnits ? "Energia Elétrica" : this.props.unitNumber}</h4>
                 {this.props.allUnits ? (
