@@ -28,8 +28,8 @@ class FormDates extends Component {
         </CardHeader>
         <CardBody>
           <Row>
-            <Col md="3">
-              <Row>
+            <Col xl="3" lg="6">
+              <Row style={{ marginBottom: "10px" }}>
                 <Label htmlFor="initialDate" className="label-form">
                   <strong>Mês inicial:</strong>
                 </Label>
@@ -45,8 +45,8 @@ class FormDates extends Component {
                 />
               </Row>
             </Col>
-            <Col md="3">
-              <Row>
+            <Col xl="3" lg="6">
+              <Row style={{ marginBottom: "10px" }}>
                 <Label htmlFor="finalDate" className="label-form">
                   <strong>Mês final:</strong>
                 </Label>
@@ -76,33 +76,35 @@ class FormDates extends Component {
                 )}
               </Row>
             </Col>
-            <Col md="6" style={{ display: "flex" }}>
-              <Label htmlFor="chosenMeter" className="label-form">
-                <strong>Medidor:</strong>
-              </Label>
-              <Input
-                type="select"
-                name="chosenMeter"
-                id="exampleSelect"
-                onChange={this.props.onMeterChange}
-                className="input-meters"
-              >
-                <option value="199">Todos os medidores</option>
-                {this.props.meters.map(meter => (
-                  <option
-                    key={(
-                      100 * parseInt(meter.tipomed.N, 10) +
-                      parseInt(meter.med.N, 10)
-                    ).toString()}
-                    value={(
-                      100 * parseInt(meter.tipomed.N, 10) +
-                      parseInt(meter.med.N, 10)
-                    ).toString()}
-                  >
-                    {meter.idceb.S + " - " + meter.nome.S}
-                  </option>
-                ))}
-              </Input>
+            <Col xl="6" lg="12">
+              <Row style={{ marginBottom: "10px" }}>
+                <Label htmlFor="chosenMeter" className="label-form">
+                  <strong>Medidor:</strong>
+                </Label>
+                <Input
+                  type="select"
+                  name="chosenMeter"
+                  id="exampleSelect"
+                  onChange={this.props.onMeterChange}
+                  className="input-meters"
+                >
+                  <option value="199">Todos os medidores</option>
+                  {this.props.meters.map(meter => (
+                    <option
+                      key={(
+                        100 * parseInt(meter.tipomed.N, 10) +
+                        parseInt(meter.med.N, 10)
+                      ).toString()}
+                      value={(
+                        100 * parseInt(meter.tipomed.N, 10) +
+                        parseInt(meter.med.N, 10)
+                      ).toString()}
+                    >
+                      {meter.idceb.S + " - " + meter.nome.S}
+                    </option>
+                  ))}
+                </Input>
+              </Row>
             </Col>
           </Row>
 

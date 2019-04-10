@@ -112,7 +112,7 @@ class ReportCalculationsEnergy extends Component {
         resultID={this.state.typeOfResult}
       >
         <Row>
-          <Col md="8">
+          <Col>
             <div className="calc-subtitle">
               Modalidade calculada:{" "}
               <strong>
@@ -128,17 +128,17 @@ class ReportCalculationsEnergy extends Component {
             <div className="calc-subtitle">
               Economia simulada:{" "}
               <strong>
-                {Math.trunc((economy / this.state.costNow) * 100) || "- "}% em 12
-                meses (aprox. R${" "}
+                {Math.trunc((economy / this.state.costNow) * 100) || "- "}% em
+                12 meses (aprox. R${" "}
                 {Math.ceil(economy / this.state.costNow / 1000) || "- "} mil)
               </strong>
             </div>
           </Col>
         </Row>
         <Row>
-          <Col md="6">
+          <Col xs="6">
             <div className="container-demand">
-              <div className="demand-new">
+              <div className="demand-new text-truncate">
                 {this.state.typeOfResult === "best"
                   ? this.state.bestDemandFP
                   : this.state.typeOfResult === "blue"
@@ -151,9 +151,9 @@ class ReportCalculationsEnergy extends Component {
               </div>
             </div>
           </Col>
-          <Col md="6">
+          <Col xs="6">
             <div className="container-demand">
-              <div className="demand-new">
+              <div className="demand-new text-truncate">
                 {this.state.typeOfResult === "best"
                   ? this.state.bestDemandP
                   : this.state.typeOfResult === "blue"
@@ -168,9 +168,9 @@ class ReportCalculationsEnergy extends Component {
           </Col>
         </Row>
         <Row>
-          <Col md="6">
+          <Col xs="6">
             <div className="container-old-demand">
-              <div className="demand-value">
+              <div className="demand-value text-truncate">
                 {this.props.demandContract.dcf.S} kW
               </div>
               <div className="demand-subtitle">
@@ -178,9 +178,9 @@ class ReportCalculationsEnergy extends Component {
               </div>
             </div>
           </Col>
-          <Col md="6">
+          <Col xs="6">
             <div className="container-old-demand">
-              <div className="demand-value">
+              <div className="demand-value text-truncate">
                 {this.props.demandContract.dcp.S} kW
               </div>
               <div className="demand-subtitle">

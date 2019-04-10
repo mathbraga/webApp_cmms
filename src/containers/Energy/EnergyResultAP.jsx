@@ -53,16 +53,16 @@ class EnergyResultAP extends Component {
         handleNewSearch={this.props.handleNewSearch}
       >
         <Row>
-          <Col md="3">
+          <Col xs="12" sm="6" xl="3" className="order-xl-1 order-sm-1">
             <WidgetOneColumn
-              firstTitle={"Consumo Total"}
+              firstTitle={"Consumo"}
               firstValue={formatNumber(totalValues.kwh, 0) + " kWh"}
-              secondTitle={"Gasto Total"}
+              secondTitle={"Gasto"}
               secondValue={"R$ " + formatNumber(totalValues.vbru, 2)}
               image={imageEnergyMoney}
             />
           </Col>
-          <Col md="6">
+          <Col xs="12" sm="12" xl="6" className="order-xl-2 order-sm-3">
             <WidgetThreeColumns
               titles={[
                 "Demanda",
@@ -84,7 +84,7 @@ class EnergyResultAP extends Component {
               image={imageEnergyPlug}
             />
           </Col>
-          <Col md="3">
+          <Col xs="12" sm="6" xl="3" className="order-xl-3 order-sm-2">
             <WidgetWithModal
               chosenMeter={chosenMeter}
               // unitNumber={result.unit.idceb.S}
@@ -93,10 +93,9 @@ class EnergyResultAP extends Component {
               finalDate={finalDate}
               // typeOfUnit={result.unit.modtar.S}
               data={result}
-              title={"Não há diagnóstico para pesquisa de período"}
-              buttonName={""}
+              title={"Diagnóstico"}
+              buttonName={"Ver Relatório"}
               image={imageEnergyWarning}
-              marker={""}
             />
           </Col>
         </Row>

@@ -52,14 +52,14 @@ class ReportCard extends Component {
       <Card>
         <CardHeader>
           <Row>
-            <Col md={titleColSize || 6}>
+            <Col xs={titleColSize || 6}>
               <div className="calc-title">{title}</div>
               <div className="calc-subtitle">
                 {subtitle} <strong>{subvalue}</strong>
               </div>
             </Col>
             {dropdown ? (
-              <Col md={12 - (titleColSize || 6)}>
+              <Col xs={12 - (titleColSize || 6)}>
                 <Row className="center-button-container">
                   <p className="button-calc">{dropdownTitle}</p>
                   <ButtonDropdown

@@ -11,7 +11,7 @@ class WidgetWithModal extends Component {
    * - chosenMeter (string): value comes from Energy state
    * - unitNumber (string): idceb attribute of selected meter
    * - unitName (name): nome attribute of selected meter
-   * - initialDate (string): 
+   * - initialDate (string):
    * - finalDate (string):
    * - typeOfUnit (number): tipo attribute of selected meter
    * - title (string): Title of this widget
@@ -56,10 +56,7 @@ class WidgetWithModal extends Component {
       <Card className="widget-container">
         <CardBody className="widget-body">
           <Row className="widget-container-text">
-
-          {this.props.oneMonth
-            ? (<div>
-            <Col xl="8" lg="12">
+            <Col xs="8" className="pr-0">
               <div
                 style={{
                   display: "flex",
@@ -67,32 +64,39 @@ class WidgetWithModal extends Component {
                   "align-items": "baseline"
                 }}
               >
-                <div className="widget-title">{this.props.title}</div>
-                <Badge color="danger">
-                  {" "}
-                  {this.state.numProblems}
-                  {" "}
-                  {this.props.marker}
-                  {" "}
-                </Badge>
+                <div className="widget-title text-truncate">
+                  {this.props.title}
+                </div>
+                {this.props.oneMonth && (
+                  <Badge color="danger">
+                    {" "}
+                    {this.state.numProblems} erro(s){" "}
+                  </Badge>
+                )}
               </div>
 
               <div
                 style={{
                   display: "flex",
-                  "flex-flow": "column",
-                  "justify-content": "center",
-                  height: "70%"
+                  flexFlow: "column",
+                  justifyContent: "center",
+                  height: "70%",
+                  alignItems: "center"
                 }}
               >
-                <Button
-                  outline
-                  color="primary"
-                  size="sm"
-                  onClick={this.toggleModal}
-                >
-                  {this.props.buttonName}
-                </Button>
+                {this.props.oneMonth ? (
+                  <Button
+                    outline
+                    color="primary"
+                    size="sm"
+                    onClick={this.toggleModal}
+                    style={{ width: "80%" }}
+                  >
+                    {this.props.buttonName}
+                  </Button>
+                ) : (
+                  <p style={{ margin: "0" }}>Sem relatório</p>
+                )}
                 <ReportProblems
                   allUnits={this.props.allUnits}
                   oneMonth={this.props.oneMonth}
@@ -110,30 +114,9 @@ class WidgetWithModal extends Component {
                 />
               </div>
             </Col>
-            <Col md="3" className="widget-container-image">
+            <Col xs="4" className="widget-container-image">
               <img className="widget-image" src={this.props.image} />
             </Col>
-            </div>)
-            : (
-              <div>
-                <Col xs="12">
-                  <div
-                  style={{
-                    display: "flex",
-                    "justify-content": "space-between",
-                    "align-items": "baseline"
-                  }}
-                  >
-                    <br/>
-                    Não há diagnóstico para pesquisa de período.
-                  </div>
-                </Col>
-                {/* <Col xl="4" className="d-none d-xl-block widget-container-image">
-                  <img className="widget-image" src={this.props.image} />
-                </Col> */}
-              </div>
-            )
-          }
           </Row>
         </CardBody>
       </Card>
