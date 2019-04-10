@@ -20,7 +20,7 @@ class EnergyResultOM extends Component {
     const imageEnergyPlug = require("../../assets/icons/money_energy.png");
     const imageEnergyWarning = require("../../assets/icons/money_energy.png");
 
-    const { initialDate, meters, chosenMeter } = this.props.energyState;
+    const { initialDate, finalDate, oneMonth, meters, chosenMeter } = this.props.energyState;
     let result = {
       unit: false,
       queryResponse: this.props.energyState.queryResponse[0].Items[0]
@@ -36,6 +36,8 @@ class EnergyResultOM extends Component {
         unitNumber={result.unit.idceb.S}
         unitName={result.unit.nome.S}
         initialDate={initialDate}
+        finalDate={finalDate}
+        oneMonth={oneMonth}
         typeOfUnit={result.unit.modtar.S}
         handleNewSearch={this.props.handleNewSearch}
       >
@@ -72,11 +74,17 @@ class EnergyResultOM extends Component {
           </Col>
           <Col xs="12" lg="3">
             <WidgetWithModal
+              chosenMeter={chosenMeter}
+              unitNumber={result.unit.idceb.S}
+              unitName={result.unit.nome.S}
+              initialDate={initialDate}
+              finalDate={finalDate}
+              typeOfUnit={result.unit.modtar.S}
               data={result}
-              title={"Diagnóstico"}
-              buttonName={"Relatório"}
+              title={"Diagnóstico:"}
+              buttonName={"Ver detalhes"}
               image={imageEnergyWarning}
-              marker={"erro(s)"}
+              marker={"problema(s)"}
             />
           </Col>
         </Row>

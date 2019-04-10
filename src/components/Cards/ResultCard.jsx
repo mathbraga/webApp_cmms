@@ -13,7 +13,7 @@ class ResultCard extends Component {
    *       - unitName (string): name of this unit
    *       - numOfUnits (number): number of units
    *       - initialDate (date): initial date for the query
-   *       - endDate (date of false): final date for the query
+   *       - finalDate (date of false): final date for the query
    *       - typeOfUnit ("azul" or "verde"): type of the unit
    *       - handleNewSearch (function): function to handle the click on the new search button
    *       - changeMeter(newMeter) (function)
@@ -28,15 +28,16 @@ class ResultCard extends Component {
       unitName,
       numOfUnits,
       initialDate,
-      endDate,
+      finalDate,
       typeOfUnit,
       handleNewSearch,
+      oneMonth,
       children
     } = this.props;
 
     if (initialDate && initialDate.length === 7)
       initialDate = dateWithFourDigits(initialDate);
-    if (endDate && endDate.length === 7) endDate = dateWithFourDigits(endDate);
+    if (!oneMonth && finalDate) finalDate = dateWithFourDigits(finalDate);
 
     return (
       <Card>
@@ -56,12 +57,13 @@ class ResultCard extends Component {
                 )}
               </div>
               <div className="widget-container-center">
-                {endDate ? (
+                {!oneMonth ? (
                   <div className="dash-title-info">
                     Período:{" "}
                     <strong>
-                      {transformDateString(initialDate)} -{" "}
-                      {transformDateString(endDate)}
+                      {transformDateString(initialDate)}
+                      {" - "}
+                      {transformDateString(finalDate)}
                     </strong>
                   </div>
                 ) : (
@@ -71,7 +73,7 @@ class ResultCard extends Component {
                 )}
                 {allUnits ? (
                   <div className="dash-title-info">
-                    Modalidade: <strong> - </strong>
+                    Várias modalidades tarifárias
                   </div>
                 ) : (
                   <div className="dash-title-info">
@@ -86,7 +88,7 @@ class ResultCard extends Component {
             <Col md="2" className="container-left">
               <Button block outline color="primary" onClick={handleNewSearch}>
                 <i className="cui-magnifying-glass" />
-                &nbsp;Nova Pesquisa
+                &nbsp;Nova pesquisa
               </Button>
             </Col>
           </Row>

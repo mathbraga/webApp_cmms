@@ -6,17 +6,25 @@ import ReportProblems from "../Reports/ReportProblems";
 class WidgetWithModal extends Component {
   /*
    * Props:
-   *      - title (string): Title of this box
-   *      - marker (string): What this box is marking (errors, flaws, ....)
-   *      - buttonName (string): Name of the button
-   *      - image (image object): Image to be rendered
-   *      - data (just work with energy data): Data to be analyzed
+   * - allUnits (boolean):
+   * - oneMonth (boolean):
+   * - chosenMeter (string): value comes from Energy state
+   * - unitNumber (string): idceb attribute of selected meter
+   * - unitName (name): nome attribute of selected meter
+   * - initialDate (string): 
+   * - finalDate (string):
+   * - typeOfUnit (number): tipo attribute of selected meter
+   * - title (string): Title of this widget
+   * - marker (string): Text that describes the errors found
+   * - buttonName (string): Text that will be inserted in the button
+   * - image (image object): Image that appears in 'xl' screens. Positioned in the right side of the widget
+   * - data (array): Values retrieved by the query to the database
    */
   constructor(props) {
     super(props);
     this.state = {
       numProblems: 0, // Number of problems (marker)
-      problems: false, // There is a problem or not
+      problems: false, // Object with identified problems
       modal: false // Handle the modal (open or closed)
     };
   }
@@ -25,7 +33,7 @@ class WidgetWithModal extends Component {
     // If we have a queryResponse, check for problems
     const result =
       this.props.data.queryResponse &&
-      checkProblems(this.props.data.queryResponse);
+      checkProblems(this.props.data.queryResponse, this.props.chosenMeter);
     // Variable for the number of problems found
     let numProblems = 0;
     Object.keys(result).forEach(key => {
@@ -48,7 +56,10 @@ class WidgetWithModal extends Component {
       <Card className="widget-container">
         <CardBody className="widget-body">
           <Row className="widget-container-text">
-            <Col md="9">
+
+          {this.props.oneMonth
+            ? (<div>
+            <Col xl="8" lg="12">
               <div
                 style={{
                   display: "flex",
@@ -59,7 +70,10 @@ class WidgetWithModal extends Component {
                 <div className="widget-title">{this.props.title}</div>
                 <Badge color="danger">
                   {" "}
-                  {this.state.numProblems} {this.props.marker}{" "}
+                  {this.state.numProblems}
+                  {" "}
+                  {this.props.marker}
+                  {" "}
                 </Badge>
               </div>
 
@@ -80,6 +94,15 @@ class WidgetWithModal extends Component {
                   {this.props.buttonName}
                 </Button>
                 <ReportProblems
+                  allUnits={this.props.allUnits}
+                  oneMonth={this.props.oneMonth}
+                  unitNumber={this.props.unitNumber}
+                  unitName={this.props.unitName}
+                  numOfUnits={this.props.numOfUnits}
+                  typeOfUnit={false}
+                  chosenMeter={this.props.chosenMeter}
+                  initialDate={this.props.initialDate}
+                  finalDate={this.props.finalDate}
                   isOpen={this.state.modal}
                   toggle={this.toggleModal}
                   className={"modal-lg " + this.props.className}
@@ -90,6 +113,27 @@ class WidgetWithModal extends Component {
             <Col md="3" className="widget-container-image">
               <img className="widget-image" src={this.props.image} />
             </Col>
+            </div>)
+            : (
+              <div>
+                <Col xs="12">
+                  <div
+                  style={{
+                    display: "flex",
+                    "justify-content": "space-between",
+                    "align-items": "baseline"
+                  }}
+                  >
+                    <br/>
+                    Não há diagnóstico para pesquisa de período.
+                  </div>
+                </Col>
+                {/* <Col xl="4" className="d-none d-xl-block widget-container-image">
+                  <img className="widget-image" src={this.props.image} />
+                </Col> */}
+              </div>
+            )
+          }
           </Row>
         </CardBody>
       </Card>

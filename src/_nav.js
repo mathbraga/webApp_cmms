@@ -1,7 +1,7 @@
 export default {
   items: [
     {
-      name: "Dashboard",
+      name: "Painel SINFRA",
       url: "/dashboard",
       icon: "cui-monitor"
     },
@@ -11,7 +11,7 @@ export default {
       icon: "icon-speedometer",
       children: [
         {
-          name: "Água e esgoto",
+          name: "Água",
           url: "/consumo/agua",
           icon: "icon-drop"
         },

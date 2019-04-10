@@ -414,16 +414,16 @@ class ReportEnergyOneUnit extends Component {
 
     return (
       <ReportCard
-        title={"Fatura Detalhada"}
+        title={"Fatura detalhada"}
         titleColSize={5}
-        subtitle={"Mês de Referência:"}
+        subtitle={"Mês de referência:"}
         subvalue={this.props.dateString}
         dropdown
         dropdownTitle={"Comparar com:"}
         dropdownItems={{
-          lastMonth: "Último mês",
-          yearAgo: "Mesmo período (12 meses atrás)",
-          median: "Média (12 meses)"
+          lastMonth: "Mês anterior",
+          yearAgo: "Ano anterior",
+          median: "Média (últimos 12 meses)"
         }}
         showCalcResult={this.handleChangeComparison}
         resultID={this.state.typeOfComparison}
@@ -438,7 +438,7 @@ class ReportEnergyOneUnit extends Component {
                   ? "Média (12 meses)"
                   : transformDateString(dateCompareObject)}
               </th>
-              <th>Variações</th>
+              <th>Variação</th>
             </tr>
           </thead>
           <tbody>

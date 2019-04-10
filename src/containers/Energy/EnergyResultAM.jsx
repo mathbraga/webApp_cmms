@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import ResultCard from "../../components/Cards/ResultCard";
+import { transformDateString } from "../../utils/transformDateString";
+import { Row, Col } from "reactstrap";
+import WidgetWithModal from "../../components/Widgets/WidgetWithModal"
 import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
 import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
 import WidgetWithModalForAll from "../../components/Widgets/WidgetWithModalForAll";
@@ -17,20 +20,34 @@ class EnergyResultAM extends Component {
     const imageEnergyPlug = require("../../assets/icons/money_energy.png");
     const imageEnergyWarning = require("../../assets/icons/money_energy.png");
 
-    const { initialDate, meters, queryResponse } = this.props.energyState;
+    const { initialDate, finalDate, oneMonth, meters, chosenMeter } = this.props.energyState;
     let result = {
       unit: false,
-      queryResponse: queryResponse[0].Items[0]
+      queryResponse: this.props.energyState.queryResponse[0].Items[0]
     };
+    // Getting the right unit
+    meters.forEach(item => {
+      if (parseInt(item.med.N) + 100 == chosenMeter) result.unit = item;
+    });
+    // const dateString = transformDateString(result.queryResponse.aamm);
+
+    console.log("ResultAM:");
+    console.log(this.props);
 
     return (
       <ResultCard
-        allUnits
+        allUnits={true}
+        oneMonth={oneMonth}
+        unitNumber={false}
+        unitName={"Todos os medidores"}
         numOfUnits={meters.length}
         initialDate={initialDate}
+        finalDate={finalDate}
+        typeOfUnit={false}
         handleNewSearch={this.props.handleNewSearch}
       >
         <Row>
+
           <Col md="3">
             <WidgetOneColumn
               firstTitle={"Consumo Total"}
@@ -71,22 +88,33 @@ class EnergyResultAM extends Component {
               ]}
               image={imageEnergyPlug}
             />
-          </Col>
+            </Col> */}
           <Col md="3">
-            <WidgetWithModalForAll
-              data={""}
-              title={"Diagnóstico"}
-              buttonName={"Relatório"}
+            <WidgetWithModal
+              allUnits={true}
+              oneMonth={oneMonth}
+              unitNumber={false}
+              unitName={"Todos os medidores"}
+              numOfUnits={meters.length}
+              typeOfUnit={false}
+              chosenMeter={this.props.energyState.chosenMeter}
+              initialDate={initialDate}
+              finalDate={finalDate}
+              data={result}
+              title={"Diagnóstico:"}
+              buttonName={"Ver detalhes"}
               image={imageEnergyWarning}
-              marker={"erro(s)"}
+              marker={"problema(s)"}
             />
           </Col>
         </Row>
+
         <Row>
           <Col md="12">
             <ReportListMeters meters={this.props.energyState.meters} />
           </Col>
         </Row>
+
       </ResultCard>
     );
   }
