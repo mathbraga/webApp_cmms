@@ -66,8 +66,7 @@ class Energy extends Component {
               energyState={this.state}
               handleClick={this.showFormDates}
             />
-
-          ) : ( 
+          ) : (
             <FormDates
               onChangeDate={this.handleChangeOnDates}
               initialDate={this.state.initialDate}

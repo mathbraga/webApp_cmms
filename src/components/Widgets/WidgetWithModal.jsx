@@ -110,7 +110,7 @@ class WidgetWithModal extends Component {
                 />
               </div>
             </Col>
-            <Col xl="4" className="d-none d-xl-block widget-container-image">
+            <Col md="3" className="widget-container-image">
               <img className="widget-image" src={this.props.image} />
             </Col>
             </div>)

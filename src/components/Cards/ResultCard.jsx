@@ -16,7 +16,9 @@ class ResultCard extends Component {
    *       - finalDate (date of false): final date for the query
    *       - typeOfUnit ("azul" or "verde"): type of the unit
    *       - handleNewSearch (function): function to handle the click on the new search button
-   *
+   *       - changeMeter(newMeter) (function)
+   *       - chosenMeter (number)
+   *       - meters (list of objects)
    */
 
   render() {
@@ -80,7 +82,9 @@ class ResultCard extends Component {
                 )}
               </div>
             </Col>
+
             <Col md="4" />
+
             <Col md="2" className="container-left">
               <Button block outline color="primary" onClick={handleNewSearch}>
                 <i className="cui-magnifying-glass" />

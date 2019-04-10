@@ -47,7 +47,7 @@ class WidgetThreeColumns extends Component {
                 <div>{values[5]}</div>
               </div>
             </Col>
-            <Col xl="3" className="d-none d-xl-block widget-container-image">
+            <Col xl="3" className="widget-container-image">
               <img className="widget-image" src={image} />
             </Col>
           </Row>

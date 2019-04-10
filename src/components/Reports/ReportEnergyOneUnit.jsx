@@ -3,6 +3,7 @@ import { Table } from "reactstrap";
 import { queryLastBills } from "../../utils/queryLastBills";
 import { transformDateString } from "../../utils/transformDateString";
 import ReportCard from "../Cards/ReportCard";
+import { formatNumber } from "../../utils/formatText";
 
 const rowNames = [
   {
@@ -398,10 +399,6 @@ class ReportEnergyOneUnit extends Component {
     return { result: result, dateRequired: dateRequired };
   }
 
-  formatNumber(number) {
-    return number.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
-  }
-
   handleChangeComparison = type => {
     this.setState({ typeOfComparison: type });
   };
@@ -458,8 +455,8 @@ class ReportEnergyOneUnit extends Component {
                         this.props.data[column.attr] === 0
                       ? "-"
                       : column.unit === "R$"
-                      ? "R$ " + this.formatNumber(this.props.data[column.attr])
-                      : this.formatNumber(this.props.data[column.attr]) +
+                      ? "R$ " + formatNumber(this.props.data[column.attr], 2)
+                      : formatNumber(this.props.data[column.attr], 0) +
                         " " +
                         column.unit}
                   </td>
@@ -471,8 +468,8 @@ class ReportEnergyOneUnit extends Component {
                       ? "-"
                       : column.unit === "R$"
                       ? "R$ " +
-                        this.formatNumber(resultCompareObject[column.attr])
-                      : this.formatNumber(resultCompareObject[column.attr]) +
+                        formatNumber(resultCompareObject[column.attr], 2)
+                      : formatNumber(resultCompareObject[column.attr], 0) +
                         " " +
                         column.unit}
                   </td>
@@ -482,13 +479,16 @@ class ReportEnergyOneUnit extends Component {
                       : isNaN(this.props.data[column.attr]) ||
                         isNaN(resultCompareObject[column.attr]) ||
                         !this.props.data[column.attr] ||
-                        !resultCompareObject[column.attr]
+                        !resultCompareObject[column.attr] ||
+                        this.props.data[column.attr] ==
+                          resultCompareObject[column.attr]
                       ? "-"
-                      : this.formatNumber(
+                      : formatNumber(
                           ((this.props.data[column.attr] -
                             resultCompareObject[column.attr]) /
                             resultCompareObject[column.attr]) *
-                            100
+                            100,
+                          2
                         ) + " %"}
                   </td>
                 </tr>
