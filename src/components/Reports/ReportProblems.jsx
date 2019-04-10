@@ -23,8 +23,8 @@ class ReportProblems extends Component {
 
   render() {
 
-    let initialDate = dateWithFourDigits(this.props.initialDate);
-    let finalDate = dateWithFourDigits(this.props.finalDate);
+    let initialDate = transformDateString(dateWithFourDigits(this.props.initialDate));
+    let finalDate = transformDateString(dateWithFourDigits(this.props.finalDate));
 
     let rowNames = {};
     if(this.props.chosenMeter === "199"){
@@ -179,14 +179,14 @@ class ReportProblems extends Component {
                   <div className="dash-title-info">
                     Período:{" "}
                     <strong>
-                      {transformDateString(initialDate)}
+                      {initialDate}
                       {" - "}
-                      {transformDateString(finalDate)}
+                      {finalDate}
                     </strong>
                   </div>
                 ) : (
                   <div className="dash-title-info">
-                    Período: <strong>{transformDateString(this.props.initialDate)}</strong>
+                    Período: <strong>{initialDate}</strong>
                   </div>
                 )}
                 {this.props.allUnits ? (

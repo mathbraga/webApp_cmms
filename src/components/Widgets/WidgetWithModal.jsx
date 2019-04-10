@@ -99,7 +99,7 @@ class WidgetWithModal extends Component {
                   unitNumber={this.props.unitNumber}
                   unitName={this.props.unitName}
                   numOfUnits={this.props.numOfUnits}
-                  typeOfUnit={false}
+                  typeOfUnit={this.props.typeOfUnit}
                   chosenMeter={this.props.chosenMeter}
                   initialDate={this.props.initialDate}
                   finalDate={this.props.finalDate}
