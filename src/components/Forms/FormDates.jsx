@@ -120,7 +120,7 @@ class FormDates extends Component {
                   id="oneMonth"
                   name="oneMonth"
                   label="Pesquisar somente um mês"
-                  value={1}
+                  checked={this.props.oneMonth}
                   onChange={this.props.onChangeOneMonth}
                 />
               </FormGroup>
