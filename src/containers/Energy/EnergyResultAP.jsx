@@ -3,7 +3,6 @@ import ResultCard from "../../components/Cards/ResultCard";
 import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
 import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
 import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
-import WidgetWithModalForAll from "../../components/Widgets/WidgetWithModalForAll";
 import ReportListMeters from "../../components/Reports/ReportListMeters";
 import ChartReport from "../../components/Charts/ChartReport";
 import { formatNumber } from "../../utils/formatText";
@@ -12,7 +11,15 @@ import { Row, Col } from "reactstrap";
 class EnergyResultAP extends Component {
   render() {
     // Initialize all Variables
-    const { meters, initialDate, finalDate, oneMonth, chosenMeter, queryResponse, chartConfigs } = this.props.energyState;
+    const {
+      meters,
+      initialDate,
+      finalDate,
+      oneMonth,
+      chosenMeter,
+      queryResponse,
+      chartConfigs
+    } = this.props.energyState;
     const imageEnergyMoney = require("../../assets/icons/money_energy.png");
     const imageEnergyPlug = require("../../assets/icons/money_energy.png");
     const imageEnergyWarning = require("../../assets/icons/money_energy.png");
@@ -30,10 +37,6 @@ class EnergyResultAP extends Component {
       );
     });
 
-    let result = {
-      unit: false,
-      queryResponse: this.props.energyState.queryResponse[0].Items[0]
-    };
     console.log("ResultAP:");
     console.log(this.props);
     console.log(totalValues);

@@ -20,7 +20,13 @@ class EnergyResultOM extends Component {
     const imageEnergyPlug = require("../../assets/icons/money_energy.png");
     const imageEnergyWarning = require("../../assets/icons/money_energy.png");
 
-    const { initialDate, finalDate, oneMonth, meters, chosenMeter } = this.props.energyState;
+    const {
+      initialDate,
+      finalDate,
+      oneMonth,
+      meters,
+      chosenMeter
+    } = this.props.energyState;
     let result = {
       unit: false,
       queryResponse: this.props.energyState.queryResponse[0].Items[0]
@@ -85,6 +91,7 @@ class EnergyResultOM extends Component {
               buttonName={"Ver detalhes"}
               image={imageEnergyWarning}
               marker={"problema(s)"}
+              oneMonth={true}
             />
           </Col>
         </Row>
