@@ -11,6 +11,7 @@ class Energy extends Component {
     super(props);
     const dynamo = dynamoInit();
     this.state = {
+      noEmpty: [],
       meters: [],
       dynamo: dynamo,
       tableName: "CEB",

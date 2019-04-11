@@ -22,21 +22,25 @@ class ReportListMeters extends Component {
           </thead>
           <tbody>
             {this.props.meters.map(unit => (
-              <tr>
-                <th>{unit.idceb.S}</th>
-                <td>{unit.nome.S}</td>
-                <td>{unit.modtar.S}</td>
-                {unit.dcf.S == 0 && unit.dcp.S == 0 ? (
-                  <td>-</td>
-                ) : (
-                  <td>
-                    {unit.dcf.S && parseInt(unit.dcf.S) > 0 ? unit.dcf.S : "-"}{" "}
-                    kW /{" "}
-                    {unit.dcp.S && parseInt(unit.dcp.S) > 0 ? unit.dcp.S : "-"}{" "}
-                    kW
-                  </td>
-                )}
-              </tr>
+              <>
+                {this.props.noEmpty.includes(parseInt(unit.med.N, 10) + 100) &&
+                  <tr>
+                    <th>{unit.idceb.S}</th>
+                    <td>{unit.nome.S}</td>
+                    <td>{unit.modtar.S}</td>
+                    {unit.dcf.S == 0 && unit.dcp.S == 0 ? (
+                      <td>-</td>
+                    ) : (
+                      <td>
+                        {unit.dcf.S && parseInt(unit.dcf.S) > 0 ? unit.dcf.S : "-"}{" "}
+                        kW /{" "}
+                        {unit.dcp.S && parseInt(unit.dcp.S) > 0 ? unit.dcp.S : "-"}{" "}
+                        kW
+                      </td>
+                    )}
+                  </tr>
+                }
+              </>
             ))}
           </tbody>
         </Table>
