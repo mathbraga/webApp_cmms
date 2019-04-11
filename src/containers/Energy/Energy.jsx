@@ -48,13 +48,13 @@ class Energy extends Component {
   };
 
   showFormDates = event => {
-    this.setState({
+    this.setState((prevState, props) => ({
       showResult: false,
-      initialDate: "",
-      finalDate: "",
+      initialDate: prevState.initialDate,
+      finalDate: prevState.finalDate,
       chosenMeter: "199",
-      oneMonth: false
-    });
+      oneMonth: prevState.oneMonth
+    }));
   };
 
   render() {

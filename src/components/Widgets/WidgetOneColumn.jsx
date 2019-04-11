@@ -26,19 +26,21 @@ class WidgetOneColumn extends Component {
     return (
       <Card className="widget-container">
         <CardBody className="widget-body">
-          <Row>
-            <Col xl="7" lg="12">
-              <div className="widget-title">{firstTitle}</div>
-              <div>{firstValue}</div>
-              <div className="widget-title" style={{ "padding-top": "5px" }}>
-                {secondTitle}
+          <div className="container">
+            <div className="row ">
+              <div className="col-8 px-0">
+                <div className="widget-title">{firstTitle}</div>
+                <div>{firstValue}</div>
+                <div className="widget-title" style={{ "padding-top": "5px" }}>
+                  {secondTitle}
+                </div>
+                <div className="text-truncate">{secondValue}</div>
               </div>
-              <div>{secondValue}</div>
-            </Col>
-            <Col xl="5" className="widget-container-image">
-              <img className="widget-image" src={image} />
-            </Col>
-          </Row>
+              <div className="col-4 widget-container-image">
+                <img className="widget-image" src={image} />
+              </div>
+            </div>
+          </div>
         </CardBody>
       </Card>
     );

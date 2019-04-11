@@ -50,16 +50,16 @@ class EnergyResultAM extends Component {
         handleNewSearch={this.props.handleNewSearch}
       >
         <Row>
-          <Col md="3">
+          <Col xs="12" sm="6" xl="3" className="order-xl-1 order-sm-1">
             <WidgetOneColumn
-              firstTitle={"Consumo Total"}
+              firstTitle={"Consumo"}
               firstValue={formatNumber(result.queryResponse.kwh, 0) + " kWh"}
-              secondTitle={"Gasto Total"}
+              secondTitle={"Gasto"}
               secondValue={"R$ " + formatNumber(result.queryResponse.vbru, 2)}
               image={imageEnergyMoney}
             />
           </Col>
-          <Col md="6">
+          <Col xs="12" sm="12" xl="6" className="order-xl-2 order-sm-3">
             <WidgetThreeColumns
               titles={[
                 "Demanda",
@@ -92,7 +92,7 @@ class EnergyResultAM extends Component {
             />
           </Col>{" "}
 
-          <Col md="3">
+          <Col xs="12" sm="6" xl="3" className="order-xl-3 order-sm-2">
             <WidgetWithModal
               allUnits={true}
               oneMonth={oneMonth}
@@ -104,16 +104,15 @@ class EnergyResultAM extends Component {
               initialDate={initialDate}
               finalDate={finalDate}
               data={result}
-              title={"Diagnóstico:"}
+              title={"Diagnóstico"}
               buttonName={"Ver detalhes"}
               image={imageEnergyWarning}
-              marker={"problema(s)"}
             />
           </Col>
         </Row>
 
         <Row>
-          <Col md="12">
+          <Col>
             <ReportListMeters meters={this.props.energyState.meters} />
           </Col>
         </Row>

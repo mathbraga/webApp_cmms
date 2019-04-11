@@ -43,22 +43,22 @@ class ResultCard extends Component {
       <Card>
         <CardHeader>
           <Row>
-            <Col md="6">
-              <div className="widget-title dash-title">
+            <Col md="9" xs="6">
+              <div className="widget-title dash-title text-truncate">
                 <h4>{allUnits ? "Energia Elétrica" : unitNumber}</h4>
                 {allUnits ? (
-                  <div className="dash-subtitle">
+                  <div className="dash-subtitle text-truncate">
                     Total: <strong>{numOfUnits} medidores</strong>
                   </div>
                 ) : (
-                  <div className="dash-subtitle">
+                  <div className="dash-subtitle text-truncate">
                     Medidor: <strong>{unitName}</strong>
                   </div>
                 )}
               </div>
               <div className="widget-container-center">
                 {!oneMonth ? (
-                  <div className="dash-title-info">
+                  <div className="dash-title-info text-truncate">
                     Período:{" "}
                     <strong>
                       {transformDateString(initialDate)}
@@ -67,26 +67,31 @@ class ResultCard extends Component {
                     </strong>
                   </div>
                 ) : (
-                  <div className="dash-title-info">
+                  <div className="dash-title-info text-truncate">
                     Período: <strong>{transformDateString(initialDate)}</strong>
                   </div>
                 )}
                 {allUnits ? (
-                  <div className="dash-title-info">
+                  <div className="dash-title-info text-truncate">
                     Várias modalidades tarifárias
                   </div>
                 ) : (
-                  <div className="dash-title-info">
+                  <div className="dash-title-info text-truncate">
                     Modalidade: <strong>{typeOfUnit}</strong>
                   </div>
                 )}
               </div>
             </Col>
 
-            <Col md="4" />
-
-            <Col md="2" className="container-left">
-              <Button block outline color="primary" onClick={handleNewSearch}>
+            <Col md="3" xs="6" className="container-left">
+              <Button
+                className="text-truncate"
+                block
+                outline
+                color="primary"
+                onClick={handleNewSearch}
+                style={{ width: "auto", padding: "8px 25px" }}
+              >
                 <i className="cui-magnifying-glass" />
                 &nbsp;Nova pesquisa
               </Button>
