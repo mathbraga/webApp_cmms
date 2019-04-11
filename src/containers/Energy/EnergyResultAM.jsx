@@ -91,7 +91,7 @@ class EnergyResultAM extends Component {
               image={imageEnergyPlug}
             />
           </Col>{" "}
-          */}
+
           <Col md="3">
             <WidgetWithModal
               allUnits={true}

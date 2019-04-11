@@ -58,7 +58,7 @@ class WidgetWithModal extends Component {
           <Row className="widget-container-text">
 
           {this.props.oneMonth
-            ? (<div>
+            ? (<>
             <Col xl="8" lg="12">
               <div
                 style={{
@@ -99,7 +99,7 @@ class WidgetWithModal extends Component {
                   unitNumber={this.props.unitNumber}
                   unitName={this.props.unitName}
                   numOfUnits={this.props.numOfUnits}
-                  typeOfUnit={false}
+                  typeOfUnit={this.props.typeOfUnit}
                   chosenMeter={this.props.chosenMeter}
                   initialDate={this.props.initialDate}
                   finalDate={this.props.finalDate}
@@ -110,10 +110,10 @@ class WidgetWithModal extends Component {
                 />
               </div>
             </Col>
-            <Col md="3" className="widget-container-image">
+            <Col xl="4" className="d-none d-xl-block widget-container-image">
               <img className="widget-image" src={this.props.image} />
             </Col>
-            </div>)
+            </>)
             : (
               <div>
                 <Col xs="12">
@@ -128,9 +128,6 @@ class WidgetWithModal extends Component {
                     Não há diagnóstico para pesquisa de período.
                   </div>
                 </Col>
-                {/* <Col xl="4" className="d-none d-xl-block widget-container-image">
-                  <img className="widget-image" src={this.props.image} />
-                </Col> */}
               </div>
             )
           }
