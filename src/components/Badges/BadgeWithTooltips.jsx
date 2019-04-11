@@ -33,6 +33,15 @@ class BadgeWithTooltips extends React.Component {
           <strong>Faixa de normalidade:</strong>
           <br/>
           {this.props.expected}
+          <br/>
+          <p style={{ "text-align": "justify" }}></p>
+          <strong>Verificar:</strong>
+            {this.props.problem.meters.map(meter => (
+              <>
+                <br/>
+                <strong>{meter}</strong>
+              </>
+            ))}  
         </Tooltip>
       </span>
     );

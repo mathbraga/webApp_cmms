@@ -13,19 +13,19 @@ export function checkProblems(unitBill, chosenMeter, queryResponseAll) {
   let result = {};
   if(chosenMeter === "199"){
     result = {
-      // dcp: { problem: false, value: unitBill.dcp },
-      // dcf: { problem: false, value: unitBill.dcf },
-      // dmp: { problem: false, value: unitBill.dmp },
-      // dmf: { problem: false, value: unitBill.dmf },
-      // dfp: { problem: false, value: unitBill.dfp, expected: 0 },
-      // dff: { problem: false, value: unitBill.dff, expected: 0 },
+      dcp: { problem: false, value: unitBill.dcp, meters: [] },
+      dcf: { problem: false, value: unitBill.dcf, meters: [] },
+      dmp: { problem: false, value: unitBill.dmp, meters: [] },
+      dmf: { problem: false, value: unitBill.dmf, meters: [] },
+      dfp: { problem: false, value: unitBill.dfp, expected: 0, meters: [] },
+      dff: { problem: false, value: unitBill.dff, expected: 0, meters: [] },
       vudp: { problem: false, value: unitBill.vudp, meters: [] },
       vudf: { problem: false, value: unitBill.vudf, meters: [] },
       verexp: { problem: false, value: unitBill.verexp, meters: [] },
       verexf: { problem: false, value: unitBill.verexf, meters: [] },
       jma: { problem: false, value: unitBill.jma, meters: [] },
-      desc: { problem: false, value: unitBill.desc, meters: [] }
-      // tipo: { problem: false, value: unitBill.tipo }
+      desc: { problem: false, value: unitBill.desc, meters: [] },
+      tipo: { problem: false, value: unitBill.tipo, meters: [] }
     };
   } else {
     result = {
@@ -116,6 +116,114 @@ export function checkProblems(unitBill, chosenMeter, queryResponseAll) {
         }
       });
     }
+
+    queryResponseAll.forEach(element => {
+    if(element.Items.length > 0){
+      // Check "Demanda contrada, medida e faturada"
+      switch (element.Items[0].tipo) {
+        // Case type is "Verde"
+        case 1:
+          // "Contrada"
+          if (element.Items[0].dcf === 0) {
+            result.dcf.problem = true;
+            result.dcf.meters.push(element.Items[0].med);
+          }
+          // "Medida"
+          if (element.Items[0].dmf === 0) {
+            result.dmf.problem = true;
+            result.dmf.meters.push(element.Items[0].med);
+          }
+          // Check "demanda faturada"
+          if (element.Items[0].dmf < element.Items[0].dcf) {
+            if (element.Items[0].dff !== element.Items[0].dcf) {
+              result.dff.problem = true;
+              result.dff.meters.push(element.Items[0].med);
+            }
+          } else {
+            if (element.Items[0].dff !== element.Items[0].dmf) {
+              result.dff.problem = true;
+              result.dff.expected = element.Items[0].dmf;
+              result.dff.meters.push(element.Items[0].med);
+            }
+          }
+          break;
+
+        // Case type is "Azul"
+        case 2:
+          // Contratada
+          if (element.Items[0].dcp === 0) {
+            result.dcp.problem = true;
+            result.dcp.meters.push(element.Items[0].med);
+          }
+          if (element.Items[0].dcf === 0) {
+            result.dcf.problem = true;
+            result.dcf.meters.push(element.Items[0].med);
+          }
+          // Medida
+          if (element.Items[0].dmp === 0) {
+            result.dmp.problem = true;
+            result.dmp.meters.push(element.Items[0].med);
+          }
+          if (element.Items[0].dmf === 0) {
+            result.dmf.problem = true;
+            result.dmf.meters.push(element.Items[0].med);
+          }
+          // Check "demanda faturada"
+          if (element.Items[0].dmp < element.Items[0].dcp) {
+            if (element.Items[0].dfp !== element.Items[0].dcp) {
+              result.dfp.problem = true;
+              result.dfp.expected = element.Items[0].dcp;
+              result.dfp.meters.push(element.Items[0].med);
+            }
+          } else {
+            if (element.Items[0].dfp !== element.Items[0].dmp) {
+              result.dfp.problem = true;
+              result.dfp.expected = element.Items[0].dmp;
+              result.dmp.meters.push(element.Items[0].med);
+            }
+          }
+          if (element.Items[0].dmf < element.Items[0].dcf) {
+            if (element.Items[0].dff !== element.Items[0].dcf) {
+              result.dff.problem = true;
+              result.dff.expected = element.Items[0].dcf;
+              result.dff.meters.push(element.Items[0].med);
+            }
+          } else {
+            if (element.Items[0].dff !== element.Items[0].dmf) {
+              result.dff.problem = true;
+              result.dff.expected = element.Items[0].dmf;
+              result.dff.meters.push(element.Items[0].med);
+            }
+          }
+        break;
+        default:
+        break;
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+
+
+
 
 
 ////////////////////////////////////////////////// CASE ONE METER ///////////////

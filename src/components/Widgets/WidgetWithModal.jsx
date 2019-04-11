@@ -112,6 +112,7 @@ class WidgetWithModal extends Component {
                   className={"modal-lg " + this.props.className}
                   problems={this.state.problems}
                   queryResponseAll={this.props.queryResponseAll}
+                  meters={this.props.meters}
                 />
               </div>
             </Col>

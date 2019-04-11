@@ -110,6 +110,7 @@ class EnergyResultAM extends Component {
               buttonName={"Ver detalhes"}
               image={imageEnergyWarning}
               queryResponseAll={queryResponseAll}
+              meters={meters}
             />
           </Col>
         </Row>
