@@ -72,7 +72,7 @@ class EnergyResultOM extends Component {
           "Faturado P"
         ],
         values: [
-          formatNumber(result.queryResponse.dmf, 2) + " kW",
+          formatNumber(result.queryResponse.dmf, 0) + " kW",
           formatNumber(result.queryResponse.dmp, 0) + " kW",
           formatNumber(result.queryResponse.dcf, 0) + " kW",
           formatNumber(result.queryResponse.dcp, 0) + " kW",
@@ -90,7 +90,7 @@ class EnergyResultOM extends Component {
           "Faturado P"
         ],
         values: [
-          formatNumber(result.queryResponse.dmf, 2) + " kW",
+          formatNumber(result.queryResponse.dmf, 0) + " kW",
           formatNumber(result.queryResponse.dmp, 0) + " kW",
           formatNumber(result.queryResponse.dcf, 0) + " kW",
           formatNumber(result.queryResponse.dcp, 0) + " kW",

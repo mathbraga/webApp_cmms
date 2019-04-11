@@ -38,8 +38,8 @@ class EnergyResultAP extends Component {
     });
 
     console.log("ResultAP:");
-    console.log(this.props);
-    console.log(totalValues);
+    console.log(chartConfigs);
+    const demMax = Math.max(...chartConfigs.dms.data.datasets[0].data);
 
     return (
       <ResultCard
@@ -73,7 +73,7 @@ class EnergyResultAP extends Component {
                 "UFER"
               ]}
               values={[
-                formatNumber(totalValues.dms, 0) + " kW",
+                formatNumber(demMax, 0) + " kW",
                 "R$ " + formatNumber(totalValues.vudf + totalValues.vudp, 0),
                 "R$ " + formatNumber(totalValues.desc, 2),
                 "R$ " + formatNumber(totalValues.jma, 2),
