@@ -29,8 +29,8 @@ class ChartReport extends Component {
     });
 
     console.log("ChartReport:");
-    console.log(this.props);
-    console.log(dropdowItems);
+    console.log(this.props.energyState.chartConfigs["vbru"].data);
+    console.log(this.props.energyState.chartConfigs["vbru"].options);
 
     return (
       <ReportCard
