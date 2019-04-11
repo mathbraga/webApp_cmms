@@ -90,6 +90,36 @@ class EnergyResultOP extends Component {
       2: "Horária - Azul"
     };
 
+    const itemsForChart = [
+      "vbru",
+      "vliq",
+      "cip",
+      "desc",
+      "jma",
+      "kwh",
+      "kwhf",
+      "kwhp",
+      "dms",
+      "dmf",
+      "dmp",
+      "dcf",
+      "dcp",
+      "dff",
+      "dfp",
+      "vdff",
+      "vdfp",
+      "vudf",
+      "vudp",
+      "tipo",
+      "verexf",
+      "verexp",
+      "uferf",
+      "uferp",
+      "trib",
+      "icms",
+      "basec"
+    ];
+
     return (
       <ResultCard
         unitNumber={result.unit.idceb.S}
@@ -165,6 +195,7 @@ class EnergyResultOP extends Component {
             <ChartReport
               energyState={this.props.energyState}
               medName={result.unit.nome.S}
+              itemsForChart={itemsForChart}
             />
           </Col>
         </Row>

@@ -20,15 +20,17 @@ class ChartReport extends Component {
   };
 
   render() {
-    const { medName } = this.props;
+    const { medName, itemsForChart } = this.props;
     let dropdowItems = {};
-    Object.keys(this.props.energyState.chartConfigs).map(key => {
+    itemsForChart.forEach(key => {
       dropdowItems[key] = this.props.energyState.chartConfigs[
         key
       ].options.title.text;
     });
+
     console.log("ChartReport:");
     console.log(this.props);
+    console.log(dropdowItems);
 
     return (
       <ReportCard

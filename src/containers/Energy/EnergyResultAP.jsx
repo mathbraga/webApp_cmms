@@ -37,6 +37,29 @@ class EnergyResultAP extends Component {
       );
     });
 
+    const itemsForChart = [
+      "vbru",
+      "vliq",
+      "cip",
+      "desc",
+      "jma",
+      "kwh",
+      "kwhf",
+      "kwhp",
+      "dms",
+      "vdff",
+      "vdfp",
+      "vudf",
+      "vudp",
+      "verexf",
+      "verexp",
+      "uferf",
+      "uferp",
+      "trib",
+      "icms",
+      "basec"
+    ];
+
     console.log("ResultAP:");
     console.log(chartConfigs);
     const demMax = Math.max(...chartConfigs.dms.data.datasets[0].data);
@@ -74,7 +97,7 @@ class EnergyResultAP extends Component {
               ]}
               values={[
                 formatNumber(demMax, 0) + " kW",
-                "R$ " + formatNumber(totalValues.vudf + totalValues.vudp, 0),
+                "R$ " + formatNumber(totalValues.vudf + totalValues.vudp, 2),
                 "R$ " + formatNumber(totalValues.desc, 2),
                 "R$ " + formatNumber(totalValues.jma, 2),
                 "R$ " +
@@ -104,6 +127,7 @@ class EnergyResultAP extends Component {
             <ChartReport
               energyState={this.props.energyState}
               medName={"23 medidores"}
+              itemsForChart={itemsForChart}
             />
           </Col>
         </Row>
