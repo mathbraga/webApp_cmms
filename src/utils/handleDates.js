@@ -1,9 +1,11 @@
 export function handleDates(event) {
   const { name, value } = event.target;
+  let { selectionStart } = event.target;
   const justNumbers = value.replace(/\D/g, "");
+  event.persist();
 
   console.log("HandleDates:");
-  console.log(event.target.selectionStart);
+  console.log(selectionStart);
 
   if (value.length > 7) {
     return;
@@ -14,6 +16,8 @@ export function handleDates(event) {
       [name]: value
     });
     return;
+  } else if (value.length === 3 && value[2] !== "/") {
+    selectionStart += 1;
   }
 
   if (justNumbers.length <= 2) {
@@ -23,8 +27,13 @@ export function handleDates(event) {
   } else {
     const newDate =
       justNumbers.slice(0, 2) + "/" + justNumbers.slice(2, justNumbers.length);
-    this.setState({
-      [name]: newDate
-    });
+    this.setState(
+      () => ({
+        [name]: newDate
+      }),
+      () => {
+        event.target.setSelectionRange(selectionStart, selectionStart);
+      }
+    );
   }
 }
