@@ -23,8 +23,8 @@ class ReportProblems extends Component {
 
   render() {
 
-    let initialDate = dateWithFourDigits(this.props.initialDate);
-    let finalDate = dateWithFourDigits(this.props.finalDate);
+    let initialDate = transformDateString(dateWithFourDigits(this.props.initialDate));
+    let finalDate = transformDateString(dateWithFourDigits(this.props.finalDate));
 
     let rowNames = {};
     if(this.props.chosenMeter === "199"){
@@ -161,7 +161,7 @@ class ReportProblems extends Component {
           {" - " + this.props.initialDate} */}
 
           <Row>
-            <Col md="6">
+            <Col md="12">
               <div className="widget-title dash-title">
                 <h4>{this.props.allUnits ? "Energia Elétrica" : this.props.unitNumber}</h4>
                 {this.props.allUnits ? (
@@ -179,14 +179,14 @@ class ReportProblems extends Component {
                   <div className="dash-title-info">
                     Período:{" "}
                     <strong>
-                      {transformDateString(initialDate)}
+                      {initialDate}
                       {" - "}
-                      {transformDateString(finalDate)}
+                      {finalDate}
                     </strong>
                   </div>
                 ) : (
                   <div className="dash-title-info">
-                    Período: <strong>{transformDateString(this.props.initialDate)}</strong>
+                    Período: <strong>{initialDate}</strong>
                   </div>
                 )}
                 {this.props.allUnits ? (
@@ -208,14 +208,6 @@ class ReportProblems extends Component {
               </Button>
             </Col> */}
           </Row>
-
-
-
-
-
-
-
-
         </ModalHeader>
         <ModalBody>
           <Table bordered>
@@ -240,7 +232,7 @@ class ReportProblems extends Component {
                     )
                     : (
                       <td style={{ "text-align": "center" }}>
-                        {this.props.problems && formatNumber(this.props.problems[row].value)}
+                        {this.props.problems && formatNumber(this.props.problems[row].value, 0)}
                         {" " + rowNames[row].unit}
                       </td>
                     )
