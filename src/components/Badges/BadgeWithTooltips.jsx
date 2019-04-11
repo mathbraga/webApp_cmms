@@ -1,5 +1,6 @@
 import React from 'react';
 import { Badge, Tooltip } from 'reactstrap';
+import getMetersNames from "../../utils/getMetersNames";
 
 class BadgeWithTooltips extends React.Component {
   constructor(props) {
@@ -36,10 +37,10 @@ class BadgeWithTooltips extends React.Component {
           <br/>
           <p style={{ "text-align": "justify" }}></p>
           <strong>Verificar:</strong>
-            {this.props.problem.meters.map(meter => (
+            {getMetersNames(this.props.problem, this.props.meters).map(meterName => (
               <>
                 <br/>
-                <strong>{meter}</strong>
+                <strong>{meterName}HHH</strong>
               </>
             ))}  
         </Tooltip>
