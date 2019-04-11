@@ -18,7 +18,8 @@ class EnergyResultAP extends Component {
       oneMonth,
       chosenMeter,
       queryResponse,
-      chartConfigs
+      chartConfigs,
+      noEmpty
     } = this.props.energyState;
     const imageEnergyMoney = require("../../assets/icons/money_energy.png");
     const imageEnergyPlug = require("../../assets/icons/money_energy.png");
@@ -46,7 +47,7 @@ class EnergyResultAP extends Component {
         allUnits={true}
         oneMonth={oneMonth}
         unitName={"Todos os medidores"}
-        numOfUnits={meters.length}
+        numOfUnits={noEmpty.length}
         initialDate={initialDate}
         finalDate={finalDate}
         typeOfUnit={false}
