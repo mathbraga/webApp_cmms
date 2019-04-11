@@ -70,6 +70,9 @@ class EnergyResultOP extends Component {
     this.dateMax = applyFuncToAttr(result.queryResponse, "aamm", Math.max);
     const dateString = transformDateString(this.dateMax);
 
+    console.log("ResultUnitOP:");
+    console.log(result.queryResponse);
+
     return (
       <ResultCard
         unitNumber={result.unit.idceb.S}
@@ -136,6 +139,7 @@ class EnergyResultOP extends Component {
               dateString={dateString}
               data={result.queryResponse}
               demandContract={result.unit}
+              type={result.queryResponse[result.queryResponse.length - 1].tipo}
             />
           </Col>
         </Row>

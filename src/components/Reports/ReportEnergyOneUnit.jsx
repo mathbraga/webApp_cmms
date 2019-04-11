@@ -449,10 +449,6 @@ class ReportEnergyOneUnit extends Component {
     const resultCompareObject = compareObject && compareObject.result;
     const dateCompareObject = compareObject && compareObject.dateRequired;
 
-    console.log("OneUnit:");
-    console.log(this.props.data);
-    console.log(resultCompareObject);
-
     return (
       <ReportCard
         title={"Fatura detalhada"}

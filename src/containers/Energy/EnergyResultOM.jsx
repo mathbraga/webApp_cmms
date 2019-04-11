@@ -37,6 +37,9 @@ class EnergyResultOM extends Component {
     });
     const dateString = transformDateString(result.queryResponse.aamm);
 
+    console.log("ResultUnitOM:");
+    console.log(result.queryResponse);
+
     return (
       <ResultCard
         unitNumber={result.unit.idceb.S}
@@ -105,6 +108,7 @@ class EnergyResultOM extends Component {
               dateString={dateString}
               data={result.queryResponse}
               demandContract={result.unit}
+              type={result.queryResponse.tipo}
             />
           </Col>
         </Row>
