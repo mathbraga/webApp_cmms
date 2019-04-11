@@ -104,7 +104,7 @@ class EnergyResultAM extends Component {
               finalDate={finalDate}
               data={result}
               title={"Diagnóstico"}
-              buttonName={"Ver detalhes"}
+              buttonName={"Ver relatório"}
               image={imageEnergyWarning}
             />
           </Col>

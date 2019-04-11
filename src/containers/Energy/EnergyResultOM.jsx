@@ -143,7 +143,7 @@ class EnergyResultOM extends Component {
               typeOfUnit={typeText[result.queryResponse.tipo]}
               data={result}
               title={"Diagnóstico"}
-              buttonName={"Ver detalhes"}
+              buttonName={"Ver relatório"}
               image={imageEnergyWarning}
               oneMonth={true}
             />
