@@ -23,7 +23,8 @@ class EnergyResultAM extends Component {
       oneMonth,
       meters,
       chosenMeter,
-      noEmpty
+      noEmpty,
+      queryResponseAll
     } = this.props.energyState;
     let result = {
       unit: false,
@@ -108,6 +109,7 @@ class EnergyResultAM extends Component {
               title={"Diagnóstico"}
               buttonName={"Ver detalhes"}
               image={imageEnergyWarning}
+              queryResponseAll={queryResponseAll}
             />
           </Col>
         </Row>

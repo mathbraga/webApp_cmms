@@ -1,4 +1,4 @@
-export function checkProblems(unitBill, chosenMeter) {
+export function checkProblems(unitBill, chosenMeter, queryResponseAll) {
   // Input: object (unitBill). Obj: {aamm, basec, cip, datav, dc, dcf, dcp, desc, dff, dfp ,dmf, dmp,
   //                                      erexf, erexp, icms, jma, kwh, kwhf, kwhp, med, tipo, trib, vbru, vdff, bdfp,
   //                                      verexf, verexp, vliq, vudf, vudp}
@@ -19,12 +19,12 @@ export function checkProblems(unitBill, chosenMeter) {
       // dmf: { problem: false, value: unitBill.dmf },
       // dfp: { problem: false, value: unitBill.dfp, expected: 0 },
       // dff: { problem: false, value: unitBill.dff, expected: 0 },
-      vudp: { problem: false, value: unitBill.vudp },
-      vudf: { problem: false, value: unitBill.vudf },
-      verexp: { problem: false, value: unitBill.verexp },
-      verexf: { problem: false, value: unitBill.verexf },
-      jma: { problem: false, value: unitBill.jma },
-      desc: { problem: false, value: unitBill.desc }
+      vudp: { problem: false, value: unitBill.vudp, meters: [] },
+      vudf: { problem: false, value: unitBill.vudf, meters: [] },
+      verexp: { problem: false, value: unitBill.verexp, meters: [] },
+      verexf: { problem: false, value: unitBill.verexf, meters: [] },
+      jma: { problem: false, value: unitBill.jma, meters: [] },
+      desc: { problem: false, value: unitBill.desc, meters: [] }
       // tipo: { problem: false, value: unitBill.tipo }
     };
   } else {
@@ -45,37 +45,112 @@ export function checkProblems(unitBill, chosenMeter) {
     };
   }
 
-  // Check "EREX"
-  if (unitBill.verexf !== 0) {
-    result.verexf.problem = true;
-  }
 
-  if (unitBill.verexp !== 0) {
-    result.verexp.problem = true;
-  }
+  if(chosenMeter === "199"){
+    // Check "EREX"
+    if (unitBill.verexf !== 0) {
+      result.verexf.problem = true;
+      queryResponseAll.forEach(element => {
+        if(element.Items.length > 0){
+          if(element.Items[0].verexf > 0){
+            result.verexf.meters.push(element.Items[0].med);
+          }
+        }
+      });
+    }
 
-  // Check "ultrapassagem"
-  if (unitBill.vudf !== 0){
-    result.vudf.problem = true;
-  }
+    if (unitBill.verexp !== 0) {
+      result.verexp.problem = true;
+      queryResponseAll.forEach(element => {
+        if(element.Items.length > 0){
+          if(element.Items[0].verexp > 0){
+            result.verexp.meters.push(element.Items[0].med);
+          }
+        }
+      });
+    }
 
-  if (unitBill.vudp !== 0) {
-    result.vudp.problem = true;
-  }
+    // Check "ultrapassagem"
+    if (unitBill.vudf !== 0){
+      result.vudf.problem = true;
+      queryResponseAll.forEach(element => {
+        if(element.Items.length > 0){
+          if(element.Items[0].vudf > 0){
+            result.vudf.meters.push(element.Items[0].med);
+          }
+        }
+      });
+    }
 
-  // Check "multa"
-  if (unitBill.jma !== 0) {
-    result.jma.problem = true;
-  }
+    if (unitBill.vudp !== 0) {
+      result.vudp.problem = true;
+      queryResponseAll.forEach(element => {
+        if(element.Items.length > 0){
+          if(element.Items[0].vudp > 0){
+            result.vudp.meters.push(element.Items[0].med);
+          }
+        }
+      });
+    }
 
-  // Check "compensação"
-  if (unitBill.desc !== 0) {
-    result.desc.problem = true;
-  }
+    // Check "multa"
+    if (unitBill.jma !== 0) {
+      result.jma.problem = true;
+      queryResponseAll.forEach(element => {
+        if(element.Items.length > 0){
+          if(element.Items[0].jma > 0){
+            result.jma.meters.push(element.Items[0].med);
+          }
+        }
+      });
+    }
+
+    // Check "compensação"
+    if (unitBill.desc !== 0) {
+      result.desc.problem = true;
+      queryResponseAll.forEach(element => {
+        if(element.Items.length > 0){
+          if(element.Items[0].desc > 0){
+            result.desc.meters.push(element.Items[0].med);
+          }
+        }
+      });
+    }
 
 
-  if(chosenMeter !== "199"){
-  // Check "Demanda contrada, medida e faturada"
+////////////////////////////////////////////////// CASE ONE METER ///////////////
+
+
+
+  } else {
+    if (unitBill.verexf !== 0) {
+      result.verexf.problem = true;
+    }
+
+    if (unitBill.verexp !== 0) {
+      result.verexp.problem = true;
+    }
+
+    // Check "ultrapassagem"
+    if (unitBill.vudf !== 0){
+      result.vudf.problem = true;
+    }
+
+    if (unitBill.vudp !== 0) {
+      result.vudp.problem = true;
+    }
+
+    // Check "multa"
+    if (unitBill.jma !== 0) {
+      result.jma.problem = true;
+    }
+
+    // Check "compensação"
+    if (unitBill.desc !== 0) {
+      result.desc.problem = true;
+    }
+  
+    // Check "Demanda contrada, medida e faturada"
     switch (unitBill.tipo) {
       // Case type is "Verde"
       case 1:

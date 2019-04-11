@@ -21,6 +21,7 @@ class Energy extends Component {
       oneMonth: false,
       error: false,
       queryResponse: false,
+      queryResponseAll: false,
       chartConfigs: {},
       showResult: false,
       newLocation: ""
