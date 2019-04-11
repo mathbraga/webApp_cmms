@@ -12,95 +12,8 @@ const rowNames = [
     unit: "",
     attr: "",
     var: false,
-    mean: false
-  },
-  {
-    name: "Horário ponta",
-    type: "sub-1",
-    unit: "",
-    attr: "",
-    var: false,
-    mean: false
-  },
-  {
-    name: "Consumo registrado",
-    type: "hover-line sub-2",
-    unit: "kWh",
-    attr: "kwhp",
-    var: true,
-    mean: true
-  },
-  {
-    name: "Tarifa",
-    type: "hover-line sub-2",
-    unit: "R$/kWh",
-    attr: "",
-    var: true,
-    mean: false
-  },
-  {
-    name: "Valor",
-    type: "hover-line sub-2",
-    unit: "R$",
-    attr: "",
-    var: true,
-    mean: false
-  },
-  {
-    name: "Horário fora de ponta",
-    type: "sub-1",
-    unit: "",
-    attr: "",
-    var: false,
-    mean: false
-  },
-  {
-    name: "Consumo registrado",
-    type: "hover-line sub-2",
-    unit: "kWh",
-    attr: "kwhf",
-    var: true,
-    mean: true
-  },
-  {
-    name: "Tarifa",
-    type: "hover-line sub-2",
-    unit: "R$/kWh",
-    attr: "",
-    var: true,
-    mean: false
-  },
-  {
-    name: "Valor",
-    type: "hover-line sub-2",
-    unit: "R$",
-    attr: "",
-    var: true,
-    mean: false
-  },
-  {
-    name: "Consumo total",
-    type: "hover-line sub-1",
-    unit: "kWh",
-    attr: "kwh",
-    var: true,
-    mean: true
-  },
-  {
-    name: "Valor total",
-    type: "hover-line sub-1",
-    unit: "R$",
-    attr: "",
-    var: false,
-    mean: false
-  },
-  {
-    name: "Demanda",
-    type: "main",
-    unit: "",
-    attr: "",
-    var: false,
-    mean: false
+    mean: false,
+    showInTypes: [0, 1, 2]
   },
   {
     name: "Horário ponta",
@@ -109,7 +22,107 @@ const rowNames = [
     attr: "",
     var: false,
     mean: false,
-    justBlue: true
+    showInTypes: [1, 2]
+  },
+  {
+    name: "Consumo registrado",
+    type: "hover-line sub-2",
+    unit: "kWh",
+    attr: "kwhp",
+    var: true,
+    mean: true,
+    showInTypes: [1, 2]
+  },
+  {
+    name: "Tarifa",
+    type: "hover-line sub-2",
+    unit: "R$/kWh",
+    attr: "",
+    var: true,
+    mean: false,
+    showInTypes: [1, 2]
+  },
+  {
+    name: "Valor",
+    type: "hover-line sub-2",
+    unit: "R$",
+    attr: "",
+    var: true,
+    mean: false,
+    showInTypes: [1, 2]
+  },
+  {
+    name: "Horário fora de ponta",
+    type: "sub-1",
+    unit: "",
+    attr: "",
+    var: false,
+    mean: false,
+    showInTypes: [1, 2]
+  },
+  {
+    name: "Consumo registrado",
+    type: "hover-line sub-2",
+    unit: "kWh",
+    attr: "kwhf",
+    var: true,
+    mean: true,
+    showInTypes: [0, 1, 2]
+  },
+  {
+    name: "Tarifa",
+    type: "hover-line sub-2",
+    unit: "R$/kWh",
+    attr: "",
+    var: true,
+    mean: false,
+    showInTypes: [0, 1, 2]
+  },
+  {
+    name: "Valor",
+    type: "hover-line sub-2",
+    unit: "R$",
+    attr: "",
+    var: true,
+    mean: false,
+    showInTypes: [0, 1, 2]
+  },
+  {
+    name: "Consumo total",
+    type: "hover-line sub-1",
+    unit: "kWh",
+    attr: "kwh",
+    var: true,
+    mean: true,
+    showInTypes: [0, 1, 2]
+  },
+  {
+    name: "Valor total",
+    type: "hover-line sub-1",
+    unit: "R$",
+    attr: "",
+    var: false,
+    mean: false,
+    showInTypes: [0, 1, 2]
+  },
+  {
+    name: "Demanda",
+    type: "main",
+    unit: "",
+    attr: "",
+    var: false,
+    mean: false,
+    showInTypes: [1, 2]
+  },
+  {
+    name: "Horário ponta",
+    type: "sub-1",
+    unit: "",
+    attr: "",
+    var: false,
+    mean: false,
+    justBlue: true,
+    showInTypes: [2]
   },
   {
     name: "Medido",
@@ -118,7 +131,8 @@ const rowNames = [
     attr: "dmp",
     var: true,
     mean: true,
-    justBlue: true
+    justBlue: true,
+    showInTypes: [2]
   },
   {
     name: "Contratado",
@@ -127,7 +141,8 @@ const rowNames = [
     attr: "dcp",
     var: false,
     mean: false,
-    justBlue: true
+    justBlue: true,
+    showInTypes: [2]
   },
   {
     name: "Faturado",
@@ -136,7 +151,8 @@ const rowNames = [
     attr: "dfp",
     var: true,
     mean: true,
-    justBlue: true
+    justBlue: true,
+    showInTypes: [2]
   },
   {
     name: "Tarifa",
@@ -145,7 +161,8 @@ const rowNames = [
     attr: "",
     var: true,
     mean: false,
-    justBlue: true
+    justBlue: true,
+    showInTypes: [2]
   },
   {
     name: "Valor faturado",
@@ -154,7 +171,8 @@ const rowNames = [
     attr: "vdfp",
     var: true,
     mean: true,
-    justBlue: true
+    justBlue: true,
+    showInTypes: [2]
   },
   {
     name: "Ultrapassagem",
@@ -162,7 +180,8 @@ const rowNames = [
     unit: "R$",
     attr: "vudp",
     var: true,
-    justBlue: true
+    justBlue: true,
+    showInTypes: [2]
   },
   {
     name: "Horário fora de ponta",
@@ -171,7 +190,8 @@ const rowNames = [
     attr: "",
     var: false,
     mean: false,
-    justBlue: true
+    justBlue: true,
+    showInTypes: [2]
   },
   {
     name: "Medido",
@@ -179,7 +199,8 @@ const rowNames = [
     unit: "kW",
     attr: "dmf",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [1, 2]
   },
   {
     name: "Contratado",
@@ -187,7 +208,8 @@ const rowNames = [
     unit: "kW",
     attr: "dcf",
     var: false,
-    mean: false
+    mean: false,
+    showInTypes: [1, 2]
   },
   {
     name: "Faturado",
@@ -195,7 +217,8 @@ const rowNames = [
     unit: "kW",
     attr: "dff",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [1, 2]
   },
   {
     name: "Tarifa",
@@ -203,7 +226,8 @@ const rowNames = [
     unit: "R$/kW",
     attr: "",
     var: true,
-    mean: false
+    mean: false,
+    showInTypes: [1, 2]
   },
   {
     name: "Valor faturado",
@@ -211,7 +235,8 @@ const rowNames = [
     unit: "R$",
     attr: "vdff",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [1, 2]
   },
   {
     name: "Ultrapassagem",
@@ -219,7 +244,8 @@ const rowNames = [
     unit: "R$",
     attr: "vudf",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [1, 2]
   },
   {
     name: "Energia reativa",
@@ -227,7 +253,8 @@ const rowNames = [
     unit: "",
     attr: "",
     var: false,
-    mean: false
+    mean: false,
+    showInTypes: [1, 2]
   },
   {
     name: "EREX P",
@@ -235,7 +262,8 @@ const rowNames = [
     unit: "R$",
     attr: "verexp",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [1, 2]
   },
   {
     name: "EREX FP",
@@ -243,7 +271,8 @@ const rowNames = [
     unit: "R$",
     attr: "verexf",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [1, 2]
   },
   {
     name: "Valor total",
@@ -251,7 +280,8 @@ const rowNames = [
     unit: "R$",
     attr: "",
     var: false,
-    mean: false
+    mean: false,
+    showInTypes: [1, 2]
   },
   {
     name: "Tributos",
@@ -259,7 +289,8 @@ const rowNames = [
     unit: "",
     attr: "",
     var: false,
-    mean: false
+    mean: false,
+    showInTypes: [0, 1, 2]
   },
   {
     name: "Base de cáculo",
@@ -267,7 +298,8 @@ const rowNames = [
     unit: "R$",
     attr: "basec",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [0, 1, 2]
   },
   {
     name: "Valor total",
@@ -275,7 +307,8 @@ const rowNames = [
     unit: "R$",
     attr: "trib",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [0, 1, 2]
   },
   {
     name: "Resumo dos valores",
@@ -283,7 +316,8 @@ const rowNames = [
     unit: "",
     attr: "",
     var: false,
-    mean: false
+    mean: false,
+    showInTypes: [0, 1, 2]
   },
   {
     name: "Energia",
@@ -291,7 +325,8 @@ const rowNames = [
     unit: "R$",
     attr: "",
     var: true,
-    mean: false
+    mean: false,
+    showInTypes: [0, 1, 2]
   },
   {
     name: "CIP",
@@ -299,7 +334,8 @@ const rowNames = [
     unit: "R$",
     attr: "cip",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [0, 1, 2]
   },
   {
     name: "Descontos/Compensação",
@@ -307,7 +343,8 @@ const rowNames = [
     unit: "R$",
     attr: "desc",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [0, 1, 2]
   },
   {
     name: "Juros/Multas",
@@ -315,7 +352,8 @@ const rowNames = [
     unit: "R$",
     attr: "jma",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [0, 1, 2]
   },
   {
     name: "Total bruto",
@@ -323,7 +361,8 @@ const rowNames = [
     unit: "R$",
     attr: "vbru",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [0, 1, 2]
   },
   {
     name: "Total líquido",
@@ -331,7 +370,8 @@ const rowNames = [
     unit: "R$",
     attr: "vliq",
     var: true,
-    mean: true
+    mean: true,
+    showInTypes: [0, 1, 2]
   }
 ];
 
@@ -411,6 +451,7 @@ class ReportEnergyOneUnit extends Component {
 
     console.log("OneUnit:");
     console.log(this.props.data);
+    console.log(resultCompareObject);
 
     return (
       <ReportCard
@@ -443,9 +484,8 @@ class ReportEnergyOneUnit extends Component {
           </thead>
           <tbody>
             {rowNames.map((column, i) =>
-              !column.justBlue ||
-              this.props.data.tipo === 2 ||
-              resultCompareObject.tipo === 2 ? (
+              column.showInTypes.includes(this.props.data.tipo) ||
+              column.showInTypes.includes(resultCompareObject.tipo) ? (
                 <tr className={column.type + "-table"}>
                   <th className={column.type + "-table"}>{column.name}</th>
                   <td className={column.type + "-table"}>
