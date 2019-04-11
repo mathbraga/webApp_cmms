@@ -21,8 +21,8 @@ class EnergyResultAP extends Component {
       chartConfigs
     } = this.props.energyState;
     const imageEnergyMoney = require("../../assets/icons/money_energy.png");
-    const imageEnergyPlug = require("../../assets/icons/money_energy.png");
-    const imageEnergyWarning = require("../../assets/icons/money_energy.png");
+    const imageEnergyPlug = require("../../assets/icons/plug_energy.png");
+    const imageEnergyWarning = require("../../assets/icons/alert_icon.png");
 
     let result = {
       unit: false,
