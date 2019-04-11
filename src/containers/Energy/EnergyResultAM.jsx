@@ -99,7 +99,7 @@ class EnergyResultAM extends Component {
               oneMonth={oneMonth}
               unitNumber={false}
               unitName={"Todos os medidores"}
-              numOfUnits={meters.length}
+              numOfUnits={noEmpty.length}
               typeOfUnit={false}
               chosenMeter={this.props.energyState.chosenMeter}
               initialDate={initialDate}
