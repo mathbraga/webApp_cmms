@@ -40,6 +40,72 @@ class EnergyResultOM extends Component {
     console.log("ResultUnitOM:");
     console.log(result.queryResponse);
 
+    // Use 0 when "modalidade convencional"
+    // Use 1 when "modalidade verde"
+    // Use 2 when "modalidade azul"
+    const threeColumnValues = {
+      0: {
+        titles: [
+          "Total",
+          "CIP",
+          "Tributos",
+          "ICMS",
+          "Multas/Juros",
+          "Compensação"
+        ],
+        values: [
+          "R$ " + formatNumber(result.queryResponse.vbru, 2),
+          "R$ " + formatNumber(result.queryResponse.cip, 2),
+          "R$ " + formatNumber(result.queryResponse.trib, 2),
+          "R$ " + formatNumber(result.queryResponse.icms, 2),
+          "R$ " + formatNumber(result.queryResponse.jma, 2),
+          "R$ " + formatNumber(result.queryResponse.desc, 2)
+        ]
+      },
+      1: {
+        titles: [
+          "Demanda FP",
+          "Demanda P",
+          "Contrato FP",
+          "Contrato P",
+          "Faturado FP",
+          "Faturado P"
+        ],
+        values: [
+          formatNumber(result.queryResponse.dmf, 2) + " kW",
+          formatNumber(result.queryResponse.dmp, 0) + " kW",
+          formatNumber(result.queryResponse.dcf, 0) + " kW",
+          formatNumber(result.queryResponse.dcp, 0) + " kW",
+          formatNumber(result.queryResponse.dff, 0) + " kW",
+          formatNumber(result.queryResponse.dfp, 0) + " kW"
+        ]
+      },
+      2: {
+        titles: [
+          "Demanda FP",
+          "Demanda P",
+          "Contrato FP",
+          "Contrato P",
+          "Faturado FP",
+          "Faturado P"
+        ],
+        values: [
+          formatNumber(result.queryResponse.dmf, 2) + " kW",
+          formatNumber(result.queryResponse.dmp, 0) + " kW",
+          formatNumber(result.queryResponse.dcf, 0) + " kW",
+          formatNumber(result.queryResponse.dcp, 0) + " kW",
+          formatNumber(result.queryResponse.dff, 0) + " kW",
+          formatNumber(result.queryResponse.dfp, 0) + " kW"
+        ]
+      }
+    };
+
+    const typeText = {
+      0: "Convencional",
+      1: "Horária - Verde",
+      2: "Horária - Azul"
+    };
+
     return (
       <ResultCard
         unitNumber={result.unit.idceb.S}
@@ -47,7 +113,7 @@ class EnergyResultOM extends Component {
         initialDate={initialDate}
         finalDate={finalDate}
         oneMonth={oneMonth}
-        typeOfUnit={result.unit.modtar.S}
+        typeOfUnit={typeText[result.queryResponse.tipo]}
         handleNewSearch={this.props.handleNewSearch}
       >
         <Row>
@@ -62,22 +128,8 @@ class EnergyResultOM extends Component {
           </Col>
           <Col xs="12" sm="12" xl="6" className="order-xl-2 order-sm-3">
             <WidgetThreeColumns
-              titles={[
-                "Demanda FP",
-                "Demanda P",
-                "Contrato FP",
-                "Contrato P",
-                "Faturado FP",
-                "Faturado P"
-              ]}
-              values={[
-                formatNumber(result.queryResponse.dmf, 0) + " kW",
-                formatNumber(result.queryResponse.dmp, 0) + " kW",
-                formatNumber(result.queryResponse.dcf, 0) + " kW",
-                formatNumber(result.queryResponse.dcp, 0) + " kW",
-                formatNumber(result.queryResponse.dff, 0) + " kW",
-                formatNumber(result.queryResponse.dfp, 0) + " kW"
-              ]}
+              titles={threeColumnValues[result.queryResponse.tipo].titles}
+              values={threeColumnValues[result.queryResponse.tipo].values}
               image={imageEnergyPlug}
             />
           </Col>
@@ -88,7 +140,7 @@ class EnergyResultOM extends Component {
               unitName={result.unit.nome.S}
               initialDate={initialDate}
               finalDate={finalDate}
-              typeOfUnit={result.unit.modtar.S}
+              typeOfUnit={typeText[result.queryResponse.tipo]}
               data={result}
               title={"Diagnóstico"}
               buttonName={"Ver detalhes"}

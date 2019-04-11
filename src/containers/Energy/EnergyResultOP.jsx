@@ -28,10 +28,16 @@ class EnergyResultOP extends Component {
       applyFuncToAttr(Items, "dmf", Math.max),
       applyFuncToAttr(Items, "dmp", Math.max)
     );
-    this.demMin = Math.min(
-      applyFuncToAttr(Items, "dmf", Math.min),
-      applyFuncToAttr(Items, "dmp", Math.min)
-    );
+
+    this.demMinFP = applyFuncToAttr(Items, "dmf", Math.min);
+    this.demMinP = applyFuncToAttr(Items, "dmp", Math.min);
+    this.demMin = 0;
+    if (this.demMinFP === 0) {
+      this.demMin = this.demMinP;
+    } else if (this.demMinP === 0) {
+      this.demMin = this.demMinFP;
+    } else this.demMin = Math.min(this.demMinFP, this.demMinP);
+
     this.consMax = applyFuncToAttr(Items, "kwh", Math.max);
     this.consMin = applyFuncToAttr(Items, "kwh", Math.min);
     this.erexSum = applyFuncToAttr(Items, "verexf", (...values) =>
@@ -43,6 +49,14 @@ class EnergyResultOP extends Component {
     this.multaSum = applyFuncToAttr(Items, "jma", (...values) =>
       values.reduce((previous, current) => (current += previous))
     );
+    this.lastType = false;
+    Items.forEach(item => {
+      let lastDate = false;
+      if (lastDate || item.aamm > lastDate) {
+        lastDate = item.aamm;
+        this.lastType = item.tipo;
+      }
+    });
   }
 
   render() {
@@ -70,8 +84,11 @@ class EnergyResultOP extends Component {
     this.dateMax = applyFuncToAttr(result.queryResponse, "aamm", Math.max);
     const dateString = transformDateString(this.dateMax);
 
-    console.log("ResultUnitOP:");
-    console.log(result.queryResponse);
+    const typeText = {
+      0: "Convencional",
+      1: "Horária - Verde",
+      2: "Horária - Azul"
+    };
 
     return (
       <ResultCard
@@ -79,7 +96,7 @@ class EnergyResultOP extends Component {
         unitName={result.unit.nome.S}
         initialDate={initialDate}
         finalDate={finalDate}
-        typeOfUnit={result.unit.modtar.S}
+        typeOfUnit={typeText[this.lastType]}
         handleNewSearch={this.props.handleNewSearch}
       >
         <Row>
