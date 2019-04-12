@@ -18,7 +18,11 @@ class BadgeWithTooltips extends React.Component {
   }
 
   render() {
-    const metersIDs = getMetersIDs(this.props.problem, this.props.meters);
+    
+    let metersIDs = [];
+    if(this.props.chosenMeter === "199"){
+    metersIDs = getMetersIDs(this.props.problem, this.props.meters);
+    }
 
     return (
       <span>
@@ -45,7 +49,7 @@ class BadgeWithTooltips extends React.Component {
             <>
               <br />
               <p style={{ "text-align": "justify" }} />
-              <strong>Verificar:</strong>
+              <strong>Verificar medidor(es):</strong>
               {metersIDs.map(meterID => (
                 <>
                   <br />
