@@ -225,6 +225,7 @@ class ReportProblems extends Component {
                         expected={rowNames[row].expected}
                         problem={this.props.problems[row]}
                         meters={this.props.meters}
+                        chosenMeter={this.props.chosenMeter}
                       />
                     ) : (
                       <BadgeWithTooltips
@@ -236,6 +237,7 @@ class ReportProblems extends Component {
                         expected={rowNames[row].expected}
                         problem={this.props.problems[row]}
                         meters={this.props.meters}
+                        chosenMeter={this.props.chosenMeter}
                       />
                     )}
                   </td>
