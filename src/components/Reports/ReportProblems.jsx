@@ -133,57 +133,48 @@ class ReportProblems extends Component {
           {" - " + this.props.chosenMeter}
           {" - " + this.props.initialDate} */}
 
-          <Row>
-            <Col md="12">
-              <div className="widget-title dash-title">
-                <h4>
-                  {this.props.allUnits
-                    ? "Energia Elétrica"
-                    : this.props.unitNumber}
-                </h4>
-                {this.props.allUnits ? (
-                  <div className="dash-subtitle">
-                    Total: <strong>{this.props.numOfUnits} medidores</strong>
-                  </div>
-                ) : (
-                  <div className="dash-subtitle">
-                    Medidor: <strong>{this.props.unitName}</strong>
-                  </div>
-                )}
-              </div>
-              <div className="widget-container-center">
-                {!this.props.oneMonth ? (
-                  <div className="dash-title-info">
-                    Período:{" "}
-                    <strong>
-                      {initialDate}
-                      {" - "}
-                      {finalDate}
-                    </strong>
-                  </div>
-                ) : (
-                  <div className="dash-title-info">
-                    Período: <strong>{initialDate}</strong>
-                  </div>
-                )}
-                {this.props.allUnits ? (
-                  <div className="dash-title-info">
-                    Várias modalidades tarifárias
-                  </div>
-                ) : (
-                  <div className="dash-title-info">
-                    Modalidade: <strong>{this.props.typeOfUnit}</strong>
-                  </div>
-                )}
-              </div>
-            </Col>
-            {/* <Col md="4" />
-            <Col md="2" className="container-left">
-              <Button block outline color="primary" onClick={handleNewSearch}>
-                <i className="cui-magnifying-glass" />
-                &nbsp;Nova pesquisa
-              </Button>
-            </Col> */}
+          <Row style={{ padding: "0px 20px" }}>
+            <div className="widget-title dash-title">
+              <h4>
+                {this.props.allUnits
+                  ? "Energia Elétrica"
+                  : this.props.unitNumber}
+              </h4>
+              {this.props.allUnits ? (
+                <div className="dash-subtitle">
+                  Total: <strong>{this.props.numOfUnits} medidores</strong>
+                </div>
+              ) : (
+                <div className="dash-subtitle">
+                  Medidor: <strong>{this.props.unitName}</strong>
+                </div>
+              )}
+            </div>
+            <div className="widget-container-center">
+              {!this.props.oneMonth ? (
+                <div className="dash-title-info">
+                  Período:{" "}
+                  <strong>
+                    {initialDate}
+                    {" - "}
+                    {finalDate}
+                  </strong>
+                </div>
+              ) : (
+                <div className="dash-title-info">
+                  Período: <strong>{initialDate}</strong>
+                </div>
+              )}
+              {this.props.allUnits ? (
+                <div className="dash-title-info">
+                  Várias modalidades tarifárias
+                </div>
+              ) : (
+                <div className="dash-title-info">
+                  Modalidade: <strong>{this.props.typeOfUnit}</strong>
+                </div>
+              )}
+            </div>
           </Row>
         </ModalHeader>
         <ModalBody style={{ overflow: "scroll" }}>
