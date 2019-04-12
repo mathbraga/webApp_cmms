@@ -6,7 +6,8 @@ export default function checkSearchInputs(initialDate, finalDate, oneMonth){
     initialDate.slice(0, 2) > "12" ||   // Non-existent month
     initialDate.slice(0, 2) === "00" || // Non-existent month
     initialDate.slice(3) < "2017" ||    // Non-existent year in database
-    initialDate.slice(3) > "2019"       // Non-existent year in database
+    initialDate.slice(3) > "2019" ||    // Non-existent year in database
+    initialDate === finalDate           // Same dates
   ){
     return false;
   } else {

@@ -31,18 +31,18 @@ class WidgetWithModal extends Component {
 
   componentDidMount() {
     // If we have a queryResponse, check for problems
-    const result =
-      this.props.data.queryResponse &&
-      checkProblems(this.props.data.queryResponse, this.props.chosenMeter, this.props.queryResponseAll);
-    // Variable for the number of problems found
-    let numProblems = 0;
-    Object.keys(result).forEach(key => {
-      if (result[key].problem === true) numProblems += 1;
-    });
-    this.setState({
-      numProblems: numProblems,
-      problems: result
-    });
+    if(this.props.data.queryResponse && this.props.oneMonth){
+      let result = checkProblems(this.props.data.queryResponse, this.props.chosenMeter, this.props.queryResponseAll);
+      // Variable for the number of problems found
+      let numProblems = 0;
+      Object.keys(result).forEach(key => {
+        if (result[key].problem === true) numProblems += 1;
+      });
+      this.setState({
+        numProblems: numProblems,
+        problems: result
+      });
+    }
   }
 
   toggleModal = () => {
