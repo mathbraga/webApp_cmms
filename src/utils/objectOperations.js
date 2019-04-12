@@ -4,10 +4,9 @@ function applyFuncToAttr(listObjects, attr, func) {
   listObjects.forEach(item => {
     if (item[attr] > 0) values.push(item[attr]);
   });
+  if (values.length == 0) return 0;
   try {
-    if (attr === "dmp") console.log(values);
     answer = func(...values);
-    if (attr === "dmp") console.log(answer);
   } catch {
     console.log("applyFuncToAttr: could not apply the function.");
   }

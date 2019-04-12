@@ -14,8 +14,8 @@ class EnergyResultAM extends Component {
     // Initialize all variables
     // Loading images
     const imageEnergyMoney = require("../../assets/icons/money_energy.png");
-    const imageEnergyPlug = require("../../assets/icons/money_energy.png");
-    const imageEnergyWarning = require("../../assets/icons/money_energy.png");
+    const imageEnergyPlug = require("../../assets/icons/plug_energy.png");
+    const imageEnergyWarning = require("../../assets/icons/alert_icon.png");
 
     const {
       initialDate,
@@ -93,7 +93,6 @@ class EnergyResultAM extends Component {
               image={imageEnergyPlug}
             />
           </Col>{" "}
-
           <Col xs="12" sm="6" xl="3" className="order-xl-3 order-sm-2">
             <WidgetWithModal
               allUnits={true}
@@ -107,7 +106,7 @@ class EnergyResultAM extends Component {
               finalDate={finalDate}
               data={result}
               title={"Diagnóstico"}
-              buttonName={"Ver detalhes"}
+              buttonName={"Ver relatório"}
               image={imageEnergyWarning}
               queryResponseAll={queryResponseAll}
               meters={meters}

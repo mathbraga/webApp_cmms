@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { formatNumber } from "../../utils/formatText";
-import { transformDateString, dateWithFourDigits } from "../../utils/transformDateString";
+import {
+  transformDateString,
+  dateWithFourDigits
+} from "../../utils/transformDateString";
 import {
   Card,
   CardBody,
@@ -12,19 +15,23 @@ import {
   ModalBody,
   ModalFooter,
   Table
-  } from "reactstrap";
+} from "reactstrap";
 import BadgeWithTooltips from "../Badges/BadgeWithTooltips";
 
 class ReportProblems extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
 
   render() {
+    let initialDate = transformDateString(
+      dateWithFourDigits(this.props.initialDate)
+    );
+    let finalDate = transformDateString(
+      dateWithFourDigits(this.props.finalDate)
+    );
 
-    let initialDate = transformDateString(dateWithFourDigits(this.props.initialDate));
-    let finalDate = transformDateString(dateWithFourDigits(this.props.finalDate));
 
     let rowNames = {
       dcp: {
@@ -105,7 +112,6 @@ class ReportProblems extends Component {
     };
   
 
-    
     return (
       <Modal
         isOpen={this.props.isOpen}
@@ -120,7 +126,11 @@ class ReportProblems extends Component {
           <Row>
             <Col md="12">
               <div className="widget-title dash-title">
-                <h4>{this.props.allUnits ? "Energia Elétrica" : this.props.unitNumber}</h4>
+                <h4>
+                  {this.props.allUnits
+                    ? "Energia Elétrica"
+                    : this.props.unitNumber}
+                </h4>
                 {this.props.allUnits ? (
                   <div className="dash-subtitle">
                     Total: <strong>{this.props.numOfUnits} medidores</strong>
@@ -166,7 +176,7 @@ class ReportProblems extends Component {
             </Col> */}
           </Row>
         </ModalHeader>
-        <ModalBody>
+        <ModalBody style={{ overflow: "scroll" }}>
           <Table bordered>
             <thead>
               <tr>
@@ -226,7 +236,41 @@ class ReportProblems extends Component {
                     }
                   </td>
 
+                  {rowNames[row].unit === "R$" ? (
+                    <td style={{ "text-align": "center" }}>
+                      {"R$ "}
+                      {this.props.problems &&
+                        formatNumber(this.props.problems[row].value)}
+                    </td>
+                  ) : (
+                    <td style={{ "text-align": "center" }}>
+                      {this.props.problems &&
+                        formatNumber(this.props.problems[row].value, 0)}
+                      {" " + rowNames[row].unit}
+                    </td>
+                  )}
 
+                  <td style={{ "text-align": "center" }}>
+                    {this.props.problems && this.props.problems[row].problem ? (
+                      <BadgeWithTooltips
+                        color="danger"
+                        id={row}
+                        situation="Verificar"
+                        name={rowNames[row].name}
+                        obs={rowNames[row].obs}
+                        expected={rowNames[row].expected}
+                      />
+                    ) : (
+                      <BadgeWithTooltips
+                        color="success"
+                        id={row}
+                        situation="OK"
+                        name={rowNames[row].name}
+                        obs={rowNames[row].obs}
+                        expected={rowNames[row].expected}
+                      />
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

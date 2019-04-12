@@ -95,6 +95,9 @@ class ReportCalculationsEnergy extends Component {
     economy = economy > 0 ? economy : 0;
     economy = (economy / this.state.costTime) * 12;
 
+    console.log("CalculationEnergy:");
+    console.log(this.props);
+
     return (
       <ReportCard
         title={"Demanda ideal"}
@@ -111,84 +114,93 @@ class ReportCalculationsEnergy extends Component {
         showCalcResult={this.showCalcResult}
         resultID={this.state.typeOfResult}
       >
-        <Row>
-          <Col>
-            <div className="calc-subtitle">
-              Modalidade calculada:{" "}
-              <strong>
-                {this.state.typeOfResult === "best"
-                  ? this.state.bestDemandP === "-"
-                    ? "Verde"
-                    : "Azul"
-                  : this.state.typeOfResult === "blue"
-                  ? "Azul"
-                  : "Verde"}
-              </strong>
-            </div>
-            <div className="calc-subtitle">
-              Economia simulada:{" "}
-              <strong>
-                {Math.trunc((economy / this.state.costNow) * 100) || "- "}% em
-                12 meses (aprox. R${" "}
-                {Math.ceil(economy / this.state.costNow / 1000) || "- "} mil)
-              </strong>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs="6">
-            <div className="container-demand">
-              <div className="demand-new text-truncate">
-                {this.state.typeOfResult === "best"
-                  ? this.state.bestDemandFP
-                  : this.state.typeOfResult === "blue"
-                  ? this.state.bestDemandBlueFP
-                  : this.state.bestDemandGreenFP}
-                &nbsp;kW
-              </div>
-              <div className="demand-subtitle">
-                <strong>Fora de ponta</strong> - Valor ideal
-              </div>
-            </div>
-          </Col>
-          <Col xs="6">
-            <div className="container-demand">
-              <div className="demand-new text-truncate">
-                {this.state.typeOfResult === "best"
-                  ? this.state.bestDemandP
-                  : this.state.typeOfResult === "blue"
-                  ? this.state.bestDemandBlueP
-                  : this.state.bestDemandGreenP}
-                &nbsp;kW
-              </div>
-              <div className="demand-subtitle">
-                <strong>Ponta</strong> - Valor ideal
-              </div>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs="6">
-            <div className="container-old-demand">
-              <div className="demand-value text-truncate">
-                {this.props.demandContract.dcf.S} kW
-              </div>
-              <div className="demand-subtitle">
-                <strong>Fora de ponta</strong> - Valor contratado
-              </div>
-            </div>
-          </Col>
-          <Col xs="6">
-            <div className="container-old-demand">
-              <div className="demand-value text-truncate">
-                {this.props.demandContract.dcp.S} kW
-              </div>
-              <div className="demand-subtitle">
-                <strong>Ponta</strong> - Valor contratado
-              </div>
-            </div>
-          </Col>
-        </Row>
+        {this.props.type == 0 ? (
+          <p style={{ textAlign: "center" }}>
+            Não há cálculos para a modalidade convencional.
+          </p>
+        ) : (
+          <>
+            <Row>
+              <Col>
+                <div className="calc-subtitle">
+                  Modalidade calculada:{" "}
+                  <strong>
+                    {this.state.typeOfResult === "best"
+                      ? this.state.bestDemandP === "-"
+                        ? "Verde"
+                        : "Azul"
+                      : this.state.typeOfResult === "blue"
+                      ? "Azul"
+                      : "Verde"}
+                  </strong>
+                </div>
+                <div className="calc-subtitle">
+                  Economia simulada:{" "}
+                  <strong>
+                    {Math.trunc((economy / this.state.costNow) * 100) || "- "}%
+                    em 12 meses (aprox. R${" "}
+                    {Math.ceil(economy / this.state.costNow / 1000) || "- "}{" "}
+                    mil)
+                  </strong>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="6">
+                <div className="container-demand">
+                  <div className="demand-new text-truncate">
+                    {this.state.typeOfResult === "best"
+                      ? this.state.bestDemandFP
+                      : this.state.typeOfResult === "blue"
+                      ? this.state.bestDemandBlueFP
+                      : this.state.bestDemandGreenFP}
+                    &nbsp;kW
+                  </div>
+                  <div className="demand-subtitle">
+                    <strong>Fora de ponta</strong> - Valor ideal
+                  </div>
+                </div>
+              </Col>
+              <Col xs="6">
+                <div className="container-demand">
+                  <div className="demand-new text-truncate">
+                    {this.state.typeOfResult === "best"
+                      ? this.state.bestDemandP
+                      : this.state.typeOfResult === "blue"
+                      ? this.state.bestDemandBlueP
+                      : this.state.bestDemandGreenP}
+                    &nbsp;kW
+                  </div>
+                  <div className="demand-subtitle">
+                    <strong>Ponta</strong> - Valor ideal
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="6">
+                <div className="container-old-demand">
+                  <div className="demand-value text-truncate">
+                    {this.props.demandContract.dcf.S} kW
+                  </div>
+                  <div className="demand-subtitle">
+                    <strong>Fora de ponta</strong> - Valor contratado
+                  </div>
+                </div>
+              </Col>
+              <Col xs="6">
+                <div className="container-old-demand">
+                  <div className="demand-value text-truncate">
+                    {this.props.demandContract.dcp.S} kW
+                  </div>
+                  <div className="demand-subtitle">
+                    <strong>Ponta</strong> - Valor contratado
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </>
+        )}
       </ReportCard>
     );
   }

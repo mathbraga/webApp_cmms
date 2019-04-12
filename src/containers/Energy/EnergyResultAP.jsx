@@ -22,8 +22,8 @@ class EnergyResultAP extends Component {
       noEmpty
     } = this.props.energyState;
     const imageEnergyMoney = require("../../assets/icons/money_energy.png");
-    const imageEnergyPlug = require("../../assets/icons/money_energy.png");
-    const imageEnergyWarning = require("../../assets/icons/money_energy.png");
+    const imageEnergyPlug = require("../../assets/icons/plug_energy.png");
+    const imageEnergyWarning = require("../../assets/icons/alert_icon.png");
 
     let result = {
       unit: false,
@@ -38,9 +38,32 @@ class EnergyResultAP extends Component {
       );
     });
 
+    const itemsForChart = [
+      "vbru",
+      "vliq",
+      "cip",
+      "desc",
+      "jma",
+      "kwh",
+      "kwhf",
+      "kwhp",
+      "dms",
+      "vdff",
+      "vdfp",
+      "vudf",
+      "vudp",
+      "verexf",
+      "verexp",
+      "uferf",
+      "uferp",
+      "trib",
+      "icms",
+      "basec"
+    ];
+
     console.log("ResultAP:");
-    console.log(this.props);
-    console.log(totalValues);
+    console.log(chartConfigs);
+    const demMax = Math.max(...chartConfigs.dms.data.datasets[0].data);
 
     return (
       <ResultCard
@@ -74,8 +97,8 @@ class EnergyResultAP extends Component {
                 "UFER"
               ]}
               values={[
-                formatNumber(totalValues.dms, 0) + " kW",
-                "R$ " + formatNumber(totalValues.vudf + totalValues.vudp, 0),
+                formatNumber(demMax, 0) + " kW",
+                "R$ " + formatNumber(totalValues.vudf + totalValues.vudp, 2),
                 "R$ " + formatNumber(totalValues.desc, 2),
                 "R$ " + formatNumber(totalValues.jma, 2),
                 "R$ " +
@@ -105,6 +128,7 @@ class EnergyResultAP extends Component {
             <ChartReport
               energyState={this.props.energyState}
               medName={"23 medidores"}
+              itemsForChart={itemsForChart}
             />
           </Col>
         </Row>

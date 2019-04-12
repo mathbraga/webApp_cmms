@@ -28,10 +28,16 @@ class EnergyResultOP extends Component {
       applyFuncToAttr(Items, "dmf", Math.max),
       applyFuncToAttr(Items, "dmp", Math.max)
     );
-    this.demMin = Math.min(
-      applyFuncToAttr(Items, "dmf", Math.min),
-      applyFuncToAttr(Items, "dmp", Math.min)
-    );
+
+    this.demMinFP = applyFuncToAttr(Items, "dmf", Math.min);
+    this.demMinP = applyFuncToAttr(Items, "dmp", Math.min);
+    this.demMin = 0;
+    if (this.demMinFP === 0) {
+      this.demMin = this.demMinP;
+    } else if (this.demMinP === 0) {
+      this.demMin = this.demMinFP;
+    } else this.demMin = Math.min(this.demMinFP, this.demMinP);
+
     this.consMax = applyFuncToAttr(Items, "kwh", Math.max);
     this.consMin = applyFuncToAttr(Items, "kwh", Math.min);
     this.erexSum = applyFuncToAttr(Items, "verexf", (...values) =>
@@ -43,6 +49,14 @@ class EnergyResultOP extends Component {
     this.multaSum = applyFuncToAttr(Items, "jma", (...values) =>
       values.reduce((previous, current) => (current += previous))
     );
+    this.lastType = false;
+    Items.forEach(item => {
+      let lastDate = false;
+      if (lastDate || item.aamm > lastDate) {
+        lastDate = item.aamm;
+        this.lastType = item.tipo;
+      }
+    });
   }
 
   render() {
@@ -56,8 +70,8 @@ class EnergyResultOP extends Component {
     } = this.props.energyState;
 
     const imageEnergyMoney = require("../../assets/icons/money_energy.png");
-    const imageEnergyPlug = require("../../assets/icons/money_energy.png");
-    const imageEnergyWarning = require("../../assets/icons/money_energy.png");
+    const imageEnergyPlug = require("../../assets/icons/plug_energy.png");
+    const imageEnergyWarning = require("../../assets/icons/alert_icon.png");
 
     let result = {
       unit: false,
@@ -70,13 +84,49 @@ class EnergyResultOP extends Component {
     this.dateMax = applyFuncToAttr(result.queryResponse, "aamm", Math.max);
     const dateString = transformDateString(this.dateMax);
 
+    const typeText = {
+      0: "Convencional",
+      1: "Horária - Verde",
+      2: "Horária - Azul"
+    };
+
+    const itemsForChart = [
+      "vbru",
+      "vliq",
+      "cip",
+      "desc",
+      "jma",
+      "kwh",
+      "kwhf",
+      "kwhp",
+      "dms",
+      "dmf",
+      "dmp",
+      "dcf",
+      "dcp",
+      "dff",
+      "dfp",
+      "vdff",
+      "vdfp",
+      "vudf",
+      "vudp",
+      "tipo",
+      "verexf",
+      "verexp",
+      "uferf",
+      "uferp",
+      "trib",
+      "icms",
+      "basec"
+    ];
+
     return (
       <ResultCard
         unitNumber={result.unit.idceb.S}
         unitName={result.unit.nome.S}
         initialDate={initialDate}
         finalDate={finalDate}
-        typeOfUnit={result.unit.modtar.S}
+        typeOfUnit={typeText[this.lastType]}
         handleNewSearch={this.props.handleNewSearch}
       >
         <Row>
@@ -136,6 +186,7 @@ class EnergyResultOP extends Component {
               dateString={dateString}
               data={result.queryResponse}
               demandContract={result.unit}
+              type={result.queryResponse[result.queryResponse.length - 1].tipo}
             />
           </Col>
         </Row>
@@ -144,6 +195,7 @@ class EnergyResultOP extends Component {
             <ChartReport
               energyState={this.props.energyState}
               medName={result.unit.nome.S}
+              itemsForChart={itemsForChart}
             />
           </Col>
         </Row>
