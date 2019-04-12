@@ -49,7 +49,7 @@ class BadgeWithTooltips extends React.Component {
             <>
               <br />
               <p style={{ "text-align": "justify" }} />
-              <strong>Verificar:</strong>
+              <strong>Verificar medidor(es):</strong>
               {metersIDs.map(meterID => (
                 <>
                   <br />
