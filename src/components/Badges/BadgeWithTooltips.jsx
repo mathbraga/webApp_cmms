@@ -1,5 +1,5 @@
-import React from 'react';
-import { Badge, Tooltip } from 'reactstrap';
+import React from "react";
+import { Badge, Tooltip } from "reactstrap";
 import getMetersIDs from "../../utils/getMetersIDs";
 
 class BadgeWithTooltips extends React.Component {
@@ -9,11 +9,6 @@ class BadgeWithTooltips extends React.Component {
     this.state = {
       tooltipOpen: false
     };
-
-  
-
-
-
   }
 
   toggle() {
@@ -22,38 +17,43 @@ class BadgeWithTooltips extends React.Component {
     });
   }
 
-   render() {
-    
+  render() {
     const metersIDs = getMetersIDs(this.props.problem, this.props.meters);
 
     return (
       <span>
-        <Badge color={this.props.color} id={'Tooltip-' + this.props.id}>
+        <Badge color={this.props.color} id={"Tooltip-" + this.props.id}>
           {this.props.situation}
         </Badge>
-        <Tooltip autohide={false} placement="right" isOpen={this.state.tooltipOpen} target={'Tooltip-' + this.props.id} toggle={this.toggle}>
+        <Tooltip
+          autohide={false}
+          placement="right"
+          isOpen={this.state.tooltipOpen}
+          target={"Tooltip-" + this.props.id}
+          toggle={this.toggle}
+        >
           <strong>{this.props.name}</strong>
-          <br/>
-          <br/>
+          <br />
+          <br />
           <strong>Observações:</strong>
-          <br/>
+          <br />
           <p style={{ "text-align": "justify" }}>{this.props.obs}</p>
           <strong>Faixa de normalidade:</strong>
-          <br/>
+          <br />
           {this.props.expected}
-          {metersIDs.length > 0 &&
+          {metersIDs.length > 0 && (
             <>
-              <br/>
-              <p style={{ "text-align": "justify" }}></p>
+              <br />
+              <p style={{ "text-align": "justify" }} />
               <strong>Verificar:</strong>
-                {metersIDs.map(meterID => (
-                  <>
-                    <br/>
-                    <>{meterID}</>
-                  </>
-                ))}  
+              {metersIDs.map(meterID => (
+                <>
+                  <br />
+                  <>{meterID}</>
+                </>
+              ))}
             </>
-          }
+          )}
         </Tooltip>
       </span>
     );
