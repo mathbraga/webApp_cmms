@@ -4,7 +4,7 @@ import buildChartData from "./buildChartData";
 import defineNewLocation from "./defineNewLocation";
 import aammTransformDate from "./aammTransformDate";
 import allMetersSum from "./allMetersSum";
-import ChartComponent from "react-chartjs-2";
+import removeEmpty from "./removeEmpty";
 
 export default function handleSearch() {
   // Check date inputs
@@ -44,11 +44,20 @@ export default function handleSearch() {
       aamm2
     ).then(data => {
       var queryResponse = [];
+      var queryResponseAll = [];
       var chartConfigs = {};
       // AM case
       if (this.state.chosenMeter === "199" && this.state.oneMonth) {
+        console.log('verificar dados');
+        console.log(data);
+        let noEmpty = removeEmpty(data);
+        console.log('noEmpty');
+        console.log(noEmpty);
+        queryResponseAll = data;
         queryResponse = allMetersSum(data);
         this.setState({
+          noEmpty: noEmpty,
+          queryResponseAll: queryResponseAll,
           queryResponse: queryResponse,
           showResult: true,
           error: false,
@@ -58,9 +67,17 @@ export default function handleSearch() {
 
       // AP case
       if (this.state.chosenMeter === "199" && !this.state.oneMonth) {
+        console.log('verificar dados');
+        console.log(data);
+        queryResponseAll = data;
+        let noEmpty = removeEmpty(data);
+        console.log('noEmpty');
+        console.log(noEmpty);
         queryResponse = data;
         chartConfigs = buildChartData(queryResponse, aamm1, aamm2);
         this.setState({
+          noEmpty: noEmpty,
+          queryResponseAll: queryResponseAll,
           queryResponse: queryResponse,
           chartConfigs: chartConfigs,
           showResult: true,
