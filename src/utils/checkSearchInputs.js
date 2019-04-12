@@ -6,8 +6,7 @@ export default function checkSearchInputs(initialDate, finalDate, oneMonth){
     initialDate.slice(0, 2) > "12" ||   // Non-existent month
     initialDate.slice(0, 2) === "00" || // Non-existent month
     initialDate.slice(3) < "2017" ||    // Non-existent year in database
-    initialDate.slice(3) > "2019" ||    // Non-existent year in database
-    initialDate === finalDate           // Same dates
+    initialDate.slice(3) > "2019"       // Non-existent year in database
   ){
     return false;
   } else {
@@ -15,6 +14,7 @@ export default function checkSearchInputs(initialDate, finalDate, oneMonth){
     // Special conditions for period --> finalDate check
     if (!oneMonth){
       if(
+      initialDate === finalDate ||      // Same dates
       finalDate.length < 7 ||           // Incomplete input
       finalDate.slice(0, 2) > "12" ||   // Non-existent month
       finalDate.slice(0, 2) === "00" || // Non-existent month
