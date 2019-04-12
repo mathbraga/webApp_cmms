@@ -50,28 +50,28 @@ class ReportProblems extends Component {
         name: "Demanda medida - Ponta",
         unit: "kW",
         obs: "Maior demanda de potência ativa registrada no período - Ponta",
-        expected: "≤ Demanda contratada (Ponta)"
+        expected: "≥ 0 kW"
       },
       dmf: {
         name: "Demanda medida - Fora de ponta",
         unit: "kW",
         obs:
           "Maior demanda de potência ativa registrada no período - Fora de ponta",
-        expected: "≤ Demanda contratada (Fora de ponta)"
+        expected: "≥ 0 kW"
       },
       dfp: {
         name: "Demanda faturada - Ponta",
         unit: "kW",
         obs:
           "Demanda considerada no faturamento (maior valor entre medida e contratada) - Ponta",
-        expected: "≤ Demanda contratada (Ponta)"
+        expected: "≥ Demanda contratada (Ponta)"
       },
       dff: {
         name: "Demanda faturada - Fora de ponta",
         unit: "kW",
         obs:
           "Demanda considerada no faturamento (maior valor entre medida e contratada) - Fora de ponta",
-        expected: "≤ Demanda contratada (Fora de ponta)"
+        expected: "≥ Demanda contratada (Fora de ponta)"
       },
 
       vudp: {
