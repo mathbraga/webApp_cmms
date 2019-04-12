@@ -1,15 +1,19 @@
 import React from 'react';
 import { Badge, Tooltip } from 'reactstrap';
-import getMetersNames from "../../utils/getMetersNames";
+import getMetersIDs from "../../utils/getMetersIDs";
 
 class BadgeWithTooltips extends React.Component {
   constructor(props) {
     super(props);
-
     this.toggle = this.toggle.bind(this);
     this.state = {
       tooltipOpen: false
     };
+
+  
+
+
+
   }
 
   toggle() {
@@ -19,6 +23,9 @@ class BadgeWithTooltips extends React.Component {
   }
 
    render() {
+    
+    const metersIDs = getMetersIDs(this.props.problem, this.props.meters);
+
     return (
       <span>
         <Badge color={this.props.color} id={'Tooltip-' + this.props.id}>
@@ -34,15 +41,19 @@ class BadgeWithTooltips extends React.Component {
           <strong>Faixa de normalidade:</strong>
           <br/>
           {this.props.expected}
-          <br/>
-          <p style={{ "text-align": "justify" }}></p>
-          <strong>Verificar:</strong>
-            {getMetersNames(this.props.problem, this.props.meters).map(meterName => (
-              <>
-                <br/>
-                <strong>{meterName}HHH</strong>
-              </>
-            ))}  
+          {metersIDs.length > 0 &&
+            <>
+              <br/>
+              <p style={{ "text-align": "justify" }}></p>
+              <strong>Verificar:</strong>
+                {metersIDs.map(meterID => (
+                  <>
+                    <br/>
+                    <>{meterID}</>
+                  </>
+                ))}  
+            </>
+          }
         </Tooltip>
       </span>
     );
