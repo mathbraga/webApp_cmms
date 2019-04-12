@@ -97,6 +97,7 @@ class EnergyResultOP extends Component {
       "desc",
       "jma",
       "kwh",
+      "confat",
       "kwhf",
       "kwhp",
       "dms",

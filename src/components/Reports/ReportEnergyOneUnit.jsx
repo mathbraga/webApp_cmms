@@ -70,6 +70,15 @@ const rowNames = [
     showInTypes: [0, 1, 2]
   },
   {
+    name: "Consumo faturado",
+    type: "hover-line sub-2",
+    unit: "kWh",
+    attr: "confat",
+    var: true,
+    mean: true,
+    showInTypes: [0]
+  },
+  {
     name: "Tarifa",
     type: "hover-line sub-2",
     unit: "R$/kWh",

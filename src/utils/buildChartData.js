@@ -54,6 +54,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
   // Initializes answers array, considering all attributes in EnergyTable
   var answers = {
     basec: [],
+    confat: [],
     cip: [],
     dcf: [],
     dcp: [],
@@ -85,6 +86,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
   // Loops through queryResponse to build answers array
   for (let i = 0; i <= numMonths - 1; i++) {
     answers.basec.push(0);
+    answers.confat.push(0);
     answers.cip.push(0);
     answers.dcf.push(0);
     answers.dcp.push(0);
@@ -120,7 +122,8 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
             // Check if 'aamm' corresponds to current loop month. If true, the value is added
             answers.basec[i] =
               answers.basec[i] + queryResponse[j].Items[k].basec;
-            answers.cip[i] = answers.cip[i] + queryResponse[j].Items[k].cip;
+              answers.confat[i] = answers.confat[i] + queryResponse[j].Items[k].confat;
+              answers.cip[i] = answers.cip[i] + queryResponse[j].Items[k].cip;
             answers.dcf[i] = answers.dcf[i] + queryResponse[j].Items[k].dcf;
             answers.dcp[i] = answers.dcp[i] + queryResponse[j].Items[k].dcp;
             answers.desc[i] = answers.desc[i] + queryResponse[j].Items[k].desc;
@@ -173,6 +176,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
       desc: "Compensações e/ou descontos",
       trib: "Tributos federais",
       icms: "ICMS",
+      confat: "Consumo faturado",
       cip: "Contribuição de iluminação pública - CIP",
       kwh: "Consumo total",
       kwhf: "Consumo - Fora de ponta",
@@ -202,6 +206,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
       desc: "Compensações e/ou descontos",
       trib: "Tributos federais",
       icms: "ICMS",
+      confat: "Consumo faturado",
       cip: "Contribuição de iluminação pública - CIP",
       kwh: "Consumo total",
       kwhf: "Consumo - Fora de ponta",
@@ -235,6 +240,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
       kwh: "kWh",
       kwhf: "kWh",
       kwhp: "kWh",
+      confat: "kWh",
       uferf: "UFER - Fora de ponta",
       uferp: "UFER - Ponta",
       verexf: "R$",
