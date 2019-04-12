@@ -33,7 +33,7 @@ class WidgetWithModal extends Component {
     // If we have a queryResponse, check for problems
     const result =
       this.props.data.queryResponse &&
-      checkProblems(this.props.data.queryResponse, this.props.chosenMeter);
+      checkProblems(this.props.data.queryResponse, this.props.chosenMeter, this.props.queryResponseAll);
     // Variable for the number of problems found
     let numProblems = 0;
     Object.keys(result).forEach(key => {
@@ -111,6 +111,8 @@ class WidgetWithModal extends Component {
                   toggle={this.toggleModal}
                   className={"modal-lg " + this.props.className}
                   problems={this.state.problems}
+                  queryResponseAll={this.props.queryResponseAll}
+                  meters={this.props.meters}
                 />
               </div>
             </Col>

@@ -22,7 +22,9 @@ class EnergyResultAM extends Component {
       finalDate,
       oneMonth,
       meters,
-      chosenMeter
+      chosenMeter,
+      noEmpty,
+      queryResponseAll
     } = this.props.energyState;
     let result = {
       unit: false,
@@ -43,7 +45,7 @@ class EnergyResultAM extends Component {
         oneMonth={oneMonth}
         unitNumber={false}
         unitName={"Todos os medidores"}
-        numOfUnits={meters.length}
+        numOfUnits={noEmpty.length}
         initialDate={initialDate}
         finalDate={finalDate}
         typeOfUnit={false}
@@ -98,7 +100,7 @@ class EnergyResultAM extends Component {
               oneMonth={oneMonth}
               unitNumber={false}
               unitName={"Todos os medidores"}
-              numOfUnits={meters.length}
+              numOfUnits={noEmpty.length}
               typeOfUnit={false}
               chosenMeter={this.props.energyState.chosenMeter}
               initialDate={initialDate}
@@ -107,13 +109,15 @@ class EnergyResultAM extends Component {
               title={"Diagnóstico"}
               buttonName={"Ver detalhes"}
               image={imageEnergyWarning}
+              queryResponseAll={queryResponseAll}
+              meters={meters}
             />
           </Col>
         </Row>
 
         <Row>
           <Col>
-            <ReportListMeters meters={this.props.energyState.meters} />
+            <ReportListMeters meters={this.props.energyState.meters} noEmpty={this.props.energyState.noEmpty}/>
           </Col>
         </Row>
       </ResultCard>
