@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import FormDates from "../../components/Forms/FormDates";
 import { handleDates } from "../../utils/handleDates";
 import EnergyResults from "./EnergyResults";
-import { dynamoInit } from "../../utils/dynamoinit";
+import { dynamoInit } from "../../utils/dynamoInit";
 import handleSearch from "../../utils/handleSearch";
-import { energyinfoinit } from "../../utils/energyinfoinit";
+import getAllMeters from "../../utils/getAllMeters";
 
 class Energy extends Component {
   constructor(props) {
@@ -15,6 +15,8 @@ class Energy extends Component {
       meters: [],
       dynamo: dynamo,
       tableName: "CEB",
+      tableNameMeters: "CEB-Medidores",
+      tipomed: "1",
       initialDate: "",
       finalDate: "",
       chosenMeter: "199",
@@ -29,7 +31,7 @@ class Energy extends Component {
   }
 
   componentDidMount() {
-    energyinfoinit(this.state.dynamo, "CEB-Medidores").then(data => {
+    getAllMeters(this.state.dynamo, this.state.tableNameMeters, this.state.tipomed).then(data => {
       this.setState({ meters: data });
     });
   }

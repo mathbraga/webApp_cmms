@@ -22,5 +22,3 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# AWS config files (classified informations)
-/src/utils/dynamoinit.js

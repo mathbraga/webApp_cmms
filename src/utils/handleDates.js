@@ -1,4 +1,13 @@
 export function handleDates(event) {
+  // Input:
+  // Any text inserted by the user in initialDate or finalDate in FormDates component
+  // 
+  // Output:
+  // Updated date input, in mm/yyyy format
+  //
+  // Purpose:
+  // Provide date inputs with friendly UI/UX and to functions and components of the app
+
   const { name, value } = event.target;
   let { selectionStart } = event.target;
   const justNumbers = value.replace(/\D/g, "");

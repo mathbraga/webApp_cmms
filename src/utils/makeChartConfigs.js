@@ -1,5 +1,16 @@
-export default function buildChartData(queryResponse, aamm1, aamm2) {
-  // Number of meters to loop through queryResponse
+export default function makeChartConfigs(queryResponse, aamm1, aamm2) {
+  // Inputs:
+  // queryResponse (array): response from query to the database
+  // aamm1 (string): initialDate in aamm format (compatible with sort key format)
+  // aamm2 (string): finalDate in aamm format (compatible with sort key format)
+  //
+  // Output:
+  // chartConfigs (object): all data, configuration, options and labels necessary to generate a chart with chart.js
+  //
+  // Purpose:
+  // Allow charts in results components to show different sets of data retrieved from database
+  
+    // Number of meters to loop through queryResponse
   var numMeters = queryResponse.length;
 
   // Build arrays with all 'aamm' of period in query
@@ -51,7 +62,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
   // Number of months in the query
   var numMonths = periodInts.length;
 
-  // Initializes answers array, considering all attributes in EnergyTable
+  // Initialize answers array, considering all attributes in EnergyTable
   var answers = {
     basec: [],
     confat: [],
@@ -83,7 +94,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
     vudp: []
   };
 
-  // Loops through queryResponse to build answers array
+  // Loop through queryResponse to build answers array
   for (let i = 0; i <= numMonths - 1; i++) {
     answers.basec.push(0);
     answers.confat.push(0);
@@ -187,7 +198,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
       verexp: "Valor EREX - Ponta",
       dmf: "Demanda medida - Fora de ponta",
       dmp: "Demanda medida - Ponta",
-      dms: "Demanda medida - Diária", // Somatório das maiores demandas do dia
+      dms: "Demanda medida - Diária", // Sum of highest demands
       dff: "Demanda faturada - Fora de ponta",
       dfp: "Demanda faturada - Ponta",
       vdff: "Valor da demanda faturada - Fora de ponta",
@@ -257,7 +268,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
     }
   };
 
-  // Build chartConfig as an object of objects
+  // Build chartConfig (object of objects)
   var chartConfigs = {};
   Object.keys(answers).forEach(key => {
     chartConfigs[key] = {
