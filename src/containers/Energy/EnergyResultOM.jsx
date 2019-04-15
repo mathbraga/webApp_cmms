@@ -37,9 +37,6 @@ class EnergyResultOM extends Component {
     });
     const dateString = transformDateString(result.queryResponse.aamm);
 
-    console.log("ResultUnitOM:");
-    console.log(result.queryResponse);
-
     // Use 0 when "modalidade convencional"
     // Use 1 when "modalidade verde"
     // Use 2 when "modalidade azul"

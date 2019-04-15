@@ -53,7 +53,7 @@ class WidgetThreeColumns extends Component {
               <div className="text-truncate">{values[5]}</div>
             </Col>
             <Col md="3" className="widget-container-image d-none d-md-flex">
-              <img className="widget-image" src={image} />
+              <img className="widget-image" src={image} alt=""/>
             </Col>
           </Row>
         </CardBody>

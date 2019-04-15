@@ -1,15 +1,25 @@
 {
-  "name": "@coreui/coreui-free-react-admin-template",
-  "version": "2.1.4",
-  "description": "CoreUI React Open Source Bootstrap 4 Admin Template",
-  "author": "Łukasz Holeczek",
-  "homepage": "https://coreui.io",
-  "copyright": "Copyright 2018 creativeLabs Łukasz Holeczek",
+  "name": "sf-sinfra-cmms",
+  "version": "0.1.0",
+  "description": "CMMS SINFRA - Senado Federal",
+  "author": "",
+  "contributors": [
+    {
+      "name": "Pedro Henrique Serafim",
+      "url": "https://github.com/Serafabr"
+    },
+    {
+      "name": "Henrique Zaidan Lopes",
+      "url": "https://github.com/hzlopes"
+    }
+  ],
+  "homepage": "http://sinfra.s3-website.us-east-2.amazonaws.com",
+  "copyright": "Copyright 2019 Senado Federal",
   "license": "MIT",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git@github.com:coreui/coreui-free-react-admin-template.git"
+    "url": "https://github.com/Serafabr/cmms-web-app"
   },
   "dependencies": {
     "@coreui/coreui": "^2.1.7",

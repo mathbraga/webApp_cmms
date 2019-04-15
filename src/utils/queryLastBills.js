@@ -1,7 +1,4 @@
 export function queryLastBills(dbObject, med, month1, month2) {
-  console.log("queryBills:");
-  console.log(month1);
-  console.log(month2);
   return new Promise((resolve, reject) => {
     // Query for only one meter
     dbObject.query(

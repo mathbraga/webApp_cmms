@@ -4,9 +4,6 @@ export function handleDates(event) {
   const justNumbers = value.replace(/\D/g, "");
   event.persist();
 
-  console.log("HandleDates:");
-  console.log(selectionStart);
-
   if (value.length > 7) {
     return;
   }

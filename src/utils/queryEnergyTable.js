@@ -39,8 +39,8 @@ export default function queryEnergyTable(dbObject, tableName, chosenMeter, meter
               alert("There was an error. Please insert search parameters again.");
               reject();
             } else {
-              data.Items.map(element => {
-                Object.keys(element).map(key => {
+              data.Items.forEach(element => {
+                Object.keys(element).forEach(key => {
                   element[key] = Number(element[key].N);
                 });
               });

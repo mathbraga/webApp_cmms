@@ -43,7 +43,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
       return "out/" + month.slice(0, 2);
     } else if (month.slice(2) === "11") {
       return "nov/" + month.slice(0, 2);
-    } else if (month.slice(2) === "12") {
+    } else {
       return "dez/" + month.slice(0, 2);
     }
   });
@@ -259,7 +259,7 @@ export default function buildChartData(queryResponse, aamm1, aamm2) {
 
   // Build chartConfig as an object of objects
   var chartConfigs = {};
-  Object.keys(answers).map(key => {
+  Object.keys(answers).forEach(key => {
     chartConfigs[key] = {
       type: "line",
       data: {

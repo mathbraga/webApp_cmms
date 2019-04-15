@@ -36,9 +36,6 @@ class EnergyResultAM extends Component {
     });
     // const dateString = transformDateString(result.queryResponse.aamm);
 
-    console.log("ResultAM:");
-    console.log(this.props);
-
     return (
       <ResultCard
         allUnits={true}

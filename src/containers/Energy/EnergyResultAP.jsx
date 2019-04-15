@@ -61,8 +61,6 @@ class EnergyResultAP extends Component {
       "basec"
     ];
 
-    console.log("ResultAP:");
-    console.log(chartConfigs);
     const demMax = Math.max(...chartConfigs.dms.data.datasets[0].data);
 
     return (
@@ -134,7 +132,7 @@ class EnergyResultAP extends Component {
         </Row>
         <Row>
           <Col>
-            <ReportListMeters meters={this.props.energyState.meters} noEmpty={this.props.energyState.noEmpty} />
+            <ReportListMeters meters={meters} noEmpty={noEmpty} />
           </Col>
         </Row>
       </ResultCard>
