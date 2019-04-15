@@ -28,10 +28,6 @@ class ChartReport extends Component {
       ].options.title.text;
     });
 
-    console.log("ChartReport:");
-    console.log(this.props.energyState.chartConfigs["vbru"].data);
-    console.log(this.props.energyState.chartConfigs["vbru"].options);
-
     return (
       <ReportCard
         title={"Gráfico do Período"}

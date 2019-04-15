@@ -16,8 +16,6 @@ class EnergyResultOP extends Component {
   constructor(props) {
     super(props);
     const { Items } = props.energyState.queryResponse[0];
-    console.log("Constructor:");
-    console.log(Items);
     this.totalKWh = applyFuncToAttr(Items, "kwh", (...values) =>
       values.reduce((previous, current) => (current += previous))
     );

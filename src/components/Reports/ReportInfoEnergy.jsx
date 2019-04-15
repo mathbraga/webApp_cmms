@@ -19,8 +19,6 @@ const rowNames = [
 
 class ReportInfoEnergy extends Component {
   render() {
-    console.log("InfoEnergy:");
-    console.log(this.props.data);
     return (
       <ReportCard
         title={"Informações do medidor"}

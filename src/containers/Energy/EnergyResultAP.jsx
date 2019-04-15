@@ -61,8 +61,6 @@ class EnergyResultAP extends Component {
       "basec"
     ];
 
-    console.log("ResultAP:");
-    console.log(chartConfigs);
     const demMax = Math.max(...chartConfigs.dms.data.datasets[0].data);
 
     return (

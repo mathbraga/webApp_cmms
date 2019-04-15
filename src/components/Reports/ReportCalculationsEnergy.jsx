@@ -95,9 +95,6 @@ class ReportCalculationsEnergy extends Component {
     economy = economy > 0 ? economy : 0;
     economy = (economy / this.state.costTime) * 12;
 
-    console.log("CalculationEnergy:");
-    console.log(this.props);
-
     return (
       <ReportCard
         title={"Demanda ideal"}
