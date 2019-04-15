@@ -1,5 +1,13 @@
 export default function removeEmpty(data){
-  
+  // Input:
+  // data (array): contains query response
+  //
+  // Output:
+  // noEmpty (array): contains med of meters that actually have data for the query period
+  //
+  // Purpose:
+  // Identify meters' med attributes that have data
+
   let noEmpty = [];
 
   data.forEach(element => {
