@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardBody, Col, Row } from "reactstrap";
+import { Card, CardBody } from "reactstrap";
 
 class WidgetOneColumn extends Component {
   /* Props:
@@ -37,7 +37,7 @@ class WidgetOneColumn extends Component {
                 <div className="text-truncate">{secondValue}</div>
               </div>
               <div className="col-4 widget-container-image">
-                <img className="widget-image" src={image} />
+                <img className="widget-image" src={image} alt=""/>
               </div>
             </div>
           </div>

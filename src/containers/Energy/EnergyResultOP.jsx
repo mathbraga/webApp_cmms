@@ -5,7 +5,6 @@ import { Row, Col } from "reactstrap";
 import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
 import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
 import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
-import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
 import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
 import { transformDateString } from "../../utils/transformDateString";

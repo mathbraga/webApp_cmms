@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardHeader, CardBody, Row, Col, Input, Table } from "reactstrap";
+import { Row, Col, Table } from "reactstrap";
 import { Line } from "react-chartjs-2";
 import { formatNumber } from "../../utils/formatText";
 import ReportCard from "../Cards/ReportCard";

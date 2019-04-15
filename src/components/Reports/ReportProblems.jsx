@@ -5,9 +5,6 @@ import {
   dateWithFourDigits
 } from "../../utils/transformDateString";
 import {
-  Card,
-  CardBody,
-  Col,
   Row,
   Button,
   Modal,

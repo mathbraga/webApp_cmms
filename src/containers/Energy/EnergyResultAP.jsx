@@ -132,7 +132,7 @@ class EnergyResultAP extends Component {
         </Row>
         <Row>
           <Col>
-            <ReportListMeters meters={this.props.energyState.meters} noEmpty={this.props.energyState.noEmpty} />
+            <ReportListMeters meters={meters} noEmpty={noEmpty} />
           </Col>
         </Row>
       </ResultCard>

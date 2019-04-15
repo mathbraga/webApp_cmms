@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardBody, Col, Row, Table, CardHeader } from "reactstrap";
+import { Table } from "reactstrap";
 import ReportCard from "../Cards/ReportCard";
 
 const rowNames = [
