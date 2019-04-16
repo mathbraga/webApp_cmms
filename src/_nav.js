@@ -6,6 +6,11 @@ export default {
       icon: "cui-monitor"
     },
     {
+      name: "Login",
+      url: "/login",
+      icon: ""
+    },
+    {
       name: "Monitor de consumo",
       url: "/consumo",
       icon: "icon-speedometer",
