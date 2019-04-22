@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import FormLogin from "../../components/Forms/FormLogin";
-import userPoolInit from "../../utils/userPoolInit";
+// import userPoolInit from "../../utils/userPoolInit";
 import loginCognito from "../../utils/loginCognito";
+import * as AWS from 'aws-sdk/global';
+
 
 class LoginPage extends Component {
   constructor(props){
     super(props);
-    const userPool = userPoolInit();
     this.state = {
-      userPool: userPool,
       Username: "",
       Password: ""
     }
@@ -24,7 +24,7 @@ class LoginPage extends Component {
 
   handleLoginSubmit(event){
     event.preventDefault();
-    loginCognito();
+    loginCognito(this.state.Username, this.state.Password, this.state.userPool);
   }
 
   render() {

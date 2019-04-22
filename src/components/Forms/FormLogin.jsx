@@ -15,10 +15,7 @@ import {
 class FormLogin extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      userName: "",
-      password: ""
-    }
+    this.state = {}
   }
   render() {
     return (
@@ -41,8 +38,8 @@ class FormLogin extends Component {
                 </Label>
                 <Input
                   className="date-input"
-                  name="username"
-                  id="username"
+                  name="Username"
+                  id="Username"
                   type="text"
                   placeholder="Nome de usuário"
                   required
@@ -52,14 +49,14 @@ class FormLogin extends Component {
             </Col>
             <Col xl="3" lg="6">
               <Row style={{ marginBottom: "10px" }}>
-                <Label htmlFor="password" className="label-form">
+                <Label htmlFor="Password" className="label-form">
                   <strong>Senha:</strong>
                 </Label>
                   <Input
                     className="date-input"
                     type="text"
-                    name="password"
-                    id="password"
+                    name="Password"
+                    id="Password"
                     placeholder="Senha"
                     required
                     onChange={this.props.handleLoginInputs}
