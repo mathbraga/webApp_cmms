@@ -12,7 +12,7 @@ import {
   CustomInput
 } from "reactstrap";
 
-class FormLogin extends Component {
+class FormUser extends Component {
   constructor(props){
     super(props);
     this.state = {}
@@ -23,7 +23,7 @@ class FormLogin extends Component {
         <CardHeader>
           <Row>
             <Col md="12">
-              <div className="calc-title">Login</div>
+              <div className="calc-title">{this.props.title}</div>
               <div className="calc-subtitle">
               </div>
             </Col>
@@ -34,14 +34,14 @@ class FormLogin extends Component {
             <Col xl="3" lg="6">
               <Row style={{ marginBottom: "10px" }}>
                 <Label htmlFor="initialDate" className="label-form">
-                  <strong>Usuário:</strong>
+                  <strong>Email:</strong>
                 </Label>
                 <Input
                   className="date-input"
                   name="Username"
                   id="Username"
                   type="text"
-                  placeholder="Nome de usuário"
+                  placeholder="usuario@senado.leg.br"
                   required
                   onChange={this.props.handleInputs}
                 />
@@ -87,4 +87,4 @@ class FormLogin extends Component {
   }
 }
 
-export default FormLogin;
+export default FormUser;

@@ -17,7 +17,7 @@ const SignUpPage = React.lazy(() => import("./containers/SignUp/SignUpPage"));
 const routes = [
   { path: "/", exact: true, name: "Início", component: MainPage },
   { path: "/login", name: "Login", component: LoginPage },
-  { path: "/signup", name: "Sign up", component: SignUpPage },
+  { path: "/cadastro", name: "Cadastro", component: SignUpPage },
   { path: "/consumo/energia", name: "Energia elétrica", component: Energy },
   { path: "/consumo/energia/resultados", name: "Resultados", component: EnergyResults },
   { path: "/consumo/energia/resultados/OM", name: "OM", component: EnergyResultOM },

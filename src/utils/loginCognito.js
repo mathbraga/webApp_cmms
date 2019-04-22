@@ -1,4 +1,4 @@
-import * as AWS from 'aws-sdk/global';
+// import * as AWS from 'aws-sdk/global';
 var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 
 
@@ -29,6 +29,7 @@ export default function loginCognito(username, password){
   cognitoUser.authenticateUser(authenticationDetails, {
     onSuccess: function (result) {
         var accessToken = result.getAccessToken().getJwtToken();
+        console.log("Access token:");
         console.log(accessToken);
 
         //POTENTIAL: Region needs to be set if not already set previously elsewhere.

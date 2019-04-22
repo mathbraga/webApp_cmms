@@ -11,8 +11,8 @@ export default {
       icon: ""
     },
     {
-      name: "Sign up",
-      url: "/signup",
+      name: "Cadastro",
+      url: "/cadastro",
       icon: ""
     },
     {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import FormLogin from "../../components/Forms/FormLogin";
+import FormUser from "../../components/Forms/FormUser";
 // import userPoolInit from "../../utils/userPoolInit";
 import signUpCognito from "../../utils/signUpCognito";
 import * as AWS from 'aws-sdk/global';
@@ -29,9 +29,10 @@ class SignUpPage extends Component {
 
   render() {
     return (
-      <FormLogin
+      <FormUser
         handleInputs={this.handleInputs}
         handleSubmit={this.handleSubmit}
+        title="Cadastro"
       />
     );
   }
