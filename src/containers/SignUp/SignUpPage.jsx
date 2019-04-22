@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import FormLogin from "../../components/Forms/FormLogin";
 // import userPoolInit from "../../utils/userPoolInit";
-import loginCognito from "../../utils/loginCognito";
+import signUpCognito from "../../utils/signUpCognito";
 import * as AWS from 'aws-sdk/global';
 
 
-class LoginPage extends Component {
+class SignUpPage extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -24,7 +24,7 @@ class LoginPage extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    loginCognito(this.state.Username, this.state.Password);
+    signUpCognito(this.state.Username, this.state.Password);
   }
 
   render() {
@@ -37,4 +37,4 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+export default SignUpPage;

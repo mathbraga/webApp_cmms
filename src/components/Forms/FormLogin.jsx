@@ -43,7 +43,7 @@ class FormLogin extends Component {
                   type="text"
                   placeholder="Nome de usuário"
                   required
-                  onChange={this.props.handleLoginInputs}
+                  onChange={this.props.handleInputs}
                 />
               </Row>
             </Col>
@@ -54,12 +54,12 @@ class FormLogin extends Component {
                 </Label>
                   <Input
                     className="date-input"
-                    type="text"
+                    type="password"
                     name="Password"
                     id="Password"
                     placeholder="Senha"
                     required
-                    onChange={this.props.handleLoginInputs}
+                    onChange={this.props.handleInputs}
                   />
               </Row>
             </Col>
@@ -72,7 +72,7 @@ class FormLogin extends Component {
                 type="submit"
                 size="md"
                 color="primary"
-                onClick={this.props.handleLoginSubmit}
+                onClick={this.props.handleSubmit}
                 style={{ margin: "10px 20px" }}
               >
                 Entrar

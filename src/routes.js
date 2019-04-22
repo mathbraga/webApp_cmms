@@ -9,6 +9,7 @@ const EnergyResultAM = React.lazy(() => import("./containers/Energy/EnergyResult
 const EnergyResultAP = React.lazy(() => import("./containers/Energy/EnergyResultAP"));
 
 const LoginPage = React.lazy(() => import("./containers/Login/LoginPage"));
+const SignUpPage = React.lazy(() => import("./containers/SignUp/SignUpPage"));
 
 
 
@@ -16,6 +17,7 @@ const LoginPage = React.lazy(() => import("./containers/Login/LoginPage"));
 const routes = [
   { path: "/", exact: true, name: "Início", component: MainPage },
   { path: "/login", name: "Login", component: LoginPage },
+  { path: "/signup", name: "Sign up", component: SignUpPage },
   { path: "/consumo/energia", name: "Energia elétrica", component: Energy },
   { path: "/consumo/energia/resultados", name: "Resultados", component: EnergyResults },
   { path: "/consumo/energia/resultados/OM", name: "OM", component: EnergyResultOM },

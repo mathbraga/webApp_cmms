@@ -11,6 +11,11 @@ export default {
       icon: ""
     },
     {
+      name: "Sign up",
+      url: "/signup",
+      icon: ""
+    },
+    {
       name: "Monitor de consumo",
       url: "/consumo",
       icon: "icon-speedometer",
