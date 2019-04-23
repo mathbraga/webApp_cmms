@@ -7,11 +7,8 @@ const EnergyResultOM = React.lazy(() => import("./containers/Energy/EnergyResult
 const EnergyResultOP = React.lazy(() => import("./containers/Energy/EnergyResultOP"));
 const EnergyResultAM = React.lazy(() => import("./containers/Energy/EnergyResultAM"));
 const EnergyResultAP = React.lazy(() => import("./containers/Energy/EnergyResultAP"));
-
 const Login = React.lazy(() => import("./containers/Login/Login"));
 const SignUp = React.lazy(() => import("./containers/SignUp/SignUp"));
-
-
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
