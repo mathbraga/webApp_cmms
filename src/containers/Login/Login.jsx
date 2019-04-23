@@ -6,8 +6,8 @@ class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
-      Email: "",
-      Password: ""
+      email: "",
+      password: ""
     }
     this.handleInputs = this.handleInputs.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,7 +21,7 @@ class Login extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    loginCognito(this.state.Email, this.state.Password);
+    loginCognito(this.state.email, this.state.password);
   }
 
   render() {

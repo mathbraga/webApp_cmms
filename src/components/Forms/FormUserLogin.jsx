@@ -27,13 +27,13 @@ class FormUserLogin extends Component {
           <Row>
             <Col xl="3" lg="6">
               <Row style={{ marginBottom: "10px" }}>
-                <Label htmlFor="initialDate" className="label-form">
+                <Label htmlFor="email" className="label-form">
                   <strong>Email:</strong>
                 </Label>
                 <Input
                   className="date-input"
-                  name="Email"
-                  id="Email"
+                  name="email"
+                  id="email"
                   type="text"
                   placeholder="usuario@senado.leg.br"
                   required
@@ -43,14 +43,14 @@ class FormUserLogin extends Component {
             </Col>
             <Col xl="3" lg="6">
               <Row style={{ marginBottom: "10px" }}>
-                <Label htmlFor="Password" className="label-form">
+                <Label htmlFor="password" className="label-form">
                   <strong>Senha:</strong>
                 </Label>
                   <Input
                     className="date-input"
                     type="password"
-                    name="Password"
-                    id="Password"
+                    name="password"
+                    id="password"
                     placeholder="Senha"
                     required
                     onChange={this.props.handleInputs}

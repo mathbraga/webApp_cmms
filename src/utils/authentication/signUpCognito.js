@@ -1,20 +1,15 @@
-import AWS from "aws-sdk";
 import {
   CognitoUserPool,
   CognitoUserAttribute
 } from "amazon-cognito-identity-js";
 
-export default function loginCognito(email, password1, password2){
+export default function signUpCognito(email, password1, password2){
   
   console.clear();
-  console.log('inside signUpCognito');
+  console.log("Inside signUpCognito");
   
   if(password1 === password2){
-    AWS.config.region = 'us-east-2';
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId : 'us-east-2:a92ff2fa-ce00-47d1-b72f-5e3ee87fa955',
-    });
-
+    
     let poolData = {
       UserPoolId : "us-east-2_QljBw37l1",
       ClientId : "25k8mc8m13pgpaihrhvcuvonpq"
@@ -24,7 +19,7 @@ export default function loginCognito(email, password1, password2){
 
     const attributeList = [
       new CognitoUserAttribute({
-        Name: 'email',
+        Name: "email",
         Value: email,
       })
     ];
@@ -35,8 +30,7 @@ export default function loginCognito(email, password1, password2){
         alert("Falha no cadastro.\n\nInsira novamente as infomações.\n\nSe o problema persistir, contate o administrador.")
         return;
         }
-      console.log('user name is ' + result.user.getUsername());
-      console.log('call result: ' + result);
+      console.log("Usuário cadastrado com o email " + result.user.getUsername());
     });
   } else {
     alert("Falha no cadastro.\n\nInsira novamente as infomações.\n\nSe o problema persistir, contate o administrador.");

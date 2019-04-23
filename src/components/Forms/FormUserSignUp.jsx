@@ -27,13 +27,13 @@ class FormUserSignUp extends Component {
           <Row>
             <Col xsl="auto">
               <Row style={{ marginBottom: "10px" }}>
-                <Label htmlFor="initialDate" className="label-form">
+                <Label htmlFor="email" className="label-form">
                   <strong>Email:</strong>
                 </Label>
                 <Input
                   className="date-input"
-                  name="Email"
-                  id="Email"
+                  name="email"
+                  id="email"
                   type="text"
                   placeholder="usuario@senado.leg.br"
                   required
@@ -45,14 +45,14 @@ class FormUserSignUp extends Component {
           <Row>
             <Col xs="auto">
               <Row style={{ marginBottom: "10px" }}>
-                <Label htmlFor="Password" className="label-form">
+                <Label htmlFor="password" className="label-form">
                   <strong>Senha:</strong>
                 </Label>
                   <Input
                     className="date-input"
                     type="password"
-                    name="Password1"
-                    id="Password1"
+                    name="password1"
+                    id="password1"
                     placeholder="Senha"
                     required
                     onChange={this.props.handleInputs}
@@ -63,14 +63,14 @@ class FormUserSignUp extends Component {
           <Row>
             <Col xs="auto">
               <Row style={{ marginBottom: "10px" }}>
-                <Label htmlFor="Password" className="label-form">
+                <Label htmlFor="password" className="label-form">
                   <strong>Repita senha:</strong>
                 </Label>
                   <Input
                     className="date-input"
                     type="password"
-                    name="Password2"
-                    id="Password2"
+                    name="password2"
+                    id="password2"
                     placeholder="Senha"
                     required
                     onChange={this.props.handleInputs}
