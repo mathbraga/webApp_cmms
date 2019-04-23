@@ -8,11 +8,6 @@ import {
   ModalFooter,
   Input
 } from "reactstrap";
-import {
-  CognitoUserPool,
-  CognitoUserAttribute,
-  CognitoUser
-} from "amazon-cognito-identity-js";
 
 class ModalSignUpConfirmation extends Component {
   constructor(props){
@@ -21,7 +16,7 @@ class ModalSignUpConfirmation extends Component {
       code: ""
     }
     this.handleCodeInput = this.handleCodeInput.bind(this);
-    this.sendCode = this.sendCode.bind(this);
+    this.handleCodeSubmit = this.handleCodeSubmit.bind(this);
   }
 
   handleCodeInput(event){
@@ -30,24 +25,16 @@ class ModalSignUpConfirmation extends Component {
     });
   }
 
-  sendCode(){
-
+  handleCodeSubmit(){
     console.log('inside sendCode');
-
-    // Se está ok, fecha o modal e avisa que deu certo.
     this.props.user.confirmRegistration(this.state.code, true, function(err, result) {
       if (err) {
-        alert(err);
+        alert("Houve um problema.\n\nInsira novamente o código de verificação.\n\nCaso o problema persista, contate o administrador.");
         return;
       } else {
-        console.log('Usuário confirmado');
-        console.log(result);
+        alert('Cadastro de usuário confirmado.\n\nFaça o login para começar.');
       }
     });
-
-
-    // Se não está correto, pede novamente o código.
-
   }
   
   render() {
@@ -95,7 +82,7 @@ class ModalSignUpConfirmation extends Component {
               type="submit"
               size="md"
               color="primary"
-              onClick={this.sendCode}
+              onClick={this.handleCodeSubmit}
               style={{ margin: "10px 20px" }}
             >
               Enviar código
