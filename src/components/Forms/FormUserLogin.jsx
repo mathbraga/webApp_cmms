@@ -7,23 +7,17 @@ import {
   Col,
   Label,
   Input,
-  FormGroup,
-  Button,
-  CustomInput
+  Button
 } from "reactstrap";
 
-class FormUser extends Component {
-  constructor(props){
-    super(props);
-    this.state = {}
-  }
+class FormUserLogin extends Component {
   render() {
     return (
       <Card>
         <CardHeader>
           <Row>
             <Col md="12">
-              <div className="calc-title">{this.props.title}</div>
+              <div className="calc-title">Login</div>
               <div className="calc-subtitle">
               </div>
             </Col>
@@ -38,8 +32,8 @@ class FormUser extends Component {
                 </Label>
                 <Input
                   className="date-input"
-                  name="Username"
-                  id="Username"
+                  name="Email"
+                  id="Email"
                   type="text"
                   placeholder="usuario@senado.leg.br"
                   required
@@ -64,7 +58,6 @@ class FormUser extends Component {
               </Row>
             </Col>
           </Row>
-
           <Row>
             <Col xs="auto">
               <Button
@@ -79,12 +72,10 @@ class FormUser extends Component {
               </Button>
             </Col>
           </Row>
-
-
         </CardBody>
       </Card>
     );
   }
 }
 
-export default FormUser;
+export default FormUserLogin;

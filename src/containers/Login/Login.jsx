@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import FormUser from "../../components/Forms/FormUser";
-// import userPoolInit from "../../utils/userPoolInit";
-import signUpCognito from "../../utils/signUpCognito";
-import * as AWS from 'aws-sdk/global';
+import FormUserLogin from "../../components/Forms/FormUserLogin";
+import loginCognito from "../../utils/authentication/loginCognito";
 
-
-class SignUpPage extends Component {
+class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
-      Username: "",
+      Email: "",
       Password: ""
     }
     this.handleInputs = this.handleInputs.bind(this);
@@ -24,18 +21,17 @@ class SignUpPage extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    signUpCognito(this.state.Username, this.state.Password);
+    loginCognito(this.state.Email, this.state.Password);
   }
 
   render() {
     return (
-      <FormUser
+      <FormUserLogin
         handleInputs={this.handleInputs}
         handleSubmit={this.handleSubmit}
-        title="Cadastro"
       />
     );
   }
 }
 
-export default SignUpPage;
+export default Login;
