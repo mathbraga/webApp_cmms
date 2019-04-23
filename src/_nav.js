@@ -5,16 +5,16 @@ export default {
       url: "/dashboard",
       icon: "cui-monitor"
     },
-    {
-      name: "Login",
-      url: "/login",
-      icon: ""
-    },
-    {
-      name: "Cadastro",
-      url: "/cadastro",
-      icon: ""
-    },
+    // {
+    //   name: "Login",
+    //   url: "/login",
+    //   icon: ""
+    // },
+    // {
+    //   name: "Cadastro",
+    //   url: "/cadastro",
+    //   icon: ""
+    // },
     {
       name: "Monitor de consumo",
       url: "/consumo",
