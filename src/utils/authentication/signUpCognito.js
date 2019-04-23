@@ -28,11 +28,12 @@ export default function signUpCognito(email, password1, password2){
       if (err) {
         console.log(err);
         alert("Falha no cadastro.\n\nInsira novamente as infomações.\n\nSe o problema persistir, contate o administrador.")
-        return;
+        return true;
         }
       console.log("Usuário cadastrado com o email " + result.user.getUsername());
     });
   } else {
     alert("Falha no cadastro.\n\nInsira novamente as infomações.\n\nSe o problema persistir, contate o administrador.");
+    return false;
   }
 }

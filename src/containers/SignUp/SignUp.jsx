@@ -22,15 +22,19 @@ class SignUp extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    signUpCognito(this.state.email, this.state.password1, this.state.password2);
+    let signUpResult = signUpCognito(this.state.email, this.state.password1, this.state.password2);
+    
   }
 
   render() {
     return (
-      <FormUserSignUp
-        handleInputs={this.handleInputs}
-        handleSubmit={this.handleSubmit}
-      />
+      <>
+        <FormUserSignUp
+          handleInputs={this.handleInputs}
+          handleSubmit={this.handleSubmit}
+        />
+        {/* <ModalSignUpConfirmation/> */}
+      </>
     );
   }
 }
