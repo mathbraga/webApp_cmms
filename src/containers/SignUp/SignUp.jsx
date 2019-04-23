@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import FormUserSignUp from "../../components/Forms/FormUserSignUp";
+import ModalSignUpConfirmation from "../../components/Modals/ModalSignUpConfirmation";
 import signUpCognito from "../../utils/authentication/signUpCognito";
 
 class SignUp extends Component {
@@ -8,7 +9,9 @@ class SignUp extends Component {
     this.state = {
       email: "",
       password1: "",
-      password2: ""
+      password2: "",
+      user: false,
+      modal: false
     }
     this.handleInputs = this.handleInputs.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,9 +25,21 @@ class SignUp extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    let signUpResult = signUpCognito(this.state.email, this.state.password1, this.state.password2);
-    
+    signUpCognito(this.state.email, this.state.password1, this.state.password2).then(user => {
+      if(user){
+        this.setState({
+          user: user,
+          modal: true
+        });
+      }
+    });
   }
+
+  toggleModal = () => {
+    this.setState(prevState => {
+      return {modal: !prevState.modal}
+    });
+  };
 
   render() {
     return (
@@ -33,7 +48,13 @@ class SignUp extends Component {
           handleInputs={this.handleInputs}
           handleSubmit={this.handleSubmit}
         />
-        {/* <ModalSignUpConfirmation/> */}
+        <ModalSignUpConfirmation
+          isOpen={this.state.modal}
+          toggle={this.toggleModal}
+          user={this.state.user}
+          email={this.state.email}
+          className="modal-lg"
+        />
       </>
     );
   }
