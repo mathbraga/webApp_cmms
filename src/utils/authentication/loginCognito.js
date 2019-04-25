@@ -6,19 +6,15 @@ export default function loginCognito(email, password){
   console.clear();
   console.log('inside loginCognito');
   
-  let authenticationData = {
+  let authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
     Username : email,
     Password : password
-  };
+  });
   
-  let authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
-  
-  let poolData = {
+  let userPool = new AmazonCognitoIdentity.CognitoUserPool({
     UserPoolId : "us-east-2_QljBw37l1",
     ClientId : "25k8mc8m13pgpaihrhvcuvonpq"
-  };
-
-  let userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  });
 
   let cognitoUser = new AmazonCognitoIdentity.CognitoUser({
     Username: email,
@@ -30,26 +26,26 @@ export default function loginCognito(email, password){
       
       console.log("Login efetuado com sucesso.\n\nUsuário logado: " + email);
       
-      console.log("userSession:");
-      console.log(userSession);
+      // console.log("userSession:");
+      // console.log(userSession);
       // var accessToken = userSession.getAccessToken().getJwtToken();
       // console.log("Access token:");
       // console.log(accessToken);
       // alert("Login efetuado com sucesso.\n\nUsuário logado: " + email);
       
-      // 1) TODO: add JOSE package functions to encrypt token
+      // 1) ??? TODO ???: add JOSE package functions to encrypt token
 
-
-      // 2) Initialize AWS credential with a role that has auth user permissions
+      // 2) Initialize AWS credential that has a role for authenticated users
       AWS.config.region = "us-east-2";
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: "us-east-2:a92ff2fa-ce00-47d1-b72f-5e3ee87fa955",
         Logins: {
             "cognito-idp.us-east-2.amazonaws.com/us-east-2_QljBw37l1": userSession.getIdToken().getJwtToken()
-        }
+        },
+        // LoginId: email
       });
 
-      console.log(AWS.config);
+      console.log(AWS);
 
       let dynamo = new AWS.DynamoDB({
         apiVersion: "2012-08-10",
@@ -59,7 +55,6 @@ export default function loginCognito(email, password){
       console.log(dynamo);
 
       window.sessionStorage.setItem("dynamo", dynamo);
-
 
       // refreshes credentials using AWS.CognitoIdentity.getCredentialsForIdentity()
       // AWS.config.credentials.refresh((error) => {
