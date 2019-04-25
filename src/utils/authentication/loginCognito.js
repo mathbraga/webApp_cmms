@@ -1,4 +1,5 @@
-var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
+import AWS from "aws-sdk";
+var AmazonCognitoIdentity = require("amazon-cognito-identity-js");
 
 export default function loginCognito(email, password){
   
@@ -25,53 +26,55 @@ export default function loginCognito(email, password){
   });
 
   cognitoUser.authenticateUser(authenticationDetails, {
-    onSuccess: function (result) {
-        console.log(result); // result = CognioUserSession
-        var accessToken = result.getAccessToken().getJwtToken();
-        console.log("Access token:");
-        console.log(accessToken);
-        alert("Login efetuado com sucesso.\n\nUsuário logado: " + email);
-        window.sessionStorage.setItem("accessToken", accessToken);
-        console.log(window);
+    onSuccess: function (userSession) {
+      
+      console.log("Login efetuado com sucesso.\n\nUsuário logado: " + email);
+      
+      console.log("userSession:");
+      console.log(userSession);
+      // var accessToken = userSession.getAccessToken().getJwtToken();
+      // console.log("Access token:");
+      // console.log(accessToken);
+      // alert("Login efetuado com sucesso.\n\nUsuário logado: " + email);
+      
+      // 1) TODO: add JOSE package functions to encrypt token
 
 
+      // 2) Initialize AWS credential with a role that has auth user permissions
+      AWS.config.region = "us-east-2";
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: "us-east-2:a92ff2fa-ce00-47d1-b72f-5e3ee87fa955",
+        Logins: {
+            "cognito-idp.us-east-2.amazonaws.com/us-east-2_QljBw37l1": userSession.getIdToken().getJwtToken()
+        }
+      });
 
-        // 1) adicionar funções do package jose (usar token com segurança)
+      console.log(AWS.config);
 
+      let dynamo = new AWS.DynamoDB({
+        apiVersion: "2012-08-10",
+        endpoint: "https://dynamodb.us-east-2.amazonaws.com"
+      });
 
-        // 2) inicializar uma credential do AWS (identity pool com role que tenha uma policy adequada ao usuário logado)
-        // segue abaixo um exemplo de como fazer isso:
+      console.log(dynamo);
 
-
-
-
-        // //POTENTIAL: Region needs to be set if not already set previously elsewhere.
-        // AWS.config.region = '<region>';
-
-        // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        //     IdentityPoolId : '...', // your identity pool id here
-        //     Logins : {
-        //         // Change the key below according to the specific region your user pool is in.
-        //         'cognito-idp.<region>.amazonaws.com/<YOUR_USER_POOL_ID>' : result.getIdToken().getJwtToken()
-        //     }
-        // });
-
-        // //refreshes credentials using AWS.CognitoIdentity.getCredentialsForIdentity()
-        // AWS.config.credentials.refresh((error) => {
-        //     if (error) {
-        //          console.error(error);
-        //     } else {
-        //          // Instantiate aws sdk service objects now that the credentials have been updated.
-        //          // example: var s3 = new AWS.S3();
-        //          console.log('Successfully logged!');
-        //     }
-        // });
+      window.sessionStorage.setItem("dynamo", dynamo);
 
 
-
-
-
-
+      // refreshes credentials using AWS.CognitoIdentity.getCredentialsForIdentity()
+      // AWS.config.credentials.refresh((error) => {
+      //     if (error) {
+      //          console.error(error);
+      //     } else {
+      //       // Instantiate aws sdk service objects now that the credentials have been updated.
+      //       // example: var s3 = new AWS.S3();
+      //       let dynamo = new AWS.DynamoDB({
+      //         apiVersion: "2012-08-10",
+      //         endpoint: "https://dynamodb.us-east-2.amazonaws.com"
+      //       });
+      //       window.sessionStorage.setItem("dynamo", dynamo);
+      //     }
+      // });
     },
     onFailure: function(err) {
         console.log("Login falhou.");
