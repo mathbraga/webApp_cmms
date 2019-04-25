@@ -2,18 +2,19 @@ import React, { Component } from "react";
 import FormDates from "../../components/Forms/FormDates";
 import { handleDates } from "../../utils/handleDates";
 import EnergyResults from "./EnergyResults";
-// import { dynamoInit } from "../../utils/dynamoInit";
+import { dynamoInit } from "../../utils/dynamoinit";
 import handleSearch from "../../utils/handleSearch";
 import getAllMeters from "../../utils/getAllMeters";
+import AWS from "aws-sdk";
 
 class Energy extends Component {
   constructor(props) {
     super(props);
-    // const dynamo = dynamoInit();
+    const dynamo = dynamoInit();
     this.state = {
       noEmpty: [],
       meters: [],
-      dynamo: window.sessionStorage.getItem("dynamo"),
+      dynamo: dynamo,
       tableName: "CEB",
       tableNameMeters: "CEB-Medidores",
       tipomed: "1",

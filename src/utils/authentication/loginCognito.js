@@ -1,4 +1,5 @@
 import AWS from "aws-sdk";
+import { inspect } from "util";
 var AmazonCognitoIdentity = require("amazon-cognito-identity-js");
 
 export default function loginCognito(email, password){
@@ -42,34 +43,29 @@ export default function loginCognito(email, password){
         Logins: {
             "cognito-idp.us-east-2.amazonaws.com/us-east-2_QljBw37l1": userSession.getIdToken().getJwtToken()
         },
-        // LoginId: email
+        LoginId: email
       });
 
       console.log(AWS);
 
-      let dynamo = new AWS.DynamoDB({
-        apiVersion: "2012-08-10",
-        endpoint: "https://dynamodb.us-east-2.amazonaws.com"
-      });
-
-      console.log(dynamo);
-
-      window.sessionStorage.setItem("dynamo", dynamo);
-
       // refreshes credentials using AWS.CognitoIdentity.getCredentialsForIdentity()
-      // AWS.config.credentials.refresh((error) => {
-      //     if (error) {
-      //          console.error(error);
-      //     } else {
-      //       // Instantiate aws sdk service objects now that the credentials have been updated.
-      //       // example: var s3 = new AWS.S3();
-      //       let dynamo = new AWS.DynamoDB({
-      //         apiVersion: "2012-08-10",
-      //         endpoint: "https://dynamodb.us-east-2.amazonaws.com"
-      //       });
-      //       window.sessionStorage.setItem("dynamo", dynamo);
-      //     }
-      // });
+      AWS.config.credentials.refresh((error) => {
+          if (error) {
+               console.error(error);
+          } else {
+            // Instantiate aws sdk service objects now that the credentials have been updated.
+            // example: var s3 = new AWS.S3();
+            let dynamo = new AWS.DynamoDB({
+              apiVersion: "2012-08-10",
+              endpoint: "https://dynamodb.us-east-2.amazonaws.com"
+            });
+            console.log('dynamo:')
+            console.log(dynamo);
+            // window.sessionStorage.setItem("dynamo", JSON.stringify(dynamo));
+            // console.log('window.sessionStorage.dynamo:');
+            // console.log(JSON.parse(window.sessionStorage.dynamo));
+          }
+      });
     },
     onFailure: function(err) {
         console.log("Login falhou.");
