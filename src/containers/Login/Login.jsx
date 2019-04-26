@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import FormUserLogin from "../../components/Forms/FormUserLogin";
 import loginCognito from "../../utils/authentication/loginCognito";
+import { Route, Redirect } from "react-router-dom";
 
 class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      loggedIn: false
     }
     this.handleInputs = this.handleInputs.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,15 +23,27 @@ class Login extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    loginCognito(this.state.email, this.state.password);
+    loginCognito(this.state.email, this.state.password).then(loggedIn => {
+      this.setState({loggedIn: loggedIn});
+    });
   }
 
   render() {
     return (
-      <FormUserLogin
-        handleInputs={this.handleInputs}
-        handleSubmit={this.handleSubmit}
-      />
+      <>
+        <FormUserLogin
+          handleInputs={this.handleInputs}
+          handleSubmit={this.handleSubmit}
+        />
+
+        <Route exact path="/login" render={() => (
+          this.state.loggedIn ? (
+            <Redirect to="/dashboard"/>
+          ) : (
+            <Redirect to="/login"/>
+          )
+        )}/>
+      </>
     );
   }
 }
