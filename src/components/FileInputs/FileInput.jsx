@@ -46,7 +46,7 @@ class FileInput extends Component {
                     type="submit"
                     size="md"
                     color="primary"
-                    onClick={this.props.onQuery}
+                    onClick={this.props.onUploadFile}
                     style={{ margin: "10px 20px" }}
                   >
                     Enviar arquivo

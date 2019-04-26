@@ -6,6 +6,7 @@ import EnergyResults from "./EnergyResults";
 import { dynamoInit } from "../../utils/dynamoinit";
 import handleSearch from "../../utils/handleSearch";
 import getAllMeters from "../../utils/getAllMeters";
+import uploadFile from "../../utils/uploadFile";
 
 class Energy extends Component {
   constructor(props) {
@@ -61,6 +62,20 @@ class Energy extends Component {
     }));
   };
 
+  handleUploadFile = event => {
+    // if not logged in, or no write permission in DynamoDB:
+    // alert("");
+
+    // if logged in, manipulate the file and write items into table
+    uploadFile(this.state.dynamo, this.state.tableName/*, this.state.file*/)
+      .then(() => {
+        console.log("Dados inseridos no banco de dados com sucesso!");
+      })
+      .catch(() => {
+        console.log("Catch. Houve um problema.")
+      });
+  }
+
   render() {
     return (
       <div>
@@ -82,7 +97,9 @@ class Energy extends Component {
                 onMeterChange={this.handleMeterChange}
                 onQuery={this.handleQuery}
               />
-              <FileInput/>
+              <FileInput
+                onUploadFile={this.handleUploadFile}
+              />
             </>
           )}
         </div>
