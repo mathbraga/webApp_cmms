@@ -18,6 +18,7 @@ export default function logoutCognito(email){
 
     cognitoUser.signOut();
     window.sessionStorage.clear();
+    console.log(window.sessionStorage);
     resolve();
   });
 }
