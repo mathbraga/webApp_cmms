@@ -42,6 +42,12 @@ class MainHeader extends Component {
               Login
             </Link>
           </NavItem>
+
+          <NavItem className="px-3">
+            <Link to="/logout" className="nav-link">
+              Logout
+            </Link>
+          </NavItem>
           
         </Nav>
 
