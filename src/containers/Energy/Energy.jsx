@@ -5,16 +5,14 @@ import EnergyResults from "./EnergyResults";
 import { dynamoInit } from "../../utils/dynamoinit";
 import handleSearch from "../../utils/handleSearch";
 import getAllMeters from "../../utils/getAllMeters";
-import AWS from "aws-sdk";
 
 class Energy extends Component {
   constructor(props) {
     super(props);
-    const dynamo = dynamoInit();
     this.state = {
       noEmpty: [],
       meters: [],
-      dynamo: dynamo,
+      dynamo: dynamoInit(),
       tableName: "CEB",
       tableNameMeters: "CEB-Medidores",
       tipomed: "1",
