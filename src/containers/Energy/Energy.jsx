@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import FormDates from "../../components/Forms/FormDates";
+import FileInput from "../../components/FileInputs/FileInput"
 import { handleDates } from "../../utils/handleDates";
 import EnergyResults from "./EnergyResults";
 import { dynamoInit } from "../../utils/dynamoinit";
@@ -70,16 +71,19 @@ class Energy extends Component {
               handleClick={this.showFormDates}
             />
           ) : (
-            <FormDates
-              onChangeDate={this.handleChangeOnDates}
-              initialDate={this.state.initialDate}
-              finalDate={this.state.finalDate}
-              oneMonth={this.state.oneMonth}
-              meters={this.state.meters}
-              onChangeOneMonth={this.handleOneMonth}
-              onMeterChange={this.handleMeterChange}
-              onQuery={this.handleQuery}
-            />
+            <>
+              <FormDates
+                onChangeDate={this.handleChangeOnDates}
+                initialDate={this.state.initialDate}
+                finalDate={this.state.finalDate}
+                oneMonth={this.state.oneMonth}
+                meters={this.state.meters}
+                onChangeOneMonth={this.handleOneMonth}
+                onMeterChange={this.handleMeterChange}
+                onQuery={this.handleQuery}
+              />
+              <FileInput/>
+            </>
           )}
         </div>
       </div>
