@@ -27,7 +27,8 @@ class Energy extends Component {
       queryResponseAll: false,
       chartConfigs: {},
       showResult: false,
-      newLocation: ""
+      newLocation: "",
+      file: false
     };
   }
 
@@ -62,18 +63,24 @@ class Energy extends Component {
     }));
   };
 
+  handleFile = event => {
+    event.persist();
+    console.log(event.target.files);
+    this.setState({file: event.target.files[0]});
+  }
+
   handleUploadFile = event => {
     // if not logged in, or no write permission in DynamoDB:
     // alert("");
 
     // if logged in, manipulate the file and write items into table
-    uploadFile(this.state.dynamo, this.state.tableName/*, this.state.file*/)
-      .then(() => {
-        console.log("Dados inseridos no banco de dados com sucesso!");
-      })
-      .catch(() => {
-        console.log("Catch. Houve um problema.")
-      });
+    uploadFile(this.state.dynamo, this.state.tableName, this.state.file)
+    .then(() => {
+      console.log("Dados inseridos no banco de dados com sucesso!");
+    })
+    .catch(() => {
+      console.log("Catch. Houve um problema.")
+    });
   }
 
   render() {
@@ -99,6 +106,7 @@ class Energy extends Component {
               />
               <FileInput
                 onUploadFile={this.handleUploadFile}
+                onChangeFile={this.handleFile}
               />
             </>
           )}

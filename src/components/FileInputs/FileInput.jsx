@@ -32,8 +32,11 @@ class FileInput extends Component {
             <Col xs="3">
               <FormGroup>
                 <Col>
-                  {/* <Label htmlFor="ceb-csv-file"></Label> */}
-                  <Input type="file" id="ceb-csv-file" name="ceb-csv-file"/>
+                  <Input
+                    type="file"
+                    id="ceb-csv-file"
+                    name="ceb-csv-file"
+                    onChange={this.props.onChangeFile}/>
                 </Col>
               </FormGroup>
             </Col>
@@ -48,13 +51,11 @@ class FileInput extends Component {
                     color="primary"
                     onClick={this.props.onUploadFile}
                     style={{ margin: "10px 20px" }}
-                  >
-                    Enviar arquivo
+                  >Enviar arquivo
                   </Button>
                 </Col>
               </FormGroup>
             </Col>
-            
           </Row>
         </CardBody>
       </Card>
