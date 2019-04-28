@@ -7,6 +7,7 @@ import { dynamoInit } from "../../utils/dynamoinit";
 import handleSearch from "../../utils/handleSearch";
 import getAllMeters from "../../utils/getAllMeters";
 import uploadFile from "../../utils/uploadFile";
+import path from "path";
 
 class Energy extends Component {
   constructor(props) {
@@ -64,12 +65,15 @@ class Energy extends Component {
   };
 
   handleFile = event => {
-    event.persist();
-    console.log(event.target.files);
+    console.clear();
+    console.log("====== Inside handleFile ======");
+    console.log(event.target.files[0]);
     this.setState({file: event.target.files[0]});
   }
 
   handleUploadFile = event => {
+    console.log("====== Inside handleUploadFile ======")
+
     // if not logged in, or no write permission in DynamoDB:
     // alert("");
 
