@@ -64,21 +64,14 @@ class Energy extends Component {
     }));
   };
 
-  handleFile = event => {
-    console.clear();
-    console.log("====== Inside handleFile ======");
-    console.log(event.target.files[0]);
-    this.setState({file: event.target.files[0]});
-  }
-
   handleUploadFile = event => {
     console.log("====== Inside handleUploadFile ======")
-
+    let selectedFile = document.getElementById('ceb-csv-file').files[0];
     // if not logged in, or no write permission in DynamoDB:
     // alert("");
 
     // if logged in, manipulate the file and write items into table
-    uploadFile(this.state.dynamo, this.state.tableName, this.state.file)
+    uploadFile(this.state.dynamo, this.state.tableName, selectedFile)
     .then(() => {
       console.log("Dados inseridos no banco de dados com sucesso!");
     })
@@ -110,7 +103,6 @@ class Energy extends Component {
               />
               <FileInput
                 onUploadFile={this.handleUploadFile}
-                onChangeFile={this.handleFile}
               />
             </>
           )}

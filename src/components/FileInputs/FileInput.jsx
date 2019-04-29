@@ -36,7 +36,7 @@ class FileInput extends Component {
                     type="file"
                     id="ceb-csv-file"
                     name="ceb-csv-file"
-                    onChange={this.props.onChangeFile}/>
+                  />
                 </Col>
               </FormGroup>
             </Col>
