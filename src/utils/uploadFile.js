@@ -10,20 +10,20 @@ export default function uploadFile(dbObject, tableName, file){
 
     let reader = new FileReader();
     reader.onload = function(x){
-      let resultArr = x.target.result.replace(/(\r\n|\n|\r)/gm,"").split(';');
+      let resultArr = x.target.result.replace(/(\r\n|\n|\r)/gm,"").replace(",",".").split(';');
       console.log(resultArr);
       let requestItemsArr = [];
       requestItemsArr.push({
         PutRequest: {
           Item: {
             "med": {
-              N: resultArr[3]
+              N: resultArr[2122] // Os índices são apenas para testar, não representam os atributos
             },
             "aamm": {
-              N: resultArr[4]
+              N: resultArr[2123]
             },
             "kwh": {
-              N: resultArr[5]
+              N: resultArr[2124]
             }
           }
         }
