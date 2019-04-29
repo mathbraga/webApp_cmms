@@ -9,23 +9,40 @@ export default function uploadFile(dbObject, tableName, file){
     // Define reader and build array of items to be written in database table
     let reader = new FileReader();
     reader.onload = function(x){
-      let resultArr = x.target.result.replace(/(\r\n|\n|\r)/gm,"").replace(",",".").split(';');
+      let resultArr = x.target.result.trim().replace(/(\r\n|\n|\r)/gm,"").replace(",",".").split(';');
+      console.log("resultArr");
       console.log(resultArr);
+
+      // Discard header, split big array into many arrays (each small array represents a meter in CEB csv file)
+      let numColumns = 102;
+      let noHeader = resultArr.splice(numColumns);
+      noHeader.splice(noHeader.length - 1);
+
+      console.log('noHeader:');
+      console.log(noHeader);
+
+      let lines = [];
+      while(noHeader.length > 0){
+        lines.push(noHeader.splice(0, numColumns));
+      }
+
       let requestItemsArr = [];
-      requestItemsArr.push({
-        PutRequest: {
-          Item: {
-            "med": {
-              N: resultArr[2122] // Os índices são apenas para testar, não representam os atributos
-            },
-            "aamm": {
-              N: resultArr[2123]
-            },
-            "kwh": {
-              N: resultArr[2124]
+      lines.forEach(line => {
+        requestItemsArr.push({
+          PutRequest: {
+            Item: {
+              "med": {
+                N: line[0]
+              },
+              "aamm": {
+                N: line[12].slice(2)
+              },
+              "kwh": {
+                N: line[1]
+              }
             }
           }
-        }
+        });
       });
       console.log("requestItemsArr:");
       console.log(requestItemsArr);
