@@ -7,7 +7,6 @@ import { dynamoInit } from "../../utils/dynamoinit";
 import handleSearch from "../../utils/handleSearch";
 import getAllMeters from "../../utils/getAllMeters";
 import textToArray from "../../utils/upload/textToArray";
-import buildAttributes from "../../utils/upload/buildAttributes";
 import buildParamsArr from "../../utils/upload/buildParamsArr";
 import writeItemsInDB from "../../utils/upload/writeItemsInDB";
 
@@ -78,10 +77,9 @@ class Energy extends Component {
       console.log('arr:');
       console.log(arr);
 
-      // let attributes = buildAttributes(arr);
-
       let paramsArr = buildParamsArr(arr, this.state.tableName);
-      console.log('paramsArr:');
+
+      console.log("paramsArr:");
       console.log(paramsArr);
 
       writeItemsInDB(this.state.dynamo, paramsArr)
