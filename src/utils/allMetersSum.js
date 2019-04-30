@@ -1,4 +1,13 @@
-export default function allMetersSum(data, aamm1, aamm2) {
+export default function allMetersSum(data) {
+  // Input:
+  // data (array): array (length = number of meters) with data retrieved from query
+  //
+  // Output:
+  // newData (array): array (length = 1) with sum data of all meters summed up
+  //
+  // Purpose:
+  // Provide aggregate data, to be shown in results components, in the same format (data.Items) as a query response for a single meter
+  
   // Number of meters to loop through queryResponse
   var numMeters = data.length;
 

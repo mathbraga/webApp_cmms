@@ -1,4 +1,4 @@
-export default function queryEnergyTable(dbObject, tableName, chosenMeter, meters, aamm1, aamm2) {
+export default function queryTable(dbObject, tableName, chosenMeter, meters, aamm1, aamm2) {
   return new Promise((resolve, reject) => {
     // Check if consumer is 'all'
     var allMeters = [];

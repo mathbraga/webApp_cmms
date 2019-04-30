@@ -24,11 +24,31 @@ class MainHeader extends Component {
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
         <Nav className="d-md-down-none" navbar>
+
           <NavItem className="px-3">
             <Link to="/" className="nav-link">
               Início
             </Link>
           </NavItem>
+
+          <NavItem className="px-3">
+            <Link to="/cadastro" className="nav-link">
+              Cadastro
+            </Link>
+          </NavItem>
+
+          <NavItem className="px-3">
+            <Link to="/login" className="nav-link">
+              Login
+            </Link>
+          </NavItem>
+
+          <NavItem className="px-3">
+            <Link to="/logout" className="nav-link">
+              Logout
+            </Link>
+          </NavItem>
+          
         </Nav>
 
         <Nav className="ml-auto" navbar />

@@ -26,6 +26,7 @@
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
     "@coreui/icons": "0.3.0",
     "@coreui/react": "^2.1.4",
+    "amazon-cognito-identity-js": "^3.0.11",
     "aws-sdk": "^2.422.0",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.3.1",

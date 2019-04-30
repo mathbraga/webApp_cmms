@@ -1,10 +1,11 @@
 import checkSearchInputs from "./checkSearchInputs";
-import queryEnergyTable from "./queryEnergyTable";
-import buildChartData from "./buildChartData";
+import queryTable from "./queryTable";
+import buildChartData from "./makeChartConfigs";
 import defineNewLocation from "./defineNewLocation";
 import aammTransformDate from "./aammTransformDate";
 import allMetersSum from "./allMetersSum";
 import removeEmpty from "./removeEmpty";
+import makeChartConfigs from "./makeChartConfigs";
 
 export default function handleSearch() {
   // Check date inputs
@@ -35,7 +36,7 @@ export default function handleSearch() {
     );
 
     // Query table
-    queryEnergyTable(
+    queryTable(
       this.state.dynamo,
       this.state.tableName,
       this.state.chosenMeter,
@@ -92,7 +93,7 @@ export default function handleSearch() {
       // OP case
       if (this.state.chosenMeter !== "199" && !this.state.oneMonth) {
         queryResponse = data;
-        chartConfigs = buildChartData(queryResponse, aamm1, aamm2);
+        chartConfigs = makeChartConfigs(queryResponse, aamm1, aamm2);
         this.setState({
           queryResponse: queryResponse,
           showResult: true,
