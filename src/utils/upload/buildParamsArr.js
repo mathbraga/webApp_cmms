@@ -30,7 +30,7 @@ export default function buildParamsArr(arr, tableName){
   console.log("noHeaderNumbers:");
   console.log(noHeaderNumbers);
 
-  let attributes = [];
+  let attributesArr = [];
 
   noHeaderNumbers.forEach(meter => {
     let med = 0;
@@ -135,7 +135,7 @@ export default function buildParamsArr(arr, tableName){
     if(tipo === 2){
       dcf = meter[83];
     }
-    attributes.push({
+    attributesArr.push({
       PutRequest: {
         Item: {
           "med": {
@@ -233,13 +233,13 @@ export default function buildParamsArr(arr, tableName){
     });
   });
 
-  console.log("attributes:");
-  console.log(attributes);
+  console.log("attributesArr:");
+  console.log(attributesArr);
 
   let maxLength = 25;
   let paramsArr = [];
-  while(attributes.length > 0){
-    paramsArr.push({RequestItems: {[tableName]: attributes.splice(0, maxLength)}})
+  while(attributesArr.length > 0){
+    paramsArr.push({RequestItems: {[tableName]: attributesArr.splice(0, maxLength)}})
   }
   return paramsArr;
 }

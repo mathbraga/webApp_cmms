@@ -78,7 +78,6 @@ class Energy extends Component {
       console.log(arr);
 
       let paramsArr = buildParamsArr(arr, this.state.tableName);
-
       console.log("paramsArr:");
       console.log(paramsArr);
 
