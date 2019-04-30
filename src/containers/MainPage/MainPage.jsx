@@ -15,6 +15,11 @@ import {
   AppSidebarNav
 } from "@coreui/react";
 
+// sidebar nav config
+import navigation from "../../_nav";
+// routes config
+import routes from "../../routes";
+
 const MainHeader = React.lazy(() => import("./MainHeader"));
 
 class MainPage extends Component {
@@ -24,12 +29,44 @@ class MainPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="app">
         <AppHeader fixed>
           <Suspense fallback={this.loading()}>
             <MainHeader />
           </Suspense>
         </AppHeader>
+        <div className="app-body">
+          <AppSidebar fixed display="lg">
+            <AppSidebarHeader />
+            <AppSidebarForm />
+            <Suspense>
+              <AppSidebarNav navConfig={navigation} {...this.props} />
+            </Suspense>
+            <AppSidebarFooter />
+            <AppSidebarMinimizer />
+          </AppSidebar>
+          <main className="main">
+            <AppBreadcrumb appRoutes={routes} />
+            <Container fluid>
+              <Suspense fallback={this.loading()}>
+                <Switch>
+                  {routes.map((route, idx) => {
+                    return route.component ? (
+                      <Route
+                        key={idx}
+                        path={route.path}
+                        exact={route.exact}
+                        name={route.name}
+                        render={props => <route.component {...props} />}
+                      />
+                    ) : null;
+                  })}
+                  <Redirect from="/" to="/dashboard" />
+                </Switch>
+              </Suspense>
+            </Container>
+          </main>
+        </div>
       </div>
     );
   }
