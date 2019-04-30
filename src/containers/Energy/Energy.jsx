@@ -6,8 +6,10 @@ import EnergyResults from "./EnergyResults";
 import { dynamoInit } from "../../utils/dynamoinit";
 import handleSearch from "../../utils/handleSearch";
 import getAllMeters from "../../utils/getAllMeters";
-import uploadFile from "../../utils/uploadFile";
-import path from "path";
+import textToArray from "../../utils/upload/textToArray";
+import buildAttributes from "../../utils/upload/buildAttributes";
+import buildParamsArr from "../../utils/upload/buildParamsArr";
+import writeItemsInDB from "../../utils/upload/writeItemsInDB";
 
 class Energy extends Component {
   constructor(props) {
@@ -65,14 +67,33 @@ class Energy extends Component {
   };
 
   handleUploadFile = event => {
+    
     console.clear();
+    
+    // CHANGE THIS LINE. CORRECT: USE REACT-JS REFS
     let selectedFile = document.getElementById('ceb-csv-file').files[0];
-    uploadFile(this.state.dynamo, this.state.tableName, selectedFile)
-    .then((resolveMessage) => {
-      console.log(resolveMessage);
+    
+    textToArray(selectedFile).
+    then(arr => {
+      console.log('arr:');
+      console.log(arr);
+
+      // let attributes = buildAttributes(arr);
+
+      let paramsArr = buildParamsArr(arr, this.state.tableName);
+      console.log('paramsArr:');
+      console.log(paramsArr);
+
+      writeItemsInDB(this.state.dynamo, paramsArr)
+      .then(() => {
+        console.log("Upload de dados realizado com sucesso!");
+      })
+      .catch(() => {
+        console.log("Houve um problema no upload do arquivo.");
+      });
     })
-    .catch((rejectMessage) => {
-      console.log(rejectMessage)
+    .catch(() => {
+      console.log("Houve um problema na leitura do arquivo.");
     });
   }
 
