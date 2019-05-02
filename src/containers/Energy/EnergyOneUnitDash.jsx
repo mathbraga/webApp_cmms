@@ -6,7 +6,7 @@ import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
 import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
 import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
-import { transformDateString } from "../../utils/transformDateString";
+import { transformDateString } from "../../utils/energy/transformDateString";
 
 class EnergyOneUnitDash extends Component {
   render() {

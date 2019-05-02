@@ -1,12 +1,12 @@
 import React, { Component } from "react";
+import { Row, Col } from "reactstrap";
 import ResultCard from "../../components/Cards/ResultCard";
 import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
 import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
 import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
 import ReportListMeters from "../../components/Reports/ReportListMeters";
 import ChartReport from "../../components/Charts/ChartReport";
-import { formatNumber } from "../../utils/formatText";
-import { Row, Col } from "reactstrap";
+import formatNumber from "../../utils/energy/formatText";
 
 class EnergyResultAP extends Component {
   render() {

@@ -1,4 +1,4 @@
-export function queryLastBills(dbObject, med, month1, month2) {
+export default function queryLastBills(dbObject, med, month1, month2) {
   return new Promise((resolve, reject) => {
     // Query for only one meter
     dbObject.query(

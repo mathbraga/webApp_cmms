@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import logoutCognito from "../../utils/authentication/logoutCognito";
 import { Route, Redirect } from "react-router-dom";
+import logoutCognito from "../../utils/authentication/logoutCognito";
 
 class Logout extends Component {
   constructor(props){

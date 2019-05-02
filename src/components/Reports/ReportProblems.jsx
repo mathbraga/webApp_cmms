@@ -1,9 +1,4 @@
 import React, { Component } from "react";
-import { formatNumber } from "../../utils/formatText";
-import {
-  transformDateString,
-  dateWithFourDigits
-} from "../../utils/transformDateString";
 import {
   Row,
   Button,
@@ -14,6 +9,8 @@ import {
   Table
 } from "reactstrap";
 import BadgeWithTooltips from "../Badges/BadgeWithTooltips";
+import formatNumber from "../../utils/energy/formatText";
+import { transformDateString, dateWithFourDigits } from "../../utils/energy/transformDateString";
 
 class ReportProblems extends Component {
   constructor(props) {

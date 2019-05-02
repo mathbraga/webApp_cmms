@@ -1,6 +1,6 @@
 import AWS from "aws-sdk";
 
-export function dynamoInit() {
+export default function dynamoInit() {
   // Inputs:
   //
   // Output:

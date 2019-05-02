@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card, CardBody, Col, Row, Button, Badge } from "reactstrap";
-import { checkProblems } from "../../utils/checkProblems";
 import ReportProblems from "../Reports/ReportProblems";
+import checkProblems from "../../utils/energy/checkProblems";
 
 class WidgetWithModal extends Component {
   /*

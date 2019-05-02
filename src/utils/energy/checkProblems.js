@@ -1,4 +1,4 @@
-export function checkProblems(unitBill, chosenMeter, queryResponseAll) {
+export default function checkProblems(unitBill, chosenMeter, queryResponseAll) {
   // Input: object (unitBill). Obj: {aamm, basec, cip, datav, dc, dcf, dcp, desc, dff, dfp ,dmf, dmp,
   //                                      erexf, erexp, icms, jma, kwh, kwhf, kwhp, med, tipo, trib, vbru, vdff, bdfp,
   //                                      verexf, verexp, vliq, vudf, vudp}

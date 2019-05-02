@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
-import { queryLastBills } from "../../utils/queryLastBills";
-import { transformDateString } from "../../utils/transformDateString";
 import ReportCard from "../Cards/ReportCard";
-import { formatNumber } from "../../utils/formatText";
+import queryLastBills from "../../utils/energy/queryLastBills";
+import { transformDateString } from "../../utils/energy/transformDateString";
+import formatNumber from "../../utils/energy/formatText";
 
 const rowNames = [
   {

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Col, Row } from "reactstrap";
-import { queryLastDemands } from "../../utils/queryLastDemands";
-import { queryLastDemandsBlue } from "../../utils/queryLastDemandsBlue";
-import { bestDemand } from "../../utils/bestDemand";
-import { transformDateString } from "../../utils/transformDateString";
+import queryLastDemands from "../../utils/energy/queryLastDemands";
+import queryLastDemandsBlue from "../../utils/energy/queryLastDemandsBlue";
+import { bestDemand } from "../../utils/energy/bestDemand";
+import { transformDateString } from "../../utils/energy/transformDateString";
 import ReportCard from "../Cards/ReportCard";
 
 class ReportCalculationsEnergy extends Component {

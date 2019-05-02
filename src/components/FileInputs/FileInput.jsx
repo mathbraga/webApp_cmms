@@ -5,11 +5,9 @@ import {
   CardBody,
   Row,
   Col,
-  Label,
   Input,
   FormGroup,
   Button,
-  CustomInput
 } from "reactstrap";
 
 class FileInput extends Component {

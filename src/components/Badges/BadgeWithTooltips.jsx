@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge, Tooltip } from "reactstrap";
-import getMetersIDs from "../../utils/getMetersIDs";
+import getMetersIDs from "../../utils/energy/getMetersIDs";
 
 class BadgeWithTooltips extends React.Component {
   constructor(props) {

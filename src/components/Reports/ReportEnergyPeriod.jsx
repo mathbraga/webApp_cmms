@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Card, CardBody, Col, Row, Table, Badge, CardHeader, Input } from "reactstrap";
+import { Card, CardBody, Col, Row, Table, CardHeader, Input } from "reactstrap";
 import { Line } from 'react-chartjs-2';
-import classNames from "classnames";
 
 class ReportEnergyOneUnit extends Component {
   constructor(props){

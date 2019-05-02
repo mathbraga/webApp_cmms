@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import ResultCard from "../../components/Cards/ResultCard";
 import { Row, Col } from "reactstrap";
+import ResultCard from "../../components/Cards/ResultCard";
 import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
 import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
 import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
 import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
 import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
 import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
-import { transformDateString } from "../../utils/transformDateString";
-import { formatNumber } from "../../utils/formatText";
+import { transformDateString } from "../../utils/energy/transformDateString";
+import formatNumber from "../../utils/energy/formatText";
 
 class EnergyResultOM extends Component {
   render() {

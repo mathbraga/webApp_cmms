@@ -1,4 +1,4 @@
-export function handleDates(event) {
+export default function handleDates(event) {
   // Input:
   // Any text inserted by the user in initialDate or finalDate in FormDates component
   // 

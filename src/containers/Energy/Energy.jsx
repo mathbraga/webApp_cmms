@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import FormDates from "../../components/Forms/FormDates";
 import FileInput from "../../components/FileInputs/FileInput"
-import { handleDates } from "../../utils/handleDates";
 import EnergyResults from "./EnergyResults";
-import { dynamoInit } from "../../utils/dynamoinit";
-import handleSearch from "../../utils/handleSearch";
-import getAllMeters from "../../utils/getAllMeters";
-import textToArray from "../../utils/upload/textToArray";
-import buildParamsArr from "../../utils/upload/buildParamsArr";
-import writeItemsInDB from "../../utils/upload/writeItemsInDB";
+import handleDates from "../../utils/energy/handleDates";
+import dynamoInit from "../../utils/energy/dynamoinit";
+import handleSearch from "../../utils/energy/handleSearch";
+import getAllMeters from "../../utils/energy/getAllMeters";
+import textToArray from "../../utils/energy/textToArray";
+import buildParamsArr from "../../utils/energy/buildParamsArr";
+import writeItemsInDB from "../../utils/energy/writeItemsInDB";
 
 class Energy extends Component {
   constructor(props) {

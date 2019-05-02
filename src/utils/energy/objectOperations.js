@@ -1,4 +1,4 @@
-function applyFuncToAttr(listObjects, attr, func) {
+export default function applyFuncToAttr(listObjects, attr, func) {
   let values = [];
   let answer = 0;
   listObjects.forEach(item => {
@@ -12,5 +12,3 @@ function applyFuncToAttr(listObjects, attr, func) {
   }
   return answer;
 }
-
-export { applyFuncToAttr };

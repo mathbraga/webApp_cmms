@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import { Route, Redirect } from "react-router-dom";
 import FormUserLogin from "../../components/Forms/FormUserLogin";
 import loginCognito from "../../utils/authentication/loginCognito";
-import { Route, Redirect } from "react-router-dom";
 
 class Login extends Component {
   constructor(props){

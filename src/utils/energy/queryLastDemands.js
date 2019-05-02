@@ -1,4 +1,4 @@
-export function queryLastDemands(dbObject, med) {
+export default function queryLastDemands(dbObject, med) {
   return new Promise((resolve, reject) => {
     // Query EnergyTable and return the last 13 months of one consumer unit
     dbObject.query(
