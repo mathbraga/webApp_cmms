@@ -3,7 +3,7 @@ import FormDates from "../../components/Forms/FormDates";
 import FileInput from "../../components/FileInputs/FileInput"
 import EnergyResults from "./EnergyResults";
 import handleDates from "../../utils/energy/handleDates";
-import dynamoInit from "../../utils/energy/dynamoinit";
+import dynamoInit from "../../utils/energy/dynamoInitnew";
 import handleSearch from "../../utils/energy/handleSearch";
 import getAllMeters from "../../utils/energy/getAllMeters";
 import textToArray from "../../utils/energy/textToArray";
