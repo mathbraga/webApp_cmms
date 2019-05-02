@@ -15,7 +15,7 @@ class Energy extends Component {
     super(props);
     this.tableName = "CEB";
     this.tableNameMeters = "CEB-Medidores";
-    this.tipomed = "1";
+    this.meterType = "1";
     this.state = {
       nonEmptyMeters: [],
       meters: [],
@@ -34,7 +34,7 @@ class Energy extends Component {
   }
 
   componentDidMount() {
-    getAllMeters(this.state.dbObject, this.tableNameMeters, this.tipomed).then(data => {
+    getAllMeters(this.state.dbObject, this.tableNameMeters, this.meterType).then(data => {
       this.setState({ meters: data });
     });
   }
