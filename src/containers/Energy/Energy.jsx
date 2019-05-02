@@ -3,7 +3,7 @@ import FormDates from "../../components/Forms/FormDates";
 import FileInput from "../../components/FileInputs/FileInput"
 import EnergyResults from "./EnergyResults";
 import handleDates from "../../utils/energy/handleDates";
-import dynamoInit from "../../utils/energy/dynamoInit";
+import initializeDynamoDB from "../../utils/energy/initializeDynamoDB";
 import handleSearch from "../../utils/energy/handleSearch";
 import getAllMeters from "../../utils/energy/getAllMeters";
 import textToArray from "../../utils/energy/textToArray";
@@ -16,7 +16,7 @@ class Energy extends Component {
     this.state = {
       noEmpty: [],
       meters: [],
-      dynamo: dynamoInit(),
+      dynamo: initializeDynamoDB(),
       tableName: "CEB",
       tableNameMeters: "CEB-Medidores",
       tipomed: "1",
