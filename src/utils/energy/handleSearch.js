@@ -3,7 +3,7 @@ import queryTable from "./queryTable";
 import buildChartData from "./makeChartConfigs";
 import defineNewLocation from "./defineNewLocation";
 import aammTransformDate from "./aammTransformDate";
-import allMetersSum from "./allMetersSum";
+import sumAllMeters from "./sumAllMeters";
 import removeEmptyMeters from "./removeEmptyMeters";
 import makeChartConfigs from "./makeChartConfigs";
 
@@ -51,7 +51,7 @@ export default function handleSearch() {
       if (this.state.chosenMeter === "199" && this.state.oneMonth) {
         let nonEmptyMeters = removeEmptyMeters(data);
         queryResponseAll = data;
-        queryResponse = allMetersSum(data);
+        queryResponse = sumAllMeters(data);
         this.setState({
           nonEmptyMeters: nonEmptyMeters,
           queryResponseAll: queryResponseAll,

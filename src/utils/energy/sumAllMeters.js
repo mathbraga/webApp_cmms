@@ -1,4 +1,4 @@
-export default function allMetersSum(data) {
+export default function sumAllMeters(data) {
   // Input:
   // data (array): array (length = number of meters) with data retrieved from query
   //
