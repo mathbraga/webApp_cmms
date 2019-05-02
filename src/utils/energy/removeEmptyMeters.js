@@ -1,4 +1,4 @@
-export default function removeEmpty(data){
+export default function removeEmptyMeters(data){
   // Input:
   // data (array): contains query response
   //

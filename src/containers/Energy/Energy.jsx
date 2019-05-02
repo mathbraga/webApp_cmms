@@ -13,13 +13,13 @@ import writeItemsInDB from "../../utils/energy/writeItemsInDB";
 class Energy extends Component {
   constructor(props) {
     super(props);
+    this.tableName = "CEB";
+    this.tableNameMeters = "CEB-Medidores";
+    this.tipomed = "1";
     this.state = {
       nonEmptyMeters: [],
       meters: [],
       dbObject: initializeDynamoDB(),
-      tableName: "CEB",
-      tableNameMeters: "CEB-Medidores",
-      tipomed: "1",
       initialDate: "",
       finalDate: "",
       chosenMeter: "199",
@@ -30,12 +30,11 @@ class Energy extends Component {
       chartConfigs: {},
       showResult: false,
       newLocation: "",
-      file: false
     };
   }
 
   componentDidMount() {
-    getAllMeters(this.state.dbObject, this.state.tableNameMeters, this.state.tipomed).then(data => {
+    getAllMeters(this.state.dbObject, this.tableNameMeters, this.tipomed).then(data => {
       this.setState({ meters: data });
     });
   }
@@ -77,7 +76,7 @@ class Energy extends Component {
       console.log('arr:');
       console.log(arr);
 
-      let paramsArr = buildParamsArr(arr, this.state.tableName);
+      let paramsArr = buildParamsArr(arr, this.tableName);
       console.log("paramsArr:");
       console.log(paramsArr);
 

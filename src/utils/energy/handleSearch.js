@@ -4,7 +4,7 @@ import buildChartData from "./makeChartConfigs";
 import defineNewLocation from "./defineNewLocation";
 import aammTransformDate from "./aammTransformDate";
 import allMetersSum from "./allMetersSum";
-import removeEmpty from "./removeEmpty";
+import removeEmptyMeters from "./removeEmptyMeters";
 import makeChartConfigs from "./makeChartConfigs";
 
 export default function handleSearch() {
@@ -38,7 +38,7 @@ export default function handleSearch() {
     // Query table
     queryTable(
       this.state.dbObject,
-      this.state.tableName,
+      this.tableName,
       this.state.chosenMeter,
       this.state.meters,
       aamm1,
@@ -49,7 +49,7 @@ export default function handleSearch() {
       var chartConfigs = {};
       // AM case
       if (this.state.chosenMeter === "199" && this.state.oneMonth) {
-        let nonEmptyMeters = removeEmpty(data);
+        let nonEmptyMeters = removeEmptyMeters(data);
         queryResponseAll = data;
         queryResponse = allMetersSum(data);
         this.setState({
@@ -65,7 +65,7 @@ export default function handleSearch() {
       // AP case
       if (this.state.chosenMeter === "199" && !this.state.oneMonth) {
         queryResponseAll = data;
-        let nonEmptyMeters = removeEmpty(data);
+        let nonEmptyMeters = removeEmptyMeters(data);
         queryResponse = data;
         chartConfigs = buildChartData(queryResponse, aamm1, aamm2);
         this.setState({
