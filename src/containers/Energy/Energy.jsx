@@ -34,8 +34,10 @@ class Energy extends Component {
   }
 
   componentDidMount() {
-    getAllMeters(this.state.dbObject, this.tableNameMeters, this.meterType).then(data => {
-      this.setState({ meters: data });
+    getAllMeters(this.state.dbObject, this.tableNameMeters, this.meterType).then(meters => {
+      this.setState({
+        meters: meters
+      });
     });
   }
 
@@ -95,32 +97,30 @@ class Energy extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          {this.state.showResult ? (
-            <EnergyResults
-              energyState={this.state}
-              handleClick={this.showFormDates}
+      <>
+        {this.state.showResult ? (
+          <EnergyResults
+            energyState={this.state}
+            handleClick={this.showFormDates}
+          />
+        ) : (
+          <>
+            <FormDates
+              onChangeDate={this.handleChangeOnDates}
+              initialDate={this.state.initialDate}
+              finalDate={this.state.finalDate}
+              oneMonth={this.state.oneMonth}
+              meters={this.state.meters}
+              onChangeOneMonth={this.handleOneMonth}
+              onMeterChange={this.handleMeterChange}
+              onQuery={this.handleQuery}
             />
-          ) : (
-            <>
-              <FormDates
-                onChangeDate={this.handleChangeOnDates}
-                initialDate={this.state.initialDate}
-                finalDate={this.state.finalDate}
-                oneMonth={this.state.oneMonth}
-                meters={this.state.meters}
-                onChangeOneMonth={this.handleOneMonth}
-                onMeterChange={this.handleMeterChange}
-                onQuery={this.handleQuery}
-              />
-              <FileInput
-                onUploadFile={this.handleUploadFile}
-              />
-            </>
-          )}
-        </div>
-      </div>
+            <FileInput
+              onUploadFile={this.handleUploadFile}
+            />
+          </>
+        )}
+      </>
     );
   }
 }
