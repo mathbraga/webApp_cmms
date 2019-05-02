@@ -14,7 +14,7 @@ class Energy extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      noEmpty: [],
+      nonEmptyMeters: [],
       meters: [],
       dbObject: initializeDynamoDB(),
       tableName: "CEB",

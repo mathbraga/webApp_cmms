@@ -23,7 +23,7 @@ class ReportListMeters extends Component {
           <tbody>
             {this.props.meters.map(unit => (
               <>
-                {this.props.noEmpty.includes(parseInt(unit.med.N, 10) + 100) &&
+                {this.props.nonEmptyMeters.includes(parseInt(unit.med.N, 10) + 100) &&
                   <tr>
                     <th>{unit.idceb.S}</th>
                     <td>{unit.nome.S}</td>

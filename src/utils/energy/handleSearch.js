@@ -49,11 +49,11 @@ export default function handleSearch() {
       var chartConfigs = {};
       // AM case
       if (this.state.chosenMeter === "199" && this.state.oneMonth) {
-        let noEmpty = removeEmpty(data);
+        let nonEmptyMeters = removeEmpty(data);
         queryResponseAll = data;
         queryResponse = allMetersSum(data);
         this.setState({
-          noEmpty: noEmpty,
+          nonEmptyMeters: nonEmptyMeters,
           queryResponseAll: queryResponseAll,
           queryResponse: queryResponse,
           showResult: true,
@@ -65,11 +65,11 @@ export default function handleSearch() {
       // AP case
       if (this.state.chosenMeter === "199" && !this.state.oneMonth) {
         queryResponseAll = data;
-        let noEmpty = removeEmpty(data);
+        let nonEmptyMeters = removeEmpty(data);
         queryResponse = data;
         chartConfigs = buildChartData(queryResponse, aamm1, aamm2);
         this.setState({
-          noEmpty: noEmpty,
+          nonEmptyMeters: nonEmptyMeters,
           queryResponseAll: queryResponseAll,
           queryResponse: queryResponse,
           chartConfigs: chartConfigs,
