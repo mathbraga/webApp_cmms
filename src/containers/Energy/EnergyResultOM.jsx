@@ -152,7 +152,7 @@ class EnergyResultOM extends Component {
           </Col>
           <Col md="6">
             <ReportCalculationsEnergy
-              dbObject={this.props.energyState.dynamo}
+              dbObject={this.props.energyState.dbObject}
               consumer={this.props.energyState.chosenMeter}
               dateString={dateString}
               data={result.queryResponse}
@@ -166,7 +166,7 @@ class EnergyResultOM extends Component {
             <ReportEnergyOneUnit
               data={result.queryResponse}
               dateString={dateString}
-              dbObject={this.props.energyState.dynamo}
+              dbObject={this.props.energyState.dbObject}
               consumer={this.props.energyState.chosenMeter}
               date={result.queryResponse.aamm}
             />

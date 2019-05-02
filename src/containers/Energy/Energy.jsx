@@ -16,7 +16,7 @@ class Energy extends Component {
     this.state = {
       noEmpty: [],
       meters: [],
-      dynamo: initializeDynamoDB(),
+      dbObject: initializeDynamoDB(),
       tableName: "CEB",
       tableNameMeters: "CEB-Medidores",
       tipomed: "1",
@@ -35,7 +35,7 @@ class Energy extends Component {
   }
 
   componentDidMount() {
-    getAllMeters(this.state.dynamo, this.state.tableNameMeters, this.state.tipomed).then(data => {
+    getAllMeters(this.state.dbObject, this.state.tableNameMeters, this.state.tipomed).then(data => {
       this.setState({ meters: data });
     });
   }
@@ -81,7 +81,7 @@ class Energy extends Component {
       console.log("paramsArr:");
       console.log(paramsArr);
 
-      writeItemsInDB(this.state.dynamo, paramsArr)
+      writeItemsInDB(this.state.dbObject, paramsArr)
       .then(() => {
         console.log("Upload de dados realizado com sucesso!");
       })

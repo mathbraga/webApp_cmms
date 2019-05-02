@@ -37,7 +37,7 @@ export default function handleSearch() {
 
     // Query table
     queryTable(
-      this.state.dynamo,
+      this.state.dbObject,
       this.state.tableName,
       this.state.chosenMeter,
       this.state.meters,

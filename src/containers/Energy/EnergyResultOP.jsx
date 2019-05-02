@@ -63,7 +63,7 @@ class EnergyResultOP extends Component {
       initialDate,
       finalDate,
       chosenMeter,
-      dynamo
+      dbObject
     } = this.props.energyState;
 
     const imageEnergyMoney = require("../../assets/icons/money_energy.png");
@@ -179,7 +179,7 @@ class EnergyResultOP extends Component {
           </Col>
           <Col md="6">
             <ReportCalculationsEnergy
-              dbObject={dynamo}
+              dbObject={dbObject}
               consumer={chosenMeter}
               dateString={dateString}
               data={result.queryResponse}
