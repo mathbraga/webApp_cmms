@@ -20,11 +20,11 @@ export default {
       url: "/consumo",
       icon: "icon-speedometer",
       children: [
-        // {
-        //   name: "Água",
-        //   url: "/consumo/agua",
-        //   icon: "icon-drop"
-        // },
+        {
+          name: "Água",
+          url: "/consumo/agua",
+          icon: "icon-drop"
+        },
         {
           name: "Energia elétrica",
           url: "/consumo/energia",

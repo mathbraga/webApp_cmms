@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import FormDates from "../../components/Forms/FormDates";
 import FileInput from "../../components/FileInputs/FileInput"
-import EnergyResults from "./EnergyResults";
+import WaterResults from "./WaterResults";
 import handleDates from "../../utils/energy/handleDates";
 import initializeDynamoDB from "../../utils/energy/initializeDynamoDB";
 import handleSearch from "../../utils/energy/handleSearch";
 import getAllMeters from "../../utils/energy/getAllMeters";
 import textToArray from "../../utils/energy/textToArray";
-import buildParamsArr from "../../utils/energy/buildParamsArr";
+import buildWaterParamsArr from "../../utils/water/buildWaterParamsArr";
 import writeItemsInDB from "../../utils/energy/writeItemsInDB";
 
-class Energy extends Component {
+class Water extends Component {
   constructor(props) {
     super(props);
-    this.tableName = "CEB";
+    this.tableName = "CAESB";
     this.tableNameMeters = "CEB-Medidores";
     this.meterType = "1";
     this.defaultMeter = this.meterType + "99";
@@ -23,7 +23,7 @@ class Energy extends Component {
       dbObject: initializeDynamoDB(),
       initialDate: "",
       finalDate: "",
-      chosenMeter: "199",
+      chosenMeter: "299",
       oneMonth: false,
       error: false,
       queryResponse: false,
@@ -62,7 +62,7 @@ class Energy extends Component {
       showResult: false,
       initialDate: prevState.initialDate,
       finalDate: prevState.finalDate,
-      chosenMeter: this.defaultMeter,
+      chosenMeter: "299",
       oneMonth: prevState.oneMonth
     }));
   };
@@ -79,7 +79,7 @@ class Energy extends Component {
       console.log('arr:');
       console.log(arr);
 
-      let paramsArr = buildParamsArr(arr, this.tableName);
+      let paramsArr = buildWaterParamsArr(arr, this.tableName);
       console.log("paramsArr:");
       console.log(paramsArr);
 
@@ -100,8 +100,8 @@ class Energy extends Component {
     return (
       <>
         {this.state.showResult ? (
-          <EnergyResults
-            energyState={this.state}
+          <WaterResults
+            waterState={this.state}
             handleClick={this.showFormDates}
           />
         ) : (
@@ -126,4 +126,4 @@ class Energy extends Component {
   }
 }
 
-export default Energy;
+export default Water;
