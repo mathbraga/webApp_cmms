@@ -1,6 +1,5 @@
 import checkSearchInputs from "./checkSearchInputs";
 import queryTable from "./queryTable";
-import buildChartData from "./makeChartConfigs";
 import defineNewLocation from "./defineNewLocation";
 import aammTransformDate from "./aammTransformDate";
 import sumAllMeters from "./sumAllMeters";
@@ -67,7 +66,7 @@ export default function handleSearch() {
         queryResponseAll = data;
         let nonEmptyMeters = removeEmptyMeters(data);
         queryResponse = data;
-        chartConfigs = buildChartData(queryResponse, aamm1, aamm2);
+        chartConfigs = makeChartConfigs(queryResponse, aamm1, aamm2);
         this.setState({
           nonEmptyMeters: nonEmptyMeters,
           queryResponseAll: queryResponseAll,
