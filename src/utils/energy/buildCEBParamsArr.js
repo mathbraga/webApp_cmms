@@ -1,4 +1,4 @@
-export default function buildParamsArr(arr, tableName){
+export default function buildCEBParamsArr(arr, tableName){
   
   /////////////////////////////////////////////
   tableName = tableName + "teste"; // REMOVE THIS LINE AFTER TESTS

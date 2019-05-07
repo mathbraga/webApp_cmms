@@ -1,4 +1,4 @@
-export default function buildWaterParamsArr(arr, tableName){
+export default function buildCAESBParamsArr(arr, tableName){
   
   /////////////////////////////////////////////
   tableName = tableName + "teste"; // REMOVE THIS LINE AFTER TESTS

@@ -7,7 +7,7 @@ import initializeDynamoDB from "../../utils/energy/initializeDynamoDB";
 import handleWaterSearch from "../../utils/water/handleWaterSearch";
 import getAllMeters from "../../utils/energy/getAllMeters";
 import textToArray from "../../utils/energy/textToArray";
-import buildWaterParamsArr from "../../utils/water/buildWaterParamsArr";
+import buildCAESBParamsArr from "../../utils/water/buildCAESBParamsArr";
 import writeItemsInDB from "../../utils/energy/writeItemsInDB";
 
 class Water extends Component {
@@ -79,7 +79,7 @@ class Water extends Component {
       console.log('arr:');
       console.log(arr);
 
-      let paramsArr = buildWaterParamsArr(arr, this.tableName);
+      let paramsArr = buildCAESBParamsArr(arr, this.tableName);
       console.log("paramsArr:");
       console.log(paramsArr);
 

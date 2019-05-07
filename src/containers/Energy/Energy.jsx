@@ -7,7 +7,7 @@ import initializeDynamoDB from "../../utils/energy/initializeDynamoDB";
 import handleSearch from "../../utils/energy/handleSearch";
 import getAllMeters from "../../utils/energy/getAllMeters";
 import textToArray from "../../utils/energy/textToArray";
-import buildParamsArr from "../../utils/energy/buildParamsArr";
+import buildCEBParamsArr from "../../utils/energy/buildCEBParamsArr";
 import writeItemsInDB from "../../utils/energy/writeItemsInDB";
 
 class Energy extends Component {
@@ -79,7 +79,7 @@ class Energy extends Component {
       console.log('arr:');
       console.log(arr);
 
-      let paramsArr = buildParamsArr(arr, this.tableName);
+      let paramsArr = buildCEBParamsArr(arr, this.tableName);
       console.log("paramsArr:");
       console.log(paramsArr);
 
