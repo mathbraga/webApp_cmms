@@ -3,7 +3,7 @@ import { Table } from "reactstrap";
 import ReportCard from "../Cards/ReportCard";
 
 const rowNames = [
-  { name: "Identificação CEB", attr: "idceb" },
+  { name: "Identificação CEB", attr: "id" },
   { name: "Nome do medidor", attr: "nome" },
   { name: "Contrato", attr: "ct" },
   { name: "Classe", attr: "classe" },

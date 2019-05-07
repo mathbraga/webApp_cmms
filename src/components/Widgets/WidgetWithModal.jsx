@@ -9,7 +9,7 @@ class WidgetWithModal extends Component {
    * - allUnits (boolean):
    * - oneMonth (boolean):
    * - chosenMeter (string): value comes from Energy state
-   * - unitNumber (string): idceb attribute of selected meter
+   * - unitNumber (string): id attribute of selected meter
    * - unitName (name): nome attribute of selected meter
    * - initialDate (string):
    * - finalDate (string):

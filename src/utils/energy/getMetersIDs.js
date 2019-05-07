@@ -16,7 +16,7 @@ export default function getMetersIDs(problem, meters) {
         problemMeter ===
         parseInt(meter.med.N, 10) + 100 * parseInt(meter.tipomed.N, 10)
       ) {
-        metersIDs.push(meter.idceb.S);
+        metersIDs.push(meter.id.S);
       }
     });
   });

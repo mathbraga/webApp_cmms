@@ -120,7 +120,7 @@ class EnergyResultOP extends Component {
 
     return (
       <ResultCard
-        unitNumber={result.unit.idceb.S}
+        unitNumber={result.unit.id.S}
         unitName={result.unit.nome.S}
         initialDate={initialDate}
         finalDate={finalDate}
@@ -161,7 +161,7 @@ class EnergyResultOP extends Component {
           <Col xs="12" sm="6" xl="3" className="order-xl-3 order-sm-2">
             <WidgetWithModal
               chosenMeter={chosenMeter}
-              // unitNumber={result.unit.idceb.S}
+              // unitNumber={result.unit.id.S}
               // unitName={result.unit.nome.S}
               initialDate={initialDate}
               finalDate={finalDate}

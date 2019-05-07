@@ -25,7 +25,7 @@ class ReportListMeters extends Component {
               <>
                 {this.props.nonEmptyMeters.includes(parseInt(unit.med.N, 10) + 100) &&
                   <tr>
-                    <th>{unit.idceb.S}</th>
+                    <th>{unit.id.S}</th>
                     <td>{unit.nome.S}</td>
                     <td>{unit.modtar.S}</td>
                     {unit.dcf.S == 0 && unit.dcp.S == 0 ? (

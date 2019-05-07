@@ -36,7 +36,7 @@ class EnergyOneUnitDash extends Component {
             <Row>
               <Col md="6">
                 <div className="widget-title dash-title">
-                  <h4>{result.unit.idceb.S}</h4>
+                  <h4>{result.unit.id.S}</h4>
 
                   <div className="dash-subtitle">
                     Medidor: <strong>{result.unit.nome.S}</strong>
