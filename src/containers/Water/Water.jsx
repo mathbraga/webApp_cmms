@@ -15,7 +15,7 @@ class Water extends Component {
     super(props);
     this.tableName = "CAESB";
     this.tableNameMeters = "CAESB-Medidores";
-    this.meterType = "1";
+    this.meterType = "2";
     this.defaultMeter = this.meterType + "99";
     this.state = {
       nonEmptyMeters: [],
