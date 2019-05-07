@@ -4,7 +4,7 @@ import FileInput from "../../components/FileInputs/FileInput"
 import WaterResults from "./WaterResults";
 import handleDates from "../../utils/energy/handleDates";
 import initializeDynamoDB from "../../utils/energy/initializeDynamoDB";
-import handleSearch from "../../utils/energy/handleSearch";
+import handleWaterSearch from "../../utils/water/handleWaterSearch";
 import getAllMeters from "../../utils/energy/getAllMeters";
 import textToArray from "../../utils/energy/textToArray";
 import buildWaterParamsArr from "../../utils/water/buildWaterParamsArr";
@@ -43,7 +43,7 @@ class Water extends Component {
   }
 
   handleChangeOnDates = handleDates.bind(this);
-  handleQuery = handleSearch.bind(this);
+  handleQuery = handleWaterSearch.bind(this);
 
   handleOneMonth = event => {
     this.setState({

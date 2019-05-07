@@ -1,0 +1,125 @@
+import checkSearchInputs from "../energy/checkSearchInputs";
+import queryTable from "../energy/queryTable";
+// import buildChartData from "./makeChartConfigs";
+// import defineNewLocation from "./defineNewLocation";
+import aammTransformDate from "../energy/aammTransformDate";
+// import sumAllMeters from "./sumAllMeters";
+import removeEmptyMeters from "../energy/removeEmptyMeters";
+import makeChartConfigs from "../energy/makeChartConfigs";
+
+export default function handleSearch() {
+  // Check date inputs
+  if (
+    checkSearchInputs(
+      this.state.initialDate,
+      this.state.finalDate,
+      this.state.oneMonth
+    )
+  ) {
+    // Run code below in case of correct search parameters inputs (checkSearchInputs returns true)
+
+    // Transform dates inputs (from 'mm/yyyy' format to 'yymm' format)
+    var aamm1 = aammTransformDate(this.state.initialDate);
+    var aamm2 = "";
+    if (this.state.oneMonth) {
+      aamm2 = aamm1;
+    } else {
+      aamm2 = aammTransformDate(this.state.finalDate);
+    }
+
+    // Query table
+    queryTable(
+      this.state.dbObject,
+      this.tableName,
+      this.state.chosenMeter,
+      this.state.meters,
+      aamm1,
+      aamm2
+    ).then(data => {
+      var queryResponse = [];
+      var queryResponseAll = [];
+      var chartConfigs = {};
+      // AM case
+      if (this.state.chosenMeter === "199" && this.state.oneMonth) {
+        let nonEmptyMeters = removeEmptyMeters(data);
+        queryResponseAll = data;
+        // queryResponse = sumAllMeters(data);
+
+
+        console.clear();
+        console.log("queryResponse:");
+        console.log(queryResponse);
+
+        this.setState({
+          nonEmptyMeters: nonEmptyMeters,
+          // queryResponseAll: queryResponseAll,
+          queryResponse: queryResponse,
+          showResult: true,
+          error: false,
+          newLocation: "/consumo/agua/resultados/AM"
+        });
+      }
+
+      // AP case
+      if (this.state.chosenMeter === "199" && !this.state.oneMonth) {
+        queryResponseAll = data;
+        let nonEmptyMeters = removeEmptyMeters(data);
+        queryResponse = data;
+        chartConfigs = makeChartConfigs(queryResponse, aamm1, aamm2);
+        
+        console.clear();
+        console.log("queryResponse:");
+        console.log(queryResponse);
+        
+        this.setState({
+          nonEmptyMeters: nonEmptyMeters,
+          queryResponseAll: queryResponseAll,
+          queryResponse: queryResponse,
+          chartConfigs: chartConfigs,
+          showResult: true,
+          error: false,
+          newLocation: "/consumo/agua/resultados/AP"
+        });
+      }
+
+      // OM case
+      if (this.state.chosenMeter !== "199" && this.state.oneMonth) {
+        queryResponse = data;
+
+        console.clear();
+        console.log("queryResponse:");
+        console.log(queryResponse);
+
+        this.setState({
+          queryResponse: queryResponse,
+          showResult: true,
+          error: false,
+          newLocation: "/consumo/agua/resultados/OM"
+        });
+      }
+
+      // OP case
+      if (this.state.chosenMeter !== "199" && !this.state.oneMonth) {
+        queryResponse = data;
+        chartConfigs = makeChartConfigs(queryResponse, aamm1, aamm2);
+        
+        console.clear();
+        console.log("queryResponse:");
+        console.log(queryResponse);
+        
+        
+        this.setState({
+          queryResponse: queryResponse,
+          showResult: true,
+          error: false,
+          newLocation: "/consumo/energia/resultados/OP",
+          chartConfigs: chartConfigs
+        });
+      }
+    });
+
+    // Browser display an alert message in case of wrong search inputs
+  } else {
+    alert("Por favor, escolha novos parâmetros de pesquisa");
+  }
+}
