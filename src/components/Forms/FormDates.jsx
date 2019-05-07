@@ -100,7 +100,7 @@ class FormDates extends Component {
                         parseInt(meter.med.N, 10)
                       ).toString()}
                     >
-                      {meter.idceb.S + " - " + meter.nome.S}
+                      {meter.id.S + " - " + meter.nome.S}
                     </option>
                   ))}
                 </Input>
