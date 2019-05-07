@@ -1,21 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import ReportCard from "../Cards/ReportCard";
-
-const rowNames = [
-  { name: "Identificação CEB", attr: "id" },
-  { name: "Nome do medidor", attr: "nome" },
-  { name: "Contrato", attr: "ct" },
-  { name: "Classe", attr: "classe" },
-  { name: "Subclasse", attr: "subclasse" },
-  { name: "Grupo", attr: "grupo" },
-  { name: "Subgrupo", attr: "subgrupo" },
-  { name: "Ligação", attr: "lig" },
-  { name: "Modalidade tarifária", attr: "modtar" },
-  { name: "Locais", attr: "locais" },
-  { name: "Demanda contratada (FP/P)", attr: "dem" },
-  { name: "Observações", attr: "obs" }
-];
+import { rowNames } from "./ReportInfoEnergy-Config";
 
 class ReportInfoEnergy extends Component {
   render() {
@@ -27,7 +13,7 @@ class ReportInfoEnergy extends Component {
       >
         <Table responsive size="sm">
           <tbody>
-            {rowNames.map(info =>
+            {rowNames[this.props.resultType].map(info =>
               info.attr === "dem" ? (
                 <tr>
                   <th>{info.name}</th>
