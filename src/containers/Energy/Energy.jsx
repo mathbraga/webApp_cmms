@@ -72,7 +72,7 @@ class Energy extends Component {
     console.clear();
     
     // CHANGE THIS LINE. CORRECT: USE REACT-JS REFS
-    let selectedFile = document.getElementById('ceb-csv-file').files[0];
+    let selectedFile = document.getElementById('csv-file').files[0];
     
     textToArray(selectedFile).
     then(arr => {

@@ -19,7 +19,7 @@ class FileInput extends Component {
             <Col md="12">
               <div className="calc-title">Upload de arquivo</div>
               <div className="calc-subtitle">
-                <em>Utilizar faturas em formato csv encaminhadas pela CEB</em>
+                <em>Utilizar faturas em formato csv</em>
               </div>
             </Col>
           </Row>
@@ -32,8 +32,8 @@ class FileInput extends Component {
                 <Col>
                   <Input
                     type="file"
-                    id="ceb-csv-file"
-                    name="ceb-csv-file"
+                    id="csv-file"
+                    name="csv-file"
                   />
                 </Col>
               </FormGroup>
