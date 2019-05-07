@@ -4,7 +4,7 @@ import FileInput from "../../components/FileInputs/FileInput"
 import WaterResults from "./WaterResults";
 import handleDates from "../../utils/energy/handleDates";
 import initializeDynamoDB from "../../utils/energy/initializeDynamoDB";
-import handleWaterSearch from "../../utils/water/handleWaterSearch";
+import handleSearch from "../../utils/energy/handleSearch";
 import getAllMeters from "../../utils/energy/getAllMeters";
 import textToArray from "../../utils/energy/textToArray";
 import buildCAESBParamsArr from "../../utils/water/buildCAESBParamsArr";
@@ -13,7 +13,7 @@ import writeItemsInDB from "../../utils/energy/writeItemsInDB";
 class Water extends Component {
   constructor(props) {
     super(props);
-    this.tableName = "CAESB";
+    this.tableName = "CAESBteste";
     this.tableNameMeters = "CAESB-Medidores";
     this.meterType = "2";
     this.defaultMeter = this.meterType + "99";
@@ -43,7 +43,7 @@ class Water extends Component {
   }
 
   handleChangeOnDates = handleDates.bind(this);
-  handleQuery = handleWaterSearch.bind(this);
+  handleQuery = handleSearch.bind(this);
 
   handleOneMonth = event => {
     this.setState({

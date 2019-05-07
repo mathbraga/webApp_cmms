@@ -48,10 +48,10 @@ export default function handleSearch() {
       var queryResponseAll = [];
       var chartConfigs = {};
       // AM case
-      if (this.state.chosenMeter === "199" && this.state.oneMonth) {
+      if (this.state.chosenMeter === this.meterType + "99" && this.state.oneMonth) {
         let nonEmptyMeters = removeEmptyMeters(data);
         queryResponseAll = data;
-        queryResponse = sumAllMeters(data);
+        queryResponse = sumAllMeters(data, this.meterType);
         this.setState({
           nonEmptyMeters: nonEmptyMeters,
           queryResponseAll: queryResponseAll,
@@ -63,11 +63,11 @@ export default function handleSearch() {
       }
 
       // AP case
-      if (this.state.chosenMeter === "199" && !this.state.oneMonth) {
+      if (this.state.chosenMeter === this.meterType + "99" && !this.state.oneMonth) {
         queryResponseAll = data;
         let nonEmptyMeters = removeEmptyMeters(data);
         queryResponse = data;
-        chartConfigs = makeChartConfigs(queryResponse, aamm1, aamm2);
+        chartConfigs = makeChartConfigs(queryResponse, aamm1, aamm2, this.meterType);
         this.setState({
           nonEmptyMeters: nonEmptyMeters,
           queryResponseAll: queryResponseAll,
@@ -80,7 +80,7 @@ export default function handleSearch() {
       }
 
       // OM case
-      if (this.state.chosenMeter !== "199" && this.state.oneMonth) {
+      if (this.state.chosenMeter !== this.meterType + "99" && this.state.oneMonth) {
         queryResponse = data;
         this.setState({
           queryResponse: queryResponse,
@@ -91,9 +91,9 @@ export default function handleSearch() {
       }
 
       // OP case
-      if (this.state.chosenMeter !== "199" && !this.state.oneMonth) {
+      if (this.state.chosenMeter !== this.meterType + "99" && !this.state.oneMonth) {
         queryResponse = data;
-        chartConfigs = makeChartConfigs(queryResponse, aamm1, aamm2);
+        chartConfigs = makeChartConfigs(queryResponse, aamm1, aamm2, this.meterType);
         this.setState({
           queryResponse: queryResponse,
           showResult: true,

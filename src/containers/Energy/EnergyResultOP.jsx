@@ -175,7 +175,7 @@ class EnergyResultOP extends Component {
         </Row>
         <Row>
           <Col md="6">
-            <ReportInfoEnergy data={result.unit} date={dateString} />
+            <ReportInfoEnergy data={result.unit} date={dateString} resultType="energy"/>
           </Col>
           <Col md="6">
             <ReportCalculationsEnergy
