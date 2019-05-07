@@ -31,7 +31,8 @@ export default function handleSearch() {
       this.state.oneMonth,
       this.state.chosenMeter,
       this.state.initialDate,
-      this.state.finalDate
+      this.state.finalDate,
+      this.meterType
     );
 
     // Query table

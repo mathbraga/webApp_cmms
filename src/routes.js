@@ -9,6 +9,11 @@ const EnergyResultAM = React.lazy(() => import("./containers/Energy/EnergyResult
 const EnergyResultAP = React.lazy(() => import("./containers/Energy/EnergyResultAP"));
 
 const Water = React.lazy(() => import("./containers/Water"));
+const WaterResults = React.lazy(() => import("./containers/Water/WaterResults"));
+const WaterResultOM = React.lazy(() => import("./containers/Water/WaterResultOM"));
+const WaterResultOP = React.lazy(() => import("./containers/Water/WaterResultOP"));
+const WaterResultAM = React.lazy(() => import("./containers/Water/WaterResultAM"));
+const WaterResultAP = React.lazy(() => import("./containers/Water/WaterResultAP"));
 
 const Login = React.lazy(() => import("./containers/Login/Login"));
 const Logout = React.lazy(() => import("./containers/Logout/Logout"));
@@ -27,6 +32,11 @@ const routes = [
   { path: "/consumo/energia/resultados/AM", name: "AM", component: EnergyResultAM },
   { path: "/consumo/energia/resultados/AP", name: "AP", component: EnergyResultAP },
   { path: "/consumo/agua", name: "Água", component: Water },
+  { path: "/consumo/agua/resultados", name: "Resultados", component: WaterResults },
+  { path: "/consumo/agua/resultados/OM", name: "OM", component: WaterResultOM },
+  { path: "/consumo/agua/resultados/OP", name: "OP", component: WaterResultOP },
+  { path: "/consumo/agua/resultados/AM", name: "AM", component: WaterResultAM },
+  { path: "/consumo/agua/resultados/AP", name: "AP", component: WaterResultAP }
 ];
 
 export default routes;
