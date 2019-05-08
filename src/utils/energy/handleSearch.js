@@ -47,9 +47,10 @@ export default function handleSearch() {
       var queryResponse = [];
       var queryResponseAll = [];
       var chartConfigs = {};
+      var nonEmptyMeters = [];
       // AM case
       if (this.state.chosenMeter === this.meterType + "99" && this.state.oneMonth) {
-        let nonEmptyMeters = removeEmptyMeters(data);
+        nonEmptyMeters = removeEmptyMeters(data);
         queryResponseAll = data;
         queryResponse = sumAllMeters(data, this.meterType);
         this.setState({
@@ -65,7 +66,7 @@ export default function handleSearch() {
       // AP case
       if (this.state.chosenMeter === this.meterType + "99" && !this.state.oneMonth) {
         queryResponseAll = data;
-        let nonEmptyMeters = removeEmptyMeters(data);
+        nonEmptyMeters = removeEmptyMeters(data);
         queryResponse = data;
         chartConfigs = makeChartConfigs(queryResponse, aamm1, aamm2, this.meterType);
         this.setState({

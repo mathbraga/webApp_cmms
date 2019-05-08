@@ -2,7 +2,7 @@ export default function queryTable(dbObject, tableName, chosenMeter, meters, aam
   return new Promise((resolve, reject) => {
     // Check if consumer is 'all'
     var allMeters = [];
-    if (chosenMeter === "199") {
+    if (chosenMeter.slice(1) === "99") {
       // Build array of all meters to query
       allMeters = meters.map(meter => {
         return (
