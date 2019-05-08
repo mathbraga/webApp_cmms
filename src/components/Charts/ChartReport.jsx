@@ -10,9 +10,15 @@ class ChartReport extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      selected: "vbru"
-    };
+    if(this.props.tableName === "CEB"){
+      this.state = {
+        selected: "vbru"
+      };
+    } else {
+      this.state = {
+        selected: "subtotal"
+      }
+    }
   }
 
   onChangeYAxis = type => {
@@ -23,7 +29,7 @@ class ChartReport extends Component {
     const { medName, itemsForChart } = this.props;
     let dropdowItems = {};
     itemsForChart.forEach(key => {
-      dropdowItems[key] = this.props.energyState.chartConfigs[
+      dropdowItems[key] = this.props.chartConfigs[
         key
       ].options.title.text;
     });
@@ -46,10 +52,10 @@ class ChartReport extends Component {
           <Col md="8">
             <Line
               data={
-                this.props.energyState.chartConfigs[this.state.selected].data
+                this.props.chartConfigs[this.state.selected].data
               }
               options={
-                this.props.energyState.chartConfigs[this.state.selected].options
+                this.props.chartConfigs[this.state.selected].options
               }
               redraw={true}
             />
@@ -62,24 +68,24 @@ class ChartReport extends Component {
                 <tr>
                   <th>Mês</th>
                   <th>
-                    {this.props.energyState.chartConfigs[this.state.selected]
+                    {this.props.chartConfigs[this.state.selected]
                       .options.title.text +
                       " (" +
-                      this.props.energyState.chartConfigs[this.state.selected]
+                      this.props.chartConfigs[this.state.selected]
                         .options.scales.yAxes[0].scaleLabel.labelString +
                       ")"}
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {this.props.energyState.chartConfigs[
+                {this.props.chartConfigs[
                   this.state.selected
                 ].data.labels.map((month, index) => (
                   <tr>
                     <td>{month}</td>
                     <td sytle="{text-align: right}">
                       {formatNumber(
-                        this.props.energyState.chartConfigs[this.state.selected]
+                        this.props.chartConfigs[this.state.selected]
                           .data.datasets[0].data[index]
                       )}
                     </td>

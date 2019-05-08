@@ -194,6 +194,8 @@ class EnergyResultOP extends Component {
               energyState={this.props.energyState}
               medName={result.unit.nome.S}
               itemsForChart={itemsForChart}
+              chartConfigs={this.props.energyState.chartConfigs}
+              tableName={this.props.energyState.tableName}
             />
           </Col>
         </Row>
