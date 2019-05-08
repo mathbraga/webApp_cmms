@@ -127,12 +127,18 @@ class EnergyResultAP extends Component {
               energyState={this.props.energyState}
               medName={"23 medidores"}
               itemsForChart={itemsForChart}
+              chartConfigs={this.props.energyState.chartConfigs}
+              tableName={this.props.energyState.tableName}
             />
           </Col>
         </Row>
         <Row>
           <Col>
-            <ReportListMeters meters={meters} nonEmptyMeters={nonEmptyMeters} />
+            <ReportListMeters
+              meters={meters}
+              nonEmptyMeters={nonEmptyMeters}
+              resultType="energy"
+            />
           </Col>
         </Row>
       </ResultCard>
