@@ -113,7 +113,11 @@ class EnergyResultAM extends Component {
 
         <Row>
           <Col>
-            <ReportListMeters meters={this.props.energyState.meters} nonEmptyMeters={this.props.energyState.nonEmptyMeters}/>
+            <ReportListMeters
+              meters={this.props.energyState.meters}
+              nonEmptyMeters={this.props.energyState.nonEmptyMeters}
+              resultType="energy"
+            />
           </Col>
         </Row>
       </ResultCard>
