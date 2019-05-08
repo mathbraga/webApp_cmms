@@ -18,6 +18,7 @@ class Energy extends Component {
     this.meterType = "1";
     this.defaultMeter = this.meterType + "99";
     this.state = {
+      tableName: this.tableName,
       nonEmptyMeters: [],
       meters: [],
       dbObject: initializeDynamoDB(),

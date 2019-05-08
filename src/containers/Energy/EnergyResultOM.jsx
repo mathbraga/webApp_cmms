@@ -167,8 +167,10 @@ class EnergyResultOM extends Component {
               data={result.queryResponse}
               dateString={dateString}
               dbObject={this.props.energyState.dbObject}
+              tableName={this.props.energyState.tableName}
               consumer={this.props.energyState.chosenMeter}
               date={result.queryResponse.aamm}
+              resultType="energy"
             />
           </Col>
         </Row>

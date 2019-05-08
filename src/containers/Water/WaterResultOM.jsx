@@ -101,8 +101,10 @@ class WaterResultOM extends Component {
               data={result.queryResponse}
               dateString={dateString}
               dbObject={this.props.waterState.dbObject}
+              tableName={this.props.waterState.tableName}
               consumer={this.props.waterState.chosenMeter}
               date={result.queryResponse.aamm}
+              resultType="water"
             />
           </Col>
         </Row>
