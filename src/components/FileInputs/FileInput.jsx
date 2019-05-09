@@ -79,11 +79,11 @@ class FileInput extends Component {
             <Col xs="3">
               <FormGroup>
                 <Col>
-                  <input
+                  <Input
                     type="file"
                     id="csv-file"
                     name="csv-file"
-                    ref={this.fileInputRef}
+                    innerRef={this.fileInputRef}
                   />
                 </Col>
               </FormGroup>
