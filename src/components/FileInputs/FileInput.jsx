@@ -12,6 +12,7 @@ import {
 import textToArray from "../../utils/energy/textToArray";
 import buildCEBParamsArr from "../../utils/energy/buildCEBParamsArr";
 import writeItemsInDB from "../../utils/energy/writeItemsInDB";
+import buildCAESBParamsArr from "../../utils/water/buildCAESBParamsArr";
 
 class FileInput extends Component {
   constructor(props){
@@ -35,20 +36,27 @@ class FileInput extends Component {
       console.log('arr:');
       console.log(arr);
 
-      let paramsArr = buildCEBParamsArr(arr, this.props.tableName);
+      let paramsArr = [];
+      
+      if(this.props.tableName === "CEB"){
+        paramsArr = buildCEBParamsArr(arr, this.props.tableName);
+      } else {
+        paramsArr = buildCAESBParamsArr(arr, this.props.tableName);
+      }
+      
       console.log("paramsArr:");
       console.log(paramsArr);
 
-    //   writeItemsInDB(this.props.dbObject, paramsArr)
-    //   .then(() => {
-    //     console.log("Upload de dados realizado com sucesso!");
-    //   })
-    //   .catch(() => {
-    //     console.log("Houve um problema no upload do arquivo.");
-    //   });
-    // })
-    // .catch(() => {
-    //   console.log("Houve um problema na leitura do arquivo.");
+      writeItemsInDB(this.props.dbObject, paramsArr)
+      .then(() => {
+        console.log("Upload de dados realizado com sucesso!");
+      })
+      .catch(() => {
+        console.log("Houve um problema no upload do arquivo.");
+      });
+    })
+    .catch(() => {
+      console.log("Houve um problema na leitura do arquivo.");
     });
   }
   

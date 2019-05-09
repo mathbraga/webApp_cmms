@@ -6,9 +6,6 @@ import handleDates from "../../utils/energy/handleDates";
 import initializeDynamoDB from "../../utils/energy/initializeDynamoDB";
 import handleSearch from "../../utils/energy/handleSearch";
 import getAllMeters from "../../utils/energy/getAllMeters";
-import textToArray from "../../utils/energy/textToArray";
-import buildCAESBParamsArr from "../../utils/water/buildCAESBParamsArr";
-import writeItemsInDB from "../../utils/energy/writeItemsInDB";
 
 class Water extends Component {
   constructor(props) {
@@ -68,35 +65,6 @@ class Water extends Component {
     }));
   };
 
-  handleUploadFile = event => {
-    
-    console.clear();
-    
-    // CHANGE THIS LINE. CORRECT: USE REACT-JS REFS
-    let selectedFile = document.getElementById('csv-file').files[0];
-    
-    textToArray(selectedFile).
-    then(arr => {
-      console.log('arr:');
-      console.log(arr);
-
-      let paramsArr = buildCAESBParamsArr(arr, this.tableName);
-      console.log("paramsArr:");
-      console.log(paramsArr);
-
-      writeItemsInDB(this.state.dbObject, paramsArr)
-      .then(() => {
-        console.log("Upload de dados realizado com sucesso!");
-      })
-      .catch(() => {
-        console.log("Houve um problema no upload do arquivo.");
-      });
-    })
-    .catch(() => {
-      console.log("Houve um problema na leitura do arquivo.");
-    });
-  }
-
   render() {
     return (
       <>
@@ -118,7 +86,8 @@ class Water extends Component {
               onQuery={this.handleQuery}
             />
             <FileInput
-              onUploadFile={this.handleUploadFile}
+              tableName={this.state.tableName}
+              dbObject={this.state.dbObject}
             />
           </>
         )}
