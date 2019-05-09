@@ -31,7 +31,7 @@ class WidgetOneColumn extends Component {
               <div className="col-8 px-0">
                 <div className="widget-title">{firstTitle}</div>
                 <div>{firstValue}</div>
-                <div className="widget-title" style={{ "padding-top": "5px" }}>
+                <div className="widget-title" style={{ "paddingTop": "5px" }}>
                   {secondTitle}
                 </div>
                 <div className="text-truncate">{secondValue}</div>

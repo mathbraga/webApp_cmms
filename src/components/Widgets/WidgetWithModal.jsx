@@ -60,8 +60,8 @@ class WidgetWithModal extends Component {
               <div
                 style={{
                   display: "flex",
-                  "justify-content": "space-between",
-                  "align-items": "baseline"
+                  "justifyContent": "space-between",
+                  "alignItems": "baseline"
                 }}
               >
                 <div className="widget-title text-truncate">

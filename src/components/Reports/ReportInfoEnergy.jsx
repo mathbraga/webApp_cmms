@@ -15,7 +15,7 @@ class ReportInfoEnergy extends Component {
           <tbody>
             {rowNames[this.props.resultType].map(info =>
               info.attr === "dem" ? (
-                <tr>
+                <tr key={info.attr}>
                   <th>{info.name}</th>
                   <td>
                     {this.props.data["dcf"].S} kW - {this.props.data["dcp"].S}{" "}
@@ -23,7 +23,7 @@ class ReportInfoEnergy extends Component {
                   </td>
                 </tr>
               ) : this.props.data[info.attr] ? (
-                <tr>
+                <tr key={info.attr}>
                   <th>{info.name}</th>
                   <td>{this.props.data[info.attr].S}</td>
                 </tr>
