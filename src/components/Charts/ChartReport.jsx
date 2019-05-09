@@ -10,7 +10,7 @@ class ChartReport extends Component {
 
   constructor(props) {
     super(props);
-    if(this.props.tableName === "CEB"){
+    if(this.props.tableName === "CEBteste"){
       this.state = {
         selected: "vbru"
       };
@@ -27,9 +27,9 @@ class ChartReport extends Component {
 
   render() {
     const { medName, itemsForChart } = this.props;
-    let dropdowItems = {};
+    let dropdownItems = {};
     itemsForChart.forEach(key => {
-      dropdowItems[key] = this.props.chartConfigs[
+      dropdownItems[key] = this.props.chartConfigs[
         key
       ].options.title.text;
     });
@@ -42,7 +42,7 @@ class ChartReport extends Component {
         subvalue={medName}
         dropdown
         dropdownTitle={"Ver resultado para:"}
-        dropdownItems={dropdowItems}
+        dropdownItems={dropdownItems}
         showCalcResult={this.onChangeYAxis}
         resultID={this.state.selected}
         bodyClass="fixed-height"
@@ -81,7 +81,7 @@ class ChartReport extends Component {
                 {this.props.chartConfigs[
                   this.state.selected
                 ].data.labels.map((month, index) => (
-                  <tr>
+                  <tr key={month}>
                     <td>{month}</td>
                     <td sytle="{text-align: right}">
                       {formatNumber(

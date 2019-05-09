@@ -182,7 +182,7 @@ class ReportProblems extends Component {
             </thead>
             <tbody>
               {Object.keys(rowNames).map(row => (
-                <tr>
+                <tr key={row}>
                   <th scope="row">{rowNames[row].name}</th>
 
                   {rowNames[row].unit === "R$" ? (

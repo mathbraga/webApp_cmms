@@ -24,7 +24,7 @@ class ReportListMeters extends Component {
           </thead>
           <tbody>
             {this.props.meters.map(unit => (
-              <>
+              <React.Fragment key={unit.id.S}>
                 {this.props.nonEmptyMeters.includes(parseInt(unit.med.N, 10) + 100) &&
                   <tr>
                     <th>{unit.id.S}</th>
@@ -42,7 +42,7 @@ class ReportListMeters extends Component {
                     )}
                   </tr>
                 }
-              </>
+              </React.Fragment>
             ))}
           </tbody>
         </Table>
@@ -60,7 +60,7 @@ class ReportListMeters extends Component {
           </thead>
           <tbody>
             {this.props.meters.map(unit => (
-              <>
+              <React.Fragment key={unit.id.S}>
                 {this.props.nonEmptyMeters.includes(parseInt(unit.med.N, 10) + 200) &&
                   <tr>
                     <th>{unit.id.S}</th>
@@ -69,7 +69,7 @@ class ReportListMeters extends Component {
                     <td>{unit.locais.S}</td>
                   </tr>
                 }
-              </>
+              </React.Fragment>
             ))}
           </tbody>
         </Table>      

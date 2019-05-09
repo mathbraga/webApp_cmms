@@ -73,7 +73,10 @@ class ReportCard extends Component {
                     </DropdownToggle>
                     <DropdownMenu className="dropdown-menu">
                       {Object.keys(dropdownItems).map(itemID => (
-                        <DropdownItem onClick={() => showCalcResult(itemID)}>
+                        <DropdownItem
+                          key={itemID}
+                          onClick={() => showCalcResult(itemID)}
+                        >
                           {dropdownItems[itemID]}
                         </DropdownItem>
                       ))}

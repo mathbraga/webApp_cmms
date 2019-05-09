@@ -10,7 +10,7 @@ import getAllMeters from "../../utils/energy/getAllMeters";
 class Energy extends Component {
   constructor(props) {
     super(props);
-    this.tableName = "CEB";
+    this.tableName = "CEBteste";
     this.tableNameMeters = "CEB-Medidores";
     this.meterType = "1";
     this.defaultMeter = this.meterType + "99";
