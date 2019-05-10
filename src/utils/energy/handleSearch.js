@@ -83,12 +83,19 @@ export default function handleSearch() {
       // OM case
       if (this.state.chosenMeter !== this.meterType + "99" && this.state.oneMonth) {
         queryResponse = data;
-        this.setState({
-          queryResponse: queryResponse,
-          showResult: true,
-          error: false,
-          newLocation: newLocation
-        });
+        if(queryResponse[0].Items.length === 0){
+          alert("NÃO HÁ DADOS PARA O MEDIDOR NO PERÍODO PESQUISADO.\n\nPor favor, escolha novos parâmetros de pesquisa");
+          this.setState({
+            error: true,
+          });
+        } else {
+          this.setState({
+            queryResponse: queryResponse,
+            showResult: true,
+            error: false,
+            newLocation: newLocation
+          });
+        }
       }
 
       // OP case
