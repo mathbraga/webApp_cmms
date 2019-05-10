@@ -115,7 +115,7 @@ class ReportEnergyOneUnit extends Component {
               {rowNames[this.props.resultType].map((column, i) =>
                 column.showInTypes.includes(this.props.data.tipo) ||
                 column.showInTypes.includes(resultCompareObject.tipo) ? (
-                  <tr className={column.type + "-table"}>
+                  <tr key={"1-" + i.toString()} className={column.type + "-table"}>
                     <th className={column.type + "-table"}>{column.name}</th>
                     <td className={column.type + "-table"}>
                       {column.unit === ""
@@ -162,7 +162,7 @@ class ReportEnergyOneUnit extends Component {
                     </td>
                   </tr>
                 ) : (
-                  ""
+                  <tr key={"1-" + i.toString()} className={column.type + "-table"}></tr>
                 )
               )}
             </tbody>
@@ -170,7 +170,7 @@ class ReportEnergyOneUnit extends Component {
           {this.props.resultType === "water" &&
           <tbody>
             {rowNames[this.props.resultType].map((column, i) =>
-                <tr className={column.type + "-table"}>
+                <tr key={"2-" + i.toString()} className={column.type + "-table"}>
                   <th className={column.type + "-table"}>{column.name}</th>
                   <td className={column.type + "-table"}>
                     {column.unit === ""
