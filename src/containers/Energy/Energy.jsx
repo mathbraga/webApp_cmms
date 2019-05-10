@@ -11,7 +11,7 @@ class Energy extends Component {
   constructor(props) {
     super(props);
     this.tableName = "CEBteste";
-    this.tableNameMeters = "CEB-Medidores";
+    this.tableNameMeters = "CEB-Medidoresteste";
     this.meterType = "1";
     this.defaultMeter = this.meterType + "99";
     this.state = {
