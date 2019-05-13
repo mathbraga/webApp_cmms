@@ -6,9 +6,9 @@ class ReportListMeters extends Component {
   render() {
     return (
       <ReportCard
-        title={"Lista de Medidores"}
+        title={"Lista de medidores"}
         titleColSize={12}
-        subtitle={"Dados Atuais"}
+        subtitle={"Dados atuais"}
         bodyClass={"body-scroll"}
       >
 

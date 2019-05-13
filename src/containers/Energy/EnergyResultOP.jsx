@@ -140,11 +140,11 @@ class EnergyResultOP extends Component {
           <Col xs="12" sm="12" xl="6" className="order-xl-2 order-sm-3">
             <WidgetThreeColumns
               titles={[
-                "Dem. Máx.",
-                "Dem. Mín.",
-                "Cons. Máx.",
-                "Cons. Mín.",
-                "Erex",
+                "Dem. máx.",
+                "Dem. mín.",
+                "Cons. máx.",
+                "Cons. mín.",
+                "EREX",
                 "Multas"
               ]}
               values={[

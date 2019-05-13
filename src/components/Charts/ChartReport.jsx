@@ -36,7 +36,7 @@ class ChartReport extends Component {
 
     return (
       <ReportCard
-        title={"Gráfico do Período"}
+        title={"Gráfico do período"}
         titleColSize={3}
         subtitle={"Medidor:"}
         subvalue={medName}
