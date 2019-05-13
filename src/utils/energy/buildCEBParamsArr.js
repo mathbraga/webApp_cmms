@@ -163,10 +163,10 @@ export default function buildCEBParamsArr(arr, tableName){
             N: cip.toString()
           },
           "trib": {
-            N: trib.toString()
+            N: trib.toFixed(2)
           },
           "jma": {
-            N: jma.toString()
+            N: jma.toFixed(2)
           },
           "desc": {
             N: desc.toString()
@@ -205,22 +205,22 @@ export default function buildCEBParamsArr(arr, tableName){
             N: uferf.toString()
           },
           "verexp": {
-            N: verexp.toString()
+            N: verexp.toFixed(2)
           },
           "verexf": {
-            N: verexf.toString()
+            N: verexf.toFixed(2)
           },
           "vdfp": {
-            N: vdfp.toString()
+            N: vdfp.toFixed(2)
           },
           "vdff": {
-            N: vdff.toString()
+            N: vdff.toFixed(2)
           },
           "vudp": {
-            N: vudp.toString()
+            N: vudp.toFixed(2)
           },
           "vudf": {
-            N: vudf.toString()
+            N: vudf.toFixed(2)
           },
           "dcp": {
             N: dcp.toString()
