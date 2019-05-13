@@ -5,7 +5,7 @@ import {
   CardBody,
   Row,
   Col,
-  Input,
+  CustomInput,
   FormGroup,
   Button,
 } from "reactstrap";
@@ -18,6 +18,21 @@ class FileInput extends Component {
   constructor(props){
     super(props);
     this.fileInputRef = React.createRef();
+    this.state = {
+      selectedState: false
+    };
+  }
+
+  handleSelection = event => {
+    if(this.fileInputRef.current.files.length > 0){
+      this.setState({
+        selectedState: true
+      });
+    } else {
+      this.setState({
+        selectedState: false
+      });
+    }
   }
 
   handleUploadFile = event => {
@@ -78,20 +93,41 @@ class FileInput extends Component {
 
             <Col xs="3">
               <FormGroup>
-                <Col>
-                  <Input
-                    type="file"
-                    id="csv-file"
-                    name="csv-file"
-                    innerRef={this.fileInputRef}
-                  />
-                </Col>
+                <CustomInput
+                  label="Clique ou arraste para selecionar"
+                  type="file"
+                  id="csv-file"
+                  name="csv-file"
+                  innerRef={this.fileInputRef}
+                  onChange={this.handleSelection}
+                />
               </FormGroup>
             </Col>
 
-            <Col xs="3">
-              <FormGroup>
-                <Col>
+            {!this.state.selectedState
+              ? (
+                <React.Fragment>
+                  <Col xs="3">
+                    <p>Nenhum arquivo selecionado</p>
+                  </Col>
+                  <Col xs="3">
+                  <Button
+                    className=""
+                    type="submit"
+                    size="md"
+                    color="secondary"
+                    disabled
+                    style={{ margin: "10px 20px" }}
+                  >Enviar arquivo
+                  </Button>
+                  </Col>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <Col xs="3">
+                    <p>Arquivo selecionado:{" " + this.fileInputRef.current.files[0].name}</p>
+                  </Col>
+                  <Col xs="3">
                   <Button
                     className=""
                     type="submit"
@@ -101,9 +137,10 @@ class FileInput extends Component {
                     style={{ margin: "10px 20px" }}
                   >Enviar arquivo
                   </Button>
-                </Col>
-              </FormGroup>
-            </Col>
+                  </Col>
+                </React.Fragment>
+              )
+            }
           </Row>
         </CardBody>
       </Card>
