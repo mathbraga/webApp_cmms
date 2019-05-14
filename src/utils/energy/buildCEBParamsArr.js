@@ -1,9 +1,5 @@
 export default function buildCEBParamsArr(arr, tableName){
   
-  /////////////////////////////////////////////
-  tableName = tableName + "teste"; // REMOVE THIS LINE AFTER TESTS
-  //////////////////////////////////////////////
-
   // Discard header
   let numColumns = 102;
   let noHeader = arr.splice(numColumns);

@@ -1,9 +1,5 @@
 export default function buildCAESBParamsArr(arr, tableName){
   
-  /////////////////////////////////////////////
-  // tableName = tableName + "teste"; // REMOVE THIS LINE AFTER TESTS
-  //////////////////////////////////////////////
-
   // Discard header
   let numColumns = 17;
   let noHeader = arr.splice(numColumns);

@@ -53,7 +53,7 @@ class FileInput extends Component {
 
       let paramsArr = [];
       
-      if(this.props.tableName === "CEB"){
+      if(this.props.tableName === "CEBteste"){
         paramsArr = buildCEBParamsArr(arr, this.props.tableName);
       } else {
         paramsArr = buildCAESBParamsArr(arr, this.props.tableName);
