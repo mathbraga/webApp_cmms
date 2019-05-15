@@ -36,8 +36,8 @@ class WaterResultAM extends Component {
       <ResultCard
         allUnits={true}
         oneMonth={oneMonth}
-        unitNumber={false}
-        unitName={"Todos os medidores"}
+        unitNumber={"Todos medidores"}
+        unitName={"Todos medidores"}
         numOfUnits={nonEmptyMeters.length}
         initialDate={initialDate}
         finalDate={finalDate}

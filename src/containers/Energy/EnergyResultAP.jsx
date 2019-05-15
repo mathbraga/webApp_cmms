@@ -67,7 +67,8 @@ class EnergyResultAP extends Component {
       <ResultCard
         allUnits={true}
         oneMonth={oneMonth}
-        unitName={"Todos os medidores"}
+        unitNumber={"Todos medidores"}
+        unitName={"Todos medidores"}
         numOfUnits={nonEmptyMeters.length}
         initialDate={initialDate}
         finalDate={finalDate}

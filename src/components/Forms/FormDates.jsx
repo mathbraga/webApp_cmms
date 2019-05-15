@@ -88,7 +88,7 @@ class FormDates extends Component {
                   onChange={this.props.onMeterChange}
                   className="input-meters"
                 >
-                  <option value="199">Todos os medidores</option>
+                  <option value="199">Todos medidores</option>
                   {this.props.meters.map(meter => (
                     <option
                       key={(

@@ -45,7 +45,7 @@ class ResultCard extends Component {
           <Row>
             <Col md="9" xs="6">
               <div className="widget-title dash-title text-truncate">
-                <h4>{allUnits ? "Energia Elétrica" : unitNumber}</h4>
+                <h4>{unitNumber}</h4>
                 {allUnits ? (
                   <div className="dash-subtitle text-truncate">
                     Total: <strong>{numOfUnits} medidores</strong>
