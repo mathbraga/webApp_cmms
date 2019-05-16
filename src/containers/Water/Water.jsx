@@ -41,7 +41,14 @@ class Water extends Component {
   }
 
   handleChangeOnDates = handleDates.bind(this);
-  handleQuery = handleSearch.bind(this);
+  
+  handleQuery = event => {
+    handleSearch(this.state.initialDate, this.state.finalDate, this.state.oneMonth, this.state.chosenMeter, this.meterType, this.state.meters, this.state.dbObject, this.state.tableName).then(newState => {
+      this.setState(newState);
+    }).catch(() => {
+      alert("Houve um problema. Por favor, escolha novos parâmetros de pesquisa.");
+    }); 
+  }
 
   handleOneMonth = event => {
     this.setState({
