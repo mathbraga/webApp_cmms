@@ -33,12 +33,7 @@ class Energy extends Component {
       queryResponseAll: false,
       chartConfigs: {},
       showResult: false,
-      newLocation: {
-        hash: "",
-        pathname: "/consumo/energia",
-        search: "",
-        state: {}
-      },
+      newLocation: this.props.location
     };
   }
 
@@ -79,12 +74,7 @@ class Energy extends Component {
       finalDate: prevState.finalDate,
       chosenMeter: this.defaultMeter,
       oneMonth: prevState.oneMonth,
-      newLocation: {
-        hash: "",
-        pathname: "/consumo/energia",
-        search: "",
-        state: {}
-      }
+      newLocation: this.props.location
     }));
   };
 
@@ -94,7 +84,7 @@ class Energy extends Component {
         <Switch location={this.state.newLocation}>
           <Route
             exact
-            path="/consumo/energia"
+            path={this.props.location.pathname}
             render={routerProps => (
               <React.Fragment>
                 <FormDates
@@ -156,6 +146,8 @@ class Energy extends Component {
             )}
           />
         </Switch>
+        
+        
         
         
         {/* {this.state.showResult ? (
