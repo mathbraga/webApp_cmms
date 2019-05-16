@@ -33,7 +33,12 @@ class Energy extends Component {
       queryResponseAll: false,
       chartConfigs: {},
       showResult: false,
-      newLocation: "",
+      newLocation: {
+        hash: "",
+        pathname: "/consumo/energia",
+        search: "",
+        state: {}
+      },
     };
   }
 
@@ -73,74 +78,84 @@ class Energy extends Component {
       initialDate: prevState.initialDate,
       finalDate: prevState.finalDate,
       chosenMeter: this.defaultMeter,
-      oneMonth: prevState.oneMonth
+      oneMonth: prevState.oneMonth,
+      newLocation: {
+        hash: "",
+        pathname: "/consumo/energia",
+        search: "",
+        state: {}
+      }
     }));
   };
 
   render() {
     return (
       <React.Fragment>
-        <Route
-          exact
-          path="/consumo/energia"
-          render={routerProps => (
-            <FormDates
-              {...routerProps}
-              onChangeDate={this.handleChangeOnDates}
-              initialDate={this.state.initialDate}
-              finalDate={this.state.finalDate}
-              oneMonth={this.state.oneMonth}
-              meters={this.state.meters}
-              onChangeOneMonth={this.handleOneMonth}
-              onMeterChange={this.handleMeterChange}
-              onQuery={this.handleQuery}
-            />
-          )}
-        />
-            <Switch location={this.state.newLocation}>
-              <Route
-                path="/consumo/energia/resultados/OM"
-                render={routerProps => (
-                  <EnergyResultOM
-                    {...routerProps}
-                    energyState={this.state}
-                    handleNewSearch={this.showFormDates}
-                  />
-                )}
+        <Switch location={this.state.newLocation}>
+          <Route
+            exact
+            path="/consumo/energia"
+            render={routerProps => (
+              <React.Fragment>
+                <FormDates
+                  {...routerProps}
+                  onChangeDate={this.handleChangeOnDates}
+                  initialDate={this.state.initialDate}
+                  finalDate={this.state.finalDate}
+                  oneMonth={this.state.oneMonth}
+                  meters={this.state.meters}
+                  onChangeOneMonth={this.handleOneMonth}
+                  onMeterChange={this.handleMeterChange}
+                  onQuery={this.handleQuery}
+                />
+                <FileInput
+                  tableName={this.state.tableName}
+                  dbObject={this.state.dbObject}
+                />
+              </React.Fragment>
+            )}
+          />
+          <Route
+            path="/consumo/energia/resultados/OM"
+            render={routerProps => (
+              <EnergyResultOM
+                {...routerProps}
+                energyState={this.state}
+                handleNewSearch={this.showFormDates}
               />
-              <Route
-                path="/consumo/energia/resultados/OP"
-                render={routerProps => (
-                  <EnergyResultOP
-                    {...routerProps}
-                    energyState={this.state}
-                    handleNewSearch={this.showFormDates}
-                  />
-                )}
+            )}
+          />
+          <Route
+            path="/consumo/energia/resultados/OP"
+            render={routerProps => (
+              <EnergyResultOP
+                {...routerProps}
+                energyState={this.state}
+                handleNewSearch={this.showFormDates}
               />
-              <Route
-                path="/consumo/energia/resultados/AM"
-                render={routerProps => (
-                  <EnergyResultAM
-                    {...routerProps}
-                    energyState={this.state}
-                    handleNewSearch={this.showFormDates}
-                  />
-                )}
+            )}
+          />
+          <Route
+            path="/consumo/energia/resultados/AM"
+            render={routerProps => (
+              <EnergyResultAM
+                {...routerProps}
+                energyState={this.state}
+                handleNewSearch={this.showFormDates}
               />
-              <Route
-                path="/consumo/energia/resultados/AP"
-                render={routerProps => (
-                  <EnergyResultAP
-                    {...routerProps}
-                    energyState={this.state}
-                    handleNewSearch={this.showFormDates}
-                  />
-                )}
+            )}
+          />
+          <Route
+            path="/consumo/energia/resultados/AP"
+            render={routerProps => (
+              <EnergyResultAP
+                {...routerProps}
+                energyState={this.state}
+                handleNewSearch={this.showFormDates}
               />
-            </Switch>
-        
-        
+            )}
+          />
+        </Switch>
         
         
         {/* {this.state.showResult ? (
