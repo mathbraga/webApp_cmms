@@ -41,7 +41,14 @@ class Energy extends Component {
   }
 
   handleChangeOnDates = handleDates.bind(this);
-  handleQuery = handleSearch.bind(this);
+  
+  handleQuery = event => {
+    handleSearch(this.state.initialDate, this.state.finalDate, this.state.oneMonth, this.state.chosenMeter, this.meterType, this.state.meters, this.state.dbObject, this.state.tableName).then(newState => {
+      this.setState(newState);
+    }).catch(() => {
+      alert("Houve um problema. Por favor, escolha novos parâmetros de pesquisa.");
+    }); 
+  }
 
   handleOneMonth = event => {
     this.setState({
@@ -67,14 +74,14 @@ class Energy extends Component {
 
   render() {
     return (
-      <>
+      <React.Fragment>
         {this.state.showResult ? (
           <EnergyResults
             energyState={this.state}
             handleClick={this.showFormDates}
           />
         ) : (
-          <>
+          <React.Fragment>
             <FormDates
               onChangeDate={this.handleChangeOnDates}
               initialDate={this.state.initialDate}
@@ -89,9 +96,9 @@ class Energy extends Component {
               tableName={this.state.tableName}
               dbObject={this.state.dbObject}
             />
-          </>
+          </React.Fragment>
         )}
-      </>
+      </React.Fragment>
     );
   }
 }
