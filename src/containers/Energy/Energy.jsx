@@ -6,6 +6,11 @@ import handleDates from "../../utils/energy/handleDates";
 import initializeDynamoDB from "../../utils/energy/initializeDynamoDB";
 import handleSearch from "../../utils/energy/handleSearch";
 import getAllMeters from "../../utils/energy/getAllMeters";
+import { Route, Switch } from "react-router-dom";
+import EnergyResultOM from "./EnergyResultOM";
+import EnergyResultOP from "./EnergyResultOP";
+import EnergyResultAM from "./EnergyResultAM";
+import EnergyResultAP from "./EnergyResultAP";
 
 class Energy extends Component {
   constructor(props) {
@@ -75,7 +80,70 @@ class Energy extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.state.showResult ? (
+        <Route
+          exact
+          path="/consumo/energia"
+          render={routerProps => (
+            <FormDates
+              {...routerProps}
+              onChangeDate={this.handleChangeOnDates}
+              initialDate={this.state.initialDate}
+              finalDate={this.state.finalDate}
+              oneMonth={this.state.oneMonth}
+              meters={this.state.meters}
+              onChangeOneMonth={this.handleOneMonth}
+              onMeterChange={this.handleMeterChange}
+              onQuery={this.handleQuery}
+            />
+          )}
+        />
+            <Switch location={this.state.newLocation}>
+              <Route
+                path="/consumo/energia/resultados/OM"
+                render={routerProps => (
+                  <EnergyResultOM
+                    {...routerProps}
+                    energyState={this.state}
+                    handleNewSearch={this.showFormDates}
+                  />
+                )}
+              />
+              <Route
+                path="/consumo/energia/resultados/OP"
+                render={routerProps => (
+                  <EnergyResultOP
+                    {...routerProps}
+                    energyState={this.state}
+                    handleNewSearch={this.showFormDates}
+                  />
+                )}
+              />
+              <Route
+                path="/consumo/energia/resultados/AM"
+                render={routerProps => (
+                  <EnergyResultAM
+                    {...routerProps}
+                    energyState={this.state}
+                    handleNewSearch={this.showFormDates}
+                  />
+                )}
+              />
+              <Route
+                path="/consumo/energia/resultados/AP"
+                render={routerProps => (
+                  <EnergyResultAP
+                    {...routerProps}
+                    energyState={this.state}
+                    handleNewSearch={this.showFormDates}
+                  />
+                )}
+              />
+            </Switch>
+        
+        
+        
+        
+        {/* {this.state.showResult ? (
           <EnergyResults
             energyState={this.state}
             handleClick={this.showFormDates}
@@ -97,7 +165,7 @@ class Energy extends Component {
               dbObject={this.state.dbObject}
             />
           </React.Fragment>
-        )}
+        )} */}
       </React.Fragment>
     );
   }
