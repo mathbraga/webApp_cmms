@@ -4,11 +4,14 @@ import ReportCard from "../Cards/ReportCard";
 import queryLastBills from "../../utils/consumptionMonitor/queryLastBills";
 import { transformDateString } from "../../utils/consumptionMonitor/transformDateString";
 import formatNumber from "../../utils/consumptionMonitor/formatText";
-import { rowNames } from "./ReportOneUnit-Config";
+// import { rowNames } from "./ReportOneUnit-Config";
 
 class ReportOneUnit extends Component {
   constructor(props) {
     super(props);
+
+    this.rowNamesBill = this.props.rowNamesBill;
+
     this.state = {
       typeOfComparison: "lastMonth",
       comparisonResponseList: false
@@ -52,7 +55,7 @@ class ReportOneUnit extends Component {
         break;
       default:
         result = {};
-        rowNames[this.props.resultType].forEach(column => {
+        this.rowNamesBill[this.props.resultType].forEach(column => {
           let size = 0;
           if (column.attr) {
             this.state.comparisonResponseList.forEach(item => {
@@ -80,6 +83,9 @@ class ReportOneUnit extends Component {
       this.state.comparisonResponseList && this.returnChangeComparisonObject();
     const resultCompareObject = compareObject && compareObject.result;
     const dateCompareObject = compareObject && compareObject.dateRequired;
+    // const {
+    //   rowNamesBill
+    // } = this.props;
 
     return (
       <ReportCard
@@ -110,67 +116,11 @@ class ReportOneUnit extends Component {
               <th>Variação</th>
             </tr>
           </thead>
-          {this.props.resultType === "energy" &&
-            <tbody>
-              {rowNames[this.props.resultType].map((column, i) =>
-                column.showInTypes.includes(this.props.data.tipo) ||
-                column.showInTypes.includes(resultCompareObject.tipo) ? (
-                  <tr key={"1-" + i.toString()} className={column.type + "-table"}>
-                    <th className={column.type + "-table"}>{column.name}</th>
-                    <td className={column.type + "-table"}>
-                      {column.unit === ""
-                        ? ""
-                        : isNaN(this.props.data[column.attr]) ||
-                          this.props.data[column.attr] === 0
-                        ? "-"
-                        : column.unit === "R$"
-                        ? "R$ " + formatNumber(this.props.data[column.attr], 2)
-                        : formatNumber(this.props.data[column.attr], 0) +
-                          " " +
-                          column.unit}
-                    </td>
-                    <td className={column.type + "-table"}>
-                      {column.unit === ""
-                        ? ""
-                        : isNaN(resultCompareObject[column.attr]) ||
-                          resultCompareObject[column.attr] === 0
-                        ? "-"
-                        : column.unit === "R$"
-                        ? "R$ " +
-                          formatNumber(resultCompareObject[column.attr], 2)
-                        : formatNumber(resultCompareObject[column.attr], 0) +
-                          " " +
-                          column.unit}
-                    </td>
-                    <td>
-                      {!column.var
-                        ? ""
-                        : isNaN(this.props.data[column.attr]) ||
-                          isNaN(resultCompareObject[column.attr]) ||
-                          !this.props.data[column.attr] ||
-                          !resultCompareObject[column.attr] ||
-                          this.props.data[column.attr] ==
-                            resultCompareObject[column.attr]
-                        ? "-"
-                        : formatNumber(
-                            ((this.props.data[column.attr] -
-                              resultCompareObject[column.attr]) /
-                              resultCompareObject[column.attr]) *
-                              100,
-                            2
-                          ) + " %"}
-                    </td>
-                  </tr>
-                ) : (
-                  <tr key={"1-" + i.toString()} className={column.type + "-table"}></tr>
-                )
-              )}
-            </tbody>
-          }
-          {this.props.resultType === "water" &&
           <tbody>
-            {rowNames[this.props.resultType].map((column, i) =>
-                <tr key={"2-" + i.toString()} className={column.type + "-table"}>
+            {this.rowNamesBill.map((column, i) =>
+              column.showInTypes.includes(this.props.data.tipo) ||
+              column.showInTypes.includes(resultCompareObject.tipo) ? (
+                <tr key={"1-" + i.toString()} className={column.type + "-table"}>
                   <th className={column.type + "-table"}>{column.name}</th>
                   <td className={column.type + "-table"}>
                     {column.unit === ""
@@ -216,9 +166,11 @@ class ReportOneUnit extends Component {
                         ) + " %"}
                   </td>
                 </tr>
+              ) : (
+                <tr key={"1-" + i.toString()} className={column.type + "-table"}></tr>
+              )
             )}
           </tbody>
-          }
         </Table>
       </ReportCard>
     );

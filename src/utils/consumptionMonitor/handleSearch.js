@@ -5,6 +5,7 @@ import aammTransformDate from "./aammTransformDate";
 import sumAllMeters from "./sumAllMeters";
 import removeEmptyMeters from "./removeEmptyMeters";
 import makeChartConfigs from "./makeChartConfigs";
+import buildResultOM from "./buildResultOM";
 
 export default function handleSearch(initialDate, finalDate, oneMonth, chosenMeter, meterType, meters, dbObject, tableName) {
   return new Promise((resolve, reject) => {
@@ -92,7 +93,8 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
               queryResponse: queryResponse,
               showResult: true,
               error: false,
-              newLocation: newLocation
+              newLocation: newLocation,
+              resultObject: buildResultOM(meterType, meters,chosenMeter, queryResponse)
             };
           }
         }

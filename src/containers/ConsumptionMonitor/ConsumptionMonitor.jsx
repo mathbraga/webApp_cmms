@@ -31,7 +31,8 @@ class ConsumptionMonitor extends Component {
       queryResponseAll: false,
       chartConfigs: {},
       showResult: false,
-      newLocation: this.props.location
+      newLocation: this.props.location,
+      resultObject: {}
     };
   }
 

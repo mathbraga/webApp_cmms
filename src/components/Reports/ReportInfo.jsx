@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import ReportCard from "../Cards/ReportCard";
-import { rowNames } from "./ReportInfo-Config";
+// import { rowNames } from "./ReportInfo-Config";
 
 class ReportInfo extends Component {
   render() {
 
-    let resultType = "";
-    switch(this.props.meterType){
-      case("1") : resultType = "energy";break;
-      case("2") : resultType = "water";break;
-    }
+    const {
+      rowNamesInfo
+    } = this.props
   
     return (
       <ReportCard
@@ -20,7 +18,7 @@ class ReportInfo extends Component {
       >
         <Table responsive size="sm">
           <tbody>
-            {rowNames[resultType].map(info =>
+            {rowNamesInfo.map(info =>
               info.attr === "dem" ? (
                 <tr key={info.attr}>
                   <th>{info.name}</th>
