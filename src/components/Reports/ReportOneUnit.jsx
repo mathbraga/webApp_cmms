@@ -55,7 +55,7 @@ class ReportOneUnit extends Component {
         break;
       default:
         result = {};
-        this.rowNamesBill[this.props.resultType].forEach(column => {
+        this.rowNamesBill.forEach(column => {
           let size = 0;
           if (column.attr) {
             this.state.comparisonResponseList.forEach(item => {
