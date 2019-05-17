@@ -13,9 +13,6 @@ class ResultAM extends Component {
 
     // Initialize all variables
     // Loading images
-    const imageEnergyMoney = require("../../assets/icons/money_energy.png");
-    const imageEnergyPlug = require("../../assets/icons/plug_energy.png");
-    const imageEnergyWarning = require("../../assets/icons/alert_icon.png");
 
     const {
       initialDate,
@@ -24,17 +21,22 @@ class ResultAM extends Component {
       meters,
       chosenMeter,
       nonEmptyMeters,
-      queryResponseAll
+      queryResponseAll,
+      resultObject
     } = this.props.consumptionState;
-    let result = {
-      unit: false,
-      queryResponse: this.props.consumptionState.queryResponse[0].Items[0]
-    };
-    // Getting the right unit
-    meters.forEach(item => {
-      if (parseInt(item.med.N) + 100 == chosenMeter) result.unit = item;
-    });
+    // let result = {
+    //   unit: false,
+    //   queryResponse: this.props.consumptionState.queryResponse[0].Items[0]
+    // };
+    // // Getting the right unit
+    // meters.forEach(item => {
+    //   if (parseInt(item.med.N) + 100 == chosenMeter) result.unit = item;
+    // });
     // const dateString = transformDateString(result.queryResponse.aamm);
+
+    const imageEnergyMoney = require("../../assets/icons" + resultObject.image1);
+    const imageEnergyPlug = require("../../assets/icons" + resultObject.image2);
+    const imageEnergyWarning = require("../../assets/icons" + resultObject.image3);
 
     return (
       <ResultCard
@@ -52,9 +54,9 @@ class ResultAM extends Component {
           <Col xs="12" sm="6" xl="3" className="order-xl-1 order-sm-1">
             <WidgetOneColumn
               firstTitle={"Consumo"}
-              firstValue={formatNumber(result.queryResponse.kwh, 0) + " kWh"}
+              firstValue={formatNumber(resultObject.queryResponse.kwh, 0) + " kWh"}
               secondTitle={"Gasto"}
-              secondValue={"R$ " + formatNumber(result.queryResponse.vbru, 2)}
+              secondValue={"R$ " + formatNumber(resultObject.queryResponse.vbru, 2)}
               image={imageEnergyMoney}
             />
           </Col>
@@ -69,21 +71,21 @@ class ResultAM extends Component {
                 "UFER"
               ]}
               values={[
-                formatNumber(result.queryResponse.dms, 0) + " kW",
+                formatNumber(resultObject.queryResponse.dms, 0) + " kW",
                 "R$ " +
                   formatNumber(
-                    result.queryResponse.vudf + result.queryResponse.vudp,
+                    resultObject.queryResponse.vudf + resultObject.queryResponse.vudp,
                     0
                   ),
-                "R$ " + formatNumber(result.queryResponse.desc, 2),
-                "R$ " + formatNumber(result.queryResponse.jma, 2),
+                "R$ " + formatNumber(resultObject.queryResponse.desc, 2),
+                "R$ " + formatNumber(resultObject.queryResponse.jma, 2),
                 "R$ " +
                   formatNumber(
-                    result.queryResponse.verexf + result.queryResponse.verexp,
+                    resultObject.queryResponse.verexf + resultObject.queryResponse.verexp,
                     2
                   ),
                 formatNumber(
-                  result.queryResponse.uferf + result.queryResponse.uferp,
+                  resultObject.queryResponse.uferf + resultObject.queryResponse.uferp,
                   0
                 )
               ]}
@@ -101,7 +103,7 @@ class ResultAM extends Component {
               chosenMeter={this.props.consumptionState.chosenMeter}
               initialDate={initialDate}
               finalDate={finalDate}
-              data={result}
+              data={resultObject}
               title={"Diagnóstico"}
               buttonName={"Ver relatório"}
               image={imageEnergyWarning}
@@ -116,7 +118,6 @@ class ResultAM extends Component {
             <ReportListMeters
               meters={this.props.consumptionState.meters}
               nonEmptyMeters={this.props.consumptionState.nonEmptyMeters}
-              resultType="energy"
             />
           </Col>
         </Row>

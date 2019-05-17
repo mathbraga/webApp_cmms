@@ -8,6 +8,7 @@ import makeChartConfigs from "./makeChartConfigs";
 import buildResultOM from "./buildResultOM";
 import buildResultOP from "./buildResultOP";
 import buildResultAP from "./buildResultAP";
+import buildResultAM from "./buildResultAM";
 
 export default function handleSearch(initialDate, finalDate, oneMonth, chosenMeter, meterType, meters, dbObject, tableName) {
   return new Promise((resolve, reject) => {
@@ -64,7 +65,8 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
             queryResponse: queryResponse,
             showResult: true,
             error: false,
-            newLocation: newLocation
+            newLocation: newLocation,
+            resultObject: buildResultAM(meterType, meters, chosenMeter, queryResponse, chartConfigs)
           };
         }
 
