@@ -19,49 +19,51 @@ class ResultAP extends Component {
       chosenMeter,
       queryResponse,
       chartConfigs,
-      nonEmptyMeters
+      nonEmptyMeters,
+      resultObject
     } = this.props.consumptionState;
-    const imageEnergyMoney = require("../../assets/icons/money_energy.png");
-    const imageEnergyPlug = require("../../assets/icons/plug_energy.png");
-    const imageEnergyWarning = require("../../assets/icons/alert_icon.png");
+    
+    const imageEnergyMoney = require("../../assets/icons" + resultObject.image1);
+    const imageEnergyPlug = require("../../assets/icons" + resultObject.image2);
+    const imageEnergyWarning = require("../../assets/icons" + resultObject.image3);
 
-    let result = {
-      unit: false,
-      queryResponse: queryResponse[0].Items[0]
-    };
+    // let result = {
+    //   unit: false,
+    //   queryResponse: queryResponse[0].Items[0]
+    // };
 
-    const totalValues = {};
-    Object.keys(chartConfigs).forEach(key => {
-      const values = chartConfigs[key].data.datasets[0].data;
-      totalValues[key] = values.reduce(
-        (previous, current) => (previous += current)
-      );
-    });
+    // const totalValues = {};
+    // Object.keys(chartConfigs).forEach(key => {
+    //   const values = chartConfigs[key].data.datasets[0].data;
+    //   totalValues[key] = values.reduce(
+    //     (previous, current) => (previous += current)
+    //   );
+    // });
 
-    const itemsForChart = [
-      "vbru",
-      "vliq",
-      "cip",
-      "desc",
-      "jma",
-      "kwh",
-      "kwhf",
-      "kwhp",
-      "dms",
-      "vdff",
-      "vdfp",
-      "vudf",
-      "vudp",
-      "verexf",
-      "verexp",
-      "uferf",
-      "uferp",
-      "trib",
-      "icms",
-      "basec"
-    ];
+    // const itemsForChart = [
+    //   "vbru",
+    //   "vliq",
+    //   "cip",
+    //   "desc",
+    //   "jma",
+    //   "kwh",
+    //   "kwhf",
+    //   "kwhp",
+    //   "dms",
+    //   "vdff",
+    //   "vdfp",
+    //   "vudf",
+    //   "vudp",
+    //   "verexf",
+    //   "verexp",
+    //   "uferf",
+    //   "uferp",
+    //   "trib",
+    //   "icms",
+    //   "basec"
+    // ];
 
-    const demMax = Math.max(...chartConfigs.dms.data.datasets[0].data);
+    // const demMax = Math.max(...chartConfigs.dms.data.datasets[0].data);
 
     return (
       <ResultCard
@@ -79,9 +81,9 @@ class ResultAP extends Component {
           <Col xs="12" sm="6" xl="3" className="order-xl-1 order-sm-1">
             <WidgetOneColumn
               firstTitle={"Consumo"}
-              firstValue={formatNumber(totalValues.kwh, 0) + " kWh"}
+              firstValue={formatNumber(resultObject.totalValues.kwh, 0) + " kWh"}
               secondTitle={"Gasto"}
-              secondValue={"R$ " + formatNumber(totalValues.vbru, 2)}
+              secondValue={"R$ " + formatNumber(resultObject.totalValues.vbru, 2)}
               image={imageEnergyMoney}
             />
           </Col>
@@ -96,13 +98,13 @@ class ResultAP extends Component {
                 "UFER"
               ]}
               values={[
-                formatNumber(demMax, 0) + " kW",
-                "R$ " + formatNumber(totalValues.vudf + totalValues.vudp, 2),
-                "R$ " + formatNumber(totalValues.desc, 2),
-                "R$ " + formatNumber(totalValues.jma, 2),
+                formatNumber(resultObject.demMax, 0) + " kW",
+                "R$ " + formatNumber(resultObject.totalValues.vudf + resultObject.totalValues.vudp, 2),
+                "R$ " + formatNumber(resultObject.totalValues.desc, 2),
+                "R$ " + formatNumber(resultObject.totalValues.jma, 2),
                 "R$ " +
-                  formatNumber(totalValues.verexf + totalValues.verexp, 2),
-                formatNumber(totalValues.uferf + totalValues.uferp, 0)
+                  formatNumber(resultObject.totalValues.verexf + resultObject.totalValues.verexp, 2),
+                formatNumber(resultObject.totalValues.uferf + resultObject.totalValues.uferp, 0)
               ]}
               image={imageEnergyPlug}
             />
@@ -115,7 +117,7 @@ class ResultAP extends Component {
               initialDate={initialDate}
               finalDate={finalDate}
               // typeOfUnit={result.unit.modtar.S}
-              data={result}
+              data={resultObject}
               title={"Diagnóstico"}
               buttonName={"Ver Relatório"}
               image={imageEnergyWarning}
@@ -126,8 +128,8 @@ class ResultAP extends Component {
           <Col>
             <ChartReport
               consumptionState={this.props.consumptionState}
-              medName={"23 medidores"}
-              itemsForChart={itemsForChart}
+              medName={this.props.consumptionState.nonEmptyMeters.length.toString() + " medidores"}
+              itemsForChart={resultObject.itemsForChart}
               chartConfigs={this.props.consumptionState.chartConfigs}
               tableName={this.props.consumptionState.tableName}
             />
@@ -138,7 +140,6 @@ class ResultAP extends Component {
             <ReportListMeters
               meters={meters}
               nonEmptyMeters={nonEmptyMeters}
-              resultType="energy"
             />
           </Col>
         </Row>

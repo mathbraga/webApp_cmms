@@ -12,7 +12,6 @@ class ReportListMeters extends Component {
         bodyClass={"body-scroll"}
       >
 
-      {this.props.resultType === "energy" &&
         <Table responsive size="sm">
           <thead>
             <tr>
@@ -46,34 +45,6 @@ class ReportListMeters extends Component {
             ))}
           </tbody>
         </Table>
-      }
-      
-      {this.props.resultType === "water" &&
-        <Table responsive size="sm">
-          <thead>
-            <tr>
-              <th>Medidor</th>
-              <th>Nome</th>
-              <th>Hidrômetro</th>
-              <th>Locais</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.meters.map(unit => (
-              <React.Fragment key={unit.id.S}>
-                {this.props.nonEmptyMeters.includes(parseInt(unit.med.N, 10) + 200) &&
-                  <tr>
-                    <th>{unit.id.S}</th>
-                    <td>{unit.nome.S}</td>
-                    <td>{unit.hidrom.S}</td>
-                    <td>{unit.locais.S}</td>
-                  </tr>
-                }
-              </React.Fragment>
-            ))}
-          </tbody>
-        </Table>      
-      }
       </ReportCard>
     );
   }
