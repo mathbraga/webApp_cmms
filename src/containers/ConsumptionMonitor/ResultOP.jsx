@@ -14,46 +14,46 @@ import applyFuncToAttr from "../../utils/consumptionMonitor/objectOperations";
 class ResultOP extends Component {
   constructor(props) {
     super(props);
-    const { Items } = props.consumptionState.queryResponse[0];
-    this.totalKWh = applyFuncToAttr(Items, "kwh", (...values) =>
-      values.reduce((previous, current) => (current += previous))
-    );
-    this.totalVbru = applyFuncToAttr(Items, "vbru", (...values) =>
-      values.reduce((previous, current) => (current += previous))
-    );
-    this.demMax = Math.max(
-      applyFuncToAttr(Items, "dmf", Math.max),
-      applyFuncToAttr(Items, "dmp", Math.max)
-    );
+    // const { Items } = props.consumptionState.queryResponse[0];
+    // this.totalKWh = applyFuncToAttr(Items, "kwh", (...values) =>
+    //   values.reduce((previous, current) => (current += previous))
+    // );
+    // this.totalVbru = applyFuncToAttr(Items, "vbru", (...values) =>
+    //   values.reduce((previous, current) => (current += previous))
+    // );
+    // this.demMax = Math.max(
+    //   applyFuncToAttr(Items, "dmf", Math.max),
+    //   applyFuncToAttr(Items, "dmp", Math.max)
+    // );
 
-    this.demMinFP = applyFuncToAttr(Items, "dmf", Math.min);
-    this.demMinP = applyFuncToAttr(Items, "dmp", Math.min);
-    this.demMin = 0;
-    if (this.demMinFP === 0) {
-      this.demMin = this.demMinP;
-    } else if (this.demMinP === 0) {
-      this.demMin = this.demMinFP;
-    } else this.demMin = Math.min(this.demMinFP, this.demMinP);
+    // this.demMinFP = applyFuncToAttr(Items, "dmf", Math.min);
+    // this.demMinP = applyFuncToAttr(Items, "dmp", Math.min);
+    // this.demMin = 0;
+    // if (this.demMinFP === 0) {
+    //   this.demMin = this.demMinP;
+    // } else if (this.demMinP === 0) {
+    //   this.demMin = this.demMinFP;
+    // } else this.demMin = Math.min(this.demMinFP, this.demMinP);
 
-    this.consMax = applyFuncToAttr(Items, "kwh", Math.max);
-    this.consMin = applyFuncToAttr(Items, "kwh", Math.min);
-    this.erexSum = applyFuncToAttr(Items, "verexf", (...values) =>
-      values.reduce((previous, current) => (current += previous))
-    );
-    this.erexSum += applyFuncToAttr(Items, "verexp", (...values) =>
-      values.reduce((previous, current) => (current += previous))
-    );
-    this.multaSum = applyFuncToAttr(Items, "jma", (...values) =>
-      values.reduce((previous, current) => (current += previous))
-    );
-    this.lastType = false;
-    Items.forEach(item => {
-      let lastDate = false;
-      if (lastDate || item.aamm > lastDate) {
-        lastDate = item.aamm;
-        this.lastType = item.tipo;
-      }
-    });
+    // this.consMax = applyFuncToAttr(Items, "kwh", Math.max);
+    // this.consMin = applyFuncToAttr(Items, "kwh", Math.min);
+    // this.erexSum = applyFuncToAttr(Items, "verexf", (...values) =>
+    //   values.reduce((previous, current) => (current += previous))
+    // );
+    // this.erexSum += applyFuncToAttr(Items, "verexp", (...values) =>
+    //   values.reduce((previous, current) => (current += previous))
+    // );
+    // this.multaSum = applyFuncToAttr(Items, "jma", (...values) =>
+    //   values.reduce((previous, current) => (current += previous))
+    // );
+    // this.lastType = false;
+    // Items.forEach(item => {
+    //   let lastDate = false;
+    //   if (lastDate || item.aamm > lastDate) {
+    //     lastDate = item.aamm;
+    //     this.lastType = item.tipo;
+    //   }
+    // });
   }
 
   render() {
@@ -64,77 +64,78 @@ class ResultOP extends Component {
       finalDate,
       chosenMeter,
       dbObject,
-      meterType
+      meterType,
+      resultObject
     } = this.props.consumptionState;
 
-    const imageEnergyMoney = require("../../assets/icons/money_energy.png");
-    const imageEnergyPlug = require("../../assets/icons/plug_energy.png");
-    const imageEnergyWarning = require("../../assets/icons/alert_icon.png");
+    const imageEnergyMoney = require("../../assets/icons" + resultObject.image1);
+    const imageEnergyPlug = require("../../assets/icons" + resultObject.image2);
+    const imageEnergyWarning = require("../../assets/icons" + resultObject.image3);
 
-    let result = {
-      unit: false,
-      queryResponse: this.props.consumptionState.queryResponse[0].Items
-    };
+    // let result = {
+    //   unit: false,
+    //   queryResponse: this.props.consumptionState.queryResponse[0].Items
+    // };
     // Getting the right unit
-    meters.forEach(item => {
-      if (parseInt(item.med.N) + 100 == chosenMeter) result.unit = item;
-    });
-    this.dateMax = applyFuncToAttr(result.queryResponse, "aamm", Math.max);
-    const dateString = transformDateString(this.dateMax);
+    // meters.forEach(item => {
+    //   if (parseInt(item.med.N) + 100 == chosenMeter) resultObject.unit = item;
+    // });
+    // this.dateMax = applyFuncToAttr(resultObject.queryResponse, "aamm", Math.max);
+    // const dateString = transformDateString(this.dateMax);
 
-    const typeText = {
-      0: "Convencional",
-      1: "Horária - Verde",
-      2: "Horária - Azul"
-    };
+    // const typeText = {
+    //   0: "Convencional",
+    //   1: "Horária - Verde",
+    //   2: "Horária - Azul"
+    // };
 
-    const itemsForChart = [
-      "vbru",
-      "vliq",
-      "cip",
-      "desc",
-      "jma",
-      "kwh",
-      "confat",
-      "kwhf",
-      "kwhp",
-      "dms",
-      "dmf",
-      "dmp",
-      "dcf",
-      "dcp",
-      "dff",
-      "dfp",
-      "vdff",
-      "vdfp",
-      "vudf",
-      "vudp",
-      "tipo",
-      "verexf",
-      "verexp",
-      "uferf",
-      "uferp",
-      "trib",
-      "icms",
-      "basec"
-    ];
+    // const itemsForChart = [
+    //   "vbru",
+    //   "vliq",
+    //   "cip",
+    //   "desc",
+    //   "jma",
+    //   "kwh",
+    //   "confat",
+    //   "kwhf",
+    //   "kwhp",
+    //   "dms",
+    //   "dmf",
+    //   "dmp",
+    //   "dcf",
+    //   "dcp",
+    //   "dff",
+    //   "dfp",
+    //   "vdff",
+    //   "vdfp",
+    //   "vudf",
+    //   "vudp",
+    //   "tipo",
+    //   "verexf",
+    //   "verexp",
+    //   "uferf",
+    //   "uferp",
+    //   "trib",
+    //   "icms",
+    //   "basec"
+    // ];
 
     return (
       <ResultCard
-        unitNumber={result.unit.id.S}
-        unitName={result.unit.nome.S}
+        unitNumber={resultObject.unit.id.S}
+        unitName={resultObject.unit.nome.S}
         initialDate={initialDate}
         finalDate={finalDate}
-        typeOfUnit={typeText[this.lastType]}
+        typeOfUnit={resultObject.typeText[resultObject.lastType]}
         handleNewSearch={this.props.handleNewSearch}
       >
         <Row>
           <Col xs="12" sm="6" xl="3" className="order-xl-1 order-sm-1">
             <WidgetOneColumn
               firstTitle={"Consumo"}
-              firstValue={formatNumber(this.totalKWh, 0) + " kWh"}
+              firstValue={formatNumber(resultObject.totalKWh, 0) + " kWh"}
               secondTitle={"Gasto"}
-              secondValue={"R$ " + formatNumber(this.totalVbru, 2)}
+              secondValue={"R$ " + formatNumber(resultObject.totalVbru, 2)}
               image={imageEnergyMoney}
             />
           </Col>
@@ -149,12 +150,12 @@ class ResultOP extends Component {
                 "Multas"
               ]}
               values={[
-                formatNumber(this.demMax, 0) + " kW",
-                formatNumber(this.demMin, 0) + " kW",
-                formatNumber(this.consMax, 0) + " kWh",
-                formatNumber(this.consMin, 0) + " kWh",
-                "R$ " + formatNumber(this.erexSum, 2),
-                "R$ " + formatNumber(this.multaSum, 2)
+                formatNumber(resultObject.demMax, 0) + " kW",
+                formatNumber(resultObject.demMin, 0) + " kW",
+                formatNumber(resultObject.consMax, 0) + " kWh",
+                formatNumber(resultObject.consMin, 0) + " kWh",
+                "R$ " + formatNumber(resultObject.erexSum, 2),
+                "R$ " + formatNumber(resultObject.multaSum, 2)
               ]}
               image={imageEnergyPlug}
             />
@@ -162,12 +163,12 @@ class ResultOP extends Component {
           <Col xs="12" sm="6" xl="3" className="order-xl-3 order-sm-2">
             <WidgetWithModal
               chosenMeter={chosenMeter}
-              // unitNumber={result.unit.id.S}
-              // unitName={result.unit.nome.S}
+              // unitNumber={resultObject.unit.id.S}
+              // unitName={resultObject.unit.nome.S}
               initialDate={initialDate}
               finalDate={finalDate}
-              // typeOfUnit={result.unit.modtar.S}
-              data={result}
+              // typeOfUnit={resultObject.unit.modtar.S}
+              data={resultObject}
               title={"Diagnóstico"}
               buttonName={"Ver Relatório"}
               image={imageEnergyWarning}
@@ -176,16 +177,16 @@ class ResultOP extends Component {
         </Row>
         <Row>
           <Col md="6">
-            <ReportInfo data={result.unit} date={dateString} meterType={meterType}/>
+            <ReportInfo data={resultObject.unit} date={resultObject.dateString} rowNamesInfo={resultObject.rowNamesInfo}/>
           </Col>
           <Col md="6">
             <ReportCalculations
               dbObject={dbObject}
               consumer={chosenMeter}
-              dateString={dateString}
-              data={result.queryResponse}
-              demandContract={result.unit}
-              type={result.queryResponse[result.queryResponse.length - 1].tipo}
+              dateString={resultObject.dateString}
+              data={resultObject.queryResponse}
+              demandContract={resultObject.unit}
+              type={resultObject.queryResponse[resultObject.queryResponse.length - 1].tipo}
             />
           </Col>
         </Row>
@@ -193,8 +194,8 @@ class ResultOP extends Component {
           <Col>
             <ChartReport
               consumptionState={this.props.consumptionState}
-              medName={result.unit.nome.S}
-              itemsForChart={itemsForChart}
+              medName={resultObject.unit.nome.S}
+              itemsForChart={resultObject.itemsForChart}
               chartConfigs={this.props.consumptionState.chartConfigs}
               tableName={this.props.consumptionState.tableName}
             />

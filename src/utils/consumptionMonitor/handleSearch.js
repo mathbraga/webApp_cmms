@@ -6,6 +6,7 @@ import sumAllMeters from "./sumAllMeters";
 import removeEmptyMeters from "./removeEmptyMeters";
 import makeChartConfigs from "./makeChartConfigs";
 import buildResultOM from "./buildResultOM";
+import buildResultOP from "./buildResultOP";
 
 export default function handleSearch(initialDate, finalDate, oneMonth, chosenMeter, meterType, meters, dbObject, tableName) {
   return new Promise((resolve, reject) => {
@@ -94,7 +95,7 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
               showResult: true,
               error: false,
               newLocation: newLocation,
-              resultObject: buildResultOM(meterType, meters,chosenMeter, queryResponse)
+              resultObject: buildResultOM(meterType, meters, chosenMeter, queryResponse)
             };
           }
         }
@@ -108,7 +109,8 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
             showResult: true,
             error: false,
             newLocation: newLocation,
-            chartConfigs: chartConfigs
+            chartConfigs: chartConfigs,
+            resultObject: buildResultOP(meterType, meters, chosenMeter, queryResponse)
           };
         }
       resolve(newState);

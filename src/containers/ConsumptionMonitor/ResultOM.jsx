@@ -162,7 +162,7 @@ class ResultOM extends Component {
         </Row>
         <Row>
           <Col md="6">
-            <ReportInfo data={resultObject.unit} date={resultObject.dateString} meterType={meterType} rowNamesInfo={resultObject.rowNamesInfo}/>
+            <ReportInfo data={resultObject.unit} date={resultObject.dateString} rowNamesInfo={resultObject.rowNamesInfo}/>
           </Col>
           <Col md="6">
             <ReportCalculations
