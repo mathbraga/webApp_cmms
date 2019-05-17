@@ -108,7 +108,7 @@ class ConsumptionMonitor extends Component {
             render={routerProps => (
               <ResultOM
                 {...routerProps}
-                energyState={this.state}
+                consumptionState={this.state}
                 handleNewSearch={this.showFormDates}
               />
             )}
@@ -118,7 +118,7 @@ class ConsumptionMonitor extends Component {
             render={routerProps => (
               <ResultOP
                 {...routerProps}
-                energyState={this.state}
+                consumptionState={this.state}
                 handleNewSearch={this.showFormDates}
               />
             )}
@@ -128,7 +128,7 @@ class ConsumptionMonitor extends Component {
             render={routerProps => (
               <ResultAM
                 {...routerProps}
-                energyState={this.state}
+                consumptionState={this.state}
                 handleNewSearch={this.showFormDates}
               />
             )}
@@ -138,7 +138,7 @@ class ConsumptionMonitor extends Component {
             render={routerProps => (
               <ResultAP
                 {...routerProps}
-                energyState={this.state}
+                consumptionState={this.state}
                 handleNewSearch={this.showFormDates}
               />
             )}

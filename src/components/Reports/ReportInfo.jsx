@@ -3,8 +3,15 @@ import { Table } from "reactstrap";
 import ReportCard from "../Cards/ReportCard";
 import { rowNames } from "./ReportInfo-Config";
 
-class ReportInfoEnergy extends Component {
+class ReportInfo extends Component {
   render() {
+
+    let resultType = "";
+    switch(this.props.meterType){
+      case("1") : resultType = "energy";break;
+      case("2") : resultType = "water";break;
+    }
+  
     return (
       <ReportCard
         title={"Informações do medidor"}
@@ -13,7 +20,7 @@ class ReportInfoEnergy extends Component {
       >
         <Table responsive size="sm">
           <tbody>
-            {rowNames[this.props.resultType].map(info =>
+            {rowNames[resultType].map(info =>
               info.attr === "dem" ? (
                 <tr key={info.attr}>
                   <th>{info.name}</th>
@@ -38,4 +45,4 @@ class ReportInfoEnergy extends Component {
   }
 }
 
-export default ReportInfoEnergy;
+export default ReportInfo;

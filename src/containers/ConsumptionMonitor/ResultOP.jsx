@@ -14,7 +14,7 @@ import applyFuncToAttr from "../../utils/consumptionMonitor/objectOperations";
 class ResultOP extends Component {
   constructor(props) {
     super(props);
-    const { Items } = props.energyState.queryResponse[0];
+    const { Items } = props.consumptionState.queryResponse[0];
     this.totalKWh = applyFuncToAttr(Items, "kwh", (...values) =>
       values.reduce((previous, current) => (current += previous))
     );
@@ -63,8 +63,9 @@ class ResultOP extends Component {
       initialDate,
       finalDate,
       chosenMeter,
-      dbObject
-    } = this.props.energyState;
+      dbObject,
+      meterType
+    } = this.props.consumptionState;
 
     const imageEnergyMoney = require("../../assets/icons/money_energy.png");
     const imageEnergyPlug = require("../../assets/icons/plug_energy.png");
@@ -72,7 +73,7 @@ class ResultOP extends Component {
 
     let result = {
       unit: false,
-      queryResponse: this.props.energyState.queryResponse[0].Items
+      queryResponse: this.props.consumptionState.queryResponse[0].Items
     };
     // Getting the right unit
     meters.forEach(item => {
@@ -175,7 +176,7 @@ class ResultOP extends Component {
         </Row>
         <Row>
           <Col md="6">
-            <ReportInfo data={result.unit} date={dateString} resultType="energy"/>
+            <ReportInfo data={result.unit} date={dateString} meterType={meterType}/>
           </Col>
           <Col md="6">
             <ReportCalculations
@@ -191,11 +192,11 @@ class ResultOP extends Component {
         <Row>
           <Col>
             <ChartReport
-              energyState={this.props.energyState}
+              consumptionState={this.props.consumptionState}
               medName={result.unit.nome.S}
               itemsForChart={itemsForChart}
-              chartConfigs={this.props.energyState.chartConfigs}
-              tableName={this.props.energyState.tableName}
+              chartConfigs={this.props.consumptionState.chartConfigs}
+              tableName={this.props.consumptionState.tableName}
             />
           </Col>
         </Row>

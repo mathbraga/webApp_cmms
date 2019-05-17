@@ -20,7 +20,7 @@ class ResultAP extends Component {
       queryResponse,
       chartConfigs,
       nonEmptyMeters
-    } = this.props.energyState;
+    } = this.props.consumptionState;
     const imageEnergyMoney = require("../../assets/icons/money_energy.png");
     const imageEnergyPlug = require("../../assets/icons/plug_energy.png");
     const imageEnergyWarning = require("../../assets/icons/alert_icon.png");
@@ -125,11 +125,11 @@ class ResultAP extends Component {
         <Row>
           <Col>
             <ChartReport
-              energyState={this.props.energyState}
+              consumptionState={this.props.consumptionState}
               medName={"23 medidores"}
               itemsForChart={itemsForChart}
-              chartConfigs={this.props.energyState.chartConfigs}
-              tableName={this.props.energyState.tableName}
+              chartConfigs={this.props.consumptionState.chartConfigs}
+              tableName={this.props.consumptionState.tableName}
             />
           </Col>
         </Row>

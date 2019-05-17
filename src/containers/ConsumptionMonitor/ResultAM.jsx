@@ -9,7 +9,7 @@ import formatNumber from "../../utils/consumptionMonitor/formatText";
 
 class ResultAM extends Component {
   render() {
-    // Props: energyState, handleNewSearch
+    // Props: consumptionState, handleNewSearch
 
     // Initialize all variables
     // Loading images
@@ -25,10 +25,10 @@ class ResultAM extends Component {
       chosenMeter,
       nonEmptyMeters,
       queryResponseAll
-    } = this.props.energyState;
+    } = this.props.consumptionState;
     let result = {
       unit: false,
-      queryResponse: this.props.energyState.queryResponse[0].Items[0]
+      queryResponse: this.props.consumptionState.queryResponse[0].Items[0]
     };
     // Getting the right unit
     meters.forEach(item => {
@@ -98,7 +98,7 @@ class ResultAM extends Component {
               unitName={"Todos os medidores"}
               numOfUnits={nonEmptyMeters.length}
               typeOfUnit={false}
-              chosenMeter={this.props.energyState.chosenMeter}
+              chosenMeter={this.props.consumptionState.chosenMeter}
               initialDate={initialDate}
               finalDate={finalDate}
               data={result}
@@ -114,8 +114,8 @@ class ResultAM extends Component {
         <Row>
           <Col>
             <ReportListMeters
-              meters={this.props.energyState.meters}
-              nonEmptyMeters={this.props.energyState.nonEmptyMeters}
+              meters={this.props.consumptionState.meters}
+              nonEmptyMeters={this.props.consumptionState.nonEmptyMeters}
               resultType="energy"
             />
           </Col>
