@@ -9,8 +9,8 @@ import {
   Table
 } from "reactstrap";
 import BadgeWithTooltips from "../Badges/BadgeWithTooltips";
-import formatNumber from "../../utils/energy/formatText";
-import { transformDateString, dateWithFourDigits } from "../../utils/energy/transformDateString";
+import formatNumber from "../../utils/consumptionMonitor/formatText";
+import { transformDateString, dateWithFourDigits } from "../../utils/consumptionMonitor/transformDateString";
 
 class ReportProblems extends Component {
   constructor(props) {

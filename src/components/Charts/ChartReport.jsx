@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Table } from "reactstrap";
 import { Line } from "react-chartjs-2";
-import formatNumber from "../../utils/energy/formatText";
+import formatNumber from "../../utils/consumptionMonitor/formatText";
 import ReportCard from "../Cards/ReportCard";
 
 class ChartReport extends Component {

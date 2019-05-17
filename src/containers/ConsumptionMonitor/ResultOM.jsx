@@ -4,13 +4,13 @@ import ResultCard from "../../components/Cards/ResultCard";
 import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
 import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
 import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
-import ReportEnergyOneUnit from "../../components/Reports/ReportEnergyOneUnit";
-import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
-import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
-import { transformDateString } from "../../utils/energy/transformDateString";
-import formatNumber from "../../utils/energy/formatText";
+import ReportOneUnit from "../../components/Reports/ReportOneUnit";
+import ReportInfo from "../../components/Reports/ReportInfo";
+import ReportCalculations from "../../components/Reports/ReportCalculations";
+import { transformDateString } from "../../utils/consumptionMonitor/transformDateString";
+import formatNumber from "../../utils/consumptionMonitor/formatText";
 
-class EnergyResultOM extends Component {
+class ResultOM extends Component {
   render() {
     // Props: energyState, handleNewSearch
 
@@ -148,10 +148,10 @@ class EnergyResultOM extends Component {
         </Row>
         <Row>
           <Col md="6">
-            <ReportInfoEnergy data={result.unit} date={dateString} resultType="energy"/>
+            <ReportInfo data={result.unit} date={dateString} resultType="energy"/>
           </Col>
           <Col md="6">
-            <ReportCalculationsEnergy
+            <ReportCalculations
               dbObject={this.props.energyState.dbObject}
               consumer={this.props.energyState.chosenMeter}
               dateString={dateString}
@@ -163,7 +163,7 @@ class EnergyResultOM extends Component {
         </Row>
         <Row>
           <Col>
-            <ReportEnergyOneUnit
+            <ReportOneUnit
               data={result.queryResponse}
               dateString={dateString}
               dbObject={this.props.energyState.dbObject}
@@ -179,4 +179,4 @@ class EnergyResultOM extends Component {
   }
 }
 
-export default EnergyResultOM;
+export default ResultOM;

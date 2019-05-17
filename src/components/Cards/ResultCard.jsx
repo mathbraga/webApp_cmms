@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   transformDateString,
   dateWithFourDigits
-} from "../../utils/energy/transformDateString";
+} from "../../utils/consumptionMonitor/transformDateString";
 import { Card, CardBody, Col, Row, Button, CardHeader } from "reactstrap";
 
 class ResultCard extends Component {

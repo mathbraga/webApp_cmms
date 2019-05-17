@@ -1,32 +1,30 @@
 import React, { Component } from "react";
 import FormDates from "../../components/Forms/FormDates";
 import FileInput from "../../components/FileInputs/FileInput"
-import EnergyResults from "./EnergyResults";
-import handleDates from "../../utils/energy/handleDates";
-import initializeDynamoDB from "../../utils/energy/initializeDynamoDB";
-import handleSearch from "../../utils/energy/handleSearch";
-import getAllMeters from "../../utils/energy/getAllMeters";
+import handleDates from "../../utils/consumptionMonitor/handleDates";
+import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
+import handleSearch from "../../utils/consumptionMonitor/handleSearch";
+import getAllMeters from "../../utils/consumptionMonitor/getAllMeters";
 import { Route, Switch } from "react-router-dom";
-import EnergyResultOM from "./EnergyResultOM";
-import EnergyResultOP from "./EnergyResultOP";
-import EnergyResultAM from "./EnergyResultAM";
-import EnergyResultAP from "./EnergyResultAP";
+import ResultOM from "./ResultOM";
+import ResultOP from "./ResultOP";
+import ResultAM from "./ResultAM";
+import ResultAP from "./ResultAP";
 
-class Energy extends Component {
+class ConsumptionMonitor extends Component {
   constructor(props) {
     super(props);
-    this.tableName = "CEBteste";
-    this.tableNameMeters = "CEB-Medidoresteste";
-    this.meterType = "1";
-    this.defaultMeter = this.meterType + "99";
     this.state = {
-      tableName: this.tableName,
+      tableName: this.props.tableName,
+      tableNameMeters: this.props.tableNameMeters,
+      meterType: this.props.meterType,
+      defaultMeter: this.props.meterType + "99",
       nonEmptyMeters: [],
       meters: [],
       dbObject: initializeDynamoDB(),
       initialDate: "",
       finalDate: "",
-      chosenMeter: "199",
+      chosenMeter: this.props.meterType + "99",
       oneMonth: false,
       error: false,
       queryResponse: false,
@@ -38,7 +36,7 @@ class Energy extends Component {
   }
 
   componentDidMount() {
-    getAllMeters(this.state.dbObject, this.tableNameMeters, this.meterType).then(meters => {
+    getAllMeters(this.state.dbObject, this.state.tableNameMeters, this.state.meterType).then(meters => {
       this.setState({
         meters: meters
       });
@@ -48,7 +46,7 @@ class Energy extends Component {
   handleChangeOnDates = handleDates.bind(this);
   
   handleQuery = event => {
-    handleSearch(this.state.initialDate, this.state.finalDate, this.state.oneMonth, this.state.chosenMeter, this.meterType, this.state.meters, this.state.dbObject, this.state.tableName).then(newState => {
+    handleSearch(this.state.initialDate, this.state.finalDate, this.state.oneMonth, this.state.chosenMeter, this.state.meterType, this.state.meters, this.state.dbObject, this.state.tableName).then(newState => {
       this.setState(newState);
     }).catch(() => {
       alert("Houve um problema. Por favor, escolha novos parâmetros de pesquisa.");
@@ -72,7 +70,7 @@ class Energy extends Component {
       showResult: false,
       initialDate: prevState.initialDate,
       finalDate: prevState.finalDate,
-      chosenMeter: this.defaultMeter,
+      chosenMeter: prevState.defaultMeter,
       oneMonth: prevState.oneMonth,
       newLocation: this.props.location
     }));
@@ -106,9 +104,9 @@ class Energy extends Component {
             )}
           />
           <Route
-            path="/consumo/energia/resultados/OM"
+            path={this.props.location.pathname + "/resultados/OM"}
             render={routerProps => (
-              <EnergyResultOM
+              <ResultOM
                 {...routerProps}
                 energyState={this.state}
                 handleNewSearch={this.showFormDates}
@@ -116,9 +114,9 @@ class Energy extends Component {
             )}
           />
           <Route
-            path="/consumo/energia/resultados/OP"
+            path={this.props.location.pathname + "/resultados/OP"}
             render={routerProps => (
-              <EnergyResultOP
+              <ResultOP
                 {...routerProps}
                 energyState={this.state}
                 handleNewSearch={this.showFormDates}
@@ -126,9 +124,9 @@ class Energy extends Component {
             )}
           />
           <Route
-            path="/consumo/energia/resultados/AM"
+            path={this.props.location.pathname + "/resultados/AM"}
             render={routerProps => (
-              <EnergyResultAM
+              <ResultAM
                 {...routerProps}
                 energyState={this.state}
                 handleNewSearch={this.showFormDates}
@@ -136,9 +134,9 @@ class Energy extends Component {
             )}
           />
           <Route
-            path="/consumo/energia/resultados/AP"
+            path={this.props.location.pathname + "/resultados/AP"}
             render={routerProps => (
-              <EnergyResultAP
+              <ResultAP
                 {...routerProps}
                 energyState={this.state}
                 handleNewSearch={this.showFormDates}
@@ -146,36 +144,9 @@ class Energy extends Component {
             )}
           />
         </Switch>
-        
-        
-        
-        
-        {/* {this.state.showResult ? (
-          <EnergyResults
-            energyState={this.state}
-            handleClick={this.showFormDates}
-          />
-        ) : (
-          <React.Fragment>
-            <FormDates
-              onChangeDate={this.handleChangeOnDates}
-              initialDate={this.state.initialDate}
-              finalDate={this.state.finalDate}
-              oneMonth={this.state.oneMonth}
-              meters={this.state.meters}
-              onChangeOneMonth={this.handleOneMonth}
-              onMeterChange={this.handleMeterChange}
-              onQuery={this.handleQuery}
-            />
-            <FileInput
-              tableName={this.state.tableName}
-              dbObject={this.state.dbObject}
-            />
-          </React.Fragment>
-        )} */}
       </React.Fragment>
     );
   }
 }
 
-export default Energy;
+export default ConsumptionMonitor;

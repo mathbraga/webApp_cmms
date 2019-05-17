@@ -9,10 +9,10 @@ import {
   FormGroup,
   Button,
 } from "reactstrap";
-import textToArray from "../../utils/energy/textToArray";
-import buildCEBParamsArr from "../../utils/energy/buildCEBParamsArr";
-import writeItemsInDB from "../../utils/energy/writeItemsInDB";
-import buildCAESBParamsArr from "../../utils/water/buildCAESBParamsArr";
+import textToArray from "../../utils/consumptionMonitor/textToArray";
+import buildCEBParamsArr from "../../utils/consumptionMonitor/buildCEBParamsArr";
+import writeItemsInDB from "../../utils/consumptionMonitor/writeItemsInDB";
+import buildCAESBParamsArr from "../../utils/consumptionMonitor/buildCAESBParamsArr";
 
 class FileInput extends Component {
   constructor(props){

@@ -6,9 +6,9 @@ import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
 import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
 import ReportListMeters from "../../components/Reports/ReportListMeters";
 import ChartReport from "../../components/Charts/ChartReport";
-import formatNumber from "../../utils/energy/formatText";
+import formatNumber from "../../utils/consumptionMonitor/formatText";
 
-class WaterResultAP extends Component {
+class ResultAP extends Component {
   render() {
     // Initialize all Variables
     const {
@@ -20,8 +20,10 @@ class WaterResultAP extends Component {
       queryResponse,
       chartConfigs,
       nonEmptyMeters
-    } = this.props.waterState;
+    } = this.props.energyState;
+    const imageEnergyMoney = require("../../assets/icons/money_energy.png");
     const imageEnergyPlug = require("../../assets/icons/plug_energy.png");
+    const imageEnergyWarning = require("../../assets/icons/alert_icon.png");
 
     let result = {
       unit: false,
@@ -37,20 +39,29 @@ class WaterResultAP extends Component {
     });
 
     const itemsForChart = [
-      "adic",
-      "cofins",
-      "consf",
-      "consm",
-      "csll",
-      "dif",
-      "lan",
-      "lat",
-      "irpj",
-      "pasep",
-      "subtotal",
-      "vagu",
-      "vesg"
+      "vbru",
+      "vliq",
+      "cip",
+      "desc",
+      "jma",
+      "kwh",
+      "kwhf",
+      "kwhp",
+      "dms",
+      "vdff",
+      "vdfp",
+      "vudf",
+      "vudp",
+      "verexf",
+      "verexp",
+      "uferf",
+      "uferp",
+      "trib",
+      "icms",
+      "basec"
     ];
+
+    const demMax = Math.max(...chartConfigs.dms.data.datasets[0].data);
 
     return (
       <ResultCard
@@ -65,7 +76,7 @@ class WaterResultAP extends Component {
         handleNewSearch={this.props.handleNewSearch}
       >
         <Row>
-          {/* <Col xs="12" sm="6" xl="3" className="order-xl-1 order-sm-1">
+          <Col xs="12" sm="6" xl="3" className="order-xl-1 order-sm-1">
             <WidgetOneColumn
               firstTitle={"Consumo"}
               firstValue={formatNumber(totalValues.kwh, 0) + " kWh"}
@@ -73,29 +84,30 @@ class WaterResultAP extends Component {
               secondValue={"R$ " + formatNumber(totalValues.vbru, 2)}
               image={imageEnergyMoney}
             />
-          </Col> */}
-          <Col xs="12">
+          </Col>
+          <Col xs="12" sm="12" xl="6" className="order-xl-2 order-sm-3">
             <WidgetThreeColumns
               titles={[
-                "Consumo faturado",
-                "Tarifa (água)",
-                "Tarifa (esgoto)",
-                "Tributos",
-                "Adicional",
-                "Total"
+                "Demanda",
+                "Ultrapass.",
+                "Descontos",
+                "Multas",
+                "EREX",
+                "UFER"
               ]}
               values={[
-                formatNumber(totalValues.consf, 2) + " m³",
-                "R$ " + formatNumber(totalValues.vagu, 2),
-                "R$ " + formatNumber(totalValues.vesg, 2),
-                "R$ " + formatNumber(totalValues.cofins + totalValues.csll + totalValues.irpj + totalValues.pasep, 2),
-                "R$ " + formatNumber(totalValues.adic, 2),
-                "R$ " + formatNumber(totalValues.subtotal)
+                formatNumber(demMax, 0) + " kW",
+                "R$ " + formatNumber(totalValues.vudf + totalValues.vudp, 2),
+                "R$ " + formatNumber(totalValues.desc, 2),
+                "R$ " + formatNumber(totalValues.jma, 2),
+                "R$ " +
+                  formatNumber(totalValues.verexf + totalValues.verexp, 2),
+                formatNumber(totalValues.uferf + totalValues.uferp, 0)
               ]}
               image={imageEnergyPlug}
             />
           </Col>
-          {/* <Col xs="12" sm="6" xl="3" className="order-xl-3 order-sm-2">
+          <Col xs="12" sm="6" xl="3" className="order-xl-3 order-sm-2">
             <WidgetWithModal
               chosenMeter={chosenMeter}
               // unitNumber={result.unit.id.S}
@@ -108,7 +120,7 @@ class WaterResultAP extends Component {
               buttonName={"Ver Relatório"}
               image={imageEnergyWarning}
             />
-          </Col> */}
+          </Col>
         </Row>
         <Row>
           <Col>
@@ -116,8 +128,8 @@ class WaterResultAP extends Component {
               energyState={this.props.energyState}
               medName={"23 medidores"}
               itemsForChart={itemsForChart}
-              chartConfigs={this.props.waterState.chartConfigs}
-              tableName={this.props.waterState.tableName}
+              chartConfigs={this.props.energyState.chartConfigs}
+              tableName={this.props.energyState.tableName}
             />
           </Col>
         </Row>
@@ -126,7 +138,7 @@ class WaterResultAP extends Component {
             <ReportListMeters
               meters={meters}
               nonEmptyMeters={nonEmptyMeters}
-              resultType="water"
+              resultType="energy"
             />
           </Col>
         </Row>
@@ -135,4 +147,4 @@ class WaterResultAP extends Component {
   }
 }
 
-export default WaterResultAP;
+export default ResultAP;

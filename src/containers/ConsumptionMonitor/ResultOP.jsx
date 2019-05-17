@@ -5,13 +5,13 @@ import ChartReport from "../../components/Charts/ChartReport";
 import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
 import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
 import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
-import ReportInfoEnergy from "../../components/Reports/ReportInfoEnergy";
-import ReportCalculationsEnergy from "../../components/Reports/ReportCalculationsEnergy";
-import { transformDateString } from "../../utils/energy/transformDateString";
-import formatNumber from "../../utils/energy/formatText";
-import applyFuncToAttr from "../../utils/energy/objectOperations";
+import ReportInfo from "../../components/Reports/ReportInfo";
+import ReportCalculations from "../../components/Reports/ReportCalculations";
+import { transformDateString } from "../../utils/consumptionMonitor/transformDateString";
+import formatNumber from "../../utils/consumptionMonitor/formatText";
+import applyFuncToAttr from "../../utils/consumptionMonitor/objectOperations";
 
-class EnergyResultOP extends Component {
+class ResultOP extends Component {
   constructor(props) {
     super(props);
     const { Items } = props.energyState.queryResponse[0];
@@ -175,10 +175,10 @@ class EnergyResultOP extends Component {
         </Row>
         <Row>
           <Col md="6">
-            <ReportInfoEnergy data={result.unit} date={dateString} resultType="energy"/>
+            <ReportInfo data={result.unit} date={dateString} resultType="energy"/>
           </Col>
           <Col md="6">
-            <ReportCalculationsEnergy
+            <ReportCalculations
               dbObject={dbObject}
               consumer={chosenMeter}
               dateString={dateString}
@@ -204,4 +204,4 @@ class EnergyResultOP extends Component {
   }
 }
 
-export default EnergyResultOP;
+export default ResultOP;

@@ -54,7 +54,7 @@ class MainPage extends Component {
                         path={route.path}
                         exact={route.exact}
                         name={route.name}
-                        render={props => <route.component {...props} />}
+                        render={routerProps => <route.component {...routerProps} {...route.options}/>}
                       />
                     ) : null;
                   })}

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import ReportCard from "../Cards/ReportCard";
-import queryLastBills from "../../utils/energy/queryLastBills";
-import { transformDateString } from "../../utils/energy/transformDateString";
-import formatNumber from "../../utils/energy/formatText";
-import { rowNames } from "./ReportEnergyOneUnit-Config";
+import queryLastBills from "../../utils/consumptionMonitor/queryLastBills";
+import { transformDateString } from "../../utils/consumptionMonitor/transformDateString";
+import formatNumber from "../../utils/consumptionMonitor/formatText";
+import { rowNames } from "./ReportOneUnit-Config";
 
-class ReportEnergyOneUnit extends Component {
+class ReportOneUnit extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -225,4 +225,4 @@ class ReportEnergyOneUnit extends Component {
   }
 }
 
-export default ReportEnergyOneUnit;
+export default ReportOneUnit;

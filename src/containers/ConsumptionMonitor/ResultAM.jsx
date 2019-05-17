@@ -5,9 +5,9 @@ import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
 import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
 import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
 import ReportListMeters from "../../components/Reports/ReportListMeters";
-import formatNumber from "../../utils/energy/formatText";
+import formatNumber from "../../utils/consumptionMonitor/formatText";
 
-class EnergyResultAM extends Component {
+class ResultAM extends Component {
   render() {
     // Props: energyState, handleNewSearch
 
@@ -125,4 +125,4 @@ class EnergyResultAM extends Component {
   }
 }
 
-export default EnergyResultAM;
+export default ResultAM;
