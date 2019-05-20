@@ -99,7 +99,6 @@ class ResultOP extends Component {
               unitName={resultObject.unitName}
               itemsForChart={resultObject.itemsForChart}
               chartConfigs={chartConfigs}
-              tableName={tableName}
               title={resultObject.chartReportTitle}
               titleColSize={resultObject.chartReportTitleColSize}
               subtitle={resultObject.chartSubtitle}

@@ -23,119 +23,65 @@ class ResultAP extends Component {
       resultObject
     } = this.props.consumptionState;
     
-    const imageEnergyMoney = require("../../assets/icons" + resultObject.image1);
-    const imageEnergyPlug = require("../../assets/icons" + resultObject.image2);
-    const imageEnergyWarning = require("../../assets/icons" + resultObject.image3);
-
-    // let result = {
-    //   unit: false,
-    //   queryResponse: queryResponse[0].Items[0]
-    // };
-
-    // const totalValues = {};
-    // Object.keys(chartConfigs).forEach(key => {
-    //   const values = chartConfigs[key].data.datasets[0].data;
-    //   totalValues[key] = values.reduce(
-    //     (previous, current) => (previous += current)
-    //   );
-    // });
-
-    // const itemsForChart = [
-    //   "vbru",
-    //   "vliq",
-    //   "cip",
-    //   "desc",
-    //   "jma",
-    //   "kwh",
-    //   "kwhf",
-    //   "kwhp",
-    //   "dms",
-    //   "vdff",
-    //   "vdfp",
-    //   "vudf",
-    //   "vudp",
-    //   "verexf",
-    //   "verexp",
-    //   "uferf",
-    //   "uferp",
-    //   "trib",
-    //   "icms",
-    //   "basec"
-    // ];
-
-    // const demMax = Math.max(...chartConfigs.dms.data.datasets[0].data);
-
     return (
       <ResultCard
-        allUnits={true}
+        unitNumber={resultObject.unitNumber}
+        unitName={resultObject.unitName}
+        initialDate={resultObject.initialDate}
+        finalDate={resultObject.finalDate}
+        typeOfUnit={resultObject.typeText}
         oneMonth={oneMonth}
-        unitNumber={"Todos medidores"}
-        unitName={"Todos medidores"}
-        numOfUnits={nonEmptyMeters.length}
-        initialDate={initialDate}
-        finalDate={finalDate}
-        typeOfUnit={false}
         handleNewSearch={this.props.handleNewSearch}
+        allUnits={resultObject.allUnits}
+        numOfUnits={resultObject.numOfUnits}
       >
         <Row>
           <Col xs="12" sm="6" xl="3" className="order-xl-1 order-sm-1">
             <WidgetOneColumn
-              firstTitle={"Consumo"}
-              firstValue={formatNumber(resultObject.totalValues.kwh, 0) + " kWh"}
-              secondTitle={"Gasto"}
-              secondValue={"R$ " + formatNumber(resultObject.totalValues.vbru, 2)}
-              image={imageEnergyMoney}
+              firstTitle={resultObject.widgetOneColumnFirstTitle}
+              firstValue={resultObject.widgetOneColumnFirstValue}
+              secondTitle={resultObject.widgetOneColumnSecondTitle}
+              secondValue={resultObject.widgetOneColumnSecondValue}
+              image={resultObject.imageWidgetOneColumn}
             />
           </Col>
           <Col xs="12" sm="12" xl="6" className="order-xl-2 order-sm-3">
             <WidgetThreeColumns
-              titles={[
-                "Demanda",
-                "Ultrapass.",
-                "Descontos",
-                "Multas",
-                "EREX",
-                "UFER"
-              ]}
-              values={[
-                formatNumber(resultObject.demMax, 0) + " kW",
-                "R$ " + formatNumber(resultObject.totalValues.vudf + resultObject.totalValues.vudp, 2),
-                "R$ " + formatNumber(resultObject.totalValues.desc, 2),
-                "R$ " + formatNumber(resultObject.totalValues.jma, 2),
-                "R$ " +
-                  formatNumber(resultObject.totalValues.verexf + resultObject.totalValues.verexp, 2),
-                formatNumber(resultObject.totalValues.uferf + resultObject.totalValues.uferp, 0)
-              ]}
-              image={imageEnergyPlug}
+              titles={resultObject.widgetThreeColumnsTitles}
+              values={resultObject.widgetThreeColumnsValues}
+              image={resultObject.imageWidgetThreeColumns}
             />
           </Col>
           <Col xs="12" sm="6" xl="3" className="order-xl-3 order-sm-2">
             <WidgetWithModal
               chosenMeter={chosenMeter}
-              // unitNumber={result.unit.id.S}
-              // unitName={result.unit.nome.S}
-              initialDate={initialDate}
-              finalDate={finalDate}
-              // typeOfUnit={result.unit.modtar.S}
-              data={resultObject}
-              title={"Diagnóstico"}
-              buttonName={"Ver Relatório"}
-              image={imageEnergyWarning}
-              problems={false}
-              numProblems={false}
+              unitNumber={resultObject.unitNumber}
+              unitName={resultObject.unitName}
+              initialDate={resultObject.initialDate}
+              finalDate={resultObject.finalDate}
+              typeOfUnit={resultObject.typeText}
+              title={resultObject.widgetWithModalTitle}
+              buttonName={resultObject.widgetWithModalButtonName}
+              image={resultObject.imageWidgetWithModal}
               oneMonth={oneMonth}
-              rowNamesReportProblems={false}
+              numProblems={resultObject.numProblems}
+              problems={resultObject.problems}
+              rowNamesReportProblems={resultObject.rowNamesReportProblems}
+              allUnits={resultObject.allUnits}
+              numOfUnits={resultObject.numOfUnits}
             />
           </Col>
         </Row>
         <Row>
           <Col>
             <ChartReport
-              consumptionState={this.props.consumptionState}
-              medName={this.props.consumptionState.nonEmptyMeters.length.toString() + " medidores"}
+              unitName={resultObject.unitName}
               itemsForChart={resultObject.itemsForChart}
-              chartConfigs={this.props.consumptionState.chartConfigs}
-              tableName={this.props.consumptionState.tableName}
+              chartConfigs={chartConfigs}
+              title={resultObject.chartReportTitle}
+              titleColSize={resultObject.chartReportTitleColSize}
+              subtitle={resultObject.chartSubtitle}
+              subvalue={resultObject.chartSubvalue}
             />
           </Col>
         </Row>

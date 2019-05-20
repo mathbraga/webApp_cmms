@@ -84,7 +84,7 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
             showResult: true,
             error: false,
             newLocation: newLocation,
-            resultObject: buildResultAP(meterType, meters, chosenMeter, queryResponse, chartConfigs)
+            resultObject: buildResultAP(meterType, meters, chosenMeter, queryResponse, chartConfigs, nonEmptyMeters, initialDate, finalDate)
           };
         }
 
