@@ -2,9 +2,9 @@ import React from "react";
 import MainPage from "./containers/MainPage";
 
 const ConsumptionMonitor = React.lazy(() => import("./containers/ConsumptionMonitor"));
-const Login = React.lazy(() => import("./containers/Login/Login"));
-const Logout = React.lazy(() => import("./containers/Logout/Logout"));
-const SignUp = React.lazy(() => import("./containers/SignUp/SignUp"));
+const Login = React.lazy(() => import("./containers/Authentication/Login"));
+const Logout = React.lazy(() => import("./containers/Authentication/Logout"));
+const SignUp = React.lazy(() => import("./containers/Authentication/SignUp"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
