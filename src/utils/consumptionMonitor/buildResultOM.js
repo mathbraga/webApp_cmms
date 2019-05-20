@@ -1,6 +1,8 @@
-import { transformDateString, dateWithFourDigits } from "./transformDateString";
+import transformDateString from "./transformDateString";
+import dateWithFourDigits from "./dateWithFourDigits";
 import formatNumber from "./formatText";
 import checkProblems from "./checkProblems";
+import getMeterTypeText from "./getMeterTypeText";
 
 export default function buildResultOM(meterType, meters, chosenMeter, queryResponse, queryResponseAll, initialDate, finalDate){
   
@@ -9,18 +11,34 @@ export default function buildResultOM(meterType, meters, chosenMeter, queryRespo
   meters.forEach(meter => {
     if((parseInt(meter.med.N) + 100*parseInt(meter.tipomed.N)) === parseInt(chosenMeter)){
       resultObject.unit = meter;
+      resultObject.unitName = meter.nome.S;
+      resultObject.unitNumber = meter.id.S;
     }
   });
+
+  resultObject.initialDate = transformDateString(dateWithFourDigits(initialDate));
+  
+  resultObject.finalDate = transformDateString(dateWithFourDigits(finalDate));
 
   resultObject.queryResponse = queryResponse[0].Items[0];
 
   resultObject.dateString = transformDateString(resultObject.queryResponse.aamm);
 
-  resultObject.image1 = "/money_energy.png";
+  resultObject.typeText = getMeterTypeText(resultObject.queryResponse.tipo);
 
-  resultObject.image2 = "/plug_energy.png";
+  resultObject.imageWidgetOneColumn = require("../../assets/icons/money_energy.png");
 
-  resultObject.image3 = "/alert_icon.png";
+  resultObject.imageWidgetThreeColumns = require("../../assets/icons/plug_energy.png");
+
+  resultObject.imageWidgetWithModal = require("../../assets/icons/alert_icon.png");
+
+  resultObject.widgetOneColumnFirstTitle = "Consumo";
+
+  resultObject.widgetOneColumnFirstValue = formatNumber(resultObject.queryResponse.kwh, 0) + " kWh";
+
+  resultObject.widgetOneColumnSecondTitle = "Valor bruto";
+
+  resultObject.widgetOneColumnSecondValue = "R$ " + formatNumber(resultObject.queryResponse.vbru, 2);
 
   resultObject.threeColumnValues = {
     0: {
@@ -79,11 +97,13 @@ export default function buildResultOM(meterType, meters, chosenMeter, queryRespo
     }
   };
 
-  resultObject.typeText = {
-    0: "Convencional",
-    1: "Horária - Verde",
-    2: "Horária - Azul"
-  };
+  resultObject.widgetThreeColumnsTitles = resultObject.threeColumnValues[resultObject.queryResponse.tipo].titles;
+
+  resultObject.widgetThreeColumnsValues = resultObject.threeColumnValues[resultObject.queryResponse.tipo].values;
+
+  resultObject.widgetWithModalTitle = "Diagnóstico";
+
+  resultObject.widgetWithModalButtonName = "Ver relatório";
 
   resultObject.rowNamesInfo = [
     { name: "Identificação CEB", attr: "id" },
@@ -479,6 +499,10 @@ export default function buildResultOM(meterType, meters, chosenMeter, queryRespo
     }
   ];
 
+  resultObject.type = resultObject.queryResponse.tipo;
+
+  resultObject.date = resultObject.queryResponse.aamm;
+
   resultObject.problems = checkProblems(queryResponse, chosenMeter, queryResponseAll, meters);
   
   resultObject.numProblems = 0;
@@ -576,11 +600,7 @@ export default function buildResultOM(meterType, meters, chosenMeter, queryRespo
       expected: "= R$ 0,00"
     }
   };
-
-  resultObject.initialDate = transformDateString(dateWithFourDigits(initialDate));
-  
-  resultObject.finalDate = transformDateString(dateWithFourDigits(finalDate));
-  
+ 
   return resultObject;
 
 }

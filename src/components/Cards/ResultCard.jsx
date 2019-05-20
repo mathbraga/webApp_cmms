@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-import {
-  transformDateString,
-  dateWithFourDigits
-} from "../../utils/consumptionMonitor/transformDateString";
 import { Card, CardBody, Col, Row, Button, CardHeader } from "reactstrap";
 
 class ResultCard extends Component {
@@ -35,9 +31,9 @@ class ResultCard extends Component {
       children
     } = this.props;
 
-    if (initialDate && initialDate.length === 7)
-      initialDate = dateWithFourDigits(initialDate);
-    if (!oneMonth && finalDate) finalDate = dateWithFourDigits(finalDate);
+    // if (initialDate && initialDate.length === 7)
+    //   initialDate = dateWithFourDigits(initialDate);
+    // if (!oneMonth && finalDate) finalDate = dateWithFourDigits(finalDate);
 
     return (
       <Card>
@@ -61,14 +57,14 @@ class ResultCard extends Component {
                   <div className="dash-title-info text-truncate">
                     Período:{" "}
                     <strong>
-                      {transformDateString(initialDate)}
+                      {initialDate}
                       {" - "}
-                      {transformDateString(finalDate)}
+                      {finalDate}
                     </strong>
                   </div>
                 ) : (
                   <div className="dash-title-info text-truncate">
-                    Período: <strong>{transformDateString(initialDate)}</strong>
+                    Período: <strong>{initialDate}</strong>
                   </div>
                 )}
                 {allUnits ? (

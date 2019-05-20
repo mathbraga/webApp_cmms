@@ -7,6 +7,7 @@ class ReportInfo extends Component {
   render() {
 
     const {
+      unit,
       rowNamesInfo
     } = this.props
   
@@ -23,14 +24,14 @@ class ReportInfo extends Component {
                 <tr key={info.attr}>
                   <th>{info.name}</th>
                   <td>
-                    {this.props.data["dcf"].S} kW - {this.props.data["dcp"].S}{" "}
+                    {unit["dcf"].S} kW - {unit["dcp"].S}{" "}
                     kW
                   </td>
                 </tr>
-              ) : this.props.data[info.attr] ? (
+              ) : unit[info.attr] ? (
                 <tr key={info.attr}>
                   <th>{info.name}</th>
-                  <td>{this.props.data[info.attr].S}</td>
+                  <td>{unit[info.attr].S}</td>
                 </tr>
               ) : (
                 ""

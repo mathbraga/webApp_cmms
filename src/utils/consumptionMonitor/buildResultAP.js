@@ -1,4 +1,4 @@
-import { transformDateString } from "./transformDateString";
+import transformDateString from "./transformDateString";
 import formatNumber from "./formatText";
 import applyFuncToAttr from "./objectOperations";
 import ReportInfo from "../../components/Reports/ReportInfo";

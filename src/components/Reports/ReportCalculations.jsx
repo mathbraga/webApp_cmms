@@ -3,7 +3,7 @@ import { Col, Row } from "reactstrap";
 import queryLastDemands from "../../utils/consumptionMonitor/queryLastDemands";
 import queryLastDemandsBlue from "../../utils/consumptionMonitor/queryLastDemandsBlue";
 import { bestDemand } from "../../utils/consumptionMonitor/bestDemand";
-import { transformDateString } from "../../utils/consumptionMonitor/transformDateString";
+import transformDateString from "../../utils/consumptionMonitor/transformDateString";
 import ReportCard from "../Cards/ReportCard";
 
 class ReportCalculations extends Component {
@@ -54,8 +54,8 @@ class ReportCalculations extends Component {
             const results = bestDemand(
               lastItems,
               lastBlues,
-              parseInt(this.props.demandContract.dcf.S),
-              parseInt(this.props.demandContract.dcp.S)
+              parseInt(this.props.unit.dcf.S),
+              parseInt(this.props.unit.dcp.S)
             );
             const bestResult =
               results[0].value <= results[1].value ? results[0] : results[1];
@@ -178,7 +178,7 @@ class ReportCalculations extends Component {
               <Col xs="6">
                 <div className="container-old-demand">
                   <div className="demand-value text-truncate">
-                    {this.props.demandContract.dcf.S} kW
+                    {this.props.unit.dcf.S} kW
                   </div>
                   <div className="demand-subtitle">
                     <strong>Fora de ponta</strong> - Valor contratado
@@ -188,7 +188,7 @@ class ReportCalculations extends Component {
               <Col xs="6">
                 <div className="container-old-demand">
                   <div className="demand-value text-truncate">
-                    {this.props.demandContract.dcp.S} kW
+                    {this.props.unit.dcp.S} kW
                   </div>
                   <div className="demand-subtitle">
                     <strong>Ponta</strong> - Valor contratado

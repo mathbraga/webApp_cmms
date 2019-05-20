@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { Table } from "reactstrap";
 import ReportCard from "../Cards/ReportCard";
 import queryLastBills from "../../utils/consumptionMonitor/queryLastBills";
-import { transformDateString } from "../../utils/consumptionMonitor/transformDateString";
+import transformDateString from "../../utils/consumptionMonitor/transformDateString";
 import formatNumber from "../../utils/consumptionMonitor/formatText";
-// import { rowNames } from "./ReportOneUnit-Config";
 
 class ReportOneUnit extends Component {
   constructor(props) {
