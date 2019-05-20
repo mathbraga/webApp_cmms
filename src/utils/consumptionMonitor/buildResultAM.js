@@ -1,14 +1,23 @@
 import transformDateString from "./transformDateString";
-import dateWithFourDigits from "./dateWithFourDigits";import formatNumber from "./formatText";
-import applyFuncToAttr from "./objectOperations";
-import ReportInfo from "../../components/Reports/ReportInfo";
+import dateWithFourDigits from "./dateWithFourDigits";
+import formatNumber from "./formatText";
 import checkProblems from "./checkProblems";
 
-export default function buildResultAP(meterType, meters, chosenMeter, queryResponse, chartConfigs, queryResponseAll, initialDate, finalDate){
+export default function buildResultAP(meterType, meters, chosenMeter, queryResponse, chartConfigs, queryResponseAll, initialDate, finalDate, nonEmptyMeters){
 
   let resultObject = {};
 
   resultObject.queryResponse = queryResponse[0].Items[0];
+
+  resultObject.unitNumber = "Todos medidores";
+
+  resultObject.unitName = "Todos medidores";
+
+  resultObject.allUnits = true;
+
+  resultObject.numOfUnits = nonEmptyMeters.length;
+
+  resultObject.typeText = false;
 
   resultObject.totalValues = {};
   Object.keys(chartConfigs).forEach(key => {
@@ -18,12 +27,54 @@ export default function buildResultAP(meterType, meters, chosenMeter, queryRespo
     );
   });
 
-  resultObject.image1 = "/money_energy.png";
+  resultObject.imageWidgetOneColumn = require("../../assets/icons/money_energy.png");
 
-  resultObject.image2 = "/plug_energy.png";
+  resultObject.imageWidgetThreeColumns = require("../../assets/icons/plug_energy.png");
 
-  resultObject.image3 = "/alert_icon.png";
+  resultObject.imageWidgetWithModal = require("../../assets/icons/alert_icon.png");;
 
+  resultObject.widgetOneColumnFirstTitle = "Consumo";
+
+  resultObject.widgetOneColumnFirstValue = formatNumber(resultObject.queryResponse.kwh, 0) + " kWh";
+
+  resultObject.widgetOneColumnSecondTitle = "Gasto";
+
+  resultObject.widgetOneColumnSecondValue = "R$ " + formatNumber(resultObject.queryResponse.vbru, 2);
+
+  resultObject.widgetThreeColumnsTitles = [
+    "Demanda",
+    "Ultrapass.",
+    "Descontos",
+    "Multas",
+    "EREX",
+    "UFER"
+  ];
+
+  resultObject.widgetThreeColumnsValues = [
+    formatNumber(resultObject.queryResponse.dms, 0) + " kW",
+    "R$ " +
+      formatNumber(
+        resultObject.queryResponse.vudf + resultObject.queryResponse.vudp,
+        0
+      ),
+    "R$ " + formatNumber(resultObject.queryResponse.desc, 2),
+    "R$ " + formatNumber(resultObject.queryResponse.jma, 2),
+    "R$ " +
+      formatNumber(
+        resultObject.queryResponse.verexf + resultObject.queryResponse.verexp,
+        2
+      ),
+    formatNumber(
+      resultObject.queryResponse.uferf + resultObject.queryResponse.uferp,
+      0
+    )
+  ];
+
+  resultObject.widgetWithModalTitle = "Diagnóstico";
+
+  resultObject.widgetWithModalButtonName = "Ver relatório";
+
+  
   resultObject.problems = checkProblems(queryResponse, chosenMeter, queryResponseAll, meters);
   
   resultObject.numProblems = 0;

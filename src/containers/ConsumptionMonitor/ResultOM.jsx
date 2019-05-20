@@ -29,6 +29,8 @@ class ResultOM extends Component {
         typeOfUnit={resultObject.typeText}
         oneMonth={oneMonth}
         handleNewSearch={this.props.handleNewSearch}
+        allUnits={resultObject.allUnits}
+        numOfUnits={resultObject.numOfUnits}
       >
         <Row>
           <Col xs="12" sm="6" xl="3" className="order-xl-1 order-sm-1">
@@ -62,6 +64,8 @@ class ResultOM extends Component {
               numProblems={resultObject.numProblems}
               problems={resultObject.problems}
               rowNamesReportProblems={resultObject.rowNamesReportProblems}
+              allUnits={resultObject.allUnits}
+              numOfUnits={resultObject.numOfUnits}
             />
           </Col>
         </Row>

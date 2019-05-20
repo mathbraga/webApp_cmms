@@ -69,6 +69,10 @@ export default function buildResultOP(meterType, meters, chosenMeter, queryRespo
     }
   });
 
+  resultObject.allUnits = false;
+
+  resultObject.numOfUnits = 1;
+
   resultObject.initialDate = transformDateString(dateWithFourDigits(initialDate));
   
   resultObject.finalDate = transformDateString(dateWithFourDigits(finalDate));
