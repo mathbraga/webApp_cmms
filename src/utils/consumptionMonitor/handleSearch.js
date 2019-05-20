@@ -114,7 +114,7 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
             error: false,
             newLocation: newLocation,
             chartConfigs: chartConfigs,
-            resultObject: buildResultOP(meterType, meters, chosenMeter, queryResponse)
+            resultObject: buildResultOP(meterType, meters, chosenMeter, queryResponse, initialDate, finalDate)
           };
         }
       resolve(newState);

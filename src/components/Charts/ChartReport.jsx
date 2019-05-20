@@ -6,19 +6,13 @@ import ReportCard from "../Cards/ReportCard";
 
 class ChartReport extends Component {
   // Props:
-  //      - medName (string): Number of this unit
+  //      - unitName (string): Number of this unit
 
   constructor(props) {
     super(props);
-    if(this.props.tableName === "CEBteste"){
-      this.state = {
-        selected: "vbru"
-      };
-    } else {
-      this.state = {
-        selected: "subtotal"
-      }
-    }
+    this.state = {
+      selected: "vbru"
+    };
   }
 
   onChangeYAxis = type => {
@@ -26,7 +20,7 @@ class ChartReport extends Component {
   };
 
   render() {
-    const { medName, itemsForChart } = this.props;
+    const { unitName, itemsForChart } = this.props;
     let dropdownItems = {};
     itemsForChart.forEach(key => {
       dropdownItems[key] = this.props.chartConfigs[
@@ -36,12 +30,12 @@ class ChartReport extends Component {
 
     return (
       <ReportCard
-        title={"Gráfico do período"}
-        titleColSize={3}
-        subtitle={"Medidor:"}
-        subvalue={medName}
+        title={this.props.title}
+        titleColSize={this.props.titleColSize}
+        subtitle={this.props.subtitle}
+        subvalue={unitName}
         dropdown
-        dropdownTitle={"Ver resultado para:"}
+        dropdownTitle={this.props.dropdownTitle}
         dropdownItems={dropdownItems}
         showCalcResult={this.onChangeYAxis}
         resultID={this.state.selected}

@@ -69,7 +69,8 @@ class ResultOM extends Component {
           <Col md="6">
             <ReportInfo
               unit={resultObject.unit}
-              rowNamesInfo={resultObject.rowNamesInfo}/>
+              rowNamesInfo={resultObject.rowNamesInfo}
+            />
           </Col>
           <Col md="6">
             <ReportCalculations
