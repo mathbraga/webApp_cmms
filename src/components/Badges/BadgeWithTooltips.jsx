@@ -1,6 +1,5 @@
 import React from "react";
 import { Badge, Tooltip } from "reactstrap";
-import getMetersIDs from "../../utils/consumptionMonitor/getMetersIDs";
 
 class BadgeWithTooltips extends React.Component {
   constructor(props) {
@@ -18,10 +17,14 @@ class BadgeWithTooltips extends React.Component {
   }
 
   render() {
-    let metersIDs = [];
-    if (this.props.chosenMeter === "199") {
-      metersIDs = getMetersIDs(this.props.problem, this.props.meters);
-    }
+    
+    // let metersIDs = this.props.metersIDs;
+    // let metersIDs = [];
+    // if (this.props.chosenMeter === "199") {
+    //   metersIDs = getMetersIDs(this.props.problem, this.props.meters);
+    // }
+
+    let metersIDs = this.props.problem.metersIDs;
 
     return (
       <span>

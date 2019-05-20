@@ -24,7 +24,7 @@ export default function buildResultAP(meterType, meters, chosenMeter, queryRespo
 
   resultObject.image3 = "/alert_icon.png";
 
-  resultObject.problems  = checkProblems(queryResponse, chosenMeter, queryResponseAll);
+  resultObject.problems = checkProblems(queryResponse, chosenMeter, queryResponseAll, meters);
   
   resultObject.numProblems = 0;
   Object.keys(resultObject.problems).forEach(key => {
@@ -125,8 +125,6 @@ export default function buildResultAP(meterType, meters, chosenMeter, queryRespo
   resultObject.initialDate = transformDateString(dateWithFourDigits(initialDate));
   
   resultObject.finalDate = transformDateString(dateWithFourDigits(finalDate));
-
-
 
   return resultObject;
 

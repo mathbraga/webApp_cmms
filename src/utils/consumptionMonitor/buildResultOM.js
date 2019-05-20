@@ -479,7 +479,7 @@ export default function buildResultOM(meterType, meters, chosenMeter, queryRespo
     }
   ];
 
-  resultObject.problems  = checkProblems(queryResponse, chosenMeter, queryResponseAll);
+  resultObject.problems = checkProblems(queryResponse, chosenMeter, queryResponseAll, meters);
   
   resultObject.numProblems = 0;
   Object.keys(resultObject.problems).forEach(key => {

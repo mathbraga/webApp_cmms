@@ -1,4 +1,4 @@
-export default function checkProblems(queryResponseInput, chosenMeter, queryResponseAll) {
+export default function checkProblems(queryResponseInput, chosenMeter, queryResponseAll, meters) {
   // Input: object (queryResponse). Obj: {aamm, basec, cip, datav, dc, dcf, dcp, desc, dff, dfp ,dmf, dmp,
   //                                      erexf, erexp, icms, jma, kwh, kwhf, kwhp, med, tipo, trib, vbru, vdff, bdfp,
   //                                      verexf, verexp, vliq, vudf, vudp}
@@ -12,22 +12,28 @@ export default function checkProblems(queryResponseInput, chosenMeter, queryResp
 
   let queryResponse = queryResponseInput[0].Items[0];
 
+  let AllMetersIDs = {};
+  meters.forEach(item => {
+    let key = (parseInt(item.tipomed.N, 10) * 100 + parseInt(item.med.N, 10)).toString();
+    AllMetersIDs[key] = item.id.S;
+  })
+
   let problems = {};
   if(chosenMeter === "199"){
     problems = {
-      dcp: { problem: false, value: queryResponse.dcp, meters: [] },
-      dcf: { problem: false, value: queryResponse.dcf, meters: [] },
-      dmp: { problem: false, value: queryResponse.dmp, meters: [] },
-      dmf: { problem: false, value: queryResponse.dmf, meters: [] },
-      dfp: { problem: false, value: queryResponse.dfp, expected: 0, meters: [] },
-      dff: { problem: false, value: queryResponse.dff, expected: 0, meters: [] },
-      vudp: { problem: false, value: queryResponse.vudp, meters: [] },
-      vudf: { problem: false, value: queryResponse.vudf, meters: [] },
-      verexp: { problem: false, value: queryResponse.verexp, meters: [] },
-      verexf: { problem: false, value: queryResponse.verexf, meters: [] },
-      jma: { problem: false, value: queryResponse.jma, meters: [] },
-      desc: { problem: false, value: queryResponse.desc, meters: [] },
-      tipo: { problem: false, value: queryResponse.tipo, meters: [] }
+      dcp: { problem: false, value: queryResponse.dcp, metersIDs: [] },
+      dcf: { problem: false, value: queryResponse.dcf, metersIDs: [] },
+      dmp: { problem: false, value: queryResponse.dmp, metersIDs: [] },
+      dmf: { problem: false, value: queryResponse.dmf, metersIDs: [] },
+      dfp: { problem: false, value: queryResponse.dfp, expected: 0, metersIDs: [] },
+      dff: { problem: false, value: queryResponse.dff, expected: 0, metersIDs: [] },
+      vudp: { problem: false, value: queryResponse.vudp, metersIDs: [] },
+      vudf: { problem: false, value: queryResponse.vudf, metersIDs: [] },
+      verexp: { problem: false, value: queryResponse.verexp, metersIDs: [] },
+      verexf: { problem: false, value: queryResponse.verexf, metersIDs: [] },
+      jma: { problem: false, value: queryResponse.jma, metersIDs: [] },
+      desc: { problem: false, value: queryResponse.desc, metersIDs: [] },
+      tipo: { problem: false, value: queryResponse.tipo, metersIDs: [] }
     };
   } else {
     problems = {
@@ -55,7 +61,7 @@ export default function checkProblems(queryResponseInput, chosenMeter, queryResp
       queryResponseAll.forEach(element => {
         if(element.Items.length > 0){
           if(element.Items[0].verexf > 0){
-            problems.verexf.meters.push(element.Items[0].med);
+            problems.verexf.metersIDs.push(AllMetersIDs[element.Items[0].med]);
           }
         }
       });
@@ -66,7 +72,7 @@ export default function checkProblems(queryResponseInput, chosenMeter, queryResp
       queryResponseAll.forEach(element => {
         if(element.Items.length > 0){
           if(element.Items[0].verexp > 0){
-            problems.verexp.meters.push(element.Items[0].med);
+            problems.verexp.metersIDs.push(AllMetersIDs[element.Items[0].med]);
           }
         }
       });
@@ -78,7 +84,7 @@ export default function checkProblems(queryResponseInput, chosenMeter, queryResp
       queryResponseAll.forEach(element => {
         if(element.Items.length > 0){
           if(element.Items[0].vudf > 0){
-            problems.vudf.meters.push(element.Items[0].med);
+            problems.vudf.metersIDs.push(AllMetersIDs[element.Items[0].med]);
           }
         }
       });
@@ -89,7 +95,7 @@ export default function checkProblems(queryResponseInput, chosenMeter, queryResp
       queryResponseAll.forEach(element => {
         if(element.Items.length > 0){
           if(element.Items[0].vudp > 0){
-            problems.vudp.meters.push(element.Items[0].med);
+            problems.vudp.metersIDs.push(AllMetersIDs[element.Items[0].med]);
           }
         }
       });
@@ -101,7 +107,7 @@ export default function checkProblems(queryResponseInput, chosenMeter, queryResp
       queryResponseAll.forEach(element => {
         if(element.Items.length > 0){
           if(element.Items[0].jma > 0){
-            problems.jma.meters.push(element.Items[0].med);
+            problems.jma.metersIDs.push(AllMetersIDs[element.Items[0].med]);
           }
         }
       });
@@ -113,7 +119,7 @@ export default function checkProblems(queryResponseInput, chosenMeter, queryResp
       queryResponseAll.forEach(element => {
         if(element.Items.length > 0){
           if(element.Items[0].desc > 0){
-            problems.desc.meters.push(element.Items[0].med);
+            problems.desc.metersIDs.push(AllMetersIDs[element.Items[0].med]);
           }
         }
       });
@@ -128,24 +134,24 @@ export default function checkProblems(queryResponseInput, chosenMeter, queryResp
           // "Contrada"
           if (element.Items[0].dcf === 0) {
             problems.dcf.problem = true;
-            problems.dcf.meters.push(element.Items[0].med);
+            problems.dcf.metersIDs.push(AllMetersIDs[element.Items[0].med]);
           }
           // "Medida"
           if (element.Items[0].dmf === 0) {
             problems.dmf.problem = true;
-            problems.dmf.meters.push(element.Items[0].med);
+            problems.dmf.metersIDs.push(AllMetersIDs[element.Items[0].med]);
           }
           // Check "demanda faturada"
           if (element.Items[0].dmf < element.Items[0].dcf) {
             if (element.Items[0].dff !== element.Items[0].dcf) {
               problems.dff.problem = true;
-              problems.dff.meters.push(element.Items[0].med);
+              problems.dff.metersIDs.push(AllMetersIDs[element.Items[0].med]);
             }
           } else {
             if (element.Items[0].dff !== element.Items[0].dmf) {
               problems.dff.problem = true;
               problems.dff.expected = element.Items[0].dmf;
-              problems.dff.meters.push(element.Items[0].med);
+              problems.dff.metersIDs.push(AllMetersIDs[element.Items[0].med]);
             }
           }
           break;
@@ -155,46 +161,46 @@ export default function checkProblems(queryResponseInput, chosenMeter, queryResp
           // Contratada
           if (element.Items[0].dcp === 0) {
             problems.dcp.problem = true;
-            problems.dcp.meters.push(element.Items[0].med);
+            problems.dcp.metersIDs.push(AllMetersIDs[element.Items[0].med]);
           }
           if (element.Items[0].dcf === 0) {
             problems.dcf.problem = true;
-            problems.dcf.meters.push(element.Items[0].med);
+            problems.dcf.metersIDs.push(AllMetersIDs[element.Items[0].med]);
           }
           // Medida
           if (element.Items[0].dmp === 0) {
             problems.dmp.problem = true;
-            problems.dmp.meters.push(element.Items[0].med);
+            problems.dmp.metersIDs.push(AllMetersIDs[element.Items[0].med]);
           }
           if (element.Items[0].dmf === 0) {
             problems.dmf.problem = true;
-            problems.dmf.meters.push(element.Items[0].med);
+            problems.dmf.metersIDs.push(AllMetersIDs[element.Items[0].med]);
           }
           // Check "demanda faturada"
           if (element.Items[0].dmp < element.Items[0].dcp) {
             if (element.Items[0].dfp !== element.Items[0].dcp) {
               problems.dfp.problem = true;
               problems.dfp.expected = element.Items[0].dcp;
-              problems.dfp.meters.push(element.Items[0].med);
+              problems.dfp.metersIDs.push(AllMetersIDs[element.Items[0].med]);
             }
           } else {
             if (element.Items[0].dfp !== element.Items[0].dmp) {
               problems.dfp.problem = true;
               problems.dfp.expected = element.Items[0].dmp;
-              problems.dmp.meters.push(element.Items[0].med);
+              problems.dmp.metersIDs.push(AllMetersIDs[element.Items[0].med]);
             }
           }
           if (element.Items[0].dmf < element.Items[0].dcf) {
             if (element.Items[0].dff !== element.Items[0].dcf) {
               problems.dff.problem = true;
               problems.dff.expected = element.Items[0].dcf;
-              problems.dff.meters.push(element.Items[0].med);
+              problems.dff.metersIDs.push(AllMetersIDs[element.Items[0].med]);
             }
           } else {
             if (element.Items[0].dff !== element.Items[0].dmf) {
               problems.dff.problem = true;
               problems.dff.expected = element.Items[0].dmf;
-              problems.dff.meters.push(element.Items[0].med);
+              problems.dff.metersIDs.push(AllMetersIDs[element.Items[0].med]);
             }
           }
         break;
