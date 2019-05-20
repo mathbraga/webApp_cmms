@@ -7,36 +7,19 @@ import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
 import ReportOneUnit from "../../components/Reports/ReportOneUnit";
 import ReportInfo from "../../components/Reports/ReportInfo";
 import ReportCalculations from "../../components/Reports/ReportCalculations";
-import formatNumber from "../../utils/consumptionMonitor/formatText";
 
 class ResultOM extends Component {
   render() {
 
     const {
-      initialDate,
-      finalDate,
       dbObject,
       tableName,
       oneMonth,
-      meters,
       chosenMeter,
       meterType,
       resultObject
     } = this.props.consumptionState;
-    // let resultType = "";
-    // switch(this.props.meterType){
-    //   case("1") : resultType = "energy";break;
-    //   case("2") : resultType = "water";break;
-    // }
-
-    // Props: consumptionState, handleNewSearch
-
-    // Initialize all variables
-    // Loading images
-    // const imageWidgetOneColumn = require("../../assets/icons" + resultObject.image1);
-    // const imageWidgetThreeColumns = require("../../assets/icons" + resultObject.image2);
-    // const imageEnergyWarning = require("../../assets/icons" + resultObject.image3);
-
+    
     return (
       <ResultCard
         unitNumber={resultObject.unitNumber}
