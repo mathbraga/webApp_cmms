@@ -101,14 +101,17 @@ class ResultAM extends Component {
               numOfUnits={nonEmptyMeters.length}
               typeOfUnit={false}
               chosenMeter={this.props.consumptionState.chosenMeter}
-              initialDate={initialDate}
-              finalDate={finalDate}
+              initialDate={resultObject.initialDate}
+              finalDate={resultObject.finalDate}
               data={resultObject}
               title={"Diagnóstico"}
               buttonName={"Ver relatório"}
               image={imageEnergyWarning}
               queryResponseAll={queryResponseAll}
               meters={meters}
+              numProblems={resultObject.numProblems}
+              problems={resultObject.problems}
+              rowNamesReportProblems={resultObject.rowNamesReportProblems}
             />
           </Col>
         </Row>

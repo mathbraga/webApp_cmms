@@ -62,6 +62,7 @@ class ResultOP extends Component {
       meters,
       initialDate,
       finalDate,
+      oneMonth,
       chosenMeter,
       dbObject,
       meterType,
@@ -163,6 +164,10 @@ class ResultOP extends Component {
           <Col xs="12" sm="6" xl="3" className="order-xl-3 order-sm-2">
             <WidgetWithModal
               chosenMeter={chosenMeter}
+              oneMonth={oneMonth}
+              numProblems={false}
+              problems={false}
+              rowNamesReportProblems={false}
               // unitNumber={resultObject.unit.id.S}
               // unitName={resultObject.unit.nome.S}
               initialDate={initialDate}

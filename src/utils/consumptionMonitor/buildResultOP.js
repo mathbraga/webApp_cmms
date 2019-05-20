@@ -127,6 +127,12 @@ export default function buildResultOP(meterType, meters, chosenMeter, queryRespo
     { name: "Observações", attr: "obs" }
   ];
 
+  resultObject.rowNamesReportProblems = false;
+
+  resultObject.problems = false;
+
+  resultObject.numProblems = false;
+
   return resultObject;
 
 }

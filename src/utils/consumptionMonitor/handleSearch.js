@@ -66,7 +66,7 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
             showResult: true,
             error: false,
             newLocation: newLocation,
-            resultObject: buildResultAM(meterType, meters, chosenMeter, queryResponse, chartConfigs)
+            resultObject: buildResultAM(meterType, meters, chosenMeter, queryResponse, chartConfigs, queryResponseAll, initialDate, finalDate)
           };
         }
 
@@ -99,7 +99,7 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
               showResult: true,
               error: false,
               newLocation: newLocation,
-              resultObject: buildResultOM(meterType, meters, chosenMeter, queryResponse)
+              resultObject: buildResultOM(meterType, meters, chosenMeter, queryResponse, queryResponseAll, initialDate, finalDate)
             };
           }
         }

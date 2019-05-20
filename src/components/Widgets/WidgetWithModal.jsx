@@ -23,27 +23,27 @@ class WidgetWithModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      numProblems: 0, // Number of problems (marker)
-      problems: false, // Object with identified problems
+      // numProblems: 0, // Number of problems (marker)
+      // problems: false, // Object with identified problems
       modal: false // Handle the modal (open or closed)
     };
   }
 
-  componentDidMount() {
-    // If we have a queryResponse, check for problems
-    if(this.props.data.queryResponse && this.props.oneMonth){
-      let result = checkProblems(this.props.data.queryResponse, this.props.chosenMeter, this.props.queryResponseAll);
-      // Variable for the number of problems found
-      let numProblems = 0;
-      Object.keys(result).forEach(key => {
-        if (result[key].problem === true) numProblems += 1;
-      });
-      this.setState({
-        numProblems: numProblems,
-        problems: result
-      });
-    }
-  }
+  // componentDidMount() {
+  //   // If we have a queryResponse, check for problems
+  //   if(this.props.data.queryResponse && this.props.oneMonth){
+  //     let result = checkProblems(this.props.data.queryResponse, this.props.chosenMeter, this.props.queryResponseAll);
+  //     // Variable for the number of problems found
+  //     let numProblems = 0;
+  //     Object.keys(result).forEach(key => {
+  //       if (result[key].problem === true) numProblems += 1;
+  //     });
+  //     this.setState({
+  //       numProblems: numProblems,
+  //       problems: result
+  //     });
+  //   }
+  // }
 
   toggleModal = () => {
     this.setState({
@@ -70,7 +70,7 @@ class WidgetWithModal extends Component {
                 {this.props.oneMonth && (
                   <Badge color="danger">
                     {" "}
-                    {this.state.numProblems} erro(s){" "}
+                    {this.props.numProblems} erro(s){" "}
                   </Badge>
                 )}
               </div>
@@ -110,9 +110,10 @@ class WidgetWithModal extends Component {
                   isOpen={this.state.modal}
                   toggle={this.toggleModal}
                   className={"modal-lg " + this.props.className}
-                  problems={this.state.problems}
+                  problems={this.props.problems}
                   queryResponseAll={this.props.queryResponseAll}
                   meters={this.props.meters}
+                  rowNamesReportProblems={this.props.rowNamesReportProblems}
                 />
               </div>
             </Col>

@@ -149,14 +149,16 @@ class ResultOM extends Component {
               chosenMeter={chosenMeter}
               unitNumber={resultObject.unit.id.S}
               unitName={resultObject.unit.nome.S}
-              initialDate={initialDate}
-              finalDate={finalDate}
+              initialDate={resultObject.initialDate}
+              finalDate={resultObject.finalDate}
               typeOfUnit={resultObject.typeText[resultObject.queryResponse.tipo]}
-              data={resultObject}
               title={"Diagnóstico"}
               buttonName={"Ver relatório"}
               image={imageEnergyWarning}
               oneMonth={true}
+              numProblems={resultObject.numProblems}
+              problems={resultObject.problems}
+              rowNamesReportProblems={resultObject.rowNamesReportProblems}
             />
           </Col>
         </Row>

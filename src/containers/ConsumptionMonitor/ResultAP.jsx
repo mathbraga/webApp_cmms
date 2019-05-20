@@ -121,6 +121,10 @@ class ResultAP extends Component {
               title={"Diagnóstico"}
               buttonName={"Ver Relatório"}
               image={imageEnergyWarning}
+              problems={false}
+              numProblems={false}
+              oneMonth={oneMonth}
+              rowNamesReportProblems={false}
             />
           </Col>
         </Row>
