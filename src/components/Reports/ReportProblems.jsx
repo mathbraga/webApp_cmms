@@ -175,9 +175,9 @@ class ReportProblems extends Component {
           <Table bordered>
             <thead>
               <tr>
-                <th style={{ "textAlign": "center" }}>Parâmetro</th>
-                <th style={{ "textAlign": "center" }}>Valor registrado</th>
-                <th style={{ "textAlign": "center" }}>Diagnóstico</th>
+                <th style={{ textAlign: "center" }}>Parâmetro</th>
+                <th style={{ textAlign: "center" }}>Valor registrado</th>
+                <th style={{ textAlign: "center" }}>Diagnóstico</th>
               </tr>
             </thead>
             <tbody>
@@ -186,20 +186,20 @@ class ReportProblems extends Component {
                   <th scope="row">{rowNames[row].name}</th>
 
                   {rowNames[row].unit === "R$" ? (
-                    <td style={{ "textAlign": "center" }}>
+                    <td style={{ textAlign: "center" }}>
                       {"R$ "}
                       {this.props.problems &&
                         formatNumber(this.props.problems[row].value)}
                     </td>
                   ) : (
-                    <td style={{ "textAlign": "center" }}>
+                    <td style={{ textAlign: "center" }}>
                       {this.props.problems &&
                         formatNumber(this.props.problems[row].value, 0)}
                       {" " + rowNames[row].unit}
                     </td>
                   )}
 
-                  <td style={{ "textAlign": "center" }}>
+                  <td style={{ textAlign: "center" }}>
                     {this.props.problems && this.props.problems[row].problem ? (
                       <BadgeWithTooltips
                         color="danger"

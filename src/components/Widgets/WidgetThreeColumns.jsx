@@ -35,7 +35,7 @@ class WidgetThreeColumns extends Component {
               <div className="text-truncate">{values[2]}</div>
               <div
                 className="widget-title text-truncate"
-                style={{ "paddingTop": "5px" }}
+                style={{ paddingTop: "5px" }}
               >
                 {titles[3]}
               </div>
@@ -46,7 +46,7 @@ class WidgetThreeColumns extends Component {
               <div className="text-truncate">{values[4]}</div>
               <div
                 className="widget-title text-truncate"
-                style={{ "paddingTop": "5px" }}
+                style={{ paddingTop: "5px" }}
               >
                 {titles[5]}
               </div>

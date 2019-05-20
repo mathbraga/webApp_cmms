@@ -40,14 +40,14 @@ class BadgeWithTooltips extends React.Component {
           <br />
           <strong>Observações:</strong>
           <br />
-          <p style={{ "textAlign": "justify" }}>{this.props.obs}</p>
+          <p style={{ textAlign: "justify" }}>{this.props.obs}</p>
           <strong>Faixa de normalidade:</strong>
           <br />
           {this.props.expected}
           {metersIDs.length > 0 && (
             <>
               <br />
-              <p style={{ "textAlign": "justify" }} />
+              <p style={{ textAlign: "justify" }} />
               <strong>Verificar medidor(es):</strong>
               {metersIDs.map(meterID => (
                 <React.Fragment key={meterID}>
