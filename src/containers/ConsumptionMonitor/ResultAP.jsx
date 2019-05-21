@@ -10,18 +10,19 @@ import formatNumber from "../../utils/consumptionMonitor/formatText";
 
 class ResultAP extends Component {
   render() {
-    // Initialize all Variables
+
     const {
       meters,
-      initialDate,
-      finalDate,
       oneMonth,
       chosenMeter,
-      queryResponse,
       chartConfigs,
       nonEmptyMeters,
       resultObject
     } = this.props.consumptionState;
+
+    const {
+      handleNewSearch
+    } = this.props;
     
     return (
       <ResultCard
@@ -31,7 +32,7 @@ class ResultAP extends Component {
         finalDate={resultObject.finalDate}
         typeOfUnit={resultObject.typeText}
         oneMonth={oneMonth}
-        handleNewSearch={this.props.handleNewSearch}
+        handleNewSearch={handleNewSearch}
         allUnits={resultObject.allUnits}
         numOfUnits={resultObject.numOfUnits}
       >

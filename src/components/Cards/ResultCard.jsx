@@ -12,9 +12,9 @@ class ResultCard extends Component {
    *       - finalDate (date of false): final date for the query
    *       - typeOfUnit ("azul" or "verde"): type of the unit
    *       - handleNewSearch (function): function to handle the click on the new search button
-   *       - changeMeter(newMeter) (function)
+   *       ????? - changeMeter(newMeter) (function)
    *       - chosenMeter (number)
-   *       - meters (list of objects)
+   *     ??????  - meters (list of objects)
    */
 
   render() {
@@ -30,10 +30,6 @@ class ResultCard extends Component {
       oneMonth,
       children
     } = this.props;
-
-    // if (initialDate && initialDate.length === 7)
-    //   initialDate = dateWithFourDigits(initialDate);
-    // if (!oneMonth && finalDate) finalDate = dateWithFourDigits(finalDate);
 
     return (
       <Card>

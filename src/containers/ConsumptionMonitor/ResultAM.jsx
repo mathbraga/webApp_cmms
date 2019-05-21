@@ -5,13 +5,11 @@ import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
 import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
 import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
 import ReportListMeters from "../../components/Reports/ReportListMeters";
-import formatNumber from "../../utils/consumptionMonitor/formatText";
 
 class ResultAM extends Component {
   render() {
+
     const {
-      initialDate,
-      finalDate,
       oneMonth,
       meters,
       chosenMeter,
@@ -19,6 +17,10 @@ class ResultAM extends Component {
       queryResponseAll,
       resultObject
     } = this.props.consumptionState;
+
+    const {
+      handleNewSearch
+    } = this.props;
     
     return (
       <ResultCard
@@ -28,7 +30,7 @@ class ResultAM extends Component {
         finalDate={resultObject.finalDate}
         typeOfUnit={resultObject.typeText}
         oneMonth={oneMonth}
-        handleNewSearch={this.props.handleNewSearch}
+        handleNewSearch={handleNewSearch}
         allUnits={resultObject.allUnits}
         numOfUnits={resultObject.numOfUnits}
       >

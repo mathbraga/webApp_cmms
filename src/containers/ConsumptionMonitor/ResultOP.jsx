@@ -9,22 +9,19 @@ import ReportInfo from "../../components/Reports/ReportInfo";
 import ReportCalculations from "../../components/Reports/ReportCalculations";
 
 class ResultOP extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    // Initialize all variables
+
     const {
-      initialDate,
-      finalDate,
       oneMonth,
       chosenMeter,
       dbObject,
-      tableName,
       resultObject,
       chartConfigs
     } = this.props.consumptionState;
+
+    const {
+      handleNewSearch
+    } = this.props;
 
     return (
       <ResultCard
@@ -34,7 +31,7 @@ class ResultOP extends Component {
         finalDate={resultObject.finalDate}
         typeOfUnit={resultObject.typeText}
         oneMonth={oneMonth}
-        handleNewSearch={this.props.handleNewSearch}
+        handleNewSearch={handleNewSearch}
         allUnits={resultObject.allUnits}
         numOfUnits={resultObject.numOfUnits}
       >

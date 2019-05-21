@@ -19,6 +19,10 @@ class ResultOM extends Component {
       meterType,
       resultObject
     } = this.props.consumptionState;
+
+    const {
+      handleNewSearch
+    } = this.props;
     
     return (
       <ResultCard
@@ -28,7 +32,7 @@ class ResultOM extends Component {
         finalDate={resultObject.finalDate}
         typeOfUnit={resultObject.typeText}
         oneMonth={oneMonth}
-        handleNewSearch={this.props.handleNewSearch}
+        handleNewSearch={handleNewSearch}
         allUnits={resultObject.allUnits}
         numOfUnits={resultObject.numOfUnits}
       >
