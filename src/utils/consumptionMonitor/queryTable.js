@@ -36,7 +36,6 @@ export default function queryTable(dbObject, tableName, chosenMeter, meters, aam
           },
           (err, data) => {
             if (err) {
-              alert("There was an error. Please insert search parameters again.");
               reject();
             } else {
               data.Items.forEach(element => {
@@ -53,6 +52,8 @@ export default function queryTable(dbObject, tableName, chosenMeter, meters, aam
     });
     Promise.all(arrayPromises).then(() => {
       resolve(queryResponse);
+    }).catch(() => {
+      reject();
     });
   });
 }

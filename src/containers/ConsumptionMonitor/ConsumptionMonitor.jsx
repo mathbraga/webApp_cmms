@@ -47,8 +47,8 @@ class ConsumptionMonitor extends Component {
         showResult: true,
         resultObject: resultObject
       });
-    }).catch(() => {
-      alert("Houve um problema. Por favor, escolha novos parâmetros de pesquisa.");
+    }).catch((checkInputsMessage) => {
+      alert(checkInputsMessage);
     }); 
   }
 
@@ -77,7 +77,6 @@ class ConsumptionMonitor extends Component {
   render() {
     return (
       <React.Fragment>
-
         {!this.state.showResult &&
           <React.Fragment>
             <FormDates
@@ -96,7 +95,6 @@ class ConsumptionMonitor extends Component {
             />
           </React.Fragment>
         }
-
         {this.state.showResult &&
           <Switch location={this.state.resultObject.newLocation}>
             <Route

@@ -9,39 +9,62 @@ export default function checkSearchInputs(initialDate, finalDate, oneMonth){
   } else {
     currentMonth = currentMonth.toString();
   }
- 
+  
   // initialDate check
   // These conditions are applied for both cases (one month or period)
-  if(
-    initialDate.length < 7 ||                                                       // Incomplete input
-    initialDate.slice(0, 2) > "12" ||                                               // Non-existent month
-    initialDate.slice(0, 2) === "00" ||                                             // Non-existent month
-    initialDate.slice(3) < "2017" ||                                                // Non-existent year in database
-    initialDate.slice(3) > currentYear ||                                           // Non-existent year in database
-    initialDate.slice(3) === currentYear && initialDate.slice(0, 2) > currentMonth  // Non-existent month in database
-  ){
-    return false;
-  } else {
+  
+  // Incomplete input
+  if(initialDate.length < 7) return {checkBool: false, message: "Por favor, verifique o mês inicial."};
+
+  // Non-existent month
+  if(initialDate.slice(0, 2) > "12") return {checkBool: false, message: "Mês inicial inexistente."};
+
+  // Non-existent month
+  if(initialDate.slice(0, 2) === "00") return {checkBool: false, message: "Mês inicial inexistente."};
+
+  // Non-existent year in database
+  if(initialDate.slice(3) < "2017") return {checkBool: false, message: "Mês inicial não consta no banco de dados."};
+  
+  // Non-existent year in database
+  if(initialDate.slice(3) > currentYear) return {checkBool: false, message: "Ano pesquisado não consta no banco de dados."};
+
+  // Non-existent month in database
+  if(initialDate.slice(3) === currentYear && initialDate.slice(0, 2) > currentMonth) return {checkBool: false, message: "Mês inicial não consta no banco de dados."};
+  
+  // finalDate check
+  // These conditions are applied only for period case
+  if(!oneMonth){
+
+    // Same dates
+    if(initialDate === finalDate) return {checkBool: false, message: "Mês final igual ao mês inicial."};
+
+    // Incomplete input
+    if(finalDate.length < 7) return {checkBool: false, message: "Por favor, verifique o mês final."};
     
-    // finalDate check
-    // These conditions are applied only for period case
-    if(!oneMonth){
-      if(
-      initialDate === finalDate ||                                                                      // Same dates
-      finalDate.length < 7 ||                                                                           // Incomplete input
-      finalDate.slice(0, 2) > "12" ||                                                                   // Non-existent month
-      finalDate.slice(0, 2) === "00" ||                                                                 // Non-existent month
-      finalDate.slice(3) < "2017" ||                                                                    // Non-existent year in database
-      finalDate.slice(3) > currentYear ||                                                               // Non-existent year in database
-      finalDate.slice(3) === currentYear && finalDate.slice(0, 2) > currentMonth ||                     // Non-existent month in database
-      initialDate.slice(3) > finalDate.slice(3) ||                                                      // initialDate after finalDate (year check)
-      initialDate.slice(3) === finalDate.slice(3) && initialDate.slice(0, 2) > finalDate.slice(0, 2)  // initialDate after finalDate (same year, month check)
-      ) {
-        return false;
-      }
-    } else {
-      return true;
-    }
-  return true;
+    // Non-existent month
+    if(finalDate.slice(0, 2) > "12") return {checkBool: false, message: "Mês final inexistente."};
+
+    // Non-existent month
+    if(finalDate.slice(0, 2) === "00") return {checkBool: false, message: "Mês final inexistente."};
+
+    // Non-existent year in database
+    if(finalDate.slice(3) < "2017") return {checkBool: false, message: "Mês final não consta no banco de dados."};
+
+    // Non-existent year in database
+    if(finalDate.slice(3) > currentYear) return {checkBool: false, message: "Ano pesquisado não consta no banco de dados."};
+
+    // Non-existent month in database
+    if(finalDate.slice(3) === currentYear && finalDate.slice(0, 2) > currentMonth) return {checkBool: false, message: "Mês final não consta no banco de dados."};
+
+    // initialDate after finalDate (year check)
+    if(initialDate.slice(3) > finalDate.slice(3)) return {checkBool: false, message: "Verifique datas inseridas."};
+
+    // initialDate after finalDate (same year, month check)
+    if(initialDate.slice(3) === finalDate.slice(3) && initialDate.slice(0, 2) > finalDate.slice(0, 2)) return {checkBool: false, message: "Verifique datas inseridas."};
+  
   }
+  
+  // Run this line only if everything is OK
+  return {checkBool: true, message: ""};
+
 }

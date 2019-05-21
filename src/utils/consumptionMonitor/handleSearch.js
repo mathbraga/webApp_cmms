@@ -22,8 +22,9 @@ export default function handleSearch(stateInput) {
     } = stateInput;
     
     // Check date inputs
-    if(checkSearchInputs(initialDate, finalDate, oneMonth)){
-      
+    let checkInputs = checkSearchInputs(initialDate, finalDate, oneMonth);
+
+    if(checkInputs.checkBool){
       // Run code below in case of correct search parameters inputs (checkSearchInputs returns true)
       // Transform dates inputs (from 'mm/yyyy' format to 'yymm' format)
       var aammInitial = dateWithFourDigits(initialDate);
@@ -63,11 +64,13 @@ export default function handleSearch(stateInput) {
         if (chosenMeter !== meterType + "99" && !oneMonth) {
           resolve(buildResultOP(data, meterType, meters, chosenMeter, initialDate, finalDate));
         }
+      }).catch(() => {
+        alert("Houve um problema no acesso ao banco de dados. Por favor, tente novamente.");
       });
 
     // Browser display an alert message in case of wrong search inputs
     } else {
-      reject();
+      reject(checkInputs.message);
     }
   });
 }
