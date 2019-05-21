@@ -1,7 +1,7 @@
 import checkSearchInputs from "./checkSearchInputs";
 import queryTable from "./queryTable";
 import defineNewLocation from "./defineNewLocation";
-import aammTransformDate from "./aammTransformDate";
+import dateWithFourDigits from "./dateWithFourDigits";
 import sumAllMeters from "./sumAllMeters";
 import removeEmptyMeters from "./removeEmptyMeters";
 import makeChartConfigs from "./makeChartConfigs";
@@ -23,12 +23,12 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
       // Run code below in case of correct search parameters inputs (checkSearchInputs returns true)
 
       // Transform dates inputs (from 'mm/yyyy' format to 'yymm' format)
-      var aamm1 = aammTransformDate(initialDate);
+      var aamm1 = dateWithFourDigits(initialDate);
       var aamm2 = "";
       if (oneMonth) {
         aamm2 = aamm1;
       } else {
-        aamm2 = aammTransformDate(finalDate);
+        aamm2 = dateWithFourDigits(finalDate);
       }
 
       // Define new location
