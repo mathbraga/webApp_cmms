@@ -6,6 +6,13 @@ export default function buildResultAP(meterType, meters, chosenMeter, queryRespo
 
   let resultObject = {};
 
+  resultObject.newLocation = {
+    hash: "",
+    pathname: "/consumo/energia/resultados/AP",
+    search: "",
+    state: {}
+  };
+
   resultObject.queryResponse = queryResponse[0].Items[0];
 
   resultObject.totalValues = {};

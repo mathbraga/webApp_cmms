@@ -3,10 +3,18 @@ import dateWithFourDigits from "./dateWithFourDigits";
 import formatNumber from "./formatText";
 import checkProblems from "./checkProblems";
 import getMeterTypeText from "./getMeterTypeText";
+import defineNewLocation from "./defineNewLocation";
 
 export default function buildResultOM(meterType, meters, chosenMeter, queryResponse, queryResponseAll, initialDate, finalDate){
   
   let resultObject = {};
+
+  resultObject.newLocation = {
+    hash: "",
+    pathname: "/consumo/energia/resultados/OM",
+    search: "",
+    state: {}
+  };
   
   meters.forEach(meter => {
     if((parseInt(meter.med.N) + 100*parseInt(meter.tipomed.N)) === parseInt(chosenMeter)){

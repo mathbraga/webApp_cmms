@@ -2,12 +2,18 @@ import transformDateString from "./transformDateString";
 import dateWithFourDigits from "./dateWithFourDigits";
 import formatNumber from "./formatText";
 import applyFuncToAttr from "./objectOperations";
-import ReportInfo from "../../components/Reports/ReportInfo";
 import getMeterTypeText from "./getMeterTypeText";
 
 export default function buildResultOP(meterType, meters, chosenMeter, queryResponse, initialDate, finalDate){
 
   let resultObject = {};
+
+  resultObject.newLocation = {
+    hash: "",
+    pathname: "/consumo/energia/resultados/OP",
+    search: "",
+    state: {}
+  };
 
   const { Items } = queryResponse[0];
 

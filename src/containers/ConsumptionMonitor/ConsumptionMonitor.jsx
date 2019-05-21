@@ -80,7 +80,7 @@ class ConsumptionMonitor extends Component {
   render() {
     return (
       <React.Fragment>
-        <Switch location={this.state.newLocation}>
+        <Switch location={this.state.resultObject.newLocation}>
           <Route
             exact
             path={this.props.location.pathname}

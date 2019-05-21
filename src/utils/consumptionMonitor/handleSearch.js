@@ -32,13 +32,13 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
       }
 
       // Define new location
-      var newLocation = defineNewLocation(
-        oneMonth,
-        chosenMeter,
-        initialDate,
-        finalDate,
-        meterType
-      );
+      // var newLocation = defineNewLocation(
+      //   oneMonth,
+      //   chosenMeter,
+      //   initialDate,
+      //   finalDate,
+      //   meterType
+      // );
 
       // Query table
       queryTable(
@@ -65,7 +65,7 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
             queryResponse: queryResponse,
             showResult: true,
             error: false,
-            newLocation: newLocation,
+            // newLocation: newLocation,
             resultObject: buildResultAM(meterType, meters, chosenMeter, queryResponse, chartConfigs, queryResponseAll, initialDate, finalDate, nonEmptyMeters)
           };
         }
@@ -83,7 +83,7 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
             chartConfigs: chartConfigs,
             showResult: true,
             error: false,
-            newLocation: newLocation,
+            // newLocation: newLocation,
             resultObject: buildResultAP(meterType, meters, chosenMeter, queryResponse, chartConfigs, nonEmptyMeters, initialDate, finalDate)
           };
         }
@@ -98,7 +98,7 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
               queryResponse: queryResponse,
               showResult: true,
               error: false,
-              newLocation: newLocation,
+              // newLocation: newLocation,
               resultObject: buildResultOM(meterType, meters, chosenMeter, queryResponse, queryResponseAll, initialDate, finalDate)
             };
           }
@@ -112,7 +112,7 @@ export default function handleSearch(initialDate, finalDate, oneMonth, chosenMet
             queryResponse: queryResponse,
             showResult: true,
             error: false,
-            newLocation: newLocation,
+            // newLocation: newLocation,
             chartConfigs: chartConfigs,
             resultObject: buildResultOP(meterType, meters, chosenMeter, queryResponse, initialDate, finalDate)
           };
