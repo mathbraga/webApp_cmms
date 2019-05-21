@@ -189,6 +189,8 @@ export default function buildResultOP(data, meterType, meters, chosenMeter, init
 
   resultObject.chartSubvalue = resultObject.unitName;
 
+  resultObject.selectedDefault = "vbru";
+
   return resultObject;
 
 }

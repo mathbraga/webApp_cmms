@@ -3,7 +3,6 @@ import dateWithFourDigits from "./dateWithFourDigits";
 import formatNumber from "./formatText";
 import checkProblems from "./checkProblems";
 import getMeterTypeText from "./getMeterTypeText";
-import defineNewLocation from "./defineNewLocation";
 
 export default function buildResultOM(data, meterType, meters, chosenMeter, initialDate, finalDate){
   

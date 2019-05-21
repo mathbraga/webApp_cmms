@@ -99,6 +99,7 @@ class ResultOP extends Component {
               titleColSize={resultObject.chartReportTitleColSize}
               subtitle={resultObject.chartSubtitle}
               subvalue={resultObject.chartSubvalue}
+              selectedDefault={resultObject.selectedDefault}
             />
           </Col>
         </Row>

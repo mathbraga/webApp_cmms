@@ -8,7 +8,7 @@ class ChartReport extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: "vbru"
+      selected: this.props.selectedDefault
     };
   }
 
