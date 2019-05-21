@@ -2,8 +2,10 @@ import transformDateString from "./transformDateString";
 import dateWithFourDigits from "./dateWithFourDigits";
 import formatNumber from "./formatText";
 import checkProblems from "./checkProblems";
+import removeEmptyMeters from "./removeEmptyMeters";
+import sumAllMeters from "./sumAllMeters";
 
-export default function buildResultAP(meterType, meters, chosenMeter, queryResponse, chartConfigs, queryResponseAll, initialDate, finalDate, nonEmptyMeters){
+export default function buildResultAM(data, meterType, meters, chosenMeter, initialDate, finalDate){
 
   let resultObject = {};
 
@@ -14,7 +16,13 @@ export default function buildResultAP(meterType, meters, chosenMeter, queryRespo
     state: {}
   };
 
-  resultObject.queryResponse = queryResponse[0].Items[0];
+  resultObject.nonEmptyMeters = removeEmptyMeters(data);
+
+  resultObject.queryResponseAll = data;
+
+  resultObject.queryResponse = sumAllMeters(data, meterType);
+
+  let queryResponse = resultObject.queryResponse[0].Items[0];
 
   resultObject.unitNumber = "Todos medidores";
 
@@ -22,17 +30,9 @@ export default function buildResultAP(meterType, meters, chosenMeter, queryRespo
 
   resultObject.allUnits = true;
 
-  resultObject.numOfUnits = nonEmptyMeters.length;
+  resultObject.numOfUnits = resultObject.nonEmptyMeters.length;
 
   resultObject.typeText = false;
-
-  resultObject.totalValues = {};
-  Object.keys(chartConfigs).forEach(key => {
-    const values = chartConfigs[key].data.datasets[0].data;
-    resultObject.totalValues[key] = values.reduce(
-      (previous, current) => (previous += current)
-    );
-  });
 
   resultObject.imageWidgetOneColumn = require("../../assets/icons/money_energy.png");
 
@@ -42,11 +42,11 @@ export default function buildResultAP(meterType, meters, chosenMeter, queryRespo
 
   resultObject.widgetOneColumnFirstTitle = "Consumo";
 
-  resultObject.widgetOneColumnFirstValue = formatNumber(resultObject.queryResponse.kwh, 0) + " kWh";
+  resultObject.widgetOneColumnFirstValue = formatNumber(queryResponse.kwh, 0) + " kWh";
 
   resultObject.widgetOneColumnSecondTitle = "Gasto";
 
-  resultObject.widgetOneColumnSecondValue = "R$ " + formatNumber(resultObject.queryResponse.vbru, 2);
+  resultObject.widgetOneColumnSecondValue = "R$ " + formatNumber(queryResponse.vbru, 2);
 
   resultObject.widgetThreeColumnsTitles = [
     "Demanda",
@@ -58,21 +58,21 @@ export default function buildResultAP(meterType, meters, chosenMeter, queryRespo
   ];
 
   resultObject.widgetThreeColumnsValues = [
-    formatNumber(resultObject.queryResponse.dms, 0) + " kW",
+    formatNumber(queryResponse.dms, 0) + " kW",
     "R$ " +
       formatNumber(
-        resultObject.queryResponse.vudf + resultObject.queryResponse.vudp,
+        queryResponse.vudf + queryResponse.vudp,
         0
       ),
-    "R$ " + formatNumber(resultObject.queryResponse.desc, 2),
-    "R$ " + formatNumber(resultObject.queryResponse.jma, 2),
+    "R$ " + formatNumber(queryResponse.desc, 2),
+    "R$ " + formatNumber(queryResponse.jma, 2),
     "R$ " +
       formatNumber(
-        resultObject.queryResponse.verexf + resultObject.queryResponse.verexp,
+        queryResponse.verexf + queryResponse.verexp,
         2
       ),
     formatNumber(
-      resultObject.queryResponse.uferf + resultObject.queryResponse.uferp,
+      queryResponse.uferf + queryResponse.uferp,
       0
     )
   ];
@@ -81,8 +81,7 @@ export default function buildResultAP(meterType, meters, chosenMeter, queryRespo
 
   resultObject.widgetWithModalButtonName = "Ver relatório";
 
-  
-  resultObject.problems = checkProblems(queryResponse, chosenMeter, queryResponseAll, meters);
+  resultObject.problems = checkProblems(resultObject.queryResponse, chosenMeter, resultObject.queryResponseAll, meters);
   
   resultObject.numProblems = 0;
   Object.keys(resultObject.problems).forEach(key => {

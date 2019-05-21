@@ -3,8 +3,9 @@ import dateWithFourDigits from "./dateWithFourDigits";
 import formatNumber from "./formatText";
 import applyFuncToAttr from "./objectOperations";
 import getMeterTypeText from "./getMeterTypeText";
+import makeChartConfigs from "./makeChartConfigs";
 
-export default function buildResultOP(meterType, meters, chosenMeter, queryResponse, initialDate, finalDate){
+export default function buildResultOP(data, meterType, meters, chosenMeter, initialDate, finalDate){
 
   let resultObject = {};
 
@@ -15,7 +16,11 @@ export default function buildResultOP(meterType, meters, chosenMeter, queryRespo
     state: {}
   };
 
-  const { Items } = queryResponse[0];
+  resultObject.chartConfigs = makeChartConfigs(data, dateWithFourDigits(initialDate), dateWithFourDigits(finalDate), meterType);
+
+  resultObject.queryResponse = data[0].Items;
+
+  const { Items } = data[0];
 
   resultObject.totalKWh = applyFuncToAttr(Items, "kwh", (...values) =>
     values.reduce((previous, current) => (current += previous))
@@ -82,8 +87,6 @@ export default function buildResultOP(meterType, meters, chosenMeter, queryRespo
   resultObject.initialDate = transformDateString(dateWithFourDigits(initialDate));
   
   resultObject.finalDate = transformDateString(dateWithFourDigits(finalDate));
-
-  resultObject.queryResponse = queryResponse[0].Items;
 
   resultObject.dateString = transformDateString(applyFuncToAttr(resultObject.queryResponse, "aamm", Math.max));
 

@@ -5,9 +5,6 @@ import formatNumber from "../../utils/consumptionMonitor/formatText";
 import ReportCard from "../Cards/ReportCard";
 
 class ChartReport extends Component {
-  // Props:
-  //      - unitName (string): Number of this unit
-
   constructor(props) {
     super(props);
     this.state = {
@@ -20,22 +17,20 @@ class ChartReport extends Component {
   };
 
   render() {
-    const { unitName, itemsForChart } = this.props;
+    const { unitName, itemsForChart, chartConfigs, title, titleColSize, subtitle, dropdownTitle } = this.props;
     let dropdownItems = {};
     itemsForChart.forEach(key => {
-      dropdownItems[key] = this.props.chartConfigs[
-        key
-      ].options.title.text;
+      dropdownItems[key] = chartConfigs[key].options.title.text;
     });
 
     return (
       <ReportCard
-        title={this.props.title}
-        titleColSize={this.props.titleColSize}
-        subtitle={this.props.subtitle}
+        title={title}
+        titleColSize={titleColSize}
+        subtitle={subtitle}
         subvalue={unitName}
         dropdown
-        dropdownTitle={this.props.dropdownTitle}
+        dropdownTitle={dropdownTitle}
         dropdownItems={dropdownItems}
         showCalcResult={this.onChangeYAxis}
         resultID={this.state.selected}
@@ -45,12 +40,8 @@ class ChartReport extends Component {
           {/*Gráfico*/}
           <Col md="8">
             <Line
-              data={
-                this.props.chartConfigs[this.state.selected].data
-              }
-              options={
-                this.props.chartConfigs[this.state.selected].options
-              }
+              data={chartConfigs[this.state.selected].data}
+              options={chartConfigs[this.state.selected].options}
               redraw={true}
             />
           </Col>
@@ -62,25 +53,19 @@ class ChartReport extends Component {
                 <tr>
                   <th>Mês</th>
                   <th>
-                    {this.props.chartConfigs[this.state.selected]
-                      .options.title.text +
+                    {chartConfigs[this.state.selected].options.title.text +
                       " (" +
-                      this.props.chartConfigs[this.state.selected]
-                        .options.scales.yAxes[0].scaleLabel.labelString +
+                      chartConfigs[this.state.selected].options.scales.yAxes[0].scaleLabel.labelString +
                       ")"}
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {this.props.chartConfigs[
-                  this.state.selected
-                ].data.labels.map((month, index) => (
+                {chartConfigs[this.state.selected].data.labels.map((month, index) => (
                   <tr key={month}>
                     <td>{month}</td>
                     <td sytle="{text-align: right}">
-                      {formatNumber(
-                        this.props.chartConfigs[this.state.selected]
-                          .data.datasets[0].data[index]
+                      {formatNumber(chartConfigs[this.state.selected].data.datasets[0].data[index]
                       )}
                     </td>
                   </tr>

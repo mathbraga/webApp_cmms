@@ -13,8 +13,6 @@ class ResultAM extends Component {
       oneMonth,
       meters,
       chosenMeter,
-      nonEmptyMeters,
-      queryResponseAll,
       resultObject
     } = this.props.consumptionState;
 
@@ -69,7 +67,7 @@ class ResultAM extends Component {
               allUnits={resultObject.allUnits}
               oneMonth={oneMonth}
               numOfUnits={resultObject.numOfUnits}
-              queryResponseAll={queryResponseAll}
+              queryResponseAll={resultObject.queryResponseAll}
             />
           </Col>
         </Row>
@@ -78,7 +76,7 @@ class ResultAM extends Component {
           <Col>
             <ReportListMeters
               meters={meters}
-              nonEmptyMeters={nonEmptyMeters}
+              nonEmptyMeters={resultObject.nonEmptyMeters}
             />
           </Col>
         </Row>

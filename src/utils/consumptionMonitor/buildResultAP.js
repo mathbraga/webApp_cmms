@@ -1,8 +1,10 @@
 import transformDateString from "./transformDateString";
 import formatNumber from "./formatText";
 import dateWithFourDigits from "./dateWithFourDigits";
+import removeEmptyMeters from "./removeEmptyMeters";
+import makeChartConfigs from "./makeChartConfigs";
 
-export default function buildResultAP(meterType, meters, chosenMeter, queryResponse, chartConfigs, nonEmptyMeters, initialDate, finalDate){
+export default function buildResultAP(data, meterType, meters, chosenMeter, initialDate, finalDate){
 
   let resultObject = {};
 
@@ -13,11 +15,19 @@ export default function buildResultAP(meterType, meters, chosenMeter, queryRespo
     state: {}
   };
 
-  resultObject.queryResponse = queryResponse[0].Items[0];
+  resultObject.queryResponseAll = data;
+  
+  resultObject.nonEmptyMeters = removeEmptyMeters(data);
+  
+  // resultObject.queryResponseRaw = data;
+
+  resultObject.chartConfigs = makeChartConfigs(data, dateWithFourDigits(initialDate), dateWithFourDigits(finalDate), meterType);
+
+  resultObject.queryResponse = data[0].Items[0];
 
   resultObject.totalValues = {};
-  Object.keys(chartConfigs).forEach(key => {
-    const values = chartConfigs[key].data.datasets[0].data;
+  Object.keys(resultObject.chartConfigs).forEach(key => {
+    const values = resultObject.chartConfigs[key].data.datasets[0].data;
     resultObject.totalValues[key] = values.reduce(
       (previous, current) => (previous += current)
     );
@@ -27,7 +37,7 @@ export default function buildResultAP(meterType, meters, chosenMeter, queryRespo
 
   resultObject.allUnits = true;
 
-  resultObject.numOfUnits = nonEmptyMeters.length;
+  resultObject.numOfUnits = resultObject.nonEmptyMeters.length;
 
   resultObject.unitName = resultObject.numOfUnits.toString() + " medidores";
 
@@ -75,7 +85,7 @@ export default function buildResultAP(meterType, meters, chosenMeter, queryRespo
 
   resultObject.numProblems = false;
 
-  resultObject.demMax = Math.max(...chartConfigs.dms.data.datasets[0].data);
+  resultObject.demMax = Math.max(...resultObject.chartConfigs.dms.data.datasets[0].data);
 
   resultObject.initialDate = transformDateString(dateWithFourDigits(initialDate));
   

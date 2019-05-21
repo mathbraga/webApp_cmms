@@ -6,7 +6,6 @@ import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
 import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
 import ReportListMeters from "../../components/Reports/ReportListMeters";
 import ChartReport from "../../components/Charts/ChartReport";
-import formatNumber from "../../utils/consumptionMonitor/formatText";
 
 class ResultAP extends Component {
   render() {
@@ -15,8 +14,6 @@ class ResultAP extends Component {
       meters,
       oneMonth,
       chosenMeter,
-      chartConfigs,
-      nonEmptyMeters,
       resultObject
     } = this.props.consumptionState;
 
@@ -78,7 +75,7 @@ class ResultAP extends Component {
             <ChartReport
               unitName={resultObject.unitName}
               itemsForChart={resultObject.itemsForChart}
-              chartConfigs={chartConfigs}
+              chartConfigs={resultObject.chartConfigs}
               title={resultObject.chartReportTitle}
               titleColSize={resultObject.chartReportTitleColSize}
               subtitle={resultObject.chartSubtitle}
@@ -90,7 +87,7 @@ class ResultAP extends Component {
           <Col>
             <ReportListMeters
               meters={meters}
-              nonEmptyMeters={nonEmptyMeters}
+              nonEmptyMeters={resultObject.nonEmptyMeters}
             />
           </Col>
         </Row>

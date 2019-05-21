@@ -15,8 +15,7 @@ class ResultOP extends Component {
       oneMonth,
       chosenMeter,
       dbObject,
-      resultObject,
-      chartConfigs
+      resultObject
     } = this.props.consumptionState;
 
     const {
@@ -95,7 +94,7 @@ class ResultOP extends Component {
             <ChartReport
               unitName={resultObject.unitName}
               itemsForChart={resultObject.itemsForChart}
-              chartConfigs={chartConfigs}
+              chartConfigs={resultObject.chartConfigs}
               title={resultObject.chartReportTitle}
               titleColSize={resultObject.chartReportTitleColSize}
               subtitle={resultObject.chartSubtitle}

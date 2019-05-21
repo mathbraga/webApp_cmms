@@ -5,7 +5,7 @@ import checkProblems from "./checkProblems";
 import getMeterTypeText from "./getMeterTypeText";
 import defineNewLocation from "./defineNewLocation";
 
-export default function buildResultOM(meterType, meters, chosenMeter, queryResponse, queryResponseAll, initialDate, finalDate){
+export default function buildResultOM(data, meterType, meters, chosenMeter, initialDate, finalDate){
   
   let resultObject = {};
 
@@ -15,6 +15,8 @@ export default function buildResultOM(meterType, meters, chosenMeter, queryRespo
     search: "",
     state: {}
   };
+
+  resultObject.queryResponse = data[0].Items[0];
   
   meters.forEach(meter => {
     if((parseInt(meter.med.N) + 100*parseInt(meter.tipomed.N)) === parseInt(chosenMeter)){
@@ -31,8 +33,6 @@ export default function buildResultOM(meterType, meters, chosenMeter, queryRespo
   resultObject.initialDate = transformDateString(dateWithFourDigits(initialDate));
   
   resultObject.finalDate = transformDateString(dateWithFourDigits(finalDate));
-
-  resultObject.queryResponse = queryResponse[0].Items[0];
 
   resultObject.dateString = transformDateString(resultObject.queryResponse.aamm);
 
@@ -515,7 +515,7 @@ export default function buildResultOM(meterType, meters, chosenMeter, queryRespo
 
   resultObject.date = resultObject.queryResponse.aamm;
 
-  resultObject.problems = checkProblems(queryResponse, chosenMeter, queryResponseAll, meters);
+  resultObject.problems = checkProblems(data, chosenMeter, resultObject.queryResponseAll, meters);
   
   resultObject.numProblems = 0;
   Object.keys(resultObject.problems).forEach(key => {

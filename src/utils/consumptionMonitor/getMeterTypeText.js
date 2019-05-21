@@ -6,8 +6,6 @@ export default function getMeterTypeText(tipoAttr){
     "2": "Horária - Azul"
   };
 
-  console.log(typeTextOptions[tipoAttr.toString()]);
-
   return typeTextOptions[tipoAttr.toString()];
 
 }

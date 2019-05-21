@@ -5,6 +5,7 @@ import handleDates from "../../utils/consumptionMonitor/handleDates";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 import handleSearch from "../../utils/consumptionMonitor/handleSearch";
 import getAllMeters from "../../utils/consumptionMonitor/getAllMeters";
+import getCurrentMonth from "../../utils/consumptionMonitor/getCurrentMonth";
 import { Route, Switch } from "react-router-dom";
 import ResultOM from "./ResultOM";
 import ResultOP from "./ResultOP";
@@ -19,19 +20,13 @@ class ConsumptionMonitor extends Component {
       tableNameMeters: this.props.tableNameMeters,
       meterType: this.props.meterType,
       defaultMeter: this.props.meterType + "99",
-      nonEmptyMeters: [],
       meters: [],
       dbObject: initializeDynamoDB(),
-      initialDate: "",
+      initialDate: getCurrentMonth(),
       finalDate: "",
       chosenMeter: this.props.meterType + "99",
-      oneMonth: false,
-      error: false,
-      queryResponse: false,
-      queryResponseAll: false,
-      chartConfigs: {},
+      oneMonth: true,
       showResult: false,
-      newLocation: this.props.location,
       resultObject: {}
     };
   }
@@ -47,8 +42,11 @@ class ConsumptionMonitor extends Component {
   handleChangeOnDates = handleDates.bind(this);
   
   handleQuery = event => {
-    handleSearch(this.state.initialDate, this.state.finalDate, this.state.oneMonth, this.state.chosenMeter, this.state.meterType, this.state.meters, this.state.dbObject, this.state.tableName).then(newState => {
-      this.setState(newState);
+    handleSearch(this.state.initialDate, this.state.finalDate, this.state.oneMonth, this.state.chosenMeter, this.state.meterType, this.state.meters, this.state.dbObject, this.state.tableName).then(resultObject => {
+      this.setState({
+        showResult: true,
+        resultObject: resultObject
+      });
     }).catch(() => {
       alert("Houve um problema. Por favor, escolha novos parâmetros de pesquisa.");
     }); 
@@ -68,84 +66,81 @@ class ConsumptionMonitor extends Component {
 
   showFormDates = event => {
     this.setState((prevState, props) => ({
-      showResult: false,
       initialDate: prevState.initialDate,
       finalDate: prevState.finalDate,
       chosenMeter: prevState.defaultMeter,
       oneMonth: prevState.oneMonth,
-      newLocation: this.props.location
+      showResult: false
     }));
   };
 
   render() {
     return (
       <React.Fragment>
-        <Switch location={this.state.resultObject.newLocation}>
-          <Route
-            exact
-            path={this.props.location.pathname}
-            render={routerProps => (
-              <React.Fragment>
-                <FormDates
+
+        {!this.state.showResult &&
+          <React.Fragment>
+            <FormDates
+              onChangeDate={this.handleChangeOnDates}
+              initialDate={this.state.initialDate}
+              finalDate={this.state.finalDate}
+              oneMonth={this.state.oneMonth}
+              meters={this.state.meters}
+              onChangeOneMonth={this.handleOneMonth}
+              onMeterChange={this.handleMeterChange}
+              onQuery={this.handleQuery}
+            />
+            <FileInput
+              tableName={this.state.tableName}
+              dbObject={this.state.dbObject}
+            />
+          </React.Fragment>
+        }
+
+        {this.state.showResult &&
+          <Switch location={this.state.resultObject.newLocation}>
+            <Route
+              path={this.props.location.pathname + "/resultados/OM"}
+              render={routerProps => (
+                <ResultOM
                   {...routerProps}
-                  onChangeDate={this.handleChangeOnDates}
-                  initialDate={this.state.initialDate}
-                  finalDate={this.state.finalDate}
-                  oneMonth={this.state.oneMonth}
-                  meters={this.state.meters}
-                  onChangeOneMonth={this.handleOneMonth}
-                  onMeterChange={this.handleMeterChange}
-                  onQuery={this.handleQuery}
+                  consumptionState={this.state}
+                  handleNewSearch={this.showFormDates}
                 />
-                <FileInput
+              )}
+            />
+            <Route
+              path={this.props.location.pathname + "/resultados/OP"}
+              render={routerProps => (
+                <ResultOP
                   {...routerProps}
-                  tableName={this.state.tableName}
-                  dbObject={this.state.dbObject}
+                  consumptionState={this.state}
+                  handleNewSearch={this.showFormDates}
                 />
-              </React.Fragment>
-            )}
-          />
-          <Route
-            path={this.props.location.pathname + "/resultados/OM"}
-            render={routerProps => (
-              <ResultOM
-                {...routerProps}
-                consumptionState={this.state}
-                handleNewSearch={this.showFormDates}
-              />
-            )}
-          />
-          <Route
-            path={this.props.location.pathname + "/resultados/OP"}
-            render={routerProps => (
-              <ResultOP
-                {...routerProps}
-                consumptionState={this.state}
-                handleNewSearch={this.showFormDates}
-              />
-            )}
-          />
-          <Route
-            path={this.props.location.pathname + "/resultados/AM"}
-            render={routerProps => (
-              <ResultAM
-                {...routerProps}
-                consumptionState={this.state}
-                handleNewSearch={this.showFormDates}
-              />
-            )}
-          />
-          <Route
-            path={this.props.location.pathname + "/resultados/AP"}
-            render={routerProps => (
-              <ResultAP
-                {...routerProps}
-                consumptionState={this.state}
-                handleNewSearch={this.showFormDates}
-              />
-            )}
-          />
-        </Switch>
+              )}
+            />
+            <Route
+              path={this.props.location.pathname + "/resultados/AM"}
+              render={routerProps => (
+                <ResultAM
+                  {...routerProps}
+                  consumptionState={this.state}
+                  handleNewSearch={this.showFormDates}
+                />
+              )}
+            />
+            <Route
+              path={this.props.location.pathname + "/resultados/AP"}
+              render={routerProps => (
+                <ResultAP
+                  {...routerProps}
+                  consumptionState={this.state}
+                  handleNewSearch={this.showFormDates}
+                />
+              )}
+            />
+          </Switch>
+        }
       </React.Fragment>
     );
   }
