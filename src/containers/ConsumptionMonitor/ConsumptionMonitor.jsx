@@ -98,6 +98,7 @@ class ConsumptionMonitor extends Component {
                   onQuery={this.handleQuery}
                 />
                 <FileInput
+                  {...routerProps}
                   tableName={this.state.tableName}
                   dbObject={this.state.dbObject}
                 />
