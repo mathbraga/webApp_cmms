@@ -25,27 +25,36 @@ class BadgeWithTooltips extends React.Component {
       metersIDs = this.props.problem.metersIDs;
     }
 
+    let {
+      color,
+      name,
+      id,
+      situation,
+      obs,
+      expected
+    } = this.props;
+
     return (
       <span>
-        <Badge color={this.props.color} id={"Tooltip-" + this.props.id}>
-          {this.props.situation}
+        <Badge color={color} id={"Tooltip-" + id}>
+          {situation}
         </Badge>
         <Tooltip
           autohide={false}
           placement="right"
           isOpen={this.state.tooltipOpen}
-          target={"Tooltip-" + this.props.id}
+          target={"Tooltip-" + id}
           toggle={this.toggle}
         >
-          <strong>{this.props.name}</strong>
+          <strong>{name}</strong>
           <br />
           <br />
           <strong>Observações:</strong>
           <br />
-          <p style={{ textAlign: "justify" }}>{this.props.obs}</p>
+          <p style={{ textAlign: "justify" }}>{obs}</p>
           <strong>Faixa de normalidade:</strong>
           <br />
-          {this.props.expected}
+          {expected}
           {metersIDs.length > 0 && (
             <>
               <br />
