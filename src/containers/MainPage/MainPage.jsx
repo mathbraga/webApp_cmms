@@ -21,7 +21,7 @@ const MainHeader = React.lazy(() => import("./MainHeader"));
 
 class MainPage extends Component {
   loading = () => (
-    <div className="animated fadeIn pt-1 text-center">Loading...</div>
+    <div className="animated fadeIn pt-1 text-center">Carregando...</div>
   );
 
   render() {
