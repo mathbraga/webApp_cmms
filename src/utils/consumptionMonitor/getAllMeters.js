@@ -1,4 +1,4 @@
-export default function getAllMeters(dbObject, tableNameMeters, tipomed) {
+export default function getAllMeters(stateInput) {
   // Inputs:
   // dbObject (object): AWS DynamoDB configuration
   // tableNameMeters (string): name of table that contains meters information
@@ -13,12 +13,19 @@ export default function getAllMeters(dbObject, tableNameMeters, tipomed) {
   // Provide all meters array to app components (e.g. dropdown in FormDates) and functions
 
   return new Promise((resolve, reject) => {
+    
+    let {
+      dbObject,
+      tableNameMeters,
+      meterType
+    } = stateInput
+    
     dbObject.query({
       TableName: tableNameMeters,
       KeyConditionExpression: "tipomed = :tipomed",
       ExpressionAttributeValues: {
         ":tipomed": {
-          N: tipomed
+          N: meterType
         }
       }
     }, (err, data) => {

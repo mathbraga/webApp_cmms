@@ -32,7 +32,7 @@ class ConsumptionMonitor extends Component {
   }
 
   componentDidMount() {
-    getAllMeters(this.state.dbObject, this.state.tableNameMeters, this.state.meterType).then(meters => {
+    getAllMeters(this.state).then(meters => {
       this.setState({
         meters: meters
       });
@@ -42,7 +42,7 @@ class ConsumptionMonitor extends Component {
   handleChangeOnDates = handleDates.bind(this);
   
   handleQuery = event => {
-    handleSearch(this.state.initialDate, this.state.finalDate, this.state.oneMonth, this.state.chosenMeter, this.state.meterType, this.state.meters, this.state.dbObject, this.state.tableName).then(resultObject => {
+    handleSearch(this.state).then(resultObject => {
       this.setState({
         showResult: true,
         resultObject: resultObject

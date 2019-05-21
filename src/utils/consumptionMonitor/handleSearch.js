@@ -6,8 +6,21 @@ import buildResultOP from "./buildResultOP";
 import buildResultAP from "./buildResultAP";
 import buildResultAM from "./buildResultAM";
 
-export default function handleSearch(initialDate, finalDate, oneMonth, chosenMeter, meterType, meters, dbObject, tableName) {
+export default function handleSearch(stateInput) {
   return new Promise((resolve, reject) => {
+    
+    // Inputs
+    let {
+      initialDate,
+      finalDate,
+      oneMonth,
+      chosenMeter,
+      meterType,
+      meters,
+      dbObject,
+      tableName
+    } = stateInput;
+    
     // Check date inputs
     if(checkSearchInputs(initialDate, finalDate, oneMonth)){
       
