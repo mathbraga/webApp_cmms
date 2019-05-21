@@ -27,9 +27,9 @@ class ReportCalculations extends Component {
 
   componentDidMount() {
     let date = 1201;
-    queryLastDemands(this.props.dbObject, this.props.consumer).then(
+    queryLastDemands(this.props.dbObject, this.props.consumer, this.props.tableName).then(
       lastDemands => {
-        queryLastDemandsBlue(this.props.dbObject, this.props.consumer).then(
+        queryLastDemandsBlue(this.props.dbObject, this.props.consumer, this.props.tableName).then(
           lastBlueDemands => {
             const lastItems = [];
             const lastBlues = [];

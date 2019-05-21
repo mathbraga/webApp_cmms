@@ -1,8 +1,8 @@
-export default function queryLastDemandsBlue(dbObject, med) {
+export default function queryLastDemandsBlue(dbObject, med, tableName) {
   return new Promise((resolve, reject) => {
     dbObject.scan(
       {
-        TableName: "CEB",
+        TableName: tableName,
         FilterExpression: "med = :med AND tipo = :tipo",
         ExpressionAttributeValues: {
           ":med": {

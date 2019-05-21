@@ -15,6 +15,7 @@ class ResultOP extends Component {
       oneMonth,
       chosenMeter,
       dbObject,
+      tableName,
       resultObject
     } = this.props.consumptionState;
 
@@ -81,6 +82,7 @@ class ResultOP extends Component {
           <Col md="6">
             <ReportCalculations
               dbObject={dbObject}
+              tableName={tableName}
               consumer={chosenMeter}
               dateString={resultObject.dateString}
               data={resultObject.queryResponse}

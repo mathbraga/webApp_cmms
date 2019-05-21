@@ -83,6 +83,7 @@ class ResultOM extends Component {
           <Col md="6">
             <ReportCalculations
               dbObject={dbObject}
+              tableName={tableName}
               consumer={chosenMeter}
               dateString={resultObject.initialDate}
               data={resultObject.queryResponse}

@@ -1,9 +1,9 @@
-export default function queryLastDemands(dbObject, med) {
+export default function queryLastDemands(dbObject, med, tableName) {
   return new Promise((resolve, reject) => {
     // Query EnergyTable and return the last 13 months of one consumer unit
     dbObject.query(
       {
-        TableName: "CEB",
+        TableName: tableName,
         KeyConditionExpression: "med = :med",
         Limit: 20,
         ScanIndexForward: false,
