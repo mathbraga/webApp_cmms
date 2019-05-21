@@ -78,14 +78,11 @@ class ReportOneUnit extends Component {
   };
 
   render() {
-    const compareObject =
-      this.state.comparisonResponseList && this.returnChangeComparisonObject();
+    
+    const compareObject = this.state.comparisonResponseList && this.returnChangeComparisonObject();
     const resultCompareObject = compareObject && compareObject.result;
     const dateCompareObject = compareObject && compareObject.dateRequired;
-    // const {
-    //   rowNamesBill
-    // } = this.props;
-
+    
     return (
       <ReportCard
         title={"Fatura detalhada"}

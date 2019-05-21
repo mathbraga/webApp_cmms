@@ -46,7 +46,9 @@ class ReportCard extends Component {
       dropdownTitle,
       dropdownItems,
       resultID,
-      showCalcResult
+      showCalcResult,
+      bodyClass,
+      children
     } = this.props;
     return (
       <Card>
@@ -89,8 +91,8 @@ class ReportCard extends Component {
             )}
           </Row>
         </CardHeader>
-        <CardBody className={this.props.bodyClass}>
-          {this.props.children}
+        <CardBody className={bodyClass}>
+          {children}
         </CardBody>
       </Card>
     );

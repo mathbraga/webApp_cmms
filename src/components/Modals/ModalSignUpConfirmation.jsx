@@ -37,13 +37,21 @@ class ModalSignUpConfirmation extends Component {
   }
   
   render() {
+
+    let {
+      isOpen,
+      toggle,
+      className,
+      email
+    } = this.props;
+
     return (
       <Modal
-        isOpen={this.props.isOpen}
-        toggle={this.props.toggle}
-        className={this.props.className}
+        isOpen={isOpen}
+        toggle={toggle}
+        className={className}
       >
-        <ModalHeader toggle={this.props.toggle}>
+        <ModalHeader toggle={toggle}>
           <Row style={{ padding: "0px 20px" }}>
             <div className="widget-title">
               <h4>
@@ -58,7 +66,7 @@ class ModalSignUpConfirmation extends Component {
               Insira abaixo o código que foi enviado para o email
               &nbsp;
               <strong>
-                {this.props.email}
+                {email}
               </strong>
               .
             </p>

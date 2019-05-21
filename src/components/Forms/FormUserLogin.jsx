@@ -12,6 +12,12 @@ import {
 
 class FormUserLogin extends Component {
   render() {
+
+    let {
+      handleInputs,
+      handleSubmit
+    } = this.props;
+
     return (
       <Card>
         <CardHeader>
@@ -37,7 +43,7 @@ class FormUserLogin extends Component {
                   type="text"
                   placeholder="usuario@senado.leg.br"
                   required
-                  onChange={this.props.handleInputs}
+                  onChange={handleInputs}
                 />
               </Row>
             </Col>
@@ -53,7 +59,7 @@ class FormUserLogin extends Component {
                     id="password"
                     placeholder="Senha"
                     required
-                    onChange={this.props.handleInputs}
+                    onChange={handleInputs}
                   />
               </Row>
             </Col>
@@ -65,7 +71,7 @@ class FormUserLogin extends Component {
                 type="submit"
                 size="md"
                 color="primary"
-                onClick={this.props.handleSubmit}
+                onClick={handleSubmit}
                 style={{ margin: "10px 20px" }}
               >
                 Entrar

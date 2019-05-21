@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardBody, Col, Row, Button, Badge } from "reactstrap";
 import ReportProblems from "../Reports/ReportProblems";
-import checkProblems from "../../utils/consumptionMonitor/checkProblems";
 
 class WidgetWithModal extends Component {
   /*
@@ -52,6 +51,28 @@ class WidgetWithModal extends Component {
   };
 
   render() {
+
+    const {
+      allUnits,
+      unitNumber,
+      typeOfUnit,
+      chosenMeter,
+      initialDate,
+      finalDate,
+      className,
+      problems,
+      queryResponseAll,
+      meters,
+      rowNamesReportProblems,
+      image,
+      title,
+      buttonName,
+      oneMonth,
+      numOfUnits,
+      numProblems,
+      unitName
+    } = this.props;
+
     return (
       <Card className="widget-container">
         <CardBody className="widget-body">
@@ -65,12 +86,12 @@ class WidgetWithModal extends Component {
                 }}
               >
                 <div className="widget-title text-truncate">
-                  {this.props.title}
+                  {title}
                 </div>
-                {this.props.oneMonth && (
+                {oneMonth && (
                   <Badge color="danger">
                     {" "}
-                    {this.props.numProblems} erro(s){" "}
+                    {numProblems} erro(s){" "}
                   </Badge>
                 )}
               </div>
@@ -84,7 +105,7 @@ class WidgetWithModal extends Component {
                   alignItems: "center"
                 }}
               >
-                {this.props.oneMonth ? (
+                {oneMonth ? (
                   <Button
                     outline
                     color="primary"
@@ -92,33 +113,33 @@ class WidgetWithModal extends Component {
                     onClick={this.toggleModal}
                     style={{ width: "80%" }}
                   >
-                    {this.props.buttonName}
+                    {buttonName}
                   </Button>
                 ) : (
                   <p style={{ margin: "0" }}>Sem relatório</p>
                 )}
                 <ReportProblems
-                  allUnits={this.props.allUnits}
-                  oneMonth={this.props.oneMonth}
-                  unitNumber={this.props.unitNumber}
-                  unitName={this.props.unitName}
-                  numOfUnits={this.props.numOfUnits}
-                  typeOfUnit={this.props.typeOfUnit}
-                  chosenMeter={this.props.chosenMeter}
-                  initialDate={this.props.initialDate}
-                  finalDate={this.props.finalDate}
+                  allUnits={allUnits}
+                  oneMonth={oneMonth}
+                  unitNumber={unitNumber}
+                  unitName={unitName}
+                  numOfUnits={numOfUnits}
+                  typeOfUnit={typeOfUnit}
+                  chosenMeter={chosenMeter}
+                  initialDate={initialDate}
+                  finalDate={finalDate}
                   isOpen={this.state.modal}
                   toggle={this.toggleModal}
-                  className={"modal-lg " + this.props.className}
-                  problems={this.props.problems}
-                  queryResponseAll={this.props.queryResponseAll}
-                  meters={this.props.meters}
-                  rowNamesReportProblems={this.props.rowNamesReportProblems}
+                  className={"modal-lg " + className}
+                  problems={problems}
+                  queryResponseAll={queryResponseAll}
+                  meters={meters}
+                  rowNamesReportProblems={rowNamesReportProblems}
                 />
               </div>
             </Col>
             <Col xs="4" className="widget-container-image">
-              <img className="widget-image" src={this.props.image} alt=""/>
+              <img className="widget-image" src={image} alt=""/>
             </Col>
           </Row>
         </CardBody>

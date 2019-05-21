@@ -12,6 +12,12 @@ import {
 
 class FormUserSignUp extends Component {
   render() {
+
+    let {
+      handleInputs,
+      handleSubmit
+    } = this.props;
+
     return (
       <Card>
         <CardHeader>
@@ -37,7 +43,7 @@ class FormUserSignUp extends Component {
                   type="text"
                   placeholder="usuario@senado.leg.br"
                   required
-                  onChange={this.props.handleInputs}
+                  onChange={handleInputs}
                 />
               </Row>
             </Col>
@@ -55,7 +61,7 @@ class FormUserSignUp extends Component {
                     id="password1"
                     placeholder="Senha"
                     required
-                    onChange={this.props.handleInputs}
+                    onChange={handleInputs}
                   />
               </Row>
             </Col>
@@ -73,7 +79,7 @@ class FormUserSignUp extends Component {
                     id="password2"
                     placeholder="Senha"
                     required
-                    onChange={this.props.handleInputs}
+                    onChange={handleInputs}
                   />
               </Row>
             </Col>
@@ -85,7 +91,7 @@ class FormUserSignUp extends Component {
                 type="submit"
                 size="md"
                 color="primary"
-                onClick={this.props.handleSubmit}
+                onClick={handleSubmit}
                 style={{ margin: "10px 20px" }}
               >
                 Cadastrar

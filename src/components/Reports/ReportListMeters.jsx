@@ -4,6 +4,12 @@ import ReportCard from "../Cards/ReportCard";
 
 class ReportListMeters extends Component {
   render() {
+
+    let {
+      meters,
+      nonEmptyMeters
+    } = this.props;
+    
     return (
       <ReportCard
         title={"Lista de medidores"}
@@ -22,9 +28,9 @@ class ReportListMeters extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.meters.map(unit => (
+            {meters.map(unit => (
               <React.Fragment key={unit.id.S}>
-                {this.props.nonEmptyMeters.includes(parseInt(unit.med.N, 10) + 100) &&
+                {nonEmptyMeters.includes(parseInt(unit.med.N, 10) + 100) &&
                   <tr>
                     <th>{unit.id.S}</th>
                     <td>{unit.nome.S}</td>

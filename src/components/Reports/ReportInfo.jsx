@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import ReportCard from "../Cards/ReportCard";
-// import { rowNames } from "./ReportInfo-Config";
 
 class ReportInfo extends Component {
   render() {
