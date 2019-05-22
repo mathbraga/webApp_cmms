@@ -53,7 +53,7 @@ export default function queryTable(dbObject, tableName, chosenMeter, meters, aam
     Promise.all(arrayPromises).then(() => {
       resolve(queryResponse);
     }).catch(() => {
-      reject();
+      reject("Houve um problema no acesso ao banco de dados. Por favor, tente novamente.");
     });
   });
 }

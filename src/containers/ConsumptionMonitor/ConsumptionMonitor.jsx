@@ -47,8 +47,8 @@ class ConsumptionMonitor extends Component {
         showResult: true,
         resultObject: resultObject
       });
-    }).catch((checkInputsMessage) => {
-      alert(checkInputsMessage);
+    }).catch((errorMessage) => {
+      alert(errorMessage);
     }); 
   }
 

@@ -64,8 +64,8 @@ export default function handleSearch(stateInput) {
         if (chosenMeter !== meterType + "99" && !oneMonth) {
           resolve(buildResultOP(data, meterType, meters, chosenMeter, initialDate, finalDate));
         }
-      }).catch(() => {
-        alert("Houve um problema no acesso ao banco de dados. Por favor, tente novamente.");
+      }).catch((queryErrorMessage) => {
+        reject(queryErrorMessage);
       });
 
     // Browser display an alert message in case of wrong search inputs
