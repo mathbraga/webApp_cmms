@@ -54,28 +54,12 @@ export default function buildCEBParamsArr(arr, tableName){
       case 1089425: med = 121;break;
       case 1100496: med = 122;break;
       case 1951042: med = 123;break;
-      default: med = 100;
+      default: med = "error"; // This will result in error because 'med' attribute must be a number
     }
+
+    // Attributes that does not depend on 'tipo'
     let aamm = meter[12];
-    let tipo = 0;
-    if(meter[56] !== 0){
-      tipo = 2;
-    } else {
-      if(meter[58] !== 0){
-        tipo = 1;
-      }
-    }
     let datav = meter[19];
-    let kwh = 0;
-    if(tipo === 0){
-      kwh = meter[39];
-    } else {
-      kwh = meter[20];
-    }
-    let confat = 0;
-    if(tipo === 0){
-      confat = meter[40];
-    }
     let icms = meter[21];
     let cip = meter[23];
     let trib = meter[24] + meter[25] + meter[26] + meter[27];
@@ -85,52 +69,60 @@ export default function buildCEBParamsArr(arr, tableName){
     let vliq = meter[37];
     let vbru = meter[38];
     let kwhp = meter[53];
-    let kwhf = 0;
-    if(tipo === 0){
-      kwhf = meter[39];
-    } else {
-      kwhf = meter[54];
-    }
     let dmp = meter[56];
     let dmf = meter[57];
     let dfp = meter[59];
-    let dff = 0;
-    if(meter[60] !== 0){
-      dff = meter[60];
-    } else {
-      dff = meter[58];
-    }
     let uferp = meter[62];
     let uferf = meter[63];
     let verexp = meter[68]/(1 - meter[22]/100);
     let verexf = meter[69]/(1 - meter[22]/100);
     let vdfp = meter[76]/(1 - meter[22]/100);
-    let vdff = 0;
-    if(tipo === 1){
-      vdff = meter[75]/(1 - meter[22]/100);
-    }
-    if(tipo === 2){
-      vdff = meter[77]/(1 - meter[22]/100);
-    }
     let vudp = meter[79]/(1 - meter[22]/100);
+
+    // Attributes that depend on 'tipo'
+        let tipo = 0;
+    if(meter[56] !== 0){
+      tipo = 2;
+    } else {
+      if(meter[58] !== 0){
+        tipo = 1;
+      }
+    }
+
+    let kwh = 0;
+    let confat = 0;
+    let kwhf = 0;
+    let dff = 0;
+    let vdff = 0;
     let vudf = 0;
-    if(tipo === 1){
-      vudf = meter[78]/(1 - meter[22]/100);
-    }
-    if(tipo === 2){
-      vudf = meter[80]/(1 - meter[22]/100);
-    }
     let dcp = 0;
-    if(tipo === 2){
-      dcp = meter[82];
-    }
     let dcf = 0;
+
+    if(tipo === 0){
+      kwh = meter[39];
+      confat = meter[40];
+      kwhf = meter[39];
+    }
+
     if(tipo === 1){
+      kwh = meter[20];
+      kwhf = meter[54];
+      dff = meter[58];
+      vdff = meter[75]/(1 - meter[22]/100);
+      vudf = meter[78]/(1 - meter[22]/100);
       dcf = meter[81];
     }
+
     if(tipo === 2){
+      kwh = meter[20];
+      kwhf = meter[54];
+      dff = meter[60];
+      vdff = meter[77]/(1 - meter[22]/100);
+      vudf = meter[80]/(1 - meter[22]/100);
+      dcp = meter[82];
       dcf = meter[83];
     }
+
     attributesArr.push({
       PutRequest: {
         Item: {
