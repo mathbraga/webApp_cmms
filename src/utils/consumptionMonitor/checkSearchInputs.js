@@ -2,7 +2,14 @@ export default function checkSearchInputs(initialDate, finalDate, oneMonth){
   
   // Generate currentMonth and currentYear for comparison
   let today = new Date();
-  let currentMonth = today.getMonth(); // January is 0 ... December is 11
+
+  // Get current month (returns 0 for January; returns 1 for February; etc.)
+  // Attention: current month is kept like this because the app must only allow
+  // search of past months. The database table is updated with last month data
+  // when a new month starts (e.g.: when August begins, database will be
+  // updated with July data. During that August, users will receive an error
+  // message if they try to search current month data).
+  let currentMonth = today.getMonth();
   let currentYear = today.getFullYear().toString();
   if(currentMonth < 10){
     currentMonth = "0" + currentMonth.toString();
