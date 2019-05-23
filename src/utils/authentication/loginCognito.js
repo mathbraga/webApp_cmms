@@ -3,9 +3,6 @@ var AmazonCognitoIdentity = require("amazon-cognito-identity-js");
 export default function loginCognito(email, password){
   return new Promise((resolve, reject) => {
 
-    console.clear();
-    console.log('inside loginCognito');
-    
     let authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
       Username : email,
       Password : password
@@ -24,7 +21,6 @@ export default function loginCognito(email, password){
     cognitoUser.authenticateUser(authenticationDetails, {
       
       onSuccess: function (userSession) {
-        
         console.log("Login efetuado com sucesso.\n\nUsuário logado: " + email);
         console.log("userSession:");
         console.log(userSession);
@@ -34,7 +30,7 @@ export default function loginCognito(email, password){
       },
       onFailure: function(err) {
         console.log("Login falhou.");
-        alert(err.message || JSON.stringify(err));
+        console.log(err); // || JSON.stringify(err));
         resolve(false);
       },
     });

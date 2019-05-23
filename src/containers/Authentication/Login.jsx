@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 import FormUserLogin from "../../components/Forms/FormUserLogin";
 import loginCognito from "../../utils/authentication/loginCognito";
+import { Alert } from "reactstrap";
 
 class Login extends Component {
   constructor(props){
@@ -9,10 +10,12 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      loggedIn: false
+      loggedIn: false,
+      alertVisible: false
     }
     this.handleInputs = this.handleInputs.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onAlertDismiss = this.onAlertDismiss.bind(this);
   }
 
   handleInputs(event){
@@ -24,7 +27,26 @@ class Login extends Component {
   handleSubmit(event){
     event.preventDefault();
     loginCognito(this.state.email, this.state.password).then(loggedIn => {
-      this.setState({loggedIn: loggedIn});
+      if(loggedIn){
+        this.setState({
+          loggedIn: loggedIn,
+          alertVisible: false
+        });
+      } else {
+        this.setState({
+          alertVisible: true
+        });
+      }
+    }).catch(() => {
+      this.setState({
+        alertVisible: true
+      });
+    });
+  }
+
+  onAlertDismiss() {
+    this.setState({
+      alertVisible: false
     });
   }
 
@@ -43,6 +65,12 @@ class Login extends Component {
             <Redirect to="/login"/>
           )
         )}/>
+
+        {this.state.alertVisible &&
+          <Alert color="danger" isOpen={this.state.alertVisible} toggle={this.onAlertDismiss}>
+            Login falhou. Tente novamente.
+          </Alert>
+        }
       </>
     );
   }
