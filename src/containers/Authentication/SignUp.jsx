@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import FormUserSignUp from "../../components/Forms/FormUserSignUp";
 import ModalSignUpConfirmation from "../../components/Modals/ModalSignUpConfirmation";
 import signUpCognito from "../../utils/authentication/signUpCognito";
+import { Alert } from "reactstrap";
 
 class SignUp extends Component {
   constructor(props){
@@ -11,10 +12,12 @@ class SignUp extends Component {
       password1: "",
       password2: "",
       user: false,
-      modal: false
+      modal: false,
+      alertVisible: false
     }
     this.handleInputs = this.handleInputs.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onAlertDismiss = this.onAlertDismiss.bind(this);
   }
 
   handleInputs(event){
@@ -31,6 +34,10 @@ class SignUp extends Component {
           user: user,
           modal: true
         });
+      } else {
+        this.setState({
+          alertVisible: true
+        });
       }
     });
   }
@@ -41,9 +48,15 @@ class SignUp extends Component {
     });
   };
 
+  onAlertDismiss() {
+    this.setState({
+      alertVisible: false
+    });
+  }
+
   render() {
     return (
-      <>
+      <React.Fragment>
         <FormUserSignUp
           handleInputs={this.handleInputs}
           handleSubmit={this.handleSubmit}
@@ -55,7 +68,12 @@ class SignUp extends Component {
           email={this.state.email}
           className="modal-lg"
         />
-      </>
+
+        <Alert color="danger" isOpen={this.state.alertVisible} toggle={this.onAlertDismiss}>
+          Cadastro falhou. Tente novamente.
+        </Alert>
+
+      </React.Fragment>
     );
   }
 }

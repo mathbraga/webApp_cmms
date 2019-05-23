@@ -52,7 +52,7 @@ class Login extends Component {
 
   render() {
     return (
-      <>
+      <React.Fragment>
         <FormUserLogin
           handleInputs={this.handleInputs}
           handleSubmit={this.handleSubmit}
@@ -66,12 +66,11 @@ class Login extends Component {
           )
         )}/>
 
-        {this.state.alertVisible &&
-          <Alert color="danger" isOpen={this.state.alertVisible} toggle={this.onAlertDismiss}>
-            Login falhou. Tente novamente.
-          </Alert>
-        }
-      </>
+        <Alert color="danger" isOpen={this.state.alertVisible} toggle={this.onAlertDismiss}>
+          Login falhou. Tente novamente.
+        </Alert>
+
+      </React.Fragment>
     );
   }
 }

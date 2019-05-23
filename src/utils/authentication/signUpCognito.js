@@ -27,7 +27,7 @@ export default function signUpCognito(email, password1, password2){
       userPool.signUp(email, password1, attributeList, null, (err, result) => {
         if (err) {
           console.log(err);
-          alert("Falha no cadastro.\n\nInsira novamente as infomações.\n\nSe o problema persistir, contate o administrador.")
+          // alert("Falha no cadastro.\n\nInsira novamente as infomações.\n\nSe o problema persistir, contate o administrador.")
           resolve(false);
         } else {
           console.log("Usuário cadastrado com o email " + result.user.getUsername());
@@ -36,7 +36,7 @@ export default function signUpCognito(email, password1, password2){
         }
       });
     } else {
-      alert("Falha no cadastro.\n\nInsira novamente as infomações.\n\nSe o problema persistir, contate o administrador.");
+      // alert("Falha no cadastro.\n\nInsira novamente as infomações.\n\nSe o problema persistir, contate o administrador.");
       resolve(false);
     }
   })
