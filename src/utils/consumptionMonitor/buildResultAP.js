@@ -10,7 +10,7 @@ export default function buildResultAP(data, meterType, meters, chosenMeter, init
 
   resultObject.newLocation = {
     hash: "",
-    pathname: "/consumo/energia/resultados/AP",
+    pathname: "/energia/resultados/AP",
     search: "",
     state: {}
   };

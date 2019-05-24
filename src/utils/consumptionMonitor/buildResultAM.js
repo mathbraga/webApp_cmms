@@ -11,7 +11,7 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
 
   resultObject.newLocation = {
     hash: "",
-    pathname: "/consumo/energia/resultados/AM",
+    pathname: "/energia/resultados/AM",
     search: "",
     state: {}
   };
