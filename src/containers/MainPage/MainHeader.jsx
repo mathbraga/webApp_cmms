@@ -25,11 +25,11 @@ class MainHeader extends Component {
 
         <Nav className="d-md-down-none" navbar>
 
-          <NavItem className="px-3">
+          {/* <NavItem className="px-3">
             <Link to="/" className="nav-link">
               Início
             </Link>
-          </NavItem>
+          </NavItem> */}
 
           <NavItem className="px-3">
             <Link to="/cadastro" className="nav-link">

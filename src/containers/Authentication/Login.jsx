@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import FormUserLogin from "../../components/Forms/FormUserLogin";
 import loginCognito from "../../utils/authentication/loginCognito";
 import { Alert } from "reactstrap";
@@ -26,10 +26,10 @@ class Login extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    loginCognito(this.state.email, this.state.password).then(loggedIn => {
-      if(loggedIn){
+    loginCognito(this.state.email, this.state.password).then(userSession => {
+      if(userSession){
         this.setState({
-          loggedIn: loggedIn,
+          loggedIn: userSession,
           alertVisible: false
         });
       } else {
@@ -58,13 +58,9 @@ class Login extends Component {
           handleSubmit={this.handleSubmit}
         />
 
-        <Route exact path="/login" render={() => (
-          this.state.loggedIn ? (
-            <Redirect to="/dashboard"/>
-          ) : (
-            <Redirect to="/login"/>
-          )
-        )}/>
+        {this.state.loggedIn &&
+          <Redirect to={{pathname: "/", state: {userSession: this.state.loggedIn}}}/>
+        }
 
         <Alert color="danger" isOpen={this.state.alertVisible} toggle={this.onAlertDismiss}>
           Login falhou. Tente novamente.

@@ -58,7 +58,7 @@ class MainPage extends Component {
                       />
                     ) : null;
                   })}
-                  <Redirect from="/" to="/dashboard" />
+                  <Redirect from="/" to={{pathname:"/painel", state: this.props.location.state}}/>
                 </Switch>
               </Suspense>
             </Container>

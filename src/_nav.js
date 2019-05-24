@@ -2,19 +2,9 @@ export default {
   items: [
     {
       name: "Painel SINFRA",
-      url: "/dashboard",
+      url: "/painel",
       icon: "cui-monitor"
     },
-    // {
-    //   name: "Login",
-    //   url: "/login",
-    //   icon: ""
-    // },
-    // {
-    //   name: "Cadastro",
-    //   url: "/cadastro",
-    //   icon: ""
-    // },
     {
       name: "Monitor de consumo",
       url: "/consumo",
@@ -22,12 +12,12 @@ export default {
       children: [
         {
           name: "Água",
-          url: "/consumo/agua",
+          url: "/agua",
           icon: "icon-drop"
         },
         {
           name: "Energia elétrica",
-          url: "/consumo/energia",
+          url: "/energia",
           icon: "cui-lightbulb"
         }
       ]
