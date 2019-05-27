@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import FormUserSignUp from "../../components/Forms/FormUserSignUp";
 import ModalSignUpConfirmation from "../../components/Modals/ModalSignUpConfirmation";
 import signUpCognito from "../../utils/authentication/signUpCognito";
-import { Alert } from "reactstrap";
+import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
 class SignUp extends Component {
   constructor(props){
@@ -57,10 +56,7 @@ class SignUp extends Component {
   render() {
     return (
       <React.Fragment>
-        <FormUserSignUp
-          handleInputs={this.handleInputs}
-          handleSubmit={this.handleSubmit}
-        />
+
         <ModalSignUpConfirmation
           isOpen={this.state.modal}
           toggle={this.toggleModal}
@@ -69,9 +65,76 @@ class SignUp extends Component {
           className="modal-lg"
         />
 
-        <Alert color="danger" isOpen={this.state.alertVisible} toggle={this.onAlertDismiss}>
-          Cadastro falhou. Tente novamente.
-        </Alert>
+        <div className="flex-row align-items-center">
+          <Container>
+            <Row className="justify-content-center">
+              <Col md="9" lg="7" xl="6">
+                <Card className="mx-4">
+                  <CardBody className="p-4">
+                    <Form>
+                      <h1>Cadastro</h1>
+                      <p className="text-muted">Crie sua conta</p>
+                      <InputGroup className="mb-3">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>@</InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          type="text"
+                          id="email"
+                          name="email"
+                          placeholder="usuario@senado.leg.br"
+                          autoComplete="email"
+                          onChange={this.handleInputs}
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="icon-lock"></i>
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          type="password"
+                          placeholder="Senha"
+                          id="password1"
+                          name="password1"
+                          autoComplete="new-password"
+                          onChange={this.handleInputs}
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-4">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="icon-lock"></i>
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          type="password"
+                          placeholder="Repita sua senha"
+                          id="password2"
+                          name="password2"
+                          autoComplete="new-password"
+                          onChange={this.handleInputs}
+                        />
+                      </InputGroup>
+                      <Button
+                        color="success"
+                        block
+                        onClick={this.handleSubmit}
+                        >Cadastrar
+                      </Button>
+                    </Form>
+                  </CardBody>
+                </Card>
+
+                <Alert color="danger" isOpen={this.state.alertVisible} toggle={this.onAlertDismiss}>
+                  Cadastro falhou. Tente novamente.
+                </Alert>
+                
+              </Col>
+            </Row>
+          </Container>
+        </div>
 
       </React.Fragment>
     );
