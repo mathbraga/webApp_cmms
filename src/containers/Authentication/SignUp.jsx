@@ -31,6 +31,7 @@ class SignUp extends Component {
       if(user){
         this.setState({
           user: user,
+          alertVisible: false,
           modal: true
         });
       } else {
@@ -118,7 +119,7 @@ class SignUp extends Component {
                         />
                       </InputGroup>
                       <Button
-                        color="success"
+                        color="primary"
                         block
                         onClick={this.handleSubmit}
                         >Cadastrar

@@ -111,8 +111,8 @@ class MainPage extends Component {
             <AppSidebarMinimizer />
           </AppSidebar>
           <main className="main">
-            <AppBreadcrumb appRoutes={routes} />
-            <Container fluid>
+            {/* <AppBreadcrumb appRoutes={routes} /> */}
+            <Container fluid className="pt-4">
               <Suspense fallback={this.loading()}>
                 <Switch>
 
