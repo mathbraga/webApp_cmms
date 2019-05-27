@@ -5,7 +5,10 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  Input
+  Input,
+  Container,
+  Col,
+  Form
 } from "reactstrap";
 
 class ModalSignUpConfirmation extends Component {
@@ -24,14 +27,14 @@ class ModalSignUpConfirmation extends Component {
     });
   }
 
-  handleCodeSubmit(){
+  handleCodeSubmit(event){
+    event.preventDefault();
     console.log('inside sendCode');
-    this.props.user.confirmRegistration(this.state.code, true, function(err, result) {
+    this.props.user.confirmRegistration(this.state.code, true, (err, result) => {
       if (err) {
-        alert("Houve um problema.\n\nInsira novamente o código de verificação.\n\nCaso o problema persista, contate o administrador.");
-        return;
+        console.log("Houve um problema.\n\nInsira novamente o código de verificação.\n\nCaso o problema persista, contate o administrador.");
       } else {
-        alert('Cadastro de usuário confirmado.\n\nFaça o login para começar.');
+        console.log('Cadastro de usuário confirmado.\n\nFaça o login para começar.');
       }
     });
   }
@@ -39,17 +42,16 @@ class ModalSignUpConfirmation extends Component {
   render() {
 
     let {
-      isOpen,
+      email,
       toggle,
-      className,
-      email
+      isOpen
     } = this.props;
 
     return (
       <Modal
         isOpen={isOpen}
         toggle={toggle}
-        className={className}
+        className="modal-lg"
       >
         <ModalHeader toggle={toggle}>
           <Row style={{ padding: "0px 20px" }}>
@@ -61,40 +63,40 @@ class ModalSignUpConfirmation extends Component {
           </Row>
         </ModalHeader>
         <ModalBody style={{ overflow: "scroll", alignContent: "center" }}>
-          <Row>
-            <p>
-              Insira abaixo o código que foi enviado para o email
-              &nbsp;
-              <strong>
-                {email}
-              </strong>
-              .
-            </p>
-          </Row>
-          <Row>
-            <Input
-              className="date-input"
-              name="code"
-              id="code"
-              type="text"
-              placeholder=""
-              value={this.state.code}
-              required
-              onChange={this.handleCodeInput}
-            />
-          </Row>
-          <Row>
-            <Button
-              className=""
-              type="submit"
-              size="md"
-              color="primary"
-              onClick={this.handleCodeSubmit}
-              style={{ margin: "10px 20px" }}
-            >
-              Enviar código
-            </Button>
-          </Row>
+          <div className="flex-row align-items-center">
+            <Container>
+              <Row className="justify-content-center">
+                <Col md="12">
+                  <div className="p-4 text-center">
+                    <Form>
+                      <p className="text-muted">
+                        Insira no campo abaixo o código de verificação que foi enviado para o email
+                      </p>
+                      <p><strong>{email}</strong>.</p>
+                      <Input
+                        className="text-center mb-3 mt-4"
+                        textalign="center"
+                        type="text"
+                        name="code"
+                        id="code"
+                        type="text"
+                        placeholder="XXXXXX"
+                        onChange={this.handleCodeInput}
+                      />
+                      <Button
+                        block
+                        type="submit"
+                        size="md"
+                        color="primary"
+                        onClick={this.handleCodeSubmit}
+                      >Enviar código de verificação
+                      </Button>
+                    </Form>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </div>
         </ModalBody>
       </Modal>
     );

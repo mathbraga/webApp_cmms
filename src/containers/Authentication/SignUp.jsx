@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ModalSignUpConfirmation from "../../components/Modals/ModalSignUpConfirmation";
 import signUpCognito from "../../utils/authentication/signUpCognito";
 import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { Route } from "react-router-dom";
 
 class SignUp extends Component {
   constructor(props){
@@ -28,23 +29,22 @@ class SignUp extends Component {
   handleSubmit(event){
     event.preventDefault();
     signUpCognito(this.state.email, this.state.password1, this.state.password2).then(user => {
-      if(user){
-        this.setState({
-          user: user,
-          alertVisible: false,
-          modal: true
-        });
-      } else {
-        this.setState({
-          alertVisible: true
-        });
-      }
+      console.log("Usuário cadastrado com o email " + user.getUsername());
+      this.setState({
+        user: user,
+        alertVisible: false,
+        modal: true
+      });
+    }).catch(() => {
+      this.setState({
+        alertVisible: true
+      });
     });
   }
 
-  toggleModal = () => {
-    this.setState(prevState => {
-      return {modal: !prevState.modal}
+  closeModal = () => {
+    this.setState({
+      modal: false
     });
   };
 
@@ -58,12 +58,15 @@ class SignUp extends Component {
     return (
       <React.Fragment>
 
-        <ModalSignUpConfirmation
-          isOpen={this.state.modal}
-          toggle={this.toggleModal}
-          user={this.state.user}
-          email={this.state.email}
-          className="modal-lg"
+        <Route
+          render={(routerProps) => (
+            <ModalSignUpConfirmation
+              {...routerProps}
+              isOpen={this.state.modal}
+              toggle={this.closeModal}
+              user={this.state.user}
+              email={this.state.email}
+          />)}
         />
 
         <div className="flex-row align-items-center">
