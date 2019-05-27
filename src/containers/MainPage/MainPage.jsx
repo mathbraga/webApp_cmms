@@ -57,9 +57,9 @@ class MainPage extends Component {
           loggedIn: userSession,
           alertVisible: false,
           email: "",
-          password: "",
-
+          password: ""
         });
+      this.props.history.push("/");
       } else {
         this.setState({
           alertVisible: true,
