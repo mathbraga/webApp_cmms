@@ -48,11 +48,11 @@ class MainHeader extends Component {
             </Link>
           </NavItem>
 
-          <NavItem className="px-3">
+          {/* <NavItem className="px-3">
             <Link to="/logout" className="nav-link">
               Logout
             </Link>
-          </NavItem>
+          </NavItem> */}
           
           <AppHeaderDropdown direction="down">
           <DropdownToggle nav>
@@ -71,7 +71,7 @@ class MainHeader extends Component {
               {/* <DropdownItem><i className="fa fa-file"></i>Projects<Badge color="primary">42</Badge></DropdownItem> */}
               {/* <DropdownItem divider /> */}
               {/* <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem> */}
-              <DropdownItem onClick={"onlogoutfunction"}><i className="fa fa-lock"></i> Logout</DropdownItem>
+              <DropdownItem onClick={this.props.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
             </DropdownMenu>
 
           </AppHeaderDropdown>

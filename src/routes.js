@@ -11,8 +11,8 @@ const SignUp = React.lazy(() => import("./containers/Authentication/SignUp"));
 const routes = [
   { path: "/", exact: true, component: MainPage },
   { path: "/painel", name: "Painel", component: Dashboard },
-  { path: "/login", name: "Login", component: Login },
-  { path: "/logout", name: "Logout", component: Logout },
+  // { path: "/login", name: "Login", component: Login },
+  // { path: "/logout", name: "Logout", component: Logout },
   { path: "/cadastro", name: "Cadastro", component: SignUp },
   { path: "/energia", name: "Energia elétrica", component: ConsumptionMonitor, options: {tableName: "CEBteste", tableNameMeters: "CEB-Medidoresteste", meterType: "1"}},
   { path: "/agua", name: "Água", component: ConsumptionMonitor, options: {tableName: "CAESB", tableNameMeters: "CAESB-Medidores", meterType: "2"} }
