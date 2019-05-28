@@ -1,11 +1,59 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Alert, Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-
+import loginCognito from "../../utils/authentication/loginCognito";
 
 class Login extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      email: "",
+      password: "",
+      loggedIn: false,
+      alertVisible: false
+    }
+    this.handleLoginInputs = this.handleLoginInputs.bind(this);
+    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    this.handleAlertDismiss = this.handleAlertDismiss.bind(this);
+  }
+
+  handleLoginInputs(event){
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  handleLoginSubmit(event){
+    event.preventDefault();
+    loginCognito(this.state.email, this.state.password).then(userSession => {
+      if(userSession){
+        this.setState({
+          loggedIn: userSession,
+          alertVisible: false,
+          email: "",
+          password: ""
+        });
+      this.props.history.push("/");
+      } else {
+        this.setState({
+          alertVisible: true,
+          email: "",
+          password: ""
+        });
+      }
+    }).catch(() => {
+      this.setState({
+        alertVisible: true,
+        email: "",
+        password: ""
+      });
+    });
+  }
+
+  handleAlertDismiss() {
+    this.setState({
+      alertVisible: false
+    });
   }
 
   render() {
@@ -33,7 +81,7 @@ class Login extends Component {
                             name="email"
                             placeholder="usuario@senado.leg.br"
                             autoComplete="username"
-                            onChange={this.props.handleLoginInputs}
+                            onChange={this.handleLoginInputs}
                           />
                         </InputGroup>
                         <InputGroup className="mb-4">
@@ -48,7 +96,7 @@ class Login extends Component {
                             name="password"
                             placeholder="senha"
                             autoComplete="current-password"
-                            onChange={this.props.handleLoginInputs}  
+                            onChange={this.handleLoginInputs}  
                           />
                         </InputGroup>
                         <Row>
@@ -56,7 +104,7 @@ class Login extends Component {
                             <Button
                               color="primary"
                               className="px-4"
-                              onClick={this.props.handleLoginSubmit}  
+                              onClick={this.handleLoginSubmit}  
                             >Login</Button>
                           </Col>
                           <Col xs="6" className="text-right">
@@ -83,7 +131,7 @@ class Login extends Component {
                     </CardBody>
                   </Card>
                 </CardGroup>
-                <Alert className="mt-4" color="danger" isOpen={this.props.alertVisible} toggle={this.props.handleAlertDismiss}>
+                <Alert className="mt-4" color="danger" isOpen={this.state.alertVisible} toggle={this.handleAlertDismiss}>
                   Login falhou. Tente novamente.
                 </Alert>
               </Col>

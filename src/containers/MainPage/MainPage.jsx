@@ -17,8 +17,6 @@ import navigation from "../../_nav";
 // routes config
 import routes from "../../routes";
 
-import Login from "../Authentication/Login";
-import loginCognito from "../../utils/authentication/loginCognito";
 import logoutCognito from "../../utils/authentication/logoutCognito";
 
 const MainHeader = React.lazy(() => import("./MainHeader"));
@@ -27,60 +25,12 @@ class MainPage extends Component {
 
   constructor(props){
     super(props);
-    this.state = {
-      email: "",
-      password: "",
-      loggedIn: false,
-      alertVisible: false
-    }
-    this.handleLoginInputs = this.handleLoginInputs.bind(this);
-    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
-    this.handleAlertDismiss = this.handleAlertDismiss.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
 
   loading = () => (
     <div className="animated fadeIn pt-1 text-center">Carregando...</div>
   );
-
-  handleLoginInputs(event){
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
-
-  handleLoginSubmit(event){
-    event.preventDefault();
-    loginCognito(this.state.email, this.state.password).then(userSession => {
-      if(userSession){
-        this.setState({
-          loggedIn: userSession,
-          alertVisible: false,
-          email: "",
-          password: ""
-        });
-      this.props.history.push("/");
-      } else {
-        this.setState({
-          alertVisible: true,
-          email: "",
-          password: ""
-        });
-      }
-    }).catch(() => {
-      this.setState({
-        alertVisible: true,
-        email: "",
-        password: ""
-      });
-    });
-  }
-
-  handleAlertDismiss() {
-    this.setState({
-      alertVisible: false
-    });
-  }
 
   handleLogout(){
     if(window.sessionStorage.getItem("email") !== null){
@@ -115,18 +65,6 @@ class MainPage extends Component {
             <Container fluid className="pt-4">
               <Suspense fallback={this.loading()}>
                 <Switch>
-
-                  <Route path="/login" render={(routerProps) =>(
-                    <Login
-                      {...routerProps}
-                      loggedIn={this.state.loggedIn}
-                      handleLoginInputs={this.handleLoginInputs}
-                      handleLoginSubmit={this.handleLoginSubmit}
-                      handleAlertDismiss={this.handleAlertDismiss}
-                      alertVisible={this.state.alertVisible}
-                    />
-                  )}/>
-
                   {routes.map((route, idx) => {
                     return route.component ? (
                       <Route
