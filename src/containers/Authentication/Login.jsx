@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Alert, Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import loginCognito from "../../utils/authentication/loginCognito";
+import { startSession } from "../../redux/actions";
+import { connect } from "react-redux";
+import rootReducer from "../../redux/reducers";
 
 class Login extends Component {
   constructor(props){
@@ -27,12 +30,13 @@ class Login extends Component {
     event.preventDefault();
     loginCognito(this.state.email, this.state.password).then(userSession => {
       if(userSession){
-        this.setState({
-          loggedIn: userSession,
-          alertVisible: false,
-          email: "",
-          password: ""
-        });
+      //   this.setState({
+      //     loggedIn: userSession,
+      //     alertVisible: false,
+      //     email: "",
+      //     password: ""
+      //   });
+      this.props.startSession(userSession);
       this.props.history.push("/");
       } else {
         this.setState({
@@ -143,4 +147,7 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(
+  null,
+  { startSession }
+)(Login);

@@ -4,7 +4,7 @@ import { LOGIN_SUCCESS } from "./actions";
 function loginUser(state = false, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      return action.login;
+      return action.userSession;
     default:
       return state;
   }

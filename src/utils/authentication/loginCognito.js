@@ -24,8 +24,8 @@ export default function loginCognito(email, password){
         console.log("Login efetuado com sucesso.\n\nUsuário logado: " + email);
         console.log("userSession:");
         console.log(userSession);
-        window.sessionStorage.setItem("email", email);
-        window.sessionStorage.setItem("idToken", userSession.getIdToken().getJwtToken());
+        // window.sessionStorage.setItem("email", email);
+        // window.sessionStorage.setItem("idToken", userSession.getIdToken().getJwtToken());
         resolve(userSession);
       },
       onFailure: function(err) {

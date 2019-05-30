@@ -5,7 +5,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 // OTHER CONSTANTS DECLARATIONS
 
 // Action creators
-export function logUserIn(userSession){
+export function startSession(userSession){
   return {
     type: LOGIN_SUCCESS,
     userSession: userSession

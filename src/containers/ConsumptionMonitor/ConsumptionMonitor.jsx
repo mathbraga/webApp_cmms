@@ -11,6 +11,8 @@ import ResultOM from "./ResultOM";
 import ResultOP from "./ResultOP";
 import ResultAM from "./ResultAM";
 import ResultAP from "./ResultAP";
+import { connect } from "react-redux";
+import store from "../../redux/store"; // NECESSARY FOR TESTING
 
 class ConsumptionMonitor extends Component {
   constructor(props) {
@@ -75,6 +77,9 @@ class ConsumptionMonitor extends Component {
   };
 
   render() {
+
+    console.log(store.getState());
+
     return (
       <React.Fragment>
         {!this.state.showResult &&
@@ -144,4 +149,8 @@ class ConsumptionMonitor extends Component {
   }
 }
 
-export default ConsumptionMonitor;
+const mapStateToProps = state => {
+  // return state.userSession ????????????
+}
+
+export default connect(mapStateToProps)(ConsumptionMonitor);
