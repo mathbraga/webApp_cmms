@@ -12,21 +12,20 @@ import ResultOP from "./ResultOP";
 import ResultAM from "./ResultAM";
 import ResultAP from "./ResultAP";
 import { connect } from "react-redux";
-import store from "../../redux/store"; // NECESSARY FOR TESTING
 
 class ConsumptionMonitor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tableName: this.props.tableName,
-      tableNameMeters: this.props.tableNameMeters,
-      meterType: this.props.meterType,
-      defaultMeter: this.props.meterType + "99",
+      tableName: this.props.tableName,             // This prop comes from route.options
+      tableNameMeters: this.props.tableNameMeters, // This prop comes from route.options
+      meterType: this.props.meterType,             // This prop comes from route.options
+      defaultMeter: this.props.meterType + "99",   // This prop comes from route.options
       meters: [],
-      dbObject: initializeDynamoDB(),
+      dbObject: this.props.dbObject,               // This prop comes from mapStateToProps()
       initialDate: getCurrentMonth(),
       finalDate: "",
-      chosenMeter: this.props.meterType + "99",
+      chosenMeter: this.props.meterType + "99",    // This prop comes from route.options
       oneMonth: true,
       showResult: false,
       resultObject: {}
@@ -77,9 +76,6 @@ class ConsumptionMonitor extends Component {
   };
 
   render() {
-
-    console.log(store.getState());
-
     return (
       <React.Fragment>
         {!this.state.showResult &&
@@ -149,8 +145,14 @@ class ConsumptionMonitor extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  // return state.userSession ????????????
+const mapStateToProps = (storeState, ownProps) => {
+  console.log('store state:');
+  console.log(storeState);
+  console.log('own props:');
+  console.log(ownProps);
+  return {
+    dbObject: initializeDynamoDB(storeState.userSession)
+  }
 }
 
 export default connect(mapStateToProps)(ConsumptionMonitor);

@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { LOGIN_SUCCESS } from "./actions";
 
-function loginUser(state = false, action) {
+function userSession(state = false, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return action.userSession;
@@ -11,7 +11,7 @@ function loginUser(state = false, action) {
 }
 
 const rootReducer = combineReducers({
-  loginUser
+  userSession
 });
 
 export default rootReducer;
