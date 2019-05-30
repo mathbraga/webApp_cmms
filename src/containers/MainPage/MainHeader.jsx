@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import {
   Nav,
   NavItem,
-  Badge,
   DropdownItem,
   DropdownToggle,
   DropdownMenu
@@ -16,8 +15,18 @@ import {
 } from "@coreui/react";
 import logo from "../../assets/img/brand/logo.svg";
 import sygnet from "../../assets/img/brand/sygnet.svg";
+import logoutCognito from "../../utils/authentication/loginCognito";
+import { endSession } from "../../redux/actions";
+import { connect } from "react-redux";
+import store from "../../redux/store";
 
 class MainHeader extends Component {
+  
+  handleLogout(){
+    // this.props.endSession();
+    console.log('inside handleLogout');
+  }
+  
   render() {
     return (
       <React.Fragment>
@@ -71,7 +80,7 @@ class MainHeader extends Component {
               {/* <DropdownItem><i className="fa fa-file"></i>Projects<Badge color="primary">42</Badge></DropdownItem> */}
               {/* <DropdownItem divider /> */}
               {/* <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem> */}
-              <DropdownItem onClick={this.props.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
+              <DropdownItem onClick={this.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
             </DropdownMenu>
 
           </AppHeaderDropdown>
@@ -84,4 +93,7 @@ class MainHeader extends Component {
   }
 }
 
-export default MainHeader;
+export default connect(
+  null,
+  { endSession }
+)(MainHeader);

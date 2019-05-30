@@ -1,10 +1,10 @@
 var AmazonCognitoIdentity = require("amazon-cognito-identity-js");
 
-export default function logoutCognito(email){
+export default function logoutCognito(userSession){
   return new Promise((resolve, reject) => {
 
-    console.clear();
-    console.log('inside logoutCognito');
+    // console.clear();
+    // console.log('inside logoutCognito');
     
     let userPool = new AmazonCognitoIdentity.CognitoUserPool({
       UserPoolId : "us-east-2_QljBw37l1",
@@ -12,13 +12,13 @@ export default function logoutCognito(email){
     });
 
     let cognitoUser = new AmazonCognitoIdentity.CognitoUser({
-      Username: email,
+      Username: userSession.getIdToken().payload.email,
       Pool: userPool
     });
 
     cognitoUser.signOut();
-    window.sessionStorage.clear();
-    console.log(window.sessionStorage);
+    // window.sessionStorage.clear();
+    // console.log(window.sessionStorage);
     resolve();
   });
 }
