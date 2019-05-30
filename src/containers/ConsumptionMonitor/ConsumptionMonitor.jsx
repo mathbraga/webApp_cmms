@@ -90,10 +90,12 @@ class ConsumptionMonitor extends Component {
               onMeterChange={this.handleMeterChange}
               onQuery={this.handleQuery}
             />
-            <FileInput
-              tableName={this.state.tableName}
-              dbObject={this.state.dbObject}
-            />
+            {this.props.enableFileInput &&
+              <FileInput
+                tableName={this.state.tableName}
+                dbObject={this.state.dbObject}
+              />
+            }
           </React.Fragment>
         }
         {this.state.showResult &&
@@ -150,8 +152,13 @@ const mapStateToProps = (storeState, ownProps) => {
   console.log(storeState);
   console.log('own props:');
   console.log(ownProps);
+  let enableFileInput = false;
+  if(storeState.userSession){
+    enableFileInput = true;
+  }
   return {
-    dbObject: initializeDynamoDB(storeState.userSession)
+    dbObject: initializeDynamoDB(storeState.userSession),
+    enableFileInput: enableFileInput
   }
 }
 
