@@ -30,7 +30,13 @@ class MainPage extends Component {
       <div className="app">
         <AppHeader fixed>
           <Suspense fallback={this.loading()}>
-            <MainHeader/>
+            <Route
+              render={(routerProps) => (
+                <MainHeader
+                  {...routerProps}
+                />
+              )}
+            />
           </Suspense>
         </AppHeader>
         <div className="app-body">

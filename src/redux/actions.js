@@ -10,23 +10,16 @@ export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 // OTHER CONSTANTS DECLARATIONS
 
 // Action creators
-export function startSession(userSession){
+export function startSession(email, password){
   return {
     type: LOGIN_SUCCESS,
-    userSession: userSession
+    userSession: true
   }
 };
 
 export function endSession(){
-  // logoutCognito(userSession).then(()=> {
-    return {
-      type: LOGOUT_SUCCESS,
-      userSession: false
-    }
-  // }).catch(() => {
-  //   return {
-  //     type: LOGOUT_FAILURE,
-  //     userSession: userSession
-  //   }
-  // });
+  return {
+    type: LOGOUT_SUCCESS,
+    userSession: false
+  }
 };

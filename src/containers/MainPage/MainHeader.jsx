@@ -15,17 +15,21 @@ import {
 } from "@coreui/react";
 import logo from "../../assets/img/brand/logo.svg";
 import sygnet from "../../assets/img/brand/sygnet.svg";
-import logoutCognito from "../../utils/authentication/loginCognito";
 import { endSession } from "../../redux/actions";
 import { connect } from "react-redux";
-import store from "../../redux/store";
+import { bindActionCreators } from "redux";
 
 class MainHeader extends Component {
+  constructor(props){
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
   
-  // handleLogout(){
-  //   // this.props.endSession();
-  //   console.log('inside handleLogout');
-  // }
+  handleLogout(event){
+    event.preventDefault();
+    this.props.endSession();
+    this.props.history.push("/login");
+  }
   
   render() {
     return (
@@ -80,7 +84,7 @@ class MainHeader extends Component {
               {/* <DropdownItem><i className="fa fa-file"></i>Projects<Badge color="primary">42</Badge></DropdownItem> */}
               {/* <DropdownItem divider /> */}
               {/* <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem> */}
-              <DropdownItem onClick={this.props.endSession}><i className="fa fa-lock"></i> Logout</DropdownItem>
+              <DropdownItem onClick={this.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
             </DropdownMenu>
 
           </AppHeaderDropdown>
@@ -93,7 +97,11 @@ class MainHeader extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ endSession }, dispatch)
+}
+
 export default connect(
   null,
-  { endSession }
+  mapDispatchToProps
 )(MainHeader);

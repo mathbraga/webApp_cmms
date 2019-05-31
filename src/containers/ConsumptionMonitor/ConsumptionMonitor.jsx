@@ -147,15 +147,8 @@ class ConsumptionMonitor extends Component {
   }
 }
 
-const mapStateToProps = (storeState, ownProps) => {
-  console.log('store state:');
-  console.log(storeState);
-  console.log('own props:');
-  console.log(ownProps);
-  let enableFileInput = false;
-  if(storeState.userSession){
-    enableFileInput = true;
-  }
+const mapStateToProps = (storeState) => {
+  let enableFileInput = storeState.userSession;
   return {
     dbObject: initializeDynamoDB(storeState.userSession),
     enableFileInput: enableFileInput

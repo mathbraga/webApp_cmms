@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Alert, Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import loginCognito from "../../utils/authentication/loginCognito";
 import { startSession } from "../../redux/actions";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 class Login extends Component {
   constructor(props){
@@ -27,24 +27,8 @@ class Login extends Component {
 
   handleLoginSubmit(event){
     event.preventDefault();
-    loginCognito(this.state.email, this.state.password).then(userSession => {
-      if(userSession){
-        this.props.startSession(userSession);
-        this.props.history.push("/");
-      } else {
-        this.setState({
-          alertVisible: true,
-          email: "",
-          password: ""
-        });
-      }
-    }).catch(() => {
-      this.setState({
-        alertVisible: true,
-        email: "",
-        password: ""
-      });
-    });
+    this.props.startSession(this.state.email, this.state.password);
+    this.props.history.push("/painel");
   }
 
   handleAlertDismiss() {
@@ -140,7 +124,11 @@ class Login extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ startSession }, dispatch)
+}
+
 export default connect(
   null,
-  { startSession }
+  mapDispatchToProps
 )(Login);
