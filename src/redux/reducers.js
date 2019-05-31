@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from "./actions";
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE } from "./actions";
 
 function userSession(state = false, action) {
   switch (action.type) {
@@ -10,7 +10,10 @@ function userSession(state = false, action) {
     case LOGIN_FAILURE:
       return action.userSession;
 
-    case LOGOUT:
+    case LOGOUT_SUCCESS:
+      return action.userSession;
+
+    case LOGOUT_FAILURE:
       return action.userSession;
 
     default:
