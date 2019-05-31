@@ -1,8 +1,11 @@
+import loginCognito from "../utils/authentication/loginCognito";
 import logoutCognito from "../utils/authentication/logoutCognito";
 
 // Action types
+export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
+export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 
@@ -10,16 +13,67 @@ export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 // OTHER CONSTANTS DECLARATIONS
 
 // Action creators
-export function startSession(email, password){
+function loginRequest(){
+  return {
+    type: LOGIN_REQUEST,
+  }
+}
+
+function loginSuccess(userSession){
   return {
     type: LOGIN_SUCCESS,
-    userSession: true
+    userSession: userSession
   }
-};
+}
 
-export function endSession(){
+function loginFailure(){
   return {
-    type: LOGOUT_SUCCESS,
-    userSession: false
+    type: LOGIN_FAILURE,
   }
-};
+}
+
+export function login(email, password){
+  return dispatch => {
+    dispatch(loginRequest());
+    return dispatch(loginCognito(email, password))
+    .then(userSession => {
+      if(userSession){
+        return dispatch(loginSuccess(userSession));
+      } else {
+        return dispatch(loginFailure());
+      }
+    });
+  }
+}
+
+function logoutRequest(){
+  return {
+    type: LOGOUT_REQUEST
+  }
+}
+
+function logoutSuccess(){
+  return {
+    type: LOGOUT_SUCCESS
+  }
+}
+
+function logoutFailure(){
+  return {
+    type: LOGOUT_FAILURE
+  }
+}
+
+export function logout(){
+  return (dispatch, getState) => {
+    dispatch(logoutRequest());
+    return dispatch(logoutCognito(getState().userSession.userSession))
+    .then(logoutResponse => {
+      if(logoutResponse){
+        return dispatch(logoutSuccess());
+      } else {
+        return dispatch(logoutFailure());
+      }
+    });
+  }
+}

@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Alert, Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import { startSession } from "../../redux/actions";
+import { login } from "../../redux/actions";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 class Login extends Component {
   constructor(props){
@@ -27,7 +26,7 @@ class Login extends Component {
 
   handleLoginSubmit(event){
     event.preventDefault();
-    this.props.startSession(this.state.email, this.state.password);
+    this.props.login(this.state.email, this.state.password);
     this.props.history.push("/painel");
   }
 
@@ -124,11 +123,10 @@ class Login extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ startSession }, dispatch)
+const mapDispatchToProps = dispatch => {
+  return {
+    login: () => dispatch(login())
+  }
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(Login);
+export default connect(null, mapDispatchToProps)(Login);

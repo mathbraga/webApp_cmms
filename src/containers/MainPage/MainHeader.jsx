@@ -15,9 +15,8 @@ import {
 } from "@coreui/react";
 import logo from "../../assets/img/brand/logo.svg";
 import sygnet from "../../assets/img/brand/sygnet.svg";
-import { endSession } from "../../redux/actions";
+import { logout } from "../../redux/actions";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 class MainHeader extends Component {
   constructor(props){
@@ -27,7 +26,7 @@ class MainHeader extends Component {
   
   handleLogout(event){
     event.preventDefault();
-    this.props.endSession();
+    this.props.dispatch(logout());
     this.props.history.push("/login");
   }
   
@@ -97,11 +96,4 @@ class MainHeader extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ endSession }, dispatch)
-}
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(MainHeader);
+export default connect()(MainHeader);

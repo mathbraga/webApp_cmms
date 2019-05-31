@@ -6,7 +6,7 @@ export default function logoutCognito(userSession){
     // console.clear();
     // console.log('inside logoutCognito');
     if(!userSession){
-      reject();
+      resolve(true);
     } else {
       let userPool = new AmazonCognitoIdentity.CognitoUserPool({
         UserPoolId : "us-east-2_QljBw37l1",
@@ -21,7 +21,7 @@ export default function logoutCognito(userSession){
       cognitoUser.signOut();
       // window.sessionStorage.clear();
       // console.log(window.sessionStorage);
-      resolve();
+      resolve(true);
     }
   });
 }
