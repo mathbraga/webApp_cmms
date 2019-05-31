@@ -35,12 +35,12 @@ function loginFailure(){
 export function login(email, password){
   return dispatch => {
     dispatch(loginRequest());
-    return dispatch(loginCognito(email, password))
+    return loginCognito(email, password)
     .then(userSession => {
       if(userSession){
-        return dispatch(loginSuccess(userSession));
+        dispatch(loginSuccess(userSession));
       } else {
-        return dispatch(loginFailure());
+        dispatch(loginFailure());
       }
     });
   }
@@ -67,12 +67,12 @@ function logoutFailure(){
 export function logout(){
   return (dispatch, getState) => {
     dispatch(logoutRequest());
-    return dispatch(logoutCognito(getState().userSession.userSession))
+    return logoutCognito(getState().userSession.userSession)
     .then(logoutResponse => {
       if(logoutResponse){
-        return dispatch(logoutSuccess());
+        dispatch(logoutSuccess());
       } else {
-        return dispatch(logoutFailure());
+        dispatch(logoutFailure());
       }
     });
   }

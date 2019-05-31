@@ -4,13 +4,13 @@ export default function loginCognito(email, password){
   return new Promise((resolve, reject) => {
 
     let authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
-      Username : email,
-      Password : password
+      Username: email,
+      Password: password
     });
     
     let userPool = new AmazonCognitoIdentity.CognitoUserPool({
-      UserPoolId : "us-east-2_QljBw37l1",
-      ClientId : "25k8mc8m13pgpaihrhvcuvonpq"
+      UserPoolId: "us-east-2_QljBw37l1",
+      ClientId: "25k8mc8m13pgpaihrhvcuvonpq"
     });
 
     let cognitoUser = new AmazonCognitoIdentity.CognitoUser({

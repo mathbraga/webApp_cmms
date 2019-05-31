@@ -26,7 +26,7 @@ class Login extends Component {
 
   handleLoginSubmit(event){
     event.preventDefault();
-    this.props.login(this.state.email, this.state.password);
+    this.props.dispatch(login(this.state.email, this.state.password));
     this.props.history.push("/painel");
   }
 
@@ -123,10 +123,4 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    login: () => dispatch(login())
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Login);
+export default connect()(Login);
