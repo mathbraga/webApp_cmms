@@ -1,7 +1,7 @@
 export default {
   items: [
     {
-      name: "Painel SINFRA",
+      name: "Painel",
       url: "/painel",
       icon: "cui-monitor"
     },

@@ -48,43 +48,38 @@ class MainHeader extends Component {
             </Link>
           </NavItem> */}
 
-          <NavItem className="px-3">
-            <Link to="/cadastro" className="nav-link">
-              Cadastro
-            </Link>
-          </NavItem>
-
-          <NavItem className="px-3">
-            <Link to="/login" className="nav-link">
-              Login
-            </Link>
-          </NavItem>
-
-          {/* <NavItem className="px-3">
-            <Link to="/logout" className="nav-link">
-              Logout
-            </Link>
-          </NavItem> */}
+          {!this.props.session &&
+            <React.Fragment>
+              <NavItem className="px-3">
+                <Link to="/cadastro" className="nav-link">
+                Cadastro
+                </Link>
+              </NavItem>
+              <NavItem className="px-3">
+                <Link to="/login" className="nav-link">
+                  Login
+                </Link>
+              </NavItem>
+            </React.Fragment>
+          }
           
           <AppHeaderDropdown direction="down">
-          <DropdownToggle nav>
-              <i className="fa fa-user-circle"/>
-            </DropdownToggle>
-            <DropdownMenu right style={{ right: 'auto' }}>
-              {/* <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem> */}
-              {/* <DropdownItem><i className="fa fa-bell-o"></i> Updates<Badge color="info">42</Badge></DropdownItem> */}
-              {/* <DropdownItem><i className="fa fa-envelope-o"></i> Messages<Badge color="success">42</Badge></DropdownItem> */}
-              {/* <DropdownItem><i className="fa fa-tasks"></i> Tasks<Badge color="danger">42</Badge></DropdownItem> */}
-              {/* <DropdownItem><i className="fa fa-comments"></i> Comments<Badge color="warning">42</Badge></DropdownItem> */}
-              {/* <DropdownItem header tag="div" className="text-center"><strong>Settings</strong></DropdownItem> */}
-              <DropdownItem><i className="fa fa-user"></i>Perfil</DropdownItem>
-              <DropdownItem><i className="fa fa-wrench"></i>Configurações</DropdownItem>
-              {/* <DropdownItem><i className="fa fa-usd"></i>Payments<Badge color="secondary">42</Badge></DropdownItem> */}
-              {/* <DropdownItem><i className="fa fa-file"></i>Projects<Badge color="primary">42</Badge></DropdownItem> */}
-              {/* <DropdownItem divider /> */}
-              {/* <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem> */}
-              <DropdownItem onClick={this.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
-            </DropdownMenu>
+            
+            {this.props.session &&
+              <React.Fragment>
+                <DropdownToggle nav>
+                  <i className="fa fa-user-circle"/>
+                  {" " + this.props.session.idToken.payload.email}
+                </DropdownToggle>
+                
+                <DropdownMenu right style={{ right: 'auto' }}>
+                  <DropdownItem><i className="fa fa-user"></i>Perfil</DropdownItem>
+                  <DropdownItem><i className="fa fa-wrench"></i>Configurações</DropdownItem>
+                  <DropdownItem onClick={this.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
+                </DropdownMenu>
+              </React.Fragment>
+            }
+            
 
           </AppHeaderDropdown>
 
@@ -96,4 +91,11 @@ class MainHeader extends Component {
   }
 }
 
-export default connect()(MainHeader);
+const mapStateToProps = storeState => {
+  let session = storeState.auth.session;
+  return {
+    session
+  }
+}
+
+export default connect(mapStateToProps)(MainHeader);

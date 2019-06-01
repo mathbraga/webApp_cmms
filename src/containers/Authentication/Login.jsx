@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { Alert, Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { login } from "../../redux/actions";
 import { connect } from "react-redux";
@@ -27,7 +27,6 @@ class Login extends Component {
   handleLoginSubmit(event){
     event.preventDefault();
     this.props.dispatch(login(this.state.email, this.state.password));
-    // this.props.history.push("/painel");
   }
 
   handleAlertDismiss() {
@@ -99,14 +98,17 @@ class Login extends Component {
                   </CardBody>
                 </Card>
 
-                <Alert className="mt-4" color="danger" isOpen={this.props.error} toggle={this.handleAlertDismiss}>
+                <Alert className="mt-4 mx-4" color="warning" isOpen={this.props.isFetching}>
+                  Realizando login...
+                </Alert>
+
+                <Alert className="mt-4 mx-4" color="danger" isOpen={this.props.loginError}>
                   Login falhou. Tente novamente.
                 </Alert>
 
-                <Alert className="mt-4" color="warning" isOpen={this.props.fetching} toggle={this.handleAlertDismiss}>
-                  REALIZANDO LOGIN
-                </Alert>
-
+                {this.props.session &&
+                  <Redirect to="/painel"/>
+                }
 
               </Col>
             </Row>
@@ -118,11 +120,13 @@ class Login extends Component {
 }
 
 const mapStateToProps = storeState => {
-  let fetching = storeState.userSession.isFetching;
-  let error = storeState.userSession.error;
+  let isFetching = storeState.auth.isFetching;
+  let loginError = storeState.auth.loginError;
+  let session = storeState.auth.session;
   return {
-    fetching,
-    error
+    isFetching: isFetching,
+    loginError: loginError,
+    session: session
   }
 }
 

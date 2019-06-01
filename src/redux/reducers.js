@@ -1,30 +1,31 @@
 import { combineReducers } from "redux";
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from "./actions";
 
-function userSession(
+function auth(
   state = {
-    userSession: false,
+    session: false,
     isFetching: false,
-    error: false
+    loginError: false
   }, action) {
 
   switch (action.type) {
 
     case LOGIN_REQUEST:
       return Object.assign({}, state, {
-        isFetching: true
+        isFetching: true,
+        loginError: false
       });
 
     case LOGIN_SUCCESS:
       return Object.assign({}, state, {
-        userSession: action.userSession,
+        session: action.session,
         isFetching: false
       });
 
     case LOGIN_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        error: true
+        loginError: true
       });
 
     case LOGOUT_REQUEST:
@@ -34,14 +35,14 @@ function userSession(
     
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
-        userSession: false,
+        session: false,
         isFetching: false
       });
 
     case LOGOUT_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        error: true
+        logoutError: true
       });
 
     default:
@@ -50,7 +51,7 @@ function userSession(
 }
 
 const rootReducer = combineReducers({
-  userSession
+  auth
 });
 
 export default rootReducer;

@@ -22,7 +22,7 @@ function loginRequest(){
 function loginSuccess(userSession){
   return {
     type: LOGIN_SUCCESS,
-    userSession: userSession
+    session: userSession
   }
 }
 
@@ -36,9 +36,9 @@ export function login(email, password){
   return dispatch => {
     dispatch(loginRequest());
     return loginCognito(email, password)
-    .then(userSession => {
-      if(userSession){
-        dispatch(loginSuccess(userSession));
+    .then(session => {
+      if(session){
+        dispatch(loginSuccess(session));
       } else {
         dispatch(loginFailure());
       }
@@ -67,7 +67,7 @@ function logoutFailure(){
 export function logout(){
   return (dispatch, getState) => {
     dispatch(logoutRequest());
-    return logoutCognito(getState().userSession.userSession)
+    return logoutCognito(getState().auth.session)
     .then(logoutResponse => {
       if(logoutResponse){
         dispatch(logoutSuccess());
