@@ -1,3 +1,5 @@
+import { UserPoolId, ClientId } from "../../aws";
+
 var AmazonCognitoIdentity = require("amazon-cognito-identity-js");
 
 export default function loginCognito(email, password){
@@ -9,8 +11,8 @@ export default function loginCognito(email, password){
     });
     
     let userPool = new AmazonCognitoIdentity.CognitoUserPool({
-      UserPoolId: "us-east-2_QljBw37l1",
-      ClientId: "25k8mc8m13pgpaihrhvcuvonpq"
+      UserPoolId: UserPoolId,
+      ClientId: ClientId
     });
 
     let cognitoUser = new AmazonCognitoIdentity.CognitoUser({

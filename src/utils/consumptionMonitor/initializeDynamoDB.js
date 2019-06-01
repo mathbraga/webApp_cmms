@@ -1,4 +1,5 @@
 import AWS from "aws-sdk";
+import { region, IdentityPoolId, fullUserPoolURL, apiVersion, endpoint } from "../../aws";
 
 export default function initializeDynamoDB(userSession) {
   // Inputs:
@@ -19,35 +20,35 @@ export default function initializeDynamoDB(userSession) {
   let dynamo = {};
 
   // In case there is no user logged in
-  // if(!userSession){
+  if(!userSession){
 
-    AWS.config.region = "us-east-2";
+    AWS.config.region = region;
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: "us-east-2:a92ff2fa-ce00-47d1-b72f-5e3ee87fa955"
+      IdentityPoolId: IdentityPoolId
     });
 
     dynamo = new AWS.DynamoDB({
-      apiVersion: "2012-08-10",
-      endpoint: "https://dynamodb.us-east-2.amazonaws.com"
+      apiVersion: apiVersion,
+      endpoint: endpoint
     });
 
   // In case there is a user logged in
-  // } else {
+  } else {
 
-  //   AWS.config.region = "us-east-2";
-  //   AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-  //     IdentityPoolId: "us-east-2:a92ff2fa-ce00-47d1-b72f-5e3ee87fa955",
-  //     Logins: {
-  //         "cognito-idp.us-east-2.amazonaws.com/us-east-2_QljBw37l1": userSession.getIdToken().getJwtToken()
-  //     },
-  //     LoginId: userSession.getIdToken().payload.email
-  //   });
+    AWS.config.region = region;
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: IdentityPoolId,
+      Logins: {
+          [fullUserPoolURL]: userSession.getIdToken().getJwtToken()
+      },
+      LoginId: userSession.getIdToken().payload.email
+    });
 
-  //   dynamo = new AWS.DynamoDB({
-  //     apiVersion: "2012-08-10",
-  //     endpoint: "https://dynamodb.us-east-2.amazonaws.com"
-  //   });
-  // }
+    dynamo = new AWS.DynamoDB({
+      apiVersion: apiVersion,
+      endpoint: endpoint
+    });
+  }
 
   return dynamo;
 

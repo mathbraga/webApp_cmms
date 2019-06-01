@@ -1,3 +1,5 @@
+import { UserPoolId, ClientId } from "../../aws";
+
 import {
   CognitoUserPool,
   CognitoUserAttribute
@@ -5,14 +7,12 @@ import {
 
 export default function signUpCognito(email, password1, password2){
   return new Promise((resolve, reject) => {
-
-    console.log("Inside signUpCognito");
     
     if(password1 === password2){
       
       let poolData = {
-        UserPoolId : "us-east-2_QljBw37l1",
-        ClientId : "25k8mc8m13pgpaihrhvcuvonpq"
+        UserPoolId: UserPoolId,
+        ClientId: ClientId
       };
   
       let userPool = new CognitoUserPool(poolData);
@@ -35,5 +35,5 @@ export default function signUpCognito(email, password1, password2){
     } else {
       reject();
     }
-  })
+  });
 }
