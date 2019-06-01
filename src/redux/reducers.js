@@ -4,7 +4,8 @@ import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGOUT_SUC
 function userSession(
   state = {
     userSession: false,
-    isFetching: false
+    isFetching: false,
+    error: false
   }, action) {
 
   switch (action.type) {
@@ -22,7 +23,8 @@ function userSession(
 
     case LOGIN_FAILURE:
       return Object.assign({}, state, {
-        isFetching: false
+        isFetching: false,
+        error: true
       });
 
     case LOGOUT_REQUEST:
@@ -38,7 +40,8 @@ function userSession(
 
     case LOGOUT_FAILURE:
       return Object.assign({}, state, {
-        isFetching: false
+        isFetching: false,
+        error: true
       });
 
     default:

@@ -72,7 +72,7 @@ class SignUp extends Component {
         <div className="flex-row align-items-center">
           <Container>
             <Row className="justify-content-center">
-              <Col md="9" lg="7" xl="6">
+              <Col md="6">
                 <Card className="mx-4">
                   <CardBody className="p-4">
                     <Form>
