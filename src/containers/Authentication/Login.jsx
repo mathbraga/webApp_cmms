@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Alert, Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { login } from "../../redux/actions";
 import { connect } from "react-redux";
 
@@ -10,12 +10,19 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      loggedIn: false,
       alertVisible: false
     }
     this.handleLoginInputs = this.handleLoginInputs.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.handleAlertDismiss = this.handleAlertDismiss.bind(this);
+  }
+
+  componentDidUpdate(prevProps){
+    if(this.props.loginError !== prevProps.loginError){
+      this.setState({
+        alertVisible: true
+      });
+    }
   }
 
   handleLoginInputs(event){
@@ -104,9 +111,11 @@ class Login extends Component {
                   Realizando login...
                 </Alert>
 
-                <Alert className="mt-4 mx-4" color="danger" isOpen={this.props.loginError}>
-                  Login falhou. Tente novamente.
-                </Alert>
+                {!this.props.isFetching &&
+                  <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.alertVisible} toggle={this.handleAlertDismiss}>
+                    Login falhou. Tente novamente.
+                  </Alert>
+                }
 
                 {this.props.session &&
                   <Redirect to="/painel"/>

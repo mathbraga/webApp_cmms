@@ -19,7 +19,8 @@ function auth(
     case LOGIN_SUCCESS:
       return Object.assign({}, state, {
         session: action.session,
-        isFetching: false
+        isFetching: false,
+        loginError: false
       });
 
     case LOGIN_FAILURE:
