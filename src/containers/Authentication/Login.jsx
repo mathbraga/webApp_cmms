@@ -46,7 +46,7 @@ class Login extends Component {
                   <CardBody className="p-4">
                     <Form>
                       <h1>Login</h1>
-                      <p className="text-muted">Faça login em sua conta</p>
+                      <p className="text-muted">Faça login em sua conta.</p>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -80,6 +80,7 @@ class Login extends Component {
                       <Row>
                         <Col xs="6">
                           <Button
+                            block
                             color="primary"
                             className="px-4"
                             onClick={this.handleLoginSubmit}  
@@ -87,6 +88,7 @@ class Login extends Component {
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button
+                            block
                             color="link"
                             className="px-0"
                             onClick={"TODO"}

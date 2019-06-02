@@ -77,12 +77,13 @@ class SignUp extends Component {
                   <CardBody className="p-4">
                     <Form>
                       <h1>Cadastro</h1>
-                      <p className="text-muted">Crie sua conta</p>
+                      <p className="text-muted">Crie sua conta.</p>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>@</InputGroupText>
                         </InputGroupAddon>
                         <Input
+                          disabled
                           type="text"
                           id="email"
                           name="email"
@@ -98,6 +99,7 @@ class SignUp extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
+                          disabled
                           type="password"
                           placeholder="Senha"
                           id="password1"
@@ -113,6 +115,7 @@ class SignUp extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
+                          disabled
                           type="password"
                           placeholder="Repita sua senha"
                           id="password2"
@@ -122,6 +125,7 @@ class SignUp extends Component {
                         />
                       </InputGroup>
                       <Button
+                        disabled
                         color="primary"
                         block
                         onClick={this.handleSubmit}
@@ -131,8 +135,8 @@ class SignUp extends Component {
                   </CardBody>
                 </Card>
 
-                <Alert color="danger" isOpen={this.state.alertVisible} toggle={this.onAlertDismiss}>
-                  Cadastro falhou. Tente novamente.
+                <Alert className="mt-4 mx-4" color="danger" isOpen={true}>
+                  Cadastro não disponível no momento.
                 </Alert>
                 
               </Col>
