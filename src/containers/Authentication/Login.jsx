@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { login } from "../../redux/actions";
 import { connect } from "react-redux";
+import ModalForgottenPassword from "../../components/Modals/ModalForgottenPassword";
 
 class Login extends Component {
   constructor(props){
@@ -10,11 +11,13 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      alertVisible: false
+      alertVisible: false,
+      modal: false
     }
     this.handleLoginInputs = this.handleLoginInputs.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.handleAlertDismiss = this.handleAlertDismiss.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
 
   componentDidUpdate(prevProps){
@@ -39,6 +42,18 @@ class Login extends Component {
   handleAlertDismiss() {
     this.setState({
       alertVisible: false
+    });
+  }
+
+  openModal = () => {
+    this.setState({
+      modal: true
+    });
+  }
+
+  closeModal = () => {
+    this.setState({
+      modal: false
     });
   }
 
@@ -98,7 +113,7 @@ class Login extends Component {
                             block
                             color="link"
                             className="px-0"
-                            onClick={"TODO"}
+                            onClick={this.openModal}
                           >Esqueceu sua senha?
                           </Button>
                         </Col>
@@ -125,6 +140,23 @@ class Login extends Component {
             </Row>
           </Container>
         </div>
+
+        <Route
+          render={(routerProps) => (
+            <ModalForgottenPassword
+              {...routerProps}
+              isOpen={this.state.modal}
+              toggle={this.closeModal}
+          />)}
+        />
+
+
+
+
+
+
+
+
       </React.Fragment>
     );
   }
