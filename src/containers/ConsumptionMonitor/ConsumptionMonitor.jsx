@@ -12,6 +12,7 @@ import ResultOP from "./ResultOP";
 import ResultAM from "./ResultAM";
 import ResultAP from "./ResultAP";
 import { connect } from "react-redux";
+import { Alert } from "reactstrap";
 
 class ConsumptionMonitor extends Component {
   constructor(props) {
@@ -28,7 +29,9 @@ class ConsumptionMonitor extends Component {
       chosenMeter: this.props.meterType + "99",    // This prop comes from route.options
       oneMonth: true,
       showResult: false,
-      resultObject: {}
+      resultObject: {},
+      alertMessage: false,
+      alertVisible: false
     };
   }
 
@@ -46,10 +49,14 @@ class ConsumptionMonitor extends Component {
     handleSearch(this.state).then(resultObject => {
       this.setState({
         showResult: true,
+        alertVisible: false,
         resultObject: resultObject
       });
     }).catch((errorMessage) => {
-      alert(errorMessage);
+      this.setState({
+        alertVisible: true,
+        alertMessage: errorMessage
+      });
     }); 
   }
 
@@ -75,6 +82,12 @@ class ConsumptionMonitor extends Component {
     }));
   };
 
+  closeAlert = event => {
+    this.setState({
+      alertVisible: false
+    });
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -90,6 +103,11 @@ class ConsumptionMonitor extends Component {
               onMeterChange={this.handleMeterChange}
               onQuery={this.handleQuery}
             />
+
+            <Alert className="mt-4" color="danger" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
+              {this.state.alertMessage}
+            </Alert>
+
             {this.props.enableFileInput &&
               <FileInput
                 tableName={this.state.tableName}
