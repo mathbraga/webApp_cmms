@@ -41,11 +41,13 @@ class ModalSignUpConfirmation extends Component {
     this.props.user.confirmRegistration(this.state.code, true, (err, result) => {
       if (err) {
         this.setState({
+          signUpOK: false,
           signUpError: true
         });
       } else {
         this.setState({
-          signUpOK: true
+          signUpOK: true,
+          signUpError: false
         });
       }
     });
@@ -104,7 +106,7 @@ class ModalSignUpConfirmation extends Component {
                               id="code"
                               name="code"
                               placeholder="Código de verificação (XXXXXX)"
-                              onChange={this.handleChangeInputs}  
+                              onChange={this.handleCodeInput}  
                             />
                           </InputGroup>    
                           <Button
@@ -118,13 +120,16 @@ class ModalSignUpConfirmation extends Component {
                         </Form>
                       }
 
-                      <Alert className="mt-4 mx-4" color="success" isOpen={this.state.signUpOK}>
-                        Novo usuário cadastrado com sucesso.
-                      </Alert>
-                      <br/>
-                      <Button color="link" onClick={this.handleRedirect}>
-                        Ir para a página de login.
-                      </Button>
+                      {this.state.signUpOK &&
+                        <React.Fragment>
+                          <Alert className="mt-4 mx-4" color="success" isOpen={this.state.signUpOK}>
+                          Novo usuário cadastrado com sucesso.
+                          </Alert>
+                          <Button color="link" onClick={this.handleRedirect}>
+                            Ir para a página de login.
+                          </Button>
+                        </React.Fragment>
+                      }
 
                       {this.state.redirect &&
                         <Redirect to="/login"/>

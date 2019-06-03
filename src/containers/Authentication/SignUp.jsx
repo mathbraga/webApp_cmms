@@ -17,7 +17,8 @@ class SignUp extends Component {
     }
     this.handleInputs = this.handleInputs.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.onAlertDismiss = this.onAlertDismiss.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.closeAlert = this.closeAlert.bind(this);
   }
 
   handleInputs(event){
@@ -29,16 +30,17 @@ class SignUp extends Component {
   handleSubmit(event){
     event.preventDefault();
     signUpCognito(this.state.email, this.state.password1, this.state.password2).then(user => {
-      console.log("Usuário cadastrado com o email " + user.getUsername());
-      this.setState({
-        user: user,
-        alertVisible: false,
-        modal: true
-      });
-    }).catch(() => {
-      this.setState({
-        alertVisible: true
-      });
+      if(user){
+        this.setState({
+          user: user,
+          modal: true,
+          alertVisible: false
+        });
+      } else {
+        this.setState({
+          alertVisible: true,
+        });
+      }
     });
   }
 
@@ -48,7 +50,7 @@ class SignUp extends Component {
     });
   };
 
-  onAlertDismiss() {
+  closeAlert() {
     this.setState({
       alertVisible: false
     });
@@ -133,6 +135,10 @@ class SignUp extends Component {
                 {/* <Alert className="mt-4 mx-4" color="danger" isOpen={true}>
                   Cadastro não disponível no momento.
                 </Alert> */}
+
+                <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
+                  Cadastro falhou.
+                </Alert>
                 
               </Col>
             </Row>

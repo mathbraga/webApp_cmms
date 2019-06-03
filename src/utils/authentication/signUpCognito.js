@@ -26,14 +26,13 @@ export default function signUpCognito(email, password1, password2){
         
       userPool.signUp(email, password1, attributeList, null, (err, result) => {
         if (err) {
-          console.log(err);
-          reject();
+          resolve(false);
         } else {
           resolve(result.user);
         }
       });
     } else {
-      reject();
+      resolve(false);
     }
   });
 }

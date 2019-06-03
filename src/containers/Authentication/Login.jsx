@@ -16,7 +16,7 @@ class Login extends Component {
     }
     this.handleLoginInputs = this.handleLoginInputs.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
-    this.handleAlertDismiss = this.handleAlertDismiss.bind(this);
+    this.closeAlert = this.closeAlert.bind(this);
     this.openModal = this.openModal.bind(this);
   }
 
@@ -39,7 +39,7 @@ class Login extends Component {
     this.props.dispatch(login(this.state.email, this.state.password));
   }
 
-  handleAlertDismiss() {
+  closeAlert() {
     this.setState({
       alertVisible: false
     });
@@ -127,7 +127,7 @@ class Login extends Component {
                 </Alert>
 
                 {!this.props.isFetching &&
-                  <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.alertVisible} toggle={this.handleAlertDismiss}>
+                  <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
                     Login falhou. Tente novamente.
                   </Alert>
                 }
