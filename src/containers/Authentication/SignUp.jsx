@@ -80,15 +80,15 @@ class SignUp extends Component {
                       <p className="text-muted">Crie sua conta.</p>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
-                          <InputGroupText>@</InputGroupText>
+                          <InputGroupText>
+                            <i className="icon-user"></i>
+                          </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          disabled
                           type="text"
                           id="email"
                           name="email"
                           placeholder="usuario@senado.leg.br"
-                          autoComplete="email"
                           onChange={this.handleInputs}
                         />
                       </InputGroup>
@@ -99,12 +99,10 @@ class SignUp extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          disabled
                           type="password"
                           placeholder="Senha"
                           id="password1"
                           name="password1"
-                          autoComplete="new-password"
                           onChange={this.handleInputs}
                         />
                       </InputGroup>
@@ -115,17 +113,14 @@ class SignUp extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          disabled
                           type="password"
                           placeholder="Repita sua senha"
                           id="password2"
                           name="password2"
-                          autoComplete="new-password"
                           onChange={this.handleInputs}
                         />
                       </InputGroup>
                       <Button
-                        disabled
                         color="primary"
                         block
                         onClick={this.handleSubmit}
@@ -135,9 +130,9 @@ class SignUp extends Component {
                   </CardBody>
                 </Card>
 
-                <Alert className="mt-4 mx-4" color="danger" isOpen={true}>
+                {/* <Alert className="mt-4 mx-4" color="danger" isOpen={true}>
                   Cadastro não disponível no momento.
-                </Alert>
+                </Alert> */}
                 
               </Col>
             </Row>

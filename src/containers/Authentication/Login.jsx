@@ -141,21 +141,10 @@ class Login extends Component {
           </Container>
         </div>
 
-        <Route
-          render={(routerProps) => (
-            <ModalForgottenPassword
-              {...routerProps}
-              isOpen={this.state.modal}
-              toggle={this.closeModal}
-          />)}
+        <ModalForgottenPassword
+          isOpen={this.state.modal}
+          toggle={this.closeModal}
         />
-
-
-
-
-
-
-
 
       </React.Fragment>
     );

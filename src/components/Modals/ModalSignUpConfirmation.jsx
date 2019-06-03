@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  Alert,
   Row,
   Button,
   Modal,
@@ -8,14 +9,19 @@ import {
   Input,
   Container,
   Col,
-  Form
+  Form,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText
 } from "reactstrap";
 
 class ModalSignUpConfirmation extends Component {
   constructor(props){
     super(props);
     this.state = {
-      code: ""
+      code: "",
+      signUpOK: false,
+      signUpError: false
     }
     this.handleCodeInput = this.handleCodeInput.bind(this);
     this.handleCodeSubmit = this.handleCodeSubmit.bind(this);
@@ -29,12 +35,15 @@ class ModalSignUpConfirmation extends Component {
 
   handleCodeSubmit(event){
     event.preventDefault();
-    console.log('inside sendCode');
     this.props.user.confirmRegistration(this.state.code, true, (err, result) => {
       if (err) {
-        console.log("Houve um problema.\n\nInsira novamente o código de verificação.\n\nCaso o problema persista, contate o administrador.");
+        this.setState({
+          signUpError: true
+        });
       } else {
-        console.log('Cadastro de usuário confirmado.\n\nFaça o login para começar.');
+        this.setState({
+          signUpOK: true
+        });
       }
     });
   }
@@ -51,7 +60,7 @@ class ModalSignUpConfirmation extends Component {
       <Modal
         isOpen={isOpen}
         toggle={toggle}
-        className="modal-lg"
+        className="modal-md"
       >
         <ModalHeader toggle={toggle}>
           <Row style={{ padding: "0px 20px" }}>
@@ -68,30 +77,46 @@ class ModalSignUpConfirmation extends Component {
               <Row className="justify-content-center">
                 <Col md="12">
                   <div className="p-4 text-center">
-                    <Form>
-                      <p className="text-muted">
-                        Insira no campo abaixo o código de verificação que foi enviado para o email
-                      </p>
-                      <p><strong>{email}</strong>.</p>
-                      <Input
-                        className="text-center mb-3 mt-4"
-                        textalign="center"
-                        type="text"
-                        name="code"
-                        id="code"
-                        type="text"
-                        placeholder="XXXXXX"
-                        onChange={this.handleCodeInput}
-                      />
-                      <Button
-                        block
-                        type="submit"
-                        size="md"
-                        color="primary"
-                        onClick={this.handleCodeSubmit}
-                      >Enviar código de verificação
-                      </Button>
-                    </Form>
+
+                    {!this.state.signUpOK &&
+                      <Form>
+                        <p className="text-muted">
+                          Para finalizar seu cadastro, insira no campo abaixo o código de verificação que foi enviado para o email
+                        </p>
+                        <p><strong>{email}</strong>.</p>
+                          <InputGroup className="mb-3">
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>
+                                <i className="fa fa-exclamation-triangle"></i>
+                              </InputGroupText>
+                            </InputGroupAddon>
+                            <Input
+                              type="text"
+                              id="code"
+                              name="code"
+                              placeholder="Código de verificação (XXXXXX)"
+                              onChange={this.handleChangeInputs}  
+                            />
+                          </InputGroup>    
+                          <Button
+                            block
+                            type="submit"
+                            size="md"
+                            color="primary"
+                            onClick={this.handleCodeSubmit}
+                          >Confirmar cadastro
+                          </Button>
+                        </Form>
+                      }
+
+                      <Alert className="mt-4 mx-4" color="success" isOpen={this.state.signUpOK}>
+                        Novo usuário cadastrado com sucesso.
+                      </Alert>
+
+                      <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.signUpError}>
+                        Não foi possível cadastrar o novo usuário. Verifique se o código inserido está correto e tente novamente.
+                      </Alert>
+
                   </div>
                 </Col>
               </Row>

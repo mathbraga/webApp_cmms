@@ -100,7 +100,7 @@ class ModalForgottenPassword extends Component {
                         <p className="text-muted">
                           Insira seu email no campo abaixo para solicitar o código de verificação e cadastrar uma nova senha.
                         </p>
-                        <InputGroup className="mb-3">
+                        <InputGroup className="mb-3 mt-3">
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
                               <i className="icon-user"></i>
@@ -120,7 +120,7 @@ class ModalForgottenPassword extends Component {
                           size="md"
                           color="primary"
                           onClick={this.requestCode}
-                        >Enviar código de verificação
+                        >Solicitar código de verificação
                         </Button>
                       </Form>
                     }
@@ -136,7 +136,7 @@ class ModalForgottenPassword extends Component {
                         <InputGroup className="mb-3">
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="icon-lock"></i>
+                              <i className="fa fa-exclamation-triangle"></i>
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
@@ -158,8 +158,7 @@ class ModalForgottenPassword extends Component {
                             type="password"
                             id="newPassword1"
                             name="newPassword1"
-                            placeholder="Senha"
-                            autoComplete="current-password"
+                            placeholder="Nova senha"
                             onChange={this.handleChangeInputs}  
                           />
                         </InputGroup>
@@ -174,8 +173,7 @@ class ModalForgottenPassword extends Component {
                             type="password"
                             id="newPassword2"
                             name="newPassword2"
-                            placeholder="Senha"
-                            autoComplete="current-password"
+                            placeholder="Repita a nova senha"
                             onChange={this.handleChangeInputs}  
                           />
                         </InputGroup>
