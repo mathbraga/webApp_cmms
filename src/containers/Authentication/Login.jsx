@@ -14,13 +14,9 @@ class Login extends Component {
       alertVisible: false,
       modal: false
     }
-    this.handleLoginInputs = this.handleLoginInputs.bind(this);
-    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
-    this.closeAlert = this.closeAlert.bind(this);
-    this.openModal = this.openModal.bind(this);
   }
 
-  componentDidUpdate(prevProps){
+  componentDidUpdate = prevProps => {
     if(this.props.loginError !== prevProps.loginError){
       this.setState({
         alertVisible: true
@@ -28,18 +24,18 @@ class Login extends Component {
     }
   }
 
-  handleLoginInputs(event){
+  handleLoginInputs = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
-  handleLoginSubmit(event){
+  handleLoginSubmit = event => {
     event.preventDefault();
     this.props.dispatch(login(this.state.email, this.state.password));
   }
 
-  closeAlert() {
+  closeAlert = event => {
     this.setState({
       alertVisible: false
     });

@@ -15,19 +15,15 @@ class SignUp extends Component {
       modal: false,
       alertVisible: false
     }
-    this.handleInputs = this.handleInputs.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.closeAlert = this.closeAlert.bind(this);
   }
 
-  handleInputs(event){
+  handleInputs = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
-  handleSubmit(event){
+  handleSubmit = event => {
     event.preventDefault();
     signUpCognito(this.state.email, this.state.password1, this.state.password2).then(user => {
       if(user){
@@ -50,7 +46,7 @@ class SignUp extends Component {
     });
   };
 
-  closeAlert() {
+  closeAlert = () => {
     this.setState({
       alertVisible: false
     });
