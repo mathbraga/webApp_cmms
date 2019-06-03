@@ -14,6 +14,7 @@ import {
   InputGroupAddon,
   InputGroupText
 } from "reactstrap";
+import { Redirect } from "react-router-dom";
 
 class ModalSignUpConfirmation extends Component {
   constructor(props){
@@ -21,10 +22,12 @@ class ModalSignUpConfirmation extends Component {
     this.state = {
       code: "",
       signUpOK: false,
-      signUpError: false
+      signUpError: false,
+      redirect: false
     }
     this.handleCodeInput = this.handleCodeInput.bind(this);
     this.handleCodeSubmit = this.handleCodeSubmit.bind(this);
+    this.handleRedirect = this.handleRedirect.bind(this);
   }
 
   handleCodeInput(event){
@@ -45,6 +48,12 @@ class ModalSignUpConfirmation extends Component {
           signUpOK: true
         });
       }
+    });
+  }
+
+  handleRedirect(){
+    this.setState({
+      redirect: true
     });
   }
   
@@ -112,6 +121,14 @@ class ModalSignUpConfirmation extends Component {
                       <Alert className="mt-4 mx-4" color="success" isOpen={this.state.signUpOK}>
                         Novo usuário cadastrado com sucesso.
                       </Alert>
+                      <br/>
+                      <Button color="link" onClick={this.handleRedirect}>
+                        Ir para a página de login.
+                      </Button>
+
+                      {this.state.redirect &&
+                        <Redirect to="/login"/>
+                      }
 
                       <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.signUpError}>
                         Não foi possível cadastrar o novo usuário. Verifique se o código inserido está correto e tente novamente.
