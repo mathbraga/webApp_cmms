@@ -22,7 +22,7 @@ class ModalSignUpConfirmation extends Component {
     this.state = {
       code: "",
       signUpOK: false,
-      signUpError: false,
+      alertVisible: false,
       redirect: false
     }
   }
@@ -39,12 +39,12 @@ class ModalSignUpConfirmation extends Component {
       if (err) {
         this.setState({
           signUpOK: false,
-          signUpError: true
+          alertVisible: true
         });
       } else {
         this.setState({
           signUpOK: true,
-          signUpError: false
+          alertVisible: false
         });
       }
     });
@@ -53,6 +53,12 @@ class ModalSignUpConfirmation extends Component {
   handleRedirect = () => {
     this.setState({
       redirect: true
+    });
+  }
+
+  closeAlert = event => {
+    this.setState({
+      alertVisible: false
     });
   }
   
@@ -132,7 +138,7 @@ class ModalSignUpConfirmation extends Component {
                         <Redirect to="/login"/>
                       }
 
-                      <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.signUpError}>
+                      <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
                         Não foi possível cadastrar o novo usuário. Verifique se o código inserido está correto e tente novamente.
                       </Alert>
 
