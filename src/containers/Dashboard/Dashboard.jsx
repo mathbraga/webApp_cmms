@@ -12,7 +12,7 @@ class Dashboard extends Component {
         <div className="flex-row align-items-center">
           <Container>
             <Row className="justify-content-center">
-              <Col md="9">
+              <Col md="8">
                 <Card className="mx-4">
                   <CardBody className="p-4">
                     <h3>
@@ -20,7 +20,7 @@ class Dashboard extends Component {
                       {" "}<i class="fa fa-wrench"></i>
                     </h3>
                     <br/>
-                    <div className="text-muted">
+                    <div className="text-muted text-justify">
                       <p>
                         Este portal dá acesso ao{" "}
                         <a href="https://en.wikipedia.org/wiki/Computerized_maintenance_management_system" target="_blank">
