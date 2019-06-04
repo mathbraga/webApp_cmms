@@ -25,18 +25,15 @@ class ModalSignUpConfirmation extends Component {
       signUpError: false,
       redirect: false
     }
-    this.handleCodeInput = this.handleCodeInput.bind(this);
-    this.handleCodeSubmit = this.handleCodeSubmit.bind(this);
-    this.handleRedirect = this.handleRedirect.bind(this);
   }
 
-  handleCodeInput(event){
+  handleCodeInput = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
-  handleCodeSubmit(event){
+  handleCodeSubmit = event => {
     event.preventDefault();
     this.props.user.confirmRegistration(this.state.code, true, (err, result) => {
       if (err) {
@@ -53,7 +50,7 @@ class ModalSignUpConfirmation extends Component {
     });
   }
 
-  handleRedirect(){
+  handleRedirect = () => {
     this.setState({
       redirect: true
     });
