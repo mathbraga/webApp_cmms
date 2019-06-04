@@ -107,7 +107,8 @@ class Login extends Component {
                         <Col xs="6" className="text-right">
                           <Button
                             block
-                            color="link"
+                            outline
+                            color="primary"
                             className="px-0"
                             onClick={this.openModal}
                           >Esqueceu sua senha?
