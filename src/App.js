@@ -16,11 +16,11 @@ const MainPage = Loadable({
 class App extends Component {
   render() {
     return (
-      <HashRouter>
+      // <HashRouter>
         <Switch>
           <Route path="/" name="Home" component={MainPage} />
         </Switch>
-      </HashRouter>
+      // </HashRouter>
     );
   }
 }
