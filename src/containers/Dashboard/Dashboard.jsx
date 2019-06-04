@@ -26,7 +26,7 @@ class Dashboard extends Component {
                         <a
                           href="https://en.wikipedia.org/wiki/Computerized_maintenance_management_system"
                           target="_blank"
-                          rel="noopener"
+                          rel="noopener noreferrer"
                           >sistema de gestão de manutenção
                         </a>
                         {" "}da SINFRA.
@@ -44,7 +44,7 @@ class Dashboard extends Component {
                         <a
                           href="https://github.com/Serafabr/cmms-web-app"
                           target="_blank"
-                          rel="noopener"
+                          rel="noopener noreferrer"
                         >repositório no GitHub{" "}
                           <i className="fa fa-github"></i>
                         </a>
