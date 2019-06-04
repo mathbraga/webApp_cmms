@@ -112,7 +112,7 @@ class ModalForgottenPassword extends Component {
                           <p className="text-muted">
                             Insira seu email no campo abaixo para solicitar o código de verificação e cadastrar uma nova senha.
                           </p>
-                          <InputGroup className="mb-3 mt-3">
+                          <InputGroup className="mb-4 mt-3">
                             <InputGroupAddon addonType="prepend">
                               <InputGroupText>
                                 <i className="icon-user"></i>
@@ -180,7 +180,7 @@ class ModalForgottenPassword extends Component {
                           />
                         </InputGroup>
 
-                        <InputGroup className="mb-3">
+                        <InputGroup className="mb-4">
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
                               <i className="icon-lock"></i>
@@ -214,7 +214,7 @@ class ModalForgottenPassword extends Component {
                     {this.state.emailOK && this.state.newPasswordOK &&
 
                       <React.Fragment>
-                        <Alert className="mt-4 mx-4" color="success" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
+                        <Alert className="mt-4 mx-4" color="success" isOpen={this.state.alertVisible}>
                           Nova senha cadastrada com sucesso!
                         </Alert>
 

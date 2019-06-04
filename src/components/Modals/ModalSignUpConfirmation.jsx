@@ -92,7 +92,7 @@ class ModalSignUpConfirmation extends Component {
                           Para finalizar seu cadastro, insira no campo abaixo o código de verificação que foi enviado para o email
                         </p>
                         <p><strong>{email}</strong>.</p>
-                          <InputGroup className="mb-3">
+                          <InputGroup className="mb-4">
                             <InputGroupAddon addonType="prepend">
                               <InputGroupText>
                                 <i className="fa fa-exclamation-triangle"></i>
