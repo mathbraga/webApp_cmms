@@ -212,18 +212,9 @@ class ModalForgottenPassword extends Component {
                     }
 
                     {this.state.emailOK && this.state.newPasswordOK &&
-
-                      <React.Fragment>
-                        <Alert className="mt-4 mx-4" color="success" isOpen={this.state.alertVisible}>
-                          Nova senha cadastrada com sucesso!
-                        </Alert>
-
-                        <Button
-                          color="link"
-                        >
-                          Ir para a página de login.
-                        </Button>
-                      </React.Fragment>
+                      <Alert className="mt-4 mx-4" color="success" isOpen={this.state.alertVisible}>
+                        Nova senha cadastrada com sucesso!
+                      </Alert>
                     }
                   </div>
                 </Col>
