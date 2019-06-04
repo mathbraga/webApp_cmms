@@ -22,46 +22,58 @@ class ModalForgottenPassword extends Component {
     super(props);
     this.state = {
       email: "",
+      emailOK: false,
       code: "",
-      codeSent: false,
-      newPasswordOK: false
+      newPassword1: "",
+      newPassword2: "",
+      newPasswordOK: false,
+      alertVisible: false
     }
-    this.handleChangeInputs = this.handleChangeInputs.bind(this);
-    this.requestCode = this.requestCode.bind(this);
-    this.handleNewPassword = this.handleNewPassword.bind(this);
   }
 
-  handleChangeInputs(event){
+  handleChangeInputs = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
-  requestCode(event){
+  requestCode = event => {
     event.preventDefault();
     forgotCognito(this.state.email).then(response => {
       if(response){
-        console.log("Código de verificação enviado para o email.");
         this.setState({
-          codeSent: true
+          alertVisible: false,
+          emailOK: true
         });
       } else {
-        console.log("Não foi possível enviar o código de verificação.");
+        this.setState({
+          alertVisible: true,
+          emailOK: false
+        });
       }
     });
   }
 
-  handleNewPassword(event){
+  handleNewPassword = event => {
     event.preventDefault();
     setNewPasswordCognito(this.state.email, this.state.code, this.state.newPassword1, this.state.newPassword2).then(response => {
       if(response){
-        console.log("Nova senha cadastrada com sucesso!");
         this.setState({
+          alertVisible: true,
           newPasswordOK: true
-        })
+        });
       } else {
-        console.log("Ocorreu um erro. Não foi possível atualizar a senha.");
+        this.setState({
+          alertVisible: true,
+          newPasswordOK: false
+        });
       }
+    });
+  }
+
+  closeAlert = event => {
+    this.setState({
+      alertVisible: false
     });
   }
   
@@ -94,40 +106,45 @@ class ModalForgottenPassword extends Component {
                 <Col md="12">
                   <div className="p-4 text-center">
 
-                    {!this.state.codeSent && !this.state.newPasswordOK &&
+                    {!this.state.emailOK && !this.state.newPasswordOK &&
+                      <React.Fragment>
+                        <Form>
+                          <p className="text-muted">
+                            Insira seu email no campo abaixo para solicitar o código de verificação e cadastrar uma nova senha.
+                          </p>
+                          <InputGroup className="mb-3 mt-3">
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>
+                                <i className="icon-user"></i>
+                              </InputGroupText>
+                            </InputGroupAddon>
+                            <Input
+                              type="text"
+                              id="email"
+                              name="email"
+                              placeholder="usuario@senado.leg.br"
+                              onChange={this.handleChangeInputs}
+                            />
+                          </InputGroup>
+                          <Button
+                            block
+                            type="submit"
+                            size="md"
+                            color="primary"
+                            onClick={this.requestCode}
+                          >Solicitar código de verificação
+                          </Button>
+                        </Form>
 
-                      <Form>
-                        <p className="text-muted">
-                          Insira seu email no campo abaixo para solicitar o código de verificação e cadastrar uma nova senha.
-                        </p>
-                        <InputGroup className="mb-3 mt-3">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="icon-user"></i>
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <Input
-                            type="text"
-                            id="email"
-                            name="email"
-                            placeholder="usuario@senado.leg.br"
-                            onChange={this.handleChangeInputs}
-                          />
-                        </InputGroup>
-                        <Button
-                          block
-                          type="submit"
-                          size="md"
-                          color="primary"
-                          onClick={this.requestCode}
-                        >Solicitar código de verificação
-                        </Button>
-                      </Form>
+                        <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
+                          Não foi possível enviar o código de verificação.
+                        </Alert>
+
+                      </React.Fragment>
                     }
 
-                    {this.state.codeSent && !this.state.newPasswordOK &&
+                    {this.state.emailOK && !this.state.newPasswordOK &&
                       <React.Fragment>
-
                         <p className="text-muted">
                           Insira o código de verificação que foi enviado para o email
                           <strong>{" " + this.state.email + " "}</strong>
@@ -187,13 +204,27 @@ class ModalForgottenPassword extends Component {
                         >Atualizar senha
                         </Button>
 
+                        <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
+                          Não foi possível atualizar a senha. Tente novamente
+                        </Alert>
+
                       </React.Fragment>
                     }
 
-                    <Alert className="mt-4 mx-4" color="success" isOpen={this.state.newPasswordOK}>
-                      Nova senha cadastrada com sucesso.
-                    </Alert>
+                    {this.state.emailOK && this.state.newPasswordOK &&
 
+                      <React.Fragment>
+                        <Alert className="mt-4 mx-4" color="success" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
+                          Nova senha cadastrada com sucesso!
+                        </Alert>
+
+                        <Button
+                          color="link"
+                        >
+                          Ir para a página de login.
+                        </Button>
+                      </React.Fragment>
+                    }
                   </div>
                 </Col>
               </Row>
