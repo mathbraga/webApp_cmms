@@ -142,6 +142,7 @@ class FormDates extends Component {
           <Row>
             <Col xs="auto">
               <Button
+                disabled={meters.length === 0}
                 className=""
                 type="submit"
                 size="md"

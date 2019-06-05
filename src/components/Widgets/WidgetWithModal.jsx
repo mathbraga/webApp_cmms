@@ -90,8 +90,7 @@ class WidgetWithModal extends Component {
                 </div>
                 {oneMonth && (
                   <Badge color="danger">
-                    {" "}
-                    {numProblems} erro(s){" "}
+                    {" "}{numProblems}{" "}problema(s){" "}
                   </Badge>
                 )}
               </div>
