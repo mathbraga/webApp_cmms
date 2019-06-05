@@ -8,6 +8,7 @@ import ModalForgottenPassword from "../../components/Modals/ModalForgottenPasswo
 class Login extends Component {
   constructor(props){
     super(props);
+    this.passwordInputRef = React.createRef();
     this.state = {
       email: "",
       password: "",
@@ -18,9 +19,13 @@ class Login extends Component {
 
   componentDidUpdate = prevProps => {
     if(this.props.loginError !== prevProps.loginError){
-      this.setState({
-        alertVisible: true
-      });
+      if(this.props.loginError){
+        this.setState({
+          alertVisible: true,
+          password: ""
+        });
+        this.passwordInputRef.current.value = "";
+      }
     }
   }
 
@@ -92,7 +97,8 @@ class Login extends Component {
                           name="password"
                           placeholder="Senha"
                           autoComplete="current-password"
-                          onChange={this.handleLoginInputs}  
+                          onChange={this.handleLoginInputs}
+                          innerRef={this.passwordInputRef}
                         />
                       </InputGroup>
                       <Row>
