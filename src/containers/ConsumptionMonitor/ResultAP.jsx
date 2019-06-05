@@ -74,7 +74,7 @@ class ResultAP extends Component {
           <Col>
             <ChartReport
               unitName={resultObject.unitName}
-              itemsForChart={resultObject.itemsForChart}
+              dropdownItems={resultObject.dropdownItems}
               chartConfigs={resultObject.chartConfigs}
               title={resultObject.chartReportTitle}
               titleColSize={resultObject.chartReportTitleColSize}

@@ -17,11 +17,7 @@ class ChartReport extends Component {
   };
 
   render() {
-    const { unitName, itemsForChart, chartConfigs, title, titleColSize, subtitle, dropdownTitle } = this.props;
-    let dropdownItems = {};
-    itemsForChart.forEach(key => {
-      dropdownItems[key] = chartConfigs[key].options.title.text;
-    });
+    const { unitName, dropdownItems, chartConfigs, title, titleColSize, subtitle, dropdownTitle } = this.props;
 
     return (
       <ReportCard

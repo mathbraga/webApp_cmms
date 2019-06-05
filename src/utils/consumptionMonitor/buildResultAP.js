@@ -114,6 +114,12 @@ export default function buildResultAP(data, meterType, meters, chosenMeter, init
     "basec"
   ];
 
+  resultObject.dropdownItems = {};
+  
+  resultObject.itemsForChart.forEach(key => {
+    resultObject.dropdownItems[key] = resultObject.chartConfigs[key].options.title.text;
+  });
+
   resultObject.chartReportTitle = "Gráfico do período";
 
   resultObject.chartReportTitleColSize = 3;
