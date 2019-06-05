@@ -12,7 +12,7 @@ class Dashboard extends Component {
         <div className="flex-row align-items-center">
           <Container>
             <Row className="justify-content-center">
-              <Col md="7">
+              <Col md="8">
                 <Card className="mx-4">
                   <CardBody className="p-4">
                     <h3>
