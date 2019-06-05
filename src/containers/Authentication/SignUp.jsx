@@ -7,6 +7,9 @@ import { Route } from "react-router-dom";
 class SignUp extends Component {
   constructor(props){
     super(props);
+    this.emailInputRef = React.createRef();
+    this.password1InputRef = React.createRef();
+    this.password2InputRef = React.createRef();
     this.state = {
       email: "",
       password1: "",
@@ -35,7 +38,13 @@ class SignUp extends Component {
       } else {
         this.setState({
           alertVisible: true,
+          email: "",
+          password1: "",
+          password2: ""
         });
+        this.emailInputRef.current.value = "";
+        this.password1InputRef.current.value = "";
+        this.password2InputRef.current.value = "";
       }
     });
   }
@@ -88,6 +97,7 @@ class SignUp extends Component {
                           name="email"
                           placeholder="usuario@senado.leg.br"
                           onChange={this.handleInputs}
+                          innerRef={this.emailInputRef}
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">
@@ -102,6 +112,7 @@ class SignUp extends Component {
                           id="password1"
                           name="password1"
                           onChange={this.handleInputs}
+                          innerRef={this.password1InputRef}
                         />
                       </InputGroup>
                       <InputGroup className="mb-4">
@@ -116,6 +127,7 @@ class SignUp extends Component {
                           id="password2"
                           name="password2"
                           onChange={this.handleInputs}
+                          innerRef={this.password2InputRef}
                         />
                       </InputGroup>
                       <Button

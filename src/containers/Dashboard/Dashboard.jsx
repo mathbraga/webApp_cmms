@@ -34,8 +34,8 @@ class Dashboard extends Component {
                         {" "}da SINFRA. */}
                       </p>
                       <p>
-                        Aqui serão disponibilizadas ferramentas para os colaboradores desse setor
-                        e divulgadas informações úteis.
+                        Aqui serão disponibilizadas ferramentas computacionais para os
+                        colaboradores desse setor e divulgadas informações úteis.
                       </p>
                       <p>
                         Neste momento está disponível o "monitor de consumo",
