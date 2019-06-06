@@ -12,7 +12,7 @@ import { ConnectedRouter } from "connected-react-router";
 
 const store = configureStore(/* preloaded state (optional) */);
 
-const renderApp = ReactDOM.render(
+const renderApp = () => ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <App />

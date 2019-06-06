@@ -1,4 +1,4 @@
-export default function getAllMeters(stateInput) {
+export default function getAllMeters(awsData) {
   // Inputs:
   // dbObject (object): AWS DynamoDB configuration
   // tableNameMeters (string): name of table that contains meters information
@@ -18,7 +18,7 @@ export default function getAllMeters(stateInput) {
       dbObject,
       tableNameMeters,
       meterType
-    } = stateInput
+    } = awsData
     
     dbObject.query({
       TableName: tableNameMeters,

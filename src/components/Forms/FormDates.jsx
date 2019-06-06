@@ -21,6 +21,7 @@ class FormDates extends Component {
       initialDate,
       finalDate,
       onChangeDate,
+      chosenMeter,
       onMeterChange,
       onChangeOneMonth,
       onQuery
@@ -95,31 +96,43 @@ class FormDates extends Component {
                 <Label htmlFor="chosenMeter" className="label-form">
                   <strong>Medidor:</strong>
                 </Label>
-                <Input
-                  type={fetchingMeters ? "text" : "select"}
-                  disabled={fetchingMeters ? true: false}
-                  placeholder="Carregando medidores..."
-                  name="chosenMeter"
-                  id="exampleSelect"
-                  onChange={onMeterChange}
-                  className="input-meters"
-                >
-                  <option value="199">Todos medidores</option>
-                  {meters.map(meter => (
-                    <option
-                      key={(
-                        100 * parseInt(meter.tipomed.N, 10) +
-                        parseInt(meter.med.N, 10)
-                      ).toString()}
-                      value={(
-                        100 * parseInt(meter.tipomed.N, 10) +
-                        parseInt(meter.med.N, 10)
-                      ).toString()}
-                    >
-                      {meter.id.S + " - " + meter.nome.S}
-                    </option>
-                  ))}
-                </Input>
+
+                {fetchingMeters &&
+                  <Input
+                    type="text"
+                    disabled={true}
+                    placeholder="Carregando medidores..."
+                    className="input-meters"
+                  ></Input>
+                }
+
+                {!fetchingMeters &&
+                  <Input
+                    type="select"
+                    name="chosenMeter"
+                    id="exampleSelect"
+                    onChange={onMeterChange}
+                    className="input-meters"
+                    defaultValue={fetchingMeters ? "Carregando medidores..." : chosenMeter}
+                  >
+                    <option value="199" /*selected={chosenMeter ==="199" ? true : false}*/>Todos medidores</option>
+                    {meters.map(meter => (
+                      <option
+                        //selected={chosenMeter === (100 * parseInt(meter.tipomed.N, 10) + parseInt(meter.med.N, 10)).toString() ? true : false}
+                        key={(
+                          100 * parseInt(meter.tipomed.N, 10) +
+                          parseInt(meter.med.N, 10)
+                        ).toString()}
+                        value={(
+                          100 * parseInt(meter.tipomed.N, 10) +
+                          parseInt(meter.med.N, 10)
+                        ).toString()}
+                      >
+                        {meter.id.S + " - " + meter.nome.S}
+                      </option>
+                    ))}
+                  </Input>
+                }
               </Row>
             </Col>
           </Row>

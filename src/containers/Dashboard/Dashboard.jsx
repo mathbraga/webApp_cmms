@@ -17,7 +17,7 @@ class Dashboard extends Component {
                   <CardBody className="p-4">
                     <h3>
                       Bem-vindo à página da SINFRA
-                      {" "}<i class="fa fa-wrench"></i>
+                      {" "}<i className="fa fa-wrench"></i>
                     </h3>
                     <br/>
                     <div className="text-muted text-justify">

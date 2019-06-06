@@ -13,12 +13,12 @@ class ResultAP extends Component {
     const {
       meters,
       oneMonth,
-      chosenMeter,
-      resultObject
+      chosenMeter
     } = this.props.consumptionState;
 
     const {
-      handleNewSearch
+      handleNewSearch,
+      resultObject
     } = this.props;
     
     return (

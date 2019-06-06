@@ -1,5 +1,6 @@
 import loginCognito from "../utils/authentication/loginCognito";
 import logoutCognito from "../utils/authentication/logoutCognito";
+import handleSearch from "../utils/consumptionMonitor/handleSearch";
 
 // Action types
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
@@ -8,6 +9,10 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
+export const QUERY_REQUEST = "QUERY_REQUEST";
+export const QUERY_SUCCESS = "QUERY_SUCCESS";
+export const QUERY_FAILURE = "QUERY_FAILURE";
+export const QUERY_RESET = "QUERY_RESET";
 
 // Other constants
 // OTHER CONSTANTS DECLARATIONS
@@ -76,4 +81,43 @@ export function logout(){
       }
     });
   }
+}
+
+function queryRequest(){
+  return {
+    type: QUERY_REQUEST
+  }
+}
+
+function querySuccess(resultObject){
+  return {
+    type: QUERY_SUCCESS,
+    resultObject: resultObject
+  }
+}
+
+function queryFailure(message){
+  return {
+    type: QUERY_FAILURE,
+    message: message
+  }
+}
+
+export function queryReset(){
+  return {
+    type: QUERY_RESET
+  }
+}
+
+export function query(awsData, state){
+  return (dispatch => {
+    dispatch(queryRequest());
+    return handleSearch(awsData, state)
+    .then(resultObject => {
+      dispatch(querySuccess(resultObject));
+    })
+    .catch(message => {
+      dispatch(queryFailure(message));
+    });
+  });
 }

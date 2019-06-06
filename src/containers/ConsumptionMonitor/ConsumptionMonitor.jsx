@@ -3,7 +3,7 @@ import FormDates from "../../components/Forms/FormDates";
 import FileInput from "../../components/FileInputs/FileInput"
 import handleDates from "../../utils/consumptionMonitor/handleDates";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
-import handleSearch from "../../utils/consumptionMonitor/handleSearch";
+import { query, queryReset } from "../../redux/actions";
 import getAllMeters from "../../utils/consumptionMonitor/getAllMeters";
 import getCurrentMonth from "../../utils/consumptionMonitor/getCurrentMonth";
 import { Route, Switch } from "react-router-dom";
@@ -13,52 +13,49 @@ import ResultAM from "./ResultAM";
 import ResultAP from "./ResultAP";
 import { connect } from "react-redux";
 import { Alert } from "reactstrap";
+import { dbTables } from "../../aws";
 
 class ConsumptionMonitor extends Component {
   constructor(props) {
     super(props);
+    this.awsData = {
+      tableName: dbTables[this.props.monitor].tableName,
+      tableNameMeters: dbTables[this.props.monitor].tableNameMeters,
+      meterType: dbTables[this.props.monitor].meterType,
+      defaultMeter: dbTables[this.props.monitor].meterType + "99",
+      dbObject: initializeDynamoDB(this.props.session)
+    }
     this.state = {
-      tableName: this.props.tableName,             // This prop comes from route.options
-      tableNameMeters: this.props.tableNameMeters, // This prop comes from route.options
-      meterType: this.props.meterType,             // This prop comes from route.options
-      defaultMeter: this.props.meterType + "99",   // This prop comes from route.options
       meters: [],
-      dbObject: this.props.dbObject,               // This prop comes from mapStateToProps()
       initialDate: getCurrentMonth(),
       finalDate: "",
-      chosenMeter: this.props.meterType + "99",    // This prop comes from route.options
+      chosenMeter: this.awsData.defaultMeter,
       oneMonth: true,
-      showResult: false,
-      resultObject: {},
       alertMessage: false,
       alertVisible: false
     };
   }
 
   componentDidMount() {
-    getAllMeters(this.state).then(meters => {
+    getAllMeters(this.awsData).then(meters => {
       this.setState({
         meters: meters
       });
     });
   }
 
-  handleChangeOnDates = handleDates.bind(this);
-  
-  handleQuery = event => {
-    handleSearch(this.state).then(resultObject => {
-      this.setState({
-        showResult: true,
-        alertVisible: false,
-        resultObject: resultObject
-      });
-    }).catch((errorMessage) => {
-      this.setState({
-        alertVisible: true,
-        alertMessage: errorMessage
-      });
-    }); 
+  componentDidUpdate = prevProps => {
+    if(this.props.queryError !== prevProps.queryError){
+      if(this.props.queryError || this.props.isFetching){
+        this.setState({
+          alertVisible: true,
+          alertMessage: this.props.message
+        });
+      }
+    }
   }
+
+  handleChangeOnDates = handleDates.bind(this);
 
   handleOneMonth = event => {
     this.setState({
@@ -72,13 +69,18 @@ class ConsumptionMonitor extends Component {
     });
   };
 
-  showFormDates = event => {
-    this.setState((prevState, props) => ({
+  handleQuery = event => {
+    event.preventDefault();
+    this.props.query(this.awsData, this.state);
+  }
+
+  showFormDates = () => {
+    this.props.queryReset();
+    this.setState(prevState => ({
       initialDate: prevState.initialDate,
       finalDate: prevState.finalDate,
-      chosenMeter: prevState.defaultMeter,
+      chosenMeter: prevState.chosenMeter,
       oneMonth: prevState.oneMonth,
-      showResult: false
     }));
   };
 
@@ -91,11 +93,12 @@ class ConsumptionMonitor extends Component {
   render() {
     return (
       <React.Fragment>
-        {!this.state.showResult &&
+        {!this.props.showResult &&
           <React.Fragment>
             <FormDates
               onChangeDate={this.handleChangeOnDates}
               initialDate={this.state.initialDate}
+              chosenMeter={this.state.chosenMeter}
               finalDate={this.state.finalDate}
               oneMonth={this.state.oneMonth}
               meters={this.state.meters}
@@ -108,22 +111,24 @@ class ConsumptionMonitor extends Component {
               {this.state.alertMessage}
             </Alert>
 
-            {this.props.enableFileInput &&
+            {this.props.session &&
               <FileInput
-                tableName={this.state.tableName}
-                dbObject={this.state.dbObject}
+                tableName={this.awsData.tableName}
+                dbObject={this.awsData.dbObject}
               />
             }
           </React.Fragment>
         }
-        {this.state.showResult &&
-          <Switch location={this.state.resultObject.newLocation}>
+        {this.props.showResult &&
+          <Switch location={this.props.resultObject.newLocation}>
             <Route
               path={this.props.location.pathname + "/resultados/OM"}
               render={routerProps => (
                 <ResultOM
                   {...routerProps}
                   consumptionState={this.state}
+                  awsData={this.awsData}
+                  resultObject={this.props.resultObject}
                   handleNewSearch={this.showFormDates}
                 />
               )}
@@ -134,6 +139,8 @@ class ConsumptionMonitor extends Component {
                 <ResultOP
                   {...routerProps}
                   consumptionState={this.state}
+                  awsData={this.awsData}
+                  resultObject={this.props.resultObject}
                   handleNewSearch={this.showFormDates}
                 />
               )}
@@ -144,6 +151,8 @@ class ConsumptionMonitor extends Component {
                 <ResultAM
                   {...routerProps}
                   consumptionState={this.state}
+                  awsData={this.awsData}
+                  resultObject={this.props.resultObject}
                   handleNewSearch={this.showFormDates}
                 />
               )}
@@ -154,6 +163,8 @@ class ConsumptionMonitor extends Component {
                 <ResultAP
                   {...routerProps}
                   consumptionState={this.state}
+                  awsData={this.awsData}
+                  resultObject={this.props.resultObject}
                   handleNewSearch={this.showFormDates}
                 />
               )}
@@ -165,12 +176,22 @@ class ConsumptionMonitor extends Component {
   }
 }
 
-const mapStateToProps = (storeState) => {
-  let enableFileInput = storeState.auth.session;
+const mapStateToProps = storeState => {
   return {
-    dbObject: initializeDynamoDB(storeState.auth.session),
-    enableFileInput: enableFileInput
+    session: storeState.auth.session,
+    resultObject: storeState.energy.resultObject,
+    queryError: storeState.energy.queryError,
+    message: storeState.energy.message,
+    isFetching: storeState.energy.isFetching,
+    showResult: storeState.energy.showResult
   }
 }
 
-export default connect(mapStateToProps)(ConsumptionMonitor);
+const mapDispatchToProps = dispatch => {
+  return {
+    query: (awsData, state) => dispatch(query(awsData, state)),
+    queryReset: () => dispatch(queryReset())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConsumptionMonitor);

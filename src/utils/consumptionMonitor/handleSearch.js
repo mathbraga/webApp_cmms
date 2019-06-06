@@ -6,20 +6,23 @@ import buildResultOP from "./buildResultOP";
 import buildResultAP from "./buildResultAP";
 import buildResultAM from "./buildResultAM";
 
-export default function handleSearch(stateInput) {
+export default function handleSearch(awsData, state) {
   return new Promise((resolve, reject) => {
     
     // Inputs
+    let {
+      meterType,
+      tableName,
+      dbObject,
+    } = awsData;
+
     let {
       initialDate,
       finalDate,
       oneMonth,
       chosenMeter,
-      meterType,
       meters,
-      dbObject,
-      tableName
-    } = stateInput;
+    } = state;
     
     // Check date inputs
     let checkInputs = checkSearchInputs(initialDate, finalDate, oneMonth);
