@@ -31,12 +31,11 @@ class ConsumptionMonitor extends Component {
       finalDate: "",
       chosenMeter: this.awsData.defaultMeter,
       oneMonth: true,
-      alertMessage: false,
       alertVisible: false
     };
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     getAllMeters(this.awsData).then(meters => {
       this.setState({
         meters: meters
@@ -45,11 +44,10 @@ class ConsumptionMonitor extends Component {
   }
 
   componentDidUpdate = prevProps => {
-    if(this.props.queryError !== prevProps.queryError){
-      if(this.props.queryError || this.props.isFetching){
+    if(this.props !== prevProps){
+      if(this.props.isFetching || this.props.queryError){
         this.setState({
           alertVisible: true,
-          alertMessage: this.props.message
         });
       }
     }
@@ -81,6 +79,7 @@ class ConsumptionMonitor extends Component {
       finalDate: prevState.finalDate,
       chosenMeter: prevState.chosenMeter,
       oneMonth: prevState.oneMonth,
+      alertVisible: false
     }));
   };
 
@@ -96,19 +95,19 @@ class ConsumptionMonitor extends Component {
         {!this.props.showResult &&
           <React.Fragment>
             <FormDates
+              consumptionState={this.state}
               onChangeDate={this.handleChangeOnDates}
-              initialDate={this.state.initialDate}
-              chosenMeter={this.state.chosenMeter}
-              finalDate={this.state.finalDate}
-              oneMonth={this.state.oneMonth}
-              meters={this.state.meters}
               onChangeOneMonth={this.handleOneMonth}
               onMeterChange={this.handleMeterChange}
               onQuery={this.handleQuery}
             />
 
-            <Alert className="mt-4" color="danger" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
-              {this.state.alertMessage}
+            <Alert
+              className="mt-4"
+              color={this.props.isFetching ? "warning" : "danger"}
+              isOpen={this.state.alertVisible}
+              toggle={this.closeAlert}
+            >{this.props.message}
             </Alert>
 
             {this.props.session &&
@@ -194,4 +193,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConsumptionMonitor);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConsumptionMonitor);

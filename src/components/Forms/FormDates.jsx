@@ -16,16 +16,19 @@ class FormDates extends Component {
   render() {
 
     let {
+      onChangeDate,
+      onMeterChange,
+      onChangeOneMonth,
+      onQuery
+    } = this.props;
+
+    let {
       meters,
       oneMonth,
       initialDate,
       finalDate,
-      onChangeDate,
-      chosenMeter,
-      onMeterChange,
-      onChangeOneMonth,
-      onQuery
-    } = this.props
+      chosenMeter
+    } = this.props.consumptionState;
 
     let fetchingMeters = meters.length === 0 ? true : false;
 
