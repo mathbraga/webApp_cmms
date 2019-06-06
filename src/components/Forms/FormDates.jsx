@@ -26,6 +26,8 @@ class FormDates extends Component {
       onQuery
     } = this.props
 
+    let fetchingMeters = meters.length === 0 ? true : false;
+
     return (
       <Card>
         <CardHeader>
@@ -94,8 +96,8 @@ class FormDates extends Component {
                   <strong>Medidor:</strong>
                 </Label>
                 <Input
-                  type={meters.length === 0 ? "text" : "select"}
-                  disabled={meters.length === 0 ? true: false}
+                  type={fetchingMeters ? "text" : "select"}
+                  disabled={fetchingMeters ? true: false}
                   placeholder="Carregando medidores..."
                   name="chosenMeter"
                   id="exampleSelect"
@@ -144,7 +146,7 @@ class FormDates extends Component {
           <Row>
             <Col xs="auto">
               <Button
-                disabled={meters.length === 0}
+                disabled={fetchingMeters}
                 className=""
                 type="submit"
                 size="md"
