@@ -23,16 +23,16 @@ export default function loginCognito(email, password){
     cognitoUser.authenticateUser(authenticationDetails, {
       
       onSuccess: function (userSession) {
-        console.log("Login efetuado com sucesso.\n\nUsuário logado: " + email);
-        console.log("userSession:");
-        console.log(userSession);
+        // console.log("Login efetuado com sucesso.\n\nUsuário logado: " + email);
+        // console.log("userSession:");
+        // console.log(userSession);
         // window.sessionStorage.setItem("email", email);
         // window.sessionStorage.setItem("idToken", userSession.getIdToken().getJwtToken());
         resolve(userSession);
       },
       onFailure: function(err) {
-        console.log("Login falhou.");
-        console.log(err); // || JSON.stringify(err));
+        // console.log("Login falhou.");
+        // console.log(err); // || JSON.stringify(err));
         resolve(false);
       },
     });
