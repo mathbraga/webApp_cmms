@@ -94,7 +94,9 @@ class FormDates extends Component {
                   <strong>Medidor:</strong>
                 </Label>
                 <Input
-                  type="select"
+                  type={meters.length === 0 ? "text" : "select"}
+                  disabled={meters.length === 0 ? true: false}
+                  placeholder="Carregando medidores..."
                   name="chosenMeter"
                   id="exampleSelect"
                   onChange={onMeterChange}
