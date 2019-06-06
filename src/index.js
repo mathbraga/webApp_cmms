@@ -10,9 +10,9 @@ import { Provider } from "react-redux";
 import configureStore, { history } from "./redux/store";
 import { ConnectedRouter } from "connected-react-router";
 
-const store = configureStore(/* provide initial state if any */);
+const store = configureStore(/* preloaded state (optional) */);
 
-ReactDOM.render(
+const renderApp = ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <App />
@@ -21,9 +21,13 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-if (module.hot) {
-  module.hot.accept();
+// Enabling hot reload for React components inside App:
+if(process.env.NODE_ENV !== "production" && module.hot){
+  module.hot.accept("./App", renderApp);
 }
+
+renderApp();
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

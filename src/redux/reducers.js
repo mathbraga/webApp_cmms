@@ -52,13 +52,10 @@ function auth(
   }
 }
 
-// Without connected-react-router:
-// const rootReducer = combineReducers({
-//   auth
-// });
-
 // With connected-react-router:
-export default (history) => combineReducers({
+const rootReducer = (history) => combineReducers({
   router: connectRouter(history),
   auth
 });
+
+export default rootReducer;
