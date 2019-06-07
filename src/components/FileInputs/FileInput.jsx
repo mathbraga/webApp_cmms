@@ -109,7 +109,7 @@ class FileInput extends Component {
           <CardBody>
             <Row>
 
-              <Col xs="3">
+              <Col xs="4">
                 <FormGroup>
                   <CustomInput
                     label="Clique ou arraste para selecionar"
@@ -121,17 +121,17 @@ class FileInput extends Component {
                   />
                 </FormGroup>
               </Col>
-              <Col xs="3">
+              <Col xs="4">
                 {this.state.selected
-                  ? <p>Arquivo selecionado:
+                  ? <p className="mt-2">Arquivo selecionado:
                       <strong>
                         {" " + this.fileInputRef.current.files[0].name}
                       </strong>
                     </p>
-                  : <p>Nenhum arquivo selecionado</p>
+                  : <p className="text-muted mt-2">Nenhum arquivo selecionado</p>
                 }
               </Col>
-              <Col xs="3">
+              <Col xs="4">
                 <Button
                   className=""
                   type="submit"
