@@ -13,7 +13,7 @@ class Login extends Component {
       email: "",
       password: "",
       alertVisible: false,
-      modal: false
+      modalVisible: false
     }
   }
 
@@ -37,7 +37,7 @@ class Login extends Component {
 
   handleLoginSubmit = event => {
     event.preventDefault();
-    this.props.dispatch(login(this.state.email, this.state.password));
+    this.props.dispatch(login(this.state.email, this.state.password, this.props.history));
   }
 
   closeAlert = event => {
@@ -48,13 +48,13 @@ class Login extends Component {
 
   openModal = () => {
     this.setState({
-      modal: true
+      modalVisible: true
     });
   }
 
   closeModal = () => {
     this.setState({
-      modal: false
+      modalVisible: false
     });
   }
 
@@ -135,17 +135,13 @@ class Login extends Component {
                   </Alert>
                 }
 
-                {this.props.session &&
-                  <Redirect to="/painel"/>
-                }
-
               </Col>
             </Row>
           </Container>
         </div>
 
         <ModalForgottenPassword
-          isOpen={this.state.modal}
+          isOpen={this.state.modalVisible}
           toggle={this.closeModal}
         />
 
@@ -157,12 +153,10 @@ class Login extends Component {
 const mapStateToProps = storeState => {
   let isFetching = storeState.auth.isFetching;
   let loginError = storeState.auth.loginError;
-  let session = storeState.auth.session;
   return {
     isFetching: isFetching,
     loginError: loginError,
-    session: session
-  }
+  };
 }
 
 export default connect(mapStateToProps)(Login);

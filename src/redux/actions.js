@@ -37,13 +37,14 @@ function loginFailure(){
   }
 }
 
-export function login(email, password){
+export function login(email, password, history){
   return dispatch => {
     dispatch(loginRequest());
     return loginCognito(email, password)
     .then(session => {
       if(session){
         dispatch(loginSuccess(session));
+        history.push("/painel");
       } else {
         dispatch(loginFailure());
       }
@@ -69,13 +70,14 @@ function logoutFailure(){
   }
 }
 
-export function logout(){
+export function logout(history){
   return (dispatch, getState) => {
     dispatch(logoutRequest());
     return logoutCognito(getState().auth.session)
     .then(logoutResponse => {
       if(logoutResponse){
         dispatch(logoutSuccess());
+        history.push("/login");
       } else {
         dispatch(logoutFailure());
       }

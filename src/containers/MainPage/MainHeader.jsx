@@ -26,8 +26,7 @@ class MainHeader extends Component {
   
   handleLogout(event){
     event.preventDefault();
-    this.props.dispatch(logout());
-    this.props.history.push("/login");
+    this.props.dispatch(logout(this.props.history));
   }
   
   render() {
