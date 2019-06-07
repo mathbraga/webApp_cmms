@@ -123,12 +123,12 @@ class FileInput extends Component {
               </Col>
               <Col xs="4">
                 {this.state.selected
-                  ? <p className="mt-2">Arquivo selecionado:
+                  ? <p className="my-2">Arquivo selecionado:
                       <strong>
                         {" " + this.fileInputRef.current.files[0].name}
                       </strong>
                     </p>
-                  : <p className="text-muted mt-2">Nenhum arquivo selecionado</p>
+                  : <p className="text-muted my-2">Nenhum arquivo selecionado</p>
                 }
               </Col>
               <Col xs="4">
@@ -138,7 +138,6 @@ class FileInput extends Component {
                   size="md"
                   color={(this.state.alertColor === "warning" || !this.state.selected) ? "secondary" : "primary"}
                   disabled={(this.state.alertColor === "warning" || !this.state.selected) ? true : false}
-                  style={{ margin: "10px 20px" }}
                   onClick={this.handleUploadFile}
                 >Enviar arquivo
                 </Button>
