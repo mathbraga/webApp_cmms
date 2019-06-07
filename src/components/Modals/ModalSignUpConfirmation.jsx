@@ -50,10 +50,8 @@ class ModalSignUpConfirmation extends Component {
     });
   }
 
-  handleRedirect = () => {
-    this.setState({
-      redirect: true
-    });
+  goToLoginPage = () => {
+    this.props.history.push("/login");
   }
 
   closeAlert = event => {
@@ -128,14 +126,10 @@ class ModalSignUpConfirmation extends Component {
                           <Alert className="mt-4 mx-4" color="success" isOpen={this.state.signUpOK}>
                           Novo usuário cadastrado com sucesso.
                           </Alert>
-                          <Button color="link" onClick={this.handleRedirect}>
+                          <Button color="link" onClick={this.goToLoginPage}>
                             Ir para a página de login.
                           </Button>
                         </React.Fragment>
-                      }
-
-                      {this.state.redirect &&
-                        <Redirect to="/login"/>
                       }
 
                       <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
