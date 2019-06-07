@@ -8,8 +8,8 @@ export default function buildCEBParamsArr(arr, tableName){
 
   // Remove last element (empty element because the last character in CEB csv file is ;)
   noHeader.pop();
-  console.log('noHeader:');
-  console.log(noHeader);
+  // console.log('noHeader:');
+  // console.log(noHeader);
 
   // Split big array into many arrays (each small array represents a meter in CEB csv file)
   let lines = [];
@@ -25,8 +25,8 @@ export default function buildCEBParamsArr(arr, tableName){
     });
   });
 
-  console.log("noHeaderNumbers:");
-  console.log(noHeaderNumbers);
+  // console.log("noHeaderNumbers:");
+  // console.log(noHeaderNumbers);
 
   let attributesArr = [];
 
@@ -204,8 +204,8 @@ export default function buildCEBParamsArr(arr, tableName){
     });
   });
 
-  console.log("attributesArr:");
-  console.log(attributesArr);
+  // console.log("attributesArr:");
+  // console.log(attributesArr);
 
   let maxLength = 25;
   let paramsArr = [];

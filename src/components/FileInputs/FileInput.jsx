@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  Alert,
   Card,
   CardHeader,
   CardBody,
@@ -12,25 +13,28 @@ import {
 import textToArray from "../../utils/consumptionMonitor/textToArray";
 import buildCEBParamsArr from "../../utils/consumptionMonitor/buildCEBParamsArr";
 import writeItemsInDB from "../../utils/consumptionMonitor/writeItemsInDB";
-import buildCAESBParamsArr from "../../utils/consumptionMonitor/buildCAESBParamsArr";
+// import buildCAESBParamsArr from "../../utils/consumptionMonitor/buildCAESBParamsArr";
 
 class FileInput extends Component {
   constructor(props){
     super(props);
     this.fileInputRef = React.createRef();
     this.state = {
-      selectedState: false
+      selected: false,
+      alertVisible: false,
+      alertColor: "",
+      alertMessage: ""
     };
   }
 
   handleSelection = event => {
     if(this.fileInputRef.current.files.length > 0){
       this.setState({
-        selectedState: true
+        selected: true
       });
     } else {
       this.setState({
-        selectedState: false
+        selected: false
       });
     }
   }
@@ -39,111 +43,119 @@ class FileInput extends Component {
     
     event.preventDefault();
 
-    console.clear();
-    
+    this.setState({
+      alertVisible: true,
+      alertColor: "warning",
+      alertMessage: "Realizando o upload. Aguarde..."
+    });
+
     let selectedFile = this.fileInputRef.current.files[0];
-    
-    console.log('selectedFile:');
-    console.log(selectedFile);
 
     textToArray(selectedFile).
     then(arr => {
-      console.log('arr:');
-      console.log(arr);
+      // console.log('arr:');
+      // console.log(arr);
 
-      let paramsArr = [];
+      let paramsArr = buildCEBParamsArr(arr, this.props.tableName);
       
-      if(this.props.tableName === "CEBteste"){
-        paramsArr = buildCEBParamsArr(arr, this.props.tableName);
-      } else {
-        paramsArr = buildCAESBParamsArr(arr, this.props.tableName);
-      }
-      
-      console.log("paramsArr:");
-      console.log(paramsArr);
+      // console.log("paramsArr:");
+      // console.log(paramsArr);
 
       writeItemsInDB(this.props.dbObject, paramsArr)
       .then(() => {
-        console.log("Upload de dados realizado com sucesso!");
+        this.setState({
+          alertVisible: true,
+          alertMessage: "Upload realizado com sucesso!",
+          alertColor: "success",
+        });
       })
       .catch(() => {
-        console.log("Houve um problema no upload do arquivo.");
+        this.setState({
+          alertVisible: true,
+          alertMessage: "Houve um problema no upload do arquivo.",
+          alertColor: "danger"
+        });
       });
     })
     .catch(() => {
-      console.log("Houve um problema na leitura do arquivo.");
+      this.setState({
+        alertVisible: true,
+        alertMessage: "Houve um problema na leitura do arquivo.",
+        alertColor: "danger"
+      });
+    });
+  }
+
+  closeAlert = event => {
+    this.setState({
+      alertVisible: false
     });
   }
   
   render() {
     return (
-      <Card>
-        <CardHeader>
-          <Row>
-            <Col md="12">
-              <div className="calc-title">Upload de arquivo</div>
-              <div className="calc-subtitle">
-                <em>Utilizar faturas em formato csv</em>
-              </div>
-            </Col>
-          </Row>
-        </CardHeader>
-        <CardBody>
-          <Row>
+      <React.Fragment>
+        <Card>
+          <CardHeader>
+            <Row>
+              <Col md="12">
+                <div className="calc-title">Upload de arquivo</div>
+                <div className="calc-subtitle">
+                  <em>Utilizar faturas em formato csv</em>
+                </div>
+              </Col>
+            </Row>
+          </CardHeader>
+          <CardBody>
+            <Row>
 
-            <Col xs="3">
-              <FormGroup>
-                <CustomInput
-                  label="Clique ou arraste para selecionar"
-                  type="file"
-                  id="csv-file"
-                  name="csv-file"
-                  innerRef={this.fileInputRef}
-                  onChange={this.handleSelection}
-                />
-              </FormGroup>
-            </Col>
+              <Col xs="3">
+                <FormGroup>
+                  <CustomInput
+                    label="Clique ou arraste para selecionar"
+                    type="file"
+                    id="csv-file"
+                    name="csv-file"
+                    innerRef={this.fileInputRef}
+                    onChange={this.handleSelection}
+                  />
+                </FormGroup>
+              </Col>
+              <Col xs="3">
+                {this.state.selected
+                  ? <p>Arquivo selecionado:
+                      <strong>
+                        {" " + this.fileInputRef.current.files[0].name}
+                      </strong>
+                    </p>
+                  : <p>Nenhum arquivo selecionado</p>
+                }
+              </Col>
+              <Col xs="3">
+                <Button
+                  className=""
+                  type="submit"
+                  size="md"
+                  color={(this.state.alertColor === "warning" || !this.state.selected) ? "secondary" : "primary"}
+                  disabled={(this.state.alertColor === "warning" || !this.state.selected) ? true : false}
+                  style={{ margin: "10px 20px" }}
+                  onClick={this.handleUploadFile}
+                >Enviar arquivo
+                </Button>
+              </Col>
+            </Row>
+          </CardBody>
+        </Card>
 
-            {!this.state.selectedState
-              ? (
-                <React.Fragment>
-                  <Col xs="3">
-                    <p>Nenhum arquivo selecionado</p>
-                  </Col>
-                  <Col xs="3">
-                  <Button
-                    className=""
-                    type="submit"
-                    size="md"
-                    color="secondary"
-                    disabled
-                    style={{ margin: "10px 20px" }}
-                  >Enviar arquivo
-                  </Button>
-                  </Col>
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <Col xs="3">
-                    <p>Arquivo selecionado:{" " + this.fileInputRef.current.files[0].name}</p>
-                  </Col>
-                  <Col xs="3">
-                  <Button
-                    className=""
-                    type="submit"
-                    size="md"
-                    color="primary"
-                    onClick={this.handleUploadFile}
-                    style={{ margin: "10px 20px" }}
-                  >Enviar arquivo
-                  </Button>
-                  </Col>
-                </React.Fragment>
-              )
-            }
-          </Row>
-        </CardBody>
-      </Card>
+        <Alert
+          className="mt-4"
+          color={this.state.alertColor}
+          isOpen={this.state.alertVisible}
+          toggle={this.closeAlert}
+        >{this.state.alertMessage}
+        </Alert>
+
+      </React.Fragment>
     );
   }
 }

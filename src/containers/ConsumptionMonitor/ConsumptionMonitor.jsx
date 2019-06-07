@@ -110,12 +110,11 @@ class ConsumptionMonitor extends Component {
             >{this.props.message}
             </Alert>
 
-            {this.props.session &&
-              <FileInput
-                tableName={this.awsData.tableName}
-                dbObject={this.awsData.dbObject}
-              />
-            }
+            <FileInput
+              tableName={this.awsData.tableName}
+              dbObject={this.awsData.dbObject}
+            />
+
           </React.Fragment>
         }
         {this.props.showResult &&
