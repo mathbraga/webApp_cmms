@@ -8,15 +8,15 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import configureStore, { history } from "./redux/store";
-import { ConnectedRouter } from "connected-react-router";
+// import { ConnectedRouter } from "connected-react-router";
 
 const store = configureStore(/* preloaded state (optional) */);
 
 const renderApp = () => ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
+    {/* <ConnectedRouter history={history}> */}
       <App />
-    </ConnectedRouter>
+    {/* </ConnectedRouter> */}
   </Provider>,
   document.getElementById("root")
 );

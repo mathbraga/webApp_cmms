@@ -12,12 +12,12 @@ class ResultAM extends Component {
     const {
       oneMonth,
       meters,
-      chosenMeter
+      chosenMeter,
+      resultObject
     } = this.props.consumptionState;
 
     const {
-      handleNewSearch,
-      resultObject
+      handleNewSearch
     } = this.props;
     
     return (

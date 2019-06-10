@@ -2,7 +2,7 @@ import React, { Component, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
 import {
-  AppBreadcrumb,
+  // AppBreadcrumb,
   AppHeader,
   AppSidebar,
   AppSidebarFooter,
@@ -65,7 +65,7 @@ class MainPage extends Component {
                       />
                     ) : null;
                   })}
-                  <Redirect from="/" to={{pathname:"/painel", state: this.props.location.state}}/>
+                  <Redirect from="/" to={{ pathname: "/painel" }}/>
                 </Switch>
               </Suspense>
             </Container>

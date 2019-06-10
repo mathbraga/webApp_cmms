@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { connectRouter } from "connected-react-router";
+// import { connectRouter } from "connected-react-router";
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE, QUERY_REQUEST, QUERY_SUCCESS, QUERY_FAILURE, QUERY_RESET } from "./actions";
 
 function auth(
@@ -96,10 +96,10 @@ function energy(state = {
 }
 
 // With connected-react-router:
-const rootReducer = (history) => combineReducers({
-  router: connectRouter(history),
-  auth,
-  energy
+const rootReducer = (/*history*/) => combineReducers({
+  // router: connectRouter(history),
+  auth
+  // energy
 });
 
 export default rootReducer;

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect, Route } from "react-router-dom";
 import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { login } from "../../redux/actions";
 import { connect } from "react-redux";

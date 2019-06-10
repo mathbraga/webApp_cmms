@@ -13,17 +13,14 @@ class ResultOP extends Component {
 
     const {
       dbObject,
-      tableName
-    } = this.props.awsData;
-
-    const {
+      tableName,
       oneMonth,
-      chosenMeter
+      chosenMeter,
+      resultObject
     } = this.props.consumptionState;
 
     const {
-      handleNewSearch,
-      resultObject
+      handleNewSearch
     } = this.props;
 
     return (

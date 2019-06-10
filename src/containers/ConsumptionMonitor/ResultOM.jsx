@@ -14,17 +14,14 @@ class ResultOM extends Component {
     const {
       dbObject,
       tableName,
-    } = this.props.awsData;
-    
-    const {
       oneMonth,
       chosenMeter,
       meterType,
-    } = this.props.consumptionState;
-
-    const {
-      handleNewSearch,
       resultObject
+    } = this.props.consumptionState;
+    
+    const {
+      handleNewSearch
     } = this.props;
     
     return (
