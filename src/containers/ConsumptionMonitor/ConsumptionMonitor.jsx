@@ -4,6 +4,7 @@ import FileInput from "../../components/FileInputs/FileInput"
 import handleDates from "../../utils/consumptionMonitor/handleDates";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 // import { query, queryReset } from "../../redux/actions";
+import { saveSearchResult } from "../../redux/actions";
 import handleSearch from "../../utils/consumptionMonitor/handleSearch";
 import getAllMeters from "../../utils/consumptionMonitor/getAllMeters";
 import getCurrentMonth from "../../utils/consumptionMonitor/getCurrentMonth";
@@ -19,22 +20,26 @@ import { dbTables } from "../../aws";
 class ConsumptionMonitor extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tableName: dbTables[this.props.monitor].tableName,
-      tableNameMeters: dbTables[this.props.monitor].tableNameMeters,
-      meterType: dbTables[this.props.monitor].meterType,
-      defaultMeter: dbTables[this.props.monitor].meterType + "99",
-      dbObject: initializeDynamoDB(this.props.session),
-      meters: [],
-      initialDate: getCurrentMonth(),
-      finalDate: "",
-      chosenMeter: dbTables[this.props.monitor].meterType + "99",
-      oneMonth: true,
-      alertVisible: false,
-      searchError: false,
-      resultObject: {},
-      showResult: false
-    };
+    if(this.props.consumptionMonitorCache[this.props.monitor]){
+      this.state = this.props.consumptionMonitorCache[this.props.monitor];
+    } else {
+      this.state = {
+        tableName: dbTables[this.props.monitor].tableName,
+        tableNameMeters: dbTables[this.props.monitor].tableNameMeters,
+        meterType: dbTables[this.props.monitor].meterType,
+        defaultMeter: dbTables[this.props.monitor].meterType + "99",
+        dbObject: initializeDynamoDB(this.props.session),
+        meters: [],
+        initialDate: getCurrentMonth(),
+        finalDate: "",
+        chosenMeter: dbTables[this.props.monitor].meterType + "99",
+        oneMonth: true,
+        alertVisible: false,
+        searchError: false,
+        resultObject: {},
+        showResult: false
+      };
+    }
   }
 
   componentDidMount = () => {
@@ -113,6 +118,10 @@ class ConsumptionMonitor extends Component {
     this.setState({
       alertVisible: false
     });
+  }
+
+  componentWillUnmount = () => {
+    this.props.dispatch(saveSearchResult(this.state, this.props.monitor));
   }
 
   render() {
@@ -195,6 +204,7 @@ class ConsumptionMonitor extends Component {
 const mapStateToProps = storeState => {
   return {
     session: storeState.auth.session,
+    consumptionMonitorCache: storeState.consumptionMonitorCache
     // resultObject: storeState.energy.resultObject,
     // queryError: storeState.energy.queryError,
     // message: storeState.energy.message,

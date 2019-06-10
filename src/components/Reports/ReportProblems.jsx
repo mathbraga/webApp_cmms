@@ -48,7 +48,7 @@ class ReportProblems extends Component {
             <div className="widget-title dash-title">
               <h4>
                 {allUnits
-                  ? "Energia Elétrica"
+                  ? "Energia elétrica"
                   : unitNumber}
               </h4>
               {allUnits ? (

@@ -13,6 +13,8 @@ export const QUERY_REQUEST = "QUERY_REQUEST";
 export const QUERY_SUCCESS = "QUERY_SUCCESS";
 export const QUERY_FAILURE = "QUERY_FAILURE";
 export const QUERY_RESET = "QUERY_RESET";
+export const SAVE_SEARCH_RESULT_ENERGY = "SAVE_SEARCH_RESULT_ENERGY";
+export const SAVE_SEARCH_RESULT_WATER = "SAVE_SEARCH_RESULT_WATER";
 
 // Other constants
 // OTHER CONSTANTS DECLARATIONS
@@ -121,5 +123,29 @@ export function query(awsData, state){
     .catch(message => {
       dispatch(queryFailure(message));
     });
+  });
+}
+
+function cacheEnergy(state){
+  return {
+    type: SAVE_SEARCH_RESULT_ENERGY,
+    energy: state
+  }
+}
+
+function cacheWater(state){
+  return {
+    type: SAVE_SEARCH_RESULT_WATER,
+    water: state
+  }
+}
+
+export function saveSearchResult(state, monitor){
+  return (dispatch => {
+    if(monitor === "energy"){
+      return dispatch(cacheEnergy(state))
+    } else if(monitor === "water"){
+      return dispatch(cacheWater(state))
+    }
   });
 }

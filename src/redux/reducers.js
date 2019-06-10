@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 // import { connectRouter } from "connected-react-router";
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE, QUERY_REQUEST, QUERY_SUCCESS, QUERY_FAILURE, QUERY_RESET } from "./actions";
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE, QUERY_REQUEST, QUERY_SUCCESS, QUERY_FAILURE, QUERY_RESET, SAVE_SEARCH_RESULT_ENERGY, SAVE_SEARCH_RESULT_WATER } from "./actions";
 
 function auth(
   state = {
@@ -95,10 +95,29 @@ function energy(state = {
   }
 }
 
+function consumptionMonitorCache(state = {
+  energy: false,
+  water: false
+}, action){
+  switch(action.type){
+    case SAVE_SEARCH_RESULT_ENERGY:
+      return Object.assign({}, state, {
+        energy: action.energy,
+      });
+    case SAVE_SEARCH_RESULT_WATER:
+      return Object.assign({}, state, {
+        energy: action.water,
+      });
+    default:
+      return state;
+  }
+}
+
 // With connected-react-router:
 const rootReducer = (/*history*/) => combineReducers({
   // router: connectRouter(history),
-  auth
+  auth,
+  consumptionMonitorCache
   // energy
 });
 
