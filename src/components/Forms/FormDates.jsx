@@ -27,7 +27,8 @@ class FormDates extends Component {
       oneMonth,
       initialDate,
       finalDate,
-      chosenMeter
+      chosenMeter,
+      meterType
     } = this.props.consumptionState;
 
     let fetchingMeters = meters.length === 0 ? true : false;
@@ -118,10 +119,9 @@ class FormDates extends Component {
                     className="input-meters"
                     defaultValue={fetchingMeters ? "Carregando medidores..." : chosenMeter}
                   >
-                    <option value="199" /*selected={chosenMeter ==="199" ? true : false}*/>Todos medidores</option>
+                    <option value={meterType + "99"}>Todos medidores</option>
                     {meters.map(meter => (
                       <option
-                        //selected={chosenMeter === (100 * parseInt(meter.tipomed.N, 10) + parseInt(meter.med.N, 10)).toString() ? true : false}
                         key={(
                           100 * parseInt(meter.tipomed.N, 10) +
                           parseInt(meter.med.N, 10)
