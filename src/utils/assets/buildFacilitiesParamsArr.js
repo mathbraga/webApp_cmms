@@ -45,7 +45,7 @@ export default function buildFacilitiesParamsArr(arr, tableName){
             N: facility[i.longitude]
           },
           "gps": {
-            NS: facility[i.gps].split("|")
+            NS: facility[i.gps].split(" ")
           }
         }
       }
