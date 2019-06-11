@@ -137,6 +137,7 @@ class ConsumptionMonitor extends Component {
             <FileInput
               tableName={this.state.tableName}
               dbObject={this.state.dbObject}
+              readFile={dbTables[this.props.monitor].readFile}
               buildParamsArr={dbTables[this.props.monitor].buildParamsArr}
             />
 

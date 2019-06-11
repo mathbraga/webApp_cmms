@@ -4,7 +4,8 @@ const i = {
   pavimento: 2,
   visita: 3,
   latitude: 4,
-  longitude: 5
+  longitude: 5,
+  gps: 6
 };
 
 export { i };

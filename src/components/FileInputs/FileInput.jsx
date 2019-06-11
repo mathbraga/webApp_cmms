@@ -10,7 +10,6 @@ import {
   FormGroup,
   Button,
 } from "reactstrap";
-import textToArray from "../../utils/consumptionMonitor/textToArray";
 import writeItemsInDB from "../../utils/consumptionMonitor/writeItemsInDB";
 
 class FileInput extends Component {
@@ -23,7 +22,8 @@ class FileInput extends Component {
       alertColor: "",
       alertMessage: ""
     };
-    this.buildParamsArr = this.props.buildParamsArr.bind(this);
+    this.readFile = this.props.readFile;
+    this.buildParamsArr = this.props.buildParamsArr;
   }
 
   handleSelection = event => {
@@ -50,8 +50,9 @@ class FileInput extends Component {
 
     let selectedFile = this.fileInputRef.current.files[0];
 
-    textToArray(selectedFile).
-    then(arr => {
+    this.readFile(selectedFile)
+    .then(arr => {
+      
       console.log('arr:');
       console.log(arr);
 

@@ -1,5 +1,6 @@
 import buildCEBParamsArr from "./utils/consumptionMonitor/buildCEBParamsArr";
 import buildCAESBParamsArr from "./utils/consumptionMonitor/buildCAESBParamsArr";
+import textToArrayCM from "./utils/consumptionMonitor/textToArrayCM";
 
 // AWS configurations
 
@@ -20,12 +21,14 @@ export const dbTables = {
     tableName: "CEBteste",
     tableNameMeters: "CEB-Medidoresteste",
     meterType: "1",
+    readFile: textToArrayCM,
     buildParamsArr: buildCEBParamsArr
   },
   water: {
     tableName: "CAESB",
     tableNameMeters: "CAESB-Medidores",
     meterType: "2",
+    readFile: textToArrayCM,
     buildParamsArr: buildCAESBParamsArr
   }
 };

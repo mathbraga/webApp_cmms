@@ -1,4 +1,4 @@
-export default function uploadFile(file){
+export default function textToArrayCM(file){
   return new Promise((resolve, reject) => {
     
     // Initialize reader variable

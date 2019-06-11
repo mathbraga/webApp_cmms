@@ -5,7 +5,7 @@ export default function buildFacilitiesParamsArr(arr, tableName){
   console.clear();
 
   // Discard header
-  let numColumns = 6;
+  let numColumns = 7;
   let noHeader = arr.splice(numColumns);
 
   // Remove last element (empty element because the last character in CEB csv file is ;)
@@ -36,13 +36,16 @@ export default function buildFacilitiesParamsArr(arr, tableName){
             S: facility[i.pavimento]
           },
           "visita": {
-            S: facility[i.visita]
+            BOOL: facility[i.visita] === "true"
           },
           "latitude": {
-            S: facility[i.latitude]
+            N: facility[i.latitude]
           },
           "longitude": {
-            S: facility[i.longitude]
+            N: facility[i.longitude]
+          },
+          "gps": {
+            NS: facility[i.gps].split("|")
           }
         }
       }
