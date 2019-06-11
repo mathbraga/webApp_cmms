@@ -1,15 +1,28 @@
 import { combineReducers } from "redux";
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE, QUERY_REQUEST, QUERY_SUCCESS, QUERY_FAILURE, QUERY_RESET, SAVE_SEARCH_RESULT_ENERGY, SAVE_SEARCH_RESULT_WATER } from "./actions";
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
+  QUERY_REQUEST,
+  QUERY_SUCCESS,
+  QUERY_FAILURE,
+  QUERY_RESET,
+  SAVE_SEARCH_RESULT_ENERGY,
+  SAVE_SEARCH_RESULT_WATER
+} from "./actions";
 
 function auth(
   state = {
     session: false,
     isFetching: false,
     loginError: false
-  }, action) {
-
+  },
+  action
+) {
   switch (action.type) {
-
     case LOGIN_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
@@ -33,7 +46,7 @@ function auth(
       return Object.assign({}, state, {
         isFetching: true
       });
-    
+
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
         session: false,
@@ -51,14 +64,17 @@ function auth(
   }
 }
 
-function energy(state = {
-  resultObject: {},
-  isFetching: false,
-  queryError: false,
-  errorMessage: "",
-  showResult: false
-}, action) {
-  switch(action.type){
+function energy(
+  state = {
+    resultObject: {},
+    isFetching: false,
+    queryError: false,
+    errorMessage: "",
+    showResult: false
+  },
+  action
+) {
+  switch (action.type) {
     case QUERY_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
@@ -66,7 +82,7 @@ function energy(state = {
         message: "Consultando banco de dados...",
         showResult: false
       });
-    case QUERY_SUCCESS: 
+    case QUERY_SUCCESS:
       return Object.assign({}, state, {
         resultObject: action.resultObject,
         isFetching: false,
@@ -89,32 +105,36 @@ function energy(state = {
         message: "",
         showResult: false
       });
-    default: 
-        return state;
+    default:
+      return state;
   }
 }
 
-function consumptionMonitorCache(state = {
-  energy: false,
-  water: false
-}, action){
-  switch(action.type){
+function consumptionMonitorCache(
+  state = {
+    energy: false,
+    water: false
+  },
+  action
+) {
+  switch (action.type) {
     case SAVE_SEARCH_RESULT_ENERGY:
       return Object.assign({}, state, {
-        energy: action.energy,
+        energy: action.energy
       });
     case SAVE_SEARCH_RESULT_WATER:
       return Object.assign({}, state, {
-        energy: action.water,
+        water: action.water
       });
     default:
       return state;
   }
 }
 
-const rootReducer = () => combineReducers({
-  auth,
-  consumptionMonitorCache
-});
+const rootReducer = () =>
+  combineReducers({
+    auth,
+    consumptionMonitorCache
+  });
 
 export default rootReducer;
