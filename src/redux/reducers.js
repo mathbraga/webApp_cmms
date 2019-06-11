@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-// import { connectRouter } from "connected-react-router";
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE, QUERY_REQUEST, QUERY_SUCCESS, QUERY_FAILURE, QUERY_RESET, SAVE_SEARCH_RESULT_ENERGY, SAVE_SEARCH_RESULT_WATER } from "./actions";
 
 function auth(
@@ -113,12 +112,9 @@ function consumptionMonitorCache(state = {
   }
 }
 
-// With connected-react-router:
-const rootReducer = (/*history*/) => combineReducers({
-  // router: connectRouter(history),
+const rootReducer = () => combineReducers({
   auth,
   consumptionMonitorCache
-  // energy
 });
 
 export default rootReducer;
