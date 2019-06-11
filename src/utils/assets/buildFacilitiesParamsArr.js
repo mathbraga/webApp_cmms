@@ -1,4 +1,4 @@
-import { indexes } from "./locaisData";
+import { i } from "./facilitiesData";
 
 export default function buildFacilitiesParamsArr(arr, tableName){
   
@@ -21,28 +21,28 @@ export default function buildFacilitiesParamsArr(arr, tableName){
 
   let attributesArr = [];
 
-  lines.forEach(local => {
+  lines.forEach(facility => {
 
     attributesArr.push({
       PutRequest: {
         Item: {
           "idlocal": {
-            S: local[indexes.idlocal]
+            S: facility[i.idlocal]
           },
           "edificio": {
-            S: local[indexes.edificio]
+            S: facility[i.edificio]
           },
           "pavimento": {
-            S: local[indexes.pavimento]
+            S: facility[i.pavimento]
           },
           "visita": {
-            S: local[indexes.visita]
+            S: facility[i.visita]
           },
           "latitude": {
-            S: local[indexes.latitude]
+            S: facility[i.latitude]
           },
           "longitude": {
-            S: local[indexes.longitude]
+            S: facility[i.longitude]
           }
         }
       }

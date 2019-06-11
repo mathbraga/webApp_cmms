@@ -1,4 +1,4 @@
-const indexes = {
+const i = {
   idlocal: 0,
   edificio: 1,
   pavimento: 2,
@@ -7,4 +7,4 @@ const indexes = {
   longitude: 5
 };
 
-export { indexes };
+export { i };
