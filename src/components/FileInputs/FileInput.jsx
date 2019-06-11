@@ -11,9 +11,7 @@ import {
   Button,
 } from "reactstrap";
 import textToArray from "../../utils/consumptionMonitor/textToArray";
-import buildCEBParamsArr from "../../utils/consumptionMonitor/buildCEBParamsArr";
 import writeItemsInDB from "../../utils/consumptionMonitor/writeItemsInDB";
-// import buildCAESBParamsArr from "../../utils/consumptionMonitor/buildCAESBParamsArr";
 
 class FileInput extends Component {
   constructor(props){
@@ -25,6 +23,7 @@ class FileInput extends Component {
       alertColor: "",
       alertMessage: ""
     };
+    this.buildParamsArr = this.props.buildParamsArr.bind(this);
   }
 
   handleSelection = event => {
@@ -53,13 +52,13 @@ class FileInput extends Component {
 
     textToArray(selectedFile).
     then(arr => {
-      // console.log('arr:');
-      // console.log(arr);
+      console.log('arr:');
+      console.log(arr);
 
-      let paramsArr = buildCEBParamsArr(arr, this.props.tableName);
+      let paramsArr = this.buildParamsArr(arr, this.props.tableName);
       
-      // console.log("paramsArr:");
-      // console.log(paramsArr);
+      console.log("paramsArr:");
+      console.log(paramsArr);
 
       writeItemsInDB(this.props.dbObject, paramsArr)
       .then(() => {

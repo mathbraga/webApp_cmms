@@ -15,11 +15,12 @@ const routes = [
   { path: "/cadastro", name: "Cadastro", component: SignUp },
   { path: "/energia", name: "Energia elétrica", component: ConsumptionMonitor, options: {monitor: "energy"} },
   { path: "/agua", name: "Água", component: ConsumptionMonitor, options: {monitor: "water"} },
-  { path: "/ativos/todos", name: "Todos ativos", component: Assets, options: {filter: "all"} },
-  { path: "/ativos/edificios", name: "Edifícios e áreas", component: Assets, options: {filter: "facility"} },
-  { path: "/ativos/equipamentos", name: "Equipamentos", component: Assets, options: {filter: "equipment"} },
-  { path: "/ativos/ferramentas", name: "Ferramentas", component: Assets, options: {filter: "tool"} },
-  { path: "/ativos/materiais", name: "Materiais", component: Assets, options: {filter: "supply"} }
+  { path: "/ativos", name: "Ativos", component: Assets },
+  // { path: "/ativos/todos", name: "Todos ativos", component: Assets, options: {filter: "all"} },
+  // { path: "/ativos/edificios", name: "Edifícios e áreas", component: Assets, options: {filter: "facility"} },
+  // { path: "/ativos/equipamentos", name: "Equipamentos", component: Assets, options: {filter: "equipment"} },
+  // { path: "/ativos/ferramentas", name: "Ferramentas", component: Assets, options: {filter: "tool"} },
+  // { path: "/ativos/materiais", name: "Materiais", component: Assets, options: {filter: "supply"} }
 ];
 
 export default routes;

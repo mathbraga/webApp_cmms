@@ -148,6 +148,7 @@ class ConsumptionMonitor extends Component {
             <FileInput
               tableName={this.state.tableName}
               dbObject={this.state.dbObject}
+              buildParamsArr={dbTables[this.props.monitor].buildParamsArr}
             />
 
           </React.Fragment>
