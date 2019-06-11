@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-import {
-  transformDateString,
-  dateWithFourDigits
-} from "../../utils/transformDateString";
 import { Card, CardBody, Col, Row, Button, CardHeader } from "reactstrap";
 
 class ResultCard extends Component {
@@ -16,9 +12,9 @@ class ResultCard extends Component {
    *       - finalDate (date of false): final date for the query
    *       - typeOfUnit ("azul" or "verde"): type of the unit
    *       - handleNewSearch (function): function to handle the click on the new search button
-   *       - changeMeter(newMeter) (function)
+   *       ????? - changeMeter(newMeter) (function)
    *       - chosenMeter (number)
-   *       - meters (list of objects)
+   *     ??????  - meters (list of objects)
    */
 
   render() {
@@ -35,17 +31,13 @@ class ResultCard extends Component {
       children
     } = this.props;
 
-    if (initialDate && initialDate.length === 7)
-      initialDate = dateWithFourDigits(initialDate);
-    if (!oneMonth && finalDate) finalDate = dateWithFourDigits(finalDate);
-
     return (
       <Card>
         <CardHeader>
           <Row>
             <Col md="9" xs="6">
               <div className="widget-title dash-title text-truncate">
-                <h4>{allUnits ? "Energia Elétrica" : unitNumber}</h4>
+                <h4>{unitNumber}</h4>
                 {allUnits ? (
                   <div className="dash-subtitle text-truncate">
                     Total: <strong>{numOfUnits} medidores</strong>
@@ -61,14 +53,14 @@ class ResultCard extends Component {
                   <div className="dash-title-info text-truncate">
                     Período:{" "}
                     <strong>
-                      {transformDateString(initialDate)}
+                      {initialDate}
                       {" - "}
-                      {transformDateString(finalDate)}
+                      {finalDate}
                     </strong>
                   </div>
                 ) : (
                   <div className="dash-title-info text-truncate">
-                    Período: <strong>{transformDateString(initialDate)}</strong>
+                    Período: <strong>{initialDate}</strong>
                   </div>
                 )}
                 {allUnits ? (

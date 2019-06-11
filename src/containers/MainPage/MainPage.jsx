@@ -1,9 +1,8 @@
 import React, { Component, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
-
 import {
-  AppBreadcrumb,
+  // AppBreadcrumb,
   AppHeader,
   AppSidebar,
   AppSidebarFooter,
@@ -21,8 +20,9 @@ import routes from "../../routes";
 const MainHeader = React.lazy(() => import("./MainHeader"));
 
 class MainPage extends Component {
+  
   loading = () => (
-    <div className="animated fadeIn pt-1 text-center">Loading...</div>
+    <div className="animated fadeIn pt-1 text-center">Carregando...</div>
   );
 
   render() {
@@ -30,7 +30,13 @@ class MainPage extends Component {
       <div className="app">
         <AppHeader fixed>
           <Suspense fallback={this.loading()}>
-            <MainHeader />
+            <Route
+              render={(routerProps) => (
+                <MainHeader
+                  {...routerProps}
+                />
+              )}
+            />
           </Suspense>
         </AppHeader>
         <div className="app-body">
@@ -44,8 +50,8 @@ class MainPage extends Component {
             <AppSidebarMinimizer />
           </AppSidebar>
           <main className="main">
-            <AppBreadcrumb appRoutes={routes} />
-            <Container fluid>
+            {/* <AppBreadcrumb appRoutes={routes} /> */}
+            <Container fluid className="pt-4">
               <Suspense fallback={this.loading()}>
                 <Switch>
                   {routes.map((route, idx) => {
@@ -55,11 +61,11 @@ class MainPage extends Component {
                         path={route.path}
                         exact={route.exact}
                         name={route.name}
-                        render={props => <route.component {...props} />}
+                        render={routerProps => <route.component {...routerProps} {...route.options}/>}
                       />
                     ) : null;
                   })}
-                  <Redirect from="/" to="/dashboard" />
+                  <Redirect from="/" to={{ pathname: "/painel" }}/>
                 </Switch>
               </Suspense>
             </Container>

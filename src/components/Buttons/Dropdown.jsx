@@ -1,14 +1,9 @@
 import React, { Component } from "react";
 import {
-  Card,
-  CardBody,
-  Col,
-  Row,
   ButtonDropdown,
   DropdownToggle,
   DropdownItem,
-  DropdownMenu,
-  CardHeader
+  DropdownMenu
 } from "reactstrap";
 
 class Dropdown extends Component {
