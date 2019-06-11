@@ -3,7 +3,6 @@ import FormDates from "../../components/Forms/FormDates";
 import FileInput from "../../components/FileInputs/FileInput"
 import handleDates from "../../utils/consumptionMonitor/handleDates";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
-// import { query, queryReset } from "../../redux/actions";
 import { saveSearchResult } from "../../redux/actions";
 import handleSearch from "../../utils/consumptionMonitor/handleSearch";
 import getAllMeters from "../../utils/consumptionMonitor/getAllMeters";
@@ -49,16 +48,6 @@ class ConsumptionMonitor extends Component {
       });
     });
   }
-
-  // componentDidUpdate = prevProps => {
-  //   if(this.props !== prevProps){
-  //     if(this.props.isFetching || this.props.queryError){
-  //       this.setState({
-  //         alertVisible: true,
-  //       });
-  //     }
-  //   }
-  // }
 
   handleChangeOnDates = handleDates.bind(this);
 
