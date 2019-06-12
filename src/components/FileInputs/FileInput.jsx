@@ -17,7 +17,7 @@ class FileInput extends Component {
     super(props);
     this.fileInputRef = React.createRef();
     this.state = {
-      selected: false,
+      isSelected: false,
       alertVisible: false,
       alertColor: "",
       alertMessage: ""
@@ -29,11 +29,11 @@ class FileInput extends Component {
   handleSelection = event => {
     if(this.fileInputRef.current.files.length > 0){
       this.setState({
-        selected: true
+        isSelected: true
       });
     } else {
       this.setState({
-        selected: false
+        isSelected: false
       });
     }
   }
@@ -48,9 +48,7 @@ class FileInput extends Component {
       alertMessage: "Realizando o upload. Aguarde..."
     });
 
-    let selectedFile = this.fileInputRef.current.files[0];
-
-    this.readFile(selectedFile)
+    this.readFile(this.fileInputRef.current.files[0])
     .then(arr => {
       
       console.log('arr:');
@@ -122,7 +120,7 @@ class FileInput extends Component {
                 </FormGroup>
               </Col>
               <Col xs="4">
-                {this.state.selected
+                {this.state.isSelected
                   ? <p className="my-2">Arquivo selecionado:
                       <strong>
                         {" " + this.fileInputRef.current.files[0].name}
@@ -136,8 +134,8 @@ class FileInput extends Component {
                   className=""
                   type="submit"
                   size="md"
-                  color={(this.state.alertColor === "warning" || !this.state.selected) ? "secondary" : "primary"}
-                  disabled={(this.state.alertColor === "warning" || !this.state.selected) ? true : false}
+                  color={(this.state.alertColor === "warning" || !this.state.isSelected) ? "secondary" : "primary"}
+                  disabled={(this.state.alertColor === "warning" || !this.state.isSelected) ? true : false}
                   onClick={this.handleUploadFile}
                 >Enviar arquivo
                 </Button>
