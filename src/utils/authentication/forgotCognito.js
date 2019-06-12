@@ -16,28 +16,13 @@ export default function forgotCognito(email){
   
     cognitoUser.forgotPassword({
       onSuccess: function (data) {
-        console.log('CodeDeliveryData from forgotPassword: ' + data);
+        // console.log('CodeDeliveryData from forgotPassword: ' + data);
         resolve(true);
       },
       onFailure: function(err) {
-        console.log(err.message || JSON.stringify(err));
+        // console.log(err.message || JSON.stringify(err));
         resolve(false);
       }
-      // ,
-      //Optional automatic callback
-      // inputVerificationCode: function(data) {
-      //   console.log('Code sent to: ' + data);
-      //   var code = document.getElementById('code').value;
-      //   var newPassword = document.getElementById('new_password').value;
-      //   cognitoUser.confirmPassword(verificationCode, newPassword, {
-      //       onSuccess() {
-      //           console.log('Password confirmed!');
-      //       },
-      //       onFailure(err) {
-      //           console.log('Password not confirmed!');
-      //       }
-      //   });
-      // }
     });
   });
 }
