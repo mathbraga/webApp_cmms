@@ -34,6 +34,7 @@ class ConsumptionMonitor extends Component {
         chosenMeter: dbTables[this.props.monitor].meterType + "99",
         oneMonth: true,
         alertVisible: false,
+        alertMessage: "",
         searchError: false,
         resultObject: {},
         showResult: false
