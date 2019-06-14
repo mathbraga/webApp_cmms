@@ -15,6 +15,7 @@ export const QUERY_FAILURE = "QUERY_FAILURE";
 export const QUERY_RESET = "QUERY_RESET";
 export const SAVE_SEARCH_RESULT_ENERGY = "SAVE_SEARCH_RESULT_ENERGY";
 export const SAVE_SEARCH_RESULT_WATER = "SAVE_SEARCH_RESULT_WATER";
+export const CLEAN_CACHE = "CLEAN_CACHE";
 
 // Other constants
 // OTHER CONSTANTS DECLARATIONS
@@ -72,6 +73,12 @@ function logoutFailure(){
   }
 }
 
+function cleanCache(){
+  return {
+    type: CLEAN_CACHE
+  }
+}
+
 export function logout(history){
   return (dispatch, getState) => {
     dispatch(logoutRequest());
@@ -79,6 +86,7 @@ export function logout(history){
     .then(logoutResponse => {
       if(logoutResponse){
         dispatch(logoutSuccess());
+        dispatch(cleanCache());
         history.push("/login");
       } else {
         dispatch(logoutFailure());

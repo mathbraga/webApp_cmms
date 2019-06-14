@@ -14,6 +14,9 @@ class Login extends Component {
       alertVisible: false,
       modalVisible: false
     }
+  }
+
+  componentWillMount = () => {
     if(this.props.session){
       this.props.history.push("/painel");
     }
