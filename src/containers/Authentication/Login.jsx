@@ -14,6 +14,9 @@ class Login extends Component {
       alertVisible: false,
       modalVisible: false
     }
+    if(this.props.session){
+      this.props.history.push("/painel");
+    }
   }
 
   componentDidUpdate = prevProps => {
@@ -152,9 +155,11 @@ class Login extends Component {
 const mapStateToProps = storeState => {
   let isFetching = storeState.auth.isFetching;
   let loginError = storeState.auth.loginError;
+  let session = storeState.auth.session;
   return {
     isFetching: isFetching,
     loginError: loginError,
+    session: session
   };
 }
 
