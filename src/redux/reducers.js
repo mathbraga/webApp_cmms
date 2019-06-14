@@ -45,13 +45,15 @@ function auth(
 
     case LOGOUT_REQUEST:
       return Object.assign({}, state, {
-        isFetching: true
+        isFetching: true,
+        logoutError: false
       });
 
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
         session: false,
-        isFetching: false
+        isFetching: false,
+        logoutError: false
       });
 
     case LOGOUT_FAILURE:
