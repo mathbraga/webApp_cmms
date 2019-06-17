@@ -1,7 +1,9 @@
+import { i, medList } from "./CAESBcsvData";
+
 export default function buildCAESBParamsArr(arr, tableName){
   
   // Discard header
-  let numColumns = 17;
+  let numColumns = 19;
   let noHeader = arr.splice(numColumns);
 
   // Remove last element (empty element because the last character in CEB csv file is ;)
@@ -29,77 +31,59 @@ export default function buildCAESBParamsArr(arr, tableName){
   let attributesArr = [];
 
   lines.forEach(meter => {
-    let med = meter[0];
-    let aamm = meter[1];
-    let lat = meter[2];
-    let dlat = meter[3];
-    let lan = meter[4];
-    let dlan = meter[5];
-    let dif = meter[6];
-    let consm = meter[7];
-    let consf = meter[8];
-    let vagu = meter[9];
-    let vesg = meter[10];
-    let adic = meter[11];
-    let subtotal = meter[12];
-    let cofins = meter[13];
-    let irpj = meter[14];
-    let csll = meter[15];
-    let pasep = meter[16];
-
     attributesArr.push({
       PutRequest: {
         Item: {
           "med": {
-            N: med
+            N: medList[meter[i.med]]
           },
-          "aamm": {
-            N: aamm
+          "aaaamm": {
+            N: meter[i.aaaamm]
           },
           "lat": {
-            N: lat
+            N: meter[i.lat]
           },
           "dlat": {
-            S: dlat
+            N: meter[i.dlat]
           },
           "lan": {
-            N: lan
+            N: meter[i.lan]
           },
           "dlan": {
-            S: dlan
+            N: meter[i.dlan]
           },
           "dif": {
-            N: dif
+            N: meter[i.dif]
           },
           "consm": {
-            N: consm
+            N: meter[i.consm]
           },
           "consf": {
-            N: consf
+            N: meter[i.consf]
           },
           "vagu": {
-            N: vagu
+            N: meter[i.vagu]
           },
           "vesg": {
-            N: vesg
+            N: meter[i.vesg]
           },
           "adic": {
-            N: adic
+            N: meter[i.adic]
           },
           "subtotal": {
-            N: subtotal
+            N: meter[i.subtotal]
           },
           "cofins": {
-            N: cofins
+            N: meter[i.cofins]
           },
           "irpj": {
-            N: irpj
+            N: meter[i.irpj]
           },
           "csll": {
-            N: csll
+            N: meter[i.csll]
           },
           "pasep": {
-            N: pasep
+            N: meter[i.pasep]
           }
         }
       }
