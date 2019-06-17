@@ -7,9 +7,10 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import configureStore, { history } from "./redux/store";
+import configureStore from "./redux/store";
+import { preloadedState } from "./redux/preloadedState";
 
-const store = configureStore(/* preloaded state (optional) */);
+const store = configureStore(preloadedState);
 
 const renderApp = () => ReactDOM.render(
   <Provider store={store}>

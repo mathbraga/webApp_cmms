@@ -3,7 +3,6 @@ import FormDates from "../../components/Forms/FormDates";
 import FileInput from "../../components/FileInputs/FileInput"
 import handleDates from "../../utils/consumptionMonitor/handleDates";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
-// import { query, queryReset } from "../../redux/actions";
 import { saveSearchResult } from "../../redux/actions";
 import handleSearch from "../../utils/consumptionMonitor/handleSearch";
 import getAllMeters from "../../utils/consumptionMonitor/getAllMeters";
@@ -20,21 +19,25 @@ import { dbTables } from "../../aws";
 class ConsumptionMonitor extends Component {
   constructor(props) {
     super(props);
-    if(this.props.consumptionMonitorCache[this.props.monitor]){
-      this.state = this.props.consumptionMonitorCache[this.props.monitor];
+
+    this.monitor = this.props.location.pathname === "/energia" ? "energy" : "water";
+
+    if(this.props.consumptionMonitorCache[this.monitor]){
+      this.state = this.props.consumptionMonitorCache[this.monitor];
     } else {
       this.state = {
-        tableName: dbTables[this.props.monitor].tableName,
-        tableNameMeters: dbTables[this.props.monitor].tableNameMeters,
-        meterType: dbTables[this.props.monitor].meterType,
-        defaultMeter: dbTables[this.props.monitor].meterType + "99",
+        tableName: dbTables[this.monitor].tableName,
+        tableNameMeters: dbTables[this.monitor].tableNameMeters,
+        meterType: dbTables[this.monitor].meterType,
+        defaultMeter: dbTables[this.monitor].meterType + "99",
         dbObject: initializeDynamoDB(this.props.session),
         meters: [],
         initialDate: getCurrentMonth(),
         finalDate: "",
-        chosenMeter: dbTables[this.props.monitor].meterType + "99",
+        chosenMeter: dbTables[this.monitor].meterType + "99",
         oneMonth: true,
         alertVisible: false,
+        alertMessage: "",
         searchError: false,
         resultObject: {},
         showResult: false
@@ -49,16 +52,6 @@ class ConsumptionMonitor extends Component {
       });
     });
   }
-
-  // componentDidUpdate = prevProps => {
-  //   if(this.props !== prevProps){
-  //     if(this.props.isFetching || this.props.queryError){
-  //       this.setState({
-  //         alertVisible: true,
-  //       });
-  //     }
-  //   }
-  // }
 
   handleChangeOnDates = handleDates.bind(this);
 
@@ -121,7 +114,7 @@ class ConsumptionMonitor extends Component {
   }
 
   componentWillUnmount = () => {
-    this.props.dispatch(saveSearchResult(this.state, this.props.monitor));
+    this.props.dispatch(saveSearchResult(this.state, this.monitor));
   }
 
   render() {
@@ -148,6 +141,8 @@ class ConsumptionMonitor extends Component {
             <FileInput
               tableName={this.state.tableName}
               dbObject={this.state.dbObject}
+              readFile={dbTables[this.monitor].readFile}
+              buildParamsArr={dbTables[this.monitor].buildParamsArr}
             />
 
           </React.Fragment>

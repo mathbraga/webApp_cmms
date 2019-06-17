@@ -16,6 +16,12 @@ class Login extends Component {
     }
   }
 
+  componentWillMount = () => {
+    if(this.props.session){
+      this.props.history.push("/painel");
+    }
+  }
+
   componentDidUpdate = prevProps => {
     if(this.props.loginError !== prevProps.loginError){
       if(this.props.loginError){
@@ -152,9 +158,11 @@ class Login extends Component {
 const mapStateToProps = storeState => {
   let isFetching = storeState.auth.isFetching;
   let loginError = storeState.auth.loginError;
+  let session = storeState.auth.session;
   return {
     isFetching: isFetching,
     loginError: loginError,
+    session: session
   };
 }
 

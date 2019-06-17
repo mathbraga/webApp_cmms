@@ -11,7 +11,8 @@ import {
   QUERY_FAILURE,
   QUERY_RESET,
   SAVE_SEARCH_RESULT_ENERGY,
-  SAVE_SEARCH_RESULT_WATER
+  SAVE_SEARCH_RESULT_WATER,
+  CLEAN_CACHE
 } from "./actions";
 
 function auth(
@@ -44,13 +45,15 @@ function auth(
 
     case LOGOUT_REQUEST:
       return Object.assign({}, state, {
-        isFetching: true
+        isFetching: true,
+        logoutError: false
       });
 
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
         session: false,
-        isFetching: false
+        isFetching: false,
+        logoutError: false
       });
 
     case LOGOUT_FAILURE:
@@ -125,6 +128,11 @@ function consumptionMonitorCache(
     case SAVE_SEARCH_RESULT_WATER:
       return Object.assign({}, state, {
         water: action.water
+      });
+    case CLEAN_CACHE:
+      return Object.assign({}, state, {
+        energy: false,
+        water: false
       });
     default:
       return state;

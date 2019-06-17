@@ -10,31 +10,30 @@ import {
   FormGroup,
   Button,
 } from "reactstrap";
-import textToArray from "../../utils/consumptionMonitor/textToArray";
-import buildCEBParamsArr from "../../utils/consumptionMonitor/buildCEBParamsArr";
 import writeItemsInDB from "../../utils/consumptionMonitor/writeItemsInDB";
-// import buildCAESBParamsArr from "../../utils/consumptionMonitor/buildCAESBParamsArr";
 
 class FileInput extends Component {
   constructor(props){
     super(props);
     this.fileInputRef = React.createRef();
     this.state = {
-      selected: false,
+      isSelected: false,
       alertVisible: false,
       alertColor: "",
       alertMessage: ""
     };
+    this.readFile = this.props.readFile;
+    this.buildParamsArr = this.props.buildParamsArr;
   }
 
   handleSelection = event => {
     if(this.fileInputRef.current.files.length > 0){
       this.setState({
-        selected: true
+        isSelected: true
       });
     } else {
       this.setState({
-        selected: false
+        isSelected: false
       });
     }
   }
@@ -49,17 +48,16 @@ class FileInput extends Component {
       alertMessage: "Realizando o upload. Aguarde..."
     });
 
-    let selectedFile = this.fileInputRef.current.files[0];
-
-    textToArray(selectedFile).
-    then(arr => {
-      // console.log('arr:');
-      // console.log(arr);
-
-      let paramsArr = buildCEBParamsArr(arr, this.props.tableName);
+    this.readFile(this.fileInputRef.current.files[0])
+    .then(arr => {
       
-      // console.log("paramsArr:");
-      // console.log(paramsArr);
+      console.log('arr:');
+      console.log(arr);
+
+      let paramsArr = this.buildParamsArr(arr, this.props.tableName);
+      
+      console.log("paramsArr:");
+      console.log(paramsArr);
 
       writeItemsInDB(this.props.dbObject, paramsArr)
       .then(() => {
@@ -122,7 +120,7 @@ class FileInput extends Component {
                 </FormGroup>
               </Col>
               <Col xs="4">
-                {this.state.selected
+                {this.state.isSelected
                   ? <p className="my-2">Arquivo selecionado:
                       <strong>
                         {" " + this.fileInputRef.current.files[0].name}
@@ -136,8 +134,8 @@ class FileInput extends Component {
                   className=""
                   type="submit"
                   size="md"
-                  color={(this.state.alertColor === "warning" || !this.state.selected) ? "secondary" : "primary"}
-                  disabled={(this.state.alertColor === "warning" || !this.state.selected) ? true : false}
+                  color={(this.state.alertColor === "warning" || !this.state.isSelected) ? "secondary" : "primary"}
+                  disabled={(this.state.alertColor === "warning" || !this.state.isSelected) ? true : false}
                   onClick={this.handleUploadFile}
                 >Enviar arquivo
                 </Button>
