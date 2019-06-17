@@ -10,7 +10,7 @@ const loading = () => (
 // Containers
 const MainPage = Loadable({
   loader: () => import("./containers/MainPage"),
-  loading: loading
+  loading
 });
 
 class App extends Component {

@@ -6,29 +6,30 @@ import {
   DropdownItem,
   DropdownToggle,
   DropdownMenu
-  } from "reactstrap";
+} from "reactstrap";
 
 import {
   AppNavbarBrand,
   AppSidebarToggler,
   AppHeaderDropdown
 } from "@coreui/react";
+
 import logo from "../../assets/img/brand/logo.svg";
 import sygnet from "../../assets/img/brand/sygnet.svg";
 import { logout } from "../../redux/actions";
 import { connect } from "react-redux";
 
 class MainHeader extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
   }
-  
-  handleLogout(event){
+
+  handleLogout(event) {
     event.preventDefault();
     this.props.dispatch(logout(this.props.history));
   }
-  
+
   render() {
     return (
       <React.Fragment>
@@ -43,7 +44,7 @@ class MainHeader extends Component {
             <React.Fragment>
               <NavItem className="px-3">
                 <Link to="/cadastro" className="nav-link">
-                Cadastro
+                  Cadastro
                 </Link>
               </NavItem>
               <NavItem className="px-3">
@@ -57,7 +58,7 @@ class MainHeader extends Component {
             <AppHeaderDropdown direction="down">
               <React.Fragment>
                 <DropdownToggle nav className="px-3">
-                  <i className="fa fa-user-circle"/>
+                  <i className="fa fa-user-circle" />
                   {" " + this.props.session.idToken.payload.email}
                 </DropdownToggle>
                 <DropdownMenu right style={{ right: 'auto' }}>

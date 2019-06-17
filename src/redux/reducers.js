@@ -139,10 +139,9 @@ function consumptionMonitorCache(
   }
 }
 
-const rootReducer = () =>
-  combineReducers({
-    auth,
-    consumptionMonitorCache
-  });
+const rootReducer = combineReducers({
+  auth,
+  consumptionMonitorCache
+});
 
 export default rootReducer;
