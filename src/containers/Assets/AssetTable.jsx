@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Row, Col } from "reactstrap";
 import AssetCard from "../../components/Cards/AssetCard";
 
 class AssetTable extends Component {
@@ -10,12 +11,16 @@ class AssetTable extends Component {
   render() {
     return (
       <AssetCard
-        sectionName={'Edifícios'}
+        sectionName={'Edifícios e áreas'}
         sectionDescription={'Endereçamento do Senado Federal'}
         handleCardButton={() => { }}
-        buttonName={'Novo Edifício'}
+        buttonName={'Cadastrar Área'}
       >
-        Teste
+        <Row>
+          <Col md="2">1</Col>
+          <Col md="4">2</Col>
+          <Col md="6">3</Col>
+        </Row>
       </AssetCard>
     );
   }

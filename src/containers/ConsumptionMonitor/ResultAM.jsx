@@ -19,7 +19,7 @@ class ResultAM extends Component {
     const {
       handleNewSearch
     } = this.props;
-    
+
     return (
       <ResultCard
         unitNumber={resultObject.unitNumber}
