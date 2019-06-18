@@ -90,8 +90,8 @@ export default function buildCAESBParamsArr(arr, tableName){
     });
   });
 
-  console.log("attributesArr:");
-  console.log(attributesArr);
+  // console.log("attributesArr:");
+  // console.log(attributesArr);
 
   let maxLength = 25;
   let paramsArr = [];
