@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardBody, Col, Row, Button, CardHeader } from "reactstrap";
+import "./AssetCard.css"
 
 const configIcon = require("../../assets/icons/config_icon.png");
 
@@ -35,20 +36,11 @@ class AssetCard extends Component {
               </div>
             </Col>
             <Col md="4" xs="6" className="container-left">
+              <Button className="ghost-button" onClick={handleCardButton} style={{ width: "auto", height: "38px", padding: "8px 40px" }}>{buttonName}</Button>
               <Button
-                className="text-truncate"
-                block
+                className="ghost-button"
                 outline
-                color="dark"
-                onClick={handleCardButton}
-                style={{ width: "auto", padding: "8px 40px" }}
-              >
-                {buttonName}
-              </Button>
-              <Button
-                color="dark"
-                outline
-                style={{ width: "41px", height: "41px", marginLeft: "20px", padding: "6px" }}
+                style={{ width: "38px", height: "38px", marginLeft: "20px", padding: "6px" }}
               >
                 <img src={configIcon} alt="" style={{ width: "100%", height: "100%" }} />
               </Button>
