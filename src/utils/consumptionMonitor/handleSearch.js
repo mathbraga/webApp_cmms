@@ -5,6 +5,10 @@ import buildResultOM from "./buildResultOM";
 import buildResultOP from "./buildResultOP";
 import buildResultAP from "./buildResultAP";
 import buildResultAM from "./buildResultAM";
+import buildResultOMwater from "./buildResultOMwater";
+import buildResultOPwater from "./buildResultOPwater";
+import buildResultAPwater from "./buildResultAPwater";
+import buildResultAMwater from "./buildResultAMwater";
 
 export default function handleSearch(state) {
   return new Promise((resolve, reject) => {
@@ -45,24 +49,49 @@ export default function handleSearch(state) {
         aammFinal
       ).then(data => {
         
-        // AM case
-        if (chosenMeter === meterType + "99" && oneMonth) {
-          resolve(buildResultAM(data, meterType, meters, chosenMeter, initialDate, finalDate));
-        }
-        
-        // AP case
-        if (chosenMeter === meterType + "99" && !oneMonth) {
-          resolve(buildResultAP(data, meterType, meters, chosenMeter, initialDate, finalDate));
-        }
-        
-        // OM case
-        if (chosenMeter !== meterType + "99" && oneMonth) {
-          resolve(buildResultOM(data, meterType, meters, chosenMeter, initialDate, finalDate));
-        }
+        if(meterType === "1"){ // Energy
+          // AM case
+          if (chosenMeter === meterType + "99" && oneMonth) {
+            resolve(buildResultAM(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          }
+          
+          // AP case
+          if (chosenMeter === meterType + "99" && !oneMonth) {
+            resolve(buildResultAP(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          }
+          
+          // OM case
+          if (chosenMeter !== meterType + "99" && oneMonth) {
+            resolve(buildResultOM(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          }
 
-        // OP case
-        if (chosenMeter !== meterType + "99" && !oneMonth) {
-          resolve(buildResultOP(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          // OP case
+          if (chosenMeter !== meterType + "99" && !oneMonth) {
+            resolve(buildResultOP(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          }
+        } else { // Water
+          
+
+          console.log(data);
+          // AM case
+          // if (chosenMeter === meterType + "99" && oneMonth) {
+          //   resolve(buildResultAMwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          // }
+          
+          // // AP case
+          // if (chosenMeter === meterType + "99" && !oneMonth) {
+          //   resolve(buildResultAPwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          // }
+          
+          // // OM case
+          // if (chosenMeter !== meterType + "99" && oneMonth) {
+          //   resolve(buildResultOMwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          // }
+
+          // // OP case
+          // if (chosenMeter !== meterType + "99" && !oneMonth) {
+          //   resolve(buildResultOPwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          // }
         }
       }).catch((queryErrorMessage) => {
         reject(queryErrorMessage);

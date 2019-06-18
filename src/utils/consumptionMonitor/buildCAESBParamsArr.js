@@ -37,8 +37,8 @@ export default function buildCAESBParamsArr(arr, tableName){
           "med": {
             N: medList[meter[i.med]]
           },
-          "aaaamm": {
-            N: meter[i.aaaamm]
+          "aamm": {
+            N: meter[i.aamm]
           },
           "lat": {
             N: meter[i.lat]

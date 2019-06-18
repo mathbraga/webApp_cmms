@@ -1,6 +1,6 @@
 const i = {
   med: 0,
-  aaaamm: 1,
+  aamm: 1,
   lat: 2,
   dlat: 3,
   lan: 4,
