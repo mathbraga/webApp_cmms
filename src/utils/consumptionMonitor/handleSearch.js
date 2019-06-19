@@ -71,7 +71,6 @@ export default function handleSearch(state) {
           }
         } else { // Water
           
-          console.log(data);
           // AM case
           if (chosenMeter === meterType + "99" && oneMonth) {
             resolve(buildResultAMwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
@@ -83,9 +82,9 @@ export default function handleSearch(state) {
           }
           
           // // OM case
-          // if (chosenMeter !== meterType + "99" && oneMonth) {
-          //   resolve(buildResultOMwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
-          // }
+          if (chosenMeter !== meterType + "99" && oneMonth) {
+            resolve(buildResultOMwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          }
 
           // // OP case
           // if (chosenMeter !== meterType + "99" && !oneMonth) {

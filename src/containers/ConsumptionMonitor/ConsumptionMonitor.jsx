@@ -12,7 +12,7 @@ import ResultOM from "./ResultOM";
 import ResultOP from "./ResultOP";
 import ResultAM from "./ResultAM";
 import ResultAP from "./ResultAP";
-// import ResultOMwater from "./ResultOMwater";
+import ResultOMwater from "./ResultOMwater";
 // import ResultOPwater from "./ResultOPwater";
 import ResultAMwater from "./ResultAMwater";
 import ResultAPwater from "./ResultAPwater";
@@ -196,16 +196,16 @@ class ConsumptionMonitor extends Component {
 
 
 
-            {/* <Route
+            <Route
               path={"/agua/resultados/OM"}
               render={routerProps => (
-                <ResultOM
+                <ResultOMwater
                   {...routerProps}
                   consumptionState={this.state}
                   handleNewSearch={this.showFormDates}
                 />
               )}
-            /> */}
+            />
             {/* <Route
               path={"/agua/resultados/OP"}
               render={routerProps => (

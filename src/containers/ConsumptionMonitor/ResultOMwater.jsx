@@ -1,22 +1,25 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
 import ResultCard from "../../components/Cards/ResultCard";
-// import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
 import WidgetOneColumn from "../../components/Widgets/WidgetOneColumn";
 import WidgetThreeColumns from "../../components/Widgets/WidgetThreeColumns";
-// import ReportListMeters from "../../components/Reports/ReportListMeters";
-import ChartReport from "../../components/Charts/ChartReport";
+// import WidgetWithModal from "../../components/Widgets/WidgetWithModal";
+import ReportOneUnit from "../../components/Reports/ReportOneUnit";
+import ReportInfo from "../../components/Reports/ReportInfo";
+// import ReportCalculations from "../../components/Reports/ReportCalculations";
 
-class ResultAPwater extends Component {
+class ResultOMwater extends Component {
   render() {
 
     const {
-      meters,
+      dbObject,
+      tableName,
       oneMonth,
       chosenMeter,
+      meterType,
       resultObject
     } = this.props.consumptionState;
-
+    
     const {
       handleNewSearch
     } = this.props;
@@ -71,25 +74,36 @@ class ResultAPwater extends Component {
           </Col> */}
         </Row>
         <Row>
-          <Col>
-            <ChartReport
-              unitName={resultObject.unitName}
-              dropdownItems={resultObject.dropdownItems}
-              chartConfigs={resultObject.chartConfigs}
-              title={resultObject.chartReportTitle}
-              titleColSize={resultObject.chartReportTitleColSize}
-              subtitle={resultObject.chartSubtitle}
-              subvalue={resultObject.chartSubvalue}
-              selectedDefault={resultObject.selectedDefault}
+          <Col md="12">
+            <ReportInfo
+              unit={resultObject.unit}
+              rowNamesInfo={resultObject.rowNamesInfo}
             />
           </Col>
+          {/* <Col md="6">
+            <ReportCalculations
+              dbObject={dbObject}
+              tableName={tableName}
+              consumer={chosenMeter}
+              dateString={resultObject.initialDate}
+              data={resultObject.queryResponse}
+              unit={resultObject.unit}
+              type={resultObject.type}
+            />
+          </Col> */}
         </Row>
         <Row>
           <Col>
-            {/* <ReportListMeters
-              meters={meters}
-              nonEmptyMeters={resultObject.nonEmptyMeters}
-            /> */}
+            <ReportOneUnit
+              data={resultObject.queryResponse}
+              dateString={resultObject.dateString}
+              dbObject={dbObject}
+              tableName={tableName}
+              consumer={chosenMeter}
+              date={resultObject.date}
+              meterType={meterType}
+              rowNamesBill={resultObject.rowNamesBill}
+            />
           </Col>
         </Row>
       </ResultCard>
@@ -97,4 +111,4 @@ class ResultAPwater extends Component {
   }
 }
 
-export default ResultAPwater;
+export default ResultOMwater;
