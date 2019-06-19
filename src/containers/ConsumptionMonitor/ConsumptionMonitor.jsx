@@ -15,7 +15,7 @@ import ResultAP from "./ResultAP";
 // import ResultOMwater from "./ResultOMwater";
 // import ResultOPwater from "./ResultOPwater";
 import ResultAMwater from "./ResultAMwater";
-// import ResultAPwater from "./ResultAPwater";
+import ResultAPwater from "./ResultAPwater";
 import { connect } from "react-redux";
 import { Alert } from "reactstrap";
 import { dbTables } from "../../aws";
@@ -226,20 +226,16 @@ class ConsumptionMonitor extends Component {
                 />
               )}
             />
-            {/* <Route
-              path={"/energia/resultados/AP"}
+            <Route
+              path={"/agua/resultados/AP"}
               render={routerProps => (
-                <ResultAP
+                <ResultAPwater
                   {...routerProps}
                   consumptionState={this.state}
                   handleNewSearch={this.showFormDates}
                 />
               )}
-            /> */}
-
-
-
-
+            />
 
 
           </Switch>

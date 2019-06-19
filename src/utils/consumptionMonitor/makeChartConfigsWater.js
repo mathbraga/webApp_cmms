@@ -1,4 +1,4 @@
-export default function makeChartConfigs(queryResponse, aamm1, aamm2) {
+export default function makeChartConfigsWater(queryResponse, aamm1, aamm2) {
   // Inputs:
   // queryResponse (array): response from query to the database
   // aamm1 (string): initialDate in aamm format (compatible with sort key format)
@@ -64,126 +64,58 @@ export default function makeChartConfigs(queryResponse, aamm1, aamm2) {
 
   // Initialize answers array, considering all attributes in EnergyTable
   let answers = {
-    basec: [],
-    confat: [],
-    cip: [],
-    dcf: [],
-    dcp: [],
-    desc: [],
-    dff: [],
-    dfp: [],
-    dmf: [],
-    dmp: [],
-    dms: [],
-    uferf: [],
-    uferp: [],
-    icms: [],
-    jma: [],
-    kwh: [],
-    kwhf: [],
-    kwhp: [],
-    tipo: [],
-    trib: [],
-    vbru: [],
-    vdff: [],
-    vdfp: [],
-    verexf: [],
-    verexp: [],
-    vliq: [],
-    vudf: [],
-    vudp: []
+    dif: [],
+    consm: [],
+    consf: [],
+    vagu: [],
+    vesg: [],
+    adic: [],
+    subtotal: [],
+    cofins: [],
+    irpj: [],
+    csll: [],
+    pasep: []
   };
 
   let helper = {
     datasetLabel: {
-      vbru: "Valor bruto",
-      vliq: "Valor líquido",
-      basec: "Base de cálculo",
-      jma: "Juros, multas e atualizações monetárias",
-      dcf: "Demanda contratada - Fora de ponta",
-      dcp: "Demanda contratada - Ponta",
-      tipo: "Tipo",
-      desc: "Compensações e/ou descontos",
-      trib: "Tributos federais",
-      icms: "ICMS",
-      confat: "Consumo faturado",
-      cip: "Contribuição de iluminação pública - CIP",
-      kwh: "Consumo total",
-      kwhf: "Consumo - Fora de ponta",
-      kwhp: "Consumo - Ponta",
-      uferf: "UFER - Fora de ponta",
-      uferp: "UFER - Ponta",
-      verexf: "Valor EREX - Fora de ponta",
-      verexp: "Valor EREX - Ponta",
-      dmf: "Demanda medida - Fora de ponta",
-      dmp: "Demanda medida - Ponta",
-      dms: "Demanda medida - Diária", // Sum of highest demands
-      dff: "Demanda faturada - Fora de ponta",
-      dfp: "Demanda faturada - Ponta",
-      vdff: "Valor da demanda faturada - Fora de ponta",
-      vdfp: "Valor da demanda faturada - Ponta",
-      vudf: "Valor da ultrapassagem de demanda - Fora de ponta",
-      vudp: "Valor da ultrapassagem de demanda - Ponta"
+      dif: "Diferença de leituras",
+      consm: "Consumo médio",
+      consf: "Consumo faturado",
+      vagu: "Valor água",
+      vesg: "Valor esgoto",
+      adic: "Adicional",
+      subtotal: "Subtotal",
+      cofins: "COFINS",
+      irpj: "IRPJ",
+      csll: "CSLL",
+      pasep: "PASEP"
     },
     title: {
-      vbru: "Valor bruto",
-      vliq: "Valor líquido",
-      basec: "Base de cálculo",
-      jma: "Juros, multas e atualizações monetárias",
-      dcf: "Demanda contratada - Fora de ponta",
-      dcp: "Demanda contratada - Ponta",
-      tipo: "Tipo",
-      desc: "Compensações e/ou descontos",
-      trib: "Tributos federais",
-      icms: "ICMS",
-      confat: "Consumo faturado",
-      cip: "Contribuição de iluminação pública - CIP",
-      kwh: "Consumo total",
-      kwhf: "Consumo - Fora de ponta",
-      kwhp: "Consumo - Ponta",
-      uferf: "UFER - Fora de ponta",
-      uferp: "UFER - Ponta",
-      verexf: "Valor EREX - Fora de ponta",
-      verexp: "Valor EREX - Ponta",
-      dmf: "Demanda medida - Fora de ponta",
-      dmp: "Demanda medida - Ponta",
-      dms: "Demanda medida - Diária",
-      dff: "Demanda faturada - Fora de ponta",
-      dfp: "Demanda faturada - Ponta",
-      vdff: "Valor da demanda faturada - Fora de ponta",
-      vdfp: "Valor da demanda faturada - Ponta",
-      vudf: "Valor da ultrapassagem de demanda - Fora de ponta",
-      vudp: "Valor da ultrapassagem de demanda - Ponta"
+      dif: "Diferença de leituras",
+      consm: "Consumo médio",
+      consf: "Consumo faturado",
+      vagu: "Valor água",
+      vesg: "Valor esgoto",
+      adic: "Adicional",
+      subtotal: "Subtotal",
+      cofins: "COFINS",
+      irpj: "IRPJ",
+      csll: "CSLL",
+      pasep: "PASEP"
     },
     yLabel: {
-      vbru: "R$",
-      vliq: "R$",
-      basec: "R$",
-      jma: "R$",
-      dcf: "kW",
-      dcp: "kW",
-      tipo: "Tipo",
-      desc: "R$",
-      trib: "R$",
-      icms: "R$",
-      cip: "R$",
-      kwh: "kWh",
-      kwhf: "kWh",
-      kwhp: "kWh",
-      confat: "kWh",
-      uferf: "UFER - Fora de ponta",
-      uferp: "UFER - Ponta",
-      verexf: "R$",
-      verexp: "R$",
-      dmf: "kW",
-      dmp: "kW",
-      dms: "kW",
-      dff: "kW",
-      dfp: "kW",
-      vdff: "R$",
-      vdfp: "R$",
-      vudf: "R$",
-      vudp: "R$"
+      dif: "m³",
+      consm: "m³",
+      consf: "m³",
+      vagu: "R$",
+      vesg: "R$",
+      adic: "R$",
+      subtotal: "R$",
+      cofins: "R$",
+      irpj: "R$",
+      csll: "R$",
+      pasep: "R$"
     }
   };
 
@@ -201,14 +133,7 @@ export default function makeChartConfigs(queryResponse, aamm1, aamm2) {
             // Check if 'aamm' corresponds to current loop month. If true, the value is added
             
             Object.keys(answers).forEach(key => {
-              if(key === "dms"){
-                answers[key][i] = answers[key][i] + (
-                  queryResponse[j].Items[k].dmf > queryResponse[j].Items[k].dmp
-                    ? queryResponse[j].Items[k].dmf
-                    : queryResponse[j].Items[k].dmp);
-              } else {
-                answers[key][i] = answers[key][i] + queryResponse[j].Items[k][key]
-              }
+              answers[key][i] = answers[key][i] + queryResponse[j].Items[k][key]
             });
           }
         }
