@@ -3,7 +3,7 @@ import dateWithFourDigits from "./dateWithFourDigits";
 import formatNumber from "./formatText";
 import applyFuncToAttr from "./objectOperations";
 import getMeterTypeText from "./getMeterTypeText";
-import makeChartConfigs from "./makeChartConfigs";
+import makeChartConfigsWater from "./makeChartConfigsWater";
 
 export default function buildResultOPwater(data, meterType, meters, chosenMeter, initialDate, finalDate){
 
@@ -11,66 +11,60 @@ export default function buildResultOPwater(data, meterType, meters, chosenMeter,
 
   resultObject.newLocation = {
     hash: "",
-    pathname: "/energia/resultados/OP",
+    pathname: "/agua/resultados/OP",
     search: "",
     state: {}
   };
 
-  resultObject.chartConfigs = makeChartConfigs(data, dateWithFourDigits(initialDate), dateWithFourDigits(finalDate), meterType);
+  resultObject.chartConfigs = makeChartConfigsWater(data, dateWithFourDigits(initialDate), dateWithFourDigits(finalDate));
 
   resultObject.queryResponse = data[0].Items;
 
   const { Items } = data[0];
 
-  resultObject.totalKWh = applyFuncToAttr(Items, "kwh", (...values) =>
+  resultObject.totalConsf = applyFuncToAttr(Items, "consf", (...values) =>
     values.reduce((previous, current) => (current += previous))
   );
 
-  resultObject.totalVbru = applyFuncToAttr(Items, "vbru", (...values) =>
+  resultObject.totalSubtotal = applyFuncToAttr(Items, "subtotal", (...values) =>
     values.reduce((previous, current) => (current += previous))
   );
 
-  resultObject.demMax = Math.max(
-    applyFuncToAttr(Items, "dmf", Math.max),
-    applyFuncToAttr(Items, "dmp", Math.max)
+  resultObject.consfMax = Math.max(
+    applyFuncToAttr(Items, "consf", Math.max)
   );
 
-  resultObject.demMinFP = applyFuncToAttr(Items, "dmf", Math.min);
-
-  resultObject.demMinP = applyFuncToAttr(Items, "dmp", Math.min);
+  resultObject.consfMin = applyFuncToAttr(Items, "consf", Math.min);
 
   resultObject.demMin = 0;
 
-  if (resultObject.demMinFP === 0) {
-    resultObject.demMin = resultObject.demMinP;
-  } else if (resultObject.demMinP === 0) {
-    resultObject.demMin = resultObject.demMinFP;
-  } else resultObject.demMin = Math.min(resultObject.demMinFP, resultObject.demMinP);
+  // if (resultObject.demMinFP === 0) {
+  //   resultObject.demMin = resultObject.demMinP;
+  // } else if (resultObject.demMinP === 0) {
+  //   resultObject.demMin = resultObject.demMinFP;
+  // } else resultObject.demMin = Math.min(resultObject.demMinFP, resultObject.demMinP);
 
-  resultObject.consMax = applyFuncToAttr(Items, "kwh", Math.max);
-
-  resultObject.consMin = applyFuncToAttr(Items, "kwh", Math.min);
-
-  resultObject.erexSum = applyFuncToAttr(Items, "verexf", (...values) =>
+  resultObject.vaguSum = applyFuncToAttr(Items, "vagu", (...values) =>
     values.reduce((previous, current) => (current += previous))
   );
 
-  resultObject.erexSum += applyFuncToAttr(Items, "verexp", (...values) =>
+  resultObject.vesgSum += applyFuncToAttr(Items, "vesg", (...values) =>
     values.reduce((previous, current) => (current += previous))
   );
 
-  resultObject.multaSum = applyFuncToAttr(Items, "jma", (...values) =>
+  resultObject.adicSum = applyFuncToAttr(Items, "adic", (...values) =>
     values.reduce((previous, current) => (current += previous))
   );
 
-  resultObject.lastType = false;
-  Items.forEach(item => {
-    let lastDate = false;
-    if (lastDate || item.aamm > lastDate) {
-      lastDate = item.aamm;
-      resultObject.lastType = item.tipo;
-    }
-  });
+  resultObject.lastType = 0;
+  
+  // Items.forEach(item => {
+  //   let lastDate = false;
+  //   if (lastDate || item.aamm > lastDate) {
+  //     lastDate = item.aamm;
+  //     resultObject.lastType = item.tipo;
+  //   }
+  // });
 
   meters.forEach(meter => {
     if((parseInt(meter.med.N) + 100*parseInt(meter.tipomed.N)) === parseInt(chosenMeter)){
@@ -90,95 +84,73 @@ export default function buildResultOPwater(data, meterType, meters, chosenMeter,
 
   resultObject.dateString = transformDateString(applyFuncToAttr(resultObject.queryResponse, "aamm", Math.max));
 
-  resultObject.typeText = getMeterTypeText(resultObject.lastType);
+  resultObject.typeText = "Medidor - CAESB";
 
-  resultObject.imageWidgetOneColumn = require("../../assets/icons/money_energy.png");
+  resultObject.imageWidgetOneColumn = require("../../assets/icons/alert_icon.png");
 
-  resultObject.imageWidgetThreeColumns = require("../../assets/icons/plug_energy.png");
+  resultObject.imageWidgetThreeColumns = require("../../assets/icons/alert_icon.png");
 
   resultObject.imageWidgetWithModal = require("../../assets/icons/alert_icon.png");
 
   resultObject.widgetOneColumnFirstTitle = "Consumo";
 
-  resultObject.widgetOneColumnFirstValue = formatNumber(resultObject.totalKWh, 0) + " kWh";
+  resultObject.widgetOneColumnFirstValue = formatNumber(resultObject.totalConsf, 0) + " m³";
 
   resultObject.widgetOneColumnSecondTitle = "Gasto";
 
-  resultObject.widgetOneColumnSecondValue = "R$ " + formatNumber(resultObject.totalVbru, 2);
+  resultObject.widgetOneColumnSecondValue = "R$ " + formatNumber(resultObject.totalSubtotal, 2);
 
   resultObject.widgetThreeColumnsTitles = [
-    "Dem. máx.",
-    "Dem. mín.",
-    "Cons. máx.",
-    "Cons. mín.",
-    "EREX",
-    "Multas"
+    "Consumo faturado mínimo",
+    "Consumo faturado máximo",
+    "Total de adicionais",
+    "Total água",
+    "Total esgoto",
+    "Total"
   ];
   resultObject.widgetThreeColumnsValues = [
-    formatNumber(resultObject.demMax, 0) + " kW",
-    formatNumber(resultObject.demMin, 0) + " kW",
-    formatNumber(resultObject.consMax, 0) + " kWh",
-    formatNumber(resultObject.consMin, 0) + " kWh",
-    "R$ " + formatNumber(resultObject.erexSum, 2),
-    "R$ " + formatNumber(resultObject.multaSum, 2)
+    formatNumber(resultObject.consfMax, 0) + " m³",
+    formatNumber(resultObject.consfMin, 0) + " m³",
+    "R$ " + formatNumber(resultObject.adicSum, 2),
+    "R$ " + formatNumber(resultObject.vaguSum, 2),
+    "R$ " + formatNumber(resultObject.vesgSum, 2),
+    "R$ " + formatNumber(resultObject.totalSubtotal, 2)
   ];
 
-  resultObject.widgetWithModalTitle = "Diagnóstico";
+  // resultObject.widgetWithModalTitle = "Diagnóstico";
 
-  resultObject.widgetWithModalButtonName = "Ver relatório";
+  // resultObject.widgetWithModalButtonName = "Ver relatório";
 
-  resultObject.rowNamesReportProblems = false;
+  // resultObject.rowNamesReportProblems = false;
 
-  resultObject.problems = false;
+  // resultObject.problems = false;
 
-  resultObject.numProblems = false;
+  // resultObject.numProblems = false;
 
   resultObject.rowNamesInfo = [
-    { name: "Identificação CEB", attr: "id" },
+    { name: "Identificação CAESB", attr: "id" },
     { name: "Nome do medidor", attr: "nome" },
     { name: "Contrato", attr: "ct" },
-    { name: "Classe", attr: "classe" },
-    { name: "Subclasse", attr: "subclasse" },
-    { name: "Grupo", attr: "grupo" },
-    { name: "Subgrupo", attr: "subgrupo" },
-    { name: "Ligação", attr: "lig" },
-    { name: "Modalidade tarifária", attr: "modtar" },
+    { name: "Categoria", attr: "cat" },
+    { name: "Hidrômetro", attr: "hidrom" },
     { name: "Locais", attr: "locais" },
-    { name: "Demanda contratada (FP/P)", attr: "dem" },
     { name: "Observações", attr: "obs" }
   ];
 
   resultObject.type = resultObject.queryResponse[resultObject.queryResponse.length - 1].tipo;
 
   resultObject.itemsForChart = [
-    "vbru",
-    "vliq",
-    "cip",
-    "desc",
-    "jma",
-    "kwh",
-    "confat",
-    "kwhf",
-    "kwhp",
-    "dms",
-    "dmf",
-    "dmp",
-    "dcf",
-    "dcp",
-    "dff",
-    "dfp",
-    "vdff",
-    "vdfp",
-    "vudf",
-    "vudp",
-    "tipo",
-    "verexf",
-    "verexp",
-    "uferf",
-    "uferp",
-    "trib",
-    "icms",
-    "basec"
+    "dif",
+    "consm",
+    "consf",
+    "vagu",
+    "vesg",
+    "adic",
+    "subtotal",
+    "cofins",
+    "irpj",
+    "csll",
+    "pasep"
   ];
 
   resultObject.dropdownItems = {};
@@ -195,7 +167,7 @@ export default function buildResultOPwater(data, meterType, meters, chosenMeter,
 
   resultObject.chartSubvalue = resultObject.unitName;
 
-  resultObject.selectedDefault = "vbru";
+  resultObject.selectedDefault = "subtotal";
 
   return resultObject;
 

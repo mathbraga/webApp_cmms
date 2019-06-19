@@ -13,7 +13,7 @@ import ResultOP from "./ResultOP";
 import ResultAM from "./ResultAM";
 import ResultAP from "./ResultAP";
 import ResultOMwater from "./ResultOMwater";
-// import ResultOPwater from "./ResultOPwater";
+import ResultOPwater from "./ResultOPwater";
 import ResultAMwater from "./ResultAMwater";
 import ResultAPwater from "./ResultAPwater";
 import { connect } from "react-redux";
@@ -206,16 +206,16 @@ class ConsumptionMonitor extends Component {
                 />
               )}
             />
-            {/* <Route
+            <Route
               path={"/agua/resultados/OP"}
               render={routerProps => (
-                <ResultOP
+                <ResultOPwater
                   {...routerProps}
                   consumptionState={this.state}
                   handleNewSearch={this.showFormDates}
                 />
               )}
-            /> */}
+            />
             <Route
               path={"/agua/resultados/AM"}
               render={routerProps => (

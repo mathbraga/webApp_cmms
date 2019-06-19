@@ -16,7 +16,7 @@ export default function buildResultOP(data, meterType, meters, chosenMeter, init
     state: {}
   };
 
-  resultObject.chartConfigs = makeChartConfigs(data, dateWithFourDigits(initialDate), dateWithFourDigits(finalDate), meterType);
+  resultObject.chartConfigs = makeChartConfigs(data, dateWithFourDigits(initialDate), dateWithFourDigits(finalDate));
 
   resultObject.queryResponse = data[0].Items;
 
