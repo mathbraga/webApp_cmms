@@ -24,7 +24,7 @@ class AssetCard extends Component {
     } = this.props;
 
     return (
-      <Card>
+      <Card >
         <CardHeader>
           <Row>
             <Col md="8" xs="6">

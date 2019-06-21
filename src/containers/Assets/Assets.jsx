@@ -9,15 +9,7 @@ import { connect } from "react-redux";
 class Assets extends Component {
   render() {
     return (
-      <React.Fragment>
-        <AssetTable />
-        <FileInput
-          tableName={"Locais-SF"}
-          dbObject={initializeDynamoDB(this.props.session)}
-          readFile={textToArrayFacility}
-          buildParamsArr={buildFacilitiesParamsArr}
-        />
-      </React.Fragment>
+      <AssetTable />
     )
   }
 }
