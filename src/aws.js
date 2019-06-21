@@ -30,5 +30,8 @@ export const dbTables = {
     meterType: "2",
     readFile: textToArrayCM,
     buildParamsArr: buildCAESBParamsArr
+  },
+  facility: {
+    tableName: "Locais-SF"
   }
 };
