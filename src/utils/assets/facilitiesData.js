@@ -5,7 +5,7 @@ const i = {
   visita: 3,
   latitude: 4,
   longitude: 5,
-  gps: 6
+  areaconst: 6
 };
 
 export { i };
