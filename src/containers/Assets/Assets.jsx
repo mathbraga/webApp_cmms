@@ -4,7 +4,7 @@ import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoD
 import textToArrayFacility from "../../utils/assets/textToArrayFacility";
 import buildFacilitiesParamsArr from "../../utils/assets/buildFacilitiesParamsArr";
 import { connect } from "react-redux";
-import getAllAssets from "../../utils/assets/getAllAssets";
+import getAllFacilities from "../../utils/assets/getAllFacilities";
 import { dbTables } from "../../aws";
 
 class Assets extends Component {
@@ -18,11 +18,12 @@ class Assets extends Component {
   }
 
   componentDidMount = () => {
-    getAllAssets(this.state.dbObject, this.state.tableName)
+    getAllFacilities(this.state.dbObject, this.state.tableName)
     .then(assets => {
       this.setState({
         assets: assets
       });
+      console.log(assets);
     })
     .catch(() =>{
       console.log("HOUVE UM PROBLEMA.")

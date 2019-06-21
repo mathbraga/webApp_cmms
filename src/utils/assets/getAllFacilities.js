@@ -1,4 +1,5 @@
-export default function getAllAssets(dbObject, tableName){
+
+export default function getAllFacilities(dbObject, tableName){
   return new Promise((resolve, reject) => {
     dbObject.scan(
       {
@@ -9,7 +10,6 @@ export default function getAllAssets(dbObject, tableName){
           reject();
         } else {
           resolve(data);
-          console.log(data);
         }
       }
     );
