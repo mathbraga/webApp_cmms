@@ -33,5 +33,8 @@ export const dbTables = {
   },
   facility: {
     tableName: "Locais-SF"
+  },
+  impact: {
+    tableName: "AcaoImpactante"
   }
 };

@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody } from "reactstrap";
+import FormAddImpact from "../../components/Forms/FormAddImpact";
 
 class Dashboard extends Component {
   render() {
     return (
       <React.Fragment>
+
+        <FormAddImpact/>
+
         <div className="flex-row align-items-center">
           <Container>
             <Row className="justify-content-center">
