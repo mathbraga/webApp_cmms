@@ -3,15 +3,21 @@ import FileInput from "../../components/FileInputs/FileInput";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 import textToArrayFacility from "../../utils/assets/textToArrayFacility";
 import buildFacilitiesParamsArr from "../../utils/assets/buildFacilitiesParamsArr";
-import AssetTable from "./AssetTable";
+import EquipmentList from "./EquipmentList";
 import { connect } from "react-redux";
 import getAllFacilities from "../../utils/assets/getAllFacilities";
 import { dbTables } from "../../aws";
+import { locationItems, equipmentItems } from "./AssetsFakeData";
+import { Switch, Route } from "react-router-dom";
 
 class Assets extends Component {
   render() {
     return (
-      <AssetTable />
+      <Switch>
+        <Route path="/ativos/todos" render={routeProps => <React.Fragment />} />
+        <Route path="/ativos/edificios" render={routeProps => <EquipmentList />} />
+        <Route path="/ativos/equipamentos" render={routeProps => <React.Fragment />} />
+      </Switch>
     )
   }
 }

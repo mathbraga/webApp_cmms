@@ -16,7 +16,9 @@ const routes = [
   { path: "/cadastro", name: "Cadastro", component: SignUp },
   { path: "/energia", name: "Energia elétrica", component: ConsumptionMonitor },
   { path: "/agua", name: "Água", component: ConsumptionMonitor },
-  { path: "/ativos", name: "Ativos", component: Assets },
+  { path: "/ativos/todos", name: "Ativos", component: Assets },
+  { path: "/ativos/edificios", name: "Ativos", component: Assets },
+  { path: "/ativos/equipamentos", name: "Ativos", component: Assets },
   { path: "/os", name: "Ordens de serviços", component: WorkOrder }
 ];
 
