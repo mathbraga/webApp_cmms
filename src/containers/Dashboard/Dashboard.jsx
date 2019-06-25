@@ -23,7 +23,8 @@ class Dashboard extends Component {
                     <div className="text-muted text-justify">
                       <p>
                         Este portal dá acesso ao sistema de gestão de manutenção da
-                        Secretaria de Infraestrutura do Senado Federal.
+                        Secretaria de Infraestrutura do Senado Federal. Para uma melhor
+                        experiência, utilize a versão mais atual do navegador Chrome.
                         {/* {" "}
                         <a
                           href="https://en.wikipedia.org/wiki/Computerized_maintenance_management_system"
