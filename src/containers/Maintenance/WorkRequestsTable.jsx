@@ -5,6 +5,7 @@ class WorkRequestsTable extends Component {
   render() {
 
     let {
+      tableConfig,
       items
     } = this.props;
 
@@ -33,21 +34,18 @@ class WorkRequestsTable extends Component {
         </CardHeader>
         <CardBody>
           <table>
+
             <tr>
-              <th>id</th>
-              <th>selected service</th>
-              <th>local</th>
-              <th>creation date</th>
-              <th>last update</th>
+              {tableConfig.map(row => (
+                <th>{row.name}</th>
+              ))}
             </tr>
 
             {items.map(item => (
               <tr>
-                <td>{item.id}</td>
-                <td>{item.selectedService}</td>
-                <td>{item.local}</td>
-                <td>{item.creationDate}</td>
-                <td>{item.lastUpdate}</td>
+                {tableConfig.map(row => (
+                  <td>{item[row.key]}</td>
+                ))}
               </tr>
             ))}
 

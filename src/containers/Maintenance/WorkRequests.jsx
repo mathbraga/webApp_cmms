@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+import TableItems from "../../components/Tables/Table";
 import WorkRequestsTable from "./WorkRequestsTable";
-import { fakeRequests } from "./fakeRequests";
+import { fakeWorkRequests } from "./fakeWorkRequests";
 
 class WorkRequests extends Component {
   render() {
@@ -12,8 +13,14 @@ class WorkRequests extends Component {
           render={routerProps => (
             <WorkRequestsTable
               {...routerProps}
-              items={fakeRequests}
+              tableConfig={fakeWorkRequests.tableConfig}
+              items={fakeWorkRequests.items}
             />
+            // <TableItems
+            //   {...routerProps}
+            //   tableConfig={fakeWorkRequests.tableConfig}
+            //   items={fakeWorkRequests.items}
+            // />
           )}
         />
 
