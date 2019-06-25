@@ -201,20 +201,6 @@ class NewWorkRequestForm extends Component {
 
             <InputGroup className="mb-3">
               <Label
-              >Serviço selecionado:
-              </Label>
-              <Input
-                autoFocus
-                type="text"
-                id=""
-                name=""
-                placeholder=""
-                onChange={()=>{}}
-              />
-            </InputGroup>
-
-            <InputGroup className="mb-3">
-              <Label
               >Breve descrição do serviço solicitado:
               </Label>
               <Input
