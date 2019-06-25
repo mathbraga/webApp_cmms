@@ -26,33 +26,11 @@ export default {
       name: "Ativos",
       url: "/ativos/todos",
       icon: "icon-speedometer",
-      // children: [
-      //   {
-      //     name: "Todos",
-      //     url: "/ativos/todos",
-      //     icon: "icon-drop"
-      //   },
-      //   {
-      //     name: "Edifícios e áreas",
-      //     url: "/ativos/edificios",
-      //     icon: "icon-drop"
-      //   },
-      //   {
-      //     name: "Equipamentos",
-      //     url: "/ativos/equipamentos",
-      //     icon: "icon-drop"
-      //   },
-      //   {
-      //     name: "Ferramentas",
-      //     url: "/ativos/ferramentas",
-      //     icon: "icon-drop"
-      //   },
-      //   {
-      //     name: "Materiais",
-      //     url: "/ativos/materiais",
-      //     icon: "icon-drop"
-      //   }
-      // ]
-    }
+    },
+    {
+      name: "Ordens de serviços",
+      url: "/os",
+      icon: "icon-speedometer",
+    },
   ]
 };
