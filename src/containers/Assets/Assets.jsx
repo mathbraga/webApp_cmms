@@ -5,6 +5,7 @@ import textToArrayFacility from "../../utils/assets/textToArrayFacility";
 import buildFacilitiesParamsArr from "../../utils/assets/buildFacilitiesParamsArr";
 import FacilitiesList from "./FacilitiesList";
 import EquipmentsList from "./EquipmentsList";
+import AssetInfo from "./AssetInfo";
 import { connect } from "react-redux";
 import getAllFacilities from "../../utils/assets/getAllFacilities";
 import { dbTables } from "../../aws";
@@ -14,10 +15,11 @@ import { Switch, Route } from "react-router-dom";
 class Assets extends Component {
   render() {
     return (
-      <Switch>
-        <Route path="/ativos/edificios" render={routeProps => <FacilitiesList />} />
-        <Route path="/ativos/equipamentos" render={routeProps => <EquipmentsList />} />
-      </Switch>
+      <AssetInfo />
+      // <Switch>
+      //   <Route path="/ativos/edificios" render={routeProps => <FacilitiesList />} />
+      //   <Route path="/ativos/equipamentos" render={routeProps => <EquipmentsList />} />
+      // </Switch>
     )
   }
 }
