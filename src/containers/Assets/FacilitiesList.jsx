@@ -58,7 +58,7 @@ class FacilitiesList extends Component {
         handleCardButton={() => { }}
         buttonName={'Cadastrar Área'}
       >
-        <Row style={{ marginTop: "10px", marginBottom: "15px" }}>
+        <Row style={{ marginTop: "10px", marginBottom: "5px" }}>
           <Col md="2">
             <Button
               color="dark"

@@ -12,13 +12,14 @@ const listItem = require("../../assets/icons/list_icon.png");
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const mapIcon = require("../../assets/icons/map.png");
+const headerConfig = equipmentConfig;
 
 const Thead =
   <tr>
     <th className="text-center checkbox-cell">
       <CustomInput type="checkbox" />
     </th>
-    {equipmentConfig.map(column => (
+    {headerConfig.map(column => (
       <th style={column.style} className={column.className}>{column.name}</th>))
     }
   </tr>
@@ -56,7 +57,7 @@ class FacilitiesList extends Component {
         handleCardButton={() => { }}
         buttonName={'Cadastrar Equipamento'}
       >
-        <Row style={{ marginTop: "10px", marginBottom: "15px" }}>
+        <Row style={{ marginTop: "10px", marginBottom: "5px" }}>
           <Col md="2">
             <Button
               color="dark"
