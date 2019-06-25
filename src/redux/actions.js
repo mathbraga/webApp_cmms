@@ -21,70 +21,68 @@ export const CLEAN_CACHE = "CLEAN_CACHE";
 // OTHER CONSTANTS DECLARATIONS
 
 // Action creators
-function loginRequest(){
+function loginRequest() {
   return {
-    type: LOGIN_REQUEST,
-  }
+    type: LOGIN_REQUEST
+  };
 }
 
-function loginSuccess(userSession){
+function loginSuccess(userSession) {
   return {
     type: LOGIN_SUCCESS,
     session: userSession
-  }
+  };
 }
 
-function loginFailure(){
+function loginFailure() {
   return {
-    type: LOGIN_FAILURE,
-  }
+    type: LOGIN_FAILURE
+  };
 }
 
-export function login(email, password, history){
+export function login(email, password, history) {
   return dispatch => {
     dispatch(loginRequest());
-    return loginCognito(email, password)
-    .then(session => {
-      if(session){
+    return loginCognito(email, password).then(session => {
+      if (session) {
         dispatch(loginSuccess(session));
         history.push("/painel");
       } else {
         dispatch(loginFailure());
       }
     });
-  }
+  };
 }
 
-function logoutRequest(){
+function logoutRequest() {
   return {
     type: LOGOUT_REQUEST
-  }
+  };
 }
 
-function logoutSuccess(){
+function logoutSuccess() {
   return {
     type: LOGOUT_SUCCESS
-  }
+  };
 }
 
-function logoutFailure(){
+function logoutFailure() {
   return {
     type: LOGOUT_FAILURE
-  }
+  };
 }
 
-function cleanCache(){
+function cleanCache() {
   return {
     type: CLEAN_CACHE
-  }
+  };
 }
 
-export function logout(history){
+export function logout(history) {
   return (dispatch, getState) => {
     dispatch(logoutRequest());
-    return logoutCognito(getState().auth.session)
-    .then(logoutResponse => {
-      if(logoutResponse){
+    return logoutCognito(getState().auth.session).then(logoutResponse => {
+      if (logoutResponse) {
         dispatch(logoutSuccess());
         dispatch(cleanCache());
         history.push("/login");
@@ -92,68 +90,68 @@ export function logout(history){
         dispatch(logoutFailure());
       }
     });
-  }
+  };
 }
 
-function queryRequest(){
+function queryRequest() {
   return {
     type: QUERY_REQUEST
-  }
+  };
 }
 
-function querySuccess(resultObject){
+function querySuccess(resultObject) {
   return {
     type: QUERY_SUCCESS,
     resultObject: resultObject
-  }
+  };
 }
 
-function queryFailure(message){
+function queryFailure(message) {
   return {
     type: QUERY_FAILURE,
     message: message
-  }
+  };
 }
 
-export function queryReset(){
+export function queryReset() {
   return {
     type: QUERY_RESET
-  }
+  };
 }
 
-export function query(awsData, state){
-  return (dispatch => {
+export function query(awsData, state) {
+  return dispatch => {
     dispatch(queryRequest());
     return handleSearch(awsData, state)
-    .then(resultObject => {
-      dispatch(querySuccess(resultObject));
-    })
-    .catch(message => {
-      dispatch(queryFailure(message));
-    });
-  });
+      .then(resultObject => {
+        dispatch(querySuccess(resultObject));
+      })
+      .catch(message => {
+        dispatch(queryFailure(message));
+      });
+  };
 }
 
-function cacheEnergy(state){
+function cacheEnergy(state) {
   return {
     type: SAVE_SEARCH_RESULT_ENERGY,
     energy: state
-  }
+  };
 }
 
-function cacheWater(state){
+function cacheWater(state) {
   return {
     type: SAVE_SEARCH_RESULT_WATER,
     water: state
-  }
+  };
 }
 
-export function saveSearchResult(state, monitor){
-  return (dispatch => {
-    if(monitor === "energy"){
-      return dispatch(cacheEnergy(state))
-    } else if(monitor === "water"){
-      return dispatch(cacheWater(state))
+export function saveSearchResult(state, monitor) {
+  return dispatch => {
+    if (monitor === "energy") {
+      return dispatch(cacheEnergy(state));
+    } else if (monitor === "water") {
+      return dispatch(cacheWater(state));
     }
-  });
+  };
 }
