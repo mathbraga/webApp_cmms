@@ -97,9 +97,10 @@ class WorkRequestForm extends Component {
 
             <InputGroup className="mb-3">
               <Label
-              >Descrição:
+              >Breve descrição do serviço solicitado:
               </Label>
               <Input
+                autoFocus
                 type="text"
                 id="description"
                 name="description"
@@ -107,6 +108,33 @@ class WorkRequestForm extends Component {
                 onChange={this.handleInput}
               />
             </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >Detalhamento e justificativa para a realização do serviço:
+              </Label>
+              <Input
+                type="text"
+                id="details"
+                name="details"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >Anexar arquivos a esta solicitação (opcional):
+              </Label>
+              <Input
+                type="text"
+                id="files"
+                name="files"
+                placeholder=""
+              />
+            </InputGroup>
+
+
 
             <InputGroup className="mb-3">
               <Label
