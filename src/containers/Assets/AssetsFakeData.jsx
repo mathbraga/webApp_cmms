@@ -17,17 +17,17 @@ export const locationItems = [
 ];
 
 export const equipmentItems = [
-  { id: "ICA-ASD-120", equipment: "Quadro Elétrico", manufacturer: "Tigre", model: "BO823F", category: "Elétrico", maintenance: "CT 12/2019", location: "" },
-  { id: "ACK-SAD-324", equipment: "Ar Condicionado", manufacturer: "Midea", model: "AS4302F", category: "Mecânico", maintenance: "CT 19/2018" },
-  { id: "SCS-ADF-421", equipment: "Cortina", manufacturer: "Bella Janela", model: "ASD65F", category: "Civil", maintenance: "CT 22/2017" },
-  { id: "ASC-FJF-523", equipment: "Nobreak", manufacturer: "Engetron", model: "ASD546F", category: "Elétrico", maintenance: "CT 12/2019" },
-  { id: "SFL-FSD-123", equipment: "Quadro Elétrico", manufacturer: "Tigre", model: "ASD561F", category: "Elétrico", maintenance: "CT 12/2019" },
-  { id: "OJU-LDJ-098", equipment: "Nobreak", manufacturer: "Engetron", model: "WER654", category: "Elétrico", maintenance: "CT 12/2019" },
-  { id: "VJF-JFD-301", equipment: "Ar Condicionado", manufacturer: "Carrier", model: "GDF6351", category: "Mecânico", maintenance: "CT 19/2018" },
-  { id: "FJA-FKF-109", equipment: "Luminária", manufacturer: "Schneider", model: "WREW654", category: "Elétrico", maintenance: "CT 12/2019" },
-  { id: "OJU-LDJ-098", equipment: "Nobreak", manufacturer: "Engetron", model: "WER654", category: "Elétrico", maintenance: "CT 12/2019" },
-  { id: "VJF-JFD-301", equipment: "Ar Condicionado", manufacturer: "Carrier", model: "GDF6351", category: "Mecânico", maintenance: "CT 19/2018" },
-  { id: "FJA-FKF-109", equipment: "Luminária", manufacturer: "Schneider", model: "WREW654", category: "Elétrico", maintenance: "CT 12/2019" },
+  { id: "ICA-ASD-120", equipment: "Quadro Elétrico", manufacturer: "Tigre", model: "BO823F", category: "Elétrico", maintenance: "CT 12/2019", location: "Edifício Principal" },
+  { id: "ACK-SAD-324", equipment: "Ar Condicionado", manufacturer: "Midea", model: "AS4302F", category: "Mecânico", maintenance: "CT 19/2018", location: "Edifício Principal" },
+  { id: "SCS-ADF-421", equipment: "Cortina", manufacturer: "Bella Janela", model: "ASD65F", category: "Civil", maintenance: "CT 22/2017", location: "Edifício Principal" },
+  { id: "ASC-FJF-523", equipment: "Nobreak", manufacturer: "Engetron", model: "ASD546F", category: "Elétrico", maintenance: "CT 12/2019", location: "Edifício Principal" },
+  { id: "SFL-FSD-123", equipment: "Quadro Elétrico", manufacturer: "Tigre", model: "ASD561F", category: "Elétrico", maintenance: "CT 12/2019", location: "Edifício Principal" },
+  { id: "OJU-LDJ-098", equipment: "Nobreak", manufacturer: "Engetron", model: "WER654", category: "Elétrico", maintenance: "CT 12/2019", location: "Edifício Principal" },
+  { id: "VJF-JFD-301", equipment: "Ar Condicionado", manufacturer: "Carrier", model: "GDF6351", category: "Mecânico", maintenance: "CT 19/2018", location: "Edifício Principal" },
+  { id: "FJA-FKF-109", equipment: "Luminária", manufacturer: "Schneider", model: "WREW654", category: "Elétrico", maintenance: "CT 12/2019", location: "Edifício Principal" },
+  { id: "OJU-LDJ-098", equipment: "Nobreak", manufacturer: "Engetron", model: "WER654", category: "Elétrico", maintenance: "CT 12/2019", location: "Edifício Principal" },
+  { id: "VJF-JFD-301", equipment: "Ar Condicionado", manufacturer: "Carrier", model: "GDF6351", category: "Mecânico", maintenance: "CT 19/2018", location: "Edifício Principal" },
+  { id: "FJA-FKF-109", equipment: "Luminária", manufacturer: "Schneider", model: "WREW654", category: "Elétrico", maintenance: "CT 12/2019", location: "Edifício Principal" },
 ];
 
 export const locationConfig = [
@@ -39,17 +39,9 @@ export const locationConfig = [
 ];
 
 export const equipmentConfig = [
-  { name: "Equipment", style: { width: "400px" }, className: "" },
-  { name: "manufacturer", style: { width: "200px" }, className: "text-center" },
-  { name: "model", style: { width: "150px" }, className: "text-center" },
-  { name: "Área", style: { width: "150px" }, className: "text-center" },
-  { name: "Planta", style: { width: "100%" }, className: "text-center" },
-];
-
-export const allConfig = [
-  { name: "Localização", style: { width: "400px" }, className: "" },
-  { name: "Código", style: { width: "200px" }, className: "text-center" },
-  { name: "Visitação", style: { width: "150px" }, className: "text-center" },
-  { name: "Área", style: { width: "150px" }, className: "text-center" },
-  { name: "Planta", style: { width: "100%" }, className: "text-center" },
+  { name: "Equipamento", style: { width: "400px" }, className: "" },
+  { name: "Fabricante", style: { width: "200px" }, className: "text-center" },
+  { name: "Modelo", style: { width: "150px" }, className: "text-center" },
+  { name: "Categoria", style: { width: "150px" }, className: "text-center" },
+  { name: "Localização", style: { width: "100%" }, className: "text-center" },
 ];

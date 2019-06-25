@@ -28,11 +28,6 @@ export default {
       icon: "icon-speedometer",
       children: [
         {
-          name: "Todos",
-          url: "/ativos/todos",
-          icon: "icon-speedometer"
-        },
-        {
           name: "Edifícios",
           url: "/ativos/edificios",
           icon: "icon-speedometer"

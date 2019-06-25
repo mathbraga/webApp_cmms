@@ -3,7 +3,7 @@ import { Row, Col, Button, } from "reactstrap";
 import TableItems from "../../components/Tables/Table";
 import AssetCard from "../../components/Cards/AssetCard";
 import { Badge, CustomInput } from "reactstrap";
-import "./EquipmentList.css";
+import "./List.css";
 
 import { locationItems, locationConfig } from "./AssetsFakeData";
 
@@ -44,7 +44,7 @@ const Tbody = locationItems.map(item => (
     </td>
   </tr>))
 
-class EquipmentList extends Component {
+class FacilitiesList extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -93,7 +93,7 @@ class EquipmentList extends Component {
         </Row>
         <Row>
           <Col>
-            <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: "10px", margin: "5px 5px" }}>Página 10 de 10</div>
+            <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: "10px", margin: "5px 5px" }}>Página 1 de 1</div>
           </Col>
         </Row>
         <Row>
@@ -109,4 +109,4 @@ class EquipmentList extends Component {
   }
 }
 
-export default EquipmentList;
+export default FacilitiesList;
