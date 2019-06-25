@@ -51,10 +51,10 @@ class FacilitiesList extends Component {
   render() {
     return (
       <AssetCard
-        sectionName={'Edifícios e áreas'}
-        sectionDescription={'Endereçamento do Senado Federal'}
+        sectionName={'Equipamentos'}
+        sectionDescription={'Lista de equipamentos de engeharia'}
         handleCardButton={() => { }}
-        buttonName={'Cadastrar Área'}
+        buttonName={'Cadastrar Equipamento'}
       >
         <Row style={{ marginTop: "10px", marginBottom: "15px" }}>
           <Col md="2">
