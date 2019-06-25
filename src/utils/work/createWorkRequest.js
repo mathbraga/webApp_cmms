@@ -1,10 +1,7 @@
 import dateToNum from "./dateToNum";
 
-export default function addImpact(state){
+export default function createWorkRequest(state){
   return new Promise((resolve, reject) => {
-    
-    console.log('inside addImpact');
-
     
     let {
       dbObject,

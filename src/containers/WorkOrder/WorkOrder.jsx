@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import FormAddImpact from "../../components/Forms/FormAddImpact";
+import WorkRequestForm from "../../components/Forms/WorkRequestForm";
 
 class WorkOrder extends Component {
   render() {
     return (
       <React.Fragment>
-        <FormAddImpact/>
+        <WorkRequestForm/>
       </React.Fragment>
     );
   }

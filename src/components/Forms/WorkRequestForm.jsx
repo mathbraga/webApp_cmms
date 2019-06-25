@@ -14,8 +14,7 @@ import {
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 import { connect } from "react-redux";
 import { dbTables } from "../../aws";
-import addImpact from "../../utils/assets/addImpact";
-
+import createWorkRequest from "../../utils/work/createWorkRequest";
 import Calendar from "react-calendar";
 /* Custom styling
 If you don't want to use default React-Calendar styling to build upon it,
@@ -24,12 +23,12 @@ import Calendar from 'react-calendar/dist/entry.nostyle';
 instead.
 */
 
-class FormAddImpact extends Component {
+class WorkRequestForm extends Component {
   constructor(props){
     super(props);
     this.state = {
       dbObject: initializeDynamoDB(this.props.session),
-      tableName: dbTables.impact.tableName,
+      tableName: dbTables.work.tableName,
       description: "",
       facilities: "",
       impactType: "",
@@ -53,14 +52,14 @@ class FormAddImpact extends Component {
     });
   }
 
-  impactSubmit = event => {
+  workRequestSubmit = event => {
     event.preventDefault();
     this.setState({
       alertVisible: true,
       alertColor: "warning",
       alertMessage: "Adicionando ação impactante..."
     });
-    addImpact(this.state)
+    createWorkRequest(this.state)
     .then(() => {
       this.setState({
         alertVisible: true,
@@ -90,7 +89,7 @@ class FormAddImpact extends Component {
           <CardHeader>
             <Row>
               <Col md="12">
-                <div className="calc-title">Adicionar ação impactante</div>
+                <div className="calc-title">Solicitação de serviço</div>
               </Col>
             </Row>
           </CardHeader>
@@ -164,9 +163,9 @@ class FormAddImpact extends Component {
 
             <Button
               color="primary"
-              onClick={this.impactSubmit}
+              onClick={this.workRequestSubmit}
               type="submit"
-            >Adicionar ação impactante
+            >Enviar solicitação
             </Button>
 
           </CardBody>
@@ -190,4 +189,4 @@ const mapStateToProps = storeState => {
   }
 }
 
-export default connect(mapStateToProps)(FormAddImpact);
+export default connect(mapStateToProps)(WorkRequestForm);
