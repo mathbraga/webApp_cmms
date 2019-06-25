@@ -1,12 +1,38 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, FormGroup, InputGroup, InputGroupAddon, Input, Table, Progress, Badge, CustomInput } from "reactstrap";
+import { Row, Col, Button, } from "reactstrap";
+import TableItems from "../../components/Tables/Table";
 import AssetCard from "../../components/Cards/AssetCard";
 import "./AssetTable.css";
 
 const hierarchyItem = require("../../assets/icons/tree_icon.png");
 const listItem = require("../../assets/icons/list_icon.png");
 const searchItem = require("../../assets/icons/search_icon.png");
-const mapIcon = require("../../assets/icons/map.png");
+
+const tableConfig = [
+  { name: "Localização", style: { width: "400px" }, className: "" },
+  { name: "Código", style: { width: "200px" }, className: "text-center" },
+  { name: "Visitação", style: { width: "150px" }, className: "text-center" },
+  { name: "Área", style: { width: "150px" }, className: "text-center" },
+  { name: "Planta", style: { width: "100%" }, className: "text-center" },
+];
+
+const locationItems = [
+  { location: "Edifício Principal", parent: "Complexo Arquitetônico do Senado Federal", code: "EDP-ANX-000", visiting: "sim", area: "1200" },
+  { location: "Gabinete do Senador José Serra", parent: "Edifício Anexo I", code: "GBN-ANX-025", visiting: "não", area: "100" },
+  { location: "Diretoria da SINFRA", parent: "Bloco 14", code: "DIR-BLC-012", visiting: "não", area: "70" },
+  { location: "Edifício Principal", parent: "Complexo Arquitetônico do Senado Federal", code: "EDP-ANX-000", visiting: "sim", area: "1200" },
+  { location: "Gabinete do Senador José Serra", parent: "Edifício Anexo I", code: "GBN-ANX-025", visiting: "não", area: "100" },
+  { location: "Diretoria da SINFRA", parent: "Bloco 14", code: "DIR-BLC-012", visiting: "não", area: "70" },
+  { location: "Edifício Principal", parent: "Complexo Arquitetônico do Senado Federal", code: "EDP-ANX-000", visiting: "sim", area: "1200" },
+  { location: "Gabinete do Senador José Serra", parent: "Edifício Anexo I", code: "GBN-ANX-025", visiting: "não", area: "100" },
+  { location: "Diretoria da SINFRA", parent: "Bloco 14", code: "DIR-BLC-012", visiting: "não", area: "70" },
+  { location: "Edifício Principal", parent: "Complexo Arquitetônico do Senado Federal", code: "EDP-ANX-000", visiting: "sim", area: "1200" },
+  { location: "Gabinete do Senador José Serra", parent: "Edifício Anexo I", code: "GBN-ANX-025", visiting: "não", area: "100" },
+  { location: "Diretoria da SINFRA", parent: "Bloco 14", code: "DIR-BLC-012", visiting: "não", area: "70" },
+  { location: "Edifício Principal", parent: "Complexo Arquitetônico do Senado Federal", code: "EDP-ANX-000", visiting: "sim", area: "1200" },
+  { location: "Gabinete do Senador José Serra", parent: "Edifício Anexo I", code: "GBN-ANX-025", visiting: "não", area: "100" },
+  { location: "Diretoria da SINFRA", parent: "Bloco 14", code: "DIR-BLC-012", visiting: "não", area: "70" },
+];
 
 class AssetTable extends Component {
   constructor(props) {
@@ -22,7 +48,7 @@ class AssetTable extends Component {
         handleCardButton={() => { }}
         buttonName={'Cadastrar Área'}
       >
-        <Row style={{ marginTop: "10px", marginBottom: "30px" }}>
+        <Row style={{ marginTop: "10px", marginBottom: "15px" }}>
           <Col md="2">
             <Button
               color="dark"
@@ -57,392 +83,12 @@ class AssetTable extends Component {
         </Row>
         <Row>
           <Col>
-            <div className="table-scroll">
-              <table className="content-table">
-                <thead className="thead-light">
-                  <tr>
-                    <th className="text-center checkbox-cell">
-                      <CustomInput type="checkbox" />
-                    </th>
-                    <th className="location-cell">Localização</th>
-                    <th className="text-center category-cell">Código</th>
-                    <th className="text-center visit-cell">Visitação</th>
-                    <th className="text-center visit-cell">Área</th>
-                    <th className="text-center">Mapa</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Edíficio Principal</div>
-                      <div className="small text-muted">
-                        Complexo Arquitetônico do Senado Federal
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      EDP-ANX-000
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="success" style={{ width: "60px", color: "black" }}>Sim</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">1.200 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Gabinete do Senador José Serra</div>
-                      <div className="small text-muted">
-                        Edifício Anexo I
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      GBN-ANX-025
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="warning" style={{ width: "60px", color: "black" }}>Não</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">100 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Edíficio Principal</div>
-                      <div className="small text-muted">
-                        Complexo Arquitetônico do Senado Federal
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      EDP-ANX-000
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="success" style={{ width: "60px", color: "black" }}>Sim</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">1.200 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Gabinete do Senador José Serra</div>
-                      <div className="small text-muted">
-                        Edifício Anexo I
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      GBN-ANX-025
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="warning" style={{ width: "60px", color: "black" }}>Não</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">100 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Edíficio Principal</div>
-                      <div className="small text-muted">
-                        Complexo Arquitetônico do Senado Federal
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      EDP-ANX-000
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="success" style={{ width: "60px", color: "black" }}>Sim</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">1.200 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Gabinete do Senador José Serra</div>
-                      <div className="small text-muted">
-                        Edifício Anexo I
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      GBN-ANX-025
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="warning" style={{ width: "60px", color: "black" }}>Não</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">100 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Edíficio Principal</div>
-                      <div className="small text-muted">
-                        Complexo Arquitetônico do Senado Federal
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      EDP-ANX-000
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="success" style={{ width: "60px", color: "black" }}>Sim</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">1.200 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Gabinete do Senador José Serra</div>
-                      <div className="small text-muted">
-                        Edifício Anexo I
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      GBN-ANX-025
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="warning" style={{ width: "60px", color: "black" }}>Não</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">100 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Edíficio Principal</div>
-                      <div className="small text-muted">
-                        Complexo Arquitetônico do Senado Federal
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      EDP-ANX-000
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="success" style={{ width: "60px", color: "black" }}>Sim</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">1.200 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Gabinete do Senador José Serra</div>
-                      <div className="small text-muted">
-                        Edifício Anexo I
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      GBN-ANX-025
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="warning" style={{ width: "60px", color: "black" }}>Não</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">100 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Edíficio Principal</div>
-                      <div className="small text-muted">
-                        Complexo Arquitetônico do Senado Federal
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      EDP-ANX-000
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="success" style={{ width: "60px", color: "black" }}>Sim</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">1.200 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Gabinete do Senador José Serra</div>
-                      <div className="small text-muted">
-                        Edifício Anexo I
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      GBN-ANX-025
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="warning" style={{ width: "60px", color: "black" }}>Não</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">100 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Edíficio Principal</div>
-                      <div className="small text-muted">
-                        Complexo Arquitetônico do Senado Federal
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      EDP-ANX-000
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="success" style={{ width: "60px", color: "black" }}>Sim</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">1.200 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Gabinete do Senador José Serra</div>
-                      <div className="small text-muted">
-                        Edifício Anexo I
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      GBN-ANX-025
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="warning" style={{ width: "60px", color: "black" }}>Não</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">100 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Edíficio Principal</div>
-                      <div className="small text-muted">
-                        Complexo Arquitetônico do Senado Federal
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      EDP-ANX-000
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="success" style={{ width: "60px", color: "black" }}>Sim</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">1.200 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                    <td>
-                      <div>Gabinete do Senador José Serra</div>
-                      <div className="small text-muted">
-                        Edifício Anexo I
-                    </div>
-                    </td>
-                    <td className="text-center">
-                      GBN-ANX-025
-                  </td>
-                    <td className="text-center">
-                      <Badge className="mr-1" color="warning" style={{ width: "60px", color: "black" }}>Não</Badge>
-                    </td>
-                    <td>
-                      <div className="text-center">100 m²</div>
-                    </td>
-                    <td>
-                      <div className="text-center">
-                        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: "10px", margin: "5px 5px" }}>Página 10 de 10</div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <TableItems tableConfig={tableConfig} items={locationItems} />
           </Col>
         </Row>
       </AssetCard >
