@@ -2,15 +2,15 @@ import transformDateString from "./transformDateString";
 import formatNumber from "./formatText";
 import dateWithFourDigits from "./dateWithFourDigits";
 import removeEmptyMeters from "./removeEmptyMeters";
-import makeChartConfigs from "./makeChartConfigs";
+import makeChartConfigsWater from "./makeChartConfigsWater";
 
-export default function buildResultAP(data, meterType, meters, chosenMeter, initialDate, finalDate){
+export default function buildResultAPwater(data, meterType, meters, chosenMeter, initialDate, finalDate){
 
   let resultObject = {};
 
   resultObject.newLocation = {
     hash: "",
-    pathname: "/energia/resultados/AP",
+    pathname: "/agua/resultados/AP",
     search: "",
     state: {}
   };
@@ -21,7 +21,7 @@ export default function buildResultAP(data, meterType, meters, chosenMeter, init
   
   // resultObject.queryResponseRaw = data;
 
-  resultObject.chartConfigs = makeChartConfigs(data, dateWithFourDigits(initialDate), dateWithFourDigits(finalDate));
+  resultObject.chartConfigs = makeChartConfigsWater(data, dateWithFourDigits(initialDate), dateWithFourDigits(finalDate));
 
   resultObject.queryResponse = data[0].Items[0];
 
@@ -43,75 +43,66 @@ export default function buildResultAP(data, meterType, meters, chosenMeter, init
 
   resultObject.typeText = false;
 
-  resultObject.imageWidgetOneColumn = require("../../assets/icons/money_energy.png");
+  resultObject.imageWidgetOneColumn = require("../../assets/icons/alert_icon.png");
 
-  resultObject.imageWidgetThreeColumns = require("../../assets/icons/plug_energy.png");
+  resultObject.imageWidgetThreeColumns = require("../../assets/icons/alert_icon.png");
 
   resultObject.imageWidgetWithModal = require("../../assets/icons/alert_icon.png");;
 
   resultObject.widgetOneColumnFirstTitle = "Consumo";
 
-  resultObject.widgetOneColumnFirstValue = formatNumber(resultObject.totalValues.kwh, 0) + " kWh";
+  resultObject.widgetOneColumnFirstValue = formatNumber(resultObject.totalValues.consf, 0) + " m³";
 
   resultObject.widgetOneColumnSecondTitle = "Gasto";
 
-  resultObject.widgetOneColumnSecondValue = "R$ " + formatNumber(resultObject.totalValues.vbru, 2);
+  resultObject.widgetOneColumnSecondValue = "R$ " + formatNumber(resultObject.totalValues.subtotal, 2);
 
   resultObject.widgetThreeColumnsTitles = [
-    "Demanda",
-    "Ultrapass.",
-    "Descontos",
-    "Multas",
-    "EREX",
-    "UFER"
+    "Consumo médio",
+    "Consumo faturado",
+    "Adicional",
+    "Valor água",
+    "Valor esgoto",
+    "Total"
   ];
 
   resultObject.widgetThreeColumnsValues = [
-    formatNumber(resultObject.demMax, 0) + " kW",
-    "R$ " + formatNumber(resultObject.totalValues.vudf + resultObject.totalValues.vudp, 2),
-    "R$ " + formatNumber(resultObject.totalValues.desc, 2),
-    "R$ " + formatNumber(resultObject.totalValues.jma, 2),
-    "R$ " + formatNumber(resultObject.totalValues.verexf + resultObject.totalValues.verexp, 2),
-    formatNumber(resultObject.totalValues.uferf + resultObject.totalValues.uferp, 0)
+    formatNumber(resultObject.totalValues.consm, 0) + " m³",
+    formatNumber(resultObject.totalValues.consf, 0) + " m³",
+    "R$ " + formatNumber(resultObject.totalValues.adic, 2),
+    "R$ " + formatNumber(resultObject.totalValues.vagu, 2),
+    "R$ " + formatNumber(resultObject.totalValues.vesg, 2),
+    "R$ " + formatNumber(resultObject.totalValues.subtotal, 2)
   ];
 
-  resultObject.widgetWithModalTitle = "Diagnóstico";
+  // resultObject.widgetWithModalTitle = "Diagnóstico";
 
-  resultObject.widgetWithModalButtonName = "Ver relatório";
+  // resultObject.widgetWithModalButtonName = "Ver relatório";
 
-  resultObject.rowNamesReportProblems = false;
+  // resultObject.rowNamesReportProblems = false;
 
-  resultObject.problems = false;
+  // resultObject.problems = false;
 
-  resultObject.numProblems = false;
+  // resultObject.numProblems = false;
 
-  resultObject.demMax = Math.max(...resultObject.chartConfigs.dms.data.datasets[0].data);
+  // resultObject.demMax = Math.max(...resultObject.chartConfigs.dms.data.datasets[0].data);
 
   resultObject.initialDate = transformDateString(dateWithFourDigits(initialDate));
   
   resultObject.finalDate = transformDateString(dateWithFourDigits(finalDate));
 
   resultObject.itemsForChart = [
-    "vbru",
-    "vliq",
-    "cip",
-    "desc",
-    "jma",
-    "kwh",
-    "kwhf",
-    "kwhp",
-    "dms",
-    "vdff",
-    "vdfp",
-    "vudf",
-    "vudp",
-    "verexf",
-    "verexp",
-    "uferf",
-    "uferp",
-    "trib",
-    "icms",
-    "basec"
+    "dif",
+    "consm",
+    "consf",
+    "vagu",
+    "vesg",
+    "adic",
+    "subtotal",
+    "cofins",
+    "irpj",
+    "csll",
+    "pasep"
   ];
 
   resultObject.dropdownItems = {};
@@ -128,7 +119,7 @@ export default function buildResultAP(data, meterType, meters, chosenMeter, init
 
   resultObject.chartSubvalue = resultObject.unitName;
 
-  resultObject.selectedDefault = "vbru";
+  resultObject.selectedDefault = "subtotal";
 
   return resultObject;
 

@@ -12,6 +12,10 @@ import ResultOM from "./ResultOM";
 import ResultOP from "./ResultOP";
 import ResultAM from "./ResultAM";
 import ResultAP from "./ResultAP";
+import ResultOMwater from "./ResultOMwater";
+import ResultOPwater from "./ResultOPwater";
+import ResultAMwater from "./ResultAMwater";
+import ResultAPwater from "./ResultAPwater";
 import { connect } from "react-redux";
 import { Alert } from "reactstrap";
 import { dbTables } from "../../aws";
@@ -150,7 +154,7 @@ class ConsumptionMonitor extends Component {
         {this.state.showResult &&
           <Switch location={this.state.resultObject.newLocation}>
             <Route
-              path={this.props.location.pathname + "/resultados/OM"}
+              path={"/energia/resultados/OM"}
               render={routerProps => (
                 <ResultOM
                   {...routerProps}
@@ -160,7 +164,7 @@ class ConsumptionMonitor extends Component {
               )}
             />
             <Route
-              path={this.props.location.pathname + "/resultados/OP"}
+              path={"/energia/resultados/OP"}
               render={routerProps => (
                 <ResultOP
                   {...routerProps}
@@ -170,7 +174,7 @@ class ConsumptionMonitor extends Component {
               )}
             />
             <Route
-              path={this.props.location.pathname + "/resultados/AM"}
+              path={"/energia/resultados/AM"}
               render={routerProps => (
                 <ResultAM
                   {...routerProps}
@@ -180,7 +184,7 @@ class ConsumptionMonitor extends Component {
               )}
             />
             <Route
-              path={this.props.location.pathname + "/resultados/AP"}
+              path={"/energia/resultados/AP"}
               render={routerProps => (
                 <ResultAP
                   {...routerProps}
@@ -189,6 +193,51 @@ class ConsumptionMonitor extends Component {
                 />
               )}
             />
+
+
+
+            <Route
+              path={"/agua/resultados/OM"}
+              render={routerProps => (
+                <ResultOMwater
+                  {...routerProps}
+                  consumptionState={this.state}
+                  handleNewSearch={this.showFormDates}
+                />
+              )}
+            />
+            <Route
+              path={"/agua/resultados/OP"}
+              render={routerProps => (
+                <ResultOPwater
+                  {...routerProps}
+                  consumptionState={this.state}
+                  handleNewSearch={this.showFormDates}
+                />
+              )}
+            />
+            <Route
+              path={"/agua/resultados/AM"}
+              render={routerProps => (
+                <ResultAMwater
+                  {...routerProps}
+                  consumptionState={this.state}
+                  handleNewSearch={this.showFormDates}
+                />
+              )}
+            />
+            <Route
+              path={"/agua/resultados/AP"}
+              render={routerProps => (
+                <ResultAPwater
+                  {...routerProps}
+                  consumptionState={this.state}
+                  handleNewSearch={this.showFormDates}
+                />
+              )}
+            />
+
+
           </Switch>
         }
       </React.Fragment>

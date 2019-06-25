@@ -20,7 +20,7 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
 
   resultObject.queryResponseAll = data;
 
-  resultObject.queryResponse = sumAllMeters(data, meterType);
+  resultObject.queryResponse = sumAllMeters(data);
 
   let queryResponse = resultObject.queryResponse[0].Items[0];
 

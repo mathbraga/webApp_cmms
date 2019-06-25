@@ -25,10 +25,16 @@ export const dbTables = {
     buildParamsArr: buildCEBParamsArr
   },
   water: {
-    tableName: "CAESB",
-    tableNameMeters: "CAESB-Medidores",
+    tableName: "CAESBteste",
+    tableNameMeters: "CAESB-Medidoresteste",
     meterType: "2",
     readFile: textToArrayCM,
     buildParamsArr: buildCAESBParamsArr
+  },
+  facility: {
+    tableName: "Locais-SF"
+  },
+  impact: {
+    tableName: "AcaoImpactante"
   }
 };

@@ -14,7 +14,6 @@ import {
   InputGroupAddon,
   InputGroupText
 } from "reactstrap";
-import { Redirect } from "react-router-dom";
 
 class ModalSignUpConfirmation extends Component {
   constructor(props){
