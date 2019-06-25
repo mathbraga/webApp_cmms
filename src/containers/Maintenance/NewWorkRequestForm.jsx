@@ -89,7 +89,7 @@ class NewWorkRequestForm extends Component {
           <CardHeader>
             <Row>
               <Col md="12">
-                <div className="calc-title">Solicitação de serviço</div>
+                <div className="calc-title">Nova solicitação de serviço</div>
               </Col>
             </Row>
           </CardHeader>
@@ -97,10 +97,127 @@ class NewWorkRequestForm extends Component {
 
             <InputGroup className="mb-3">
               <Label
-              >Breve descrição do serviço solicitado:
+              >Serviço selecionado:
+              </Label>
+              <Input
+                type="text"
+                id=""
+                name=""
+                placeholder=""
+                onChange={()=>{}}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >Nome (solicitante):
+              </Label>
+              <Input
+                type="text"
+                id=""
+                name=""
+                placeholder=""
+                onChange={()=>{}}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >E-mail (solicitante):
+              </Label>
+              <Input
+                type="text"
+                id=""
+                name=""
+                placeholder=""
+                onChange={()=>{}}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >Tel (solicitante):
+              </Label>
+              <Input
+                type="text"
+                id=""
+                name=""
+                placeholder=""
+                onChange={()=>{}}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >Nome (contato):
+              </Label>
+              <Input
+                type="text"
+                id=""
+                name=""
+                placeholder=""
+                onChange={()=>{}}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >E-mail (contato):
+              </Label>
+              <Input
+                type="text"
+                id=""
+                name=""
+                placeholder=""
+                onChange={()=>{}}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >Tel (contato):
+              </Label>
+              <Input
+                type="text"
+                id=""
+                name=""
+                placeholder=""
+                onChange={()=>{}}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >Endereço do local do serviço:
+              </Label>
+              <Input
+                type="text"
+                id=""
+                name=""
+                placeholder=""
+                onChange={()=>{}}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >Serviço selecionado:
               </Label>
               <Input
                 autoFocus
+                type="text"
+                id=""
+                name=""
+                placeholder=""
+                onChange={()=>{}}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >Breve descrição do serviço solicitado:
+              </Label>
+              <Input
                 type="text"
                 id="description"
                 name="description"
@@ -134,60 +251,6 @@ class NewWorkRequestForm extends Component {
               />
             </InputGroup>
 
-
-
-            <InputGroup className="mb-3">
-              <Label
-              >Local impactado:
-              </Label>
-              <Input
-                type="text"
-                id="facilities"
-                name="facilities"
-                placeholder=""
-                onChange={this.handleInput}
-              />
-            </InputGroup>
-
-            <InputGroup className="mb-3">
-              <Label
-              >Tipo do impacto:
-              </Label>
-              <Input
-                type="select"
-                id="impactType"
-                name="impactType"
-                defaultValue="Cheiro forte"
-                onChange={this.handleInput}
-              >
-                <option
-                  value="Cheiro forte"
-                >Cheiro forte
-                </option>
-                <option
-                  value="Poeira"
-                >
-                  Poeira
-                </option>
-                <option
-                  value="Barulho"
-                >Barulho
-                </option>
-              </Input>
-            </InputGroup>
-
-            <Label
-              >{"Período: " + this.state.initialDate.getDate() + "/" + (this.state.initialDate.getMonth() + 1) + "/" + this.state.initialDate.getFullYear()}
-              {" a " + this.state.finalDate.getDate() + "/" + (this.state.finalDate.getMonth() + 1) + "/" + this.state.finalDate.getFullYear()}
-            </Label>
-            <Calendar
-              className="mb-3"
-              calendarType="US"
-              onChange={this.onChangePeriod}
-              showFixedNumberOfWeeks={true}
-              returnValue="range"
-              selectRange={true}
-            />
 
             <Button
               color="primary"
