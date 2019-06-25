@@ -14,7 +14,7 @@ import {
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 import { connect } from "react-redux";
 import { dbTables } from "../../aws";
-import createWorkRequest from "../../utils/work/createWorkRequest";
+import createWorkRequest from "../../utils/maintenance/createWorkRequest";
 import Calendar from "react-calendar";
 /* Custom styling
 If you don't want to use default React-Calendar styling to build upon it,

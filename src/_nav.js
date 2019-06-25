@@ -28,9 +28,21 @@ export default {
       icon: "icon-speedometer",
     },
     {
-      name: "Ordens de serviços",
-      url: "/os",
+      name: "Manutenção",
+      url: "/manutencao",
       icon: "icon-speedometer",
+      children: [
+        {
+          name: "Solicitações",
+          url: "/manutencao/solicitacoes",
+          icon: "icon-drop"
+        },
+        {
+          name: "Ordens de serviço",
+          url: "/manutencao/ordens",
+          icon: "icon-drop"
+        },
+      ]
     },
   ]
 };
