@@ -24,7 +24,7 @@ export default {
     },
     {
       name: "Ativos",
-      url: "/ativos/todos",
+      url: "/ativos",
       icon: "icon-speedometer",
     },
     {
