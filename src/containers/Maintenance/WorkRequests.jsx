@@ -1,12 +1,19 @@
 import React, { Component } from "react";
-import WorkRequestForm from "../../components/Forms/WorkRequestForm";
+import { Route } from "react-router-dom";
+import WorkRequestsTable from "./WorkRequestsTable";
 
 class WorkRequests extends Component {
   render() {
     return (
       <React.Fragment>
 
-        <WorkRequestForm/>
+        <Route
+          render={routerProps => (
+            <WorkRequestsTable
+              {...routerProps}
+            />
+          )}
+        />
 
       </React.Fragment>
     );

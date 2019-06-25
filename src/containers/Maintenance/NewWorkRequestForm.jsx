@@ -23,7 +23,7 @@ import Calendar from 'react-calendar/dist/entry.nostyle';
 instead.
 */
 
-class WorkRequestForm extends Component {
+class NewWorkRequestForm extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -217,4 +217,4 @@ const mapStateToProps = storeState => {
   }
 }
 
-export default connect(mapStateToProps)(WorkRequestForm);
+export default connect(mapStateToProps)(NewWorkRequestForm);
