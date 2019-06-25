@@ -1,7 +1,6 @@
 import { i, medList } from "./CEBcsvData";
 
-export default function buildCEBParamsArr(arr, tableName){
-  
+export default function buildCEBParamsArr(arr, tableName) {
   // Discard header
   let numColumns = 102;
   let noHeader = arr.splice(numColumns);
@@ -13,7 +12,7 @@ export default function buildCEBParamsArr(arr, tableName){
 
   // Split big array into many arrays (each small array represents a meter in CEB csv file)
   let lines = [];
-  while(noHeader.length > 0){
+  while (noHeader.length > 0) {
     lines.push(noHeader.splice(0, numColumns));
   }
 
@@ -49,17 +48,17 @@ export default function buildCEBParamsArr(arr, tableName){
     let dfp = meter[i.dfp];
     let uferp = meter[i.uferp];
     let uferf = meter[i.uferf];
-    let verexp = meter[i.verexp]/(1 - meter[i.aliqicms]/100);
-    let verexf = meter[i.verexf]/(1 - meter[i.aliqicms]/100);
-    let vdfp = meter[i.vdfp]/(1 - meter[i.aliqicms]/100);
-    let vudp = meter[i.vudp]/(1 - meter[i.aliqicms]/100);
+    let verexp = meter[i.verexp] / (1 - meter[i.aliqicms] / 100);
+    let verexf = meter[i.verexf] / (1 - meter[i.aliqicms] / 100);
+    let vdfp = meter[i.vdfp] / (1 - meter[i.aliqicms] / 100);
+    let vudp = meter[i.vudp] / (1 - meter[i.aliqicms] / 100);
 
     // Attributes that depend on 'tipo'
-        let tipo = 0;
-    if(meter[i.dmp] !== 0){
+    let tipo = 0;
+    if (meter[i.dmp] !== 0) {
       tipo = 2;
     } else {
-      if(meter[i.dff_tipo_1] !== 0){
+      if (meter[i.dff_tipo_1] !== 0) {
         tipo = 1;
       }
     }
@@ -73,7 +72,7 @@ export default function buildCEBParamsArr(arr, tableName){
     let dcp = 0;
     let dcf = 0;
 
-    if(tipo === 0){
+    if (tipo === 0) {
       kwh = meter[i.kwh_tipo_0];
       confat = meter[i.confat_tipo_0];
       kwhf = meter[i.kwhf_tipo_0];
@@ -84,24 +83,24 @@ export default function buildCEBParamsArr(arr, tableName){
       dcf = 0;
     }
 
-    if(tipo === 1){
+    if (tipo === 1) {
       kwh = meter[i.kwh_tipo_1];
       confat = 0;
       kwhf = meter[i.kwhf_tipo_1];
       dff = meter[i.dff_tipo_1];
-      vdff = meter[i.vdff_tipo_1]/(1 - meter[i.aliqicms]/100);
-      vudf = meter[i.vudf_tipo_1]/(1 - meter[i.aliqicms]/100);
+      vdff = meter[i.vdff_tipo_1] / (1 - meter[i.aliqicms] / 100);
+      vudf = meter[i.vudf_tipo_1] / (1 - meter[i.aliqicms] / 100);
       dcp = 0;
       dcf = meter[i.dcf_tipo_1];
     }
 
-    if(tipo === 2){
+    if (tipo === 2) {
       kwh = meter[i.kwh_tipo_2];
       confat = 0;
       kwhf = meter[i.kwhf_tipo_2];
       dff = meter[i.dff_tipo_2];
-      vdff = meter[i.vdff_tipo_2]/(1 - meter[i.aliqicms]/100);
-      vudf = meter[i.vudf_tipo_2]/(1 - meter[i.aliqicms]/100);
+      vdff = meter[i.vdff_tipo_2] / (1 - meter[i.aliqicms] / 100);
+      vudf = meter[i.vudf_tipo_2] / (1 - meter[i.aliqicms] / 100);
       dcp = meter[i.dcp_tipo_2];
       dcf = meter[i.dcf_tipo_2];
     }
@@ -109,94 +108,94 @@ export default function buildCEBParamsArr(arr, tableName){
     attributesArr.push({
       PutRequest: {
         Item: {
-          "med": {
+          med: {
             N: med.toString()
           },
-          "aamm": {
+          aamm: {
             N: aamm.toString().slice(2)
           },
-          "tipo": {
+          tipo: {
             N: tipo.toString()
           },
-          "datav": {
+          datav: {
             N: datav.toString()
           },
-          "kwh": {
+          kwh: {
             N: kwh.toString()
           },
-          "confat": {
+          confat: {
             N: confat.toString()
           },
-          "icms": {
+          icms: {
             N: icms.toString()
           },
-          "cip": {
+          cip: {
             N: cip.toString()
           },
-          "trib": {
+          trib: {
             N: trib.toFixed(2)
           },
-          "jma": {
+          jma: {
             N: jma.toFixed(2)
           },
-          "desc": {
+          desc: {
             N: desc.toString()
           },
-          "basec": {
+          basec: {
             N: basec.toString()
           },
-          "vliq": {
+          vliq: {
             N: vliq.toString()
           },
-          "vbru": {
+          vbru: {
             N: vbru.toString()
           },
-          "kwhp": {
+          kwhp: {
             N: kwhp.toString()
           },
-          "kwhf": {
+          kwhf: {
             N: kwhf.toString()
           },
-          "dmp": {
+          dmp: {
             N: dmp.toString()
           },
-          "dmf": {
+          dmf: {
             N: dmf.toString()
           },
-          "dfp": {
+          dfp: {
             N: dfp.toString()
           },
-          "dff": {
+          dff: {
             N: dff.toString()
           },
-          "uferp": {
+          uferp: {
             N: uferp.toString()
           },
-          "uferf": {
+          uferf: {
             N: uferf.toString()
           },
-          "verexp": {
+          verexp: {
             N: verexp.toFixed(2)
           },
-          "verexf": {
+          verexf: {
             N: verexf.toFixed(2)
           },
-          "vdfp": {
+          vdfp: {
             N: vdfp.toFixed(2)
           },
-          "vdff": {
+          vdff: {
             N: vdff.toFixed(2)
           },
-          "vudp": {
+          vudp: {
             N: vudp.toFixed(2)
           },
-          "vudf": {
+          vudf: {
             N: vudf.toFixed(2)
           },
-          "dcp": {
+          dcp: {
             N: dcp.toString()
           },
-          "dcf": {
+          dcf: {
             N: dcf.toString()
           }
         }
@@ -209,8 +208,10 @@ export default function buildCEBParamsArr(arr, tableName){
 
   let maxLength = 25;
   let paramsArr = [];
-  while(attributesArr.length > 0){
-    paramsArr.push({RequestItems: {[tableName]: attributesArr.splice(0, maxLength)}})
+  while (attributesArr.length > 0) {
+    paramsArr.push({
+      RequestItems: { [tableName]: attributesArr.splice(0, maxLength) }
+    });
   }
   return paramsArr;
 }

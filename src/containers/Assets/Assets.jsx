@@ -3,19 +3,13 @@ import FileInput from "../../components/FileInputs/FileInput";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 import textToArrayFacility from "../../utils/assets/textToArrayFacility";
 import buildFacilitiesParamsArr from "../../utils/assets/buildFacilitiesParamsArr";
+import AssetTable from "./AssetTable";
 import { connect } from "react-redux";
 
 class Assets extends Component {
-  render(){
+  render() {
     return (
-      <React.Fragment>
-        <FileInput
-            tableName={"Locais-SF"}
-            dbObject={initializeDynamoDB(this.props.session)}
-            readFile={textToArrayFacility}
-            buildParamsArr={buildFacilitiesParamsArr}
-        />
-      </React.Fragment>
+      <AssetTable />
     )
   }
 }

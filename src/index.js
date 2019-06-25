@@ -12,20 +12,20 @@ import { preloadedState } from "./redux/preloadedState";
 
 const store = configureStore(preloadedState);
 
-const renderApp = () => ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
-);
+const renderApp = () =>
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById("root")
+  );
 
 // Enabling hot reload for React components inside App:
-if(process.env.NODE_ENV !== "production" && module.hot){
+if (process.env.NODE_ENV !== "production" && module.hot) {
   module.hot.accept("./App", renderApp);
 }
 
 renderApp();
-
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

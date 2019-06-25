@@ -13,7 +13,7 @@ import {
 import writeItemsInDB from "../../utils/consumptionMonitor/writeItemsInDB";
 
 class FileInput extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.fileInputRef = React.createRef();
     this.state = {
@@ -27,7 +27,7 @@ class FileInput extends Component {
   }
 
   handleSelection = event => {
-    if(this.fileInputRef.current.files.length > 0){
+    if (this.fileInputRef.current.files.length > 0) {
       this.setState({
         isSelected: true
       });
@@ -39,7 +39,7 @@ class FileInput extends Component {
   }
 
   handleUploadFile = event => {
-    
+
     event.preventDefault();
 
     this.setState({
@@ -49,39 +49,39 @@ class FileInput extends Component {
     });
 
     this.readFile(this.fileInputRef.current.files[0])
-    .then(arr => {
-      
-      console.log('arr:');
-      console.log(arr);
+      .then(arr => {
 
-      let paramsArr = this.buildParamsArr(arr, this.props.tableName);
-      
-      console.log("paramsArr:");
-      console.log(paramsArr);
+        console.log('arr:');
+        console.log(arr);
 
-      writeItemsInDB(this.props.dbObject, paramsArr)
-      .then(() => {
-        this.setState({
-          alertVisible: true,
-          alertMessage: "Upload realizado com sucesso!",
-          alertColor: "success",
-        });
+        let paramsArr = this.buildParamsArr(arr, this.props.tableName);
+
+        console.log("paramsArr:");
+        console.log(paramsArr);
+
+        writeItemsInDB(this.props.dbObject, paramsArr)
+          .then(() => {
+            this.setState({
+              alertVisible: true,
+              alertMessage: "Upload realizado com sucesso!",
+              alertColor: "success",
+            });
+          })
+          .catch(() => {
+            this.setState({
+              alertVisible: true,
+              alertMessage: "Houve um problema no upload do arquivo.",
+              alertColor: "danger"
+            });
+          });
       })
       .catch(() => {
         this.setState({
           alertVisible: true,
-          alertMessage: "Houve um problema no upload do arquivo.",
+          alertMessage: "Houve um problema na leitura do arquivo.",
           alertColor: "danger"
         });
       });
-    })
-    .catch(() => {
-      this.setState({
-        alertVisible: true,
-        alertMessage: "Houve um problema na leitura do arquivo.",
-        alertColor: "danger"
-      });
-    });
   }
 
   closeAlert = event => {
@@ -89,7 +89,7 @@ class FileInput extends Component {
       alertVisible: false
     });
   }
-  
+
   render() {
     return (
       <React.Fragment>
@@ -106,7 +106,6 @@ class FileInput extends Component {
           </CardHeader>
           <CardBody>
             <Row>
-
               <Col xs="4">
                 <FormGroup>
                   <CustomInput
@@ -123,9 +122,9 @@ class FileInput extends Component {
                 {this.state.isSelected
                   ? <p className="my-2">Arquivo selecionado:
                       <strong>
-                        {" " + this.fileInputRef.current.files[0].name}
-                      </strong>
-                    </p>
+                      {" " + this.fileInputRef.current.files[0].name}
+                    </strong>
+                  </p>
                   : <p className="text-muted my-2">Nenhum arquivo selecionado</p>
                 }
               </Col>
