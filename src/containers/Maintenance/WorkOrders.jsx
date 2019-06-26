@@ -20,11 +20,10 @@ class WorkOrders extends Component {
   viewAsset = event => {
     let assetId = event.target.name;
     console.log('inside viewAsset: ' + assetId);
-    // this.state.dbObject.query({
+    // this.state.dbObject.getItem({
     //   TableName: dbTables.asset.tableName,
-    //   KeyConditionExpression: "id = :id",
-    //   ExpressionAttributeValues: {
-    //     ":id": {
+    //   Key: {
+    //     "id": {
     //       S: assetId
     //     }
     //   }
@@ -39,11 +38,10 @@ class WorkOrders extends Component {
 
   viewLocal = event => {
     let localId = event.target.name;
-    this.state.dbObject.query({
+    this.state.dbObject.getItem({
       TableName: dbTables.facility.tableName,
-      KeyConditionExpression: "idlocal = :idlocal",
-      ExpressionAttributeValues: {
-        ":idlocal": {
+      Key: {
+        "idlocal": {
           S: localId
         }
       }
