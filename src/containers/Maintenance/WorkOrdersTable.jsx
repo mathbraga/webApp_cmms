@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardBody, Col, Row, Button, CardHeader } from "reactstrap";
+import "./WorkOrdersTable.css";
 
 class WorkRequestsTable extends Component {
   render() {
@@ -33,23 +34,28 @@ class WorkRequestsTable extends Component {
           </Row>
         </CardHeader>
         <CardBody>
-          <table>
-
-            <tr>
-              {tableConfig.map(row => (
-                <th>{row.name}</th>
-              ))}
-            </tr>
-
-            {items.map(item => (
-              <tr>
-                {tableConfig.map(row => (
-                  <td>{item[row.key]}</td>
-                ))}
-              </tr>
+        <table className="content-table">
+        <thead className="thead-light">
+          <tr>
+            {tableConfig.map(column => (
+              <th style={column.style} className={column.className}>{column.name}</th>
             ))}
+          </tr>
+        </thead>
+        <tbody>
+          {items.map(item => (
+            <tr>
+              <td className="text-center">sdfsdfs</td>
+              <td className="text-center">sdfsdfs</td>
+              <td className="text-center">sdfsdfs</td>
+              <td className="text-center">sdfsdfs</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-          </table>
+
+
         </CardBody>
       </Card>
 

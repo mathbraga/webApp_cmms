@@ -45,7 +45,7 @@ export const fakeWorkOrders = {
     },
   ],
   tableConfig: [
-    { name: "ID", style: { width: "20%" }, className: "", key: "id" },
+    { name: "ID", style: { width: "20%" }, className: "text-center", key: "id" },
     { name: "Status", style: { width: "20%" }, className: "text-center", key: "status" },
     { name: "Ativo", style: { width: "20%" }, className: "text-center", key: "asset" },
     { name: "Local", style: { width: "20%" }, className: "text-center", key: "localOfficial" },
