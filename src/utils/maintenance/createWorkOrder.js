@@ -49,7 +49,7 @@ export default function createWorkOrder(state){
     // subTasks
     // log
     let asset = state.asset || "BL14-MEZ-043";
-    let local = state.local || "Mezanino da SINFRA, sala do SEPLAG";
+    let local = state.local || "BL14-MEZ-043";
 
     dbObject.putItem({
       TableName: tableName,

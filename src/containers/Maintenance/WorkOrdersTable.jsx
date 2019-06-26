@@ -46,7 +46,20 @@ class WorkRequestsTable extends Component {
           {items.map(item => (
             <tr>
               {tableConfig.map(column => (
-                <td className="text-center">{item[column.attr]}</td>
+                <td className="text-center">
+                  {(column.attr === "local") || (column.attr === "asset") ? (
+                    <Button
+                      color="link"
+                      onClick={() => {this.props.history.push("/painel")}}
+                    >{item[column.attr]}
+                    </Button>
+                  ) : (
+                    <React.Fragment>
+                      {item[column.attr]}
+                    </React.Fragment>
+                  )}
+                </td>
+
               ))}
             </tr>
           ))}
