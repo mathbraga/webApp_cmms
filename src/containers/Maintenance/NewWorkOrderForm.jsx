@@ -39,21 +39,21 @@ class NewWorkOrderForm extends Component {
     this.setState({
       alertVisible: true,
       alertColor: "warning",
-      alertMessage: "Enviando solicitação..."
+      alertMessage: "Cadastrando ordem de serviço..."
     });
     createWorkOrder(this.state)
     .then(() => {
       this.setState({
         alertVisible: true,
         alertColor: "success",
-        alertMessage: "Solicitação enviada."
+        alertMessage: "Ordem de serviço cadastrada."
       });
     })
     .catch(() => {
       this.setState({
         alertVisible: true,
         alertColor: "danger",
-        alertMessage: "Houve um erro no envio da solicitação."
+        alertMessage: "Houve um erro no cadastro da ordem de serviço."
       });
     });
   }
@@ -220,6 +220,44 @@ class NewWorkOrderForm extends Component {
               />
             </InputGroup>
 
+            <InputGroup className="mb-3">
+              <Label
+              >Status:
+              </Label>
+              <Input
+                type="text"
+                id="status"
+                name="status"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >Ativo:
+              </Label>
+              <Input
+                type="text"
+                id="asset"
+                name="asset"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <Label
+              >Local:
+              </Label>
+              <Input
+                type="text"
+                id="local"
+                name="local"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
 
             <Button
               color="primary"

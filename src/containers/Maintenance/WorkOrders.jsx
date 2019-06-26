@@ -65,7 +65,7 @@ class WorkOrders extends Component {
       })
     })
     .catch(() => {
-      console.log("Houve um problema.");
+      console.log("Houve um problema ao baixar as ordens de serviço.");
     });
   }
 

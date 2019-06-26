@@ -9,7 +9,7 @@ export default function createWorkOrder(state){
     } = state;
 
     
-    // BASIC ATTRIBUTES
+    // FORM-INDEPENDET ATTRIBUTES
     let id = Math.round(Math.random()*10000).toString();
     let creationDate = dateToNum(new Date());
     // creationTime
