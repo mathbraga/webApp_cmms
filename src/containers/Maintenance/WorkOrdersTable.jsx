@@ -50,7 +50,8 @@ class WorkRequestsTable extends Component {
                   {(column.attr === "local") || (column.attr === "asset") ? (
                     <Button
                       color="link"
-                      onClick={() => {this.props.history.push("/painel")}}
+                      name={item[column.attr]}
+                      onClick={column.attr === "local" ? this.props.viewLocal : this.props.viewAsset}
                     >{item[column.attr]}
                     </Button>
                   ) : (
@@ -59,7 +60,6 @@ class WorkRequestsTable extends Component {
                     </React.Fragment>
                   )}
                 </td>
-
               ))}
             </tr>
           ))}
