@@ -45,10 +45,9 @@ class WorkRequestsTable extends Component {
         <tbody>
           {items.map(item => (
             <tr>
-              <td className="text-center">sdfsdfs</td>
-              <td className="text-center">sdfsdfs</td>
-              <td className="text-center">sdfsdfs</td>
-              <td className="text-center">sdfsdfs</td>
+              {tableConfig.map(column => (
+                <td className="text-center">{item[column.attr]}</td>
+              ))}
             </tr>
           ))}
         </tbody>

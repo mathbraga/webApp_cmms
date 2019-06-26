@@ -6,7 +6,19 @@ export default function getWorkOrders(dbObject, tableName){
       if(err){
         reject();
       } else {
-        resolve(data.Items);
+        let answer = [];
+        data.Items.map(item => {
+          let obj = {};
+          Object.keys(item).map(key => {
+            if(key === "id") {
+              obj[key] = item[key].N;
+            } else {
+              obj[key] = item[key].S;
+            }
+          });
+          answer.push(obj);
+        });
+        resolve(answer);
       }
     })
   });

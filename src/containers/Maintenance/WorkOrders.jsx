@@ -38,7 +38,7 @@ class WorkOrders extends Component {
               <WorkOrdersTable
                 {...routerProps}
                 tableConfig={fakeWorkOrders.tableConfig}
-                items={fakeWorkOrders.items}
+                items={this.state.workOrders}
               />
             )}
           />

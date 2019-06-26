@@ -43,7 +43,7 @@ export default function createWorkOrder(state){
     // checked
     // executor
     // ans
-    // status
+    let status = "Pendente"
     // multiTask
     // relatedWorkOrders
     // subTasks
@@ -62,11 +62,17 @@ export default function createWorkOrder(state){
         },
         "selectedService": {
           S: selectedService
-        },"reqName": {
+        },
+        "reqName": {
           S: reqName
-        },"asset": {
+        },
+        "status": {
+          S: status
+        },
+        "asset": {
           S: asset
-        },"local": {
+        },
+        "local": {
           S: local
         }
       }
