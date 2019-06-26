@@ -16,11 +16,6 @@ class WorkRequests extends Component {
               tableConfig={fakeWorkRequests.tableConfig}
               items={fakeWorkRequests.items}
             />
-            // <TableItems
-            //   {...routerProps}
-            //   tableConfig={fakeWorkRequests.tableConfig}
-            //   items={fakeWorkRequests.items}
-            // />
           )}
         />
 

@@ -1,12 +1,21 @@
 import React, { Component } from "react";
+import { fakeWorkOrders } from "./fakeWorkOrders";
 
 class WorkOrders extends Component {
   render() {
     return (
       <React.Fragment>
 
-        <h1>WORK ORDERS</h1>
-
+          <Route
+            render={routerProps => (
+              <WorkOrdersTable
+                {...routerProps}
+                tableConfig={fakeWorkOrders.tableConfig}
+                items={fakeWorkOrders.items}
+              />
+            )}
+          />
+        
       </React.Fragment>
     );
   }
