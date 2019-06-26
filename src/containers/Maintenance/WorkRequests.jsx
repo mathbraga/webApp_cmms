@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import TableItems from "../../components/Tables/Table";
 import WorkRequestsTable from "./WorkRequestsTable";
 import { fakeWorkRequests } from "./fakeWorkRequests";
 

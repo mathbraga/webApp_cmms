@@ -39,7 +39,7 @@ export default {
         },
         {
           name: "Ordens de serviço",
-          url: "/manutencao/ordens",
+          url: "/manutencao/os",
           icon: "icon-drop"
         },
       ]

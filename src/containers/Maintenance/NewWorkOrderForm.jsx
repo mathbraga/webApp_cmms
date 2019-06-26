@@ -14,27 +14,16 @@ import {
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 import { connect } from "react-redux";
 import { dbTables } from "../../aws";
-import createWorkRequest from "../../utils/maintenance/createWorkRequest";
-import Calendar from "react-calendar";
-/* Custom styling
-If you don't want to use default React-Calendar styling to build upon it,
-you can import React-Calendar by using
-import Calendar from 'react-calendar/dist/entry.nostyle';
-instead.
-*/
+import createWorkOrder from "../../utils/maintenance/createWorkOrder";
 
-class NewWorkRequestForm extends Component {
+class NewWorkOrderForm extends Component {
   constructor(props){
     super(props);
     this.state = {
       dbObject: initializeDynamoDB(this.props.session),
-      tableName: dbTables.work.tableName,
-      description: "",
-      facilities: "",
-      impactType: "",
-      initialDate: new Date(),
-      finalDate: new Date(),
+      tableName: dbTables.maintenance.tableName,
       alertVisible: false,
+      alertColor: "",
       alertMessage: ""
     }
   }
@@ -45,33 +34,26 @@ class NewWorkRequestForm extends Component {
     });
   }
 
-  onChangePeriod = dateArr => {
-    this.setState({
-      initialDate: dateArr[0],
-      finalDate: dateArr[1]
-    });
-  }
-
-  workRequestSubmit = event => {
+  workOrderSubmit = event => {
     event.preventDefault();
     this.setState({
       alertVisible: true,
       alertColor: "warning",
-      alertMessage: "Adicionando ação impactante..."
+      alertMessage: "Enviando solicitação..."
     });
-    createWorkRequest(this.state)
+    createWorkOrder(this.state)
     .then(() => {
       this.setState({
         alertVisible: true,
         alertColor: "success",
-        alertMessage: "Tudo certo."
+        alertMessage: "Solicitação enviada."
       });
     })
     .catch(() => {
       this.setState({
         alertVisible: true,
         alertColor: "danger",
-        alertMessage: "Houve um erro."
+        alertMessage: "Houve um erro no envio da solicitação."
       });
     });
   }
@@ -89,7 +71,7 @@ class NewWorkRequestForm extends Component {
           <CardHeader>
             <Row>
               <Col md="12">
-                <div className="calc-title">Nova solicitação de serviço</div>
+                <div className="calc-title">Nova ordem de serviço</div>
               </Col>
             </Row>
           </CardHeader>
@@ -101,8 +83,8 @@ class NewWorkRequestForm extends Component {
               </Label>
               <Input
                 type="text"
-                id=""
-                name=""
+                id="selectedService"
+                name="selectedService"
                 placeholder=""
                 onChange={()=>{}}
               />
@@ -114,10 +96,10 @@ class NewWorkRequestForm extends Component {
               </Label>
               <Input
                 type="text"
-                id=""
-                name=""
+                id="reqName"
+                name="reqName"
                 placeholder=""
-                onChange={()=>{}}
+                onChange={this.handleInput}
               />
             </InputGroup>
 
@@ -127,10 +109,10 @@ class NewWorkRequestForm extends Component {
               </Label>
               <Input
                 type="text"
-                id=""
-                name=""
+                id="reqEmail"
+                name="reqEmail"
                 placeholder=""
-                onChange={()=>{}}
+                onChange={this.handleInput}
               />
             </InputGroup>
 
@@ -140,10 +122,10 @@ class NewWorkRequestForm extends Component {
               </Label>
               <Input
                 type="text"
-                id=""
-                name=""
+                id="reqPhone"
+                name="reqPhone"
                 placeholder=""
-                onChange={()=>{}}
+                onChange={this.handleInput}
               />
             </InputGroup>
 
@@ -153,10 +135,10 @@ class NewWorkRequestForm extends Component {
               </Label>
               <Input
                 type="text"
-                id=""
-                name=""
+                id="conName"
+                name="conName"
                 placeholder=""
-                onChange={()=>{}}
+                onChange={this.handleInput}
               />
             </InputGroup>
 
@@ -166,10 +148,10 @@ class NewWorkRequestForm extends Component {
               </Label>
               <Input
                 type="text"
-                id=""
-                name=""
+                id="conEmail"
+                name="conEmail"
                 placeholder=""
-                onChange={()=>{}}
+                onChange={this.handleInput}
               />
             </InputGroup>
 
@@ -179,10 +161,10 @@ class NewWorkRequestForm extends Component {
               </Label>
               <Input
                 type="text"
-                id=""
-                name=""
+                id="conPhone"
+                name="conPhone"
                 placeholder=""
-                onChange={()=>{}}
+                onChange={this.handleInput}
               />
             </InputGroup>
 
@@ -192,10 +174,10 @@ class NewWorkRequestForm extends Component {
               </Label>
               <Input
                 type="text"
-                id=""
-                name=""
+                id="local"
+                name="local"
                 placeholder=""
-                onChange={()=>{}}
+                onChange={this.handleInput}
               />
             </InputGroup>
 
@@ -234,13 +216,14 @@ class NewWorkRequestForm extends Component {
                 id="files"
                 name="files"
                 placeholder=""
+                onChange={this.handleInput}
               />
             </InputGroup>
 
 
             <Button
               color="primary"
-              onClick={this.workRequestSubmit}
+              onClick={this.workOrderSubmit}
               type="submit"
             >Enviar solicitação
             </Button>
@@ -266,4 +249,4 @@ const mapStateToProps = storeState => {
   }
 }
 
-export default connect(mapStateToProps)(NewWorkRequestForm);
+export default connect(mapStateToProps)(NewWorkOrderForm);

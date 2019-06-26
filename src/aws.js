@@ -34,7 +34,7 @@ export const dbTables = {
   facility: {
     tableName: "Locais-SF"
   },
-  work: {
-    tableName: "AcaoImpactante"
+  maintenance: {
+    tableName: "workorder"
   }
 };

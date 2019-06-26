@@ -15,7 +15,7 @@ class WorkRequestsTable extends Component {
         <CardHeader>
           <Row>
             <Col md="9" xs="6">
-              <div className="calc-title">Minhas solicitações</div>
+              <div className="calc-title">Ordens de serviço</div>
             </Col>
 
             <Col md="3" xs="6" className="container-left">
@@ -24,10 +24,10 @@ class WorkRequestsTable extends Component {
                 block
                 outline
                 color="primary"
-                onClick={() => {this.props.history.push("/manutencao/solicitacoes/nova")}}
+                onClick={() => {this.props.history.push("/manutencao/os/nova")}}
                 style={{ width: "auto", padding: "8px 25px" }}
               >
-                Nova solicitação
+                Nova OS
               </Button>
             </Col>
           </Row>
