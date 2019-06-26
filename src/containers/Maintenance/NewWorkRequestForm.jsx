@@ -174,8 +174,8 @@ class NewWorkRequestForm extends Component {
               </Label>
               <Input
                 type="text"
-                id="local"
-                name="local"
+                id="directions"
+                name="directions"
                 placeholder=""
                 onChange={this.handleInput}
               />

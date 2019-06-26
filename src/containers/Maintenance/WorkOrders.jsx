@@ -19,6 +19,7 @@ class WorkOrders extends Component {
     let dbObject = initializeDynamoDB(false);
     getWorkOrders(dbObject, tableName)
     .then(workOrders => {
+      console.log(workOrders);
       this.setState({
         workOrders: workOrders
       })
