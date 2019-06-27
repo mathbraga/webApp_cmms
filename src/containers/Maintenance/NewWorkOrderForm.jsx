@@ -23,6 +23,7 @@ class NewWorkOrderForm extends Component {
     this.state = {
       dbObject: initializeDynamoDB(this.props.session),
       tableName: dbTables.maintenance.tableName,
+      impact: false,
       alertVisible: false,
       alertColor: "",
       alertMessage: ""
@@ -30,8 +31,9 @@ class NewWorkOrderForm extends Component {
   }
 
   handleInput = event => {
+    const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: value
     });
   }
 
@@ -271,6 +273,19 @@ class NewWorkOrderForm extends Component {
                   </option>
                 ))}
               </Input>
+            </InputGroup>
+
+            <InputGroup className="mb-3 ml-3">
+              <Label
+              >Impacto?
+              </Label>
+              <Input
+                type="checkbox"
+                id="impact"
+                name="impact"
+                checked={this.state.impact}
+                onChange={this.handleInput}
+              />
             </InputGroup>
 
             <Button

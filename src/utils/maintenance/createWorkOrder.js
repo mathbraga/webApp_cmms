@@ -43,13 +43,14 @@ export default function createWorkOrder(state){
     // checked
     // executor
     // ans
-    let status = "Pendente"
     // multiTask
     // relatedWorkOrders
     // subTasks
     // log
+    let status = "Pendente"
     let asset = state.asset || "BL14-MEZ-043";
     let local = state.local || "BL14-MEZ-043";
+    let impact = state.impact || false;
 
     dbObject.putItem({
       TableName: tableName,
@@ -74,6 +75,9 @@ export default function createWorkOrder(state){
         },
         "local": {
           S: local
+        },
+        "impact": {
+          BOOL: impact
         }
       }
     }, (err, data) => {
