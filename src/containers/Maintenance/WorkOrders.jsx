@@ -19,58 +19,30 @@ class WorkOrders extends Component {
     this.viewEntity = {
       id: event => {
         let workOrderId = event.target.name;
-        this.state.dbObject.getItem({
-          TableName: dbTables.maintenance.tableName,
-          Key: {
-            "id": {
-              N: workOrderId
-            }
-          }
-        }, (err, woData) => {
-          if(err) {
-            console.log('error in view wo');
-          } else {
-            console.log(woData);
+        this.props.history.push({
+          pathname: `/manutencao/os/view/${workOrderId}`,
+          state: {
+            workOrderId: workOrderId
           }
         });
-        this.props.history.push(`/manutencao/os/view/${workOrderId}`);
       },
       asset: event => {
         let assetId = event.target.name;
-        console.log('inside viewAsset: ' + assetId);
-        // this.state.dbObject.getItem({
-        //   TableName: dbTables.asset.tableName,
-        //   Key: {
-        //     "id": {
-        //       S: assetId
-        //     }
-        //   }
-        // }, (err, assetData) => {
-        //   if(err) {
-        //     console.log('error in view asset');
-        //   } else {
-        //     console.log(assetData);
-        //   }
-        // });
-        this.props.history.push(`/ativos/view/${assetId}`);
+        this.props.history.push({
+          pathname: `/ativos/view/${assetId}`,
+          state: {
+            assetId: assetId
+          }
+        });
       },
       local: event => {
         let localId = event.target.name;
-        this.state.dbObject.getItem({
-          TableName: dbTables.facility.tableName,
-          Key: {
-            "idlocal": {
-              S: localId
-            }
-          }
-        }, (err, localData) => {
-          if(err) {
-            console.log('error in view local');
-          } else {
-            console.log(localData);
+        this.props.history.push({
+          pathname: `/local/view/${localId}`,
+          state: {
+            localId: localId
           }
         });
-        this.props.history.push(`/local/view/${localId}`);
       }
     }
   }

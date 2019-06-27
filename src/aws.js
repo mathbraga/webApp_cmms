@@ -36,5 +36,8 @@ export const dbTables = {
   },
   maintenance: {
     tableName: "workorder"
+  },
+  asset: {
+    tableName: "Ativos-SF"
   }
 };
