@@ -16,6 +16,60 @@ class WorkOrders extends Component {
       tableName: dbTables.maintenance.tableName,
       workOrders: []
     }
+    this.viewEntity = {
+      id: event => {
+        let workOrderId = event.target.name;
+        this.state.dbObject.getItem({
+          TableName: dbTables.maintenance.tableName,
+          Key: {
+            "id": {
+              N: workOrderId
+            }
+          }
+        }, (err, woData) => {
+          if(err) {
+            console.log('error in view wo');
+          } else {
+            console.log(woData);
+          }
+        });
+      },
+      asset: event => {
+        let assetId = event.target.name;
+        console.log('inside viewAsset: ' + assetId);
+        // this.state.dbObject.getItem({
+        //   TableName: dbTables.asset.tableName,
+        //   Key: {
+        //     "id": {
+        //       S: assetId
+        //     }
+        //   }
+        // }, (err, assetData) => {
+        //   if(err) {
+        //     console.log('error in view asset');
+        //   } else {
+        //     console.log(assetData);
+        //   }
+        // });
+      },
+      local: event => {
+        let localId = event.target.name;
+        this.state.dbObject.getItem({
+          TableName: dbTables.facility.tableName,
+          Key: {
+            "idlocal": {
+              S: localId
+            }
+          }
+        }, (err, localData) => {
+          if(err) {
+            console.log('error in view local');
+          } else {
+            console.log(localData);
+          }
+        });
+      }
+    }
   }
 
   componentDidMount(){
@@ -24,47 +78,10 @@ class WorkOrders extends Component {
       console.log(workOrders);
       this.setState({
         workOrders: workOrders
-      })
+      });
     })
     .catch(() => {
       console.log("Houve um problema ao baixar as ordens de serviço.");
-    });
-  }
-
-  viewAsset = event => {
-    let assetId = event.target.name;
-    console.log('inside viewAsset: ' + assetId);
-    // this.state.dbObject.getItem({
-    //   TableName: dbTables.asset.tableName,
-    //   Key: {
-    //     "id": {
-    //       S: assetId
-    //     }
-    //   }
-    // }, (err, assetData) => {
-    //   if(err) {
-    //     console.log('error in view asset');
-    //   } else {
-    //     console.log(assetData);
-    //   }
-    // });
-  }
-
-  viewLocal = event => {
-    let localId = event.target.name;
-    this.state.dbObject.getItem({
-      TableName: dbTables.facility.tableName,
-      Key: {
-        "idlocal": {
-          S: localId
-        }
-      }
-    }, (err, localData) => {
-      if(err) {
-        console.log('error in view local');
-      } else {
-        console.log(localData);
-      }
     });
   }
 
@@ -78,8 +95,7 @@ class WorkOrders extends Component {
                 {...routerProps}
                 tableConfig={fakeWorkOrders.tableConfig}
                 items={this.state.workOrders}
-                viewLocal={this.viewLocal}
-                viewAsset={this.viewAsset}
+                viewEntity={this.viewEntity}
               />
             )}
           />

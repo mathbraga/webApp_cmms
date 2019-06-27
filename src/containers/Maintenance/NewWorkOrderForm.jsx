@@ -23,7 +23,6 @@ class NewWorkOrderForm extends Component {
     this.state = {
       dbObject: initializeDynamoDB(this.props.session),
       tableName: dbTables.maintenance.tableName,
-      impact: false,
       alertVisible: false,
       alertColor: "",
       alertMessage: ""

@@ -7,7 +7,8 @@ class WorkRequestsTable extends Component {
 
     let {
       tableConfig,
-      items
+      items,
+      viewEntity
     } = this.props;
 
     return (
@@ -56,11 +57,11 @@ class WorkRequestsTable extends Component {
                   <tr>
                     {tableConfig.map(column => (
                       <td className="text-center">
-                        {(column.attr === "local") || (column.attr === "asset") ? (
+                        {(column.attr === "local") || (column.attr === "asset" || column.attr === "id") ? (
                           <Button
                             color="link"
                             name={item[column.attr]}
-                            onClick={column.attr === "local" ? this.props.viewLocal : this.props.viewAsset}
+                            onClick={viewEntity[column.attr]}
                           >{item[column.attr]}
                           </Button>
                         ) : (
