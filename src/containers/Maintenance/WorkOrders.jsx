@@ -33,6 +33,7 @@ class WorkOrders extends Component {
             console.log(woData);
           }
         });
+        this.props.history.push(`/manutencao/os/view/${workOrderId}`);
       },
       asset: event => {
         let assetId = event.target.name;
@@ -51,6 +52,7 @@ class WorkOrders extends Component {
         //     console.log(assetData);
         //   }
         // });
+        this.props.history.push(`/ativos/view/${assetId}`);
       },
       local: event => {
         let localId = event.target.name;
@@ -68,6 +70,7 @@ class WorkOrders extends Component {
             console.log(localData);
           }
         });
+        this.props.history.push(`/local/view/${localId}`);
       }
     }
   }
