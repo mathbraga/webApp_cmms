@@ -13,20 +13,20 @@ class AssetView extends Component {
   
   
   componentDidMount(){
-    // this.state.dbObject.getItem({
-    //   TableName: this.state.tableName,
-    //   Key: {
-    //     "id": {
-    //       S: this.props.location.state.assetId
-    //     }
-    //   }
-    // }, (err, assetData) => {
-    //   if(err) {
-    //     console.log('error in view asset');
-    //   } else {
-    //     console.log(assetData);
-    //   }
-    // });
+    this.state.dbObject.getItem({
+      TableName: this.state.tableName,
+      Key: {
+        "id": {
+          S: this.props.location.state.assetId
+        }
+      }
+    }, (err, assetData) => {
+      if(err) {
+        console.log('error in view asset');
+      } else {
+        console.log(assetData);
+      }
+    });
   }
   
   
