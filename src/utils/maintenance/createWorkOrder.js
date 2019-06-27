@@ -8,6 +8,9 @@ export default function createWorkOrder(state){
       tableName
     } = state;
 
+    if(state.local === undefined || state.local.length === 0){
+      reject("É necessário selecionar um local para cadastrar a OS.");
+    }
     
     // FORM-INDEPENDET ATTRIBUTES
     let id = Math.round(Math.random()*10000).toString();
@@ -82,9 +85,9 @@ export default function createWorkOrder(state){
       }
     }, (err, data) => {
       if(err){
-        reject();
+        reject("Houve um problema no cadastro da OS. Faça login ou tente novamente.");
       } else {
-        resolve();
+        resolve("Ordem de serviço cadastrada com sucesso!");
       }
     });
   });

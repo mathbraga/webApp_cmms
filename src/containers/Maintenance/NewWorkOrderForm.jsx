@@ -45,18 +45,18 @@ class NewWorkOrderForm extends Component {
       alertMessage: "Cadastrando ordem de serviço..."
     });
     createWorkOrder(this.state)
-    .then(() => {
+    .then(resolveMessage => {
       this.setState({
         alertVisible: true,
         alertColor: "success",
-        alertMessage: "Ordem de serviço cadastrada."
+        alertMessage: resolveMessage
       });
     })
-    .catch(() => {
+    .catch(rejectMessage => {
       this.setState({
         alertVisible: true,
         alertColor: "danger",
-        alertMessage: "Houve um erro no cadastro da ordem de serviço."
+        alertMessage: rejectMessage
       });
     });
   }
