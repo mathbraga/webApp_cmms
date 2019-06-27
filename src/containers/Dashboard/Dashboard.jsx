@@ -1,7 +1,33 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody } from "reactstrap";
+import getWorkOrdersWithImpact from "../../utils/maintenance/getWorkOrdersWithImpact";
+import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
+import { dbTables } from "../../aws";
 
 class Dashboard extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      dbObject: initializeDynamoDB(false),
+      tableName: dbTables.maintenance.tableName,
+      impacts: []
+    }
+  }
+
+
+  componentDidMount(){
+    getWorkOrdersWithImpact(this.state.dbObject, this.state.tableName)
+    .then(impacts => {
+      console.log(impacts);
+      this.setState({
+        impacts: impacts
+      })
+    })
+    .catch(() => {
+      console.log("Houve um problema ao baixar as ordens de serviço.");
+    });
+  }
+  
   render() {
     return (
       <React.Fragment>
@@ -56,6 +82,22 @@ class Dashboard extends Component {
                   </CardBody>
                 </Card>
               </Col>
+            </Row>
+
+            <Row className="justify-content-center">
+              <table>
+                <tr>
+                  <th>Ações impactantes</th>
+                </tr>
+                <tr>
+                  {this.state.impacts.map(impact => (
+                    <td
+                      key={impact.id}
+                    >{impact.id}
+                    </td>
+                  ))}
+                </tr>
+              </table>
             </Row>
           </Container>
         </div>
