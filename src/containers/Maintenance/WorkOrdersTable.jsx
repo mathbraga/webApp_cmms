@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardBody, Col, Row, Button, CardHeader } from "reactstrap";
+import { Alert, Card, CardBody, Col, Row, Button, CardHeader } from "reactstrap";
 import "./WorkOrdersTable.css";
 
 class WorkRequestsTable extends Component {
@@ -11,8 +11,7 @@ class WorkRequestsTable extends Component {
     } = this.props;
 
     return (
-      <React.Fragment>
-        <Card>
+      <Card>
         <CardHeader>
           <Row>
             <Col md="9" xs="6">
@@ -34,46 +33,50 @@ class WorkRequestsTable extends Component {
           </Row>
         </CardHeader>
         <CardBody>
-        <table className="content-table">
-        <thead className="thead-light">
-          <tr>
-            {tableConfig.map(column => (
-              <th style={column.style} className={column.className}>{column.name}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {items.map(item => (
-            <tr>
-              {tableConfig.map(column => (
-                <td className="text-center">
-                  {(column.attr === "local") || (column.attr === "asset") ? (
-                    <Button
-                      color="link"
-                      name={item[column.attr]}
-                      onClick={column.attr === "local" ? this.props.viewLocal : this.props.viewAsset}
-                    >{item[column.attr]}
-                    </Button>
-                  ) : (
-                    <React.Fragment>
-                      {item[column.attr]}
-                    </React.Fragment>
-                  )}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
 
+          {this.props.items.length === 0 ? (
 
+            <Alert
+              color="dark"
+            >Carregando ordens de serviço...
+            </Alert>
 
+          ) : (
+
+            <table className="content-table">
+              <thead className="thead-light">
+                <tr>
+                  {tableConfig.map(column => (
+                    <th style={column.style} className={column.className}>{column.name}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {items.map(item => (
+                  <tr>
+                    {tableConfig.map(column => (
+                      <td className="text-center">
+                        {(column.attr === "local") || (column.attr === "asset") ? (
+                          <Button
+                            color="link"
+                            name={item[column.attr]}
+                            onClick={column.attr === "local" ? this.props.viewLocal : this.props.viewAsset}
+                          >{item[column.attr]}
+                          </Button>
+                        ) : (
+                          <React.Fragment>
+                            {item[column.attr]}
+                          </React.Fragment>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </CardBody>
       </Card>
-
-
-
-      </React.Fragment>
     );
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+import { Alert } from "reactstrap";
 import WorkOrdersTable from "./WorkOrdersTable";
 import { fakeWorkOrders } from "./fakeWorkOrders";
 import { dbTables } from "../../aws";
@@ -15,6 +16,19 @@ class WorkOrders extends Component {
       tableName: dbTables.maintenance.tableName,
       workOrders: []
     }
+  }
+
+  componentDidMount(){
+    getWorkOrders(this.state.dbObject, this.state.tableName)
+    .then(workOrders => {
+      console.log(workOrders);
+      this.setState({
+        workOrders: workOrders
+      })
+    })
+    .catch(() => {
+      console.log("Houve um problema ao baixar as ordens de serviço.");
+    });
   }
 
   viewAsset = event => {
@@ -54,19 +68,6 @@ class WorkOrders extends Component {
     });
   }
 
-  componentDidMount(){
-    getWorkOrders(this.state.dbObject, this.state.tableName)
-    .then(workOrders => {
-      console.log(workOrders);
-      this.setState({
-        workOrders: workOrders
-      })
-    })
-    .catch(() => {
-      console.log("Houve um problema ao baixar as ordens de serviço.");
-    });
-  }
-
   render() {
     return (
       <React.Fragment>
@@ -82,7 +83,7 @@ class WorkOrders extends Component {
               />
             )}
           />
-        
+
       </React.Fragment>
     );
   }
