@@ -60,7 +60,7 @@ class WorkRequestsTable extends Component {
                   <tr>
                     {tableConfig.map(column => (
                       <td className="text-center">
-                        {(column.attr === "local") || (column.attr === "asset" || column.attr === "id") ? (
+                        {(column.attr === "asset" || column.attr === "id") ? (
                           <Button
                             color="link"
                             name={item[column.attr]}

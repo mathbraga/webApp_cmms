@@ -24,10 +24,6 @@ class WorkOrders extends Component {
       asset: event => {
         let assetId = event.target.name;
         this.props.history.push(`/ativos/view/${assetId}`);
-      },
-      local: event => {
-        let localId = event.target.name;
-        this.props.history.push(`/local/view/${localId}`);
       }
     }
   }

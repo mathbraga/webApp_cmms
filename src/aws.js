@@ -40,7 +40,7 @@ export const dbTables = {
     tableName: "workorder"
   },
   asset: {
-    tableName: "Ativos-SF",
+    tableName: "Ativo",
     readFile: textToArrayFacility,
     buildParamsArr: NEWbuildAssetParamsArr
   }

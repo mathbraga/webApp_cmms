@@ -15,7 +15,7 @@ import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoD
 import { connect } from "react-redux";
 import { dbTables } from "../../aws";
 import createWorkOrder from "../../utils/maintenance/createWorkOrder";
-import { allLocals } from "./allLocals";
+import { allAssets } from "./allAssets";
 
 class NewWorkOrderForm extends Component {
   constructor(props){
@@ -235,7 +235,7 @@ class NewWorkOrderForm extends Component {
               />
             </InputGroup>
 
-            <InputGroup className="mb-3">
+            {/* <InputGroup className="mb-3">
               <Label
               >Ativo:
               </Label>
@@ -246,29 +246,29 @@ class NewWorkOrderForm extends Component {
                 placeholder=""
                 onChange={this.handleInput}
               />
-            </InputGroup>
+            </InputGroup> */}
 
             <InputGroup className="mb-3">
               <Label
-              >Local:
+              >Ativo:
               </Label>
               <Input
                 type="select"
-                id="local"
-                name="local"
+                id="asset"
+                name="asset"
                 defaultValue=""
                 onChange={this.handleInput}
               >
                 <option
                   key=""
                   value=""
-                >Selecione o local
+                >Selecione o ativo
                 </option>
-                {allLocals.map(local => (
+                {allAssets.map(assetId => (
                   <option
-                    key={local}
-                    value={local}
-                  >{local}
+                    key={assetId}
+                    value={assetId}
+                  >{assetId}
                   </option>
                 ))}
               </Input>

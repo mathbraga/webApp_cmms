@@ -8,7 +8,7 @@ export default function createWorkOrder(state){
       tableName
     } = state;
 
-    if(state.local === undefined || state.local.length === 0){
+    if(state.asset === undefined || state.asset.length === 0){
       reject("É necessário selecionar um local para cadastrar a OS.");
     }
     
