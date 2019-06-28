@@ -60,12 +60,12 @@ class WorkOrders extends Component {
             )}
           />
 
-          <FileInput
+          {/* <FileInput
             readFile={dbTables.asset.readFile}
             buildParamsArr={dbTables.asset.buildParamsArr}
             tableName={"Ativo"}
             dbObject={this.state.dbObject}
-          />
+          /> */}
 
       </React.Fragment>
     );
