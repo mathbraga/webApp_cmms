@@ -1,4 +1,4 @@
-import dateToNum from "./dateToNum";
+import dateToStr from "./dateToStr";
 
 export default function createWorkOrder(state){
   return new Promise((resolve, reject) => {
@@ -14,7 +14,7 @@ export default function createWorkOrder(state){
     
     // FORM-INDEPENDET ATTRIBUTES
     let id = Math.round(Math.random()*10000).toString();
-    let creationDate = dateToNum(new Date());
+    let creationDate = dateToStr(new Date());
     // creationTime
     // lastUpdate
 

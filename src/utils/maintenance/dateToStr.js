@@ -1,4 +1,4 @@
-export default function dateToNum(date){
+export default function dateToStr(date){
   
   let year = date.getFullYear();
   let month = parseInt(date.getMonth(), 10) + 1;
