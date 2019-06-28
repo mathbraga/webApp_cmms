@@ -8,35 +8,50 @@ class AssetView extends Component {
     this.state = {
       dbObject: initializeDynamoDB(false),
       tableName: dbTables.asset.tableName,
+      message: "Carregando ativo...",
+      asset: false
     }
   }
-  
-  
+
   componentDidMount(){
     this.state.dbObject.getItem({
       TableName: this.state.tableName,
       Key: {
         "id": {
-          S: this.props.location.state.assetId
+          S: this.props.location.pathname.slice(13)
         }
       }
-    }, (err, assetData) => {
+    }, (err, data) => {
       if(err) {
-        console.log('error in view asset');
+        this.setState({
+          asset: false,
+          message: "Houve um erro no acesso ao banco de dados."
+        });
       } else {
-        console.log(assetData);
+        console.log(data);
+        if(Object.keys(data).length === 0){
+          this.setState({
+            asset: false,
+            message: "O ativo não existe no banco de dados."
+          });
+        } else {
+          this.setState({
+            asset: data.Item
+          });
+        }
       }
     });
   }
   
-  
   render() {
-
-
     return (
-      <div>
-        ASSET VIEW
-      </div>
+      <React.Fragment>
+        {!this.state.asset ? (
+          <h3>{this.state.message}</h3>
+        ) : (
+          <h3>DISPLAY ATIVO: {this.state.asset.id.S}</h3>
+        )}
+      </React.Fragment>
     );
   }
 }

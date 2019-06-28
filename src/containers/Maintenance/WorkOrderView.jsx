@@ -8,7 +8,7 @@ class WorkOrderView extends Component {
     this.state = {
       dbObject: initializeDynamoDB(false),
       tableName: dbTables.maintenance.tableName,
-      error: false,
+      message: "Carregando ordem de serviço...",
       workOrder: false
     }
   }
@@ -21,21 +21,22 @@ class WorkOrderView extends Component {
           N: this.props.location.pathname.slice(20)
         }
       }
-    }, (err, woData) => {
+    }, (err, data) => {
       if(err) {
-        console.log('error in view wo');
         this.setState({
-          error: true
+          workOrder: false,
+          message: "Houve um erro no acesso ao banco de dados."
         });
       } else {
-        console.log(woData);
-        if(Object.keys(woData).length === 0){
+        console.log(data);
+        if(Object.keys(data).length === 0){
           this.setState({
-            error: true
+            workOrder: false,
+            message: "A OS não existe no banco de dados."
           });
         } else {
           this.setState({
-            workOrder: woData.Item
+            workOrder: data.Item
           });
         }
       }
@@ -45,16 +46,10 @@ class WorkOrderView extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.state.error ? (
-          <h3>OS NÃO ENCONTRADA</h3>
+        {!this.state.workOrder ? (
+          <h3>{this.state.message}</h3>
         ) : (
-          <React.Fragment>
-            {this.state.workOrder ? (
-            <h3>DISPLAY OS: {this.state.workOrder.id.N}</h3>
-          ) : (
-            <h3>Carregando OS</h3>
-          )}
-          </React.Fragment>
+          <h3>DISPLAY OS: {this.state.workOrder.id.N}</h3>
         )}
       </React.Fragment>
     );

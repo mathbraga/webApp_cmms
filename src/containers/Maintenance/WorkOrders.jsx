@@ -19,12 +19,7 @@ class WorkOrders extends Component {
     this.viewEntity = {
       id: event => {
         let workOrderId = event.target.name;
-        this.props.history.push({
-          pathname: `/manutencao/os/view/${workOrderId}`,
-          state: {
-            workOrderId: workOrderId
-          }
-        });
+        this.props.history.push(`/manutencao/os/view/${workOrderId}`);
       },
       asset: event => {
         let assetId = event.target.name;
