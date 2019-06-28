@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import { Alert } from "reactstrap";
 import WorkOrdersTable from "./WorkOrdersTable";
 import { fakeWorkOrders } from "./fakeWorkOrders";
 import { dbTables } from "../../aws";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 import getWorkOrders from "../../utils/maintenance/getWorkOrders";
 import { connect } from "react-redux";
+import FileInput from "../../components/FileInputs/FileInput";
 
 class WorkOrders extends Component {
   constructor(props){
@@ -58,6 +58,13 @@ class WorkOrders extends Component {
                 viewEntity={this.viewEntity}
               />
             )}
+          />
+
+          <FileInput
+            readFile={dbTables.asset.readFile}
+            buildParamsArr={dbTables.asset.buildParamsArr}
+            tableName={"Ativo"}
+            dbObject={this.state.dbObject}
           />
 
       </React.Fragment>
