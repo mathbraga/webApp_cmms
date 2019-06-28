@@ -33,10 +33,7 @@ export const dbTables = {
     readFile: textToArrayCM,
     buildParamsArr: buildCAESBParamsArr
   },
-  facility: {
-    tableName: "Locais-SF"
-  },
-  maintenance: {
+  workOrder: {
     tableName: "workorder"
   },
   asset: {

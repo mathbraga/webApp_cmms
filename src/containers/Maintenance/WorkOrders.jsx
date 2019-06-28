@@ -13,7 +13,7 @@ class WorkOrders extends Component {
     super(props);
     this.state = {
       dbObject: initializeDynamoDB(this.props.session),
-      tableName: dbTables.maintenance.tableName,
+      tableName: dbTables.workOrder.tableName,
       workOrders: []
     }
     this.viewEntity = {

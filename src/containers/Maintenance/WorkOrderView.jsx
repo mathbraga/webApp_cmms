@@ -7,7 +7,7 @@ class WorkOrderView extends Component {
     super(props);
     this.state = {
       dbObject: initializeDynamoDB(false),
-      tableName: dbTables.maintenance.tableName,
+      tableName: dbTables.workOrder.tableName,
       message: "Carregando ordem de serviço...",
       workOrder: false
     }

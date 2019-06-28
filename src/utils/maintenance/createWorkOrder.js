@@ -9,7 +9,7 @@ export default function createWorkOrder(state){
     } = state;
 
     if(state.asset === undefined || state.asset.length === 0){
-      reject("É necessário selecionar um local para cadastrar a OS.");
+      reject("É necessário selecionar um ativo para cadastrar a OS.");
     }
     
     // FORM-INDEPENDET ATTRIBUTES
