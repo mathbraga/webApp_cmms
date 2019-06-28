@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, CardBody } from "reactstrap";
 import getWorkOrdersWithImpact from "../../utils/maintenance/getWorkOrdersWithImpact";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 import { dbTables } from "../../aws";
+import { sortBy } from "lodash";
 
 class Dashboard extends Component {
   constructor(props){
@@ -89,14 +90,15 @@ class Dashboard extends Component {
                 <tr>
                   <th>Ações impactantes</th>
                 </tr>
-                <tr>
-                  {this.state.impacts.map(impact => (
-                    <td
+                <tbody>
+                  {sortBy(this.state.impacts, "id").map(impact => (
+                    <tr
                       key={impact.id}
-                    >{impact.id}
-                    </td>
+                    >
+                      <td>{impact.id}</td>
+                    </tr>
                   ))}
-                </tr>
+                </tbody>
               </table>
             </Row>
           </Container>

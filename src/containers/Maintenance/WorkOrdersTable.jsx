@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Alert, Card, CardBody, Col, Row, Button, CardHeader } from "reactstrap";
 import "./WorkOrdersTable.css";
+import { sortBy } from "lodash";
 
 class WorkRequestsTable extends Component {
   render() {
@@ -10,6 +11,8 @@ class WorkRequestsTable extends Component {
       items,
       viewEntity
     } = this.props;
+
+    let sortedItems = sortBy(items, "id");
 
     return (
       <Card>
@@ -35,7 +38,7 @@ class WorkRequestsTable extends Component {
         </CardHeader>
         <CardBody>
 
-          {this.props.items.length === 0 ? (
+          {sortedItems.length === 0 ? (
 
             <Alert
               color="dark"
@@ -53,7 +56,7 @@ class WorkRequestsTable extends Component {
                 </tr>
               </thead>
               <tbody>
-                {items.map(item => (
+                {sortedItems.map(item => (
                   <tr>
                     {tableConfig.map(column => (
                       <td className="text-center">
