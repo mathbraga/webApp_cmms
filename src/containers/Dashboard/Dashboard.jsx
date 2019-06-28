@@ -1,33 +1,33 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody } from "reactstrap";
 import getWorkOrdersWithImpact from "../../utils/maintenance/getWorkOrdersWithImpact";
-import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
-import { dbTables } from "../../aws";
-import { sortBy } from "lodash";
+// import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
+// import { dbTables } from "../../aws";
+// import { sortBy } from "lodash";
 
 class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      dbObject: initializeDynamoDB(false),
-      tableName: dbTables.maintenance.tableName,
-      impacts: []
+      // dbObject: initializeDynamoDB(false),
+      // tableName: dbTables.maintenance.tableName,
+      // impacts: []
     }
   }
 
 
-  componentDidMount(){
-    getWorkOrdersWithImpact(this.state.dbObject, this.state.tableName)
-    .then(impacts => {
-      console.log(impacts);
-      this.setState({
-        impacts: impacts
-      })
-    })
-    .catch(() => {
-      console.log("Houve um problema ao baixar as ordens de serviço.");
-    });
-  }
+  // componentDidMount(){
+  //   getWorkOrdersWithImpact(this.state.dbObject, this.state.tableName)
+  //   .then(impacts => {
+  //     console.log(impacts);
+  //     this.setState({
+  //       impacts: impacts
+  //     })
+  //   })
+  //   .catch(() => {
+  //     console.log("Houve um problema ao baixar as ordens de serviço.");
+  //   });
+  // }
   
   render() {
     return (
@@ -85,7 +85,7 @@ class Dashboard extends Component {
               </Col>
             </Row>
 
-            <Row className="justify-content-center">
+            {/* <Row className="justify-content-center">
               <table>
                 <tr>
                   <th>Ações impactantes</th>
@@ -100,7 +100,7 @@ class Dashboard extends Component {
                   ))}
                 </tbody>
               </table>
-            </Row>
+            </Row> */}
           </Container>
         </div>
       </React.Fragment>
