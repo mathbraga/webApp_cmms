@@ -1,6 +1,8 @@
 import buildCEBParamsArr from "./utils/consumptionMonitor/buildCEBParamsArr";
 import buildCAESBParamsArr from "./utils/consumptionMonitor/buildCAESBParamsArr";
+import NEWbuildAssetParamsArr from "./utils/maintenance/NEWbuildAssetParamsArr";
 import textToArrayCM from "./utils/consumptionMonitor/textToArrayCM";
+import textToArrayFacility from "./utils/assets/textToArrayFacility";
 
 // AWS configurations
 
@@ -31,10 +33,12 @@ export const dbTables = {
     readFile: textToArrayCM,
     buildParamsArr: buildCAESBParamsArr
   },
-  facility: {
-    tableName: "Locais-SF"
+  workOrder: {
+    tableName: "workorder"
   },
-  impact: {
-    tableName: "AcaoImpactante"
+  asset: {
+    tableName: "Ativo",
+    readFile: textToArrayFacility,
+    buildParamsArr: NEWbuildAssetParamsArr
   }
 };

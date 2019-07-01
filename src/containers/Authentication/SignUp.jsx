@@ -98,6 +98,7 @@ class SignUp extends Component {
                           placeholder="usuario@senado.leg.br"
                           onChange={this.handleInputs}
                           innerRef={this.emailInputRef}
+                          autoFocus
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">

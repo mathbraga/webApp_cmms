@@ -34,9 +34,9 @@ export default function buildResultAMwater(data, meterType, meters, chosenMeter,
 
   resultObject.typeText = false;
 
-  resultObject.imageWidgetOneColumn = require("../../assets/icons/alert_icon.png");
+  resultObject.imageWidgetOneColumn = require("../../assets/icons/water_drop.png");
 
-  resultObject.imageWidgetThreeColumns = require("../../assets/icons/alert_icon.png");
+  resultObject.imageWidgetThreeColumns = require("../../assets/icons/water_shower.png");
 
   resultObject.imageWidgetWithModal = require("../../assets/icons/alert_icon.png");;
 

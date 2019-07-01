@@ -3,7 +3,7 @@ export default {
     {
       name: "Painel",
       url: "/painel",
-      icon: "cui-monitor"
+      icon: "cui-chart"
     },
     {
       name: "Monitor de consumo",
@@ -25,12 +25,24 @@ export default {
     {
       name: "Ativos",
       url: "/ativos",
-      icon: "icon-speedometer",
+      icon: "icon-tag",
     },
     {
-      name: "Ordens de serviços",
-      url: "/os",
-      icon: "icon-speedometer",
+      name: "Manutenção",
+      url: "/manutencao",
+      icon: "icon-wrench",
+      children: [
+        // {
+        //   name: "Solicitações",
+        //   url: "/manutencao/solicitacoes",
+        //   icon: "icon-drop"
+        // },
+        {
+          name: "Ordens de serviço",
+          url: "/manutencao/os",
+          icon: "icon-list"
+        },
+      ]
     },
   ]
 };

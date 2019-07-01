@@ -88,6 +88,7 @@ class Login extends Component {
                           placeholder="usuario@senado.leg.br"
                           autoComplete="username"
                           onChange={this.handleLoginInputs}
+                          autoFocus
                         />
                       </InputGroup>
                       <InputGroup className="mb-4">
