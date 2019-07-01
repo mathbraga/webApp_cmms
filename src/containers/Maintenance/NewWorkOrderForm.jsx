@@ -74,14 +74,14 @@ class NewWorkOrderForm extends Component {
   }
 
   addAsset = () => {
-    if(this.state.assetsList[this.state.assetsList.length - 1] !== ""){
+    if(this.state.assetsList.includes("")){
+      alert('escolha um ativo antes de adicionar outro');
+    } else {
       let nextAssetsList = [...this.state.assetsList];
       nextAssetsList.push("");
       this.setState({
         assetsList: nextAssetsList
       });
-    } else {
-      alert('escolha um ativo antes de adicionar outro');
     }
   }
 
