@@ -8,8 +8,14 @@ export default function createWorkOrder(state){
       tableName
     } = state;
 
-    if(state.asset === undefined || state.asset.length === 0){
+    let filteredAssetsList = [];
+
+    if(state.assetsList.length === 1 && state.assetsList[0] === ""){
       reject("É necessário selecionar um ativo para cadastrar a OS.");
+    } else {
+      filteredAssetsList = state.assetsList.filter(asset => (
+        asset !== ""
+      ));
     }
     
     // FORM-INDEPENDET ATTRIBUTES
@@ -51,7 +57,7 @@ export default function createWorkOrder(state){
     // subTasks
     // log
     let status = "Pendente"
-    let asset = state.asset || "BL14-MEZ-043";
+    // let asset = state.asset || "BL14-MEZ-043";
     let local = state.local || "BL14-MEZ-043";
     let impact = state.impact || false;
 
@@ -73,9 +79,9 @@ export default function createWorkOrder(state){
         "status": {
           S: status
         },
-        "asset": {
-          S: asset
-        },
+        // "asset": {
+        //   S: asset
+        // },
         "local": {
           S: local
         },
@@ -87,7 +93,31 @@ export default function createWorkOrder(state){
       if(err){
         reject("Houve um problema no cadastro da OS. Faça login ou tente novamente.");
       } else {
-        resolve("Ordem de serviço cadastrada com sucesso!");
+        
+        let arrayPromises = filteredAssetsList.map(assetId => {
+          return new Promise((resolve, reject) => {
+            dbObject.putItem({
+              TableName: "WOXASSET",
+              Item: {
+                "woId": {
+                  N: id
+                },
+                "assetId": {
+                  S: assetId
+                }
+              }
+            }, (err, data) => {
+              if(err){
+                reject();
+              } else {
+                resolve();
+              }
+            });
+          });
+        });
+        Promise.all(arrayPromises)
+        .then(()=>resolve("OS CADASTRADA COM SUCESSO!"))
+        .catch(()=>reject("HOUVE UM PROBLEMA."));
       }
     });
   });

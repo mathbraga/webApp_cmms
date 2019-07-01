@@ -23,6 +23,7 @@ class NewWorkOrderForm extends Component {
     this.state = {
       dbObject: initializeDynamoDB(this.props.session),
       tableName: dbTables.workOrder.tableName,
+      assetsList: [""],
       alertVisible: false,
       alertColor: "",
       alertMessage: ""
@@ -58,6 +59,30 @@ class NewWorkOrderForm extends Component {
         alertMessage: rejectMessage
       });
     });
+  }
+
+  assignAsset = event => {
+    let assetPosition = event.target.name;
+    let assetId = event.target.value;
+    this.setState(prevState => {
+      let nextAssetsList = [...prevState.assetsList];
+      nextAssetsList[assetPosition] = assetId;
+      return {
+        assetsList: nextAssetsList
+      }
+    });
+  }
+
+  addAsset = () => {
+    if(this.state.assetsList[this.state.assetsList.length - 1] !== ""){
+      let nextAssetsList = [...this.state.assetsList];
+      nextAssetsList.push("");
+      this.setState({
+        assetsList: nextAssetsList
+      });
+    } else {
+      alert('escolha um ativo antes de adicionar outro');
+    }
   }
 
   closeAlert = () => {
@@ -248,31 +273,42 @@ class NewWorkOrderForm extends Component {
               />
             </InputGroup> */}
 
-            <InputGroup className="mb-3">
-              <Label
-              >Ativo:
-              </Label>
-              <Input
-                type="select"
-                id="asset"
-                name="asset"
-                defaultValue=""
-                onChange={this.handleInput}
+            {this.state.assetsList.map((asset, i) => (
+              <InputGroup
+                className="mb-3"
+                key={"asset-" + i.toString()}
               >
-                <option
-                  key=""
-                  value=""
-                >Selecione o ativo
-                </option>
-                {allAssets.map(assetId => (
+                <Label
+                >Ativo #{(i + 1).toString()}:
+                </Label>
+                <Input
+                  type="select"
+                  id={"asset" + i.toString()}
+                  name={i.toString()}
+                  defaultValue=""
+                  onChange={this.assignAsset}
+                >
                   <option
-                    key={assetId}
-                    value={assetId}
-                  >{assetId}
+                    key=""
+                    value=""
+                  >Selecione o ativo
                   </option>
-                ))}
-              </Input>
-            </InputGroup>
+                  {allAssets.map(assetId => (
+                    <option
+                      key={i.toString() + assetId}
+                      value={assetId}
+                    >{assetId}
+                    </option>
+                  ))}
+                </Input>
+              </InputGroup>
+            ))}
+            
+            <Button
+              color="warning"
+              onClick={this.addAsset}
+            >Adicionar ativo
+            </Button>
 
             <InputGroup className="mb-3 ml-3">
               <Label
