@@ -33,7 +33,7 @@ class WorkRequestsTable extends Component {
           </Row>
         </CardHeader>
         <CardBody>
-          <table>
+          {/* <table>
 
             <tr>
               {tableConfig.map(row => (
@@ -49,7 +49,7 @@ class WorkRequestsTable extends Component {
               </tr>
             ))}
 
-          </table>
+          </table> */}
         </CardBody>
       </Card>
 

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import WorkOrdersTable from "./WorkOrdersTable";
-import { fakeWorkOrders } from "./fakeWorkOrders";
+import { tableConfig } from "./WorkOrdersTableConfig";
 import { dbTables } from "../../aws";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
-import getWorkOrders from "../../utils/maintenance/getWorkOrders";
+import getAllWorkOrders from "../../utils/maintenance/getAllWorkOrders";
 import { connect } from "react-redux";
 import FileInput from "../../components/FileInputs/FileInput";
 
@@ -29,9 +29,8 @@ class WorkOrders extends Component {
   }
 
   componentDidMount(){
-    getWorkOrders(this.state.dbObject, this.state.tableName)
+    getAllWorkOrders(this.state.dbObject, this.state.tableName)
     .then(workOrders => {
-      console.log(workOrders);
       this.setState({
         workOrders: workOrders
       });
@@ -49,7 +48,7 @@ class WorkOrders extends Component {
             render={routerProps => (
               <WorkOrdersTable
                 {...routerProps}
-                tableConfig={fakeWorkOrders.tableConfig}
+                tableConfig={tableConfig}
                 items={this.state.workOrders}
                 viewEntity={this.viewEntity}
               />

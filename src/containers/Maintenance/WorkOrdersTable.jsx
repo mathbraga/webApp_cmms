@@ -51,15 +51,24 @@ class WorkRequestsTable extends Component {
               <thead className="thead-light">
                 <tr>
                   {tableConfig.map(column => (
-                    <th style={column.style} className={column.className}>{column.name}</th>
+                    <th
+                      key={column.name}
+                      style={column.style}
+                      className={column.className}
+                    >{column.name}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {sortedItems.map(item => (
-                  <tr>
+                  <tr
+                    key={item.id}
+                  >
                     {tableConfig.map(column => (
-                      <td className="text-center">
+                      <td
+                        key={item[column.attr]}
+                        className="text-center"
+                      >
                         {(column.attr === "asset" || column.attr === "id") ? (
                           <Button
                             color="link"
