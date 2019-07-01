@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 import cleanDynamoGetItemResponse from "../../utils/maintenance/cleanDynamoGetItemResponse";
 import { dbTables } from "../../aws";
+import { Button } from "reactstrap";
 
 class WorkOrderView extends Component {
   constructor(props){
@@ -10,7 +11,8 @@ class WorkOrderView extends Component {
       dbObject: initializeDynamoDB(false),
       tableName: dbTables.workOrder.tableName,
       message: "Carregando ordem de serviço...",
-      workOrder: false
+      workOrder: false,
+      assetsList: []
     }
   }
 
@@ -76,10 +78,23 @@ class WorkOrderView extends Component {
         {!this.state.workOrder ? (
           <h3>{this.state.message}</h3>
         ) : (
-          <h3>DISPLAY OS: {this.state.workOrder.id}</h3>
+          <React.Fragment>
+            <h3>ORDEM DE SERVIÇO #{this.state.workOrder.id}</h3>
+            <h4>ATIVOS:
+              {this.state.assetsList.map(asset => (
+                <li>
+                  <Button
+                    color="link"
+                    onClick={()=>{this.props.history.push("/ativos/view/" + asset)}}
+                  >{asset}
+                  </Button>
+                </li>
+              ))}
+            </h4>
+          </React.Fragment>
         )}
-      </React.Fragment>
-    );
+     </React.Fragment>
+    )
   }
 }
 
