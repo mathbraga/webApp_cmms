@@ -24,6 +24,7 @@ class NewWorkOrderForm extends Component {
       dbObject: initializeDynamoDB(this.props.session),
       tableName: dbTables.workOrder.tableName,
       assetsList: [""],
+      impact: false,
       alertVisible: false,
       alertColor: "",
       alertMessage: ""
@@ -318,7 +319,6 @@ class NewWorkOrderForm extends Component {
                 type="checkbox"
                 id="impact"
                 name="impact"
-                checked={this.state.impact}
                 onChange={this.handleInput}
               />
             </InputGroup>
