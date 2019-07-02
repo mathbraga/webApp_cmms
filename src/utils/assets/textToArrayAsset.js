@@ -1,4 +1,4 @@
-export default function textToArrayFacility(file){
+export default function textToArrayAsset(file){
   return new Promise((resolve, reject) => {
     
     // Initialize reader variable

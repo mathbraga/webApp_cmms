@@ -1,7 +1,7 @@
 export default function buildAssetParamsArr(arr, tableName){
   
   // Discard header
-  let numColumns = 5;
+  let numColumns = 10;
   let noHeader = arr.splice(numColumns);
 
   // Remove last element (empty element because the last character in CEB csv file is ;)
@@ -35,17 +35,32 @@ export default function buildAssetParamsArr(arr, tableName){
           "id": {
             S: asset[0]
           },
-          "local": {
+          "nome": {
             S: asset[1]
           },
-          "model": {
+          "subnome": {
             S: asset[2]
           },
-          "serial": {
-            S: asset[3]
+          "visita": {
+            BOOL: asset[3] === "true"
           },
-          "status": {
-            S: asset[4]
+          "lat": {
+            N: asset[4]
+          },
+          "lon": {
+            N: asset[5]
+          },
+          "areaconst": {
+            N: asset[6]
+          },
+          "pai": {
+            S: asset[7]
+          },
+          "modelo": {
+            S: asset[8]
+          },
+          "serial": {
+            S: asset[9]
           }
         }
       }

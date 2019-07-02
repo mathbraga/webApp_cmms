@@ -1,14 +1,31 @@
 import React, { Component } from "react";
-import FileInput from "../../components/FileInputs/FileInput";
-import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
-import textToArrayFacility from "../../utils/assets/textToArrayFacility";
-import buildFacilitiesParamsArr from "../../utils/assets/buildFacilitiesParamsArr";
 import AssetTable from "./AssetTable";
 import { connect } from "react-redux";
-import getAllFacilities from "../../utils/assets/getAllFacilities";
+import getAllAssets from "../../utils/assets/getAllAssets";
 import { dbTables } from "../../aws";
+import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 
 class Assets extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      tableName: dbTables.asset.tableName,
+      dbObject: initializeDynamoDB(this.props.session)
+    }
+  }
+
+  componentDidMount(){
+    getAllAssets(this.state.dbObject, this.state.tableName)
+    .then(assets => {
+      this.setState({
+        assets: assets
+      });
+    })
+    .catch(() => {
+      console.log('houve um erro ao baixar os ativos!');
+    })
+  }
+  
   render() {
     return (
       <AssetTable />
