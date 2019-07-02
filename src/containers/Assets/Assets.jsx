@@ -17,6 +17,7 @@ class Assets extends Component {
   componentDidMount(){
     getAllAssets(this.state.dbObject, this.state.tableName)
     .then(assets => {
+      console.log(assets);
       this.setState({
         assets: assets
       });
