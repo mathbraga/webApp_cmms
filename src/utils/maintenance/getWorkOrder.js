@@ -19,7 +19,9 @@ export default function getWorkOrder(dbObject, tableName, workOrderId){
 
         } else {
 
-          resolve(cleanDynamoResponse(data));
+          let cleanData = cleanDynamoResponse(data);
+          resolve(cleanData[0]);
+
         }
       }
     });

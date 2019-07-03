@@ -19,7 +19,8 @@ export default function getAsset(dbObject, tableName, assetId){
 
         } else {
 
-          resolve(cleanDynamoResponse(data));
+          let cleanData = cleanDynamoResponse(data);
+          resolve(cleanData[0]);
 
         }
       }
