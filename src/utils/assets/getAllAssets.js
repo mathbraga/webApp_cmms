@@ -1,6 +1,6 @@
-import cleanDynamoScanAssetsResponse from "./cleanDynamoScanAssetsResponse";
+import cleanDynamoResponse from "../maintenance/cleanDynamoResponse";
 
-export default function getAllFacilities(dbObject, tableName){
+export default function getAllAssets(dbObject, tableName){
   return new Promise((resolve, reject) => {
     dbObject.scan(
       {
@@ -10,7 +10,7 @@ export default function getAllFacilities(dbObject, tableName){
         if(err) {
           reject();
         } else {
-          resolve(cleanDynamoScanAssetsResponse(data));
+          resolve(cleanDynamoResponse(data));
         }
       }
     );

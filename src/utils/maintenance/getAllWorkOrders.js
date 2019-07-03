@@ -1,4 +1,4 @@
-import cleanDynamoQueryResponse from "./cleanDynamoQueryResponse";
+import cleanDynamoResponse from "./cleanDynamoResponse";
 
 export default function getAllWorkOrders(dbObject, tableName){
   return new Promise((resolve, reject) => {
@@ -8,7 +8,7 @@ export default function getAllWorkOrders(dbObject, tableName){
       if(err){
         reject();
       } else {
-        resolve(cleanDynamoQueryResponse(data));
+        resolve(cleanDynamoResponse(data));
       }
     })
   });
