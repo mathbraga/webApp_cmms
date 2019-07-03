@@ -53,14 +53,14 @@ class AssetView extends Component {
           <React.Fragment>
             <h3>ATIVO: {this.state.asset.id}</h3>
             <h4>OSs:
-              {this.state.workOrdersList.map(wo => (
+              {this.state.workOrdersList.map(workOrder => (
                 <li
-                  key={wo}
+                  key={workOrder.woId}
                 >
                   <Button
                     color="link"
-                    onClick={()=>{this.props.history.push("/manutencao/os/view/" + wo)}}
-                  >{wo}
+                    onClick={()=>{this.props.history.push("/manutencao/os/view/" + workOrder.woId)}}
+                  >{workOrder.woId}
                   </Button>
                 </li>
               ))}

@@ -1,3 +1,5 @@
+import cleanDynamoResponse from "./cleanDynamoResponse";
+
 export default function getWOxASSET(dbObject, tableName, workOrderId){
   return new Promise((resolve, reject) => {
     dbObject.query({
@@ -12,11 +14,10 @@ export default function getWOxASSET(dbObject, tableName, workOrderId){
       if(err){
         reject("NÃO FOI POSSÍVEL ENCONTRAR OS ATIVOS DESTA O.S.");
       } else {
-        let assetsList = [];
-        data.Items.forEach(asset => {
-          assetsList.push(asset.assetId.S);
-        });
-        resolve(assetsList);
+
+        let cleanData = cleanDynamoResponse(data);
+        resolve(cleanData);
+
       }
     });
   });

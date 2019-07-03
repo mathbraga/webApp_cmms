@@ -1,3 +1,5 @@
+import cleanDynamoResponse from "./cleanDynamoResponse";
+
 export default function getASSETxWO(dbObject, tableName, assetId){
   return new Promise((resolve, reject) => {
     dbObject.query({
@@ -13,11 +15,10 @@ export default function getASSETxWO(dbObject, tableName, assetId){
       if(err){
         reject("NÃO FOI POSSÍVEL ENCONTRAR AS O.S.s DESTE ATIVO");
       } else {
-        let workOrdersList = [];
-        data.Items.forEach(wo => {
-          workOrdersList.push(wo.woId.N);
-        });
-        resolve(workOrdersList);
+
+        let cleanData = cleanDynamoResponse(data);
+        resolve(cleanData);
+
       }
     });
   });

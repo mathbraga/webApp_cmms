@@ -55,12 +55,12 @@ class WorkOrderView extends Component {
             <h4>ATIVOS:
               {this.state.assetsList.map(asset => (
                 <li
-                  key={asset}
+                  key={asset.assetId}
                 >
                   <Button
                     color="link"
-                    onClick={()=>{this.props.history.push("/ativos/view/" + asset)}}
-                  >{asset}
+                    onClick={()=>{this.props.history.push("/ativos/view/" + asset.assetId)}}
+                  >{asset.assetId}
                   </Button>
                 </li>
               ))}
