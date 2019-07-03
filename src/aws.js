@@ -40,5 +40,8 @@ export const dbTables = {
     tableName: "Ativo",
     readFile: textToArrayAsset,
     buildParamsArr: buildAssetParamsArr
+  },
+  woxasset: {
+    tableName: "WOXASSET"
   }
 };

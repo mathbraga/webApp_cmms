@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
-import cleanDynamoGetItemResponse from "../../utils/maintenance/cleanDynamoGetItemResponse";
+import getWorkOrder from "../../utils/maintenance/getWorkOrder";
+import getWOxASSET from "../../utils/maintenance/getWOxASSET";
 import { dbTables } from "../../aws";
 import { Button } from "reactstrap";
 
@@ -9,8 +10,6 @@ class WorkOrderView extends Component {
     super(props);
     this.state = {
       dbObject: initializeDynamoDB(false),
-      tableName: dbTables.workOrder.tableName,
-      message: "Carregando ordem de serviço...",
       workOrder: false,
       assetsList: []
     }
@@ -20,55 +19,28 @@ class WorkOrderView extends Component {
 
     let workOrderId = this.props.location.pathname.slice(20);
 
-    this.state.dbObject.getItem({
-      TableName: this.state.tableName,
-      Key: {
-        "id": {
-          N: workOrderId
-        }
-      }
-    }, (err, data) => {
-      if(err) {
-        this.setState({
-          workOrder: false,
-          message: "Houve um erro no acesso ao banco de dados."
-        });
-      } else {
-        if(Object.keys(data).length === 0){
-          this.setState({
-            workOrder: false,
-            message: "A OS não existe no banco de dados."
-          });
-        } else {
-          this.state.dbObject.query({
-            TableName: "WOXASSET",
-            KeyConditionExpression: "woId = :woId",
-            ExpressionAttributeValues: {
-              ":woId": {
-                N: workOrderId
-              }
-            }
-          }, (assetsError, assetsData) => {
-            if(assetsError){
-              console.log("NÃO FOI POSSÍVEL ENCONTRAR OS ATIVOS DESTA O.S.")
-            } else {
-              let assetsList = [];
-              assetsData.Items.forEach(asset => {
-                assetsList.push(asset.assetId.S);
-              });
-              this.setState({
-                workOrder: cleanDynamoGetItemResponse(data),
-                assetsList: assetsList
-              });
-              console.log("RESULT:");
-              console.log("Word order details:");
-              console.log(this.state.workOrder);
-              console.log("Assets assigned to this work order:");
-              console.log(this.state.assetsList);
-            }
-          });
-        }
-      }
+    getWorkOrder(this.state.dbObject, dbTables.workOrder.tableName, workOrderId)
+    .then(workOrder => {
+      console.log("Work order details:");
+      console.log(workOrder);
+      this.setState({
+        workOrder: workOrder
+      });
+    })
+    .catch(message => {
+      console.log(message);
+    });
+
+    getWOxASSET(this.state.dbObject, dbTables.woxasset.tableName, workOrderId)
+    .then(assetsList => {
+      console.log("Assets assigned to this work order:");
+      console.log(assetsList);
+      this.setState({
+        assetsList: assetsList
+      });
+    })
+    .catch(message => {
+      console.log(message);
     });
   }
   
@@ -76,7 +48,7 @@ class WorkOrderView extends Component {
     return (
       <React.Fragment>
         {!this.state.workOrder ? (
-          <h3>{this.state.message}</h3>
+          <h3>Carregando Ordem de Serviço...</h3>
         ) : (
           <React.Fragment>
             <h3>ORDEM DE SERVIÇO #{this.state.workOrder.id}</h3>
