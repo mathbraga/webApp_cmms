@@ -1,4 +1,4 @@
-// import cleanDynamoGetItemResponse from "./cleanDynamoGetItemResponse"
+import cleanDynamoGetItemResponse from "./cleanDynamoGetItemResponse"
 
 export default function getAsset(dbObject, tableName, assetId){
   return new Promise((resolve, reject) => {
@@ -19,7 +19,7 @@ export default function getAsset(dbObject, tableName, assetId){
 
         } else {
 
-          resolve(data);
+          resolve(cleanDynamoGetItemResponse(data));
 
         }
       }
