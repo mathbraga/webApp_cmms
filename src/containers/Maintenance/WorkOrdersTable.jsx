@@ -54,7 +54,7 @@ class WorkRequestsTable extends Component {
                     <th
                       key={column.name}
                       style={column.style}
-                      className={column.className}
+                      className="text-center"
                     >{column.name}</th>
                   ))}
                 </tr>
@@ -67,7 +67,8 @@ class WorkRequestsTable extends Component {
                     {tableConfig.map(column => (
                       <td
                         key={item[column.attr]}
-                        className="text-center"
+                        className={column.className}
+                        style={column.style}
                       >
                         {(column.attr === "id") ? (
                           <Button
