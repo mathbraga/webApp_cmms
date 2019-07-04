@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Alert, Card, CardBody, Col, Row, Button, CardHeader } from "reactstrap";
+import { Alert, Card, CardBody, Col, Row, Button, CardHeader, Badge } from "reactstrap";
 import "./WorkOrdersTable.css";
 import { sortBy } from "lodash";
 
@@ -77,10 +77,23 @@ class WorkRequestsTable extends Component {
                           >{item[column.attr]}
                           </Button>
                         ) : (
+                          column.attr === "impact" ? (
+                            <React.Fragment>
+                              {item[column.attr] ? (
+                              <Badge color="warning">
+                                Sim
+                              </Badge>
+                            ) : (
+                              <Badge color="light">
+                                Não
+                              </Badge>
+                            )}
+                            </React.Fragment>
+                        ) : (
                           <React.Fragment>
                             {item[column.attr]}
                           </React.Fragment>
-                        )}
+                        ))}
                       </td>
                     ))}
                   </tr>
