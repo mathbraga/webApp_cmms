@@ -69,9 +69,10 @@ class WorkRequestsTable extends Component {
                         key={item[column.attr]}
                         className="text-center"
                       >
-                        {(column.attr === "asset" || column.attr === "id") ? (
+                        {(column.attr === "id") ? (
                           <Button
                             color="link"
+                            style={{color: "black", fontSize: "1.2em"}}
                             name={item[column.attr]}
                             onClick={viewEntity[column.attr]}
                           >{item[column.attr]}
