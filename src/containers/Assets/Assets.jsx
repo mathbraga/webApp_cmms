@@ -5,12 +5,13 @@ import getAllAssets from "../../utils/assets/getAllAssets";
 import { dbTables } from "../../aws";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 import { allAssets } from "../Maintenance/allAssets";
+import FileInput from "../../components/FileInputs/FileInput";
 
 class Assets extends Component {
   constructor(props){
     super(props);
     this.state = {
-      tableName: dbTables.asset.tableName,
+      tableName: "Asset",
       dbObject: initializeDynamoDB(this.props.session)
     }
   }
@@ -33,7 +34,15 @@ class Assets extends Component {
   
   render() {
     return (
-      <AssetTable />
+      <React.Fragment>
+        <FileInput
+          readFile={dbTables.asset.readFile}
+          tableName={"Asset"}
+          dbObject={this.state.dbObject}
+          buildParamsArr={dbTables.asset.buildParamsArr}
+        />
+        <AssetTable />
+      </React.Fragment>
     )
   }
 }

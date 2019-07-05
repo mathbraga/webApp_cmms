@@ -4619,5 +4619,5 @@ export const allAssets = [
   { id: 'ACAT-000-SLF-01326', nome: 'nome', subnome: 'subnome', visita: false, lat: 0, lon: 0, areaconst: 0, pai: 'AX02-SS1-084', modelo: 'CARRIER/50BZE16386S', serial: '0701B06720' },
   { id: 'ACAT-000-SLF-01325', nome: 'nome', subnome: 'subnome', visita: false, lat: 0, lon: 0, areaconst: 0, pai: 'AX02-SS1-089', modelo: 'CARRIER/50BZE163865', serial: '4500B49838' },
   { id: 'ACAT-000-SPL-01324', nome: 'nome', subnome: 'subnome', visita: false, lat: 0, lon: 0, areaconst: 0, pai: 'AX02-SS1-089', modelo: 'CARRIER/40MSA040236VS', serial: '4300B12162' },
-{ id: 'ACAT-000-SPL-01323', nome: 'nome', subnome: 'subnome', visita: false, lat: 0, lon: 0, areaconst: 0, pai: 'AX02-SS1-089', modelo: 'CARRIER/40MSA040236VS ', serial: '0601B38941' }
+  { id: 'ACAT-000-SPL-01323', nome: 'nome', subnome: 'subnome', visita: false, lat: 0, lon: 0, areaconst: 0, pai: 'AX02-SS1-089', modelo: 'CARRIER/40MSA040236VS ', serial: '0601B38941' }
 ];
