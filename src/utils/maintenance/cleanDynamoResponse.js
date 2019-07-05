@@ -1,3 +1,5 @@
+import formatDate from "./formatDate";
+
 export default function cleanDynamoResponse(data){
 
   let dbAttrTypes = ["S", "N", "BOOL"];
@@ -17,8 +19,10 @@ export default function cleanDynamoResponse(data){
         if(item[key][type] !== undefined){
           if(type === "N"){
             obj[key] = Number(item[key][type]);
+          } else if(key === "creationDate"){
+            obj[key] = formatDate(item[key][type]);
           } else {
-            obj[key] = item[key][type]
+            obj[key] = item[key][type];
           }
         }
       });
