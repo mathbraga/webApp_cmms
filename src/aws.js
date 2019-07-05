@@ -37,7 +37,7 @@ export const dbTables = {
     tableName: "workorder"
   },
   asset: {
-    tableName: "Ativo",
+    tableName: "Asset",
     readFile: textToArrayAsset,
     buildParamsArr: buildAssetParamsArr
   },

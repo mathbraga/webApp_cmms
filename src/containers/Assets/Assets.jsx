@@ -11,7 +11,7 @@ class Assets extends Component {
   constructor(props){
     super(props);
     this.state = {
-      tableName: "Asset",
+      tableName: dbTables.asset.tableName,
       dbObject: initializeDynamoDB(this.props.session)
     }
   }
@@ -37,7 +37,7 @@ class Assets extends Component {
       <React.Fragment>
         <FileInput
           readFile={dbTables.asset.readFile}
-          tableName={"Asset"}
+          tableName={dbTables.asset.tableName}
           dbObject={this.state.dbObject}
           buildParamsArr={dbTables.asset.buildParamsArr}
         />
