@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import getAllAssets from "../../utils/assets/getAllAssets";
 import { dbTables } from "../../aws";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
+import { allAssets } from "../Maintenance/allAssets";
 
 class Assets extends Component {
   constructor(props){
@@ -15,8 +16,11 @@ class Assets extends Component {
   }
 
   componentDidMount(){
+    console.log("Assets list from file:");
+    console.log(allAssets);
     getAllAssets(this.state.dbObject, this.state.tableName)
     .then(assets => {
+      console.log("Assets list from database:")
       console.log(assets);
       this.setState({
         assets: assets

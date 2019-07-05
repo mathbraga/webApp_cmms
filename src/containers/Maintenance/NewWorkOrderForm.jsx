@@ -298,11 +298,11 @@ class NewWorkOrderForm extends Component {
                     value=""
                   >Selecione o ativo
                   </option>
-                  {allAssets.map(assetId => (
+                  {allAssets.map(asset => (
                     <option
-                      key={"asset-" + i.toString() + "-" + assetId}
-                      value={assetId}
-                    >{assetId}
+                      key={"asset-" + i.toString() + "-" + asset.id}
+                      value={asset.id}
+                    >{asset.id}
                     </option>
                   ))}
                 </Input>
