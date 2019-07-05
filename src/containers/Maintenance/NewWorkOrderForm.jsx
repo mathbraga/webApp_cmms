@@ -63,15 +63,26 @@ class NewWorkOrderForm extends Component {
   }
 
   assignAsset = event => {
-    let assetPosition = event.target.name;
+    let i = parseInt(event.target.name, 10);
     let assetId = event.target.value;
-    this.setState(prevState => {
-      let nextAssetsList = [...prevState.assetsList];
-      nextAssetsList[assetPosition] = assetId;
-      return {
-        assetsList: nextAssetsList
-      }
-    });
+    if(this.state.assetsList.includes(assetId)){
+      alert('ATIVO REPETIDO! O ATIVO SERÁ REMOVIDO DA LISTA.');
+      this.setState(prevState => {
+        let nextAssetsList = [...prevState.assetsList];
+        nextAssetsList.splice(i, 1);
+        return {
+          assetsList: nextAssetsList
+        }
+      });
+    } else {
+      this.setState(prevState => {
+        let nextAssetsList = [...prevState.assetsList];
+        nextAssetsList[i] = assetId;
+        return {
+          assetsList: nextAssetsList
+        }
+      });
+    }
   }
 
   addAsset = () => {
