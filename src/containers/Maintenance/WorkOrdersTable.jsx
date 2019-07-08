@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { Alert, Card, CardBody, Col, Row, Button, CardHeader, Badge } from "reactstrap";
 import "./WorkOrdersTable.css";
 import { sortBy } from "lodash";
@@ -109,4 +110,4 @@ class WorkOrdersTable extends Component {
   }
 }
 
-export default WorkOrdersTable;
+export default withRouter(WorkOrdersTable);

@@ -43,25 +43,11 @@ class WorkOrders extends Component {
   render() {
     return (
       <React.Fragment>
-
-          <Route
-            render={routerProps => (
-              <WorkOrdersTable
-                {...routerProps}
-                tableConfig={tableConfig}
-                items={this.state.workOrders}
-                viewEntity={this.viewEntity}
-              />
-            )}
-          />
-
-          {/* <FileInput
-            readFile={dbTables.asset.readFile}
-            buildParamsArr={dbTables.asset.buildParamsArr}
-            tableName={"Ativo"}
-            dbObject={this.state.dbObject}
-          /> */}
-
+        <WorkOrdersTable
+          tableConfig={tableConfig}
+          items={this.state.workOrders}
+          viewEntity={this.viewEntity}
+        />
       </React.Fragment>
     );
   }
