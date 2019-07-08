@@ -10,6 +10,7 @@ const WorkOrders = React.lazy(() => import("./containers/Maintenance/WorkOrders"
 const NewWorkOrderForm = React.lazy(() => import("./containers/Maintenance/NewWorkOrderForm"));
 const WorkOrderView = React.lazy(() => import("./containers/Maintenance/WorkOrderView"));
 const AssetView = React.lazy(() => import("./containers/Maintenance/AssetView"));
+const Error404 = React.lazy(() => import("./containers/MainPage/Error404"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -24,6 +25,7 @@ const routes = [
   { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: WorkOrders },
   { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: NewWorkOrderForm },
   { path: "/manutencao/os/view/:id", exact: false, name: "OS", component: WorkOrderView },
+  { path: "/erro404", exact: true, name: "Erro 404", component: Error404 },
 ];
 
 export default routes;
