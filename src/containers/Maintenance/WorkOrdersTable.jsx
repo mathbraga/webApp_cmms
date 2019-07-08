@@ -3,7 +3,7 @@ import { Alert, Card, CardBody, Col, Row, Button, CardHeader, Badge } from "reac
 import "./WorkOrdersTable.css";
 import { sortBy } from "lodash";
 
-class WorkRequestsTable extends Component {
+class WorkOrdersTable extends Component {
   render() {
 
     let {
@@ -109,4 +109,4 @@ class WorkRequestsTable extends Component {
   }
 }
 
-export default WorkRequestsTable;
+export default WorkOrdersTable;
