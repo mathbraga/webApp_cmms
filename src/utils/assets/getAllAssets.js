@@ -1,4 +1,5 @@
 import cleanDynamoResponse from "../maintenance/cleanDynamoResponse";
+import { sortBy } from "lodash";
 
 export default function getAllAssets(dbObject, tableName){
   return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export default function getAllAssets(dbObject, tableName){
         if(err) {
           reject();
         } else {
-          resolve(cleanDynamoResponse(data));
+          resolve(sortBy(cleanDynamoResponse(data), "id"));
         }
       }
     );
