@@ -59,7 +59,7 @@ class MainPage extends Component {
                       />
                     ) : null;
                   })}
-                  <Redirect from="/" to={{ pathname: "/erro404" }}/>
+                  <Redirect from="/" to={{ pathname: "/painel" }}/>
                 </Switch>
               </Suspense>
             </Container>
