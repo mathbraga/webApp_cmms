@@ -16,18 +16,20 @@ class Dashboard extends Component {
   }
 
 
-  // componentDidMount(){
-  //   getWorkOrdersWithImpact(this.state.dbObject, this.state.tableName)
-  //   .then(impacts => {
-  //     console.log(impacts);
-  //     this.setState({
-  //       impacts: impacts
-  //     })
-  //   })
-  //   .catch(() => {
-  //     console.log("Houve um problema ao baixar as ordens de serviço.");
-  //   });
-  // }
+  componentDidMount(){
+    console.clear();
+    fetch('//localhost:3001', {
+      method: "GET"
+    })
+    .then(response=>console.log(response))
+    // .then(body=>console.log(body))//.getReader())
+    // .then(result=>result.read())
+    // .then(aqui=>{
+    //   let a = JSON.stringify(aqui);
+    //   let b = JSON.parse(a);
+    //   console.log(b)
+    .catch(()=>console.log('catch'));
+  }
   
   render() {
     return (
