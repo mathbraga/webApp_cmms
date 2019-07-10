@@ -21,13 +21,8 @@ class Dashboard extends Component {
     fetch('//localhost:3001', {
       method: "GET"
     })
-    .then(response=>console.log(response))
-    // .then(body=>console.log(body))//.getReader())
-    // .then(result=>result.read())
-    // .then(aqui=>{
-    //   let a = JSON.stringify(aqui);
-    //   let b = JSON.parse(a);
-    //   console.log(b)
+    .then(response=>response.json())
+    .then(data=>console.log(data))
     .catch(()=>console.log('catch'));
   }
   
