@@ -1,17 +1,10 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody } from "reactstrap";
-import getWorkOrdersWithImpact from "../../utils/maintenance/getWorkOrdersWithImpact";
-// import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
-// import { dbTables } from "../../aws";
-// import { sortBy } from "lodash";
 
 class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      // dbObject: initializeDynamoDB(false),
-      // tableName: dbTables.maintenance.tableName,
-      // impacts: []
     }
   }
 
@@ -81,23 +74,6 @@ class Dashboard extends Component {
                 </Card>
               </Col>
             </Row>
-
-            {/* <Row className="justify-content-center">
-              <table>
-                <tr>
-                  <th>Ações impactantes</th>
-                </tr>
-                <tbody>
-                  {sortBy(this.state.impacts, "id").map(impact => (
-                    <tr
-                      key={impact.id}
-                    >
-                      <td>{impact.id}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </Row> */}
           </Container>
         </div>
       </React.Fragment>
