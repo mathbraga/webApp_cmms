@@ -11,12 +11,21 @@ class Dashboard extends Component {
 
   componentDidMount(){
     console.clear();
-    fetch('//localhost:3001', {
-      method: "GET"
+    fetch('http://172.30.49.152:3001', {
+      method: "GET",
+      // mode: 'no-cors',
+      // body: JSON.stringify({
+      //   med: 101,
+      //   aamm: 1801
+      // }),
+      // headers: {
+      //   'Accept': 'application/json',
+      //   'Content-Type': 'application/json'
+      // },
     })
     .then(response=>response.json())
     .then(data=>console.log(data))
-    .catch(()=>console.log('catch'));
+    .catch(()=>console.log('erro ao realizar fetch'));
   }
   
   render() {
