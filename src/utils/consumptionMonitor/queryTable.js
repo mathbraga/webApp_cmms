@@ -1,3 +1,5 @@
+import { serverAddress } from "../../constants";
+
 export default function queryTable(dbObject, tableName, chosenMeter, meters, aamm1, aamm2) {
   return new Promise((resolve, reject) => {
     // Check if consumer is 'all'
@@ -5,10 +7,7 @@ export default function queryTable(dbObject, tableName, chosenMeter, meters, aam
     if (chosenMeter.slice(1) === "99") {
       // Build array of all meters to query
       allMeters = meters.map(meter => {
-        return (
-          100 * parseInt(meter.tipomed.N, 10) +
-          parseInt(meter.med.N, 10)
-        ).toString();
+        return meter.med
       });
     } else {
       allMeters = [chosenMeter];
@@ -17,37 +16,27 @@ export default function queryTable(dbObject, tableName, chosenMeter, meters, aam
     let queryResponse = [];
     let arrayPromises = allMeters.map(meter => {
       return new Promise((resolve, reject) => {
-        dbObject.query(
-          {
-            TableName: tableName,
-            KeyConditionExpression:
-              "med = :med AND aamm BETWEEN :aamm1 AND :aamm2",
-            ExpressionAttributeValues: {
-              ":med": {
-                N: meter
-              },
-              ":aamm1": {
-                N: aamm1
-              },
-              ":aamm2": {
-                N: aamm2
-              }
-            }
-          },
-          (err, data) => {
-            if (err) {
-              reject();
-            } else {
-              data.Items.forEach(element => {
-                Object.keys(element).forEach(key => {
-                  element[key] = Number(element[key].N);
-                });
-              });
-              queryResponse.push(data);
-            }
-            resolve();
-          }
-        );
+        fetch(
+          serverAddress +
+          "/search?" +
+          "med=" + meter +
+          "&aamm1=" + aamm1 +
+          "&aamm2=" + aamm2
+        , {
+          method: "GET"
+        })
+        .then(response => response.json())
+        .then(data => {
+          data.forEach(obj => {
+            let newObj = {};
+            Object.keys(obj).forEach(key => {
+              newObj[key] = Number(obj[key]);
+            });
+            queryResponse.push(newObj);
+          });
+          resolve();
+        })
+        .catch(()=>reject())
       });
     });
     Promise.all(arrayPromises).then(() => {

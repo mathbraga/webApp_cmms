@@ -50,7 +50,8 @@ class ConsumptionMonitor extends Component {
   }
 
   componentDidMount = () => {
-    getAllMeters(this.state.dbObject, this.state.tableNameMeters, this.state.meterType).then(meters => {
+    getAllMeters(this.state.dbObject, this.state.tableNameMeters, this.state.meterType)
+    .then(meters => {
       this.setState({
         meters: meters
       });
@@ -83,9 +84,10 @@ class ConsumptionMonitor extends Component {
 
     handleSearch(this.state)
     .then(resultObject => {
+      console.log(resultObject)
       this.setState({
         resultObject: resultObject,
-        showResult: true,
+        // showResult: true,
         searchError: false
       });
     })
