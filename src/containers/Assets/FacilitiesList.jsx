@@ -19,7 +19,7 @@ const Thead =
       <CustomInput type="checkbox" />
     </th>
     {locationConfig.map(column => (
-      <th style={column.style} className={column.className}>{column.name}</th>))
+      <th style={column.style} className={column.className}>{column.description}</th>))
     }
   </tr>
 

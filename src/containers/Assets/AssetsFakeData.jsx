@@ -31,17 +31,17 @@ export const equipmentItems = [
 ];
 
 export const locationConfig = [
-  { name: "Localização", style: { width: "400px" }, className: "" },
-  { name: "Código", style: { width: "200px" }, className: "text-center" },
-  { name: "Visitação", style: { width: "150px" }, className: "text-center" },
-  { name: "Área", style: { width: "150px" }, className: "text-center" },
-  { name: "Planta", style: { width: "100%" }, className: "text-center" },
+  { name: "location", description: "Localização", style: { width: "400px" }, className: "" },
+  { name: "code", description: "Código", style: { width: "200px" }, className: "text-center" },
+  { name: "visiting", description: "Visitação", style: { width: "150px" }, className: "text-center" },
+  { name: "area", description: "Área", style: { width: "150px" }, className: "text-center" },
+  { name: "map", description: "Planta", style: { width: "100%" }, className: "text-center" },
 ];
 
 export const equipmentConfig = [
-  { name: "Equipamento", style: { width: "400px" }, className: "" },
-  { name: "Fabricante", style: { width: "200px" }, className: "text-center" },
-  { name: "Modelo", style: { width: "150px" }, className: "text-center" },
-  { name: "Categoria", style: { width: "150px" }, className: "text-center" },
-  { name: "Localização", style: { width: "100%" }, className: "text-center" },
+  { name: "equipment", description: "Equipamento", style: { width: "400px" }, className: "" },
+  { name: "manufacturer", description: "Fabricante", style: { width: "200px" }, className: "text-center" },
+  { name: "model", description: "Modelo", style: { width: "150px" }, className: "text-center" },
+  { name: "category", description: "Categoria", style: { width: "150px" }, className: "text-center" },
+  { name: "location", description: "Localização", style: { width: "100%" }, className: "text-center" },
 ];

@@ -15,7 +15,7 @@ import { Switch, Route } from "react-router-dom";
 class Assets extends Component {
   render() {
     return (
-      <AssetInfo />
+      <FacilitiesList />
       // <Switch>
       //   <Route path="/ativos/edificios" render={routeProps => <FacilitiesList />} />
       //   <Route path="/ativos/equipamentos" render={routeProps => <EquipmentsList />} />
