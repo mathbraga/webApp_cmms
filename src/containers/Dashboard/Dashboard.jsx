@@ -11,7 +11,7 @@ class Dashboard extends Component {
 
   componentDidMount(){
     console.clear();
-    fetch('http://172.30.49.152:3001/search?med=101&aamm=1701', {
+    fetch('http://localhost:3001/search?med=101&aamm1=1701&aamm2=1701', {
       method: "GET"
     })
     .then(response=>response.json())

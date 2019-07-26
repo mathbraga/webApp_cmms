@@ -1,15 +1,10 @@
-import cleanDynamoResponse from "./cleanDynamoResponse";
-
-export default function getAllWorkOrders(dbObject, tableName){
+export default function getAllWorkOrders(){
   return new Promise((resolve, reject) => {
-    dbObject.scan({
-      TableName: tableName
-    }, (err, data) => {
-      if(err){
-        reject();
-      } else {
-        resolve(cleanDynamoResponse(data));
-      }
+    fetch('//localhost:3001/getallwos', {
+      method: 'GET'
     })
+    .then(response => response.json())
+    .then(data => resolve(data))
+    .catch(()=>reject('Houve um problema em fetch'));
   });
 }

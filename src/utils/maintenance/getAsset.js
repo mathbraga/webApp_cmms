@@ -1,29 +1,10 @@
-import cleanDynamoResponse from "./cleanDynamoResponse"
-
-export default function getAsset(dbObject, tableName, assetId){
+export default function getAsset(assetId){
   return new Promise((resolve, reject) => {
-    dbObject.getItem({
-      TableName: tableName,
-      Key: {
-        "id": {
-          S: assetId
-        }
-      }
-    }, (err, data) => {
-      if(err) {
-        reject("Houve um erro no acesso ao banco de dados.");
-      } else {
-
-        if(Object.keys(data).length === 0){
-         reject("O ativo não existe no banco de dados.");
-
-        } else {
-
-          let cleanData = cleanDynamoResponse(data);
-          resolve(cleanData[0]);
-
-        }
-      }
-    });
+    fetch('//localhost:3001/getasset?id=' + assetId, {
+      method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => resolve(data))
+    .catch(()=>reject('Houve um problema em fetch'));
   });
 }

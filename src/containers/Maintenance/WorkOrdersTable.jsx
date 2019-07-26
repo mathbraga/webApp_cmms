@@ -13,8 +13,6 @@ class WorkOrdersTable extends Component {
       viewEntity
     } = this.props;
 
-    let sortedItems = sortBy(items, "id");
-
     return (
       <Card>
         <CardHeader>
@@ -39,7 +37,7 @@ class WorkOrdersTable extends Component {
         </CardHeader>
         <CardBody>
 
-          {sortedItems.length === 0 ? (
+          {items.length === 0 ? (
 
             <Alert
               color="dark"
@@ -61,7 +59,7 @@ class WorkOrdersTable extends Component {
                 </tr>
               </thead>
               <tbody>
-                {sortedItems.map(item => (
+                {items.map(item => (
                   <tr
                     key={item.id}
                   >
