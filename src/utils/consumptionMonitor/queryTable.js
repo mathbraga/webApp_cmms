@@ -1,6 +1,4 @@
-import { serverAddress } from "../../constants";
-
-export default function queryTable(dbObject, tableName, chosenMeter, meters, aamm1, aamm2) {
+export default function queryTable(chosenMeter, meters, aamm1, aamm2) {
   return new Promise((resolve, reject) => {
     // Check if consumer is 'all'
     var allMeters = [];
@@ -14,11 +12,11 @@ export default function queryTable(dbObject, tableName, chosenMeter, meters, aam
     }
     // Query all chosen meters
     let queryResponse = [];
-    let arrayPromises = allMeters.map(meter => {
+    let arrayPromises = allMeters.map((meter, i) => {
+      queryResponse.push([]);
       return new Promise((resolve, reject) => {
-        fetch(
-          serverAddress +
-          "/search?" +
+        fetch('http://localhost:3001' +
+          "/ceb?" +
           "med=" + meter +
           "&aamm1=" + aamm1 +
           "&aamm2=" + aamm2
@@ -28,11 +26,12 @@ export default function queryTable(dbObject, tableName, chosenMeter, meters, aam
         .then(response => response.json())
         .then(data => {
           data.forEach(obj => {
-            let newObj = {};
-            Object.keys(obj).forEach(key => {
-              newObj[key] = Number(obj[key]);
-            });
-            queryResponse.push(newObj);
+            // IF RESPONSE IS STRING TYPE
+            // let newObj = {};
+            // Object.keys(obj).forEach(key => {
+            //   newObj[key] = Number(obj[key]);
+            // });
+            queryResponse[i].push(obj);
           });
           resolve();
         })

@@ -41,20 +41,17 @@ export default function handleSearch(state) {
 
       // Query table
       queryTable(
-        dbObject,
-        tableName,
         chosenMeter,
         meters,
         aammInitial,
         aammFinal
       ).then(data => {
-        resolve(data);
-
-        // if(meterType === "1"){ // Energy
-        //   // AM case
-        //   if (chosenMeter === meterType + "99" && oneMonth) {
-        //     resolve(buildResultAM(data, meterType, meters, chosenMeter, initialDate, finalDate));
-        //   }
+        console.log(data);
+        if(meterType === "1"){ // Energy
+          // AM case
+          if (chosenMeter === meterType + "99" && oneMonth){
+            resolve(buildResultAM(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          }
           
         //   // AP case
         //   if (chosenMeter === meterType + "99" && !oneMonth) {
@@ -70,7 +67,7 @@ export default function handleSearch(state) {
         //   if (chosenMeter !== meterType + "99" && !oneMonth) {
         //     resolve(buildResultOP(data, meterType, meters, chosenMeter, initialDate, finalDate));
         //   }
-        // } else { // Water
+        } else { // Water
           
         //   // AM case
         //   if (chosenMeter === meterType + "99" && oneMonth) {
@@ -91,7 +88,7 @@ export default function handleSearch(state) {
         //   if (chosenMeter !== meterType + "99" && !oneMonth) {
         //     resolve(buildResultOPwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
         //   }
-        // }
+        }
       }).catch((queryErrorMessage) => {
         reject(queryErrorMessage);
       });

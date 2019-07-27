@@ -7,6 +7,8 @@ import sumAllMeters from "./sumAllMeters";
 
 export default function buildResultAM(data, meterType, meters, chosenMeter, initialDate, finalDate){
 
+  console.log('begin r a m')
+
   let resultObject = {};
 
   resultObject.newLocation = {
@@ -22,7 +24,7 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
 
   resultObject.queryResponse = sumAllMeters(data);
 
-  let queryResponse = resultObject.queryResponse[0].Items[0];
+  let queryResponse = resultObject.queryResponse;
 
   resultObject.unitNumber = "Todos medidores";
 
@@ -182,6 +184,8 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
   resultObject.initialDate = transformDateString(dateWithFourDigits(initialDate));
   
   resultObject.finalDate = transformDateString(dateWithFourDigits(finalDate));
+
+  console.log('ending build R A M')
 
   return resultObject;
 

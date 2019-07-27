@@ -50,8 +50,10 @@ class ConsumptionMonitor extends Component {
   }
 
   componentDidMount = () => {
-    getAllMeters(this.state.dbObject, this.state.tableNameMeters, this.state.meterType)
+    getAllMeters(this.state.meterType)
     .then(meters => {
+      console.log('meters:');
+      console.log(meters);
       this.setState({
         meters: meters
       });
@@ -75,6 +77,8 @@ class ConsumptionMonitor extends Component {
   handleQuery = event => {
     
     event.preventDefault();
+
+    console.clear();
 
     this.setState({
       alertVisible: true,
@@ -119,9 +123,9 @@ class ConsumptionMonitor extends Component {
     });
   }
 
-  componentWillUnmount = () => {
-    this.props.dispatch(saveSearchResult(this.state, this.monitor));
-  }
+  // componentWillUnmount = () => {
+  //   this.props.dispatch(saveSearchResult(this.state, this.monitor));
+  // }
 
   render() {
     return (
@@ -136,7 +140,7 @@ class ConsumptionMonitor extends Component {
               onQuery={this.handleQuery}
             />
 
-            <Alert
+            {/* <Alert
               className="mt-4"
               color={this.state.searchError ? "danger" : "warning"}
               isOpen={this.state.alertVisible}
@@ -149,7 +153,7 @@ class ConsumptionMonitor extends Component {
               dbObject={this.state.dbObject}
               readFile={dbTables[this.monitor].readFile}
               buildParamsArr={dbTables[this.monitor].buildParamsArr}
-            />
+            /> */}
 
           </React.Fragment>
         }

@@ -1,6 +1,4 @@
-import { serverAddress } from "../../constants";
-
-export default function getAllMeters(dbObject, tableNameMeters, meterType) {
+export default function getAllMeters(meterType) {
   // Inputs:
   // dbObject (object): AWS DynamoDB configuration
   // tableNameMeters (string): name of table that contains meters information
@@ -16,10 +14,7 @@ export default function getAllMeters(dbObject, tableNameMeters, meterType) {
 
   return new Promise((resolve, reject) => {
     
-    fetch(
-      serverAddress +
-      "/allmeters"
-    , {
+    fetch('http://localhost:3001/allmeters', {
       method: "GET"
     })
     .then(response => response.json())
