@@ -22,7 +22,14 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
 
   resultObject.queryResponseAll = data;
 
+  console.log('nonemptymeters');
+  console.log(resultObject.nonEmptyMeters);
+  console.log('queryResponseAll');
+  console.log(data);
+
   resultObject.queryResponse = sumAllMeters(data);
+  
+  console.log(resultObject.queryResponse);
 
   let queryResponse = resultObject.queryResponse;
 
@@ -82,6 +89,8 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
   resultObject.widgetWithModalTitle = "Diagnóstico";
 
   resultObject.widgetWithModalButtonName = "Ver relatório";
+  
+  console.log('here2');
 
   resultObject.problems = checkProblems(resultObject.queryResponse, chosenMeter, resultObject.queryResponseAll, meters);
   
@@ -89,6 +98,8 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
   Object.keys(resultObject.problems).forEach(key => {
     if (resultObject.problems[key].problem === true) resultObject.numProblems += 1;
   });
+
+  console.log('here3');
 
 
   resultObject.rowNamesReportProblems = {
@@ -185,7 +196,7 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
   
   resultObject.finalDate = transformDateString(dateWithFourDigits(finalDate));
 
-  console.log('ending build R A M')
+  console.log('ending build R A M');
 
   return resultObject;
 
