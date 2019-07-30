@@ -10,24 +10,37 @@ class TableWithPages extends Component {
     this.state = {
       pagesTotal: 10,
       pageCurrent: 5,
+      goToPage: 5
     };
+
     this.setCurrentPage = this.setCurrentPage.bind(this);
+    this.handleChangeGoToPage = this.handleChangeGoToPage.bind(this);
   }
 
   setCurrentPage(pageCurrent) {
-    this.setState({ pageCurrent });
+    this.setState({ pageCurrent: pageCurrent, goToPage: pageCurrent });
+  }
+
+  handleChangeGoToPage(event) {
+    const { value } = event.target;
+    this.setState({ goToPage: value });
   }
 
   render() {
     const { thead, tbody } = this.props;
-    const { pagesTotal, pageCurrent } = this.state;
+    const { pagesTotal, pageCurrent, goToPage } = this.state;
     return (
       <div>
         <Row style={{ margin: "15px 0" }}>
           <Col>
             <div className="table-page-container">
               <span className="table-page-label">Ir para página:</span>
-              <input className="table-page-input" type="text" name="page" value={pageCurrent} />
+              <input className="table-page-input"
+                type="text"
+                name="page"
+                value={goToPage}
+                onChange={this.handleChangeGoToPage}
+              />
             </div>
           </Col>
         </Row>
