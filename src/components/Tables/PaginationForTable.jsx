@@ -6,6 +6,32 @@ class PaginationForTable extends Component {
     super(props);
   }
 
+  handleClickPagination(pageClicked) {
+    const { pagesTotal, pageCurrent } = this.props;
+    switch (pageClicked) {
+      case "Primeira": {
+        console.log("1");
+        break;
+      }
+      case "Última": {
+        console.log(pagesTotal);
+        break;
+      }
+      case "-": {
+        console.log(pageCurrent - 1);
+        break;
+      }
+      case "+": {
+        console.log(pageCurrent + 1);
+        break;
+      }
+      default: {
+        console.log(pageClicked);
+        break;
+      }
+    }
+  }
+
   render() {
     const { pagesTotal, pageCurrent } = this.props;
     const visiblePages = [];
@@ -28,7 +54,10 @@ class PaginationForTable extends Component {
       <Pagination aria-label="Page navigation example">
         {listPages.map(item => (
           <PaginationItem active={item == pageCurrent} >
-            <PaginationLink style={(item === "Primeira" || item === "Última") ? { width: "80px" } : { width: "auto" }} >
+            <PaginationLink
+              onClick={() => this.handleClickPagination(item)}
+              style={(item === "Primeira" || item === "Última") ? { width: "80px" } : { width: "auto" }}
+            >
               {item}
             </PaginationLink>
           </PaginationItem>
