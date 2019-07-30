@@ -4,29 +4,31 @@ import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 class PaginationForTable extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
   }
 
   handleClickPagination(pageClicked) {
-    const { pagesTotal, pageCurrent } = this.props;
+    const { pagesTotal, pageCurrent, setCurrentPage } = this.props;
+    console.log(setCurrentPage);
     switch (pageClicked) {
       case "Primeira": {
-        console.log("1");
+        setCurrentPage(1);
         break;
       }
       case "Última": {
-        console.log(pagesTotal);
+        setCurrentPage(pagesTotal);
         break;
       }
       case "-": {
-        console.log(pageCurrent - 1);
+        setCurrentPage(pageCurrent - 1);
         break;
       }
       case "+": {
-        console.log(pageCurrent + 1);
+        setCurrentPage(pageCurrent + 1);
         break;
       }
       default: {
-        console.log(pageClicked);
+        setCurrentPage(pageClicked);
         break;
       }
     }

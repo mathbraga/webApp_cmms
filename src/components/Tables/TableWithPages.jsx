@@ -6,11 +6,16 @@ import "./TableWithPages.scss";
 
 class TableWithPages extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       pagesTotal: 10,
       pageCurrent: 5,
-    }
+    };
+    this.setCurrentPage = this.setCurrentPage.bind(this);
+  }
+
+  setCurrentPage(pageCurrent) {
+    this.setState({ pageCurrent });
   }
 
   render() {
@@ -34,7 +39,7 @@ class TableWithPages extends Component {
         <Row style={{ margin: "15px 0" }}>
           <Col>
             <div className="pagination-container">
-              <PaginationForTable pagesTotal={pagesTotal} pageCurrent={pageCurrent} />
+              <PaginationForTable pagesTotal={pagesTotal} pageCurrent={pageCurrent} setCurrentPage={this.setCurrentPage} />
             </div>
           </Col>
         </Row>
