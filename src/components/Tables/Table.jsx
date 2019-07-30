@@ -5,7 +5,7 @@ class TableItems extends Component {
   render() {
     const { thead, tbody } = this.props;
     return (
-      <div className="table-scroll">
+      <div className="table-container">
         <table className="content-table">
           <thead className="thead-light">
             {thead}

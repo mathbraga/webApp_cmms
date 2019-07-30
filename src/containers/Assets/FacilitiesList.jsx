@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Button, } from "reactstrap";
-import TableItems from "../../components/Tables/Table";
+import TableWithPages from "../../components/Tables/TableWithPages";
 import AssetCard from "../../components/Cards/AssetCard";
 import { Badge, CustomInput } from "reactstrap";
 import "./List.css";
@@ -93,12 +93,7 @@ class FacilitiesList extends Component {
         </Row>
         <Row>
           <Col>
-            <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: "10px", margin: "5px 5px" }}>Página 1 de 1</div>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <TableItems
+            <TableWithPages
               thead={Thead}
               tbody={Tbody}
             />

@@ -35,7 +35,7 @@ export const locationConfig = [
   { name: "code", description: "Código", style: { width: "200px" }, className: "text-center" },
   { name: "visiting", description: "Visitação", style: { width: "150px" }, className: "text-center" },
   { name: "area", description: "Área", style: { width: "150px" }, className: "text-center" },
-  { name: "map", description: "Planta", style: { width: "100%" }, className: "text-center" },
+  { name: "map", description: "Planta", style: { width: "50px" }, className: "text-center" },
 ];
 
 export const equipmentConfig = [
@@ -43,5 +43,5 @@ export const equipmentConfig = [
   { name: "manufacturer", description: "Fabricante", style: { width: "200px" }, className: "text-center" },
   { name: "model", description: "Modelo", style: { width: "150px" }, className: "text-center" },
   { name: "category", description: "Categoria", style: { width: "150px" }, className: "text-center" },
-  { name: "location", description: "Localização", style: { width: "100%" }, className: "text-center" },
+  { name: "location", description: "Localização", style: { width: "50px" }, className: "text-center" },
 ];
