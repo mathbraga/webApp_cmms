@@ -1,6 +1,8 @@
+import { serverAddress, oneAsset } from '../../constants';
+
 export default function getAsset(assetId){
   return new Promise((resolve, reject) => {
-    fetch('//localhost:3001/getasset?id=' + assetId, {
+    fetch(serverAddress + oneAsset + assetId, {
       method: 'GET'
     })
     .then(response => response.json())

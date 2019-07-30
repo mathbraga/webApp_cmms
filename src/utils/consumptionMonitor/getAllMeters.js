@@ -1,3 +1,5 @@
+import { serverAddress, allMeters } from '../../constants';
+
 export default function getAllMeters(meterType) {
   // Inputs:
   // dbObject (object): AWS DynamoDB configuration
@@ -14,14 +16,14 @@ export default function getAllMeters(meterType) {
 
   return new Promise((resolve, reject) => {
     
-    fetch('http://localhost:3001/allmeters', {
+    fetch(serverAddress + allMeters, {
       method: "GET"
     })
     .then(response => response.json())
     .then(data => resolve(data))
     .catch(() => {
       alert("There was an error in retrieving meters.");
-      reject(Error("Failed to get the items."));
+      reject("Failed to get the items.");
     })
   });
 }

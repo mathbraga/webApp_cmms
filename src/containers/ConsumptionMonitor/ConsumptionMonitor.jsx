@@ -57,7 +57,8 @@ class ConsumptionMonitor extends Component {
       this.setState({
         meters: meters
       });
-    });
+    })
+    .catch(()=>console.log('erro'))
   }
 
   handleChangeOnDates = handleDates.bind(this);

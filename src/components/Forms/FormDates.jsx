@@ -129,7 +129,7 @@ class FormDates extends Component {
                           parseInt(meter.med, 10)
                         ).toString()}
                       >
-                        {meter.ceb_id + " - " + meter.nome}
+                        {meter.id + " - " + meter.nome}
                       </option>
                     ))}
                   </Input>

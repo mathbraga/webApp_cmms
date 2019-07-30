@@ -4,9 +4,7 @@ import { connect } from "react-redux";
 import getAllAssets from "../../utils/assets/getAllAssets";
 import { dbTables } from "../../aws";
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
-import { allAssets } from "../Maintenance/allAssets";
-import FileInput from "../../components/FileInputs/FileInput";
-import { sortBy } from "lodash";
+
 
 class Assets extends Component {
   constructor(props){
@@ -18,11 +16,9 @@ class Assets extends Component {
   }
 
   componentDidMount(){
-    console.log("Assets list from file:");
-    console.log(sortBy(allAssets, "id"));
-    getAllAssets(this.state.dbObject, this.state.tableName)
+    getAllAssets()
     .then(assets => {
-      console.log("Assets list from database:");
+      console.log("List of all assets from database:");
       console.log(assets);
       this.setState({
         assets: assets
@@ -36,12 +32,6 @@ class Assets extends Component {
   render() {
     return (
       <React.Fragment>
-        <FileInput
-          readFile={dbTables.asset.readFile}
-          tableName={dbTables.asset.tableName}
-          dbObject={this.state.dbObject}
-          buildParamsArr={dbTables.asset.buildParamsArr}
-        />
         <AssetTable />
       </React.Fragment>
     )
