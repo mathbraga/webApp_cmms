@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import FileInput from "../../components/FileInputs/FileInput";
-import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
-import textToArrayFacility from "../../utils/assets/textToArrayFacility";
-import buildFacilitiesParamsArr from "../../utils/assets/buildFacilitiesParamsArr";
 import FacilitiesList from "./FacilitiesList";
 import EquipmentsList from "./EquipmentsList";
 import AssetInfo from "./AssetInfo";
@@ -16,7 +13,7 @@ import { locationItems, equipmentItems } from "./AssetsFakeData";
 import { Switch, Route } from "react-router-dom";
 
 class Assets extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       tableName: dbTables.asset.tableName,
@@ -24,20 +21,20 @@ class Assets extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     getAllAssets()
-    .then(assets => {
-      console.log("List of all assets from database:");
-      console.log(assets);
-      this.setState({
-        assets: assets
-      });
-    })
-    .catch(() => {
-      console.log('houve um erro ao baixar os ativos!');
-    })
+      .then(assets => {
+        console.log("List of all assets from database:");
+        console.log(assets);
+        this.setState({
+          assets: assets
+        });
+      })
+      .catch(() => {
+        console.log('houve um erro ao baixar os ativos!');
+      })
   }
-  
+
   render() {
     return (
       <FacilitiesList />

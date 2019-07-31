@@ -23,9 +23,6 @@ const routes = [
   { path: "/ativos/view/:id", exact: false, name: "Ativo", component: AssetView },
   { path: "/ativos/edificios", name: "Ativos", component: Assets },
   { path: "/ativos/equipamentos", name: "Ativos", component: Assets },
-  { path: "/os", name: "Ordens de serviços", component: WorkOrder }
-  { path: "/manutencao/solicitacoes", exact: true, name: "Solicitações", component: WorkRequests },
-  { path: "/manutencao/solicitacoes/nova", exact: true, name: "Nova solicitação", component: NewWorkRequestForm },
   { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: WorkOrders },
   { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: NewWorkOrderForm },
   { path: "/manutencao/os/view/:id", exact: false, name: "OS", component: WorkOrderView },
