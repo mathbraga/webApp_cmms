@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody } from "reactstrap";
+import { serverAddress } from "../../constants";
 
 class Dashboard extends Component {
   constructor(props){
@@ -10,13 +11,13 @@ class Dashboard extends Component {
 
 
   componentDidMount(){
-    console.clear();
-    fetch('http://localhost:3001/search?med=199&aamm1=1701&aamm2=1712', {
-      method: "GET"
-    })
-    .then(response=>response.json())
-    .then(data=>console.log(data))
-    .catch(()=>console.log('erro ao realizar fetch'));
+    // console.clear();
+    // fetch(serverAddress + '/search?med=199&aamm1=1701&aamm2=1712', {
+    //   method: "GET"
+    // })
+    // .then(response=>response.json())
+    // .then(data=>console.log(data))
+    // .catch(()=>console.log('erro ao realizar fetch'));
   }
   
   render() {

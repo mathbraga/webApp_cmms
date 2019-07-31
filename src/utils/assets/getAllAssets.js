@@ -1,13 +1,14 @@
-export default function getAllAssets(dbObject, tableName){
+import { serverAddress, allAssets } from '../../constants';
+
+export default function getAllAssets(){
   return new Promise((resolve, reject) => {
-    fetch('http://localhost:3001/allassets', {
+    fetch(serverAddress + allAssets, {
       method: "GET"
     })
     .then(response => response.json())
     .then(data => resolve(data))
     .catch(() => {
-      alert("There was an error in retrieving all assets.");
-      reject("Failed to get the assets.");
+      reject("Não foi possível baixar os ativos.");
     });
   });
 }

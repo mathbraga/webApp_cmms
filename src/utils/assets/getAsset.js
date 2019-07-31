@@ -7,6 +7,6 @@ export default function getAsset(assetId){
     })
     .then(response => response.json())
     .then(data => resolve(data))
-    .catch(()=>reject('Houve um problema em fetch'));
+    .catch(()=>reject('Houve um problema em getAsset'));
   });
 }

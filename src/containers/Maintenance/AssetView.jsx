@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import getAsset from "../../utils/maintenance/getAsset";
+import getAsset from "../../utils/assets/getAsset";
 import { Button } from "reactstrap";
 
 class AssetView extends Component {

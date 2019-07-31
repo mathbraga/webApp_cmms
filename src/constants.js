@@ -7,6 +7,7 @@ export const allWorkOrders = '/allwos';
 export const oneAsset      = '/oneasset?id=';
 export const oneWorkOrder  = '/onewo?id=';
 
-export const allMeters     = '/allmeters';
+export const cebMeters     = '/cebmeters';
 export const cebBills      = '/ceb';
+export const caesbMeters   = '/caesbmeters';
 export const caesbBills    = '/caesb';

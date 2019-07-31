@@ -1,6 +1,8 @@
+import { serverAddress, allWorkOrders } from '../../constants';
+
 export default function getAllWorkOrders(){
   return new Promise((resolve, reject) => {
-    fetch('//localhost:3001/allwos', {
+    fetch(serverAddress + allWorkOrders, {
       method: 'GET'
     })
     .then(response => response.json())
