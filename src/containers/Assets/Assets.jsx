@@ -37,9 +37,14 @@ class Assets extends Component {
 
     return (
       <React.Fragment>
-        {this.state.assets.length !== 0 &&
+        {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "edificios") &&
           <FacilitiesList
-            locationItems={this.state.assets}
+            allItems={this.state.assets}
+          />
+        }
+        {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "equipamentos") &&
+          <EquipmentsList
+            allItems={this.state.assets}
           />
         }
         {/* <Switch>

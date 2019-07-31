@@ -4,8 +4,10 @@ import TableItems from "../../components/Tables/Table";
 import AssetCard from "../../components/Cards/AssetCard";
 import { Badge, CustomInput } from "reactstrap";
 import "./List.css";
+import { remove } from "lodash";
+import { withRouter } from "react-router-dom";
 
-import { equipmentItems, equipmentConfig } from "./AssetsFakeData";
+import { /*equipmentItems,*/ equipmentConfig } from "./AssetsFakeData";
 
 const hierarchyItem = require("../../assets/icons/tree_icon.png");
 const listItem = require("../../assets/icons/list_icon.png");
@@ -14,34 +16,7 @@ const searchItem = require("../../assets/icons/search_icon.png");
 const mapIcon = require("../../assets/icons/map.png");
 const headerConfig = equipmentConfig;
 
-const Thead =
-  <tr>
-    <th className="text-center checkbox-cell">
-      <CustomInput type="checkbox" />
-    </th>
-    {headerConfig.map(column => (
-      <th style={column.style} className={column.className}>{column.name}</th>))
-    }
-  </tr>
 
-const Tbody = equipmentItems.map(item => (
-  <tr>
-    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-    <td>
-      <div>{item.equipment}</div>
-      <div className="small text-muted">{item.location}</div>
-    </td>
-    <td className="text-center">{item.manufacturer}</td>
-    <td className="text-center">{item.model}</td>
-    <td>
-      <div className="text-center">{item.category}</div>
-    </td>
-    <td>
-      <div className="text-center">
-        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-      </div>
-    </td>
-  </tr>))
 
 class FacilitiesList extends Component {
   constructor(props) {
@@ -50,6 +25,44 @@ class FacilitiesList extends Component {
   }
 
   render() {
+
+    const {
+      allItems
+    } = this.props;
+
+    const equipmentItems = remove(allItems, item => {
+      return item.tipo === 'E';
+    });
+
+
+    const Thead =
+  <tr>
+    <th className="text-center checkbox-cell">
+      <CustomInput type="checkbox" />
+    </th>
+    {headerConfig.map(column => (
+      <th style={column.style} className={column.className}>{column.description}</th>))
+    }
+  </tr>
+
+const Tbody = equipmentItems.map(item => (
+  <tr
+    onClick={()=>{this.props.history.push('/ativos/view/' + item.id)}}
+  >
+    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
+    <td>
+      <div>{item.modelo}</div>
+      <div className="small text-muted">{item.parent}</div>
+    </td>
+    <td className="text-center">Marca</td>
+    <td className="text-center">Modelo</td>
+    <td>
+      <div className="text-center">
+        Categoria
+      </div>
+    </td>
+  </tr>))
+
     return (
       <AssetCard
         sectionName={'Equipamentos'}
@@ -108,4 +121,4 @@ class FacilitiesList extends Component {
   }
 }
 
-export default FacilitiesList;
+export default withRouter(FacilitiesList);

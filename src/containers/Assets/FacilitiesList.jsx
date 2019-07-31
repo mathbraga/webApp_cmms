@@ -3,6 +3,8 @@ import { Row, Col, Button, } from "reactstrap";
 import TableWithPages from "../../components/Tables/TableWithPages";
 import AssetCard from "../../components/Cards/AssetCard";
 import { Badge, CustomInput } from "reactstrap";
+import { remove } from "lodash";
+import { withRouter } from "react-router-dom";
 import "./List.css";
 
 import { /*locationItems,*/ locationConfig } from "./AssetsFakeData";
@@ -24,8 +26,12 @@ class FacilitiesList extends Component {
   render() {
 
     const {
-      locationItems
+      allItems
     } = this.props;
+
+    const locationItems = remove(allItems, item => {
+      return item.tipo === 'A';
+    });
 
     const Thead =
     <tr>
@@ -38,7 +44,9 @@ class FacilitiesList extends Component {
     </tr>
 
     const Tbody = locationItems.map(item => (
-      <tr>
+      <tr
+        onClick={()=>{this.props.history.push('/ativos/view/' + item.id)}}
+      >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
           <div>{item.nome + " - " + item.subnome}</div>
@@ -54,6 +62,13 @@ class FacilitiesList extends Component {
         <td>
           <div className="text-center">
             <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
+          </div>
+        </td>
+        <td>
+          <div className="text-center">
+            {item.list_wos.map(wo => (
+              <p>{wo.toString()}<br/></p>
+            ))}
           </div>
         </td>
       </tr>))
@@ -111,4 +126,4 @@ class FacilitiesList extends Component {
   }
 }
 
-export default FacilitiesList;
+export default withRouter(FacilitiesList);
