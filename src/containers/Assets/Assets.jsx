@@ -7,12 +7,37 @@ import FacilitiesList from "./FacilitiesList";
 import EquipmentsList from "./EquipmentsList";
 import AssetInfo from "./AssetInfo";
 import { connect } from "react-redux";
-import getAllFacilities from "../../utils/assets/getAllFacilities";
+import getAllAssets from "../../utils/assets/getAllAssets";
 import { dbTables } from "../../aws";
+
+import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
+
 import { locationItems, equipmentItems } from "./AssetsFakeData";
 import { Switch, Route } from "react-router-dom";
 
 class Assets extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      tableName: dbTables.asset.tableName,
+      dbObject: initializeDynamoDB(this.props.session)
+    }
+  }
+
+  componentDidMount(){
+    getAllAssets()
+    .then(assets => {
+      console.log("List of all assets from database:");
+      console.log(assets);
+      this.setState({
+        assets: assets
+      });
+    })
+    .catch(() => {
+      console.log('houve um erro ao baixar os ativos!');
+    })
+  }
+  
   render() {
     return (
       <FacilitiesList />

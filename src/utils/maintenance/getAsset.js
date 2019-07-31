@@ -1,6 +1,8 @@
-export default function getAllWorkOrders(){
+import { serverAddress, oneAsset } from '../../constants';
+
+export default function getAsset(assetId){
   return new Promise((resolve, reject) => {
-    fetch('//localhost:3001/allwos', {
+    fetch(serverAddress + oneAsset + assetId, {
       method: 'GET'
     })
     .then(response => response.json())

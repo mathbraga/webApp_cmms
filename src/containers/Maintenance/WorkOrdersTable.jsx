@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Alert, Card, CardBody, Col, Row, Button, CardHeader } from "reactstrap";
+import { withRouter } from "react-router-dom";
+import { Alert, Card, CardBody, Col, Row, Button, CardHeader, Badge } from "reactstrap";
 import "./WorkOrdersTable.css";
 import { sortBy } from "lodash";
 
-class WorkRequestsTable extends Component {
+class WorkOrdersTable extends Component {
   render() {
 
     let {
@@ -11,8 +12,6 @@ class WorkRequestsTable extends Component {
       items,
       viewEntity
     } = this.props;
-
-    let sortedItems = sortBy(items, "id");
 
     return (
       <Card>
@@ -38,7 +37,7 @@ class WorkRequestsTable extends Component {
         </CardHeader>
         <CardBody>
 
-          {sortedItems.length === 0 ? (
+          {items.length === 0 ? (
 
             <Alert
               color="dark"
@@ -54,33 +53,48 @@ class WorkRequestsTable extends Component {
                     <th
                       key={column.name}
                       style={column.style}
-                      className={column.className}
+                      className="text-center"
                     >{column.name}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {sortedItems.map(item => (
+                {items.map(item => (
                   <tr
                     key={item.id}
                   >
                     {tableConfig.map(column => (
                       <td
                         key={item[column.attr]}
-                        className="text-center"
+                        className={column.className}
+                        style={column.style}
                       >
-                        {(column.attr === "asset" || column.attr === "id") ? (
+                        {(column.attr === "id") ? (
                           <Button
                             color="link"
+                            style={{color: "black", fontSize: "1.2em"}}
                             name={item[column.attr]}
                             onClick={viewEntity[column.attr]}
                           >{item[column.attr]}
                           </Button>
                         ) : (
+                          column.attr === "impact" ? (
+                            <React.Fragment>
+                              {item[column.attr] ? (
+                              <Badge color="warning">
+                                Sim
+                              </Badge>
+                            ) : (
+                              <Badge color="light">
+                                Não
+                              </Badge>
+                            )}
+                            </React.Fragment>
+                        ) : (
                           <React.Fragment>
                             {item[column.attr]}
                           </React.Fragment>
-                        )}
+                        ))}
                       </td>
                     ))}
                   </tr>
@@ -94,4 +108,4 @@ class WorkRequestsTable extends Component {
   }
 }
 
-export default WorkRequestsTable;
+export default withRouter(WorkOrdersTable);

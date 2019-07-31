@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import {
   Nav,
   NavItem,
@@ -82,4 +82,4 @@ const mapStateToProps = storeState => {
   }
 }
 
-export default connect(mapStateToProps)(MainHeader);
+export default connect(mapStateToProps)(withRouter(MainHeader));

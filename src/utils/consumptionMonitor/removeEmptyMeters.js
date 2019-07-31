@@ -11,8 +11,8 @@ export default function removeEmptyMeters(data){
   let nonEmptyMeters = [];
 
   data.forEach(element => {
-    if(element.Items.length > 0){
-      nonEmptyMeters.push(element.Items[0].med);
+    if(element.length > 0){
+      nonEmptyMeters.push(element[0].med);
     }
   });
 

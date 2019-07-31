@@ -1,4 +1,6 @@
-export default function getAllMeters(dbObject, tableNameMeters, meterType) {
+import { serverAddress, allMeters } from '../../constants';
+
+export default function getAllMeters(meterType) {
   // Inputs:
   // dbObject (object): AWS DynamoDB configuration
   // tableNameMeters (string): name of table that contains meters information
@@ -14,21 +16,14 @@ export default function getAllMeters(dbObject, tableNameMeters, meterType) {
 
   return new Promise((resolve, reject) => {
     
-    dbObject.query({
-      TableName: tableNameMeters,
-      KeyConditionExpression: "tipomed = :tipomed",
-      ExpressionAttributeValues: {
-        ":tipomed": {
-          N: meterType
-        }
-      }
-    }, (err, data) => {
-      if (err) {
-        alert("There was an error in retrieving meters.");
-        reject(Error("Failed to get the items."));
-      } else {
-        resolve(data.Items);
-      }
-    });
+    fetch(serverAddress + allMeters, {
+      method: "GET"
+    })
+    .then(response => response.json())
+    .then(data => resolve(data))
+    .catch(() => {
+      alert("There was an error in retrieving meters.");
+      reject("Failed to get the items.");
+    })
   });
 }

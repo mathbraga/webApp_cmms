@@ -44,11 +44,6 @@ export default {
       url: "/manutencao",
       icon: "icon-wrench",
       children: [
-        // {
-        //   name: "Solicitações",
-        //   url: "/manutencao/solicitacoes",
-        //   icon: "icon-drop"
-        // },
         {
           name: "Ordens de serviço",
           url: "/manutencao/os",

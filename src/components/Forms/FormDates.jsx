@@ -123,15 +123,13 @@ class FormDates extends Component {
                     {meters.map(meter => (
                       <option
                         key={(
-                          100 * parseInt(meter.tipomed.N, 10) +
-                          parseInt(meter.med.N, 10)
+                          parseInt(meter.med, 10)
                         ).toString()}
                         value={(
-                          100 * parseInt(meter.tipomed.N, 10) +
-                          parseInt(meter.med.N, 10)
+                          parseInt(meter.med, 10)
                         ).toString()}
                       >
-                        {meter.id.S + " - " + meter.nome.S}
+                        {meter.id + " - " + meter.nome}
                       </option>
                     ))}
                   </Input>

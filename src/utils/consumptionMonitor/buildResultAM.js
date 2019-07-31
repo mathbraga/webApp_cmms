@@ -7,6 +7,8 @@ import sumAllMeters from "./sumAllMeters";
 
 export default function buildResultAM(data, meterType, meters, chosenMeter, initialDate, finalDate){
 
+  console.log('begin r a m')
+
   let resultObject = {};
 
   resultObject.newLocation = {
@@ -20,9 +22,16 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
 
   resultObject.queryResponseAll = data;
 
-  resultObject.queryResponse = sumAllMeters(data);
+  console.log('nonemptymeters');
+  console.log(resultObject.nonEmptyMeters);
+  console.log('queryResponseAll');
+  console.log(data);
 
-  let queryResponse = resultObject.queryResponse[0].Items[0];
+  resultObject.queryResponse = sumAllMeters(data);
+  
+  console.log(resultObject.queryResponse);
+
+  let queryResponse = resultObject.queryResponse;
 
   resultObject.unitNumber = "Todos medidores";
 
@@ -80,6 +89,8 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
   resultObject.widgetWithModalTitle = "Diagnóstico";
 
   resultObject.widgetWithModalButtonName = "Ver relatório";
+  
+  console.log('here2');
 
   resultObject.problems = checkProblems(resultObject.queryResponse, chosenMeter, resultObject.queryResponseAll, meters);
   
@@ -87,6 +98,8 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
   Object.keys(resultObject.problems).forEach(key => {
     if (resultObject.problems[key].problem === true) resultObject.numProblems += 1;
   });
+
+  console.log('here3');
 
 
   resultObject.rowNamesReportProblems = {
@@ -182,6 +195,8 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
   resultObject.initialDate = transformDateString(dateWithFourDigits(initialDate));
   
   resultObject.finalDate = transformDateString(dateWithFourDigits(finalDate));
+
+  console.log('ending build R A M');
 
   return resultObject;
 

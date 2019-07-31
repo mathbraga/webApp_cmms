@@ -1,8 +1,8 @@
 import buildCEBParamsArr from "./utils/consumptionMonitor/buildCEBParamsArr";
 import buildCAESBParamsArr from "./utils/consumptionMonitor/buildCAESBParamsArr";
-import NEWbuildAssetParamsArr from "./utils/maintenance/NEWbuildAssetParamsArr";
+import buildAssetParamsArr from "./utils/maintenance/buildAssetParamsArr";
 import textToArrayCM from "./utils/consumptionMonitor/textToArrayCM";
-import textToArrayFacility from "./utils/assets/textToArrayFacility";
+import textToArrayAsset from "./utils/assets/textToArrayAsset";
 
 // AWS configurations
 
@@ -37,8 +37,11 @@ export const dbTables = {
     tableName: "workorder"
   },
   asset: {
-    tableName: "Ativo",
-    readFile: textToArrayFacility,
-    buildParamsArr: NEWbuildAssetParamsArr
+    tableName: "Asset",
+    readFile: textToArrayAsset,
+    buildParamsArr: buildAssetParamsArr
+  },
+  woxasset: {
+    tableName: "WOXASSET"
   }
 };

@@ -24,6 +24,7 @@ class NewWorkOrderForm extends Component {
       dbObject: initializeDynamoDB(this.props.session),
       tableName: dbTables.workOrder.tableName,
       assetsList: [""],
+      impact: false,
       alertVisible: false,
       alertColor: "",
       alertMessage: ""
@@ -62,23 +63,43 @@ class NewWorkOrderForm extends Component {
   }
 
   assignAsset = event => {
-    let assetPosition = event.target.name;
+    let i = parseInt(event.target.name, 10);
     let assetId = event.target.value;
-    this.setState(prevState => {
-      let nextAssetsList = [...prevState.assetsList];
-      nextAssetsList[assetPosition] = assetId;
-      return {
-        assetsList: nextAssetsList
-      }
-    });
+    if(this.state.assetsList.includes(assetId)){
+      alert('ATIVO REPETIDO! O ATIVO SERÁ REMOVIDO DA LISTA.');
+      this.setState(prevState => {
+        let nextAssetsList = [...prevState.assetsList];
+        nextAssetsList.splice(i, 1);
+        return {
+          assetsList: nextAssetsList
+        }
+      });
+    } else {
+      this.setState(prevState => {
+        let nextAssetsList = [...prevState.assetsList];
+        nextAssetsList[i] = assetId;
+        return {
+          assetsList: nextAssetsList
+        }
+      });
+    }
   }
 
   addAsset = () => {
-    if(this.state.assetsList.includes("")){
-      alert('escolha um ativo antes de adicionar outro');
+    let nextAssetsList = [...this.state.assetsList];
+    nextAssetsList.push("");
+    this.setState({
+      assetsList: nextAssetsList
+    });
+  }
+
+  removeAsset = event => {
+    let i = parseInt(event.target.name, 10);
+    if(this.state.assetsList.length === 1){
+      alert("Pelo menos um ativo deve ser escolhido.");
     } else {
       let nextAssetsList = [...this.state.assetsList];
-      nextAssetsList.push("");
+      nextAssetsList.splice(i, 1);
       this.setState({
         assetsList: nextAssetsList
       });
@@ -260,47 +281,37 @@ class NewWorkOrderForm extends Component {
               />
             </InputGroup>
 
-            {/* <InputGroup className="mb-3">
-              <Label
-              >Ativo:
-              </Label>
-              <Input
-                type="text"
-                id="asset"
-                name="asset"
-                placeholder=""
-                onChange={this.handleInput}
-              />
-            </InputGroup> */}
-
             {this.state.assetsList.map((asset, i) => (
               <InputGroup
                 className="mb-3"
                 key={"asset-" + i.toString()}
               >
-                <Label
-                >Ativo #{(i + 1).toString()}:
-                </Label>
+                <Label>{"Ativo #" + (i + 1).toString() + ": "}</Label>
                 <Input
                   type="select"
-                  id={"asset" + i.toString()}
+                  id={"asset-" + i.toString()}
                   name={i.toString()}
                   defaultValue=""
                   onChange={this.assignAsset}
                 >
                   <option
-                    key=""
                     value=""
                   >Selecione o ativo
                   </option>
-                  {allAssets.map(assetId => (
+                  {allAssets.map(asset => (
                     <option
-                      key={i.toString() + assetId}
-                      value={assetId}
-                    >{assetId}
+                      key={"asset-" + i.toString() + "-" + asset.id}
+                      value={asset.id}
+                    >{asset.id}
                     </option>
                   ))}
                 </Input>
+
+                <Button
+                  color="secondary"
+                  name={i.toString()}
+                  onClick={this.removeAsset}
+                >Remover</Button>
               </InputGroup>
             ))}
             
@@ -318,7 +329,6 @@ class NewWorkOrderForm extends Component {
                 type="checkbox"
                 id="impact"
                 name="impact"
-                checked={this.state.impact}
                 onChange={this.handleInput}
               />
             </InputGroup>

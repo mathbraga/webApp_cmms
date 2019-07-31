@@ -50,11 +50,15 @@ class ConsumptionMonitor extends Component {
   }
 
   componentDidMount = () => {
-    getAllMeters(this.state.dbObject, this.state.tableNameMeters, this.state.meterType).then(meters => {
+    getAllMeters(this.state.meterType)
+    .then(meters => {
+      console.log('meters:');
+      console.log(meters);
       this.setState({
         meters: meters
       });
-    });
+    })
+    .catch(()=>console.log('erro'))
   }
 
   handleChangeOnDates = handleDates.bind(this);
@@ -75,6 +79,8 @@ class ConsumptionMonitor extends Component {
     
     event.preventDefault();
 
+    console.clear();
+
     this.setState({
       alertVisible: true,
       alertMessage: "Consultando banco de dados...",
@@ -83,9 +89,10 @@ class ConsumptionMonitor extends Component {
 
     handleSearch(this.state)
     .then(resultObject => {
+      console.log(resultObject)
       this.setState({
         resultObject: resultObject,
-        showResult: true,
+        // showResult: true,
         searchError: false
       });
     })
@@ -117,9 +124,9 @@ class ConsumptionMonitor extends Component {
     });
   }
 
-  componentWillUnmount = () => {
-    this.props.dispatch(saveSearchResult(this.state, this.monitor));
-  }
+  // componentWillUnmount = () => {
+  //   this.props.dispatch(saveSearchResult(this.state, this.monitor));
+  // }
 
   render() {
     return (
@@ -134,7 +141,7 @@ class ConsumptionMonitor extends Component {
               onQuery={this.handleQuery}
             />
 
-            <Alert
+            {/* <Alert
               className="mt-4"
               color={this.state.searchError ? "danger" : "warning"}
               isOpen={this.state.alertVisible}
@@ -147,7 +154,7 @@ class ConsumptionMonitor extends Component {
               dbObject={this.state.dbObject}
               readFile={dbTables[this.monitor].readFile}
               buildParamsArr={dbTables[this.monitor].buildParamsArr}
-            />
+            /> */}
 
           </React.Fragment>
         }
