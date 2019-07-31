@@ -25,7 +25,19 @@ export default {
     {
       name: "Ativos",
       url: "/ativos",
-      icon: "icon-tag",
+      icon: "icon-speedometer",
+      children: [
+        {
+          name: "Edifícios",
+          url: "/ativos/edificios",
+          icon: "icon-speedometer"
+        },
+        {
+          name: "Equipamentos",
+          url: "/ativos/equipamentos",
+          icon: "icon-speedometer"
+        }
+      ]
     },
     {
       name: "Manutenção",

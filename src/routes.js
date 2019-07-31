@@ -22,7 +22,9 @@ const routes = [
   { path: "/cadastro", name: "Cadastro", component: SignUp },
   { path: "/energia", name: "Energia elétrica", component: ConsumptionMonitor },
   { path: "/agua", name: "Água", component: ConsumptionMonitor },
-  { path: "/ativos", exact: true, name: "Ativos", component: Assets },
+  { path: "/ativos/edificios", name: "Ativos", component: Assets },
+  { path: "/ativos/equipamentos", name: "Ativos", component: Assets },
+  { path: "/os", name: "Ordens de serviços", component: WorkOrder }
   { path: "/manutencao/solicitacoes", exact: true, name: "Solicitações", component: WorkRequests },
   { path: "/manutencao/solicitacoes/nova", exact: true, name: "Nova solicitação", component: NewWorkRequestForm },
   { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: WorkOrders },
