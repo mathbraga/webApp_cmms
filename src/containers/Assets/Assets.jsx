@@ -13,7 +13,7 @@ class Assets extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      assets: []
     }
   }
 
@@ -32,12 +32,21 @@ class Assets extends Component {
   }
 
   render() {
+
+
+
     return (
-      <FacilitiesList />
-      // <Switch>
-      //   <Route path="/ativos/edificios" render={routeProps => <FacilitiesList />} />
-      //   <Route path="/ativos/equipamentos" render={routeProps => <EquipmentsList />} />
-      // </Switch>
+      <React.Fragment>
+        {this.state.assets.length !== 0 &&
+          <FacilitiesList
+            locationItems={this.state.assets}
+          />
+        }
+        {/* <Switch>
+          <Route path="/ativos/edificios" render={routeProps => <FacilitiesList />} />
+          <Route path="/ativos/equipamentos" render={routeProps => <EquipmentsList />} />
+        </Switch> */}
+      </React.Fragment>
     )
   }
 }

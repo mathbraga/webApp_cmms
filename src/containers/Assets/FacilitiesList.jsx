@@ -5,7 +5,7 @@ import AssetCard from "../../components/Cards/AssetCard";
 import { Badge, CustomInput } from "reactstrap";
 import "./List.css";
 
-import { locationItems, locationConfig } from "./AssetsFakeData";
+import { /*locationItems,*/ locationConfig } from "./AssetsFakeData";
 
 const hierarchyItem = require("../../assets/icons/tree_icon.png");
 const listItem = require("../../assets/icons/list_icon.png");
@@ -13,36 +13,7 @@ const searchItem = require("../../assets/icons/search_icon.png");
 
 const mapIcon = require("../../assets/icons/map.png");
 
-const Thead =
-  <tr>
-    <th className="text-center checkbox-cell">
-      <CustomInput type="checkbox" />
-    </th>
-    {locationConfig.map(column => (
-      <th style={column.style} className={column.className}>{column.description}</th>))
-    }
-  </tr>
 
-const Tbody = locationItems.map(item => (
-  <tr>
-    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-    <td>
-      <div>{item.location}</div>
-      <div className="small text-muted">{item.parent}</div>
-    </td>
-    <td className="text-center">{item.code}</td>
-    <td className="text-center">
-      <Badge className="mr-1" color={item.visiting === "sim" ? "success" : "warning"} style={{ width: "60px", color: "black" }}>{item.visiting}</Badge>
-    </td>
-    <td>
-      <div className="text-center">{item.area}</div>
-    </td>
-    <td>
-      <div className="text-center">
-        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-      </div>
-    </td>
-  </tr>))
 
 class FacilitiesList extends Component {
   constructor(props) {
@@ -51,6 +22,42 @@ class FacilitiesList extends Component {
   }
 
   render() {
+
+    const {
+      locationItems
+    } = this.props;
+
+    const Thead =
+    <tr>
+      <th className="text-center checkbox-cell">
+        <CustomInput type="checkbox" />
+      </th>
+      {locationConfig.map(column => (
+        <th style={column.style} className={column.className}>{column.description}</th>))
+      }
+    </tr>
+
+    const Tbody = locationItems.map(item => (
+      <tr>
+        <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
+        <td>
+          <div>{item.nome + " - " + item.subnome}</div>
+          <div className="small text-muted">{item.parent}</div>
+        </td>
+        <td className="text-center">{item.id}</td>
+        <td className="text-center">
+          <Badge className="mr-1" color={item.visita ? "danger" : "light"} style={{ width: "60px", color: "black" }}>{item.visita ? "Sim" : "Não"}</Badge>
+        </td>
+        <td>
+          <div className="text-center">{item.areaconst}</div>
+        </td>
+        <td>
+          <div className="text-center">
+            <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
+          </div>
+        </td>
+      </tr>))
+
     return (
       <AssetCard
         sectionName={'Edifícios e áreas'}
