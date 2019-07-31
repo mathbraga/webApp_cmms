@@ -1,10 +1,19 @@
 import React, { Component } from "react";
-import AssetTable from "./AssetTable";
+import FileInput from "../../components/FileInputs/FileInput";
+import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
+import textToArrayFacility from "../../utils/assets/textToArrayFacility";
+import buildFacilitiesParamsArr from "../../utils/assets/buildFacilitiesParamsArr";
+import FacilitiesList from "./FacilitiesList";
+import EquipmentsList from "./EquipmentsList";
+import AssetInfo from "./AssetInfo";
 import { connect } from "react-redux";
 import getAllAssets from "../../utils/assets/getAllAssets";
 import { dbTables } from "../../aws";
+
 import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 
+import { locationItems, equipmentItems } from "./AssetsFakeData";
+import { Switch, Route } from "react-router-dom";
 
 class Assets extends Component {
   constructor(props){
@@ -31,9 +40,11 @@ class Assets extends Component {
   
   render() {
     return (
-      <React.Fragment>
-        <AssetTable />
-      </React.Fragment>
+      <FacilitiesList />
+      // <Switch>
+      //   <Route path="/ativos/edificios" render={routeProps => <FacilitiesList />} />
+      //   <Route path="/ativos/equipamentos" render={routeProps => <EquipmentsList />} />
+      // </Switch>
     )
   }
 }
