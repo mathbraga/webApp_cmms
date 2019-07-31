@@ -14,6 +14,25 @@ import {
 
 class FormDates extends Component {
   render() {
+
+    let {
+      onChangeDate,
+      onMeterChange,
+      onChangeOneMonth,
+      onQuery
+    } = this.props;
+
+    let {
+      meters,
+      oneMonth,
+      initialDate,
+      finalDate,
+      chosenMeter,
+      meterType
+    } = this.props.consumptionState;
+
+    let fetchingMeters = meters.length === 0 ? true : false;
+
     return (
       <Card>
         <CardHeader>
@@ -39,9 +58,9 @@ class FormDates extends Component {
                   id="initialDate"
                   type="text"
                   placeholder="mm/aaaa"
-                  value={this.props.initialDate}
+                  value={initialDate}
                   required
-                  onChange={this.props.onChangeDate}
+                  onChange={onChangeDate}
                 />
               </Row>
             </Col>
@@ -50,16 +69,16 @@ class FormDates extends Component {
                 <Label htmlFor="finalDate" className="label-form">
                   <strong>Mês final:</strong>
                 </Label>
-                {!this.props.oneMonth ? (
+                {!oneMonth ? (
                   <Input
                     className="date-input"
                     type="text"
                     name="finalDate"
                     id="finalDate"
                     placeholder="mm/aaaa"
-                    value={this.props.finalDate}
+                    value={finalDate}
                     required
-                    onChange={this.props.onChangeDate}
+                    onChange={onChangeDate}
                   />
                 ) : (
                   <Input
@@ -68,9 +87,9 @@ class FormDates extends Component {
                     name="finalDate"
                     id="finalDate"
                     placeholder="mm/aaaa"
-                    value={this.props.finalDate}
+                    value={finalDate}
                     required
-                    onChange={this.props.onChangeDate}
+                    onChange={onChangeDate}
                     disabled
                   />
                 )}
@@ -81,29 +100,40 @@ class FormDates extends Component {
                 <Label htmlFor="chosenMeter" className="label-form">
                   <strong>Medidor:</strong>
                 </Label>
-                <Input
-                  type="select"
-                  name="chosenMeter"
-                  id="exampleSelect"
-                  onChange={this.props.onMeterChange}
-                  className="input-meters"
-                >
-                  <option value="199">Todos os medidores</option>
-                  {this.props.meters.map(meter => (
-                    <option
-                      key={(
-                        100 * parseInt(meter.tipomed.N, 10) +
-                        parseInt(meter.med.N, 10)
-                      ).toString()}
-                      value={(
-                        100 * parseInt(meter.tipomed.N, 10) +
-                        parseInt(meter.med.N, 10)
-                      ).toString()}
-                    >
-                      {meter.idceb.S + " - " + meter.nome.S}
-                    </option>
-                  ))}
-                </Input>
+
+                {fetchingMeters &&
+                  <Input
+                    type="text"
+                    disabled={true}
+                    placeholder="Carregando medidores..."
+                    className="input-meters"
+                  ></Input>
+                }
+
+                {!fetchingMeters &&
+                  <Input
+                    type="select"
+                    name="chosenMeter"
+                    id="exampleSelect"
+                    onChange={onMeterChange}
+                    className="input-meters"
+                    defaultValue={fetchingMeters ? "Carregando medidores..." : chosenMeter}
+                  >
+                    <option value={meterType + "99"}>Todos medidores</option>
+                    {meters.map(meter => (
+                      <option
+                        key={(
+                          parseInt(meter.med, 10)
+                        ).toString()}
+                        value={(
+                          parseInt(meter.med, 10)
+                        ).toString()}
+                      >
+                        {meter.id + " - " + meter.nome}
+                      </option>
+                    ))}
+                  </Input>
+                }
               </Row>
             </Col>
           </Row>
@@ -120,8 +150,8 @@ class FormDates extends Component {
                   id="oneMonth"
                   name="oneMonth"
                   label="Pesquisar somente um mês"
-                  checked={this.props.oneMonth}
-                  onChange={this.props.onChangeOneMonth}
+                  checked={oneMonth}
+                  onChange={onChangeOneMonth}
                 />
               </FormGroup>
             </Col>
@@ -130,11 +160,12 @@ class FormDates extends Component {
           <Row>
             <Col xs="auto">
               <Button
+                disabled={fetchingMeters}
                 className=""
                 type="submit"
                 size="md"
                 color="primary"
-                onClick={this.props.onQuery}
+                onClick={onQuery}
                 style={{ margin: "10px 20px" }}
               >
                 Pesquisar

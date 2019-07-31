@@ -250,3 +250,12 @@ th {
 .nav-dropdown-items > .nav-item > .nav-link {
   padding-left: 30px;
 }
+
+.blackbox {
+  border: 1px solid black;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}

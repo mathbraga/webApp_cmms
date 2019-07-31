@@ -1,26 +1,32 @@
 import React from "react";
 import MainPage from "./containers/MainPage";
 
-const Energy = React.lazy(() => import("./containers/Energy"));
-const EnergyResults = React.lazy(() => import("./containers/Energy/EnergyResults"));
-const EnergyResultOM = React.lazy(() => import("./containers/Energy/EnergyResultOM"));
-const EnergyResultOP = React.lazy(() => import("./containers/Energy/EnergyResultOP"));
-const EnergyResultAM = React.lazy(() => import("./containers/Energy/EnergyResultAM"));
-const EnergyResultAP = React.lazy(() => import("./containers/Energy/EnergyResultAP"));
-
-const Water = React.lazy(() => import("./containers/Water"));
-
+const ConsumptionMonitor = React.lazy(() => import("./containers/ConsumptionMonitor"));
+const Dashboard = React.lazy(() => import("./containers/Dashboard"));
+const Login = React.lazy(() => import("./containers/Authentication/Login"));
+const SignUp = React.lazy(() => import("./containers/Authentication/SignUp"));
+const Assets = React.lazy(() => import("./containers/Assets"));
+const WorkOrders = React.lazy(() => import("./containers/Maintenance/WorkOrders"));
+const NewWorkOrderForm = React.lazy(() => import("./containers/Maintenance/NewWorkOrderForm"));
+const WorkOrderView = React.lazy(() => import("./containers/Maintenance/WorkOrderView"));
+const AssetView = React.lazy(() => import("./containers/Maintenance/AssetView"));
+const Error404 = React.lazy(() => import("./containers/MainPage/Error404"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
-  { path: "/", exact: true, name: "Início", component: MainPage },
-  { path: "/consumo/energia", name: "Energia elétrica", component: Energy },
-  { path: "/consumo/energia/resultados", name: "Resultados", component: EnergyResults },
-  { path: "/consumo/energia/resultados/OM", name: "OM", component: EnergyResultOM },
-  { path: "/consumo/energia/resultados/OP", name: "OP", component: EnergyResultOP },
-  { path: "/consumo/energia/resultados/AM", name: "AM", component: EnergyResultAM },
-  { path: "/consumo/energia/resultados/AP", name: "AP", component: EnergyResultAP },
-  { path: "/consumo/agua", name: "Água e esgoto", component: Water }
+  { path: "/", exact: true, component: MainPage },
+  { path: "/painel", name: "Painel", component: Dashboard },
+  { path: "/login", name: "Login", component: Login },
+  { path: "/cadastro", name: "Cadastro", component: SignUp },
+  { path: "/energia", name: "Energia elétrica", component: ConsumptionMonitor },
+  { path: "/agua", name: "Água", component: ConsumptionMonitor },
+  { path: "/ativos/view/:id", exact: false, name: "Ativo", component: AssetView },
+  { path: "/ativos/edificios", name: "Ativos", component: Assets },
+  { path: "/ativos/equipamentos", name: "Ativos", component: Assets },
+  { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: WorkOrders },
+  { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: NewWorkOrderForm },
+  { path: "/manutencao/os/view/:id", exact: false, name: "OS", component: WorkOrderView },
+  { path: "/erro404", exact: true, name: "Erro 404", component: Error404 },
 ];
 
 export default routes;

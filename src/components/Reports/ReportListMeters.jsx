@@ -1,16 +1,23 @@
 import React, { Component } from "react";
-import { Card, CardBody, Col, Row, Table, CardHeader } from "reactstrap";
+import { Table } from "reactstrap";
 import ReportCard from "../Cards/ReportCard";
 
 class ReportListMeters extends Component {
   render() {
+
+    let {
+      meters,
+      nonEmptyMeters
+    } = this.props;
+    
     return (
       <ReportCard
-        title={"Lista de Medidores"}
+        title={"Lista de medidores"}
         titleColSize={12}
-        subtitle={"Dados Atuais"}
+        subtitle={"Dados atuais"}
         bodyClass={"body-scroll"}
       >
+
         <Table responsive size="sm">
           <thead>
             <tr>
@@ -21,11 +28,11 @@ class ReportListMeters extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.meters.map(unit => (
-              <>
-                {this.props.noEmpty.includes(parseInt(unit.med.N, 10) + 100) &&
+            {meters.map(unit => (
+              <React.Fragment key={unit.id.S}>
+                {nonEmptyMeters.includes(parseInt(unit.med.N, 10) + 100) &&
                   <tr>
-                    <th>{unit.idceb.S}</th>
+                    <th>{unit.id.S}</th>
                     <td>{unit.nome.S}</td>
                     <td>{unit.modtar.S}</td>
                     {unit.dcf.S == 0 && unit.dcp.S == 0 ? (
@@ -40,7 +47,7 @@ class ReportListMeters extends Component {
                     )}
                   </tr>
                 }
-              </>
+              </React.Fragment>
             ))}
           </tbody>
         </Table>
