@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import WorkOrdersTable from "./WorkOrdersTable";
+import WorkOrdersList from "./WorkOrdersList";
 import { tableConfig } from "./WorkOrdersTableConfig";
 import getAllWorkOrders from "../../utils/maintenance/getAllWorkOrders";
 import { connect } from "react-redux";
@@ -40,11 +41,12 @@ class WorkOrders extends Component {
   render() {
     return (
       <React.Fragment>
-        <WorkOrdersTable
-          tableConfig={tableConfig}
-          items={this.state.workOrders}
+        {this.state.workOrders.length !== 0 &&
+        <WorkOrdersList
+          allItems={this.state.workOrders}
           viewEntity={this.viewEntity}
         />
+        }
       </React.Fragment>
     );
   }

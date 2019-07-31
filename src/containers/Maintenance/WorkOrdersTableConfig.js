@@ -1,8 +1,41 @@
 export const tableConfig = [
-  { name: "ID",               style: { width: "8%" },   className: "text-right pr-4 mr-4",attr: "id" },
-  { name: "Serviço",          style: { width: "30%" },  className: "text-justify",        attr: "categoria" },
-  { name: "Status",           style: { width: "auto" }, className: "text-center",         attr: "status1" },
-  { name: "Data de criação",  style: { width: "auto" }, className: "text-center",         attr: "data_criacao" },
-  { name: "Solicitante",      style: { width: "auto" }, className: "text-center",         attr: "solic_nome" },
-  { name: "Impacto?",         style: { width: "auto" }, className: "text-center",         attr: "impact" },
+  { name: "ID",                 style: { width: "auto" },   className: "text-center"  },
+  { name: "Descrição",          style: { width: "auto" },   className: "text-justify" },
+  { name: "Status",             style: { width: "auto" },   className: "text-center"  },
+  { name: "Data da solicitação",style: { width: "auto" },   className: "text-justify" },
+  { name: "Prazo",              style: { width: "auto" },   className: "text-center"  },
+  { name: "Solicitante",        style: { width: "auto" },   className: "text-center"  },
+  { name: "Ativos",             style: { width: "auto" },   className: "text-center"  },
 ];
+  
+  
+  // ALL W.O. ATTRIBUTES:
+  // ans
+  // categoria
+  // conferido
+  // contato_email
+  // contato_nome
+  // contato_tel
+  // data_atualiz
+  // data_criacao
+  // data_inicial
+  // data_prazo
+  // descricao
+  // executante
+  // id
+  // list_assets
+  // lugar
+  // mensagem
+  // multitarefa
+  // orcamento
+  // origem
+  // os_num
+  // prioridade
+  // realizado
+  // responsavel
+  // servico
+  // sigad
+  // solic_nome
+  // solic_orgao
+  // status1
+  // status2
