@@ -37,7 +37,7 @@ class Assets extends Component {
 
   render() {
     return (
-      <FacilitiesList />
+      <AssetInfo />
       // <Switch>
       //   <Route path="/ativos/edificios" render={routeProps => <FacilitiesList />} />
       //   <Route path="/ativos/equipamentos" render={routeProps => <EquipmentsList />} />
