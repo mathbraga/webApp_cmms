@@ -36,7 +36,6 @@ class Assets extends Component {
 
 
     return (
-<<<<<<< HEAD:frontend/src/containers/Assets/Assets.jsx
       <React.Fragment>
         {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "edificios") &&
           <FacilitiesList
@@ -53,19 +52,6 @@ class Assets extends Component {
           <Route path="/ativos/equipamentos" render={routeProps => <EquipmentsList />} />
         </Switch> */}
       </React.Fragment>
-||||||| merged common ancestors
-      <FacilitiesList />
-      // <Switch>
-      //   <Route path="/ativos/edificios" render={routeProps => <FacilitiesList />} />
-      //   <Route path="/ativos/equipamentos" render={routeProps => <EquipmentsList />} />
-      // </Switch>
-=======
-      <AssetInfo />
-      // <Switch>
-      //   <Route path="/ativos/edificios" render={routeProps => <FacilitiesList />} />
-      //   <Route path="/ativos/equipamentos" render={routeProps => <EquipmentsList />} />
-      // </Switch>
->>>>>>> c1d209876e0539d5fb76afa80d4b313a7a184c1f:src/containers/Assets/Assets.jsx
     )
   }
 }
