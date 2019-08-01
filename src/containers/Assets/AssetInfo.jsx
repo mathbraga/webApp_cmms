@@ -1,9 +1,47 @@
 import React, { Component } from 'react';
 import AssetCard from "../../components/Cards/AssetCard";
-import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
+import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput } from "reactstrap";
+import TableWithPages from "../../components/Tables/TableWithPages";
 import "./AssetInfo.css";
 
+import { equipmentItems, equipmentConfig } from "./AssetsFakeData";
+
 const descriptionImage = require("../../assets/img/test/ar_cond.jpg");
+const mapIcon = require("../../assets/icons/map.png");
+
+
+const thead =
+  <tr>
+    <th className="text-center checkbox-cell">
+      <CustomInput type="checkbox" />
+    </th>
+    {equipmentConfig.map(column => (
+      <th style={column.style} className={column.className}>{column.description}</th>))
+    }
+  </tr>
+
+const tbody = equipmentItems.map(item => (
+  <tr>
+    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
+    <td>
+      <div>{item.equipment}</div>
+      <div className="small text-muted">{item.id}</div>
+    </td>
+    <td>
+      <div className="text-center">{item.manufacturer}</div>
+    </td>
+    <td>
+      <div className="text-center">{item.model}</div>
+    </td>
+    <td>
+      <div className="text-center">{item.category}</div>
+    </td>
+    <td>
+      <div className="text-center">
+        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
+      </div>
+    </td>
+  </tr>))
 
 class AssetInfo extends Component {
   constructor(props) {
@@ -95,32 +133,34 @@ class AssetInfo extends Component {
               </TabPane>
               <TabPane tabId="location" style={{ width: "100%" }}>
                 <div>
-                  Informações gerais sobre o equipamento2.
+                  Localização do equipamento.
                 </div>
               </TabPane>
               <TabPane tabId="maintenance" style={{ width: "100%" }}>
-                <div>
-                  Informações gerais sobre o equipamento.
-                </div>
+                <Row>
+                  <Col>
+                    <TableWithPages thead={thead} tbody={tbody} />
+                  </Col>
+                </Row>
               </TabPane>
               <TabPane tabId="warranty" style={{ width: "100%" }}>
                 <div>
-                  Informações gerais sobre o equipamento.
+                  Garantias.
                 </div>
               </TabPane>
               <TabPane tabId="asset" style={{ width: "100%" }}>
                 <div>
-                  Informações gerais sobre o equipamento.
+                  Lista de ativo.
                 </div>
               </TabPane>
               <TabPane tabId="file" style={{ width: "100%" }}>
                 <div>
-                  Informações gerais sobre o equipamento.
+                  Lista de arquivos.
                 </div>
               </TabPane>
               <TabPane tabId="log" style={{ width: "100%" }}>
                 <div>
-                  Informações gerais sobre o equipamento.
+                  Histórico sobre o equipamento.
                 </div>
               </TabPane>
             </TabContent>
