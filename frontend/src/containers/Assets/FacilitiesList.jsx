@@ -15,13 +15,14 @@ const searchItem = require("../../assets/icons/search_icon.png");
 
 const mapIcon = require("../../assets/icons/map.png");
 
+const ENTRIES_PER_PAGE = 15;
+
 
 
 class FacilitiesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pagesTotal: 1,
       pageCurrent: 1
     };
 
@@ -35,8 +36,8 @@ class FacilitiesList extends Component {
   render() {
     const { allItems } = this.props;
     const { pageCurrent } = this.state;
-    const pagesTotal = allItems.length;
-    const locationItems = allItems.slice(0, 15)
+    const pagesTotal = Math.floor(allItems.length / ENTRIES_PER_PAGE) + 1;
+    const locationItems = allItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE)
 
     const thead =
       <tr>
@@ -67,13 +68,6 @@ class FacilitiesList extends Component {
         <td>
           <div className="text-center">
             <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-          </div>
-        </td>
-        <td>
-          <div className="text-center">
-            {item.list_wos.map(wo => (
-              <p>{wo.toString()}<br /></p>
-            ))}
           </div>
         </td>
       </tr>))
