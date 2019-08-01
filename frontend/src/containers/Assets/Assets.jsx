@@ -39,7 +39,7 @@ class Assets extends Component {
       <React.Fragment>
         {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "edificios") &&
           <FacilitiesList
-            allItems={this.state.assets}
+            allItems={remove(this.state.assets, item => { return item.tipo === 'A'; })}
           />
         }
         {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "equipamentos") &&

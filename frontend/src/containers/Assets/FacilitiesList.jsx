@@ -7,7 +7,7 @@ import { remove } from "lodash";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
-import { /*locationItems,*/ locationConfig } from "./AssetsFakeData";
+import { locationConfig } from "./AssetsFakeData";
 
 const hierarchyItem = require("../../assets/icons/tree_icon.png");
 const listItem = require("../../assets/icons/list_icon.png");
@@ -20,32 +20,37 @@ const mapIcon = require("../../assets/icons/map.png");
 class FacilitiesList extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      pagesTotal: 1,
+      pageCurrent: 1
+    };
+
+    this.setCurrentPage = this.setCurrentPage.bind(this);
+  }
+
+  setCurrentPage(pageCurrent) {
+    this.setState({ pageCurrent: pageCurrent });
   }
 
   render() {
+    const { allItems } = this.props;
+    const { pageCurrent } = this.state;
+    const pagesTotal = allItems.length;
+    const locationItems = allItems.slice(0, 15)
 
-    const {
-      allItems
-    } = this.props;
+    const thead =
+      <tr>
+        <th className="text-center checkbox-cell">
+          <CustomInput type="checkbox" />
+        </th>
+        {locationConfig.map(column => (
+          <th style={column.style} className={column.className}>{column.description}</th>))
+        }
+      </tr>
 
-    const locationItems = remove(allItems, item => {
-      return item.tipo === 'A';
-    });
-
-    const Thead =
-    <tr>
-      <th className="text-center checkbox-cell">
-        <CustomInput type="checkbox" />
-      </th>
-      {locationConfig.map(column => (
-        <th style={column.style} className={column.className}>{column.description}</th>))
-      }
-    </tr>
-
-    const Tbody = locationItems.map(item => (
+    const tbody = locationItems.map(item => (
       <tr
-        onClick={()=>{this.props.history.push('/ativos/view/' + item.id)}}
+        onClick={() => { this.props.history.push('/ativos/view/' + item.id) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
@@ -54,7 +59,7 @@ class FacilitiesList extends Component {
         </td>
         <td className="text-center">{item.id}</td>
         <td className="text-center">
-          <Badge className="mr-1" color={item.visita ? "danger" : "light"} style={{ width: "60px", color: "black" }}>{item.visita ? "Sim" : "Não"}</Badge>
+          <Badge className="mr-1" color={item.visita ? "success" : "danger"} style={{ width: "60px", color: "black" }}>{item.visita ? "Sim" : "Não"}</Badge>
         </td>
         <td>
           <div className="text-center">{item.areaconst}</div>
@@ -67,7 +72,7 @@ class FacilitiesList extends Component {
         <td>
           <div className="text-center">
             {item.list_wos.map(wo => (
-              <p>{wo.toString()}<br/></p>
+              <p>{wo.toString()}<br /></p>
             ))}
           </div>
         </td>
@@ -116,8 +121,11 @@ class FacilitiesList extends Component {
         <Row>
           <Col>
             <TableWithPages
-              thead={Thead}
-              tbody={Tbody}
+              thead={thead}
+              tbody={tbody}
+              pagesTotal={pagesTotal}
+              pageCurrent={pageCurrent}
+              setCurrentPage={this.setCurrentPage}
             />
           </Col>
         </Row>
