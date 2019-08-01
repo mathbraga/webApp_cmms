@@ -6,7 +6,19 @@ import "./AssetInfo.css";
 const descriptionImage = require("../../assets/img/test/ar_cond.jpg");
 
 class AssetInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tabSelected: "info",
+    };
+  }
+
+  handleClickOnNav(tabSelected) {
+    this.setState({ tabSelected });
+  }
+
   render() {
+    const { tabSelected } = this.state;
     return (
       <AssetCard
         sectionName={'Equipamento'}
@@ -54,30 +66,62 @@ class AssetInfo extends Component {
           <div style={{ margin: "20px", width: "100%" }}>
             <Nav tabs>
               <NavItem>
-                <NavLink href="#" active>Informações Gerais</NavLink>
+                <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#" active>Localização</NavLink>
+                <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Localização</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#" active>Manutenção</NavLink>
+                <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Manutenção</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#" active>Garantia</NavLink>
+                <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Garantia</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#" active>Ativos</NavLink>
+                <NavLink onClick={() => { this.handleClickOnNav("asset") }} active={tabSelected === "asset"} >Ativos</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#" active>Arquivos</NavLink>
+                <NavLink onClick={() => { this.handleClickOnNav("file") }} active={tabSelected === "file"} >Arquivos</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#" active>Histórico</NavLink>
+                <NavLink onClick={() => { this.handleClickOnNav("log") }} active={tabSelected === "log"} >Histórico</NavLink>
               </NavItem>
             </Nav>
-            <TabContent style={{ width: "100%" }}>
-              <TabPane style={{ width: "100%" }}>
-                Hey
+            <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
+              <TabPane tabId="info" style={{ width: "100%" }}>
+                <div>
+                  Informações gerais sobre o equipamento.
+                </div>
+              </TabPane>
+              <TabPane tabId="location" style={{ width: "100%" }}>
+                <div>
+                  Informações gerais sobre o equipamento2.
+                </div>
+              </TabPane>
+              <TabPane tabId="maintenance" style={{ width: "100%" }}>
+                <div>
+                  Informações gerais sobre o equipamento.
+                </div>
+              </TabPane>
+              <TabPane tabId="warranty" style={{ width: "100%" }}>
+                <div>
+                  Informações gerais sobre o equipamento.
+                </div>
+              </TabPane>
+              <TabPane tabId="asset" style={{ width: "100%" }}>
+                <div>
+                  Informações gerais sobre o equipamento.
+                </div>
+              </TabPane>
+              <TabPane tabId="file" style={{ width: "100%" }}>
+                <div>
+                  Informações gerais sobre o equipamento.
+                </div>
+              </TabPane>
+              <TabPane tabId="log" style={{ width: "100%" }}>
+                <div>
+                  Informações gerais sobre o equipamento.
+                </div>
               </TabPane>
             </TabContent>
           </div>
