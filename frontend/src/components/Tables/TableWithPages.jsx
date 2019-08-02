@@ -43,7 +43,7 @@ class TableWithPages extends Component {
         <Row style={{ margin: "15px 0" }}>
           <Col>
             <div className="table-page-container">
-              <span className="table-page-label">Ir para página:</span>
+              <span className="table-page-label">Página:</span>
               <input className="table-page-input"
                 type="text"
                 name="page"
@@ -52,6 +52,11 @@ class TableWithPages extends Component {
                 onBlur={this.handleFocusOutGoToPage}
                 onKeyUp={this.handleEnterGoToPage}
               />
+              <span
+                className="table-page-label"
+                style={{ marginLeft: "10px" }}
+              > de <span style={{ fontWeight: "bold" }}>{pagesTotal}</span>.
+              </span>
             </div>
           </Col>
         </Row>
