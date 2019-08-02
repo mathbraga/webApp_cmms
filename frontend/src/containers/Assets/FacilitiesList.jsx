@@ -3,7 +3,6 @@ import { Row, Col, Button, } from "reactstrap";
 import TableWithPages from "../../components/Tables/TableWithPages";
 import AssetCard from "../../components/Cards/AssetCard";
 import { Badge, CustomInput } from "reactstrap";
-import { remove } from "lodash";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
@@ -23,11 +22,17 @@ class FacilitiesList extends Component {
     super(props);
     this.state = {
       pageCurrent: 1,
-      goToPage: 1
+      goToPage: 1,
+      searchTerm: ""
     };
 
     this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
+    this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
+  }
+
+  handleChangeSearchTerm(event) {
+    this.setState({ searchTerm: event.target.value });
   }
 
   setGoToPage(page) {
@@ -42,9 +47,26 @@ class FacilitiesList extends Component {
 
   render() {
     const { allItems } = this.props;
-    const { pageCurrent, goToPage } = this.state;
-    const pagesTotal = Math.floor(allItems.length / ENTRIES_PER_PAGE) + 1;
-    const locationItems = allItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE)
+    const { pageCurrent, goToPage, searchTerm } = this.state;
+
+    let filteredItems = allItems;
+    if (searchTerm.length > 0) {
+      const searchTermLower = searchTerm.toLowerCase();
+      filteredItems = allItems.filter(function (item) {
+        return (
+          item.id.toLowerCase().includes(searchTermLower) ||
+          item.nome.toLowerCase().includes(searchTermLower) ||
+          item.parent.toLowerCase().includes(searchTermLower) ||
+          item.subnome.toLowerCase().includes(searchTermLower)
+        );
+      });
+    }
+
+    console.log("Filtered Items:");
+    console.log(filteredItems);
+
+    const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
+    const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
     const thead =
       <tr>
@@ -56,7 +78,7 @@ class FacilitiesList extends Component {
         }
       </tr>
 
-    const tbody = locationItems.map(item => (
+    const tbody = showItems.map(item => (
       <tr
         onClick={() => { this.props.history.push('/ativos/view/' + item.id) }}
       >
@@ -108,7 +130,7 @@ class FacilitiesList extends Component {
           <Col md="4">
             <form>
               <div className="search-input" >
-                <input placeholder="Pesquisar ..." />
+                <input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
                 <img src={searchItem} alt="" style={{ width: "18px", height: "15px", margin: "3px 0px" }} />
               </div>
             </form>
