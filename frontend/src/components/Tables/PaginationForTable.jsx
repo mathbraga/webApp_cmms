@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
+const NUM_PAGE_BUTTONS_LARGE = 5;
+const NUM_PAGE_BUTTONS_MID = 3;
+const NUM_PAGE_BUTTONS_SMALL = 1;
+
 class PaginationForTable extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   handleClickPagination(pageClicked) {
     const { pagesTotal, pageCurrent, setCurrentPage } = this.props;
@@ -40,16 +41,17 @@ class PaginationForTable extends Component {
 
   render() {
     const { pagesTotal, pageCurrent } = this.props;
+    const maxPageButtons = NUM_PAGE_BUTTONS_LARGE;
     const visiblePages = [];
 
-    [...Array(5).keys()].forEach(i => {
+    [...Array(maxPageButtons).keys()].forEach(i => {
       let page = pageCurrent + Number(i);
-      if (page > 0 && page <= pagesTotal && visiblePages.length < 5 && !visiblePages.includes(page)) {
+      if (page > 0 && page <= pagesTotal && visiblePages.length < maxPageButtons && !visiblePages.includes(page)) {
         visiblePages.push(page);
       }
 
       page = pageCurrent - Number(i);
-      if (page > 0 && page <= pagesTotal && visiblePages.length < 5 && !visiblePages.includes(page)) {
+      if (page > 0 && page <= pagesTotal && visiblePages.length < maxPageButtons && !visiblePages.includes(page)) {
         visiblePages.push(page);
       }
     });
