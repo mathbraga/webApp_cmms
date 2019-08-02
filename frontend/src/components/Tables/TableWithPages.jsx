@@ -7,21 +7,37 @@ import "./TableWithPages.scss";
 class TableWithPages extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      goToPage: 1
-    }
 
     this.handleChangeGoToPage = this.handleChangeGoToPage.bind(this);
+    this.handleFocusOutGoToPage = this.handleFocusOutGoToPage.bind(this);
+    this.handleEnterGoToPage = this.handleEnterGoToPage.bind(this);
   }
 
   handleChangeGoToPage(event) {
     const { value } = event.target;
-    this.setState({ goToPage: value });
+    const { setGoToPage } = this.props;
+    setGoToPage(value);
+  }
+
+  handleFocusOutGoToPage(event) {
+    const { value } = event.target;
+    const { pagesTotal, pageCurrent, setCurrentPage, setGoToPage } = this.props;
+    const numValue = Number(value);
+    if (numValue >= 1 && numValue <= pagesTotal) {
+      setCurrentPage(numValue);
+    } else {
+      setGoToPage(pageCurrent);
+    }
+  }
+
+  handleEnterGoToPage(event) {
+    if (event.key === "Enter") {
+      event.target.blur();
+    }
   }
 
   render() {
-    const { thead, tbody, pagesTotal, pageCurrent, setCurrentPage } = this.props;
-    const { goToPage } = this.state;
+    const { thead, tbody, pagesTotal, pageCurrent, setCurrentPage, goToPage } = this.props;
     return (
       <div>
         <Row style={{ margin: "15px 0" }}>
@@ -33,6 +49,8 @@ class TableWithPages extends Component {
                 name="page"
                 value={goToPage}
                 onChange={this.handleChangeGoToPage}
+                onBlur={this.handleFocusOutGoToPage}
+                onKeyUp={this.handleEnterGoToPage}
               />
             </div>
           </Col>

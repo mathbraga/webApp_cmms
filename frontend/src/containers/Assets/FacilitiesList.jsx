@@ -18,24 +18,31 @@ const mapIcon = require("../../assets/icons/map.png");
 const ENTRIES_PER_PAGE = 15;
 
 
-
 class FacilitiesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageCurrent: 1
+      pageCurrent: 1,
+      goToPage: 1
     };
 
+    this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
   }
 
+  setGoToPage(page) {
+    this.setState({ goToPage: page });
+  }
+
   setCurrentPage(pageCurrent) {
-    this.setState({ pageCurrent: pageCurrent });
+    this.setState({ pageCurrent: pageCurrent }, () => {
+      this.setState({ goToPage: pageCurrent });
+    });
   }
 
   render() {
     const { allItems } = this.props;
-    const { pageCurrent } = this.state;
+    const { pageCurrent, goToPage } = this.state;
     const pagesTotal = Math.floor(allItems.length / ENTRIES_PER_PAGE) + 1;
     const locationItems = allItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE)
 
@@ -119,7 +126,9 @@ class FacilitiesList extends Component {
               tbody={tbody}
               pagesTotal={pagesTotal}
               pageCurrent={pageCurrent}
+              goToPage={goToPage}
               setCurrentPage={this.setCurrentPage}
+              setGoToPage={this.setGoToPage}
             />
           </Col>
         </Row>
