@@ -1,6 +1,6 @@
-const express = require('express')
-const app = express()
-const port = 3001
+const express = require('express');
+const app = express();
+const port = 3001;
 const db = require('./pgpromiseInit');
 /*
 Database functions:
@@ -134,6 +134,27 @@ app.get('/search', (req, res, next) => {
     'Access-Control-Allow-Origin': '*',
   });
 
+  db.any("SELECT * from testedata")
+  .then(data => {
+    console.log('data:');
+    console.log(data);
+    res.json(data);
+  })
+  .catch(error => {
+    console.log(error)
+    res.json({erro: "erro na query"});
+  });
+})
+
+app.get('/cebmeters', (req, res, next) => {
+  console.log('\n');
+  console.log('req.query:')
+  console.log(req.query);
+  console.log('\n');
+  res.set({
+    'Access-Control-Allow-Origin': '*',
+  });
+
   db.any("SELECT * FROM get_all_ceb_meters()")
   .then(data => {
     // console.log('data:');
@@ -145,6 +166,7 @@ app.get('/search', (req, res, next) => {
     res.json({erro: "erro na query"});
   });
 })
+
 
 
 
