@@ -3,11 +3,10 @@ import { Row, Col, Button, } from "reactstrap";
 import TableWithPages from "../../components/Tables/TableWithPages";
 import AssetCard from "../../components/Cards/AssetCard";
 import { Badge, CustomInput } from "reactstrap";
-import { remove } from "lodash";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
-import { /*locationItems,*/ locationConfig } from "./AssetsFakeData";
+import { locationConfig } from "./AssetsFakeData";
 
 const hierarchyItem = require("../../assets/icons/tree_icon.png");
 const listItem = require("../../assets/icons/list_icon.png");
@@ -15,37 +14,73 @@ const searchItem = require("../../assets/icons/search_icon.png");
 
 const mapIcon = require("../../assets/icons/map.png");
 
+const ENTRIES_PER_PAGE = 15;
 
 
 class FacilitiesList extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      pageCurrent: 1,
+      goToPage: 1,
+      searchTerm: ""
+    };
+
+    this.setGoToPage = this.setGoToPage.bind(this);
+    this.setCurrentPage = this.setCurrentPage.bind(this);
+    this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
+  }
+
+  handleChangeSearchTerm(event) {
+    this.setState({ searchTerm: event.target.value });
+  }
+
+  setGoToPage(page) {
+    this.setState({ goToPage: page });
+  }
+
+  setCurrentPage(pageCurrent) {
+    this.setState({ pageCurrent: pageCurrent }, () => {
+      this.setState({ goToPage: pageCurrent });
+    });
   }
 
   render() {
+    const { allItems } = this.props;
+    const { pageCurrent, goToPage, searchTerm } = this.state;
 
-    const {
-      allItems
-    } = this.props;
+    let filteredItems = allItems;
+    if (searchTerm.length > 0) {
+      const searchTermLower = searchTerm.toLowerCase();
+      filteredItems = allItems.filter(function (item) {
+        return (
+          item.id.toLowerCase().includes(searchTermLower) ||
+          item.nome.toLowerCase().includes(searchTermLower) ||
+          item.parent.toLowerCase().includes(searchTermLower) ||
+          item.subnome.toLowerCase().includes(searchTermLower)
+        );
+      });
+    }
 
-    const locationItems = remove(allItems, item => {
-      return item.tipo === 'A';
-    });
+    console.log("Filtered Items:");
+    console.log(filteredItems);
 
-    const Thead =
-    <tr>
-      <th className="text-center checkbox-cell">
-        <CustomInput type="checkbox" />
-      </th>
-      {locationConfig.map(column => (
-        <th style={column.style} className={column.className}>{column.description}</th>))
-      }
-    </tr>
+    const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
+    const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
-    const Tbody = locationItems.map(item => (
+    const thead =
+      <tr>
+        <th className="text-center checkbox-cell">
+          <CustomInput type="checkbox" />
+        </th>
+        {locationConfig.map(column => (
+          <th style={column.style} className={column.className}>{column.description}</th>))
+        }
+      </tr>
+
+    const tbody = showItems.map(item => (
       <tr
-        onClick={()=>{this.props.history.push('/ativos/view/' + item.id)}}
+        onClick={() => { this.props.history.push('/ativos/view/' + item.id) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
@@ -54,7 +89,7 @@ class FacilitiesList extends Component {
         </td>
         <td className="text-center">{item.id}</td>
         <td className="text-center">
-          <Badge className="mr-1" color={item.visita ? "danger" : "light"} style={{ width: "60px", color: "black" }}>{item.visita ? "Sim" : "Não"}</Badge>
+          <Badge className="mr-1" color={item.visita ? "success" : "danger"} style={{ width: "60px", color: "black" }}>{item.visita ? "Sim" : "Não"}</Badge>
         </td>
         <td>
           <div className="text-center">{item.areaconst}</div>
@@ -62,13 +97,6 @@ class FacilitiesList extends Component {
         <td>
           <div className="text-center">
             <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-          </div>
-        </td>
-        <td>
-          <div className="text-center">
-            {item.list_wos.map(wo => (
-              <p>{wo.toString()}<br/></p>
-            ))}
           </div>
         </td>
       </tr>))
@@ -102,7 +130,7 @@ class FacilitiesList extends Component {
           <Col md="4">
             <form>
               <div className="search-input" >
-                <input placeholder="Pesquisar ..." />
+                <input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
                 <img src={searchItem} alt="" style={{ width: "18px", height: "15px", margin: "3px 0px" }} />
               </div>
             </form>
@@ -116,8 +144,13 @@ class FacilitiesList extends Component {
         <Row>
           <Col>
             <TableWithPages
-              thead={Thead}
-              tbody={Tbody}
+              thead={thead}
+              tbody={tbody}
+              pagesTotal={pagesTotal}
+              pageCurrent={pageCurrent}
+              goToPage={goToPage}
+              setCurrentPage={this.setCurrentPage}
+              setGoToPage={this.setGoToPage}
             />
           </Col>
         </Row>

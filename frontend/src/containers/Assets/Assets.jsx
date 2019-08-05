@@ -4,6 +4,7 @@ import EquipmentsList from "./EquipmentsList";
 import AssetInfo from "./AssetInfo";
 import { connect } from "react-redux";
 import getAllAssets from "../../utils/assets/getAllAssets";
+import { remove } from "lodash";
 import { dbTables } from "../../aws";
 
 import { locationItems, equipmentItems } from "./AssetsFakeData";
@@ -32,14 +33,11 @@ class Assets extends Component {
   }
 
   render() {
-
-
-
     return (
       <React.Fragment>
         {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "edificios") &&
           <FacilitiesList
-            allItems={this.state.assets}
+            allItems={remove(this.state.assets, item => { return item.tipo === 'A'; })}
           />
         }
         {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "equipamentos") &&

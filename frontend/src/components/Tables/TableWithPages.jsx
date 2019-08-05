@@ -7,40 +7,56 @@ import "./TableWithPages.scss";
 class TableWithPages extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      pagesTotal: 10,
-      pageCurrent: 5,
-      goToPage: 5
-    };
 
-    this.setCurrentPage = this.setCurrentPage.bind(this);
     this.handleChangeGoToPage = this.handleChangeGoToPage.bind(this);
-  }
-
-  setCurrentPage(pageCurrent) {
-    this.setState({ pageCurrent: pageCurrent, goToPage: pageCurrent });
+    this.handleFocusOutGoToPage = this.handleFocusOutGoToPage.bind(this);
+    this.handleEnterGoToPage = this.handleEnterGoToPage.bind(this);
   }
 
   handleChangeGoToPage(event) {
     const { value } = event.target;
-    this.setState({ goToPage: value });
+    const { setGoToPage } = this.props;
+    setGoToPage(value);
+  }
+
+  handleFocusOutGoToPage(event) {
+    const { value } = event.target;
+    const { pagesTotal, pageCurrent, setCurrentPage, setGoToPage } = this.props;
+    const numValue = Number(value);
+    if (numValue >= 1 && numValue <= pagesTotal) {
+      setCurrentPage(numValue);
+    } else {
+      setGoToPage(pageCurrent);
+    }
+  }
+
+  handleEnterGoToPage(event) {
+    if (event.key === "Enter") {
+      event.target.blur();
+    }
   }
 
   render() {
-    const { thead, tbody } = this.props;
-    const { pagesTotal, pageCurrent, goToPage } = this.state;
+    const { thead, tbody, pagesTotal, pageCurrent, setCurrentPage, goToPage } = this.props;
     return (
       <div>
         <Row style={{ margin: "15px 0" }}>
           <Col>
             <div className="table-page-container">
-              <span className="table-page-label">Ir para página:</span>
+              <span className="table-page-label">Página:</span>
               <input className="table-page-input"
                 type="text"
                 name="page"
                 value={goToPage}
                 onChange={this.handleChangeGoToPage}
+                onBlur={this.handleFocusOutGoToPage}
+                onKeyUp={this.handleEnterGoToPage}
               />
+              <span
+                className="table-page-label"
+                style={{ marginLeft: "10px" }}
+              > de <span style={{ fontWeight: "bold" }}>{pagesTotal}</span>.
+              </span>
             </div>
           </Col>
         </Row>
@@ -52,7 +68,7 @@ class TableWithPages extends Component {
         <Row style={{ margin: "15px 0" }}>
           <Col>
             <div className="pagination-container">
-              <PaginationForTable pagesTotal={pagesTotal} pageCurrent={pageCurrent} setCurrentPage={this.setCurrentPage} />
+              <PaginationForTable pagesTotal={pagesTotal} pageCurrent={pageCurrent} setCurrentPage={setCurrentPage} />
             </div>
           </Col>
         </Row>
