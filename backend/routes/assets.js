@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../dbConnect');
 
 router.get('/', (req, res) => {
+  console.log('inside get all assets')
   db.any('SELECT * FROM get_all_assets()')
   .then(data => {
     res.json(data);
