@@ -12,7 +12,7 @@ class Dashboard extends Component {
 
   componentDidMount(){
     console.clear();
-    fetch(serverAddress + '/search?med=199&aamm1=1701&aamm2=1712', {
+    fetch(serverAddress + '/quicktest', {
       method: "GET"
     })
     .then(response=>response.json())
