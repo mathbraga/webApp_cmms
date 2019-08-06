@@ -1,10 +1,12 @@
-import { serverAddress, cebMeters } from '../../constants';
+import { serverAddress, cebMeters, caesbMeters } from '../../constants';
 
 export default function getAllMeters(meterType) {
 
   return new Promise((resolve, reject) => {
     
-    fetch(serverAddress + cebMeters, {
+    let meterRoute = meterType === "1" ? cebMeters : caesbMeters;
+
+    fetch(serverAddress + meterRoute, {
       method: "GET"
     })
     .then(response => response.json())

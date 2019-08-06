@@ -4,6 +4,9 @@ const app = express();
 const port = 3001;
 // const db = require('./dbConnect');
 
+// var cookieParser = require('cookie-parser')
+// app.use(cookieParser())
+
 // REQUIRING ROUTES
 const cebRoutes   = require('./routes/ceb');
 const caesbRoutes = require('./routes/caesb');
@@ -27,6 +30,9 @@ app.use("/manutencao/os", woRoutes);
 // THIS ROUTE IS ONLY FOR QUICK TESTING OF BACKEND
 app.get('/quicktest', (req, res, next) => {
   console.log('\nQuick test route.\n');
+  // console.log(req.cookies);
+  // console.log(req.signedCookies);
+  res.json({response: 'quick test ok'});
 });
 
 // LISTEN FOR CONNECTIONS ON SPECIFIED PORT
