@@ -42,7 +42,7 @@ class Assets extends Component {
         }
         {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "equipamentos") &&
           <EquipmentsList
-            allItems={this.state.assets}
+            allItems={remove(this.state.assets, item => { return item.tipo === 'E'; })}
           />
         }
         {/* <Switch>
