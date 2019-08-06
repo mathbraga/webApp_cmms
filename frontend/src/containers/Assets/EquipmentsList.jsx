@@ -57,7 +57,7 @@ class EquipmentsList extends Component {
           item.id.toLowerCase().includes(searchTermLower) ||
           item.nome.toLowerCase().includes(searchTermLower) ||
           item.parent.toLowerCase().includes(searchTermLower) ||
-          item.subnome.toLowerCase().includes(searchTermLower)
+          item.modelo.toLowerCase().includes(searchTermLower)
         );
       });
     }
@@ -84,7 +84,7 @@ class EquipmentsList extends Component {
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
-          <div>{item.modelo}</div>
+          <div>{item.id}</div>
           <div className="small text-muted">{item.parent}</div>
         </td>
         <td className="text-center">Marca</td>
