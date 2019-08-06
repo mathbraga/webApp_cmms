@@ -3,10 +3,35 @@ import dateToStr from "./dateToStr";
 export default function createWorkOrder(state){
   return new Promise((resolve, reject) => {
     
-    let {
-      dbObject,
-      tableName
-    } = state;
+    console.clear();
+
+    let status1 = state.status1 === undefined ? "" : state.status1;
+    let prioridade = state.prioridade === undefined ? "" : state.prioridade;
+    let origem = state.origem === undefined ? "" : state.origem;
+    let responsavel = state.responsavel === undefined ? "" : state.responsavel;
+    let categoria = state.categoria === undefined ? "" : state.categoria;
+    let servico = state.servico === undefined ? "" : state.servico;
+    let descricao = state.descricao === undefined ? "" : state.descricao;
+    let data_inicial = state.data_inicial === undefined ? "" : state.data_inicial;
+    let data_prazo = state.data_prazo === undefined ? "" : state.data_prazo;
+    let realizado = state.realizado === undefined ? "" : state.realizado;
+    let data_criacao = state.data_criacao === undefined ? "" : state.data_criacao;
+    let data_atualiz = state.data_atualiz === undefined ? "" : state.data_atualiz;
+    let sigad = state.sigad === undefined ? "" : state.sigad;
+    let solic_orgao = state.solic_orgao === undefined ? "" : state.solic_orgao;
+    let solic_nome = state.solic_nome === undefined ? "" : state.solic_nome;
+    let contato_nome = state.contato_nome === undefined ? "" : state.contato_nome;
+    let contato_email = state.contato_email === undefined ? "" : state.contato_email;
+    let contato_tel = state.contato_tel === undefined ? "" : state.contato_tel;
+    let mensagem = state.mensagem === undefined ? "" : state.mensagem;
+    let orcamento = state.orcamento === undefined ? "" : state.orcamento;
+    let conferido = state.conferido === undefined ? "" : state.conferido;
+    let lugar = state.lugar === undefined ? "" : state.lugar;
+    let executante = state.executante === undefined ? "" : state.executante;
+    let os_num = state.os_num === undefined ? "" : state.os_num;
+    let ans = state.ans === undefined ? "" : state.ans;
+    let status2 = state.status2 === undefined ? "" : state.status2;
+    let multitarefa = state.multitarefa === undefined ? "" : state.multitarefa;
 
     let filteredAssetsList = [];
 
@@ -17,108 +42,18 @@ export default function createWorkOrder(state){
         asset !== ""
       ));
     }
-    
-    // FORM-INDEPENDET ATTRIBUTES
-    let id = Math.round(Math.random()*10000).toString();
-    let creationDate = dateToStr(new Date());
-    // creationTime
-    // lastUpdate
 
-    // ATTRIBUTES FROM REQUEST
-    let selectedService = state.selectedService || "Troca de lâmpada da sala";
-    let reqName = state.reqName || "Nikola Tesla";
-    // reqEmail
-    // reqPhone
-    // conName
-    // conEmail
-    // conPhone
-    // directions
-    // description
-    // details
-    // files
 
-    // OTHER ATTRIBUTES
-    // situation
-    // priority
-    // assignedTo
-    // category
-    // sigad
-    // requestingDepartment
-    // messageToRequester
-    // budget
-    // initialDate
-    // finalDate
-    // progress
-    // checked
-    // executor
-    // ans
-    // multiTask
-    // relatedWorkOrders
-    // subTasks
-    // log
-    let status = "Pendente"
-    // let asset = state.asset || "BL14-MEZ-043";
-    let local = state.local || "BL14-MEZ-043";
-    let impact = state.impact || false;
 
-    dbObject.putItem({
-      TableName: tableName,
-      Item: {
-        "id": {
-          N: id
-        },
-        "creationDate": {
-          S: creationDate
-        },
-        "selectedService": {
-          S: selectedService
-        },
-        "reqName": {
-          S: reqName
-        },
-        "status": {
-          S: status
-        },
-        // "asset": {
-        //   S: asset
-        // },
-        "local": {
-          S: local
-        },
-        "impact": {
-          BOOL: impact
-        }
+    fetch('http://172.30.49.152:3001/manutencao/os/nova', {
+      method: 'POST',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json'
       }
-    }, (err, data) => {
-      if(err){
-        reject("Houve um problema no cadastro da OS. Faça login ou tente novamente.");
-      } else {
-        
-        let arrayPromises = filteredAssetsList.map(assetId => {
-          return new Promise((resolve, reject) => {
-            dbObject.putItem({
-              TableName: "WOXASSET",
-              Item: {
-                "woId": {
-                  N: id
-                },
-                "assetId": {
-                  S: assetId
-                }
-              }
-            }, (err, data) => {
-              if(err){
-                reject();
-              } else {
-                resolve();
-              }
-            });
-          });
-        });
-        Promise.all(arrayPromises)
-        .then(()=>resolve("OS CADASTRADA COM SUCESSO!"))
-        .catch(()=>reject("HOUVE UM PROBLEMA."));
-      }
-    });
+    })
+    .then(response=>response.json())
+    .then(data=>console.log(data))
+    .catch(()=>console.log('erro /nova'));
   });
 }

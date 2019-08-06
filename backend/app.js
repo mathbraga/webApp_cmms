@@ -17,9 +17,12 @@ const woRoutes    = require('./routes/wos');
 app.use(function(req, res, next){
   res.set({
     'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type'
   });
   next();
 });
+
+app.use(express.json());
 
 // USE EXPORTED ROUTERS
 app.use("/energia", cebRoutes);
