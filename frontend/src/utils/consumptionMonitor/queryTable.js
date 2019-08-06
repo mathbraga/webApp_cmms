@@ -1,5 +1,10 @@
-export default function queryTable(chosenMeter, meters, aamm1, aamm2) {
+import { serverAddress, cebBills, caesbBills } from "../../constants";
+
+export default function queryTable(meterType, chosenMeter, meters, aamm1, aamm2) {
   return new Promise((resolve, reject) => {
+    
+    let tablePath = meterType === "1" ? cebBills : caesbBills;
+    
     // Check if consumer is 'all'
     var allMeters = [];
     if (chosenMeter.slice(1) === "99") {
@@ -15,8 +20,7 @@ export default function queryTable(chosenMeter, meters, aamm1, aamm2) {
     let arrayPromises = allMeters.map((meter, i) => {
       queryResponse.push([]);
       return new Promise((resolve, reject) => {
-        fetch('http://localhost:3001' +
-          "/ceb?" +
+        fetch(serverAddress + tablePath +
           "med=" + meter +
           "&aamm1=" + aamm1 +
           "&aamm2=" + aamm2
