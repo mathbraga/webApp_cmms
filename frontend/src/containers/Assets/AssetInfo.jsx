@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AssetCard from "../../components/Cards/AssetCard";
+import getAsset from "../../utils/assets/getAsset";
 import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput } from "reactstrap";
 import TableWithPages from "../../components/Tables/TableWithPages";
 import "./AssetInfo.css";
@@ -48,7 +49,30 @@ class AssetInfo extends Component {
     super(props);
     this.state = {
       tabSelected: "info",
+      asset: false,
+      location: false
     };
+  }
+
+  componentDidMount() {
+    let assetId = this.props.location.pathname.slice(13);
+    getAsset(assetId)
+      .then(asset => {
+        console.log("Asset details:");
+        console.log(asset);
+        this.setState({
+          asset: asset,
+        });
+        getAsset(asset.parent).then(loc => {
+          console.log("Location details:");
+          console.log(loc);
+          this.setState({ location: loc });
+        }
+        )
+      })
+      .catch(message => {
+        console.log(message);
+      });
   }
 
   handleClickOnNav(tabSelected) {
@@ -57,12 +81,13 @@ class AssetInfo extends Component {
 
   render() {
     const { tabSelected } = this.state;
+    const { asset } = this.state;
     return (
       <AssetCard
-        sectionName={'Equipamento'}
+        sectionName={asset.tipo === 'E' ? 'Equipamento' : 'Edifício'}
         sectionDescription={'Ficha descritiva'}
         handleCardButton={() => { }}
-        buttonName={'Equipamentos'}
+        buttonName={asset.tipo === 'E' ? 'Equipamentos' : 'Edifícios'}
       >
         <Row>
           <Col md="2">
@@ -89,13 +114,13 @@ class AssetInfo extends Component {
             <div>
               <Row>
                 <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Fabricante</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>Carrier Corporation LTDA</span></Col>
+                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{asset.modelo}</span></Col>
               </Row>
             </div>
             <div>
               <Row>
                 <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>ESX234DF</span></Col>
+                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{asset.id}</span></Col>
               </Row>
             </div>
           </Col>
