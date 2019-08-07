@@ -14,7 +14,7 @@ export default function createWorkOrder(state){
     let descricao = state.descricao === undefined ? "" : state.descricao;
     let data_inicial = state.data_inicial === undefined ? "" : state.data_inicial;
     let data_prazo = state.data_prazo === undefined ? "" : state.data_prazo;
-    let realizado = state.realizado === undefined ? "" : state.realizado;
+    let realizado = state.realizado === undefined ? 0 : state.realizado;
     let data_criacao = state.data_criacao === undefined ? "" : state.data_criacao;
     let data_atualiz = state.data_atualiz === undefined ? "" : state.data_atualiz;
     let sigad = state.sigad === undefined ? "" : state.sigad;
