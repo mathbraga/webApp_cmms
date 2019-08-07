@@ -32,22 +32,49 @@ export default function createWorkOrder(state){
     let ans = state.ans === undefined ? "" : state.ans;
     let status2 = state.status2 === undefined ? "" : state.status2;
     let multitarefa = state.multitarefa === undefined ? "" : state.multitarefa;
-
-    let filteredAssetsList = [];
-
+    let assetsList = [];
     if(state.assetsList.length === 1 && state.assetsList[0] === ""){
       reject("É necessário selecionar um ativo para cadastrar a OS.");
     } else {
-      filteredAssetsList = state.assetsList.filter(asset => (
+      assetsList = state.assetsList.filter(asset => (
         asset !== ""
       ));
     }
 
-
+    let body = {
+      status1,
+      prioridade,
+      origem,
+      responsavel,
+      categoria,
+      servico,
+      descricao,
+      data_inicial,
+      data_prazo,
+      realizado,
+      data_criacao,
+      data_atualiz,
+      sigad,
+      solic_orgao,
+      solic_nome,
+      contato_nome,
+      contato_email,
+      contato_tel,
+      mensagem,
+      orcamento,
+      conferido,
+      lugar,
+      executante,
+      os_num,
+      ans,
+      status2,
+      multitarefa,
+      assetsList
+    };
 
     fetch('http://172.30.49.152:3001/manutencao/os/nova', {
       method: 'POST',
-      body: JSON.stringify(state),
+      body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json'
       }
