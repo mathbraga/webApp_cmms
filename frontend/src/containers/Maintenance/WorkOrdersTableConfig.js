@@ -1,8 +1,8 @@
 export const tableConfig = [
-  { name: "ID", style: { width: "90px" }, className: "text-center" },
+  { name: "ID", style: { width: "80px" }, className: "text-center" },
   { name: "Descrição", style: { width: "400px" }, className: "text-justify" },
   { name: "Status", style: { width: "auto" }, className: "text-center" },
-  { name: "Data da Solicitação", style: { width: "auto" }, className: "text-center" },
+  { name: "Data da Solicitação", style: { width: "150px" }, className: "text-center" },
   { name: "Prazo", style: { width: "auto" }, className: "text-center" },
   { name: "Solicitante", style: { width: "auto" }, className: "text-center" },
 ];

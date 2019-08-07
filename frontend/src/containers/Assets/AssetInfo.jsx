@@ -62,7 +62,7 @@ class AssetInfo extends Component {
         sectionName={'Equipamento'}
         sectionDescription={'Ficha descritiva'}
         handleCardButton={() => { }}
-        buttonName={'Nova OS'}
+        buttonName={'Equipamentos'}
       >
         <Row>
           <Col md="2">

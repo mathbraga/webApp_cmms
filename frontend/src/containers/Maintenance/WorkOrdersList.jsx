@@ -12,8 +12,6 @@ const hierarchyItem = require("../../assets/icons/tree_icon.png");
 const listItem = require("../../assets/icons/list_icon.png");
 const searchItem = require("../../assets/icons/search_icon.png");
 
-const mapIcon = require("../../assets/icons/map.png");
-
 const ENTRIES_PER_PAGE = 15;
 
 
@@ -54,10 +52,10 @@ class WorkOrdersList extends Component {
       const searchTermLower = searchTerm.toLowerCase();
       filteredItems = allItems.filter(function (item) {
         return (
-          item.id.toLowerCase().includes(searchTermLower) ||
-          item.nome.toLowerCase().includes(searchTermLower) ||
-          item.parent.toLowerCase().includes(searchTermLower) ||
-          item.subnome.toLowerCase().includes(searchTermLower)
+          item.categoria.toLowerCase().includes(searchTermLower) ||
+          item.solic_nome.toLowerCase().includes(searchTermLower) ||
+          item.descricao.toLowerCase().includes(searchTermLower) ||
+          item.status1.toLowerCase().includes(searchTermLower)
         );
       });
     }
