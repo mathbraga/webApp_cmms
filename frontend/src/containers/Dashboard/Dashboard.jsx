@@ -12,8 +12,20 @@ class Dashboard extends Component {
 
   componentDidMount(){
     console.clear();
-    fetch(serverAddress + '/quicktest', {
-      method: "GET"
+    const n1 = 4;
+    const n2 = 5; 
+    fetch(serverAddress + '/graphql', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `query Soma($n1: Int!, $n2: Int!) {
+          soma(n1: $n1, n2: $n2)
+        }`,
+        variables: { n1, n2 }
+      })
     })
     .then(response=>response.json())
     .then(data=>console.log(data))
