@@ -12,8 +12,6 @@ class Dashboard extends Component {
 
   componentDidMount(){
     console.clear();
-    const n1 = 4;
-    const n2 = 5; 
     fetch(serverAddress + '/graphql', {
       method: "POST",
       headers: {
@@ -21,10 +19,17 @@ class Dashboard extends Component {
         'Accept': 'application/json',
       },
       body: JSON.stringify({
-        query: `query Soma($n1: Int!, $n2: Int!) {
-          soma(n1: $n1, n2: $n2)
-        }`,
-        variables: { n1, n2 }
+        query: `{
+          query {
+              cebMeter(nodeId: "WyJjZWJfbWV0ZXJzIiwxMDFd") {
+                id
+                ligacao
+                nodeId
+                grupo
+                med
+              }
+          }
+        }`
       })
     })
     .then(response=>response.json())
