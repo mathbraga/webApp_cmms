@@ -15,8 +15,8 @@ app.use(postgraphile(
     // https://www.graphile.org/postgraphile/usage-library/#api-postgraphilepgconfig-schemaname-options
     watchPg: true,
     enableCors: true,
-    exportJsonSchemaPath: "../schema.graphql",
-    exportGqlSchemaPath: "../schema.json",
+    exportJsonSchemaPath: "../schema.json",
+    exportGqlSchemaPath: "../schema.graphql",
     sortExport: true,
     graphqlRoute: "/",
     graphiql: true,
