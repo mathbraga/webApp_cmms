@@ -14,12 +14,14 @@ class Dashboard extends Component {
     console.clear();
     fetchDB({
       query: `
-        {
-          allCebMeters {
-            totalCount
-          }
+      query MyQuery($medidor: Int!) {
+        cebMeterByMed(med: $medidor) {
+          id
         }
-    `})
+      }
+    `,
+      variables: {medidor: 123}
+    })
       .then(r => r.json())
       .then(rjson => console.log(rjson))
       .catch(()=>console.log('Erro no fecth em Dashboard'));
