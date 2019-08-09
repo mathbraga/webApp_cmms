@@ -8,7 +8,7 @@ const { postgraphile } = require("postgraphile");
 // Middlewares
 // app.use(middleware);
 app.use(postgraphile(
-  process.env.DATABASE_URL || "postgres://hzlopes:123456@localhost:5432/cmms",
+  process.env.DATABASE_URL || "postgres://postgres:123456@localhost:5432/cmms",
   "public",
   {
     // Check other options at:
