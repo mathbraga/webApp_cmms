@@ -6,7 +6,7 @@ const middleware = require('./middleware')
 const { postgraphile } = require("postgraphile");
 
 // Middlewares
-app.use(middleware);
+// app.use(middleware);
 app.use(postgraphile(
   process.env.DATABASE_URL || "postgres://hzlopes:123456@localhost:5432/cmms",
   "public",
@@ -14,11 +14,18 @@ app.use(postgraphile(
     // Check other options at:
     // https://www.graphile.org/postgraphile/usage-library/#api-postgraphilepgconfig-schemaname-options
     watchPg: true,
-    graphiql: true,
-    enhanceGraphiql: true,
     enableCors: true,
     exportJsonSchemaPath: "../schema.graphql",
     exportGqlSchemaPath: "../schema.json",
+    sortExport: true,
+    graphqlRoute: "/",
+    graphiql: true,
+    graphiqlRoute: "/graphiql",
+    enhanceGraphiql: true,
+    disableQueryLog: false,
+    dynamicJson: true,
+    showErrorStack: 'json',
+    extendedErrors: ['hint', 'detail', 'errcode'],
   }
 ));
 

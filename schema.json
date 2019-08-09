@@ -1,21 +1,19 @@
 type Asset implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  id: String!
-  nome: String!
-  subnome: String!
-  visita: Boolean!
-  lat: Float!
-  lon: Float!
   areaconst: Float!
-  modelo: String!
-  serie: String!
-  tipo: String!
 
   """Reads and enables pagination through a set of `AssetsParent`."""
   assetsParentsById(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AssetsParentCondition
+
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -28,153 +26,150 @@ type Asset implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
     """The method to use when ordering `AssetsParent`."""
     orderBy: [AssetsParentsOrderBy!] = [NATURAL]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: AssetsParentCondition
   ): AssetsParentsConnection!
 
   """Reads and enables pagination through a set of `AssetsParent`."""
   assetsParentsByParent(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `AssetsParent`."""
-    orderBy: [AssetsParentsOrderBy!] = [NATURAL]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: AssetsParentCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `AssetsParent`."""
+    orderBy: [AssetsParentsOrderBy!] = [NATURAL]
   ): AssetsParentsConnection!
-
-  """Reads and enables pagination through a set of `WosAsset`."""
-  wosAssetsByAssetId(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `WosAsset`."""
-    orderBy: [WosAssetsOrderBy!] = [NATURAL]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: WosAssetCondition
-  ): WosAssetsConnection!
-
-  """Reads and enables pagination through a set of `CebMetersAsset`."""
-  cebMetersAssetsByAssetId(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `CebMetersAsset`."""
-    orderBy: [CebMetersAssetsOrderBy!] = [NATURAL]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: CebMetersAssetCondition
-  ): CebMetersAssetsConnection!
 
   """Reads and enables pagination through a set of `CaesbMetersAsset`."""
   caesbMetersAssetsByAssetId(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `CaesbMetersAsset`."""
-    orderBy: [CaesbMetersAssetsOrderBy!] = [NATURAL]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: CaesbMetersAssetCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `CaesbMetersAsset`."""
+    orderBy: [CaesbMetersAssetsOrderBy!] = [NATURAL]
   ): CaesbMetersAssetsConnection!
+
+  """Reads and enables pagination through a set of `CebMetersAsset`."""
+  cebMetersAssetsByAssetId(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CebMetersAssetCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `CebMetersAsset`."""
+    orderBy: [CebMetersAssetsOrderBy!] = [NATURAL]
+  ): CebMetersAssetsConnection!
+  id: String!
+  lat: Float!
+  lon: Float!
+  modelo: String!
+
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  nome: String!
+  serie: String!
+  subnome: String!
+  tipo: String!
+  visita: Boolean!
+
+  """Reads and enables pagination through a set of `WosAsset`."""
+  wosAssetsByAssetId(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: WosAssetCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `WosAsset`."""
+    orderBy: [WosAssetsOrderBy!] = [NATURAL]
+  ): WosAssetsConnection!
 }
 
 """
 A condition to be used against `Asset` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input AssetCondition {
+  """Checks for equality with the object’s `areaconst` field."""
+  areaconst: Float
+
   """Checks for equality with the object’s `id` field."""
   id: String
-
-  """Checks for equality with the object’s `nome` field."""
-  nome: String
-
-  """Checks for equality with the object’s `subnome` field."""
-  subnome: String
-
-  """Checks for equality with the object’s `visita` field."""
-  visita: Boolean
 
   """Checks for equality with the object’s `lat` field."""
   lat: Float
@@ -182,58 +177,64 @@ input AssetCondition {
   """Checks for equality with the object’s `lon` field."""
   lon: Float
 
-  """Checks for equality with the object’s `areaconst` field."""
-  areaconst: Float
-
   """Checks for equality with the object’s `modelo` field."""
   modelo: String
+
+  """Checks for equality with the object’s `nome` field."""
+  nome: String
 
   """Checks for equality with the object’s `serie` field."""
   serie: String
 
+  """Checks for equality with the object’s `subnome` field."""
+  subnome: String
+
   """Checks for equality with the object’s `tipo` field."""
   tipo: String
+
+  """Checks for equality with the object’s `visita` field."""
+  visita: Boolean
 }
 
 """An input for mutations affecting `Asset`"""
 input AssetInput {
+  areaconst: Float!
   id: String!
-  nome: String!
-  subnome: String!
-  visita: Boolean!
   lat: Float!
   lon: Float!
-  areaconst: Float!
   modelo: String!
+  nome: String!
   serie: String!
+  subnome: String!
   tipo: String!
+  visita: Boolean!
 }
 
 """
 Represents an update to a `Asset`. Fields that are set will be updated.
 """
 input AssetPatch {
+  areaconst: Float
   id: String
-  nome: String
-  subnome: String
-  visita: Boolean
   lat: Float
   lon: Float
-  areaconst: Float
   modelo: String
+  nome: String
   serie: String
+  subnome: String
   tipo: String
+  visita: Boolean
 }
 
 """A connection to a list of `Asset` values."""
 type AssetsConnection {
-  """A list of `Asset` objects."""
-  nodes: [Asset]!
-
   """
   A list of edges which contains the `Asset` and cursor to aid in pagination.
   """
   edges: [AssetsEdge!]!
+
+  """A list of `Asset` objects."""
+  nodes: [Asset]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -253,40 +254,39 @@ type AssetsEdge {
 
 """Methods to use when ordering `Asset`."""
 enum AssetsOrderBy {
-  NATURAL
+  AREACONST_ASC
+  AREACONST_DESC
   ID_ASC
   ID_DESC
-  NOME_ASC
-  NOME_DESC
-  SUBNOME_ASC
-  SUBNOME_DESC
-  VISITA_ASC
-  VISITA_DESC
   LAT_ASC
   LAT_DESC
   LON_ASC
   LON_DESC
-  AREACONST_ASC
-  AREACONST_DESC
   MODELO_ASC
   MODELO_DESC
-  SERIE_ASC
-  SERIE_DESC
-  TIPO_ASC
-  TIPO_DESC
+  NATURAL
+  NOME_ASC
+  NOME_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+  SERIE_ASC
+  SERIE_DESC
+  SUBNOME_ASC
+  SUBNOME_DESC
+  TIPO_ASC
+  TIPO_DESC
+  VISITA_ASC
+  VISITA_DESC
 }
 
 type AssetsParent {
-  id: String
-  parent: String
-
   """Reads a single `Asset` that is related to this `AssetsParent`."""
   assetById: Asset
 
   """Reads a single `Asset` that is related to this `AssetsParent`."""
   assetByParent: Asset
+  id: String
+  parent: String
 }
 
 """
@@ -309,13 +309,13 @@ input AssetsParentInput {
 
 """A connection to a list of `AssetsParent` values."""
 type AssetsParentsConnection {
-  """A list of `AssetsParent` objects."""
-  nodes: [AssetsParent]!
-
   """
   A list of edges which contains the `AssetsParent` and cursor to aid in pagination.
   """
   edges: [AssetsParentsEdge!]!
+
+  """A list of `AssetsParent` objects."""
+  nodes: [AssetsParent]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -335,22 +335,22 @@ type AssetsParentsEdge {
 
 """Methods to use when ordering `AssetsParent`."""
 enum AssetsParentsOrderBy {
-  NATURAL
   ID_ASC
   ID_DESC
+  NATURAL
   PARENT_ASC
   PARENT_DESC
 }
 
 """A connection to a list of `CaesbDatum` values."""
 type CaesbDataConnection {
-  """A list of `CaesbDatum` objects."""
-  nodes: [CaesbDatum]!
-
   """
   A list of edges which contains the `CaesbDatum` and cursor to aid in pagination.
   """
   edges: [CaesbDataEdge!]!
+
+  """A list of `CaesbDatum` objects."""
+  nodes: [CaesbDatum]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -370,70 +370,71 @@ type CaesbDataEdge {
 
 """Methods to use when ordering `CaesbDatum`."""
 enum CaesbDataOrderBy {
-  NATURAL
-  MED_ASC
-  MED_DESC
   AAMM_ASC
   AAMM_DESC
-  LAT_ASC
-  LAT_DESC
-  DLAT_ASC
-  DLAT_DESC
-  LAN_ASC
-  LAN_DESC
-  DLAN_ASC
-  DLAN_DESC
-  DIF_ASC
-  DIF_DESC
-  CONSM_ASC
-  CONSM_DESC
-  CONSF_ASC
-  CONSF_DESC
-  VAGU_ASC
-  VAGU_DESC
-  VESG_ASC
-  VESG_DESC
   ADIC_ASC
   ADIC_DESC
-  SUBTOTAL_ASC
-  SUBTOTAL_DESC
   COFINS_ASC
   COFINS_DESC
-  IRPJ_ASC
-  IRPJ_DESC
+  CONSF_ASC
+  CONSF_DESC
+  CONSM_ASC
+  CONSM_DESC
   CSLL_ASC
   CSLL_DESC
+  DIF_ASC
+  DIF_DESC
+  DLAN_ASC
+  DLAN_DESC
+  DLAT_ASC
+  DLAT_DESC
+  IRPJ_ASC
+  IRPJ_DESC
+  LAN_ASC
+  LAN_DESC
+  LAT_ASC
+  LAT_DESC
+  MED_ASC
+  MED_DESC
+  NATURAL
   PASEP_ASC
   PASEP_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+  SUBTOTAL_ASC
+  SUBTOTAL_DESC
+  VAGU_ASC
+  VAGU_DESC
+  VESG_ASC
+  VESG_DESC
 }
 
 type CaesbDatum implements Node {
+  aamm: Int!
+  adic: Float!
+
+  """Reads a single `CaesbMeter` that is related to this `CaesbDatum`."""
+  caesbMeterByMed: CaesbMeter
+  cofins: Float!
+  consf: Int!
+  consm: Int!
+  csll: Float!
+  dif: Int!
+  dlan: Int!
+  dlat: Int!
+  irpj: Float!
+  lan: Int!
+  lat: Int!
+  med: Int!
+
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
-  med: Int!
-  aamm: Int!
-  lat: Int!
-  dlat: Int!
-  lan: Int!
-  dlan: Int!
-  dif: Int!
-  consm: Int!
-  consf: Int!
+  pasep: Float!
+  subtotal: Float!
   vagu: Float!
   vesg: Float!
-  adic: Float!
-  subtotal: Float!
-  cofins: Float!
-  irpj: Float!
-  csll: Float!
-  pasep: Float!
-
-  """Reads a single `CaesbMeter` that is related to this `CaesbDatum`."""
-  caesbMeterByMed: CaesbMeter
 }
 
 """
@@ -441,145 +442,116 @@ A condition to be used against `CaesbDatum` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
 input CaesbDatumCondition {
-  """Checks for equality with the object’s `med` field."""
-  med: Int
-
   """Checks for equality with the object’s `aamm` field."""
   aamm: Int
 
-  """Checks for equality with the object’s `lat` field."""
-  lat: Int
+  """Checks for equality with the object’s `adic` field."""
+  adic: Float
 
-  """Checks for equality with the object’s `dlat` field."""
-  dlat: Int
+  """Checks for equality with the object’s `cofins` field."""
+  cofins: Float
 
-  """Checks for equality with the object’s `lan` field."""
-  lan: Int
-
-  """Checks for equality with the object’s `dlan` field."""
-  dlan: Int
-
-  """Checks for equality with the object’s `dif` field."""
-  dif: Int
+  """Checks for equality with the object’s `consf` field."""
+  consf: Int
 
   """Checks for equality with the object’s `consm` field."""
   consm: Int
 
-  """Checks for equality with the object’s `consf` field."""
-  consf: Int
+  """Checks for equality with the object’s `csll` field."""
+  csll: Float
+
+  """Checks for equality with the object’s `dif` field."""
+  dif: Int
+
+  """Checks for equality with the object’s `dlan` field."""
+  dlan: Int
+
+  """Checks for equality with the object’s `dlat` field."""
+  dlat: Int
+
+  """Checks for equality with the object’s `irpj` field."""
+  irpj: Float
+
+  """Checks for equality with the object’s `lan` field."""
+  lan: Int
+
+  """Checks for equality with the object’s `lat` field."""
+  lat: Int
+
+  """Checks for equality with the object’s `med` field."""
+  med: Int
+
+  """Checks for equality with the object’s `pasep` field."""
+  pasep: Float
+
+  """Checks for equality with the object’s `subtotal` field."""
+  subtotal: Float
 
   """Checks for equality with the object’s `vagu` field."""
   vagu: Float
 
   """Checks for equality with the object’s `vesg` field."""
   vesg: Float
-
-  """Checks for equality with the object’s `adic` field."""
-  adic: Float
-
-  """Checks for equality with the object’s `subtotal` field."""
-  subtotal: Float
-
-  """Checks for equality with the object’s `cofins` field."""
-  cofins: Float
-
-  """Checks for equality with the object’s `irpj` field."""
-  irpj: Float
-
-  """Checks for equality with the object’s `csll` field."""
-  csll: Float
-
-  """Checks for equality with the object’s `pasep` field."""
-  pasep: Float
 }
 
 """An input for mutations affecting `CaesbDatum`"""
 input CaesbDatumInput {
-  med: Int!
   aamm: Int!
-  lat: Int!
-  dlat: Int!
-  lan: Int!
-  dlan: Int!
-  dif: Int!
-  consm: Int!
+  adic: Float!
+  cofins: Float!
   consf: Int!
+  consm: Int!
+  csll: Float!
+  dif: Int!
+  dlan: Int!
+  dlat: Int!
+  irpj: Float!
+  lan: Int!
+  lat: Int!
+  med: Int!
+  pasep: Float!
+  subtotal: Float!
   vagu: Float!
   vesg: Float!
-  adic: Float!
-  subtotal: Float!
-  cofins: Float!
-  irpj: Float!
-  csll: Float!
-  pasep: Float!
 }
 
 """
 Represents an update to a `CaesbDatum`. Fields that are set will be updated.
 """
 input CaesbDatumPatch {
-  med: Int
   aamm: Int
-  lat: Int
-  dlat: Int
-  lan: Int
-  dlan: Int
-  dif: Int
-  consm: Int
+  adic: Float
+  cofins: Float
   consf: Int
+  consm: Int
+  csll: Float
+  dif: Int
+  dlan: Int
+  dlat: Int
+  irpj: Float
+  lan: Int
+  lat: Int
+  med: Int
+  pasep: Float
+  subtotal: Float
   vagu: Float
   vesg: Float
-  adic: Float
-  subtotal: Float
-  cofins: Float
-  irpj: Float
-  csll: Float
-  pasep: Float
 }
 
 type CaesbMeter implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  med: Int!
-  id: String!
-  nome: String!
-  contrato: String!
-  hidrom: String!
-  cat: Int!
-
   """Reads and enables pagination through a set of `CaesbDatum`."""
   caesbDataByMed(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `CaesbDatum`."""
-    orderBy: [CaesbDataOrderBy!] = [PRIMARY_KEY_ASC]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: CaesbDatumCondition
-  ): CaesbDataConnection!
 
-  """Reads and enables pagination through a set of `CaesbMetersAsset`."""
-  caesbMetersAssetsByMed(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -592,20 +564,49 @@ type CaesbMeter implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `CaesbDatum`."""
+    orderBy: [CaesbDataOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaesbDataConnection!
 
+  """Reads and enables pagination through a set of `CaesbMetersAsset`."""
+  caesbMetersAssetsByMed(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `CaesbMetersAsset`."""
-    orderBy: [CaesbMetersAssetsOrderBy!] = [NATURAL]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: CaesbMetersAssetCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `CaesbMetersAsset`."""
+    orderBy: [CaesbMetersAssetsOrderBy!] = [NATURAL]
   ): CaesbMetersAssetsConnection!
+  cat: Int!
+  contrato: String!
+  hidrom: String!
+  id: String!
+  med: Int!
+
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  nome: String!
 }
 
 """
@@ -613,14 +614,8 @@ A condition to be used against `CaesbMeter` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
 input CaesbMeterCondition {
-  """Checks for equality with the object’s `med` field."""
-  med: Int
-
-  """Checks for equality with the object’s `id` field."""
-  id: String
-
-  """Checks for equality with the object’s `nome` field."""
-  nome: String
+  """Checks for equality with the object’s `cat` field."""
+  cat: Int
 
   """Checks for equality with the object’s `contrato` field."""
   contrato: String
@@ -628,43 +623,48 @@ input CaesbMeterCondition {
   """Checks for equality with the object’s `hidrom` field."""
   hidrom: String
 
-  """Checks for equality with the object’s `cat` field."""
-  cat: Int
+  """Checks for equality with the object’s `id` field."""
+  id: String
+
+  """Checks for equality with the object’s `med` field."""
+  med: Int
+
+  """Checks for equality with the object’s `nome` field."""
+  nome: String
 }
 
 """An input for mutations affecting `CaesbMeter`"""
 input CaesbMeterInput {
-  med: Int!
-  id: String!
-  nome: String!
+  cat: Int!
   contrato: String!
   hidrom: String!
-  cat: Int!
+  id: String!
+  med: Int!
+  nome: String!
 }
 
 """
 Represents an update to a `CaesbMeter`. Fields that are set will be updated.
 """
 input CaesbMeterPatch {
-  med: Int
-  id: String
-  nome: String
+  cat: Int
   contrato: String
   hidrom: String
-  cat: Int
+  id: String
+  med: Int
+  nome: String
 }
 
 type CaesbMetersAsset {
-  med: Int!
+  """Reads a single `Asset` that is related to this `CaesbMetersAsset`."""
+  assetByAssetId: Asset
   assetId: String!
 
   """
   Reads a single `CaesbMeter` that is related to this `CaesbMetersAsset`.
   """
   caesbMeterByMed: CaesbMeter
-
-  """Reads a single `Asset` that is related to this `CaesbMetersAsset`."""
-  assetByAssetId: Asset
+  med: Int!
 }
 
 """
@@ -672,28 +672,28 @@ A condition to be used against `CaesbMetersAsset` object types. All fields are
 tested for equality and combined with a logical ‘and.’
 """
 input CaesbMetersAssetCondition {
-  """Checks for equality with the object’s `med` field."""
-  med: Int
-
   """Checks for equality with the object’s `assetId` field."""
   assetId: String
+
+  """Checks for equality with the object’s `med` field."""
+  med: Int
 }
 
 """An input for mutations affecting `CaesbMetersAsset`"""
 input CaesbMetersAssetInput {
-  med: Int!
   assetId: String!
+  med: Int!
 }
 
 """A connection to a list of `CaesbMetersAsset` values."""
 type CaesbMetersAssetsConnection {
-  """A list of `CaesbMetersAsset` objects."""
-  nodes: [CaesbMetersAsset]!
-
   """
   A list of edges which contains the `CaesbMetersAsset` and cursor to aid in pagination.
   """
   edges: [CaesbMetersAssetsEdge!]!
+
+  """A list of `CaesbMetersAsset` objects."""
+  nodes: [CaesbMetersAsset]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -715,22 +715,22 @@ type CaesbMetersAssetsEdge {
 
 """Methods to use when ordering `CaesbMetersAsset`."""
 enum CaesbMetersAssetsOrderBy {
-  NATURAL
-  MED_ASC
-  MED_DESC
   ASSET_ID_ASC
   ASSET_ID_DESC
+  MED_ASC
+  MED_DESC
+  NATURAL
 }
 
 """A connection to a list of `CaesbMeter` values."""
 type CaesbMetersConnection {
-  """A list of `CaesbMeter` objects."""
-  nodes: [CaesbMeter]!
-
   """
   A list of edges which contains the `CaesbMeter` and cursor to aid in pagination.
   """
   edges: [CaesbMetersEdge!]!
+
+  """A list of `CaesbMeter` objects."""
+  nodes: [CaesbMeter]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -750,32 +750,32 @@ type CaesbMetersEdge {
 
 """Methods to use when ordering `CaesbMeter`."""
 enum CaesbMetersOrderBy {
-  NATURAL
-  MED_ASC
-  MED_DESC
-  ID_ASC
-  ID_DESC
-  NOME_ASC
-  NOME_DESC
+  CAT_ASC
+  CAT_DESC
   CONTRATO_ASC
   CONTRATO_DESC
   HIDROM_ASC
   HIDROM_DESC
-  CAT_ASC
-  CAT_DESC
+  ID_ASC
+  ID_DESC
+  MED_ASC
+  MED_DESC
+  NATURAL
+  NOME_ASC
+  NOME_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
 
 """A connection to a list of `CebDatum` values."""
 type CebDataConnection {
-  """A list of `CebDatum` objects."""
-  nodes: [CebDatum]!
-
   """
   A list of edges which contains the `CebDatum` and cursor to aid in pagination.
   """
   edges: [CebDataEdge!]!
+
+  """A list of `CebDatum` objects."""
+  nodes: [CebDatum]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -795,109 +795,110 @@ type CebDataEdge {
 
 """Methods to use when ordering `CebDatum`."""
 enum CebDataOrderBy {
-  NATURAL
-  MED_ASC
-  MED_DESC
   AAMM_ASC
   AAMM_DESC
-  TIPO_ASC
-  TIPO_DESC
-  DATAV_ASC
-  DATAV_DESC
-  KWH_ASC
-  KWH_DESC
-  CONFAT_ASC
-  CONFAT_DESC
-  ICMS_ASC
-  ICMS_DESC
-  CIP_ASC
-  CIP_DESC
-  TRIB_ASC
-  TRIB_DESC
-  JMA_ASC
-  JMA_DESC
-  DESCONTO_ASC
-  DESCONTO_DESC
   BASEC_ASC
   BASEC_DESC
-  VLIQ_ASC
-  VLIQ_DESC
-  VBRU_ASC
-  VBRU_DESC
-  KWHP_ASC
-  KWHP_DESC
-  KWHF_ASC
-  KWHF_DESC
-  DMP_ASC
-  DMP_DESC
-  DMF_ASC
-  DMF_DESC
-  DFP_ASC
-  DFP_DESC
-  DFF_ASC
-  DFF_DESC
-  UFERP_ASC
-  UFERP_DESC
-  UFERF_ASC
-  UFERF_DESC
-  VEREXP_ASC
-  VEREXP_DESC
-  VEREXF_ASC
-  VEREXF_DESC
-  VDFP_ASC
-  VDFP_DESC
-  VDFF_ASC
-  VDFF_DESC
-  VUDP_ASC
-  VUDP_DESC
-  VUDF_ASC
-  VUDF_DESC
-  DCP_ASC
-  DCP_DESC
+  CIP_ASC
+  CIP_DESC
+  CONFAT_ASC
+  CONFAT_DESC
+  DATAV_ASC
+  DATAV_DESC
   DCF_ASC
   DCF_DESC
+  DCP_ASC
+  DCP_DESC
+  DESCONTO_ASC
+  DESCONTO_DESC
+  DFF_ASC
+  DFF_DESC
+  DFP_ASC
+  DFP_DESC
+  DMF_ASC
+  DMF_DESC
+  DMP_ASC
+  DMP_DESC
+  ICMS_ASC
+  ICMS_DESC
+  JMA_ASC
+  JMA_DESC
+  KWH_ASC
+  KWH_DESC
+  KWHF_ASC
+  KWHF_DESC
+  KWHP_ASC
+  KWHP_DESC
+  MED_ASC
+  MED_DESC
+  NATURAL
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+  TIPO_ASC
+  TIPO_DESC
+  TRIB_ASC
+  TRIB_DESC
+  UFERF_ASC
+  UFERF_DESC
+  UFERP_ASC
+  UFERP_DESC
+  VBRU_ASC
+  VBRU_DESC
+  VDFF_ASC
+  VDFF_DESC
+  VDFP_ASC
+  VDFP_DESC
+  VEREXF_ASC
+  VEREXF_DESC
+  VEREXP_ASC
+  VEREXP_DESC
+  VLIQ_ASC
+  VLIQ_DESC
+  VUDF_ASC
+  VUDF_DESC
+  VUDP_ASC
+  VUDP_DESC
 }
 
 type CebDatum implements Node {
+  aamm: Int!
+  basec: Float!
+
+  """Reads a single `CebMeter` that is related to this `CebDatum`."""
+  cebMeterByMed: CebMeter
+  cip: Float!
+  confat: Int!
+  datav: Int!
+  dcf: Int!
+  dcp: Int!
+  desconto: Float!
+  dff: Int!
+  dfp: Int!
+  dmf: Int!
+  dmp: Int!
+  icms: Float!
+  jma: Float!
+  kwh: Int!
+  kwhf: Int!
+  kwhp: Int!
+  med: Int!
+
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
-  med: Int!
-  aamm: Int!
   tipo: Int!
-  datav: Int!
-  kwh: Int!
-  confat: Int!
-  icms: Float!
-  cip: Float!
   trib: Float!
-  jma: Float!
-  desconto: Float!
-  basec: Float!
-  vliq: Float!
-  vbru: Float!
-  kwhp: Int!
-  kwhf: Int!
-  dmp: Int!
-  dmf: Int!
-  dfp: Int!
-  dff: Int!
-  uferp: Int!
   uferf: Int!
-  verexp: Float!
-  verexf: Float!
-  vdfp: Float!
+  uferp: Int!
+  vbru: Float!
   vdff: Float!
-  vudp: Float!
+  vdfp: Float!
+  verexf: Float!
+  verexp: Float!
+  vliq: Float!
   vudf: Float!
-  dcp: Int!
-  dcf: Int!
-
-  """Reads a single `CebMeter` that is related to this `CebDatum`."""
-  cebMeterByMed: CebMeter
+  vudp: Float!
 }
 
 """
@@ -905,216 +906,181 @@ A condition to be used against `CebDatum` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
 input CebDatumCondition {
-  """Checks for equality with the object’s `med` field."""
-  med: Int
-
   """Checks for equality with the object’s `aamm` field."""
   aamm: Int
-
-  """Checks for equality with the object’s `tipo` field."""
-  tipo: Int
-
-  """Checks for equality with the object’s `datav` field."""
-  datav: Int
-
-  """Checks for equality with the object’s `kwh` field."""
-  kwh: Int
-
-  """Checks for equality with the object’s `confat` field."""
-  confat: Int
-
-  """Checks for equality with the object’s `icms` field."""
-  icms: Float
-
-  """Checks for equality with the object’s `cip` field."""
-  cip: Float
-
-  """Checks for equality with the object’s `trib` field."""
-  trib: Float
-
-  """Checks for equality with the object’s `jma` field."""
-  jma: Float
-
-  """Checks for equality with the object’s `desconto` field."""
-  desconto: Float
 
   """Checks for equality with the object’s `basec` field."""
   basec: Float
 
-  """Checks for equality with the object’s `vliq` field."""
-  vliq: Float
+  """Checks for equality with the object’s `cip` field."""
+  cip: Float
 
-  """Checks for equality with the object’s `vbru` field."""
-  vbru: Float
+  """Checks for equality with the object’s `confat` field."""
+  confat: Int
 
-  """Checks for equality with the object’s `kwhp` field."""
-  kwhp: Int
+  """Checks for equality with the object’s `datav` field."""
+  datav: Int
 
-  """Checks for equality with the object’s `kwhf` field."""
-  kwhf: Int
-
-  """Checks for equality with the object’s `dmp` field."""
-  dmp: Int
-
-  """Checks for equality with the object’s `dmf` field."""
-  dmf: Int
-
-  """Checks for equality with the object’s `dfp` field."""
-  dfp: Int
-
-  """Checks for equality with the object’s `dff` field."""
-  dff: Int
-
-  """Checks for equality with the object’s `uferp` field."""
-  uferp: Int
-
-  """Checks for equality with the object’s `uferf` field."""
-  uferf: Int
-
-  """Checks for equality with the object’s `verexp` field."""
-  verexp: Float
-
-  """Checks for equality with the object’s `verexf` field."""
-  verexf: Float
-
-  """Checks for equality with the object’s `vdfp` field."""
-  vdfp: Float
-
-  """Checks for equality with the object’s `vdff` field."""
-  vdff: Float
-
-  """Checks for equality with the object’s `vudp` field."""
-  vudp: Float
-
-  """Checks for equality with the object’s `vudf` field."""
-  vudf: Float
+  """Checks for equality with the object’s `dcf` field."""
+  dcf: Int
 
   """Checks for equality with the object’s `dcp` field."""
   dcp: Int
 
-  """Checks for equality with the object’s `dcf` field."""
-  dcf: Int
+  """Checks for equality with the object’s `desconto` field."""
+  desconto: Float
+
+  """Checks for equality with the object’s `dff` field."""
+  dff: Int
+
+  """Checks for equality with the object’s `dfp` field."""
+  dfp: Int
+
+  """Checks for equality with the object’s `dmf` field."""
+  dmf: Int
+
+  """Checks for equality with the object’s `dmp` field."""
+  dmp: Int
+
+  """Checks for equality with the object’s `icms` field."""
+  icms: Float
+
+  """Checks for equality with the object’s `jma` field."""
+  jma: Float
+
+  """Checks for equality with the object’s `kwh` field."""
+  kwh: Int
+
+  """Checks for equality with the object’s `kwhf` field."""
+  kwhf: Int
+
+  """Checks for equality with the object’s `kwhp` field."""
+  kwhp: Int
+
+  """Checks for equality with the object’s `med` field."""
+  med: Int
+
+  """Checks for equality with the object’s `tipo` field."""
+  tipo: Int
+
+  """Checks for equality with the object’s `trib` field."""
+  trib: Float
+
+  """Checks for equality with the object’s `uferf` field."""
+  uferf: Int
+
+  """Checks for equality with the object’s `uferp` field."""
+  uferp: Int
+
+  """Checks for equality with the object’s `vbru` field."""
+  vbru: Float
+
+  """Checks for equality with the object’s `vdff` field."""
+  vdff: Float
+
+  """Checks for equality with the object’s `vdfp` field."""
+  vdfp: Float
+
+  """Checks for equality with the object’s `verexf` field."""
+  verexf: Float
+
+  """Checks for equality with the object’s `verexp` field."""
+  verexp: Float
+
+  """Checks for equality with the object’s `vliq` field."""
+  vliq: Float
+
+  """Checks for equality with the object’s `vudf` field."""
+  vudf: Float
+
+  """Checks for equality with the object’s `vudp` field."""
+  vudp: Float
 }
 
 """An input for mutations affecting `CebDatum`"""
 input CebDatumInput {
-  med: Int!
   aamm: Int!
-  tipo: Int!
-  datav: Int!
-  kwh: Int!
-  confat: Int!
-  icms: Float!
-  cip: Float!
-  trib: Float!
-  jma: Float!
-  desconto: Float!
   basec: Float!
-  vliq: Float!
-  vbru: Float!
-  kwhp: Int!
-  kwhf: Int!
-  dmp: Int!
-  dmf: Int!
-  dfp: Int!
-  dff: Int!
-  uferp: Int!
-  uferf: Int!
-  verexp: Float!
-  verexf: Float!
-  vdfp: Float!
-  vdff: Float!
-  vudp: Float!
-  vudf: Float!
-  dcp: Int!
+  cip: Float!
+  confat: Int!
+  datav: Int!
   dcf: Int!
+  dcp: Int!
+  desconto: Float!
+  dff: Int!
+  dfp: Int!
+  dmf: Int!
+  dmp: Int!
+  icms: Float!
+  jma: Float!
+  kwh: Int!
+  kwhf: Int!
+  kwhp: Int!
+  med: Int!
+  tipo: Int!
+  trib: Float!
+  uferf: Int!
+  uferp: Int!
+  vbru: Float!
+  vdff: Float!
+  vdfp: Float!
+  verexf: Float!
+  verexp: Float!
+  vliq: Float!
+  vudf: Float!
+  vudp: Float!
 }
 
 """
 Represents an update to a `CebDatum`. Fields that are set will be updated.
 """
 input CebDatumPatch {
-  med: Int
   aamm: Int
-  tipo: Int
-  datav: Int
-  kwh: Int
-  confat: Int
-  icms: Float
-  cip: Float
-  trib: Float
-  jma: Float
-  desconto: Float
   basec: Float
-  vliq: Float
-  vbru: Float
-  kwhp: Int
-  kwhf: Int
-  dmp: Int
-  dmf: Int
-  dfp: Int
-  dff: Int
-  uferp: Int
-  uferf: Int
-  verexp: Float
-  verexf: Float
-  vdfp: Float
-  vdff: Float
-  vudp: Float
-  vudf: Float
-  dcp: Int
+  cip: Float
+  confat: Int
+  datav: Int
   dcf: Int
+  dcp: Int
+  desconto: Float
+  dff: Int
+  dfp: Int
+  dmf: Int
+  dmp: Int
+  icms: Float
+  jma: Float
+  kwh: Int
+  kwhf: Int
+  kwhp: Int
+  med: Int
+  tipo: Int
+  trib: Float
+  uferf: Int
+  uferp: Int
+  vbru: Float
+  vdff: Float
+  vdfp: Float
+  verexf: Float
+  verexp: Float
+  vliq: Float
+  vudf: Float
+  vudp: Float
 }
 
 type CebMeter implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  med: Int!
-  id: String!
-  nome: String!
-  modtar: String!
-  contrato: String!
-  classe: String!
-  subclasse: String!
-  grupo: String!
-  subgrupo: String!
-  ligacao: String!
-  dcf: Int!
-  dcp: Int!
-
   """Reads and enables pagination through a set of `CebDatum`."""
   cebDataByMed(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `CebDatum`."""
-    orderBy: [CebDataOrderBy!] = [PRIMARY_KEY_ASC]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: CebDatumCondition
-  ): CebDataConnection!
 
-  """Reads and enables pagination through a set of `CebMetersAsset`."""
-  cebMetersAssetsByMed(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1127,20 +1093,55 @@ type CebMeter implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `CebDatum`."""
+    orderBy: [CebDataOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CebDataConnection!
 
+  """Reads and enables pagination through a set of `CebMetersAsset`."""
+  cebMetersAssetsByMed(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `CebMetersAsset`."""
-    orderBy: [CebMetersAssetsOrderBy!] = [NATURAL]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: CebMetersAssetCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `CebMetersAsset`."""
+    orderBy: [CebMetersAssetsOrderBy!] = [NATURAL]
   ): CebMetersAssetsConnection!
+  classe: String!
+  contrato: String!
+  dcf: Int!
+  dcp: Int!
+  grupo: String!
+  id: String!
+  ligacao: String!
+  med: Int!
+  modtar: String!
+
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  nome: String!
+  subclasse: String!
+  subgrupo: String!
 }
 
 """
@@ -1148,86 +1149,85 @@ A condition to be used against `CebMeter` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
 input CebMeterCondition {
-  """Checks for equality with the object’s `med` field."""
-  med: Int
-
-  """Checks for equality with the object’s `id` field."""
-  id: String
-
-  """Checks for equality with the object’s `nome` field."""
-  nome: String
-
-  """Checks for equality with the object’s `modtar` field."""
-  modtar: String
-
-  """Checks for equality with the object’s `contrato` field."""
-  contrato: String
-
   """Checks for equality with the object’s `classe` field."""
   classe: String
 
-  """Checks for equality with the object’s `subclasse` field."""
-  subclasse: String
-
-  """Checks for equality with the object’s `grupo` field."""
-  grupo: String
-
-  """Checks for equality with the object’s `subgrupo` field."""
-  subgrupo: String
-
-  """Checks for equality with the object’s `ligacao` field."""
-  ligacao: String
+  """Checks for equality with the object’s `contrato` field."""
+  contrato: String
 
   """Checks for equality with the object’s `dcf` field."""
   dcf: Int
 
   """Checks for equality with the object’s `dcp` field."""
   dcp: Int
+
+  """Checks for equality with the object’s `grupo` field."""
+  grupo: String
+
+  """Checks for equality with the object’s `id` field."""
+  id: String
+
+  """Checks for equality with the object’s `ligacao` field."""
+  ligacao: String
+
+  """Checks for equality with the object’s `med` field."""
+  med: Int
+
+  """Checks for equality with the object’s `modtar` field."""
+  modtar: String
+
+  """Checks for equality with the object’s `nome` field."""
+  nome: String
+
+  """Checks for equality with the object’s `subclasse` field."""
+  subclasse: String
+
+  """Checks for equality with the object’s `subgrupo` field."""
+  subgrupo: String
 }
 
 """An input for mutations affecting `CebMeter`"""
 input CebMeterInput {
-  med: Int!
-  id: String!
-  nome: String!
-  modtar: String!
-  contrato: String!
   classe: String!
-  subclasse: String!
-  grupo: String!
-  subgrupo: String!
-  ligacao: String!
+  contrato: String!
   dcf: Int!
   dcp: Int!
+  grupo: String!
+  id: String!
+  ligacao: String!
+  med: Int!
+  modtar: String!
+  nome: String!
+  subclasse: String!
+  subgrupo: String!
 }
 
 """
 Represents an update to a `CebMeter`. Fields that are set will be updated.
 """
 input CebMeterPatch {
-  med: Int
-  id: String
-  nome: String
-  modtar: String
-  contrato: String
   classe: String
-  subclasse: String
-  grupo: String
-  subgrupo: String
-  ligacao: String
+  contrato: String
   dcf: Int
   dcp: Int
+  grupo: String
+  id: String
+  ligacao: String
+  med: Int
+  modtar: String
+  nome: String
+  subclasse: String
+  subgrupo: String
 }
 
 type CebMetersAsset {
-  med: Int!
+  """Reads a single `Asset` that is related to this `CebMetersAsset`."""
+  assetByAssetId: Asset
   assetId: String!
 
   """Reads a single `CebMeter` that is related to this `CebMetersAsset`."""
   cebMeterByMed: CebMeter
-
-  """Reads a single `Asset` that is related to this `CebMetersAsset`."""
-  assetByAssetId: Asset
+  med: Int!
 }
 
 """
@@ -1235,28 +1235,28 @@ A condition to be used against `CebMetersAsset` object types. All fields are
 tested for equality and combined with a logical ‘and.’
 """
 input CebMetersAssetCondition {
-  """Checks for equality with the object’s `med` field."""
-  med: Int
-
   """Checks for equality with the object’s `assetId` field."""
   assetId: String
+
+  """Checks for equality with the object’s `med` field."""
+  med: Int
 }
 
 """An input for mutations affecting `CebMetersAsset`"""
 input CebMetersAssetInput {
-  med: Int!
   assetId: String!
+  med: Int!
 }
 
 """A connection to a list of `CebMetersAsset` values."""
 type CebMetersAssetsConnection {
-  """A list of `CebMetersAsset` objects."""
-  nodes: [CebMetersAsset]!
-
   """
   A list of edges which contains the `CebMetersAsset` and cursor to aid in pagination.
   """
   edges: [CebMetersAssetsEdge!]!
+
+  """A list of `CebMetersAsset` objects."""
+  nodes: [CebMetersAsset]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -1276,22 +1276,22 @@ type CebMetersAssetsEdge {
 
 """Methods to use when ordering `CebMetersAsset`."""
 enum CebMetersAssetsOrderBy {
-  NATURAL
-  MED_ASC
-  MED_DESC
   ASSET_ID_ASC
   ASSET_ID_DESC
+  MED_ASC
+  MED_DESC
+  NATURAL
 }
 
 """A connection to a list of `CebMeter` values."""
 type CebMetersConnection {
-  """A list of `CebMeter` objects."""
-  nodes: [CebMeter]!
-
   """
   A list of edges which contains the `CebMeter` and cursor to aid in pagination.
   """
   edges: [CebMetersEdge!]!
+
+  """A list of `CebMeter` objects."""
+  nodes: [CebMeter]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -1311,339 +1311,339 @@ type CebMetersEdge {
 
 """Methods to use when ordering `CebMeter`."""
 enum CebMetersOrderBy {
-  NATURAL
-  MED_ASC
-  MED_DESC
-  ID_ASC
-  ID_DESC
-  NOME_ASC
-  NOME_DESC
-  MODTAR_ASC
-  MODTAR_DESC
-  CONTRATO_ASC
-  CONTRATO_DESC
   CLASSE_ASC
   CLASSE_DESC
-  SUBCLASSE_ASC
-  SUBCLASSE_DESC
-  GRUPO_ASC
-  GRUPO_DESC
-  SUBGRUPO_ASC
-  SUBGRUPO_DESC
-  LIGACAO_ASC
-  LIGACAO_DESC
+  CONTRATO_ASC
+  CONTRATO_DESC
   DCF_ASC
   DCF_DESC
   DCP_ASC
   DCP_DESC
+  GRUPO_ASC
+  GRUPO_DESC
+  ID_ASC
+  ID_DESC
+  LIGACAO_ASC
+  LIGACAO_DESC
+  MED_ASC
+  MED_DESC
+  MODTAR_ASC
+  MODTAR_DESC
+  NATURAL
+  NOME_ASC
+  NOME_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+  SUBCLASSE_ASC
+  SUBCLASSE_DESC
+  SUBGRUPO_ASC
+  SUBGRUPO_DESC
 }
 
 """All input for the create `Asset` mutation."""
 input CreateAssetInput {
+  """The `Asset` to be created by this mutation."""
+  asset: AssetInput!
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-
-  """The `Asset` to be created by this mutation."""
-  asset: AssetInput!
 }
 
 """The output of our create `Asset` mutation."""
 type CreateAssetPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
   """The `Asset` that was created by this mutation."""
   asset: Asset
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
 
   """An edge for our `Asset`. May be used by Relay 1."""
   assetEdge(
     """The method to use when ordering `Asset`."""
     orderBy: [AssetsOrderBy!] = [PRIMARY_KEY_ASC]
   ): AssetsEdge
-}
 
-"""All input for the create `AssetsParent` mutation."""
-input CreateAssetsParentInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `AssetsParent` to be created by this mutation."""
-  assetsParent: AssetsParentInput!
-}
-
-"""The output of our create `AssetsParent` mutation."""
-type CreateAssetsParentPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
 
-  """The `AssetsParent` that was created by this mutation."""
-  assetsParent: AssetsParent
-
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+}
 
+"""All input for the create `AssetsParent` mutation."""
+input CreateAssetsParentInput {
+  """The `AssetsParent` to be created by this mutation."""
+  assetsParent: AssetsParentInput!
+
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+}
+
+"""The output of our create `AssetsParent` mutation."""
+type CreateAssetsParentPayload {
   """Reads a single `Asset` that is related to this `AssetsParent`."""
   assetById: Asset
 
   """Reads a single `Asset` that is related to this `AssetsParent`."""
   assetByParent: Asset
 
+  """The `AssetsParent` that was created by this mutation."""
+  assetsParent: AssetsParent
+
   """An edge for our `AssetsParent`. May be used by Relay 1."""
   assetsParentEdge(
     """The method to use when ordering `AssetsParent`."""
     orderBy: [AssetsParentsOrderBy!] = [NATURAL]
   ): AssetsParentsEdge
-}
 
-"""All input for the create `CaesbDatum` mutation."""
-input CreateCaesbDatumInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `CaesbDatum` to be created by this mutation."""
-  caesbDatum: CaesbDatumInput!
-}
-
-"""The output of our create `CaesbDatum` mutation."""
-type CreateCaesbDatumPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
 
-  """The `CaesbDatum` that was created by this mutation."""
-  caesbDatum: CaesbDatum
-
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+}
 
-  """Reads a single `CaesbMeter` that is related to this `CaesbDatum`."""
-  caesbMeterByMed: CaesbMeter
+"""All input for the create `CaesbDatum` mutation."""
+input CreateCaesbDatumInput {
+  """The `CaesbDatum` to be created by this mutation."""
+  caesbDatum: CaesbDatumInput!
+
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+}
+
+"""The output of our create `CaesbDatum` mutation."""
+type CreateCaesbDatumPayload {
+  """The `CaesbDatum` that was created by this mutation."""
+  caesbDatum: CaesbDatum
 
   """An edge for our `CaesbDatum`. May be used by Relay 1."""
   caesbDatumEdge(
     """The method to use when ordering `CaesbDatum`."""
     orderBy: [CaesbDataOrderBy!] = [PRIMARY_KEY_ASC]
   ): CaesbDataEdge
-}
 
-"""All input for the create `CaesbMeter` mutation."""
-input CreateCaesbMeterInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
+  """Reads a single `CaesbMeter` that is related to this `CaesbDatum`."""
+  caesbMeterByMed: CaesbMeter
 
-  """The `CaesbMeter` to be created by this mutation."""
-  caesbMeter: CaesbMeterInput!
-}
-
-"""The output of our create `CaesbMeter` mutation."""
-type CreateCaesbMeterPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
 
-  """The `CaesbMeter` that was created by this mutation."""
-  caesbMeter: CaesbMeter
-
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+}
+
+"""All input for the create `CaesbMeter` mutation."""
+input CreateCaesbMeterInput {
+  """The `CaesbMeter` to be created by this mutation."""
+  caesbMeter: CaesbMeterInput!
+
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+}
+
+"""The output of our create `CaesbMeter` mutation."""
+type CreateCaesbMeterPayload {
+  """The `CaesbMeter` that was created by this mutation."""
+  caesbMeter: CaesbMeter
 
   """An edge for our `CaesbMeter`. May be used by Relay 1."""
   caesbMeterEdge(
     """The method to use when ordering `CaesbMeter`."""
     orderBy: [CaesbMetersOrderBy!] = [PRIMARY_KEY_ASC]
   ): CaesbMetersEdge
-}
 
-"""All input for the create `CaesbMetersAsset` mutation."""
-input CreateCaesbMetersAssetInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `CaesbMetersAsset` to be created by this mutation."""
-  caesbMetersAsset: CaesbMetersAssetInput!
-}
-
-"""The output of our create `CaesbMetersAsset` mutation."""
-type CreateCaesbMetersAssetPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
 
-  """The `CaesbMetersAsset` that was created by this mutation."""
-  caesbMetersAsset: CaesbMetersAsset
-
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+}
+
+"""All input for the create `CaesbMetersAsset` mutation."""
+input CreateCaesbMetersAssetInput {
+  """The `CaesbMetersAsset` to be created by this mutation."""
+  caesbMetersAsset: CaesbMetersAssetInput!
+
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+}
+
+"""The output of our create `CaesbMetersAsset` mutation."""
+type CreateCaesbMetersAssetPayload {
+  """Reads a single `Asset` that is related to this `CaesbMetersAsset`."""
+  assetByAssetId: Asset
 
   """
   Reads a single `CaesbMeter` that is related to this `CaesbMetersAsset`.
   """
   caesbMeterByMed: CaesbMeter
 
-  """Reads a single `Asset` that is related to this `CaesbMetersAsset`."""
-  assetByAssetId: Asset
+  """The `CaesbMetersAsset` that was created by this mutation."""
+  caesbMetersAsset: CaesbMetersAsset
 
   """An edge for our `CaesbMetersAsset`. May be used by Relay 1."""
   caesbMetersAssetEdge(
     """The method to use when ordering `CaesbMetersAsset`."""
     orderBy: [CaesbMetersAssetsOrderBy!] = [NATURAL]
   ): CaesbMetersAssetsEdge
-}
 
-"""All input for the create `CebDatum` mutation."""
-input CreateCebDatumInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `CebDatum` to be created by this mutation."""
-  cebDatum: CebDatumInput!
-}
-
-"""The output of our create `CebDatum` mutation."""
-type CreateCebDatumPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
 
-  """The `CebDatum` that was created by this mutation."""
-  cebDatum: CebDatum
-
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+}
 
-  """Reads a single `CebMeter` that is related to this `CebDatum`."""
-  cebMeterByMed: CebMeter
+"""All input for the create `CebDatum` mutation."""
+input CreateCebDatumInput {
+  """The `CebDatum` to be created by this mutation."""
+  cebDatum: CebDatumInput!
+
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+}
+
+"""The output of our create `CebDatum` mutation."""
+type CreateCebDatumPayload {
+  """The `CebDatum` that was created by this mutation."""
+  cebDatum: CebDatum
 
   """An edge for our `CebDatum`. May be used by Relay 1."""
   cebDatumEdge(
     """The method to use when ordering `CebDatum`."""
     orderBy: [CebDataOrderBy!] = [PRIMARY_KEY_ASC]
   ): CebDataEdge
-}
 
-"""All input for the create `CebMeter` mutation."""
-input CreateCebMeterInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
+  """Reads a single `CebMeter` that is related to this `CebDatum`."""
+  cebMeterByMed: CebMeter
 
-  """The `CebMeter` to be created by this mutation."""
-  cebMeter: CebMeterInput!
-}
-
-"""The output of our create `CebMeter` mutation."""
-type CreateCebMeterPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
 
-  """The `CebMeter` that was created by this mutation."""
-  cebMeter: CebMeter
-
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+}
+
+"""All input for the create `CebMeter` mutation."""
+input CreateCebMeterInput {
+  """The `CebMeter` to be created by this mutation."""
+  cebMeter: CebMeterInput!
+
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+}
+
+"""The output of our create `CebMeter` mutation."""
+type CreateCebMeterPayload {
+  """The `CebMeter` that was created by this mutation."""
+  cebMeter: CebMeter
 
   """An edge for our `CebMeter`. May be used by Relay 1."""
   cebMeterEdge(
     """The method to use when ordering `CebMeter`."""
     orderBy: [CebMetersOrderBy!] = [PRIMARY_KEY_ASC]
   ): CebMetersEdge
-}
 
-"""All input for the create `CebMetersAsset` mutation."""
-input CreateCebMetersAssetInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `CebMetersAsset` to be created by this mutation."""
-  cebMetersAsset: CebMetersAssetInput!
-}
-
-"""The output of our create `CebMetersAsset` mutation."""
-type CreateCebMetersAssetPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
 
-  """The `CebMetersAsset` that was created by this mutation."""
-  cebMetersAsset: CebMetersAsset
-
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+}
+
+"""All input for the create `CebMetersAsset` mutation."""
+input CreateCebMetersAssetInput {
+  """The `CebMetersAsset` to be created by this mutation."""
+  cebMetersAsset: CebMetersAssetInput!
+
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+}
+
+"""The output of our create `CebMetersAsset` mutation."""
+type CreateCebMetersAssetPayload {
+  """Reads a single `Asset` that is related to this `CebMetersAsset`."""
+  assetByAssetId: Asset
 
   """Reads a single `CebMeter` that is related to this `CebMetersAsset`."""
   cebMeterByMed: CebMeter
 
-  """Reads a single `Asset` that is related to this `CebMetersAsset`."""
-  assetByAssetId: Asset
+  """The `CebMetersAsset` that was created by this mutation."""
+  cebMetersAsset: CebMetersAsset
 
   """An edge for our `CebMetersAsset`. May be used by Relay 1."""
   cebMetersAssetEdge(
     """The method to use when ordering `CebMetersAsset`."""
     orderBy: [CebMetersAssetsOrderBy!] = [NATURAL]
   ): CebMetersAssetsEdge
+
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the create `Department` mutation."""
@@ -1669,16 +1669,16 @@ type CreateDepartmentPayload {
   """The `Department` that was created by this mutation."""
   department: Department
 
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
   """An edge for our `Department`. May be used by Relay 1."""
   departmentEdge(
     """The method to use when ordering `Department`."""
     orderBy: [DepartmentsOrderBy!] = [PRIMARY_KEY_ASC]
   ): DepartmentsEdge
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the create `DepartmentsParent` mutation."""
@@ -1701,14 +1701,6 @@ type CreateDepartmentsParentPayload {
   """
   clientMutationId: String
 
-  """The `DepartmentsParent` that was created by this mutation."""
-  departmentsParent: DepartmentsParent
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
   """
   Reads a single `Department` that is related to this `DepartmentsParent`.
   """
@@ -1719,11 +1711,19 @@ type CreateDepartmentsParentPayload {
   """
   departmentByParent: Department
 
+  """The `DepartmentsParent` that was created by this mutation."""
+  departmentsParent: DepartmentsParent
+
   """An edge for our `DepartmentsParent`. May be used by Relay 1."""
   departmentsParentEdge(
     """The method to use when ordering `DepartmentsParent`."""
     orderBy: [DepartmentsParentsOrderBy!] = [NATURAL]
   ): DepartmentsParentsEdge
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the create `Teste` mutation."""
@@ -1746,13 +1746,13 @@ type CreateTestePayload {
   """
   clientMutationId: String
 
-  """The `Teste` that was created by this mutation."""
-  teste: Teste
-
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+
+  """The `Teste` that was created by this mutation."""
+  teste: Teste
 
   """An edge for our `Teste`. May be used by Relay 1."""
   testeEdge(
@@ -1763,12 +1763,13 @@ type CreateTestePayload {
 
 """All input for the `createWo` mutation."""
 input CreateWoInput {
+  arg0: JSON
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  arg0: JSON
 }
 
 """The output of our `createWo` mutation."""
@@ -1806,13 +1807,13 @@ type CreateWorkOrderPayload {
   """
   clientMutationId: String
 
-  """The `WorkOrder` that was created by this mutation."""
-  workOrder: WorkOrder
-
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+
+  """The `WorkOrder` that was created by this mutation."""
+  workOrder: WorkOrder
 
   """An edge for our `WorkOrder`. May be used by Relay 1."""
   workOrderEdge(
@@ -1835,14 +1836,14 @@ input CreateWosAssetInput {
 
 """The output of our create `WosAsset` mutation."""
 type CreateWosAssetPayload {
+  """Reads a single `Asset` that is related to this `WosAsset`."""
+  assetByAssetId: Asset
+
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-
-  """The `WosAsset` that was created by this mutation."""
-  wosAsset: WosAsset
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -1852,8 +1853,8 @@ type CreateWosAssetPayload {
   """Reads a single `WorkOrder` that is related to this `WosAsset`."""
   workOrderByWoId: WorkOrder
 
-  """Reads a single `Asset` that is related to this `WosAsset`."""
-  assetByAssetId: Asset
+  """The `WosAsset` that was created by this mutation."""
+  wosAsset: WosAsset
 
   """An edge for our `WosAsset`. May be used by Relay 1."""
   wosAssetEdge(
@@ -1891,37 +1892,38 @@ input DeleteAssetInput {
 
 """The output of our delete `Asset` mutation."""
 type DeleteAssetPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
   """The `Asset` that was deleted by this mutation."""
   asset: Asset
-  deletedAssetId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
 
   """An edge for our `Asset`. May be used by Relay 1."""
   assetEdge(
     """The method to use when ordering `Asset`."""
     orderBy: [AssetsOrderBy!] = [PRIMARY_KEY_ASC]
   ): AssetsEdge
+
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  deletedAssetId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the `deleteCaesbDatumByMedAndAamm` mutation."""
 input DeleteCaesbDatumByMedAndAammInput {
+  aamm: Int!
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
   med: Int!
-  aamm: Int!
 }
 
 """All input for the `deleteCaesbDatum` mutation."""
@@ -1940,29 +1942,29 @@ input DeleteCaesbDatumInput {
 
 """The output of our delete `CaesbDatum` mutation."""
 type DeleteCaesbDatumPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
   """The `CaesbDatum` that was deleted by this mutation."""
   caesbDatum: CaesbDatum
-  deletedCaesbDatumId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `CaesbMeter` that is related to this `CaesbDatum`."""
-  caesbMeterByMed: CaesbMeter
 
   """An edge for our `CaesbDatum`. May be used by Relay 1."""
   caesbDatumEdge(
     """The method to use when ordering `CaesbDatum`."""
     orderBy: [CaesbDataOrderBy!] = [PRIMARY_KEY_ASC]
   ): CaesbDataEdge
+
+  """Reads a single `CaesbMeter` that is related to this `CaesbDatum`."""
+  caesbMeterByMed: CaesbMeter
+
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  deletedCaesbDatumId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the `deleteCaesbMeterByMed` mutation."""
@@ -1991,37 +1993,38 @@ input DeleteCaesbMeterInput {
 
 """The output of our delete `CaesbMeter` mutation."""
 type DeleteCaesbMeterPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
   """The `CaesbMeter` that was deleted by this mutation."""
   caesbMeter: CaesbMeter
-  deletedCaesbMeterId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
 
   """An edge for our `CaesbMeter`. May be used by Relay 1."""
   caesbMeterEdge(
     """The method to use when ordering `CaesbMeter`."""
     orderBy: [CaesbMetersOrderBy!] = [PRIMARY_KEY_ASC]
   ): CaesbMetersEdge
+
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  deletedCaesbMeterId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the `deleteCebDatumByMedAndAamm` mutation."""
 input DeleteCebDatumByMedAndAammInput {
+  aamm: Int!
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
   med: Int!
-  aamm: Int!
 }
 
 """All input for the `deleteCebDatum` mutation."""
@@ -2040,29 +2043,29 @@ input DeleteCebDatumInput {
 
 """The output of our delete `CebDatum` mutation."""
 type DeleteCebDatumPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
   """The `CebDatum` that was deleted by this mutation."""
   cebDatum: CebDatum
-  deletedCebDatumId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `CebMeter` that is related to this `CebDatum`."""
-  cebMeterByMed: CebMeter
 
   """An edge for our `CebDatum`. May be used by Relay 1."""
   cebDatumEdge(
     """The method to use when ordering `CebDatum`."""
     orderBy: [CebDataOrderBy!] = [PRIMARY_KEY_ASC]
   ): CebDataEdge
+
+  """Reads a single `CebMeter` that is related to this `CebDatum`."""
+  cebMeterByMed: CebMeter
+
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  deletedCebDatumId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the `deleteCebMeterByMed` mutation."""
@@ -2091,26 +2094,26 @@ input DeleteCebMeterInput {
 
 """The output of our delete `CebMeter` mutation."""
 type DeleteCebMeterPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
   """The `CebMeter` that was deleted by this mutation."""
   cebMeter: CebMeter
-  deletedCebMeterId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
 
   """An edge for our `CebMeter`. May be used by Relay 1."""
   cebMeterEdge(
     """The method to use when ordering `CebMeter`."""
     orderBy: [CebMetersOrderBy!] = [PRIMARY_KEY_ASC]
   ): CebMetersEdge
+
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  deletedCebMeterId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the `deleteDepartmentByNome` mutation."""
@@ -2144,21 +2147,21 @@ type DeleteDepartmentPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
+  deletedDepartmentId: ID
 
   """The `Department` that was deleted by this mutation."""
   department: Department
-  deletedDepartmentId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
 
   """An edge for our `Department`. May be used by Relay 1."""
   departmentEdge(
     """The method to use when ordering `Department`."""
     orderBy: [DepartmentsOrderBy!] = [PRIMARY_KEY_ASC]
   ): DepartmentsEdge
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the `deleteWorkOrderById` mutation."""
@@ -2192,15 +2195,15 @@ type DeleteWorkOrderPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-
-  """The `WorkOrder` that was deleted by this mutation."""
-  workOrder: WorkOrder
   deletedWorkOrderId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+
+  """The `WorkOrder` that was deleted by this mutation."""
+  workOrder: WorkOrder
 
   """An edge for our `WorkOrder`. May be used by Relay 1."""
   workOrderEdge(
@@ -2210,69 +2213,69 @@ type DeleteWorkOrderPayload {
 }
 
 type Department implements Node {
+  """Reads and enables pagination through a set of `DepartmentsParent`."""
+  departmentsParentsByNome(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: DepartmentsParentCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `DepartmentsParent`."""
+    orderBy: [DepartmentsParentsOrderBy!] = [NATURAL]
+  ): DepartmentsParentsConnection!
+
+  """Reads and enables pagination through a set of `DepartmentsParent`."""
+  departmentsParentsByParent(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: DepartmentsParentCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `DepartmentsParent`."""
+    orderBy: [DepartmentsParentsOrderBy!] = [NATURAL]
+  ): DepartmentsParentsConnection!
+
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
   nome: String!
-
-  """Reads and enables pagination through a set of `DepartmentsParent`."""
-  departmentsParentsByNome(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `DepartmentsParent`."""
-    orderBy: [DepartmentsParentsOrderBy!] = [NATURAL]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: DepartmentsParentCondition
-  ): DepartmentsParentsConnection!
-
-  """Reads and enables pagination through a set of `DepartmentsParent`."""
-  departmentsParentsByParent(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `DepartmentsParent`."""
-    orderBy: [DepartmentsParentsOrderBy!] = [NATURAL]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: DepartmentsParentCondition
-  ): DepartmentsParentsConnection!
 }
 
 """
@@ -2298,13 +2301,13 @@ input DepartmentPatch {
 
 """A connection to a list of `Department` values."""
 type DepartmentsConnection {
-  """A list of `Department` objects."""
-  nodes: [Department]!
-
   """
   A list of edges which contains the `Department` and cursor to aid in pagination.
   """
   edges: [DepartmentsEdge!]!
+
+  """A list of `Department` objects."""
+  nodes: [Department]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -2332,9 +2335,6 @@ enum DepartmentsOrderBy {
 }
 
 type DepartmentsParent {
-  nome: String
-  parent: String
-
   """
   Reads a single `Department` that is related to this `DepartmentsParent`.
   """
@@ -2344,6 +2344,8 @@ type DepartmentsParent {
   Reads a single `Department` that is related to this `DepartmentsParent`.
   """
   departmentByParent: Department
+  nome: String
+  parent: String
 }
 
 """
@@ -2366,13 +2368,13 @@ input DepartmentsParentInput {
 
 """A connection to a list of `DepartmentsParent` values."""
 type DepartmentsParentsConnection {
-  """A list of `DepartmentsParent` objects."""
-  nodes: [DepartmentsParent]!
-
   """
   A list of edges which contains the `DepartmentsParent` and cursor to aid in pagination.
   """
   edges: [DepartmentsParentsEdge!]!
+
+  """A list of `DepartmentsParent` objects."""
+  nodes: [DepartmentsParent]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -2417,28 +2419,28 @@ type GetAllAssetsPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  results: [GetAllAssetsRecord]
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+  results: [GetAllAssetsRecord]
 }
 
 """The return type of our `getAllAssets` mutation."""
 type GetAllAssetsRecord {
-  id: String
-  nome: String
-  subnome: String
-  visita: Boolean
-  lat: Float
-  lon: Float
   areaconst: Float
-  modelo: String
-  serie: String
-  tipo: String
-  parent: String
+  id: String
+  lat: Float
   listWos: [Int]
+  lon: Float
+  modelo: String
+  nome: String
+  parent: String
+  serie: String
+  subnome: String
+  tipo: String
+  visita: Boolean
 }
 
 """All input for the `getAllCaesbMeters` mutation."""
@@ -2457,23 +2459,23 @@ type GetAllCaesbMetersPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  results: [GetAllCaesbMetersRecord]
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+  results: [GetAllCaesbMetersRecord]
 }
 
 """The return type of our `getAllCaesbMeters` mutation."""
 type GetAllCaesbMetersRecord {
-  med: Int
-  id: String
-  nome: String
+  cat: Int
   contrato: String
   hidrom: String
-  cat: Int
+  id: String
   locais: [String]
+  med: Int
+  nome: String
 }
 
 """All input for the `getAllCebMeters` mutation."""
@@ -2492,29 +2494,29 @@ type GetAllCebMetersPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  results: [GetAllCebMetersRecord]
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+  results: [GetAllCebMetersRecord]
 }
 
 """The return type of our `getAllCebMeters` mutation."""
 type GetAllCebMetersRecord {
-  med: Int
-  id: String
-  nome: String
-  modtar: String
-  contrato: String
   classe: String
-  subclasse: String
-  grupo: String
-  subgrupo: String
-  ligacao: String
+  contrato: String
   dcf: Int
   dcp: Int
+  grupo: String
+  id: String
+  ligacao: String
   locais: [String]
+  med: Int
+  modtar: String
+  nome: String
+  subclasse: String
+  subgrupo: String
 }
 
 """All input for the `getAllWorkOrders` mutation."""
@@ -2533,55 +2535,56 @@ type GetAllWorkOrdersPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  results: [GetAllWorkOrdersRecord]
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+  results: [GetAllWorkOrdersRecord]
 }
 
 """The return type of our `getAllWorkOrders` mutation."""
 type GetAllWorkOrdersRecord {
-  id: Int
-  status1: String
-  prioridade: String
-  origem: String
-  responsavel: String
+  ans: String
   categoria: String
-  servico: String
-  descricao: String
+  conferido: String
+  contatoEmail: String
+  contatoNome: String
+  contatoTel: String
+  dataAtualiz: String
+  dataCriacao: String
   dataInicial: String
   dataPrazo: String
-  realizado: Int
-  dataCriacao: String
-  dataAtualiz: String
-  sigad: String
-  solicOrgao: String
-  solicNome: String
-  contatoNome: String
-  contatoEmail: String
-  contatoTel: String
-  mensagem: String
-  orcamento: String
-  conferido: String
-  lugar: String
+  descricao: String
   executante: String
-  osNum: String
-  ans: String
-  status2: String
-  multitarefa: String
+  id: Int
   listAssets: [String]
+  lugar: String
+  mensagem: String
+  multitarefa: String
+  orcamento: String
+  origem: String
+  osNum: String
+  prioridade: String
+  realizado: Int
+  responsavel: String
+  servico: String
+  sigad: String
+  solicNome: String
+  solicOrgao: String
+  status1: String
+  status2: String
 }
 
 """All input for the `getAsset` mutation."""
 input GetAssetInput {
+  arg0: String
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  arg0: String
 }
 
 """The output of our `getAsset` mutation."""
@@ -2591,50 +2594,52 @@ type GetAssetPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  results: [GetAssetRecord]
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+  results: [GetAssetRecord]
 }
 
 """The return type of our `getAsset` mutation."""
 type GetAssetRecord {
-  id: String
-  nome: String
-  subnome: String
-  visita: Boolean
-  lat: Float
-  lon: Float
   areaconst: Float
-  modelo: String
-  serie: String
-  tipo: String
-  parent: String
+  id: String
+  lat: Float
   listWos: [Int]
+  lon: Float
+  modelo: String
+  nome: String
+  parent: String
+  serie: String
+  subnome: String
+  tipo: String
+  visita: Boolean
 }
 
 """All input for the `getCaesbBills` mutation."""
 input GetCaesbBillsInput {
+  arg0: Int
+  arg1: Int
+  arg2: Int
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  arg0: Int
-  arg1: Int
-  arg2: Int
 }
 
 """The output of our `getCaesbBills` mutation."""
 type GetCaesbBillsPayload {
+  caesbData: [CaesbDatum]
+
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  caesbData: [CaesbDatum]
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -2644,24 +2649,26 @@ type GetCaesbBillsPayload {
 
 """All input for the `getCebBills` mutation."""
 input GetCebBillsInput {
+  arg0: Int
+  arg1: Int
+  arg2: Int
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  arg0: Int
-  arg1: Int
-  arg2: Int
 }
 
 """The output of our `getCebBills` mutation."""
 type GetCebBillsPayload {
+  cebData: [CebDatum]
+
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  cebData: [CebDatum]
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -2671,12 +2678,13 @@ type GetCebBillsPayload {
 
 """All input for the `getWorkOrder` mutation."""
 input GetWorkOrderInput {
+  arg0: Int
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  arg0: Int
 }
 
 """The output of our `getWorkOrder` mutation."""
@@ -2686,49 +2694,49 @@ type GetWorkOrderPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  results: [GetWorkOrderRecord]
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+  results: [GetWorkOrderRecord]
 }
 
 """The return type of our `getWorkOrder` mutation."""
 type GetWorkOrderRecord {
-  id: Int
-  status1: String
-  prioridade: String
-  origem: String
-  responsavel: String
+  ans: String
   categoria: String
-  servico: String
-  descricao: String
+  conferido: String
+  contatoEmail: String
+  contatoNome: String
+  contatoTel: String
+  dataAtualiz: String
+  dataCriacao: String
   dataInicial: String
   dataPrazo: String
-  realizado: Int
-  dataCriacao: String
-  dataAtualiz: String
-  sigad: String
-  solicOrgao: String
-  solicNome: String
-  contatoNome: String
-  contatoEmail: String
-  contatoTel: String
-  mensagem: String
-  orcamento: String
-  conferido: String
-  lugar: String
+  descricao: String
   executante: String
-  osNum: String
-  ans: String
-  status2: String
-  multitarefa: String
+  id: Int
   listAssets: [String]
+  lugar: String
+  mensagem: String
+  multitarefa: String
+  orcamento: String
+  origem: String
+  osNum: String
+  prioridade: String
+  realizado: Int
+  responsavel: String
+  servico: String
+  sigad: String
+  solicNome: String
+  solicOrgao: String
+  status1: String
+  status2: String
 }
 
 """
-A JavaScript object encoded in the JSON format as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSON
 
@@ -2823,6 +2831,12 @@ type Mutation {
     """
     input: CreateTesteInput!
   ): CreateTestePayload
+  createWo(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateWoInput!
+  ): CreateWoPayload
 
   """Creates a single `WorkOrder`."""
   createWorkOrder(
@@ -2839,6 +2853,166 @@ type Mutation {
     """
     input: CreateWosAssetInput!
   ): CreateWosAssetPayload
+
+  """Deletes a single `Asset` using its globally unique id."""
+  deleteAsset(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAssetInput!
+  ): DeleteAssetPayload
+
+  """Deletes a single `Asset` using a unique key."""
+  deleteAssetById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAssetByIdInput!
+  ): DeleteAssetPayload
+
+  """Deletes a single `CaesbDatum` using its globally unique id."""
+  deleteCaesbDatum(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCaesbDatumInput!
+  ): DeleteCaesbDatumPayload
+
+  """Deletes a single `CaesbDatum` using a unique key."""
+  deleteCaesbDatumByMedAndAamm(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCaesbDatumByMedAndAammInput!
+  ): DeleteCaesbDatumPayload
+
+  """Deletes a single `CaesbMeter` using its globally unique id."""
+  deleteCaesbMeter(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCaesbMeterInput!
+  ): DeleteCaesbMeterPayload
+
+  """Deletes a single `CaesbMeter` using a unique key."""
+  deleteCaesbMeterByMed(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCaesbMeterByMedInput!
+  ): DeleteCaesbMeterPayload
+
+  """Deletes a single `CebDatum` using its globally unique id."""
+  deleteCebDatum(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCebDatumInput!
+  ): DeleteCebDatumPayload
+
+  """Deletes a single `CebDatum` using a unique key."""
+  deleteCebDatumByMedAndAamm(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCebDatumByMedAndAammInput!
+  ): DeleteCebDatumPayload
+
+  """Deletes a single `CebMeter` using its globally unique id."""
+  deleteCebMeter(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCebMeterInput!
+  ): DeleteCebMeterPayload
+
+  """Deletes a single `CebMeter` using a unique key."""
+  deleteCebMeterByMed(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCebMeterByMedInput!
+  ): DeleteCebMeterPayload
+
+  """Deletes a single `Department` using its globally unique id."""
+  deleteDepartment(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteDepartmentInput!
+  ): DeleteDepartmentPayload
+
+  """Deletes a single `Department` using a unique key."""
+  deleteDepartmentByNome(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteDepartmentByNomeInput!
+  ): DeleteDepartmentPayload
+
+  """Deletes a single `WorkOrder` using its globally unique id."""
+  deleteWorkOrder(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteWorkOrderInput!
+  ): DeleteWorkOrderPayload
+
+  """Deletes a single `WorkOrder` using a unique key."""
+  deleteWorkOrderById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteWorkOrderByIdInput!
+  ): DeleteWorkOrderPayload
+  getAllAssets(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: GetAllAssetsInput!
+  ): GetAllAssetsPayload
+  getAllCaesbMeters(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: GetAllCaesbMetersInput!
+  ): GetAllCaesbMetersPayload
+  getAllCebMeters(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: GetAllCebMetersInput!
+  ): GetAllCebMetersPayload
+  getAllWorkOrders(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: GetAllWorkOrdersInput!
+  ): GetAllWorkOrdersPayload
+  getAsset(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: GetAssetInput!
+  ): GetAssetPayload
+  getCaesbBills(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: GetCaesbBillsInput!
+  ): GetCaesbBillsPayload
+  getCebBills(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: GetCebBillsInput!
+  ): GetCebBillsPayload
+  getWorkOrder(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: GetWorkOrderInput!
+  ): GetWorkOrderPayload
 
   """Updates a single `Asset` using its globally unique id and a patch."""
   updateAsset(
@@ -2957,172 +3131,6 @@ type Mutation {
     """
     input: UpdateWorkOrderByIdInput!
   ): UpdateWorkOrderPayload
-
-  """Deletes a single `Asset` using its globally unique id."""
-  deleteAsset(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteAssetInput!
-  ): DeleteAssetPayload
-
-  """Deletes a single `Asset` using a unique key."""
-  deleteAssetById(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteAssetByIdInput!
-  ): DeleteAssetPayload
-
-  """Deletes a single `CaesbDatum` using its globally unique id."""
-  deleteCaesbDatum(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteCaesbDatumInput!
-  ): DeleteCaesbDatumPayload
-
-  """Deletes a single `CaesbDatum` using a unique key."""
-  deleteCaesbDatumByMedAndAamm(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteCaesbDatumByMedAndAammInput!
-  ): DeleteCaesbDatumPayload
-
-  """Deletes a single `CaesbMeter` using its globally unique id."""
-  deleteCaesbMeter(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteCaesbMeterInput!
-  ): DeleteCaesbMeterPayload
-
-  """Deletes a single `CaesbMeter` using a unique key."""
-  deleteCaesbMeterByMed(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteCaesbMeterByMedInput!
-  ): DeleteCaesbMeterPayload
-
-  """Deletes a single `CebDatum` using its globally unique id."""
-  deleteCebDatum(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteCebDatumInput!
-  ): DeleteCebDatumPayload
-
-  """Deletes a single `CebDatum` using a unique key."""
-  deleteCebDatumByMedAndAamm(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteCebDatumByMedAndAammInput!
-  ): DeleteCebDatumPayload
-
-  """Deletes a single `CebMeter` using its globally unique id."""
-  deleteCebMeter(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteCebMeterInput!
-  ): DeleteCebMeterPayload
-
-  """Deletes a single `CebMeter` using a unique key."""
-  deleteCebMeterByMed(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteCebMeterByMedInput!
-  ): DeleteCebMeterPayload
-
-  """Deletes a single `Department` using its globally unique id."""
-  deleteDepartment(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteDepartmentInput!
-  ): DeleteDepartmentPayload
-
-  """Deletes a single `Department` using a unique key."""
-  deleteDepartmentByNome(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteDepartmentByNomeInput!
-  ): DeleteDepartmentPayload
-
-  """Deletes a single `WorkOrder` using its globally unique id."""
-  deleteWorkOrder(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteWorkOrderInput!
-  ): DeleteWorkOrderPayload
-
-  """Deletes a single `WorkOrder` using a unique key."""
-  deleteWorkOrderById(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteWorkOrderByIdInput!
-  ): DeleteWorkOrderPayload
-  createWo(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: CreateWoInput!
-  ): CreateWoPayload
-  getAllAssets(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: GetAllAssetsInput!
-  ): GetAllAssetsPayload
-  getAllCaesbMeters(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: GetAllCaesbMetersInput!
-  ): GetAllCaesbMetersPayload
-  getAllCebMeters(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: GetAllCebMetersInput!
-  ): GetAllCebMetersPayload
-  getAllWorkOrders(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: GetAllWorkOrdersInput!
-  ): GetAllWorkOrdersPayload
-  getAsset(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: GetAssetInput!
-  ): GetAssetPayload
-  getCaesbBills(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: GetCaesbBillsInput!
-  ): GetCaesbBillsPayload
-  getCebBills(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: GetCebBillsInput!
-  ): GetCebBillsPayload
-  getWorkOrder(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: GetWorkOrderInput!
-  ): GetWorkOrderPayload
 }
 
 """An object with a globally unique `ID`."""
@@ -3135,6 +3143,9 @@ interface Node {
 
 """Information about pagination in a connection."""
 type PageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: Cursor
+
   """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
 
@@ -3143,61 +3154,23 @@ type PageInfo {
 
   """When paginating backwards, the cursor to continue."""
   startCursor: Cursor
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: Cursor
 }
 
 """The root query type which gives access points into the data universe."""
 type Query implements Node {
-  """
-  Exposes the root query type nested one level down. This is helpful for Relay 1
-  which can only query top level fields if they are in a particular form.
-  """
-  query: Query!
-
-  """
-  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
-  """
-  nodeId: ID!
-
-  """Fetches an object given its globally unique `ID`."""
-  node(
-    """The globally unique `ID`."""
-    nodeId: ID!
-  ): Node
-
   """Reads and enables pagination through a set of `Asset`."""
   allAssets(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `Asset`."""
-    orderBy: [AssetsOrderBy!] = [PRIMARY_KEY_ASC]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: AssetCondition
-  ): AssetsConnection
 
-  """Reads and enables pagination through a set of `AssetsParent`."""
-  allAssetsParents(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -3210,23 +3183,23 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `Asset`."""
+    orderBy: [AssetsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AssetsConnection
 
+  """Reads and enables pagination through a set of `AssetsParent`."""
+  allAssetsParents(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `AssetsParent`."""
-    orderBy: [AssetsParentsOrderBy!] = [NATURAL]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: AssetsParentCondition
-  ): AssetsParentsConnection
 
-  """Reads and enables pagination through a set of `CaesbDatum`."""
-  allCaesbData(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -3239,23 +3212,23 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `AssetsParent`."""
+    orderBy: [AssetsParentsOrderBy!] = [NATURAL]
+  ): AssetsParentsConnection
 
+  """Reads and enables pagination through a set of `CaesbDatum`."""
+  allCaesbData(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `CaesbDatum`."""
-    orderBy: [CaesbDataOrderBy!] = [PRIMARY_KEY_ASC]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: CaesbDatumCondition
-  ): CaesbDataConnection
 
-  """Reads and enables pagination through a set of `CaesbMeter`."""
-  allCaesbMeters(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -3268,23 +3241,23 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `CaesbDatum`."""
+    orderBy: [CaesbDataOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaesbDataConnection
 
+  """Reads and enables pagination through a set of `CaesbMeter`."""
+  allCaesbMeters(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `CaesbMeter`."""
-    orderBy: [CaesbMetersOrderBy!] = [PRIMARY_KEY_ASC]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: CaesbMeterCondition
-  ): CaesbMetersConnection
 
-  """Reads and enables pagination through a set of `CaesbMetersAsset`."""
-  allCaesbMetersAssets(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -3297,23 +3270,23 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `CaesbMeter`."""
+    orderBy: [CaesbMetersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaesbMetersConnection
 
+  """Reads and enables pagination through a set of `CaesbMetersAsset`."""
+  allCaesbMetersAssets(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `CaesbMetersAsset`."""
-    orderBy: [CaesbMetersAssetsOrderBy!] = [NATURAL]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: CaesbMetersAssetCondition
-  ): CaesbMetersAssetsConnection
 
-  """Reads and enables pagination through a set of `CebDatum`."""
-  allCebData(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -3326,23 +3299,23 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `CaesbMetersAsset`."""
+    orderBy: [CaesbMetersAssetsOrderBy!] = [NATURAL]
+  ): CaesbMetersAssetsConnection
 
+  """Reads and enables pagination through a set of `CebDatum`."""
+  allCebData(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `CebDatum`."""
-    orderBy: [CebDataOrderBy!] = [PRIMARY_KEY_ASC]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: CebDatumCondition
-  ): CebDataConnection
 
-  """Reads and enables pagination through a set of `CebMeter`."""
-  allCebMeters(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -3355,23 +3328,23 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `CebDatum`."""
+    orderBy: [CebDataOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CebDataConnection
 
+  """Reads and enables pagination through a set of `CebMeter`."""
+  allCebMeters(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `CebMeter`."""
-    orderBy: [CebMetersOrderBy!] = [PRIMARY_KEY_ASC]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: CebMeterCondition
-  ): CebMetersConnection
 
-  """Reads and enables pagination through a set of `CebMetersAsset`."""
-  allCebMetersAssets(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -3384,23 +3357,23 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `CebMeter`."""
+    orderBy: [CebMetersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CebMetersConnection
 
+  """Reads and enables pagination through a set of `CebMetersAsset`."""
+  allCebMetersAssets(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `CebMetersAsset`."""
-    orderBy: [CebMetersAssetsOrderBy!] = [NATURAL]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: CebMetersAssetCondition
-  ): CebMetersAssetsConnection
 
-  """Reads and enables pagination through a set of `Department`."""
-  allDepartments(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -3413,23 +3386,23 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `CebMetersAsset`."""
+    orderBy: [CebMetersAssetsOrderBy!] = [NATURAL]
+  ): CebMetersAssetsConnection
 
+  """Reads and enables pagination through a set of `Department`."""
+  allDepartments(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `Department`."""
-    orderBy: [DepartmentsOrderBy!] = [PRIMARY_KEY_ASC]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: DepartmentCondition
-  ): DepartmentsConnection
 
-  """Reads and enables pagination through a set of `DepartmentsParent`."""
-  allDepartmentsParents(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -3442,23 +3415,23 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `Department`."""
+    orderBy: [DepartmentsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): DepartmentsConnection
 
+  """Reads and enables pagination through a set of `DepartmentsParent`."""
+  allDepartmentsParents(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `DepartmentsParent`."""
-    orderBy: [DepartmentsParentsOrderBy!] = [NATURAL]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: DepartmentsParentCondition
-  ): DepartmentsParentsConnection
 
-  """Reads and enables pagination through a set of `Teste`."""
-  allTestes(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -3471,23 +3444,23 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `DepartmentsParent`."""
+    orderBy: [DepartmentsParentsOrderBy!] = [NATURAL]
+  ): DepartmentsParentsConnection
 
+  """Reads and enables pagination through a set of `Teste`."""
+  allTestes(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `Teste`."""
-    orderBy: [TestesOrderBy!] = [NATURAL]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: TesteCondition
-  ): TestesConnection
 
-  """Reads and enables pagination through a set of `WorkOrder`."""
-  allWorkOrders(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -3500,23 +3473,23 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `Teste`."""
+    orderBy: [TestesOrderBy!] = [NATURAL]
+  ): TestesConnection
 
+  """Reads and enables pagination through a set of `WorkOrder`."""
+  allWorkOrders(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `WorkOrder`."""
-    orderBy: [WorkOrdersOrderBy!] = [PRIMARY_KEY_ASC]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: WorkOrderCondition
-  ): WorkOrdersConnection
 
-  """Reads and enables pagination through a set of `WosAsset`."""
-  allWosAssets(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -3529,33 +3502,45 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `WorkOrder`."""
+    orderBy: [WorkOrdersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): WorkOrdersConnection
 
+  """Reads and enables pagination through a set of `WosAsset`."""
+  allWosAssets(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `WosAsset`."""
-    orderBy: [WosAssetsOrderBy!] = [NATURAL]
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: WosAssetCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `WosAsset`."""
+    orderBy: [WosAssetsOrderBy!] = [NATURAL]
   ): WosAssetsConnection
-  assetById(id: String!): Asset
-  caesbDatumByMedAndAamm(med: Int!, aamm: Int!): CaesbDatum
-  caesbMeterByMed(med: Int!): CaesbMeter
-  cebDatumByMedAndAamm(med: Int!, aamm: Int!): CebDatum
-  cebMeterByMed(med: Int!): CebMeter
-  departmentByNome(nome: String!): Department
-  workOrderById(id: Int!): WorkOrder
 
   """Reads a single `Asset` using its globally unique `ID`."""
   asset(
     """The globally unique `ID` to be used in selecting a single `Asset`."""
     nodeId: ID!
   ): Asset
+  assetById(id: String!): Asset
 
   """Reads a single `CaesbDatum` using its globally unique `ID`."""
   caesbDatum(
@@ -3564,6 +3549,7 @@ type Query implements Node {
     """
     nodeId: ID!
   ): CaesbDatum
+  caesbDatumByMedAndAamm(aamm: Int!, med: Int!): CaesbDatum
 
   """Reads a single `CaesbMeter` using its globally unique `ID`."""
   caesbMeter(
@@ -3572,18 +3558,21 @@ type Query implements Node {
     """
     nodeId: ID!
   ): CaesbMeter
+  caesbMeterByMed(med: Int!): CaesbMeter
 
   """Reads a single `CebDatum` using its globally unique `ID`."""
   cebDatum(
     """The globally unique `ID` to be used in selecting a single `CebDatum`."""
     nodeId: ID!
   ): CebDatum
+  cebDatumByMedAndAamm(aamm: Int!, med: Int!): CebDatum
 
   """Reads a single `CebMeter` using its globally unique `ID`."""
   cebMeter(
     """The globally unique `ID` to be used in selecting a single `CebMeter`."""
     nodeId: ID!
   ): CebMeter
+  cebMeterByMed(med: Int!): CebMeter
 
   """Reads a single `Department` using its globally unique `ID`."""
   department(
@@ -3592,12 +3581,31 @@ type Query implements Node {
     """
     nodeId: ID!
   ): Department
+  departmentByNome(nome: String!): Department
+
+  """Fetches an object given its globally unique `ID`."""
+  node(
+    """The globally unique `ID`."""
+    nodeId: ID!
+  ): Node
+
+  """
+  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  """
+  nodeId: ID!
+
+  """
+  Exposes the root query type nested one level down. This is helpful for Relay 1
+  which can only query top level fields if they are in a particular form.
+  """
+  query: Query!
 
   """Reads a single `WorkOrder` using its globally unique `ID`."""
   workOrder(
     """The globally unique `ID` to be used in selecting a single `WorkOrder`."""
     nodeId: ID!
   ): WorkOrder
+  workOrderById(id: Int!): WorkOrder
 }
 
 type Teste {
@@ -3624,13 +3632,13 @@ input TesteInput {
 
 """A connection to a list of `Teste` values."""
 type TestesConnection {
-  """A list of `Teste` objects."""
-  nodes: [Teste]!
-
   """
   A list of edges which contains the `Teste` and cursor to aid in pagination.
   """
   edges: [TestesEdge!]!
+
+  """A list of `Teste` objects."""
+  nodes: [Teste]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -3650,30 +3658,35 @@ type TestesEdge {
 
 """Methods to use when ordering `Teste`."""
 enum TestesOrderBy {
-  NATURAL
   F1_ASC
   F1_DESC
   F2_ASC
   F2_DESC
+  NATURAL
 }
 
 """All input for the `updateAssetById` mutation."""
 input UpdateAssetByIdInput {
   """
+  An object where the defined keys will be set on the `Asset` being updated.
+  """
+  assetPatch: AssetPatch!
+
+  """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `Asset` being updated.
-  """
-  assetPatch: AssetPatch!
   id: String!
 }
 
 """All input for the `updateAsset` mutation."""
 input UpdateAssetInput {
+  """
+  An object where the defined keys will be set on the `Asset` being updated.
+  """
+  assetPatch: AssetPatch!
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -3684,54 +3697,55 @@ input UpdateAssetInput {
   The globally unique `ID` which will identify a single `Asset` to be updated.
   """
   nodeId: ID!
-
-  """
-  An object where the defined keys will be set on the `Asset` being updated.
-  """
-  assetPatch: AssetPatch!
 }
 
 """The output of our update `Asset` mutation."""
 type UpdateAssetPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
   """The `Asset` that was updated by this mutation."""
   asset: Asset
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
 
   """An edge for our `Asset`. May be used by Relay 1."""
   assetEdge(
     """The method to use when ordering `Asset`."""
     orderBy: [AssetsOrderBy!] = [PRIMARY_KEY_ASC]
   ): AssetsEdge
+
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the `updateCaesbDatumByMedAndAamm` mutation."""
 input UpdateCaesbDatumByMedAndAammInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
+  aamm: Int!
 
   """
   An object where the defined keys will be set on the `CaesbDatum` being updated.
   """
   caesbDatumPatch: CaesbDatumPatch!
+
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
   med: Int!
-  aamm: Int!
 }
 
 """All input for the `updateCaesbDatum` mutation."""
 input UpdateCaesbDatumInput {
+  """
+  An object where the defined keys will be set on the `CaesbDatum` being updated.
+  """
+  caesbDatumPatch: CaesbDatumPatch!
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -3742,56 +3756,56 @@ input UpdateCaesbDatumInput {
   The globally unique `ID` which will identify a single `CaesbDatum` to be updated.
   """
   nodeId: ID!
-
-  """
-  An object where the defined keys will be set on the `CaesbDatum` being updated.
-  """
-  caesbDatumPatch: CaesbDatumPatch!
 }
 
 """The output of our update `CaesbDatum` mutation."""
 type UpdateCaesbDatumPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
   """The `CaesbDatum` that was updated by this mutation."""
   caesbDatum: CaesbDatum
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `CaesbMeter` that is related to this `CaesbDatum`."""
-  caesbMeterByMed: CaesbMeter
 
   """An edge for our `CaesbDatum`. May be used by Relay 1."""
   caesbDatumEdge(
     """The method to use when ordering `CaesbDatum`."""
     orderBy: [CaesbDataOrderBy!] = [PRIMARY_KEY_ASC]
   ): CaesbDataEdge
+
+  """Reads a single `CaesbMeter` that is related to this `CaesbDatum`."""
+  caesbMeterByMed: CaesbMeter
+
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the `updateCaesbMeterByMed` mutation."""
 input UpdateCaesbMeterByMedInput {
   """
+  An object where the defined keys will be set on the `CaesbMeter` being updated.
+  """
+  caesbMeterPatch: CaesbMeterPatch!
+
+  """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `CaesbMeter` being updated.
-  """
-  caesbMeterPatch: CaesbMeterPatch!
   med: Int!
 }
 
 """All input for the `updateCaesbMeter` mutation."""
 input UpdateCaesbMeterInput {
+  """
+  An object where the defined keys will be set on the `CaesbMeter` being updated.
+  """
+  caesbMeterPatch: CaesbMeterPatch!
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -3802,54 +3816,55 @@ input UpdateCaesbMeterInput {
   The globally unique `ID` which will identify a single `CaesbMeter` to be updated.
   """
   nodeId: ID!
-
-  """
-  An object where the defined keys will be set on the `CaesbMeter` being updated.
-  """
-  caesbMeterPatch: CaesbMeterPatch!
 }
 
 """The output of our update `CaesbMeter` mutation."""
 type UpdateCaesbMeterPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
   """The `CaesbMeter` that was updated by this mutation."""
   caesbMeter: CaesbMeter
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
 
   """An edge for our `CaesbMeter`. May be used by Relay 1."""
   caesbMeterEdge(
     """The method to use when ordering `CaesbMeter`."""
     orderBy: [CaesbMetersOrderBy!] = [PRIMARY_KEY_ASC]
   ): CaesbMetersEdge
+
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the `updateCebDatumByMedAndAamm` mutation."""
 input UpdateCebDatumByMedAndAammInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
+  aamm: Int!
 
   """
   An object where the defined keys will be set on the `CebDatum` being updated.
   """
   cebDatumPatch: CebDatumPatch!
+
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
   med: Int!
-  aamm: Int!
 }
 
 """All input for the `updateCebDatum` mutation."""
 input UpdateCebDatumInput {
+  """
+  An object where the defined keys will be set on the `CebDatum` being updated.
+  """
+  cebDatumPatch: CebDatumPatch!
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -3860,56 +3875,56 @@ input UpdateCebDatumInput {
   The globally unique `ID` which will identify a single `CebDatum` to be updated.
   """
   nodeId: ID!
-
-  """
-  An object where the defined keys will be set on the `CebDatum` being updated.
-  """
-  cebDatumPatch: CebDatumPatch!
 }
 
 """The output of our update `CebDatum` mutation."""
 type UpdateCebDatumPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
   """The `CebDatum` that was updated by this mutation."""
   cebDatum: CebDatum
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `CebMeter` that is related to this `CebDatum`."""
-  cebMeterByMed: CebMeter
 
   """An edge for our `CebDatum`. May be used by Relay 1."""
   cebDatumEdge(
     """The method to use when ordering `CebDatum`."""
     orderBy: [CebDataOrderBy!] = [PRIMARY_KEY_ASC]
   ): CebDataEdge
+
+  """Reads a single `CebMeter` that is related to this `CebDatum`."""
+  cebMeterByMed: CebMeter
+
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the `updateCebMeterByMed` mutation."""
 input UpdateCebMeterByMedInput {
   """
+  An object where the defined keys will be set on the `CebMeter` being updated.
+  """
+  cebMeterPatch: CebMeterPatch!
+
+  """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `CebMeter` being updated.
-  """
-  cebMeterPatch: CebMeterPatch!
   med: Int!
 }
 
 """All input for the `updateCebMeter` mutation."""
 input UpdateCebMeterInput {
+  """
+  An object where the defined keys will be set on the `CebMeter` being updated.
+  """
+  cebMeterPatch: CebMeterPatch!
+
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -3920,34 +3935,29 @@ input UpdateCebMeterInput {
   The globally unique `ID` which will identify a single `CebMeter` to be updated.
   """
   nodeId: ID!
-
-  """
-  An object where the defined keys will be set on the `CebMeter` being updated.
-  """
-  cebMeterPatch: CebMeterPatch!
 }
 
 """The output of our update `CebMeter` mutation."""
 type UpdateCebMeterPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
   """The `CebMeter` that was updated by this mutation."""
   cebMeter: CebMeter
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
 
   """An edge for our `CebMeter`. May be used by Relay 1."""
   cebMeterEdge(
     """The method to use when ordering `CebMeter`."""
     orderBy: [CebMetersOrderBy!] = [PRIMARY_KEY_ASC]
   ): CebMetersEdge
+
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the `updateDepartmentByNome` mutation."""
@@ -3974,14 +3984,14 @@ input UpdateDepartmentInput {
   clientMutationId: String
 
   """
-  The globally unique `ID` which will identify a single `Department` to be updated.
-  """
-  nodeId: ID!
-
-  """
   An object where the defined keys will be set on the `Department` being updated.
   """
   departmentPatch: DepartmentPatch!
+
+  """
+  The globally unique `ID` which will identify a single `Department` to be updated.
+  """
+  nodeId: ID!
 }
 
 """The output of our update `Department` mutation."""
@@ -3995,16 +4005,16 @@ type UpdateDepartmentPayload {
   """The `Department` that was updated by this mutation."""
   department: Department
 
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
   """An edge for our `Department`. May be used by Relay 1."""
   departmentEdge(
     """The method to use when ordering `Department`."""
     orderBy: [DepartmentsOrderBy!] = [PRIMARY_KEY_ASC]
   ): DepartmentsEdge
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 }
 
 """All input for the `updateWorkOrderById` mutation."""
@@ -4014,12 +4024,12 @@ input UpdateWorkOrderByIdInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
+  id: Int!
 
   """
   An object where the defined keys will be set on the `WorkOrder` being updated.
   """
   workOrderPatch: WorkOrderPatch!
-  id: Int!
 }
 
 """All input for the `updateWorkOrder` mutation."""
@@ -4049,13 +4059,13 @@ type UpdateWorkOrderPayload {
   """
   clientMutationId: String
 
-  """The `WorkOrder` that was updated by this mutation."""
-  workOrder: WorkOrder
-
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+
+  """The `WorkOrder` that was updated by this mutation."""
+  workOrder: WorkOrder
 
   """An edge for our `WorkOrder`. May be used by Relay 1."""
   workOrderEdge(
@@ -4065,41 +4075,53 @@ type UpdateWorkOrderPayload {
 }
 
 type WorkOrder implements Node {
+  ans: String!
+  categoria: String!
+  conferido: String!
+  contatoEmail: String!
+  contatoNome: String!
+  contatoTel: String!
+  dataAtualiz: String!
+  dataCriacao: String!
+  dataInicial: String!
+  dataPrazo: String!
+  descricao: String!
+  executante: String!
+  id: Int!
+  lugar: String!
+  mensagem: String!
+  multitarefa: String!
+
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
-  id: Int!
-  status1: String!
-  prioridade: String!
-  origem: String!
-  responsavel: String!
-  categoria: String!
-  servico: String!
-  descricao: String!
-  dataInicial: String!
-  dataPrazo: String!
-  realizado: Int!
-  dataCriacao: String!
-  dataAtualiz: String!
-  sigad: String!
-  solicOrgao: String!
-  solicNome: String!
-  contatoNome: String!
-  contatoEmail: String!
-  contatoTel: String!
-  mensagem: String!
   orcamento: String!
-  conferido: String!
-  lugar: String!
-  executante: String!
+  origem: String!
   osNum: String!
-  ans: String!
+  prioridade: String!
+  realizado: Int!
+  responsavel: String!
+  servico: String!
+  sigad: String!
+  solicNome: String!
+  solicOrgao: String!
+  status1: String!
   status2: String!
-  multitarefa: String!
 
   """Reads and enables pagination through a set of `WosAsset`."""
   wosAssetsByWoId(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: WosAssetCondition
+
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -4112,19 +4134,8 @@ type WorkOrder implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
     """The method to use when ordering `WosAsset`."""
     orderBy: [WosAssetsOrderBy!] = [NATURAL]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: WosAssetCondition
   ): WosAssetsConnection!
 }
 
@@ -4133,29 +4144,29 @@ A condition to be used against `WorkOrder` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
 input WorkOrderCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: Int
-
-  """Checks for equality with the object’s `status1` field."""
-  status1: String
-
-  """Checks for equality with the object’s `prioridade` field."""
-  prioridade: String
-
-  """Checks for equality with the object’s `origem` field."""
-  origem: String
-
-  """Checks for equality with the object’s `responsavel` field."""
-  responsavel: String
+  """Checks for equality with the object’s `ans` field."""
+  ans: String
 
   """Checks for equality with the object’s `categoria` field."""
   categoria: String
 
-  """Checks for equality with the object’s `servico` field."""
-  servico: String
+  """Checks for equality with the object’s `conferido` field."""
+  conferido: String
 
-  """Checks for equality with the object’s `descricao` field."""
-  descricao: String
+  """Checks for equality with the object’s `contatoEmail` field."""
+  contatoEmail: String
+
+  """Checks for equality with the object’s `contatoNome` field."""
+  contatoNome: String
+
+  """Checks for equality with the object’s `contatoTel` field."""
+  contatoTel: String
+
+  """Checks for equality with the object’s `dataAtualiz` field."""
+  dataAtualiz: String
+
+  """Checks for equality with the object’s `dataCriacao` field."""
+  dataCriacao: String
 
   """Checks for equality with the object’s `dataInicial` field."""
   dataInicial: String
@@ -4163,136 +4174,136 @@ input WorkOrderCondition {
   """Checks for equality with the object’s `dataPrazo` field."""
   dataPrazo: String
 
-  """Checks for equality with the object’s `realizado` field."""
-  realizado: Int
-
-  """Checks for equality with the object’s `dataCriacao` field."""
-  dataCriacao: String
-
-  """Checks for equality with the object’s `dataAtualiz` field."""
-  dataAtualiz: String
-
-  """Checks for equality with the object’s `sigad` field."""
-  sigad: String
-
-  """Checks for equality with the object’s `solicOrgao` field."""
-  solicOrgao: String
-
-  """Checks for equality with the object’s `solicNome` field."""
-  solicNome: String
-
-  """Checks for equality with the object’s `contatoNome` field."""
-  contatoNome: String
-
-  """Checks for equality with the object’s `contatoEmail` field."""
-  contatoEmail: String
-
-  """Checks for equality with the object’s `contatoTel` field."""
-  contatoTel: String
-
-  """Checks for equality with the object’s `mensagem` field."""
-  mensagem: String
-
-  """Checks for equality with the object’s `orcamento` field."""
-  orcamento: String
-
-  """Checks for equality with the object’s `conferido` field."""
-  conferido: String
-
-  """Checks for equality with the object’s `lugar` field."""
-  lugar: String
+  """Checks for equality with the object’s `descricao` field."""
+  descricao: String
 
   """Checks for equality with the object’s `executante` field."""
   executante: String
 
-  """Checks for equality with the object’s `osNum` field."""
-  osNum: String
+  """Checks for equality with the object’s `id` field."""
+  id: Int
 
-  """Checks for equality with the object’s `ans` field."""
-  ans: String
+  """Checks for equality with the object’s `lugar` field."""
+  lugar: String
 
-  """Checks for equality with the object’s `status2` field."""
-  status2: String
+  """Checks for equality with the object’s `mensagem` field."""
+  mensagem: String
 
   """Checks for equality with the object’s `multitarefa` field."""
   multitarefa: String
+
+  """Checks for equality with the object’s `orcamento` field."""
+  orcamento: String
+
+  """Checks for equality with the object’s `origem` field."""
+  origem: String
+
+  """Checks for equality with the object’s `osNum` field."""
+  osNum: String
+
+  """Checks for equality with the object’s `prioridade` field."""
+  prioridade: String
+
+  """Checks for equality with the object’s `realizado` field."""
+  realizado: Int
+
+  """Checks for equality with the object’s `responsavel` field."""
+  responsavel: String
+
+  """Checks for equality with the object’s `servico` field."""
+  servico: String
+
+  """Checks for equality with the object’s `sigad` field."""
+  sigad: String
+
+  """Checks for equality with the object’s `solicNome` field."""
+  solicNome: String
+
+  """Checks for equality with the object’s `solicOrgao` field."""
+  solicOrgao: String
+
+  """Checks for equality with the object’s `status1` field."""
+  status1: String
+
+  """Checks for equality with the object’s `status2` field."""
+  status2: String
 }
 
 """An input for mutations affecting `WorkOrder`"""
 input WorkOrderInput {
-  id: Int
-  status1: String!
-  prioridade: String!
-  origem: String!
-  responsavel: String!
+  ans: String!
   categoria: String!
-  servico: String!
-  descricao: String!
+  conferido: String!
+  contatoEmail: String!
+  contatoNome: String!
+  contatoTel: String!
+  dataAtualiz: String!
+  dataCriacao: String!
   dataInicial: String!
   dataPrazo: String!
-  realizado: Int!
-  dataCriacao: String!
-  dataAtualiz: String!
-  sigad: String!
-  solicOrgao: String!
-  solicNome: String!
-  contatoNome: String!
-  contatoEmail: String!
-  contatoTel: String!
-  mensagem: String!
-  orcamento: String!
-  conferido: String!
-  lugar: String!
+  descricao: String!
   executante: String!
-  osNum: String!
-  ans: String!
-  status2: String!
+  id: Int
+  lugar: String!
+  mensagem: String!
   multitarefa: String!
+  orcamento: String!
+  origem: String!
+  osNum: String!
+  prioridade: String!
+  realizado: Int!
+  responsavel: String!
+  servico: String!
+  sigad: String!
+  solicNome: String!
+  solicOrgao: String!
+  status1: String!
+  status2: String!
 }
 
 """
 Represents an update to a `WorkOrder`. Fields that are set will be updated.
 """
 input WorkOrderPatch {
-  id: Int
-  status1: String
-  prioridade: String
-  origem: String
-  responsavel: String
+  ans: String
   categoria: String
-  servico: String
-  descricao: String
+  conferido: String
+  contatoEmail: String
+  contatoNome: String
+  contatoTel: String
+  dataAtualiz: String
+  dataCriacao: String
   dataInicial: String
   dataPrazo: String
-  realizado: Int
-  dataCriacao: String
-  dataAtualiz: String
-  sigad: String
-  solicOrgao: String
-  solicNome: String
-  contatoNome: String
-  contatoEmail: String
-  contatoTel: String
-  mensagem: String
-  orcamento: String
-  conferido: String
-  lugar: String
+  descricao: String
   executante: String
-  osNum: String
-  ans: String
-  status2: String
+  id: Int
+  lugar: String
+  mensagem: String
   multitarefa: String
+  orcamento: String
+  origem: String
+  osNum: String
+  prioridade: String
+  realizado: Int
+  responsavel: String
+  servico: String
+  sigad: String
+  solicNome: String
+  solicOrgao: String
+  status1: String
+  status2: String
 }
 
 """A connection to a list of `WorkOrder` values."""
 type WorkOrdersConnection {
-  """A list of `WorkOrder` objects."""
-  nodes: [WorkOrder]!
-
   """
   A list of edges which contains the `WorkOrder` and cursor to aid in pagination.
   """
   edges: [WorkOrdersEdge!]!
+
+  """A list of `WorkOrder` objects."""
+  nodes: [WorkOrder]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -4312,76 +4323,75 @@ type WorkOrdersEdge {
 
 """Methods to use when ordering `WorkOrder`."""
 enum WorkOrdersOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  STATUS1_ASC
-  STATUS1_DESC
-  PRIORIDADE_ASC
-  PRIORIDADE_DESC
-  ORIGEM_ASC
-  ORIGEM_DESC
-  RESPONSAVEL_ASC
-  RESPONSAVEL_DESC
+  ANS_ASC
+  ANS_DESC
   CATEGORIA_ASC
   CATEGORIA_DESC
-  SERVICO_ASC
-  SERVICO_DESC
-  DESCRICAO_ASC
-  DESCRICAO_DESC
+  CONFERIDO_ASC
+  CONFERIDO_DESC
+  CONTATO_EMAIL_ASC
+  CONTATO_EMAIL_DESC
+  CONTATO_NOME_ASC
+  CONTATO_NOME_DESC
+  CONTATO_TEL_ASC
+  CONTATO_TEL_DESC
+  DATA_ATUALIZ_ASC
+  DATA_ATUALIZ_DESC
+  DATA_CRIACAO_ASC
+  DATA_CRIACAO_DESC
   DATA_INICIAL_ASC
   DATA_INICIAL_DESC
   DATA_PRAZO_ASC
   DATA_PRAZO_DESC
-  REALIZADO_ASC
-  REALIZADO_DESC
-  DATA_CRIACAO_ASC
-  DATA_CRIACAO_DESC
-  DATA_ATUALIZ_ASC
-  DATA_ATUALIZ_DESC
-  SIGAD_ASC
-  SIGAD_DESC
-  SOLIC_ORGAO_ASC
-  SOLIC_ORGAO_DESC
-  SOLIC_NOME_ASC
-  SOLIC_NOME_DESC
-  CONTATO_NOME_ASC
-  CONTATO_NOME_DESC
-  CONTATO_EMAIL_ASC
-  CONTATO_EMAIL_DESC
-  CONTATO_TEL_ASC
-  CONTATO_TEL_DESC
-  MENSAGEM_ASC
-  MENSAGEM_DESC
-  ORCAMENTO_ASC
-  ORCAMENTO_DESC
-  CONFERIDO_ASC
-  CONFERIDO_DESC
-  LUGAR_ASC
-  LUGAR_DESC
+  DESCRICAO_ASC
+  DESCRICAO_DESC
   EXECUTANTE_ASC
   EXECUTANTE_DESC
-  OS_NUM_ASC
-  OS_NUM_DESC
-  ANS_ASC
-  ANS_DESC
-  STATUS2_ASC
-  STATUS2_DESC
+  ID_ASC
+  ID_DESC
+  LUGAR_ASC
+  LUGAR_DESC
+  MENSAGEM_ASC
+  MENSAGEM_DESC
   MULTITAREFA_ASC
   MULTITAREFA_DESC
+  NATURAL
+  ORCAMENTO_ASC
+  ORCAMENTO_DESC
+  ORIGEM_ASC
+  ORIGEM_DESC
+  OS_NUM_ASC
+  OS_NUM_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+  PRIORIDADE_ASC
+  PRIORIDADE_DESC
+  REALIZADO_ASC
+  REALIZADO_DESC
+  RESPONSAVEL_ASC
+  RESPONSAVEL_DESC
+  SERVICO_ASC
+  SERVICO_DESC
+  SIGAD_ASC
+  SIGAD_DESC
+  SOLIC_NOME_ASC
+  SOLIC_NOME_DESC
+  SOLIC_ORGAO_ASC
+  SOLIC_ORGAO_DESC
+  STATUS1_ASC
+  STATUS1_DESC
+  STATUS2_ASC
+  STATUS2_DESC
 }
 
 type WosAsset {
-  woId: Int
+  """Reads a single `Asset` that is related to this `WosAsset`."""
+  assetByAssetId: Asset
   assetId: String
+  woId: Int
 
   """Reads a single `WorkOrder` that is related to this `WosAsset`."""
   workOrderByWoId: WorkOrder
-
-  """Reads a single `Asset` that is related to this `WosAsset`."""
-  assetByAssetId: Asset
 }
 
 """
@@ -4389,28 +4399,28 @@ A condition to be used against `WosAsset` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
 input WosAssetCondition {
-  """Checks for equality with the object’s `woId` field."""
-  woId: Int
-
   """Checks for equality with the object’s `assetId` field."""
   assetId: String
+
+  """Checks for equality with the object’s `woId` field."""
+  woId: Int
 }
 
 """An input for mutations affecting `WosAsset`"""
 input WosAssetInput {
-  woId: Int
   assetId: String
+  woId: Int
 }
 
 """A connection to a list of `WosAsset` values."""
 type WosAssetsConnection {
-  """A list of `WosAsset` objects."""
-  nodes: [WosAsset]!
-
   """
   A list of edges which contains the `WosAsset` and cursor to aid in pagination.
   """
   edges: [WosAssetsEdge!]!
+
+  """A list of `WosAsset` objects."""
+  nodes: [WosAsset]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -4430,9 +4440,9 @@ type WosAssetsEdge {
 
 """Methods to use when ordering `WosAsset`."""
 enum WosAssetsOrderBy {
+  ASSET_ID_ASC
+  ASSET_ID_DESC
   NATURAL
   WO_ID_ASC
   WO_ID_DESC
-  ASSET_ID_ASC
-  ASSET_ID_DESC
 }
