@@ -846,9 +846,12 @@ var departments = '';
 var result = '';
 
 arr.forEach(function(setor, i){
-  departments += "INSERT INTO departments VALUES ('" + setor + "');\n"
+  var setorArray = setor.split(' ');
+  var sigla = setorArray[0];
+  var nome = setorArray.slice(1).join(' ');
+  departments += "INSERT INTO departments VALUES ('" + sigla + "', '" + nome + "');\n"
   if(i === 0){
-    result += "INSERT INTO departments_parents VALUES ('"+ setor + "', '" + setor + "');\n";
+    result += "INSERT INTO departments_parents VALUES ('SF', 'SF');\n";
   } else {
     var x = 0;
     for(var n = 0; n <= setor.length - 1;n++){
@@ -867,7 +870,8 @@ arr.forEach(function(setor, i){
       }
       
       if(y < x){
-        result += "INSERT INTO departments_parents VALUES ('" + setor + "', '" + arr[j] + "');\n";
+        var sigla_pai = arr[j].split(' ')[0];
+        result += "INSERT INTO departments_parents VALUES ('" + sigla + "', '" + sigla_pai + "');\n";
         break;
       }
     }
