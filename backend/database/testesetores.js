@@ -879,4 +879,4 @@ arr.forEach(function(setor, i){
 })
 
 
-fs.writeFileSync('./backend/database/setores.sql', ('BEGIN;\n\n' + departments + '\n\n\n\n' + result + '\nCOMMIT;\n').replace(/1./g, ''));
+fs.writeFileSync('./backend/database/setores.sql', ('BEGIN;\n\n' + departments + '\n\n\n\n' + result + '\nCOMMIT;\n').replace(/1\./g, ''));
