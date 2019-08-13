@@ -1,8 +1,9 @@
-import { serverAddress } from "../../constants";
+import { serverAddress, dbPath } from "../../constants";
 
 export default function fetchDB(requestBody){
-  return fetch(serverAddress, {
+  return fetch(serverAddress + dbPath, {
     method: "POST",
+    // credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

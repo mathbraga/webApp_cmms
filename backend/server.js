@@ -2,10 +2,15 @@
 const express = require('express');
 const app = express();
 const port = 3001;
-const middleware = require('./middleware')
 const { postgraphile } = require("postgraphile");
+const http = require('http');
+const server = http.createServer(app);
+const middleware = require('./middleware');
+// const cookieParser = require('cookie-parser');
 
 // Middlewares
+// app.use(express.json());
+// app.use(cookieParser());
 // app.use(middleware);
 app.use(postgraphile(
   
@@ -30,7 +35,7 @@ app.use(postgraphile(
     // exportJsonSchemaPath: "../schema.json",
     // exportGqlSchemaPath: "../schema.graphql",
     // sortExport: true,
-    graphqlRoute: "/",
+    graphqlRoute: "/db",
     graphiql: true,
     graphiqlRoute: "/graphiql",
     enhanceGraphiql: true,
@@ -38,8 +43,18 @@ app.use(postgraphile(
     dynamicJson: true,
     showErrorStack: 'json',
     extendedErrors: ['hint', 'detail', 'errcode'],
+    // pgSettings: async req => {
+    //   console.log(req.body)
+    //   return {
+    //     // 'user.id': `${req.session.passport.user}`,
+    //     // 'http.headers.x-something': `${req.headers['x-something']}`,
+    //     // 'http.method': `${req.method}`,
+    //     // 'http.url': `${req.url}`,
+    //     //...
+    //   }
+    // },
   }
 ));
 
 // Listen for connections on specified port
-app.listen(port, () => console.log(`App listening on port ${port}!`));
+server.listen(port, () => console.log(`Server listening on port ${port}!`));
