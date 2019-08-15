@@ -45,16 +45,21 @@ app.use(postgraphile(
     dynamicJson: true,
     showErrorStack: 'json',
     extendedErrors: ['hint', 'detail', 'errcode'],
-    pgSettings: async req => {
+    jwtPgTypeIdentifier: 'public.jwt_token',
+    jwtSecret: 'SECRET',
+    pgDefaultRole: 'unauth',
+
+
+    // pgSettings: async req => {
       
-      var role = 'unauth';
+    //   var role = 'unauth';
       
-      console.log(JSON.stringify(req.body))
+    //   console.log(JSON.stringify(req.body))
       
-      return {
-      'role': role,
-      }
-    }
+    //   return {
+    //   'role': role,
+    //   }
+    // }
   }
 ));
 

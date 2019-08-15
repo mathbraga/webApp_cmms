@@ -1,36 +1,50 @@
-create type jwt_token as (
+CREATE EXTENSION pgcrypto;
+
+create schema private_schema;
+
+create type public.jwt_token as (
   role text,
   expire integer,
   person_id integer,
-  is_admin boolean,
-  username varchar
+  email text
 );
 
-create function public.authenticate(
+create table private_schema.accounts (
+  person_id        integer primary key,
+  email            text not null unique check (email ~* '^.+@.+\..+$'),
+  password_hash    text not null
+);
+
+insert into private_schema.accounts (person_id, email, password_hash) values
+  (1, 'spowell0@noaa.gov', '$2a$06$.Ryt.S6xCN./QmTx3r9Meu/nsk.4Ypfuj.o9qIqv4p3iipCWY45Bi');
+
+-- password 'iFbWWlc'
+
+create or replace function public.authenticate(
   email text,
   password text
-) returns jwt_token as $$
+) returns public.jwt_token as $$
 declare
-  account private_schema.person_account;
+  account private_schema.accounts;
 begin
   select a.* into account
-    from private_schema.person_account as a
-    where a.email = authenticate.email;
+    from private_schema.accounts as a
+    where a.email = $1;
 
-  if account.password_hash = crypt(password, account.password_hash) then
+  if account.password_hash = crypt($2, account.password_hash) then
     return (
-      'person_role',
+      'auth',
       extract(epoch from now() + interval '7 days'),
       account.person_id,
-      account.is_admin,
-      account.username
-    )::my_public_schema.jwt_token;
+      account.email
+    )::public.jwt_token;
   else
     return null;
   end if;
 end;
 $$ language plpgsql strict security definer;
 
+select * from authenticate('spowell0@noaa.gov', 'iFbWWlc');
 
 CREATE OR REPLACE FUNCTION get_current_user() RETURNS text AS $$
   SELECT current_user::text;
