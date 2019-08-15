@@ -5,10 +5,12 @@ const port = 3001;
 const { postgraphile } = require("postgraphile");
 const http = require('http');
 const server = http.createServer(app);
-const middleware = require('./middleware');
+// const middleware = require('./middleware');
+// const cors = require('cors')
 // const cookieParser = require('cookie-parser');
 
 // Middlewares
+// app.use(cors());
 // app.use(express.json());
 // app.use(cookieParser());
 // app.use(middleware);
@@ -43,16 +45,16 @@ app.use(postgraphile(
     dynamicJson: true,
     showErrorStack: 'json',
     extendedErrors: ['hint', 'detail', 'errcode'],
-    // pgSettings: async req => {
-    //   console.log(req.body)
-    //   return {
-    //     // 'user.id': `${req.session.passport.user}`,
-    //     // 'http.headers.x-something': `${req.headers['x-something']}`,
-    //     // 'http.method': `${req.method}`,
-    //     // 'http.url': `${req.url}`,
-    //     //...
-    //   }
-    // },
+    pgSettings: async req => {
+      
+      var role = 'unauth';
+      
+      console.log(JSON.stringify(req.body))
+      
+      return {
+      'role': role,
+      }
+    }
   }
 ));
 
