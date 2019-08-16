@@ -6,14 +6,19 @@ const { postgraphile } = require("postgraphile");
 const http = require('http');
 const server = http.createServer(app);
 // const middleware = require('./middleware');
-// const cors = require('cors')
-// const cookieParser = require('cookie-parser');
+const cors = require('cors')
+const cookieParser = require('cookie-parser');
 
 // Middlewares
-// app.use(cors());
-// app.use(express.json());
-// app.use(cookieParser());
+app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
 // app.use(middleware);
+// app.use('/db', function(req, res, next){
+//   console.log(JSON.stringify(req.get('Cookie')));
+//   next()
+// });
+
 app.use(postgraphile(
   
   // pgConfig (object)
@@ -48,14 +53,11 @@ app.use(postgraphile(
     jwtPgTypeIdentifier: 'public.jwt_token',
     jwtSecret: 'SECRET',
     pgDefaultRole: 'unauth',
-
-
     // pgSettings: async req => {
       
-    //   var role = 'unauth';
+    //   // console.dir(req.jwtperson_id)
       
-    //   console.log(JSON.stringify(req.body))
-      
+    //   var role = 'unauth';      
     //   return {
     //   'role': role,
     //   }

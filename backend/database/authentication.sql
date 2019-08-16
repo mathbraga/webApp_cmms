@@ -1,10 +1,14 @@
+drop function authenticate;
+drop table private_schema.accounts;
+drop type jwt_token;
+---------------------------------------------------------------
 CREATE EXTENSION pgcrypto;
-
 create schema private_schema;
-
+---------------------------------------------------------------
+BEGIN;
 create type public.jwt_token as (
   role text,
-  expire integer,
+  exp integer,
   person_id integer,
   email text
 );
@@ -16,9 +20,9 @@ create table private_schema.accounts (
 );
 
 insert into private_schema.accounts (person_id, email, password_hash) values
-  (1, 'spowell0@noaa.gov', '$2a$06$.Ryt.S6xCN./QmTx3r9Meu/nsk.4Ypfuj.o9qIqv4p3iipCWY45Bi');
+  (1, 'hzlopes@senado.leg.br', '$1$KYP76V/w$Pir5G.eTfAXInHM8PpIgY.');
 
--- password 'iFbWWlc'
+-- password '123456' (md5)
 
 create or replace function public.authenticate(
   email text,
@@ -43,11 +47,32 @@ begin
   end if;
 end;
 $$ language plpgsql strict security definer;
+---------------------------------------------------------------
+select * from authenticate('hzlopes@senado.leg.br', '123456');
 
-select * from authenticate('spowell0@noaa.gov', 'iFbWWlc');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 CREATE OR REPLACE FUNCTION get_current_user() RETURNS text AS $$
-  SELECT current_user::text;
+  SELECT current_setting('jwt.claims.exp', true);
 $$ LANGUAGE SQL STABLE;
 
 
