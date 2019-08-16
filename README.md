@@ -22,6 +22,8 @@ This project is the development of the computerized management system (CMMS) web
 
 * [Babel](https://babeljs.io/docs/en/)
 
+* [Apollo Client](https://www.apollographql.com/docs/react/)
+
 
 ## Back-end
 
