@@ -1,14 +1,13 @@
 export const tableConfig = [
-  { name: "ID",                 style: { width: "auto" },   className: "text-center"  },
-  { name: "Descrição",          style: { width: "auto" },   className: "text-justify" },
-  { name: "Status",             style: { width: "auto" },   className: "text-center"  },
-  { name: "Data da solicitação",style: { width: "auto" },   className: "text-justify" },
-  { name: "Prazo",              style: { width: "auto" },   className: "text-center"  },
-  { name: "Solicitante",        style: { width: "auto" },   className: "text-center"  },
-  { name: "Ativos",             style: { width: "auto" },   className: "text-center"  },
+  { name: "ID", style: { width: "80px" }, className: "text-center" },
+  { name: "Descrição", style: { width: "400px" }, className: "text-justify" },
+  { name: "Status", style: { width: "auto" }, className: "text-center" },
+  { name: "Data da Solicitação", style: { width: "150px" }, className: "text-center" },
+  { name: "Prazo", style: { width: "auto" }, className: "text-center" },
+  { name: "Solicitante", style: { width: "auto" }, className: "text-center" },
 ];
-  
-  
+
+
   // ALL W.O. ATTRIBUTES:
   // ans
   // categoria
