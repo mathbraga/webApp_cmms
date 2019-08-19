@@ -41,6 +41,7 @@ export default function handleSearch(state) {
 
       // Query table
       queryTable(
+        meterType,
         chosenMeter,
         meters,
         aammInitial,

@@ -11,9 +11,7 @@ import {
   InputGroup,
   Button,
 } from "reactstrap";
-import initializeDynamoDB from "../../utils/consumptionMonitor/initializeDynamoDB";
 import { connect } from "react-redux";
-import { dbTables } from "../../aws";
 import createWorkOrder from "../../utils/maintenance/createWorkOrder";
 import { allAssets } from "./allAssets";
 
@@ -21,8 +19,6 @@ class NewWorkOrderForm extends Component {
   constructor(props){
     super(props);
     this.state = {
-      dbObject: initializeDynamoDB(this.props.session),
-      tableName: dbTables.workOrder.tableName,
       assetsList: [""],
       impact: false,
       alertVisible: false,
@@ -127,25 +123,12 @@ class NewWorkOrderForm extends Component {
 
             <InputGroup className="mb-3">
               <Label
-              >Serviço selecionado:
+              >status1
               </Label>
               <Input
                 type="text"
-                id="selectedService"
-                name="selectedService"
-                placeholder=""
-                onChange={()=>{}}
-              />
-            </InputGroup>
-
-            <InputGroup className="mb-3">
-              <Label
-              >Nome (solicitante):
-              </Label>
-              <Input
-                type="text"
-                id="reqName"
-                name="reqName"
+                id="status1"
+                name="status1"
                 placeholder=""
                 onChange={this.handleInput}
               />
@@ -153,12 +136,12 @@ class NewWorkOrderForm extends Component {
 
             <InputGroup className="mb-3">
               <Label
-              >E-mail (solicitante):
+              >prioridade
               </Label>
               <Input
                 type="text"
-                id="reqEmail"
-                name="reqEmail"
+                id="prioridade"
+                name="prioridade"
                 placeholder=""
                 onChange={this.handleInput}
               />
@@ -166,12 +149,12 @@ class NewWorkOrderForm extends Component {
 
             <InputGroup className="mb-3">
               <Label
-              >Tel (solicitante):
+              >origem
               </Label>
               <Input
                 type="text"
-                id="reqPhone"
-                name="reqPhone"
+                id="origem"
+                name="origem"
                 placeholder=""
                 onChange={this.handleInput}
               />
@@ -179,103 +162,288 @@ class NewWorkOrderForm extends Component {
 
             <InputGroup className="mb-3">
               <Label
-              >Nome (contato):
+              >responsavel
               </Label>
               <Input
                 type="text"
-                id="conName"
-                name="conName"
+                id="responsavel"
+                name="responsavel"
                 placeholder=""
                 onChange={this.handleInput}
               />
             </InputGroup>
-
             <InputGroup className="mb-3">
               <Label
-              >E-mail (contato):
+              >categoria
               </Label>
               <Input
                 type="text"
-                id="conEmail"
-                name="conEmail"
+                id="categoria"
+                name="categoria"
                 placeholder=""
                 onChange={this.handleInput}
               />
             </InputGroup>
-
             <InputGroup className="mb-3">
               <Label
-              >Tel (contato):
+              >servico
               </Label>
               <Input
                 type="text"
-                id="conPhone"
-                name="conPhone"
+                id="servico"
+                name="servico"
                 placeholder=""
                 onChange={this.handleInput}
               />
             </InputGroup>
-
             <InputGroup className="mb-3">
               <Label
-              >Endereço do local do serviço:
+              >descricao
               </Label>
               <Input
                 type="text"
-                id="directions"
-                name="directions"
+                id="descricao"
+                name="descricao"
                 placeholder=""
                 onChange={this.handleInput}
               />
             </InputGroup>
-
             <InputGroup className="mb-3">
               <Label
-              >Breve descrição do serviço solicitado:
+              >data_inicial
               </Label>
               <Input
                 type="text"
-                id="description"
-                name="description"
+                id="data_inicial"
+                name="data_inicial"
                 placeholder=""
                 onChange={this.handleInput}
               />
             </InputGroup>
-
             <InputGroup className="mb-3">
               <Label
-              >Detalhamento e justificativa para a realização do serviço:
+              >data_prazo
               </Label>
               <Input
                 type="text"
-                id="details"
-                name="details"
+                id="data_prazo"
+                name="data_prazo"
                 placeholder=""
                 onChange={this.handleInput}
               />
             </InputGroup>
-
             <InputGroup className="mb-3">
               <Label
-              >Anexar arquivos a esta solicitação (opcional):
+              >realizado
               </Label>
               <Input
                 type="text"
-                id="files"
-                name="files"
+                id="realizado"
+                name="realizado"
                 placeholder=""
                 onChange={this.handleInput}
               />
             </InputGroup>
-
             <InputGroup className="mb-3">
               <Label
-              >Status:
+              >data_criacao
               </Label>
               <Input
                 type="text"
-                id="status"
-                name="status"
+                id="data_criacao"
+                name="data_criacao"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >data_atualiz
+              </Label>
+              <Input
+                type="text"
+                id="data_atualiz"
+                name="data_atualiz"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >sigad
+              </Label>
+              <Input
+                type="text"
+                id="sigad"
+                name="sigad"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >solic_orgao
+              </Label>
+              <Input
+                type="text"
+                id="solic_orgao"
+                name="solic_orgao"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >solic_nome
+              </Label>
+              <Input
+                type="text"
+                id="solic_nome"
+                name="solic_nome"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >contato_nome
+              </Label>
+              <Input
+                type="text"
+                id="contato_nome"
+                name="contato_nome"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >contato_email
+              </Label>
+              <Input
+                type="text"
+                id="contato_email"
+                name="contato_email"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >contato_tel
+              </Label>
+              <Input
+                type="text"
+                id="contato_tel"
+                name="contato_tel"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >mensagem
+              </Label>
+              <Input
+                type="text"
+                id="mensagem"
+                name="mensagem"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >orcamento
+              </Label>
+              <Input
+                type="text"
+                id="orcamento"
+                name="orcamento"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >conferido
+              </Label>
+              <Input
+                type="text"
+                id="conferido"
+                name="conferido"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >lugar
+              </Label>
+              <Input
+                type="text"
+                id="lugar"
+                name="lugar"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >executante
+              </Label>
+              <Input
+                type="text"
+                id="executante"
+                name="executante"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >os_num
+              </Label>
+              <Input
+                type="text"
+                id="os_num"
+                name="os_num"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >ans
+              </Label>
+              <Input
+                type="text"
+                id="ans"
+                name="ans"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >status2
+              </Label>
+              <Input
+                type="text"
+                id="status2"
+                name="status2"
+                placeholder=""
+                onChange={this.handleInput}
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Label
+              >multitarefa
+              </Label>
+              <Input
+                type="text"
+                id="multitarefa"
+                name="multitarefa"
                 placeholder=""
                 onChange={this.handleInput}
               />
@@ -321,7 +489,7 @@ class NewWorkOrderForm extends Component {
             >Adicionar ativo
             </Button>
 
-            <InputGroup className="mb-3 ml-3">
+            {/* <InputGroup className="mb-3 ml-3">
               <Label
               >Impacto?
               </Label>
@@ -331,14 +499,16 @@ class NewWorkOrderForm extends Component {
                 name="impact"
                 onChange={this.handleInput}
               />
-            </InputGroup>
+            </InputGroup> */}
 
-            <Button
-              color="primary"
-              onClick={this.workOrderSubmit}
-              type="submit"
-            >Enviar solicitação
-            </Button>
+            <InputGroup>
+              <Button
+                color="primary"
+                onClick={this.workOrderSubmit}
+                type="submit"
+              >Enviar solicitação
+              </Button>
+            </InputGroup>
 
           </CardBody>
         </Card>

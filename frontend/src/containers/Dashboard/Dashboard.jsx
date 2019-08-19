@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody } from "reactstrap";
-import { serverAddress } from "../../constants";
+import fetchDB from "../../utils/fetch/fetchDB";
 
 class Dashboard extends Component {
   constructor(props){
@@ -12,12 +12,19 @@ class Dashboard extends Component {
 
   componentDidMount(){
     console.clear();
-    fetch(serverAddress + '/quicktest', {
-      method: "GET"
+    fetchDB({
+      query: `
+      query MyQuery($medidor: Int!) {
+        cebMeterByMed(med: $medidor) {
+          id
+        }
+      }
+    `,
+      variables: {medidor: 123}
     })
-    .then(response=>response.json())
-    .then(data=>console.log(data))
-    .catch(()=>console.log('erro ao realizar fetch'));
+      .then(r => r.json())
+      .then(rjson => console.log(rjson))
+      .catch(()=>console.log('Erro no fecth em Dashboard'));
   }
   
   render() {
