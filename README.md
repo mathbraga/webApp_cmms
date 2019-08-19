@@ -6,7 +6,9 @@ This project is the development of the computerized management system (CMMS) web
 
 [Serafabr](https://github.com/Serafabr), [hzlopes](https://github.com/hzlopes) and [math59](https://github.com/math59)
 
-## Front-end
+## Packages and tools
+
+### Front-end
 
 * [Create React App](https://create-react-app.dev/docs/getting-started)
 
@@ -25,7 +27,7 @@ This project is the development of the computerized management system (CMMS) web
 * [Apollo Client](https://www.apollographql.com/docs/react/)
 
 
-## Back-end
+### Back-end
 
 * [Express](https://expressjs.com/en/4x/api.html)
 
