@@ -1,74 +1,107 @@
 import React, { Component } from 'react';
 import { Row, Col, Button, } from "reactstrap";
-import TableItems from "../../components/Tables/Table";
+import TableWithPages from "../../components/Tables/TableWithPages";
 import AssetCard from "../../components/Cards/AssetCard";
-import { Badge, CustomInput } from "reactstrap";
-import "./List.css";
-import { remove } from "lodash";
+import { CustomInput } from "reactstrap";
 import { withRouter } from "react-router-dom";
+import "./List.css";
 
-import { /*equipmentItems,*/ equipmentConfig } from "./AssetsFakeData";
+import { equipmentConfig } from "./AssetsFakeData";
 
 const hierarchyItem = require("../../assets/icons/tree_icon.png");
 const listItem = require("../../assets/icons/list_icon.png");
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const mapIcon = require("../../assets/icons/map.png");
-const headerConfig = equipmentConfig;
+
+const ENTRIES_PER_PAGE = 15;
 
 
-
-class FacilitiesList extends Component {
+class EquipmentsList extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      pageCurrent: 1,
+      goToPage: 1,
+      searchTerm: ""
+    };
+
+    this.setGoToPage = this.setGoToPage.bind(this);
+    this.setCurrentPage = this.setCurrentPage.bind(this);
+    this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
+  }
+
+  handleChangeSearchTerm(event) {
+    this.setState({ searchTerm: event.target.value, pageCurrent: 1, goToPage: 1 });
+  }
+
+  setGoToPage(page) {
+    this.setState({ goToPage: page });
+  }
+
+  setCurrentPage(pageCurrent) {
+    this.setState({ pageCurrent: pageCurrent }, () => {
+      this.setState({ goToPage: pageCurrent });
+    });
   }
 
   render() {
+    const { allItems } = this.props;
+    const { pageCurrent, goToPage, searchTerm } = this.state;
 
-    const {
-      allItems
-    } = this.props;
-
-    const equipmentItems = remove(allItems, item => {
-      return item.tipo === 'E';
-    });
-
-
-    const Thead =
-  <tr>
-    <th className="text-center checkbox-cell">
-      <CustomInput type="checkbox" />
-    </th>
-    {headerConfig.map(column => (
-      <th style={column.style} className={column.className}>{column.description}</th>))
+    let filteredItems = allItems;
+    if (searchTerm.length > 0) {
+      const searchTermLower = searchTerm.toLowerCase();
+      filteredItems = allItems.filter(function (item) {
+        return (
+          item.id.toLowerCase().includes(searchTermLower) ||
+          item.nome.toLowerCase().includes(searchTermLower) ||
+          item.parent.toLowerCase().includes(searchTermLower) ||
+          item.modelo.toLowerCase().includes(searchTermLower)
+        );
+      });
     }
-  </tr>
 
-const Tbody = equipmentItems.map(item => (
-  <tr
-    onClick={()=>{this.props.history.push('/ativos/view/' + item.id)}}
-  >
-    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-    <td>
-      <div>{item.modelo}</div>
-      <div className="small text-muted">{item.parent}</div>
-    </td>
-    <td className="text-center">Marca</td>
-    <td className="text-center">Modelo</td>
-    <td>
-      <div className="text-center">
-        Categoria
-      </div>
-    </td>
-  </tr>))
+    console.log("Filtered Items:");
+    console.log(filteredItems);
+
+    const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
+    const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+
+    const thead =
+      <tr>
+        <th className="text-center checkbox-cell">
+          <CustomInput type="checkbox" />
+        </th>
+        {equipmentConfig.map(column => (
+          <th style={column.style} className={column.className}>{column.description}</th>))
+        }
+      </tr>
+
+    const tbody = showItems.map(item => (
+      <tr
+        onClick={() => { this.props.history.push('/ativos/view/' + item.id) }}
+      >
+        <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
+        <td>
+          <div>{item.id}</div>
+          <div className="small text-muted">{item.parent}</div>
+        </td>
+        <td className="text-center">Marca</td>
+        <td className="text-center">{item.modelo}</td>
+        <td>
+          <div className="text-center">
+            {item.serie}
+          </div>
+        </td>
+      </tr>))
 
     return (
       <AssetCard
         sectionName={'Equipamentos'}
-        sectionDescription={'Lista de equipamentos de engeharia'}
+        sectionDescription={'Lista de equipamentos'}
         handleCardButton={() => { }}
-        buttonName={'Cadastrar Equipamento'}
+        buttonName={'Novo Equipamento'}
       >
         <Row style={{ marginTop: "10px", marginBottom: "5px" }}>
           <Col md="2">
@@ -92,7 +125,7 @@ const Tbody = equipmentItems.map(item => (
           <Col md="4">
             <form>
               <div className="search-input" >
-                <input placeholder="Pesquisar ..." />
+                <input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
                 <img src={searchItem} alt="" style={{ width: "18px", height: "15px", margin: "3px 0px" }} />
               </div>
             </form>
@@ -105,14 +138,14 @@ const Tbody = equipmentItems.map(item => (
         </Row>
         <Row>
           <Col>
-            <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: "10px", margin: "5px 5px" }}>Página 1 de 1</div>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <TableItems
-              thead={Thead}
-              tbody={Tbody}
+            <TableWithPages
+              thead={thead}
+              tbody={tbody}
+              pagesTotal={pagesTotal}
+              pageCurrent={pageCurrent}
+              goToPage={goToPage}
+              setCurrentPage={this.setCurrentPage}
+              setGoToPage={this.setGoToPage}
             />
           </Col>
         </Row>
@@ -121,4 +154,4 @@ const Tbody = equipmentItems.map(item => (
   }
 }
 
-export default withRouter(FacilitiesList);
+export default withRouter(EquipmentsList);

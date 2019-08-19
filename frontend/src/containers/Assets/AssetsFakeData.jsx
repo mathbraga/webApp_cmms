@@ -162,5 +162,5 @@ export const equipmentConfig = [
   { name: "equipment", description: "Equipamento", style: { width: "200px" }, className: "" },
   { name: "manufacturer", description: "Marca", style: { width: "200px" }, className: "text-center" },
   { name: "model", description: "Modelo", style: { width: "150px" }, className: "text-center" },
-  { name: "category", description: "Categoria", style: { width: "150px" }, className: "text-center" },
+  { name: "serie", description: "Nº de Série", style: { width: "150px" }, className: "text-center" },
 ];

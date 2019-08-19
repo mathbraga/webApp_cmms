@@ -32,7 +32,7 @@ class FacilitiesList extends Component {
   }
 
   handleChangeSearchTerm(event) {
-    this.setState({ searchTerm: event.target.value });
+    this.setState({ searchTerm: event.target.value, pageCurrent: 1, goToPage: 1 });
   }
 
   setGoToPage(page) {
