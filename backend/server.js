@@ -28,15 +28,15 @@ app.use(postgraphile(
   
   // pgConfig (object)
   {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
+    host:     process.env.DB_HOST,
+    port:     process.env.DB_PORT,
     database: process.env.DB_DBNAME,
-    user: process.env.DB_ADMIN,
+    user:     process.env.DB_ADMIN,
     password: process.env.DB_PASS,
   },
 
-  // schemaName (string)
-  "public",
+  // schemaName (array of strings)
+  ["public"/*, "private_schema"*/],
 
   // options (object)
   {

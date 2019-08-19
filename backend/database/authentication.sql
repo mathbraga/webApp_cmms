@@ -49,34 +49,12 @@ end;
 $$ language plpgsql strict security definer;
 ---------------------------------------------------------------
 select * from authenticate('hzlopes@senado.leg.br', '123456');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---------------------------------------------------------------
 CREATE OR REPLACE FUNCTION get_current_user() RETURNS text AS $$
-  SELECT current_setting('jwt.claims.exp', true);
+  SELECT current_setting('jwt.claims.email', true);
 $$ LANGUAGE SQL STABLE;
 
-
-CREATE ROLE unauth
+CREATE ROLE unauth;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO unauth;
 CREATE USER user1 WITH LOGIN PASSWORD '1234' IN ROLE unauth;
 
