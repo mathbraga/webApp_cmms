@@ -1,3 +1,6 @@
+// Load environment variables
+require('dotenv').config();
+
 // Initialization and imports
 const express = require('express');
 const app = express();
@@ -8,6 +11,8 @@ const server = http.createServer(app);
 // const middleware = require('./middleware');
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
+
+// console.log(process.env)
 
 // Middlewares
 app.use(cors());
@@ -23,11 +28,11 @@ app.use(postgraphile(
   
   // pgConfig (object)
   {
-    host: '172.30.49.152',
-    port: 5432,
-    database: 'cmms',
-    user: 'postgres',
-    password: '123456',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_DBNAME,
+    user: process.env.DB_ADMIN,
+    password: process.env.DB_PASS,
   },
 
   // schemaName (string)
