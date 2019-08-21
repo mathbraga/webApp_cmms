@@ -8,20 +8,33 @@ const port = 3001;
 const { postgraphile } = require("postgraphile");
 const http = require('http');
 const server = http.createServer(app);
-// const middleware = require('./middleware');
+const middleware = require('./middleware');
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
+
+const registerRoute = require('./routes/register');
+// const loginRoute = require('./routes/login');
+// const logoutRoute = require('./routes/logout');
+// app.use("/login", loginRoute);
+// app.use("/logout", logoutRoute);
+
 
 // console.log(process.env)
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
-app.use(cookieParser());
-// app.use(middleware);
+// app.use(cookieParser());
+app.use(middleware);
+app.use("/register", registerRoute);
+
 // app.use('/db', function(req, res, next){
-//   console.log(JSON.stringify(req.get('Cookie')));
-//   next()
+//   if(req.headers.authorization === undefined){
+//     res.json({E: 'NÃO ESTÁ LOGADO'})
+//   } else {
+//     console.log('primeiro middleware')
+//     next()
+//   }
 // });
 
 app.use(postgraphile(
@@ -58,9 +71,9 @@ app.use(postgraphile(
     jwtPgTypeIdentifier: 'public.jwt_token',
     jwtSecret: 'SECRET',
     pgDefaultRole: 'unauth',
-    // pgSettings: async req => {
+    // pgSettings: async (req, res) => {
       
-    //   // console.dir(req.jwtperson_id)
+    //   console.dir(res)
       
     //   var role = 'unauth';      
     //   return {
@@ -69,6 +82,10 @@ app.use(postgraphile(
     // }
   }
 ));
+
+// app.post('/db', function(req, res, next){
+//   console.log('segundo middleware');
+// })
 
 // Listen for connections on specified port
 server.listen(port, () => console.log(`Server listening on port ${port}!`));
