@@ -82,3 +82,25 @@ COMMIT;
 CREATE OR REPLACE FUNCTION get_current_user() RETURNS text AS $$
   SELECT current_setting('jwt.claims.email', true);
 $$ LANGUAGE SQL STABLE;
+
+
+
+create or replace function public.autenticar(
+  email text,
+  password text
+) returns integer as $$
+declare
+  result integer;
+  account private_schema.accounts;
+begin
+  select a.* into account
+    from private_schema.accounts as a
+    where a.email = $1;
+  if account.password_hash = crypt($2, account.password_hash) then
+    select u.id into result from users as u where account.id = u.id;
+    return result;
+  else
+    return 0;
+  end if;
+end;
+$$ language plpgsql strict security definer;

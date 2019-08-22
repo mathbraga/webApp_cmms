@@ -17,9 +17,24 @@ class Login extends Component {
   }
 
   componentWillMount = () => {
-    if(this.props.session){
-      this.props.history.push("/painel");
-    }
+    fetch('http://172.30.49.152:3001/login', {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({
+        username: 'hehehehehehe@senado.leg.br',
+        password: '123456'
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    })
+
+      .then(r => r.json())
+      .then(rjson => console.log(rjson))
+      .catch(()=>console.log('Erro no fecth em Dashboard'));
+
+
   }
 
   componentDidUpdate = prevProps => {

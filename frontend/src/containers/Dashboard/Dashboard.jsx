@@ -22,6 +22,10 @@ class Dashboard extends Component {
     `,
       variables: {medidor: 123}
     })
+    // fetch('http://172.30.49.152:3001/teste', {
+    //   method: 'GET',
+    //   credentials: 'include'
+    // })
       .then(r => r.json())
       .then(rjson => console.log(rjson))
       .catch(()=>console.log('Erro no fecth em Dashboard'));

@@ -5,6 +5,7 @@ import WorkOrdersList from "./WorkOrdersList";
 import { tableConfig } from "./WorkOrdersTableConfig";
 import getAllWorkOrders from "../../utils/maintenance/getAllWorkOrders";
 import { connect } from "react-redux";
+import { IncomingMessage } from "http";
 
 class WorkOrders extends Component {
   constructor(props){
@@ -25,17 +26,14 @@ class WorkOrders extends Component {
   }
 
   componentDidMount(){
-    getAllWorkOrders()
-    .then(workOrders => {
-      console.log('workOrders:');
-      console.log(workOrders);
-      this.setState({
-        workOrders: workOrders
-      });
+    fetch('http://172.30.49.152:3001/logout', {
+      method: 'GET',
+      credentials: 'include',
     })
-    .catch(() => {
-      console.log("Houve um problema ao baixar as ordens de serviços.");
-    });
+
+    .then(r => r.json())
+    .then(rjson => console.log(rjson))
+    .catch(()=>console.log('Erro no fecth em Dashboard'));
   }
 
   render() {
