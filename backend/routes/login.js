@@ -57,30 +57,10 @@ router.post('/',
     console.log('req session '+ JSON.stringify(req.session))
     console.log('req user '+ JSON.stringify(req.user))
     res.cookie('cookiename', req.user.toString());
-    
-    
+
     // console.log(res.get('set-cookie'))
 
-    
-
     res.json({'response': 'response from login'});
-
-  //   if(err) {
-  //     // console.log('erro')
-  //     return next()
-  //   }
-  //   if(!user){
-  //     return next()
-  //   }
-  //   req.login(user, function(err){
-  //     if(err){
-  //       return next();
-  //     }
-  //     console.log(user)
-  //     return next()
-  //   });
-  //   next()
-  // })(req, res, next);
 });
 
 module.exports = router;

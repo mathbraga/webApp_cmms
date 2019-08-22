@@ -12,7 +12,7 @@ const middleware = require('./middleware');
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+// const LocalStrategy = require('passport-local').Strategy;
 const cookieSession = require('cookie-session');
 const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
@@ -21,7 +21,11 @@ const logoutRoute = require('./routes/logout');
 // app.set('trust proxy', true);
 
 // Middlewares
-// app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true,
+  // allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Content-Length', 'Accept', 'Authorization', 'X-Apollo-Tracing'],
+}));
 app.use(middleware);
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -35,47 +39,21 @@ app.use(cookieSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-// passport.deserializeUser(async (userId, done) => {
-//   console.log('inside deserialization')
-//   try {
-//     let data = await client.query('SELECT id FROM users WHERE id = $1', [userId]);
-//     if (data.rows.length === 0){
-//       return done(new Error('user not found'));
-//     }
-//     done(null, user);
-//   } catch (e) {
-//     done(e);
-//   }
-// });
-app.use(function(req, res, next){
-  console.log('LOGGING MIDDLEWARE FOR ALL ROUTES');
-  console.log('req user: ' + JSON.stringify(req.user));
-  console.log(req.session.isNew);
-  console.log('req session: ' + JSON.stringify(req.session));
-  next();
-})
-
-
-
 app.use("/register", registerRoute);
 app.use("/login", loginRoute);
 app.use("/logout", logoutRoute);
-app.use(function(req, res, next){
-  // console.log(req.user)
-  next()
-})
 
+// Testing route (/teste)
 app.get('/teste', function(req, res){
   console.log('inside /teste')
   console.log(req.session)
   console.log(req.cookies)
   console.log(req.signedCookies)
   console.log(req.session.isNew)
-
   res.json({'response': '/teste'})
 })
 
+// PostGraphile route (/db)
 app.use(postgraphile(
   
   // pgConfig (object)
@@ -107,24 +85,18 @@ app.use(postgraphile(
     dynamicJson: true,
     showErrorStack: 'json',
     extendedErrors: ['hint', 'detail', 'errcode'],
-    jwtPgTypeIdentifier: 'public.jwt_token',
-    jwtSecret: 'SECRET',
-    pgDefaultRole: 'unauth',
-    // pgSettings: async (req, res) => {
-      
-    //   console.dir(res)
-      
-    //   var role = 'unauth';      
-    //   return {
-    //   'role': role,
-    //   }
-    // }
+    // jwtPgTypeIdentifier: 'public.jwt_token',
+    // jwtSecret: 'SECRET',
+    // pgDefaultRole: 'unauth',
+    pgSettings: async req => {
+      const role = req.user ? 'auth': 'unauth';
+      return {
+      'role': role,
+      // 'jwt.claims.user_id': `${req.user.id}`,
+      }
+    }
   }
 ));
-
-// app.post('/db', function(req, res, next){
-//   console.log('segundo middleware');
-// })
 
 // Listen for connections on specified port
 server.listen(port, () => console.log(`Server listening on port ${port}!`));
