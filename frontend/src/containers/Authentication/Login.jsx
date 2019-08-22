@@ -3,6 +3,7 @@ import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup,
 import { login } from "../../redux/actions";
 import { connect } from "react-redux";
 import ModalForgottenPassword from "../../components/Modals/ModalForgottenPassword";
+import { serverAddress } from "../../constants";
 
 class Login extends Component {
   constructor(props){
@@ -17,22 +18,22 @@ class Login extends Component {
   }
 
   componentWillMount = () => {
-    fetch('http://172.30.49.152:3001/login', {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({
-        username: 'hehehehehehe@senado.leg.br',
-        password: '123456'
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    })
+    // fetch('http://172.30.49.152:3001/login', {
+    //   method: 'POST',
+    //   credentials: 'include',
+    //   body: JSON.stringify({
+    //     username: 'hehehehehehe@senado.leg.br',
+    //     password: '123456'
+    //   }),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json',
+    //   },
+    // })
 
-      .then(r => r.json())
-      .then(rjson => console.log(rjson))
-      .catch(()=>console.log('Erro no fecth em Dashboard'));
+    //   .then(r => r.json())
+    //   .then(rjson => console.log(rjson))
+    //   .catch(()=>console.log('Erro no fecth em Dashboard'));
 
 
   }
@@ -57,7 +58,34 @@ class Login extends Component {
 
   handleLoginSubmit = event => {
     event.preventDefault();
-    this.props.dispatch(login(this.state.email, this.state.password, this.props.history));
+    // this.props.dispatch(login(this.state.email, this.state.password, this.props.history));
+
+    this.setState({
+      alertVisible: true,
+      alertMessage: "Realizando login...",
+      loginError: false,
+    });
+
+    fetch('http://172.30.49.152:3001/login', {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({
+        username: this.state.email,
+        password: this.state.password
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    })
+      .then(r => r.json())
+      .then(rjson => {
+        console.log(rjson);
+        this.props.history.push('/painel');
+      })
+      .catch(() => {
+        console.log('Erro no fetch de login');
+      });
   }
 
   closeAlert = event => {
@@ -100,6 +128,7 @@ class Login extends Component {
                           type="text"
                           id="email"
                           name="email"
+                          value={this.state.email}
                           placeholder="usuario@senado.leg.br"
                           autoComplete="username"
                           onChange={this.handleLoginInputs}
@@ -116,6 +145,7 @@ class Login extends Component {
                           type="password"
                           id="password"
                           name="password"
+                          value={this.state.password}
                           placeholder="Senha"
                           autoComplete="current-password"
                           onChange={this.handleLoginInputs}
