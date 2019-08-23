@@ -10,7 +10,7 @@ function middleware(req, res, next){
   console.log('LOGGING MIDDLEWARE FOR ALL ROUTES');
   console.log('req user: ' + JSON.stringify(req.user));
   console.log('New session?')
-  console.log(req.session.isNew);
+  // console.log(req.session.isNew);
   console.log('req session: ' + JSON.stringify(req.session));
   console.log('\n\n\n\nREQUEST\n')
 

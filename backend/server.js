@@ -49,7 +49,7 @@ app.get('/teste', function(req, res){
   console.log(req.session)
   console.log(req.cookies)
   console.log(req.signedCookies)
-  console.log(req.session.isNew)
+  // console.log(req.session.isNew)
   res.json({'response': '/teste'})
 })
 
