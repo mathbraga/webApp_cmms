@@ -25,21 +25,25 @@ class Assets extends Component {
   }
 
   componentDidMount() {
+    const tipo = this.props.location.pathname.slice(8) === "edificios" ? "A" : "E";
     fetchDB({
       query: `
-      query MyQuery {
-        allAssets {
+      query Query1($tipo: String!) {
+        allAssets(condition: {tipo: $tipo}) {
           edges {
             node {
+              tipo
               id
               nome
               subnome
-              tipo
             }
           }
         }
       }
-    `})
+      
+    `,
+    variables: {tipo: tipo}
+  })
       .then(r => r.json())
       .then(rjson => this.handleAssetsChange(rjson))
       .catch(()=>console.log('Houve um erro ao baixar os ativos!'));
@@ -48,17 +52,16 @@ class Assets extends Component {
   render() {
     return (
       <React.Fragment>
-        {
-          console.log(this.state)
-        }
+        {console.clear()}
+        {console.log(this.state.assets)}
         {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "edificios") &&
           <FacilitiesList
-            allItems={remove(this.state.assets, item => { return item.tipo === 'A'; })}
+            allItems={this.state.assets}
           />
         }
         {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "equipamentos") &&
           <EquipmentsList
-            allItems={remove(this.state.assets, item => { return item.tipo === 'E'; })}
+            allItems={this.state.assets}
           />
         }
         {/* <Switch>
