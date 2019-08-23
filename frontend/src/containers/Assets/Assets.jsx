@@ -41,6 +41,7 @@ class Assets extends Component {
         }
       }
       
+      
     `,
     variables: {tipo: tipo}
   })
