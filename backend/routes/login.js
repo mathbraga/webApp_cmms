@@ -56,7 +56,7 @@ router.post('/',
   function(req, res){
     console.log('req session '+ JSON.stringify(req.session))
     console.log('req user '+ JSON.stringify(req.user))
-    res.cookie('cookiename', req.user.toString());
+    res.cookie('cmms:user', req.user.toString());
 
     // console.log(res.get('set-cookie'))
 
