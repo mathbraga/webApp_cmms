@@ -72,12 +72,6 @@ class FacilitiesList extends Component {
 
     console.log(showItems);
 
-    showItems.map(function(item){
-      return(
-        console.log(item.node.nome)
-      )
-    })
-
     const thead =
       <tr>
         <th className="text-center checkbox-cell">

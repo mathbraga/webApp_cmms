@@ -5,6 +5,7 @@ import WorkOrdersList from "./WorkOrdersList";
 import { tableConfig } from "./WorkOrdersTableConfig";
 import getAllWorkOrders from "../../utils/maintenance/getAllWorkOrders";
 import { connect } from "react-redux";
+import fetchDB from "../../utils/fetch/fetchDB";
 
 class WorkOrders extends Component {
   constructor(props){
@@ -22,20 +23,36 @@ class WorkOrders extends Component {
         this.props.history.push(`/ativos/view/${assetId}`);
       }
     }
+    this.handleAssetsChange = this.handleAssetsChange.bind(this);
+  }
+
+  handleAssetsChange(dbResponse){
+    this.setState({ workOrders: dbResponse });
   }
 
   componentDidMount(){
-    getAllWorkOrders()
-    .then(workOrders => {
-      console.log('workOrders:');
-      console.log(workOrders);
-      this.setState({
-        workOrders: workOrders
-      });
+    fetchDB({
+      query: `
+        query WorkOrderQuery{
+          allWorkOrders {
+            edges {
+              node {
+                categoria
+                solicNome
+                status1
+                descricao
+                id
+                dataCriacao
+                dataPrazo
+              }
+            }
+          }
+        }
+    `
     })
-    .catch(() => {
-      console.log("Houve um problema ao baixar as ordens de serviços.");
-    });
+    .then(r => r.json())
+    .then(rjson => this.handleAssetsChange(rjson))
+    .catch(() => console.log("Houve um erro ao baixar as ordens de serviços."));
   }
 
   render() {

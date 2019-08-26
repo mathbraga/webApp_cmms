@@ -54,7 +54,7 @@ class Assets extends Component {
   })
       .then(r => r.json())
       .then(rjson => this.handleAssetsChange(rjson))
-      .catch(()=>console.log('Houve um erro ao baixar os ativos!'));
+      .catch(()=>console.log("Houve um erro ao baixar os ativos!"));
   }
 
   render() {
