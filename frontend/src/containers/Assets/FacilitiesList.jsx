@@ -49,15 +49,31 @@ class FacilitiesList extends Component {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
-    let filteredItems = allItems;
+    const allEdges = allItems.data.allAssets.edges;
+
+    const parentsNodes = allEdges.map(function (item) {
+      return(
+        item.node.assetsParentsById.nodes
+      );
+    });
+
+    const parents = parentsNodes.map(function (item) {
+      return(
+        item[0].parent
+      );
+    });
+
+    console.log(parents);
+
+    let filteredItems = allEdges;
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = allItems.filter(function (item) {
+      filteredItems = allEdges.filter(function (item) {
         return (
-          item.id.toLowerCase().includes(searchTermLower) ||
-          item.nome.toLowerCase().includes(searchTermLower) ||
-          item.parent.toLowerCase().includes(searchTermLower) ||
-          item.subnome.toLowerCase().includes(searchTermLower)
+          item.node.id.toLowerCase().includes(searchTermLower) ||
+          item.node.nome.toLowerCase().includes(searchTermLower) ||
+          // item.parent.toLowerCase().includes(searchTermLower) ||
+          item.node.subnome.toLowerCase().includes(searchTermLower)
         );
       });
     }
@@ -67,6 +83,8 @@ class FacilitiesList extends Component {
 
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+
+    console.log(showItems);
 
     const thead =
       <tr>

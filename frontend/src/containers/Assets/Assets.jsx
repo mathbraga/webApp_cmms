@@ -29,19 +29,22 @@ class Assets extends Component {
     fetchDB({
       query: `
       query Query1($tipo: String!) {
-        allAssets(condition: {tipo: $tipo}) {
+        allAssets(condition: {tipo: $tipo}, orderBy: ID_ASC) {
           edges {
             node {
               tipo
               id
               nome
               subnome
+              assetsParentsById(orderBy: ID_ASC) {
+                nodes {
+                  parent
+                }
+              }
             }
           }
         }
       }
-      
-      
     `,
     variables: {tipo: tipo}
   })
