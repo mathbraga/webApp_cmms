@@ -51,20 +51,6 @@ class FacilitiesList extends Component {
 
     const allEdges = allItems.data.allAssets.edges;
 
-    const parentsNodes = allEdges.map(function (item) {
-      return(
-        item.node.assetsParentsById.nodes
-      );
-    });
-
-    const parents = parentsNodes.map(function (item) {
-      return(
-        item[0].parent
-      );
-    });
-
-    console.log(parents);
-
     let filteredItems = allEdges;
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
@@ -72,7 +58,7 @@ class FacilitiesList extends Component {
         return (
           item.node.id.toLowerCase().includes(searchTermLower) ||
           item.node.nome.toLowerCase().includes(searchTermLower) ||
-          // item.parent.toLowerCase().includes(searchTermLower) ||
+          item.node.assetsParentsById.nodes[0].parent.toLowerCase().includes(searchTermLower) ||
           item.node.subnome.toLowerCase().includes(searchTermLower)
         );
       });
@@ -86,6 +72,12 @@ class FacilitiesList extends Component {
 
     console.log(showItems);
 
+    showItems.map(function(item){
+      return(
+        console.log(item.node.nome)
+      )
+    })
+
     const thead =
       <tr>
         <th className="text-center checkbox-cell">
@@ -98,19 +90,19 @@ class FacilitiesList extends Component {
 
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/ativos/view/' + item.id) }}
+        onClick={() => { this.props.history.push('/ativos/view/' + item.node.id) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
-          <div>{item.nome + " - " + item.subnome}</div>
-          <div className="small text-muted">{item.parent}</div>
+          <div>{item.node.nome + " - " + item.node.subnome}</div>
+          <div className="small text-muted">{item.node.assetsParentsById.nodes[0].parent}</div>
         </td>
-        <td className="text-center">{item.id}</td>
+        <td className="text-center">{item.node.id}</td>
         <td className="text-center">
-          <Badge className="mr-1" color={item.visita ? "success" : "danger"} style={{ width: "60px", color: "black" }}>{item.visita ? "Sim" : "Não"}</Badge>
+          <Badge className="mr-1" color={item.node.visita ? "success" : "danger"} style={{ width: "60px", color: "black" }}>{item.node.visita ? "Sim" : "Não"}</Badge>
         </td>
         <td>
-          <div className="text-center">{item.areaconst}</div>
+          <div className="text-center">{item.node.areaconst}</div>
         </td>
         <td>
           <div className="text-center">

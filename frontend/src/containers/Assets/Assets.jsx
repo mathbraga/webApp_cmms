@@ -36,6 +36,10 @@ class Assets extends Component {
               id
               nome
               subnome
+              visita
+              areaconst
+              modelo
+              serie
               assetsParentsById(orderBy: ID_ASC) {
                 nodes {
                   parent
