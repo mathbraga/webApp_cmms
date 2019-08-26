@@ -26,7 +26,7 @@ app.use(cors({
   credentials: true,
   // allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Content-Length', 'Accept', 'Authorization', 'X-Apollo-Tracing'],
 }));
-app.use(middleware);
+// app.use(middleware);
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -39,6 +39,9 @@ app.use(cookieSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(middleware);
+
 app.use("/register", registerRoute);
 app.use("/login", loginRoute);
 app.use("/logout", logoutRoute);

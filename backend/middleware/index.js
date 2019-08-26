@@ -4,13 +4,13 @@ function middleware(req, res, next){
 
   // Logs
   console.log('\n\n\n\n---------------------------------------------------------------');
-  console.log('HOST ' + req.hostname + '                REQUESTED PATH: ' + req.path + '\n\n');
+  console.log('HOST ' + req.ip + '                REQUESTED PATH: ' + req.path + '\n\n');
   // console.log('new req session? : ' + req.session.isNew);
   // console.log('req session: ' + req.user);
   // console.log('LOGGING MIDDLEWARE FOR ALL ROUTES');
   console.log('req user: ' + JSON.stringify(req.user));
   // console.log('New session?')
-  // console.log(req.session.isNew);
+  console.log(req.session.isNew);
   console.log('req session: ' + JSON.stringify(req.session));
   console.log('\n\n');
   // console.log('\n\n\n\nREQUEST\n')

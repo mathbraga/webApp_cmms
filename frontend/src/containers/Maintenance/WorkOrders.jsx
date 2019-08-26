@@ -26,7 +26,8 @@ class WorkOrders extends Component {
   }
 
   componentDidMount(){
-    fetch('http://172.30.49.152:3001/logout', {
+    console.log(process.env);
+    fetch(process.env.REACT_APP_SERVER_URL + '/logout', {
       method: 'GET',
       credentials: 'include',
     })
