@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import getAllAssets from "../../utils/assets/getAllAssets";
 import { remove } from "lodash";
 import { dbTables } from "../../aws";
+import fetchDB from "../../utils/fetch/fetchDB";
 
 import { locationItems, equipmentItems } from "./AssetsFakeData";
 import { Switch, Route } from "react-router-dom";
@@ -15,34 +16,60 @@ class Assets extends Component {
     super(props);
     this.state = {
       assets: []
-    }
+    };
+    this.handleAssetsChange = this.handleAssetsChange.bind(this);
+  }
+
+  handleAssetsChange(dbResponse){
+    this.setState({ assets: dbResponse });
   }
 
   componentDidMount() {
-    getAllAssets()
-      .then(assets => {
-        console.log("List of all assets from database:");
-        console.log(assets);
-        this.setState({
-          assets: assets
-        });
-      })
-      .catch(() => {
-        console.log('houve um erro ao baixar os ativos!');
-      })
+    const tipo = this.props.location.pathname.slice(8) === "edificios" ? "A" : "E";
+    fetchDB({
+      query: `
+      query Query1($tipo: String!) {
+        allAssets(condition: {tipo: $tipo}, orderBy: ID_ASC) {
+          edges {
+            node {
+              tipo
+              id
+              nome
+              subnome
+              visita
+              areaconst
+              modelo
+              serie
+              assetsParentsById(orderBy: ID_ASC) {
+                nodes {
+                  parent
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {tipo: tipo}
+  })
+      .then(r => r.json())
+      .then(rjson => this.handleAssetsChange(rjson))
+      .catch(()=>console.log("Houve um erro ao baixar os ativos!"));
   }
 
   render() {
     return (
       <React.Fragment>
+        {console.clear()}
+        {console.log(this.state.assets.data)}
         {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "edificios") &&
           <FacilitiesList
-            allItems={remove(this.state.assets, item => { return item.tipo === 'A'; })}
+            allItems={this.state.assets}
           />
         }
         {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "equipamentos") &&
           <EquipmentsList
-            allItems={remove(this.state.assets, item => { return item.tipo === 'E'; })}
+            allItems={this.state.assets}
           />
         }
         {/* <Switch>
