@@ -61,7 +61,7 @@ class Assets extends Component {
     return (
       <React.Fragment>
         {console.clear()}
-        {console.log(this.state.assets)}
+        {console.log(this.state.assets.data)}
         {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "edificios") &&
           <FacilitiesList
             allItems={this.state.assets}

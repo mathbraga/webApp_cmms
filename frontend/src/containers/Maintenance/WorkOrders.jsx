@@ -23,10 +23,10 @@ class WorkOrders extends Component {
         this.props.history.push(`/ativos/view/${assetId}`);
       }
     }
-    this.handleAssetsChange = this.handleAssetsChange.bind(this);
+    this.handleOSChange = this.handleOSChange.bind(this);
   }
 
-  handleAssetsChange(dbResponse){
+  handleOSChange(dbResponse){
     this.setState({ workOrders: dbResponse });
   }
 
@@ -51,7 +51,7 @@ class WorkOrders extends Component {
     `
     })
     .then(r => r.json())
-    .then(rjson => this.handleAssetsChange(rjson))
+    .then(rjson => this.handleOSChange(rjson))
     .catch(() => console.log("Houve um erro ao baixar as ordens de serviços."));
   }
 

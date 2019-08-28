@@ -4,6 +4,8 @@ import getAsset from "../../utils/assets/getAsset";
 import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput } from "reactstrap";
 import TableWithPages from "../../components/Tables/TableWithPages";
 import "./AssetInfo.css";
+import fetchDB from "../../utils/fetch/fetchDB";
+import { connect } from "react-redux";
 
 import { equipmentItems, equipmentConfig } from "./AssetsFakeData";
 
@@ -49,45 +51,52 @@ class AssetInfo extends Component {
     super(props);
     this.state = {
       tabSelected: "info",
-      asset: false,
+      asset: [],
       location: false
     };
+    this.handleAssetsChange = this.handleAssetsChange.bind(this);
+    this.handleClickOnNav = this.handleClickOnNav.bind(this);
+  }
+
+  handleAssetsChange(dbResponse){
+    this.setState({ asset: dbResponse });
+  }
+
+  handleClickOnNav(tabSelected) {
+    this.setState({ tabSelected: tabSelected });
   }
 
   componentDidMount() {
     let assetId = this.props.location.pathname.slice(13);
-    getAsset(assetId)
-      .then(asset => {
-        console.log("Asset details:");
-        console.log(asset);
-        this.setState({
-          asset: asset,
-        });
-        getAsset(asset.parent).then(loc => {
-          console.log("Location details:");
-          console.log(loc);
-          this.setState({ location: loc });
+    fetchDB({
+      query: `
+        query AssetInfoQuery($assetId: String!){
+          assetById(id: $assetId) {
+            tipo
+            id
+            modelo
+          }
         }
-        )
-      })
-      .catch(message => {
-        console.log(message);
-      });
-  }
-
-  handleClickOnNav(tabSelected) {
-    this.setState({ tabSelected });
+      `,
+      variables: {assetId: assetId}
+    })
+      .then(r => r.json())
+      .then(rjson => this.handleAssetsChange(rjson))
+      .catch(() => console.log('Houve um problema em getAsset.'));
   }
 
   render() {
     const { tabSelected } = this.state;
-    const { asset } = this.state;
+    const tipo = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetById.tipo;
+    const modelo = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetById.modelo;
+    const id = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetById.id;
+  
     return (
       <AssetCard
-        sectionName={asset.tipo === 'E' ? 'Equipamento' : 'Edifício'}
+        sectionName={tipo === 'E' ? 'Equipamento' : 'Edifício'}
         sectionDescription={'Ficha descritiva'}
         handleCardButton={() => { }}
-        buttonName={asset.tipo === 'E' ? 'Equipamentos' : 'Edifícios'}
+        buttonName={tipo === 'E' ? 'Equipamentos' : 'Edifícios'}
       >
         <Row>
           <Col md="2">
@@ -114,13 +123,13 @@ class AssetInfo extends Component {
             <div>
               <Row>
                 <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Fabricante</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{asset.modelo}</span></Col>
+                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{modelo}</span></Col>
               </Row>
             </div>
             <div>
               <Row>
                 <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{asset.id}</span></Col>
+                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{id}</span></Col>
               </Row>
             </div>
           </Col>
@@ -196,4 +205,10 @@ class AssetInfo extends Component {
   }
 }
 
-export default AssetInfo;
+const mapStateToProps = storeState => {
+  return {
+    session: storeState.auth.session
+  }
+}
+
+export default connect(mapStateToProps)(AssetInfo);
