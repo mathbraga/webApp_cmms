@@ -6,45 +6,14 @@ import TableWithPages from "../../components/Tables/TableWithPages";
 import "./AssetInfo.css";
 import fetchDB from "../../utils/fetch/fetchDB";
 import { connect } from "react-redux";
+import { tableConfig } from "../Maintenance/WorkOrdersTableConfig";
 
 import { equipmentItems, equipmentConfig } from "./AssetsFakeData";
 
 const descriptionImage = require("../../assets/img/test/ar_cond.jpg");
 const mapIcon = require("../../assets/icons/map.png");
 
-
-const thead =
-  <tr>
-    <th className="text-center checkbox-cell">
-      <CustomInput type="checkbox" />
-    </th>
-    {equipmentConfig.map(column => (
-      <th style={column.style} className={column.className}>{column.description}</th>))
-    }
-  </tr>
-
-const tbody = equipmentItems.map(item => (
-  <tr>
-    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-    <td>
-      <div>{item.equipment}</div>
-      <div className="small text-muted">{item.id}</div>
-    </td>
-    <td>
-      <div className="text-center">{item.manufacturer}</div>
-    </td>
-    <td>
-      <div className="text-center">{item.model}</div>
-    </td>
-    <td>
-      <div className="text-center">{item.category}</div>
-    </td>
-    <td>
-      <div className="text-center">
-        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-      </div>
-    </td>
-  </tr>))
+const ENTRIES_PER_PAGE = 15;
 
 class AssetInfo extends Component {
   constructor(props) {
@@ -52,10 +21,14 @@ class AssetInfo extends Component {
     this.state = {
       tabSelected: "info",
       asset: [],
-      location: false
+      location: false,
+      pageCurrent: 1,
+      goToPage: 1
     };
     this.handleAssetsChange = this.handleAssetsChange.bind(this);
     this.handleClickOnNav = this.handleClickOnNav.bind(this);
+    this.setGoToPage = this.setGoToPage.bind(this);
+    this.setCurrentPage = this.setCurrentPage.bind(this);
   }
 
   handleAssetsChange(dbResponse){
@@ -64,6 +37,16 @@ class AssetInfo extends Component {
 
   handleClickOnNav(tabSelected) {
     this.setState({ tabSelected: tabSelected });
+  }
+
+  setGoToPage(page) {
+    this.setState({ goToPage: page });
+  }
+
+  setCurrentPage(pageCurrent) {
+    this.setState({ pageCurrent: pageCurrent }, () => {
+      this.setState({ goToPage: pageCurrent });
+    });
   }
 
   componentDidMount() {
@@ -76,6 +59,22 @@ class AssetInfo extends Component {
             id
             modelo
           }
+          allWosAssets(condition: {assetId: $assetId}) {
+            edges {
+              node {
+                assetId
+                woId
+                workOrderByWoId {
+                  id
+                  descricao
+                  status1
+                  solicNome
+                  dataCriacao
+                  dataPrazo
+                }
+              }
+            }
+          }
         }
       `,
       variables: {assetId: assetId}
@@ -86,17 +85,57 @@ class AssetInfo extends Component {
   }
 
   render() {
+    const { pageCurrent, goToPage, searchTerm } = this.state;
     const { tabSelected } = this.state;
-    const tipo = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetById.tipo;
-    const modelo = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetById.modelo;
+
+    const type = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetById.tipo;
+    const model = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetById.modelo;
     const id = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetById.id;
-  
+    const allWosAssets = typeof this.state.asset.data === 'undefined' ? [] : this.state.asset.data.allWosAssets.edges;
+    const pageLength = typeof this.state.asset.data === 'undefined' ? [] : this.state.asset.data.allWosAssets.edges.length;
+
+    const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
+    const showItems = allWosAssets.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+
+    const thead =
+      <tr>
+        <th className="text-center checkbox-cell">
+          <CustomInput type="checkbox" />
+        </th>
+        {tableConfig.map(column => (
+          <th style={column.style} className={column.className}>{column.name}</th>))
+        }
+      </tr>
+
+    const tbody = showItems.map(item => (
+      <tr>
+        <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
+        <td>
+          <div>{item.node.workOrderByWoId.id}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.workOrderByWoId.descricao}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.workOrderByWoId.status1}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.workOrderByWoId.dataCriacao}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.workOrderByWoId.dataPrazo}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.workOrderByWoId.solicNome}</div>
+        </td>
+      </tr>))
+
     return (
       <AssetCard
-        sectionName={tipo === 'E' ? 'Equipamento' : 'Edifício'}
+        sectionName={type === 'E' ? 'Equipamento' : 'Edifício'}
         sectionDescription={'Ficha descritiva'}
         handleCardButton={() => { }}
-        buttonName={tipo === 'E' ? 'Equipamentos' : 'Edifícios'}
+        buttonName={type === 'E' ? 'Equipamentos' : 'Edifícios'}
       >
         <Row>
           <Col md="2">
@@ -123,7 +162,7 @@ class AssetInfo extends Component {
             <div>
               <Row>
                 <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Fabricante</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{modelo}</span></Col>
+                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{model}</span></Col>
               </Row>
             </div>
             <div>
@@ -173,7 +212,15 @@ class AssetInfo extends Component {
               <TabPane tabId="maintenance" style={{ width: "100%" }}>
                 <Row>
                   <Col>
-                    <TableWithPages thead={thead} tbody={tbody} />
+                    <TableWithPages 
+                      thead={thead}
+                      tbody={tbody}
+                      pagesTotal={pagesTotal}
+                      pageCurrent={pageCurrent}
+                      goToPage={goToPage}
+                      setCurrentPage={this.setCurrentPage}
+                      setGoToPage={this.setGoToPage}
+                    />
                   </Col>
                 </Row>
               </TabPane>
