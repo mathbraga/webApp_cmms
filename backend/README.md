@@ -43,5 +43,5 @@
       1. Create roles
       1. Create register function
       1. Create authenticate function
-      1. Create users and their accounts (run register function)
+      1. Create users and their accounts
   1. [ last ] End transaction (COMMIT;)

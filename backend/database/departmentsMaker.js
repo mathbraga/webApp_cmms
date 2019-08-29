@@ -879,4 +879,4 @@ arr.forEach(function(setor, i){
 })
 
 
-fs.writeFileSync('./backend/database/setores.sql', result.replace(/1\./g, ''));
+fs.writeFileSync('./backend/database/departments.sql', result.replace(/1\./g, ''));

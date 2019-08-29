@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}\\backend\\database\\testesetores.js"
+      "program": "${workspaceFolder}\\backend\\database\\departmentsMaker.js"
     }
   ]
 }
