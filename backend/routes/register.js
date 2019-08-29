@@ -12,7 +12,7 @@ const client = new Client({
 
 router.post('/', (req, res) => {
   client.connect();
-  client.query('SELECT public.register_user($1, $2, $3, $4)', [req.body.firstName, req.body.lastName, req.body.email, req.body.password], (err, data) => {
+  client.query('SELECT register_user($1, $2, $3, $4)', [req.body.firstName, req.body.lastName, req.body.email, req.body.password], (err, data) => {
     client.end();
     if(err){
       console.log('Erro');
