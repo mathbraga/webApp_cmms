@@ -1,44 +1,5 @@
-drop function if exists get_ceb_bills;
-drop function if exists get_caesb_bills;
 drop function if exists register_user;
-drop function if exists authenticate;
----------------------------------------------------------------
-CREATE OR REPLACE FUNCTION get_ceb_bills (
-  input_meter   integer,
-  input_yyyymm1 integer,
-  input_yyyymm2 integer
-) RETURNS SETOF ceb_bills
-LANGUAGE plpgsql STABLE AS $$
-BEGIN
-IF input_meter = 199 THEN
-  RETURN QUERY SELECT * FROM ceb_bills
-  WHERE TRUE AND yyyymm BETWEEN input_yyyymm1 AND input_yyyymm2
-  ORDER BY ceb_bills.meter_id, ceb_bills.yyyymm;
-ELSE
-  RETURN QUERY SELECT * FROM ceb_bills
-  WHERE meter_id = input_meter AND yyyymm BETWEEN input_yyyymm1 AND input_yyyymm2
-  ORDER BY ceb_bills.meter_id, ceb_bills.yyyymm;
-END IF;
-END; $$;
----------------------------------------------------------------
-CREATE OR REPLACE FUNCTION get_caesb_bills (
-  input_meter   integer,
-  input_yyyymm1	integer,
-  input_yyyymm2 integer
-) RETURNS SETOF caesb_bills
-LANGUAGE plpgsql STABLE AS $$
-BEGIN
-IF meter = 299 THEN
-  RETURN QUERY SELECT * FROM caesb_bills
-  WHERE TRUE AND yyyymm BETWEEN input_yyyymm1 AND input_yyyymm2
-  ORDER BY caesb_bills.meter_id, caesb_bills.yyyymm;
-ELSE
-  RETURN QUERY SELECT * FROM caesb_bills
-  WHERE meter_id = input_meter AND yyyymm BETWEEN yyyymm1 AND yyyymm2
-  ORDER BY caesb_bills.meter_id, caesb_bills.yyyymm;
-END IF;
-END; $$;
----------------------------------------------------------------
+
 CREATE OR REPLACE FUNCTION register_user (
   input_email      text,
   input_name       text,
@@ -98,7 +59,41 @@ begin
   return new_user;
 end;
 $$ language plpgsql strict security definer;
----------------------------------------------------------------
+
+
+select register_user (
+  'exsdfsdfsdfample@senado.leg.br', -- email
+  'Nome',                  -- name
+  'Sobrenome',             -- surname
+  '1234',                  -- phone
+  'SINFRA',                -- department
+  '',                      -- contract
+  'E',                     -- category
+  '123456'                 -- password
+);
+
+
+----------------------------------------
+
+-------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+drop function if exists authenticate;
+
 CREATE OR REPLACE FUNCTION authenticate (
   input_email    text,
   input_password text
@@ -106,7 +101,7 @@ CREATE OR REPLACE FUNCTION authenticate (
 AS $$
 DECLARE
   result  integer;
-  account accounts;
+  account private.accounts;
 begin
   select p.person_id into result
     from persons as p
@@ -122,4 +117,7 @@ begin
     return null;
   end if;
 end; $$;
----------------------------------------------------------------
+
+select authenticate('hzlopes@senado.leg.br', '123456');
+select authenticate('hzlopes@senado.leg.br', '123454565467546');
+select authenticate('hzlsadfsdfdopes@senado.leg.br', '123456');
