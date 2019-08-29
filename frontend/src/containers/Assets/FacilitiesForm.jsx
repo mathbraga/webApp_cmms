@@ -4,11 +4,11 @@ import {
   Input,
   FormGroup,
   Form,
-  Col,
-  Row,
-  CustomInput,
+  Col
 } from 'reactstrap';
-import AssetCard from '../../components/Cards/AssetCard';
+
+import AssetCard from '../../components/Cards/AssetCard'
+import InputWithDropdown from '../../components/Forms/InputWithDropdown';
 
 class FacilitiesForm extends Component {
   constructor(props) {
@@ -60,10 +60,7 @@ class FacilitiesForm extends Component {
             </FormGroup>
             <FormGroup row>
               <Col xs={'8'}>
-                <FormGroup>
-                  <Label htmlFor="department">Departamentos</Label>
-                  <Input type="text" id="department" placeholder="Departamentos que utilizam esta área ..." />
-                </FormGroup>
+                <InputWithDropdown />
               </Col>
             </FormGroup>
             <FormGroup row>

@@ -10,6 +10,8 @@ import {
 } from 'reactstrap';
 import AssetCard from '../../components/Cards/AssetCard';
 
+import "./AssetForm.css";
+
 class AssetForm extends Component {
   constructor(props) {
     super(props);
