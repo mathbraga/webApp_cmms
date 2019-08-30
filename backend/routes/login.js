@@ -21,7 +21,7 @@ passport.use(new LocalStrategy(
   },
   async function(email, password, done){
     // console.log('inside passport.use')
-    let user;
+    let data;
     try {
       data = await client.query('SELECT authenticate($1, $2)', [email, password]);
       if (data.rows.length === 0) {
@@ -61,10 +61,7 @@ router.post('/',
     console.log('req session '+ JSON.stringify(req.session))
     console.log('req user '+ JSON.stringify(req.user))
     res.cookie('cmms:user', req.user.toString());
-
-    // console.log(res.get('set-cookie'))
-
-    res.json({'response': 'response from login'});
+    res.json({'response': 'Login succeeded'});
 });
 
 module.exports = router;

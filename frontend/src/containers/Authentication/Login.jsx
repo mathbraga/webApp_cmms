@@ -1,90 +1,46 @@
 import React, { Component } from "react";
 import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import { login } from "../../redux/actions";
-import { connect } from "react-redux";
+import login from "../../utils/authentication/login";
 import ModalForgottenPassword from "../../components/Modals/ModalForgottenPassword";
-import { serverAddress } from "../../constants";
 
 class Login extends Component {
   constructor(props){
     super(props);
-    this.passwordInputRef = React.createRef();
     this.state = {
       email: "",
       password: "",
+      isFetching: false,
+      loginError: false,
       alertVisible: false,
       modalVisible: false
     }
   }
 
-  componentWillMount = () => {
-    // fetch('http://172.30.49.152:3001/login', {
-    //   method: 'POST',
-    //   credentials: 'include',
-    //   body: JSON.stringify({
-    //     username: 'hehehehehehe@senado.leg.br',
-    //     password: '123456'
-    //   }),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json',
-    //   },
-    // })
-
-    //   .then(r => r.json())
-    //   .then(rjson => console.log(rjson))
-    //   .catch(()=>console.log('Erro no fecth em Dashboard'));
-
-
-  }
-
-  componentDidUpdate = prevProps => {
-    if(this.props.loginError !== prevProps.loginError){
-      if(this.props.loginError){
-        this.setState({
-          alertVisible: true,
-          password: ""
-        });
-        this.passwordInputRef.current.value = "";
-      }
-    }
-  }
-
-  handleLoginInputs = event => {
+  handleInputs = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
-  handleLoginSubmit = event => {
+  handleSubmit = event => {
     event.preventDefault();
-    // this.props.dispatch(login(this.state.email, this.state.password, this.props.history));
-
     this.setState({
+      isFetching: true,
       alertVisible: true,
       alertMessage: "Realizando login...",
       loginError: false,
     });
-
-    fetch('http://172.30.49.152:3001/login', {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    })
-      .then(r => r.json())
-      .then(rjson => {
-        console.log(rjson);
-        this.props.history.push('/painel');
+    login(this.state.email, this.state.password)
+      .then(() => {
+        this.props.history.push("/painel")
       })
-      .catch(() => {
-        console.log('Erro no fetch de login');
+      .catch(alertMessage => {
+        this.setState({
+          isFetching: false,
+          loginError: true,
+          alertVisible: true,
+          alertMessage: alertMessage
+        })
       });
   }
 
@@ -118,6 +74,7 @@ class Login extends Component {
                     <Form>
                       <h1>Login</h1>
                       <p className="text-muted">Faça login em sua conta.</p>
+
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -131,10 +88,12 @@ class Login extends Component {
                           value={this.state.email}
                           placeholder="usuario@senado.leg.br"
                           autoComplete="username"
-                          onChange={this.handleLoginInputs}
+                          onChange={this.handleInputs}
+                          disabled={this.state.isFetching}
                           autoFocus
                         />
                       </InputGroup>
+
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -148,17 +107,19 @@ class Login extends Component {
                           value={this.state.password}
                           placeholder="Senha"
                           autoComplete="current-password"
-                          onChange={this.handleLoginInputs}
-                          innerRef={this.passwordInputRef}
+                          onChange={this.handleInputs}
+                          disabled={this.state.isFetching}
                         />
                       </InputGroup>
+
                       <Row>
                         <Col xs="6">
                           <Button
                             block
                             color="primary"
                             className="px-4"
-                            onClick={this.handleLoginSubmit}  
+                            onClick={this.handleSubmit}  
+                            disabled={this.state.isFetching}
                           >Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
@@ -168,6 +129,7 @@ class Login extends Component {
                             color="primary"
                             className="px-0"
                             onClick={this.openModal}
+                            disabled={this.state.isFetching}
                           >Esqueceu sua senha?
                           </Button>
                         </Col>
@@ -176,15 +138,13 @@ class Login extends Component {
                   </CardBody>
                 </Card>
 
-                <Alert className="mt-4 mx-4" color="warning" isOpen={this.props.isFetching}>
-                  Realizando login...
+                <Alert
+                  className="mt-4 mx-4"
+                  color={this.state.loginError ? "danger": "warning"}
+                  isOpen={this.state.alertVisible}
+                  toggle={this.closeAlert}
+                >{this.state.alertMessage}
                 </Alert>
-
-                {!this.props.isFetching &&
-                  <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
-                    Login falhou. Tente novamente.
-                  </Alert>
-                }
 
               </Col>
             </Row>
@@ -201,15 +161,4 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = storeState => {
-  let isFetching = storeState.auth.isFetching;
-  let loginError = storeState.auth.loginError;
-  let session = storeState.auth.session;
-  return {
-    isFetching: isFetching,
-    loginError: loginError,
-    session: session
-  };
-}
-
-export default connect(mapStateToProps)(Login);
+export default Login;
