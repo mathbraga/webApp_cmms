@@ -27,26 +27,75 @@ class SignUp extends Component {
   }
 
   handleSubmit = event => {
+    // event.preventDefault();
+    // signUpCognito(this.state.email, this.state.password1, this.state.password2).then(user => {
+    //   if(user){
+    //     this.setState({
+    //       user: user,
+    //       modal: true,
+    //       alertVisible: false
+    //     });
+    //   } else {
+    //     this.setState({
+    //       alertVisible: true,
+    //       email: "",
+    //       password1: "",
+    //       password2: ""
+    //     });
+    //     this.emailInputRef.current.value = "";
+    //     this.password1InputRef.current.value = "";
+    //     this.password2InputRef.current.value = "";
+    //   }
+    // });
     event.preventDefault();
-    signUpCognito(this.state.email, this.state.password1, this.state.password2).then(user => {
-      if(user){
-        this.setState({
-          user: user,
-          modal: true,
-          alertVisible: false
-        });
-      } else {
-        this.setState({
-          alertVisible: true,
-          email: "",
-          password1: "",
-          password2: ""
-        });
-        this.emailInputRef.current.value = "";
-        this.password1InputRef.current.value = "";
-        this.password2InputRef.current.value = "";
-      }
-    });
+    // this.props.dispatch(login(this.state.email, this.state.password, this.props.history));
+
+    // this.setState({
+    //   alertVisible: true,
+    //   alertMessage: "Realizando login...",
+    //   loginError: false,
+    // });
+
+    fetch(process.env.REACT_APP_SERVER_URL + '/register', {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({
+        email: 'novousuario@senado.leg.br',
+        name: 'Nome de exemplo',
+        surname: 'Sobrenome Y',
+        phone: '2342343',
+        department: 'COPROJ',
+        contract: '',
+        category: 'E',
+        password: '123456'
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    })
+      .then(() => {
+        fetch(process.env.REACT_APP_SERVER_URL + '/login', {
+          method: 'POST',
+          credentials: 'include',
+          body: JSON.stringify({
+            email: 'novousuario@senado.leg.br',
+            password: '123456'
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+        })
+          .then(r => r.json())
+          .then(rjson => {
+            console.log(rjson);
+            this.props.history.push('/painel');
+          })
+      })
+      .catch(() => {
+        console.log('Erro no fetch de register');
+      });
   }
 
   closeModal = () => {

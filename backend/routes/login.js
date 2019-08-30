@@ -14,12 +14,16 @@ const client = new Client({
 
 client.connect();
 
-passport.use(new LocalStrategy(  
-  async function(username, password, done){
+passport.use(new LocalStrategy(
+  {
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  async function(email, password, done){
     // console.log('inside passport.use')
     let user;
     try {
-      data = await client.query('SELECT authenticate($1, $2)', [username, password]);
+      data = await client.query('SELECT authenticate($1, $2)', [email, password]);
       if (data.rows.length === 0) {
         return done(null, false, {message: 'Incorrect'});
       }

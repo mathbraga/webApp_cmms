@@ -70,7 +70,7 @@ class Login extends Component {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify({
-        username: this.state.email,
+        email: this.state.email,
         password: this.state.password
       }),
       headers: {
