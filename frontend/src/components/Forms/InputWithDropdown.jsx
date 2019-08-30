@@ -10,8 +10,6 @@ import "./InputWithDropdown.css";
 const updateDepartmentValues = (filteredList) => (prevState) => {
   const newListofDepartments = [...prevState.departmentValues, filteredList[prevState.hoveredItem]];
   const newHoveredItem = prevState.hoveredItem === 0 ? 0 : (prevState.hoveredItem - 1);
-  console.log("New List:");
-  console.log(newListofDepartments);
   return {
     departmentValues: newListofDepartments,
     hoveredItem: newHoveredItem,
