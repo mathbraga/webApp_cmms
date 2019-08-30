@@ -7,6 +7,17 @@ import {
 
 import "./InputWithDropdown.css";
 
+const updateDepartmentValues = (filteredList) => (prevState) => {
+  const newListofDepartments = [...prevState.departmentValues, filteredList[prevState.hoveredItem]];
+  const newHoveredItem = prevState.hoveredItem === 0 ? 0 : (prevState.hoveredItem - 1);
+  console.log("New List:");
+  console.log(newListofDepartments);
+  return {
+    departmentValues: newListofDepartments,
+    hoveredItem: newHoveredItem,
+  };
+};
+
 class InputWithDropdown extends Component {
   constructor(props) {
     super(props);
@@ -21,6 +32,7 @@ class InputWithDropdown extends Component {
     this.onHoverItem = this.onHoverItem.bind(this);
     this.onKeyDownInput = this.onKeyDownInput.bind(this);
     this.onRemoveItemFromList = this.onRemoveItemFromList.bind(this);
+    this.onClickItem = this.onClickItem.bind(this);
     this.arrayItems = {};
   }
 
@@ -47,8 +59,6 @@ class InputWithDropdown extends Component {
   onKeyDownInput = (filteredList) => (event) => {
     const { hoveredItem } = this.state;
     const lengthList = filteredList.length;
-    console.log("KeyCode:");
-    console.log(event.keyCode);
     switch (event.keyCode) {
       case 40:
         this.setState(prevState => {
@@ -71,13 +81,7 @@ class InputWithDropdown extends Component {
         });
         break;
       case 13:
-        this.setState(prevState => {
-          const newListofDepartments =
-            [...prevState.departmentValues, filteredList[prevState.hoveredItem]]
-          return {
-            departmentValues: newListofDepartments,
-          };
-        })
+        this.setState(updateDepartmentValues(filteredList));
         break;
     }
   }
@@ -86,10 +90,17 @@ class InputWithDropdown extends Component {
     this.setState(prevState => {
       const newList = prevState.departmentValues.filter(item =>
         item.id !== id);
-      console.log(newList);
       return {
         departmentValues: newList,
+        hoveredItem: 0,
       };
+    });
+  }
+
+  onClickItem = (filteredList) => () => {
+    console.log("Im on CLICK");
+    this.setState(updateDepartmentValues(filteredList), () => {
+      this.setState({ departmentInputValue: "" });
     });
   }
 
@@ -140,12 +151,14 @@ class InputWithDropdown extends Component {
             <ul>
               {filteredList.map((item, index) => (
                 <li
+                  key={item.id}
                   id={item.id}
                   onMouseOver={() => this.onHoverItem(index)}
+                  onMouseDown={this.onClickItem(filteredList)}
                   className={filteredList[hoveredItem].id === item.id ? 'active' : ''}
                   ref={(el) => this.arrayItems[item.id] = el}
                 >{item.name}</li>
-              ))}
+              ), this)}
             </ul>
           </div>
         )}
