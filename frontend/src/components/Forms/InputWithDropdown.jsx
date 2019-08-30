@@ -20,6 +20,7 @@ class InputWithDropdown extends Component {
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.onHoverItem = this.onHoverItem.bind(this);
     this.onKeyDownInput = this.onKeyDownInput.bind(this);
+    this.onRemoveItemFromList = this.onRemoveItemFromList.bind(this);
     this.arrayItems = {};
   }
 
@@ -81,6 +82,17 @@ class InputWithDropdown extends Component {
     }
   }
 
+  onRemoveItemFromList(id) {
+    this.setState(prevState => {
+      const newList = prevState.departmentValues.filter(item =>
+        item.id !== id);
+      console.log(newList);
+      return {
+        departmentValues: newList,
+      };
+    });
+  }
+
   render() {
     const { label, placeholder, listDropdown } = this.props;
     const { departmentInputValue, isDropdownOpen, hoveredItem, departmentValues } = this.state;
@@ -93,12 +105,21 @@ class InputWithDropdown extends Component {
       <FormGroup className={'dropdown-container'}>
         <Label htmlFor="department">{label}</Label>
         {departmentValues.map(item => (
-          <Input
-            type="text"
-            value={item.name}
-            disabled
-            style={{ marginBottom: "3px" }}
-          />
+          <div className='container-selected-items'>
+            <Input
+              type="text"
+              value={item.name}
+              disabled
+              className='selected-items'
+            />
+            <div className='remove-image'>
+              <img
+                src={require("../../assets/icons/remove_icon.png")}
+                alt="Remove"
+                onClick={() => { this.onRemoveItemFromList(item.id) }}
+              />
+            </div>
+          </div>
         ))}
         <Input
           type="text"
