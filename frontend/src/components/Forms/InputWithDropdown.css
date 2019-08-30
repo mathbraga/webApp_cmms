@@ -25,4 +25,11 @@
 
 .dropdown-input ul li {
   margin: 3px 0;
+  padding: 2px;
+}
+
+.dropdown-input li:hover {
+  background: #c1c1dc;
+  cursor: pointer;
+  border-radius: 3px;
 }
