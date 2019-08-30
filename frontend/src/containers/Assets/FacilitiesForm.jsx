@@ -11,17 +11,17 @@ import AssetCard from '../../components/Cards/AssetCard'
 import InputWithDropdown from '../../components/Forms/InputWithDropdown';
 
 const departments = [
-  'Sinfra - Secretaria de Infraestrutura',
-  'Coemant - Coordenação de Manutenção',
-  'Seplag - Serviço de Planejamento e Gestão',
-  'Semac - Serviço de Manutenção Civil',
-  'Segen - Serviço de Gestão de Energia Elétrica',
-  'Semainst - Serviço de Manutenção de Instalações',
-  'Semel - Serviço de Manutenção Eletromecânica',
-  'Seorc - Serviço de Orçamentos',
-  'Copre - Coordenação de Projetos e Reformas',
-  'Coproj - Coordenação de Projetos e Obras de Infraestrtura',
-  'Einfra - Escritório Setorial de Gestão da Sinfra'
+  { id: 'sinfra', name: 'Sinfra - Secretaria de Infraestrutura' },
+  { id: 'coemant', name: 'Coemant - Coordenação de Manutenção' },
+  { id: 'seplag', name: 'Seplag - Serviço de Planejamento e Gestão' },
+  { id: 'semac', name: 'Semac - Serviço de Manutenção Civil' },
+  { id: 'segen', name: 'Segen - Serviço de Gestão de Energia Elétrica' },
+  { id: 'semainst', name: 'Semainst - Serviço de Manutenção de Instalações' },
+  { id: 'semel', name: 'Semel - Serviço de Manutenção Eletromecânica' },
+  { id: 'seorc', name: 'Seorc - Serviço de Orçamentos' },
+  { id: 'copre', name: 'Copre - Coordenação de Projetos e Reformas' },
+  { id: 'coproj', name: 'Coproj - Coordenação de Projetos e Obras de Infraestrtura' },
+  { id: 'einfra', name: 'Einfra - Escritório Setorial de Gestão da Sinfra' },
 ];
 
 class FacilitiesForm extends Component {

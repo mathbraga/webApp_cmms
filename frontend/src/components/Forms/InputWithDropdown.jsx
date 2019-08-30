@@ -11,16 +11,23 @@ class InputWithDropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      departmentValue: '',
+      departmentInputValue: '',
       isDropdownOpen: false,
+      hoveredItem: 0,
+      departmentValues: [],
     }
-    this.onChangeDepartment = this.onChangeDepartment.bind(this);
+    this.onChangeInputDepartment = this.onChangeInputDepartment.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
+    this.onHoverItem = this.onHoverItem.bind(this);
+    this.onKeyDownInput = this.onKeyDownInput.bind(this);
+    this.arrayItems = {};
   }
 
-  onChangeDepartment(event) {
+  onChangeInputDepartment(event) {
+    this.containerScroll.scrollTo(0, 0);
     this.setState({
-      departmentValue: event.target.value,
+      departmentInputValue: event.target.value,
+      hoveredItem: 0,
     });
   }
 
@@ -30,26 +37,93 @@ class InputWithDropdown extends Component {
     });
   }
 
+  onHoverItem(index) {
+    this.setState({
+      hoveredItem: index,
+    });
+  }
+
+  onKeyDownInput = (filteredList) => (event) => {
+    const { hoveredItem } = this.state;
+    const lengthList = filteredList.length;
+    console.log("KeyCode:");
+    console.log(event.keyCode);
+    switch (event.keyCode) {
+      case 40:
+        this.setState(prevState => {
+          if (prevState.hoveredItem === lengthList - 1) { return; }
+          this.arrayItems[filteredList[hoveredItem + 1].id]
+            .scrollIntoViewIfNeeded(false, { behavior: 'smooth' });
+          return {
+            hoveredItem: prevState.hoveredItem + 1
+          }
+        });
+        break;
+      case 38:
+        this.setState(prevState => {
+          if (prevState.hoveredItem === 0) { return; }
+          this.arrayItems[filteredList[hoveredItem - 1].id]
+            .scrollIntoViewIfNeeded(true, { behavior: 'smooth' });
+          return {
+            hoveredItem: prevState.hoveredItem - 1
+          }
+        });
+        break;
+      case 13:
+        this.setState(prevState => {
+          const newListofDepartments =
+            [...prevState.departmentValues, filteredList[prevState.hoveredItem]]
+          return {
+            departmentValues: newListofDepartments,
+          };
+        })
+        break;
+    }
+  }
+
   render() {
     const { label, placeholder, listDropdown } = this.props;
-    const { departmentValue, isDropdownOpen } = this.state;
+    const { departmentInputValue, isDropdownOpen, hoveredItem, departmentValues } = this.state;
+    const filteredList = listDropdown.filter((item) =>
+      (
+        item.name.toLowerCase().includes(departmentInputValue.toLowerCase())
+        && !departmentValues.some(selectedItem => selectedItem.id === item.id)
+      ));
     return (
       <FormGroup className={'dropdown-container'}>
         <Label htmlFor="department">{label}</Label>
+        {departmentValues.map(item => (
+          <Input
+            type="text"
+            value={item.name}
+            disabled
+            style={{ marginBottom: "3px" }}
+          />
+        ))}
         <Input
           type="text"
           id="department"
-          value={departmentValue}
+          style={departmentValues.length === 0 ? {} : { marginTop: "10px" }}
+          value={departmentInputValue}
           placeholder={placeholder}
-          onChange={this.onChangeDepartment}
+          onChange={this.onChangeInputDepartment}
           onFocus={() => this.toggleDropdown(true)}
           onBlur={() => this.toggleDropdown(false)}
+          onKeyDown={this.onKeyDownInput(filteredList)}
         />
         {isDropdownOpen && (
-          <div className="dropdown-input">
+          <div
+            className="dropdown-input"
+            ref={(el) => { this.containerScroll = el }}
+          >
             <ul>
-              {listDropdown.map((item) => (
-                <li>{item}</li>
+              {filteredList.map((item, index) => (
+                <li
+                  id={item.id}
+                  onMouseOver={() => this.onHoverItem(index)}
+                  className={filteredList[hoveredItem].id === item.id ? 'active' : ''}
+                  ref={(el) => this.arrayItems[item.id] = el}
+                >{item.name}</li>
               ))}
             </ul>
           </div>

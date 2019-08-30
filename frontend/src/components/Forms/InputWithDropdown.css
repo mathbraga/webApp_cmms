@@ -28,7 +28,7 @@
   padding: 2px;
 }
 
-.dropdown-input li:hover {
+.dropdown-input .active {
   background: #c1c1dc;
   cursor: pointer;
   border-radius: 3px;
