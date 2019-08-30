@@ -10,6 +10,20 @@ import {
 import AssetCard from '../../components/Cards/AssetCard'
 import InputWithDropdown from '../../components/Forms/InputWithDropdown';
 
+const departments = [
+  'Sinfra - Secretaria de Infraestrutura',
+  'Coemant - Coordenação de Manutenção',
+  'Seplag - Serviço de Planejamento e Gestão',
+  'Semac - Serviço de Manutenção Civil',
+  'Segen - Serviço de Gestão de Energia Elétrica',
+  'Semainst - Serviço de Manutenção de Instalações',
+  'Semel - Serviço de Manutenção Eletromecânica',
+  'Seorc - Serviço de Orçamentos',
+  'Copre - Coordenação de Projetos e Reformas',
+  'Coproj - Coordenação de Projetos e Obras de Infraestrtura',
+  'Einfra - Escritório Setorial de Gestão da Sinfra'
+];
+
 class FacilitiesForm extends Component {
   constructor(props) {
     super(props);
@@ -60,7 +74,11 @@ class FacilitiesForm extends Component {
             </FormGroup>
             <FormGroup row>
               <Col xs={'8'}>
-                <InputWithDropdown />
+                <InputWithDropdown
+                  label={'Departamentos'}
+                  placeholder={'Departamentos que utilizam esta área ...'}
+                  listDropdown={departments}
+                />
               </Col>
             </FormGroup>
             <FormGroup row>
