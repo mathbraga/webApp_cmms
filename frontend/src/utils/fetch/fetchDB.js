@@ -6,7 +6,7 @@ export default function fetchDB(requestBody) {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
     },
     body: JSON.stringify(requestBody),
   })
