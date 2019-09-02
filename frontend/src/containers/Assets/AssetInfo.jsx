@@ -4,90 +4,140 @@ import getAsset from "../../utils/assets/getAsset";
 import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput } from "reactstrap";
 import TableWithPages from "../../components/Tables/TableWithPages";
 import "./AssetInfo.css";
+import fetchDB from "../../utils/fetch/fetchDB";
+import { connect } from "react-redux";
+import { tableConfig } from "../Maintenance/WorkOrdersTableConfig";
 
 import { equipmentItems, equipmentConfig } from "./AssetsFakeData";
 
 const descriptionImage = require("../../assets/img/test/ar_cond.jpg");
 const mapIcon = require("../../assets/icons/map.png");
 
-
-const thead =
-  <tr>
-    <th className="text-center checkbox-cell">
-      <CustomInput type="checkbox" />
-    </th>
-    {equipmentConfig.map(column => (
-      <th style={column.style} className={column.className}>{column.description}</th>))
-    }
-  </tr>
-
-const tbody = equipmentItems.map(item => (
-  <tr>
-    <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-    <td>
-      <div>{item.equipment}</div>
-      <div className="small text-muted">{item.id}</div>
-    </td>
-    <td>
-      <div className="text-center">{item.manufacturer}</div>
-    </td>
-    <td>
-      <div className="text-center">{item.model}</div>
-    </td>
-    <td>
-      <div className="text-center">{item.category}</div>
-    </td>
-    <td>
-      <div className="text-center">
-        <img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />
-      </div>
-    </td>
-  </tr>))
+const ENTRIES_PER_PAGE = 15;
 
 class AssetInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tabSelected: "info",
-      asset: false,
-      location: false
+      asset: [],
+      location: false,
+      pageCurrent: 1,
+      goToPage: 1
     };
+    this.handleAssetsChange = this.handleAssetsChange.bind(this);
+    this.handleClickOnNav = this.handleClickOnNav.bind(this);
+    this.setGoToPage = this.setGoToPage.bind(this);
+    this.setCurrentPage = this.setCurrentPage.bind(this);
+  }
+
+  handleAssetsChange(dbResponse){
+    this.setState({ asset: dbResponse });
+  }
+
+  handleClickOnNav(tabSelected) {
+    this.setState({ tabSelected: tabSelected });
+  }
+
+  setGoToPage(page) {
+    this.setState({ goToPage: page });
+  }
+
+  setCurrentPage(pageCurrent) {
+    this.setState({ pageCurrent: pageCurrent }, () => {
+      this.setState({ goToPage: pageCurrent });
+    });
   }
 
   componentDidMount() {
     let assetId = this.props.location.pathname.slice(13);
-    getAsset(assetId)
-      .then(asset => {
-        console.log("Asset details:");
-        console.log(asset);
-        this.setState({
-          asset: asset,
-        });
-        getAsset(asset.parent).then(loc => {
-          console.log("Location details:");
-          console.log(loc);
-          this.setState({ location: loc });
+    fetchDB({
+      query: `
+        query ($assetId: String!){
+          assetByAssetId(assetId: $assetId) {
+            category
+            assetId
+            model
+            ordersAssetsByAssetId(condition: {assetId: $assetId}) {
+              edges {
+                node {
+                  assetId
+                  orderId
+                  orderByOrderId {
+                    orderId
+                    requestText
+                    status
+                    requestPerson
+                    createdAt
+                    dateLimit
+                  }
+                }
+              }
+            }
+          }
         }
-        )
-      })
-      .catch(message => {
-        console.log(message);
-      });
-  }
-
-  handleClickOnNav(tabSelected) {
-    this.setState({ tabSelected });
+      `,
+      variables: {assetId: assetId}
+    })
+      .then(r => r.json())
+      .then(rjson => this.handleAssetsChange(rjson))
+      .catch(() => console.log('Houve um problema em getAsset.'));
   }
 
   render() {
+    const { pageCurrent, goToPage, searchTerm } = this.state;
     const { tabSelected } = this.state;
-    const { asset } = this.state;
+
+    const type = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetByAssetId.category;
+    const model = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetByAssetId.model;
+    const id = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetByAssetId.assetId;
+    const allWosAssets = typeof this.state.asset.data === 'undefined' ? [] : this.state.asset.data.assetByAssetId.ordersAssetsByAssetId.edges;
+    const pageLength = typeof this.state.asset.data === 'undefined' ? [] : this.state.asset.data.assetByAssetId.ordersAssetsByAssetId.edges.length;
+
+    const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
+    const showItems = allWosAssets.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+
+    const thead =
+      <tr>
+        <th className="text-center checkbox-cell">
+          <CustomInput type="checkbox" />
+        </th>
+        {tableConfig.map(column => (
+          <th style={column.style} className={column.className}>{column.name}</th>))
+        }
+      </tr>
+
+    const tbody = showItems.map(item => (
+      <tr
+        onClick={() => { this.props.history.push('/manutencao/os/view/' + item.node.orderId) }}
+      >
+        <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
+        <td>
+          <div>{item.node.orderId}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.orderByOrderId.requestText}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.orderByOrderId.status}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.orderByOrderId.createdAt}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.orderByOrderId.dateLimit}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.orderByOrderId.requestPerson}</div>
+        </td>
+      </tr>))
+
     return (
       <AssetCard
-        sectionName={asset.tipo === 'E' ? 'Equipamento' : 'Edifício'}
+        sectionName={type === 'E' ? 'Equipamento' : 'Edifício'}
         sectionDescription={'Ficha descritiva'}
         handleCardButton={() => { }}
-        buttonName={asset.tipo === 'E' ? 'Equipamentos' : 'Edifícios'}
+        buttonName={type === 'E' ? 'Equipamentos' : 'Edifícios'}
       >
         <Row>
           <Col md="2">
@@ -114,13 +164,13 @@ class AssetInfo extends Component {
             <div>
               <Row>
                 <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Fabricante</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{asset.modelo}</span></Col>
+                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{model}</span></Col>
               </Row>
             </div>
             <div>
               <Row>
                 <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{asset.id}</span></Col>
+                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{id}</span></Col>
               </Row>
             </div>
           </Col>
@@ -164,7 +214,15 @@ class AssetInfo extends Component {
               <TabPane tabId="maintenance" style={{ width: "100%" }}>
                 <Row>
                   <Col>
-                    <TableWithPages thead={thead} tbody={tbody} />
+                    <TableWithPages 
+                      thead={thead}
+                      tbody={tbody}
+                      pagesTotal={pagesTotal}
+                      pageCurrent={pageCurrent}
+                      goToPage={goToPage}
+                      setCurrentPage={this.setCurrentPage}
+                      setGoToPage={this.setGoToPage}
+                    />
                   </Col>
                 </Row>
               </TabPane>
@@ -196,4 +254,10 @@ class AssetInfo extends Component {
   }
 }
 
-export default AssetInfo;
+const mapStateToProps = storeState => {
+  return {
+    session: storeState.auth.session
+  }
+}
+
+export default connect(mapStateToProps)(AssetInfo);

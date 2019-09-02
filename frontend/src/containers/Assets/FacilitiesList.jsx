@@ -49,15 +49,16 @@ class FacilitiesList extends Component {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
-    let filteredItems = allItems;
+    const allEdges = allItems.data.allAssets.edges;
+
+    let filteredItems = allEdges;
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = allItems.filter(function (item) {
+      filteredItems = allEdges.filter(function (item) {
         return (
-          item.id.toLowerCase().includes(searchTermLower) ||
-          item.nome.toLowerCase().includes(searchTermLower) ||
-          item.parent.toLowerCase().includes(searchTermLower) ||
-          item.subnome.toLowerCase().includes(searchTermLower)
+          item.node.assetId.toLowerCase().includes(searchTermLower) ||
+          item.node.name.toLowerCase().includes(searchTermLower) ||
+          item.node.parent.toLowerCase().includes(searchTermLower)
         );
       });
     }
@@ -67,6 +68,8 @@ class FacilitiesList extends Component {
 
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+
+    console.log(showItems);
 
     const thead =
       <tr>
@@ -80,19 +83,16 @@ class FacilitiesList extends Component {
 
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/ativos/view/' + item.id) }}
+        onClick={() => { this.props.history.push('/ativos/view/' + item.node.assetId) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
-          <div>{item.nome + " - " + item.subnome}</div>
-          <div className="small text-muted">{item.parent}</div>
+          <div>{item.node.name}</div>
+          <div className="small text-muted">{item.node.parent}</div>
         </td>
-        <td className="text-center">{item.id}</td>
-        <td className="text-center">
-          <Badge className="mr-1" color={item.visita ? "success" : "danger"} style={{ width: "60px", color: "black" }}>{item.visita ? "Sim" : "Não"}</Badge>
-        </td>
+        <td className="text-center">{item.node.assetId}</td>
         <td>
-          <div className="text-center">{item.areaconst}</div>
+          <div className="text-center">{item.node.area}</div>
         </td>
         <td>
           <div className="text-center">

@@ -47,19 +47,22 @@ class WorkOrdersList extends Component {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
-    let filteredItems = allItems;
+    const allEdges = allItems.data.allOrders.edges;
+
+    let filteredItems = allEdges;
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = allItems.filter(function (item) {
+      filteredItems = allEdges.filter(function (item) {
         return (
-          item.categoria.toLowerCase().includes(searchTermLower) ||
-          item.solic_nome.toLowerCase().includes(searchTermLower) ||
-          item.descricao.toLowerCase().includes(searchTermLower) ||
-          item.status1.toLowerCase().includes(searchTermLower)
+          item.node.category.toLowerCase().includes(searchTermLower) ||
+          item.node.requestPerson.toLowerCase().includes(searchTermLower) ||
+          item.node.requestText.toLowerCase().includes(searchTermLower) ||
+          item.node.status.toLowerCase().includes(searchTermLower)
         );
       });
     }
 
+    // console.clear();
     console.log("Filtered Items:");
     console.log(filteredItems);
 
@@ -78,23 +81,23 @@ class WorkOrdersList extends Component {
 
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/manutencao/os/view/' + item.id) }}
+        onClick={() => { this.props.history.push('/manutencao/os/view/' + item.node.orderId) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-        <td className="text-center">{item.id}</td>
+        <td className="text-center">{item.node.orderId}</td>
         <td>
-          <div>{item.descricao}</div>
-          <div className="small text-muted">{item.categoria}</div>
+          <div>{item.node.requestText}</div>
+          <div className="small text-muted">{item.node.category}</div>
         </td>
-        <td className="text-center">{item.status1}</td>
+        <td className="text-center">{item.node.status}</td>
         <td>
-          <div className="text-center">{item.data_criacao}</div>
-        </td>
-        <td>
-          <div className="text-center">{item.data_prazo}</div>
+          <div className="text-center">{item.node.createdAt}</div>
         </td>
         <td>
-          <div className="text-center">{item.solic_nome}</div>
+          <div className="text-center">{item.node.dateLimit}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.requestPerson}</div>
         </td>
       </tr>))
 

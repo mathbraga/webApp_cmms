@@ -5,7 +5,7 @@ import WorkOrdersList from "./WorkOrdersList";
 import { tableConfig } from "./WorkOrdersTableConfig";
 import getAllWorkOrders from "../../utils/maintenance/getAllWorkOrders";
 import { connect } from "react-redux";
-import { IncomingMessage } from "http";
+import fetchDB from "../../utils/fetch/fetchDB";
 
 class WorkOrders extends Component {
   constructor(props){
@@ -23,18 +23,36 @@ class WorkOrders extends Component {
         this.props.history.push(`/ativos/view/${assetId}`);
       }
     }
+    this.handleOSChange = this.handleOSChange.bind(this);
+  }
+
+  handleOSChange(dbResponse){
+    this.setState({ workOrders: dbResponse });
   }
 
   componentDidMount(){
-    console.log(process.env);
-    fetch(process.env.REACT_APP_SERVER_URL + '/logout', {
-      method: 'GET',
-      credentials: 'include',
+    fetchDB({
+      query: `
+        query WorkOrderQuery{
+          allOrders {
+            edges {
+              node {
+                category
+                requestPerson
+                status
+                requestText
+                orderId
+                createdAt
+                dateLimit
+              }
+            }
+          }
+        }
+    `
     })
-
     .then(r => r.json())
-    .then(rjson => console.log(rjson))
-    .catch(()=>console.log('Erro no fecth em Dashboard'));
+    .then(rjson => this.handleOSChange(rjson))
+    .catch(() => console.log("Houve um erro ao baixar as ordens de serviços."));
   }
 
   render() {
