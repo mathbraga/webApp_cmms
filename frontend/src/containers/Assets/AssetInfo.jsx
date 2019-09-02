@@ -53,24 +53,24 @@ class AssetInfo extends Component {
     let assetId = this.props.location.pathname.slice(13);
     fetchDB({
       query: `
-        query AssetInfoQuery($assetId: String!){
-          assetById(id: $assetId) {
-            tipo
-            id
-            modelo
-          }
-          allWosAssets(condition: {assetId: $assetId}) {
-            edges {
-              node {
-                assetId
-                woId
-                workOrderByWoId {
-                  id
-                  descricao
-                  status1
-                  solicNome
-                  dataCriacao
-                  dataPrazo
+        query ($assetId: String!){
+          assetByAssetId(assetId: $assetId) {
+            category
+            assetId
+            model
+            ordersAssetsByAssetId(condition: {assetId: $assetId}) {
+              edges {
+                node {
+                  assetId
+                  orderId
+                  orderByOrderId {
+                    orderId
+                    requestText
+                    status
+                    requestPerson
+                    createdAt
+                    dateLimit
+                  }
                 }
               }
             }
@@ -88,11 +88,11 @@ class AssetInfo extends Component {
     const { pageCurrent, goToPage, searchTerm } = this.state;
     const { tabSelected } = this.state;
 
-    const type = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetById.tipo;
-    const model = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetById.modelo;
-    const id = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetById.id;
-    const allWosAssets = typeof this.state.asset.data === 'undefined' ? [] : this.state.asset.data.allWosAssets.edges;
-    const pageLength = typeof this.state.asset.data === 'undefined' ? [] : this.state.asset.data.allWosAssets.edges.length;
+    const type = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetByAssetId.category;
+    const model = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetByAssetId.model;
+    const id = typeof this.state.asset.data === 'undefined' ? null : this.state.asset.data.assetByAssetId.assetId;
+    const allWosAssets = typeof this.state.asset.data === 'undefined' ? [] : this.state.asset.data.assetByAssetId.ordersAssetsByAssetId.edges;
+    const pageLength = typeof this.state.asset.data === 'undefined' ? [] : this.state.asset.data.assetByAssetId.ordersAssetsByAssetId.edges.length;
 
     const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
     const showItems = allWosAssets.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
@@ -108,25 +108,27 @@ class AssetInfo extends Component {
       </tr>
 
     const tbody = showItems.map(item => (
-      <tr>
+      <tr
+        onClick={() => { this.props.history.push('/manutencao/os/view/' + item.node.orderId) }}
+      >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
-          <div>{item.node.workOrderByWoId.id}</div>
+          <div>{item.node.orderId}</div>
         </td>
         <td>
-          <div className="text-center">{item.node.workOrderByWoId.descricao}</div>
+          <div className="text-center">{item.node.orderByOrderId.requestText}</div>
         </td>
         <td>
-          <div className="text-center">{item.node.workOrderByWoId.status1}</div>
+          <div className="text-center">{item.node.orderByOrderId.status}</div>
         </td>
         <td>
-          <div className="text-center">{item.node.workOrderByWoId.dataCriacao}</div>
+          <div className="text-center">{item.node.orderByOrderId.createdAt}</div>
         </td>
         <td>
-          <div className="text-center">{item.node.workOrderByWoId.dataPrazo}</div>
+          <div className="text-center">{item.node.orderByOrderId.dateLimit}</div>
         </td>
         <td>
-          <div className="text-center">{item.node.workOrderByWoId.solicNome}</div>
+          <div className="text-center">{item.node.orderByOrderId.requestPerson}</div>
         </td>
       </tr>))
 

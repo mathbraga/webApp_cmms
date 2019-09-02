@@ -7,6 +7,7 @@ import getAllAssets from "../../utils/assets/getAllAssets";
 import { remove } from "lodash";
 import { dbTables } from "../../aws";
 import fetchDB from "../../utils/fetch/fetchDB";
+import TestComponent from "./TestComponent";
 
 import { locationItems, equipmentItems } from "./AssetsFakeData";
 import { Switch, Route } from "react-router-dom";
@@ -25,32 +26,27 @@ class Assets extends Component {
   }
 
   componentDidMount() {
-    const tipo = this.props.location.pathname.slice(8) === "edificios" ? "A" : "E";
+    const category = this.props.location.pathname.slice(8) === "edificios" ? "F" : "E";
     fetchDB({
       query: `
-      query Query1($tipo: String!) {
-        allAssets(condition: {tipo: $tipo}, orderBy: ID_ASC) {
+      query Query1($category: AssetCategoryType!) {
+        allAssets(condition: {category: $category}, orderBy: ASSET_ID_ASC) {
           edges {
             node {
-              tipo
-              id
-              nome
-              subnome
-              visita
-              areaconst
-              modelo
-              serie
-              assetsParentsById(orderBy: ID_ASC) {
-                nodes {
-                  parent
-                }
-              }
+              assetId
+              category
+              name
+              area
+              model
+              parent
+              manufacturer
+              serialnum
             }
           }
         }
       }
     `,
-    variables: {tipo: tipo}
+    variables: {category: category}
   })
       .then(r => r.json())
       .then(rjson => this.handleAssetsChange(rjson))
@@ -61,7 +57,6 @@ class Assets extends Component {
     return (
       <React.Fragment>
         {console.clear()}
-        {console.log(this.state.assets.data)}
         {(this.state.assets.length !== 0 && this.props.location.pathname.slice(8) === "edificios") &&
           <FacilitiesList
             allItems={this.state.assets}

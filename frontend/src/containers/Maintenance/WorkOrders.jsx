@@ -34,16 +34,16 @@ class WorkOrders extends Component {
     fetchDB({
       query: `
         query WorkOrderQuery{
-          allWorkOrders {
+          allOrders {
             edges {
               node {
-                categoria
-                solicNome
-                status1
-                descricao
-                id
-                dataCriacao
-                dataPrazo
+                category
+                requestPerson
+                status
+                requestText
+                orderId
+                createdAt
+                dateLimit
               }
             }
           }
