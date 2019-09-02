@@ -88,12 +88,14 @@ begin
     person_id,
     password_hash,
     created_at,
-    updated_at
+    updated_at,
+    active
   ) values (
     new_user.person_id,
     crypt(input_password, gen_salt('bf', 10)),
     now(),
-    now()
+    now(),
+    true
   );
   return new_user;
 end;
@@ -106,7 +108,7 @@ CREATE OR REPLACE FUNCTION authenticate (
 AS $$
 DECLARE
   result  integer;
-  account accounts;
+  account private.accounts;
 begin
   select p.person_id into result
     from persons as p
@@ -116,7 +118,11 @@ begin
     from private.accounts as a
     where a.person_id = result;
   
-  if account.password_hash = crypt(input_password, account.password_hash) then
+  if
+    account.password_hash = crypt(input_password, account.password_hash)
+    and
+    account.active
+    then
     return result;
   else
     return null;
