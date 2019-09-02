@@ -89,7 +89,7 @@ begin
     password_hash,
     created_at,
     updated_at,
-    active
+    is_active
   ) values (
     new_user.person_id,
     crypt(input_password, gen_salt('bf', 10)),
@@ -121,7 +121,7 @@ begin
   if
     account.password_hash = crypt(input_password, account.password_hash)
     and
-    account.active
+    account.is_active
     then
     return result;
   else
