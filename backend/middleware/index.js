@@ -1,21 +1,27 @@
 function middleware(req, res, next){
-  
-  // Log request
-  // let date = new Date;
-  // console.log("\n\nRequest to path " + req.path + " from host " + req.hostname + " at " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
-  // console.log('\n\nreq.body:\n' + JSON.stringify(req.body));
-  // var credentials = req.header('Authorization').split(' ')[1];
-  // req.user = {};
-  // req.user.username = credentials.split(':')[0];
-  // req.user.password = credentials.split(':')[1];
-  // console.log('\n\nauth:\n' + JSON.stringify(req.user));
-  // // console.log('req.cookies: ' + JSON.stringify(req.cookies))
-  // console.log('req.signedCookies: ' + JSON.stringify(req.signedCookies))
+
+  // console.log(req)
+
+  // Logs
+  console.log('\n\n\n\n---------------------------------------------------------------');
+  console.log('HOST ' + req.ip + '                REQUESTED PATH: ' + req.path + '\n\n');
+  // console.log('new req session? : ' + req.session.isNew);
+  // console.log('req session: ' + req.user);
+  // console.log('LOGGING MIDDLEWARE FOR ALL ROUTES');
+  console.log('req user: ' + JSON.stringify(req.user));
+  // console.log('New session?')
+  console.log(req.session.isNew);
+  console.log('req session: ' + JSON.stringify(req.session));
+  console.log('\n\n');
+  // console.log('\n\n\n\nREQUEST\n')
 
   // Set headers
-  // res.append({
-  //   'Access-Control-Allow-Origin': '*',
-  //   'Access-Control-Allow-Headers': 'Content-Type',
+  // res.set({
+  //   'Access-Control-Allow-Origin': 'http://localhost:3000',
+  //   'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Content-Length, Accept, Authorization, X-Apollo-Tracing',
+  //   'Access-Control-Allow-Credentials': true,
+  //   'Vary': 'Origin',
+  //   'Access-Control-Allow-Methods': 'HEAD, POST, GET, OPTIONS, DELETE',
   // });
 
   // Call next
