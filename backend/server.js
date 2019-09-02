@@ -93,9 +93,10 @@ app.use(postgraphile(
     // pgDefaultRole: 'unauth',
     pgSettings: async req => {
       const role = req.user ? 'auth': 'unauth';
+      const person_id = req.user ? req.user : 'anonymous';
       return {
       'role': role,
-      // 'jwt.claims.user_id': `${req.user.id}`,
+      'auth.data.user_id': person_id,
       }
     }
   }
