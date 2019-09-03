@@ -24,6 +24,7 @@ app.use(cors({
   origin: true,
   credentials: true,
 }));
+app.use(express.json());
 app.use(cookieSession({
   name: 'cmms:session',
   keys: ['key0', 'key1', 'key2'],
@@ -70,8 +71,8 @@ app.use(postgraphile(
       const role = req.user ? 'auth': 'unauth';
       const person_id = req.user ? req.user : 'anonymous';
       return {
-      'role': role,
-      'auth.data.person_id': person_id,
+        'role': role,
+        'auth.data.person_id': person_id,
       }
     }
   }

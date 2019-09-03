@@ -14,12 +14,14 @@ class Dashboard extends Component {
     console.clear();
     fetchDB({
       query: `
-      query MyQuery($med: Int!){
-        cebMeterByMeterId(meterId: $med) {
-          meterId
-          meterName
+      mutation MyMutation {
+        createPerson(input: {person: {email: "sjfhsjdhfds@senado.leg.br", surname: "surnamee", phone: "23423", category: E, contract: "CT-2014-0088", department: "SINFRA", personId: 167, name: "nome"}}) {
+          person {
+            personId
+          }
         }
       }
+      
     `,
       variables: {med: 123}
     })
