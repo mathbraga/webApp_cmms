@@ -149,7 +149,8 @@ CREATE TABLE	private.accounts	(
 person_id	integer	NOT NULL REFERENCES persons (person_id),
 password_hash	text	NOT NULL,
 created_at	timestamp	NOT NULL,
-updated_at	timestamp	NOT NULL
+updated_at	timestamp	NOT NULL,
+is_active	boolean	NOT NULL DEFAULT true
 );	   	   
 		
 CREATE TABLE	orders	(
@@ -6856,9 +6857,9 @@ INSERT INTO persons VALUES (1, 'hzlopes@senado.leg.br', 'Henrique', 'Zaidan', '2
 INSERT INTO persons VALUES (2, 'pedrohs@senado.leg.br', 'Pedro Henrique', 'Serafim', '2339', 'SEPLAG', null, 'E');		
 INSERT INTO persons VALUES (3, 'igorlima@senado.leg.br', 'Igor', 'Grimaldi', '3629', 'SEGEEN', null, 'E');		
 INSERT INTO persons VALUES (999, 'chefedegabinete@senado.leg.br', 'Chefe', 'de Gabinete', '9999', 'SF', null, 'C');		
-INSERT INTO private.accounts VALUES (1, crypt('123456', gen_salt('bf', 10)), '2019-08-01', '2019-08-02');		
-INSERT INTO private.accounts VALUES (2, crypt('123456', gen_salt('bf', 10)), '2019-08-01', '2019-08-02');		
-INSERT INTO private.accounts VALUES (3, crypt('123456', gen_salt('bf', 10)), '2019-08-01', '2019-08-02');		
+INSERT INTO private.accounts VALUES (1, crypt('123456', gen_salt('bf', 10)), '2019-08-01', '2019-08-02', true);		
+INSERT INTO private.accounts VALUES (2, crypt('123456', gen_salt('bf', 10)), '2019-08-01', '2019-08-02', true);		
+INSERT INTO private.accounts VALUES (3, crypt('123456', gen_salt('bf', 10)), '2019-08-01', '2019-08-02', true);		
 		
 INSERT INTO orders VALUES (1000, 'R', 'N', 'E', null, 0, 'Instalar nova tomada na sala do SEPLAG', 'SEPLAG', 'Pedro Henrique Serafim', 'Pedro', '2339', 'pedrohs@senado.leg.br', 'Nova tomada', 'Mezanino da SINFRA', 1, 'SIGAD', null, null, now(), null);		
 INSERT INTO orders VALUES (2000, 'E', 'H', 'E', null, 50, 'Troca de óleo dos geradores MTU', 'SEGEEN', 'Igor Grimaldi', 'Lauro', '3456', 'coemant@senado.leg.br', 'Troca de óleo', 'Galpão da Gráfica do Senado', 1, 'SIGAD', '2019-09-01', '2019-08-30', '2019-08-30', 'CT-2014-0088');		
@@ -6870,4 +6871,6 @@ GRANT SELECT ON ALL TABLES IN SCHEMA public TO unauth;
 -- CREATE ROLE auth;		
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO auth;		
 		
+ALTER SEQUENCE orders_order_id_seq RESTART WITH 10;		
+ALTER SEQUENCE persons_person_id_seq RESTART WITH 10;		
 COMMIT TRANSACTION;		
