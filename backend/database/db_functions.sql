@@ -129,7 +129,7 @@ begin
   end if;
 end; $$;
 ---------------------------------------------------------------
-CREATE OR REPLACE FUNCTION	create_order (
+CREATE OR REPLACE FUNCTION	create_order_custom (
 input_status	text,
 input_priority	text,
 input_category	text,
@@ -196,8 +196,8 @@ input_request_title,
 input_request_local,	
 input_ans_factor,	
 input_sigad,	
-input_date_limit,	
-input_date_start,	
+input_date_limit::timestamp,	
+input_date_start::timestamp,	
 now(),
 input_contract	
 ) returning order_id into new_order_id;	
@@ -230,3 +230,26 @@ return new_order_id;
 
 end;	
 $$;
+-------------------------------------------------------------------------------
+select create_order_custom (
+  'R',
+  'H',
+  'E',
+  NULL,
+  0,
+  'REQUEST TEXT',
+  'SINFRA'
+  'REQUEST PERSON',
+  'request contact name',
+  'request_contact_phone',
+  'email@email.com',
+  'request title',
+  'request local',
+  1,
+  'sigad',
+  '2019-10-14',
+  '2019-10-12',
+  'CT-2014-0088',
+  'THIS IS THE MESSAGE',
+  {'BL14-MEZ-000', 'BL14-000-000'}
+);
