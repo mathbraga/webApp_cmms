@@ -9,6 +9,7 @@ import {
 
 import AssetCard from '../../components/Cards/AssetCard'
 import InputWithDropdown from '../../components/Forms/InputWithDropdown';
+import SingleInputWithDropDown from '../../components/Forms/SingleInputWithDropdown';
 
 const departments = [
   { id: 'sinfra', name: 'Sinfra - Secretaria de Infraestrutura' },
@@ -22,6 +23,18 @@ const departments = [
   { id: 'copre', name: 'Copre - Coordenação de Projetos e Reformas' },
   { id: 'coproj', name: 'Coproj - Coordenação de Projetos e Obras de Infraestrtura' },
   { id: 'einfra', name: 'Einfra - Escritório Setorial de Gestão da Sinfra' },
+];
+
+const facilities = [
+  { id: 'BL14-001-001', name: 'Bloco 14 - Pavimento 01' },
+  { id: 'BL14-002-001', name: 'Bloco 14 - Pavimento 02' },
+  { id: 'ANX2-001-001', name: 'Anexo 2 - Rui Barbosa' },
+  { id: 'ANX2-002-001', name: 'Anexo 2 - Petrônio Portela' },
+  { id: 'ANX2-003-001', name: 'Anexo 2 - Auditório' },
+  { id: 'ANX1-001-001', name: 'Anexo 1 - Pavimento 01' },
+  { id: 'ANX1-002-001', name: 'Anexo 1 - Pavimento 02' },
+  { id: 'ANX1-003-001', name: 'Anexo 1 - Pavimento 03' },
+  { id: 'ANX1-004-001', name: 'Anexo 1 - Pavimento 04' },
 ];
 
 class FacilitiesForm extends Component {
@@ -61,8 +74,11 @@ class FacilitiesForm extends Component {
             <FormGroup row>
               <Col xs={'8'}>
                 <FormGroup>
-                  <Label htmlFor="parent-asset">Ativo pai</Label>
-                  <Input type="text" id="parent-asset" placeholder="Nível superior da localização ..." />
+                  <SingleInputWithDropDown
+                    label={'Ativo pai'}
+                    placeholder="Nível superior da localização ..."
+                    listDropdown={facilities}
+                  />
                 </FormGroup>
               </Col>
               <Col xs={'4'}>

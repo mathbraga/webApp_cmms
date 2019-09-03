@@ -7,31 +7,31 @@ import {
 
 import "./InputWithDropdown.css";
 
-const updateDepartmentValues = (filteredList) => (prevState) => {
+const updateChosenValue = (filteredList) => (prevState) => {
   if (prevState.hoveredItem < 0 || prevState.hoveredItem >= filteredList.length) {
     return {
-      departmentInputValue: "",
+      inputValue: "",
     };
   }
-  const newListofDepartments = [...prevState.departmentValues, filteredList[prevState.hoveredItem]];
+  const newValue = filteredList[prevState.hoveredItem];
   const newHoveredItem = prevState.hoveredItem === 0 ? 0 : (prevState.hoveredItem - 1);
   return {
-    departmentValues: newListofDepartments,
+    chosenValue: newValue,
     hoveredItem: newHoveredItem,
-    departmentInputValue: "",
+    inputValue: newValue,
   };
 };
 
-class InputWithDropdown extends Component {
+class SingleInputWithDropDown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      departmentInputValue: '',
+      inputValue: '',
       isDropdownOpen: false,
       hoveredItem: 0,
-      departmentValues: [],
+      chosenValue: '',
     }
-    this.onChangeInputDepartment = this.onChangeInputDepartment.bind(this);
+    this.onChangeInput = this.onChangeInput.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.onHoverItem = this.onHoverItem.bind(this);
     this.onKeyDownInput = this.onKeyDownInput.bind(this);
@@ -40,10 +40,10 @@ class InputWithDropdown extends Component {
     this.arrayItems = {};
   }
 
-  onChangeInputDepartment(event) {
+  onChangeInput(event) {
     this.containerScroll.scrollTo(0, 0);
     this.setState({
-      departmentInputValue: event.target.value,
+      inputValue: event.target.value,
       hoveredItem: 0,
     });
   }
@@ -86,61 +86,42 @@ class InputWithDropdown extends Component {
         break;
       case 13:
         this.inputDrop.blur();
-        this.setState(updateDepartmentValues(filteredList));
+        this.setState(updateChosenValue(filteredList));
         break;
     }
   }
 
   onRemoveItemFromList(id) {
     this.setState(prevState => {
-      const newList = prevState.departmentValues.filter(item =>
+      const newList = prevState.chosenValue.filter(item =>
         item.id !== id);
       return {
-        departmentValues: newList,
+        chosenValue: newList,
         hoveredItem: 0,
       };
     });
   }
 
   onClickItem = (filteredList) => () => {
-    this.setState(updateDepartmentValues(filteredList));
+    this.setState(updateChosenValue(filteredList));
   }
 
   render() {
     const { label, placeholder, listDropdown } = this.props;
-    const { departmentInputValue, isDropdownOpen, hoveredItem, departmentValues } = this.state;
+    const { inputValue, isDropdownOpen, hoveredItem } = this.state;
     const filteredList = listDropdown.filter((item) =>
       (
-        item.name.toLowerCase().includes(departmentInputValue.toLowerCase())
-        && !departmentValues.some(selectedItem => selectedItem.id === item.id)
+        item.name.toLowerCase().includes(inputValue.toLowerCase())
       ));
     return (
       <FormGroup className={'dropdown-container'}>
-        <Label htmlFor="department">{label}</Label>
-        {departmentValues.map(item => (
-          <div className='container-selected-items'>
-            <Input
-              type="text"
-              value={item.name}
-              disabled
-              className='selected-items'
-            />
-            <div className='remove-image'>
-              <img
-                src={require("../../assets/icons/remove_icon.png")}
-                alt="Remove"
-                onClick={() => { this.onRemoveItemFromList(item.id) }}
-              />
-            </div>
-          </div>
-        ))}
+        <Label htmlFor="input">{label}</Label>
         <Input
           type="text"
-          id="department"
-          style={departmentValues.length === 0 ? {} : { marginTop: "10px" }}
-          value={departmentInputValue}
+          id="input"
+          value={inputValue}
           placeholder={placeholder}
-          onChange={this.onChangeInputDepartment}
+          onChange={this.onChangeInput}
           onFocus={() => this.toggleDropdown(true)}
           onBlur={() => this.toggleDropdown(false)}
           onKeyDown={this.onKeyDownInput(filteredList)}
@@ -170,4 +151,4 @@ class InputWithDropdown extends Component {
   }
 }
 
-export default InputWithDropdown;
+export default SingleInputWithDropDown;
