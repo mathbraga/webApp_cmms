@@ -4,7 +4,7 @@ import MainPage from "./containers/MainPage";
 const ConsumptionMonitor = React.lazy(() => import("./containers/ConsumptionMonitor"));
 const Dashboard = React.lazy(() => import("./containers/Dashboard"));
 const Login = React.lazy(() => import("./containers/Authentication/Login"));
-const SignUp = React.lazy(() => import("./containers/Authentication/SignUp"));
+const RegisterUser = React.lazy(() => import("./containers/Authentication/RegisterUser"));
 const Assets = React.lazy(() => import("./containers/Assets"));
 const WorkOrders = React.lazy(() => import("./containers/Maintenance/WorkOrders"));
 const NewWorkOrderForm = React.lazy(() => import("./containers/Maintenance/NewWorkOrderForm"));
@@ -17,7 +17,7 @@ const routes = [
   { path: "/", exact: true, component: MainPage },
   { path: "/painel", name: "Painel", component: Dashboard },
   { path: "/login", name: "Login", component: Login },
-  { path: "/cadastro", name: "Cadastro", component: SignUp },
+  { path: "/cadastro", name: "Cadastro", component: RegisterUser },
   { path: "/energia", name: "Energia elétrica", component: ConsumptionMonitor },
   { path: "/agua", name: "Água", component: ConsumptionMonitor },
   { path: "/ativos/view/:id", exact: false, name: "Ativo", component: AssetInfo },

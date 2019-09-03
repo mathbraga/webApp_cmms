@@ -30,36 +30,41 @@ class SignUp extends Component {
   }
 
   handleSubmit = event => {
-    event.preventDefault();
-    this.setState({
-      isFetching: true,
-      alertVisible: true,
-      alertMessage: "Realizando o cadastro...",
-      signupError: false,
-    });
-    signup(this.state)
-      .then(() => {
-        login(this.state.email, this.state.password1)
-          .then(() => {
-            this.props.history.push("/painel")
-          })
-          .catch(alertMessage  => {
-            this.setState({
-              signupError: true,
-              isFetching: false,
-              alertVisible: true,
-              alertMessage: alertMessage,
-            })
-          });
-      })
-      .catch(alertMessage => {
-        this.setState({
-          signupError: true,
-          isFetching: false,
-          alertVisible: true,
-          alertMessage: alertMessage,
-        })
-      })
+    
+
+    // DELETE CODE BELOW. USE APOLLO CLIENT WITH REGISTERUSER MUTATION.
+
+    
+    // event.preventDefault();
+    // this.setState({
+    //   isFetching: true,
+    //   alertVisible: true,
+    //   alertMessage: "Realizando o cadastro...",
+    //   signupError: false,
+    // });
+    // signup(this.state)
+    //   .then(() => {
+    //     login(this.state.email, this.state.password1)
+    //       .then(() => {
+    //         this.props.history.push("/painel")
+    //       })
+    //       .catch(alertMessage  => {
+    //         this.setState({
+    //           signupError: true,
+    //           isFetching: false,
+    //           alertVisible: true,
+    //           alertMessage: alertMessage,
+    //         })
+    //       });
+    //   })
+    //   .catch(alertMessage => {
+    //     this.setState({
+    //       signupError: true,
+    //       isFetching: false,
+    //       alertVisible: true,
+    //       alertMessage: alertMessage,
+    //     })
+    //   })
   }
 
   closeAlert = () => {

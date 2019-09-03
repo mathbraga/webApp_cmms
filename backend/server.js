@@ -12,7 +12,6 @@ const middleware = require('./middleware');
 const cors = require('cors')
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
 
@@ -34,7 +33,6 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(middleware);
-app.use("/register", registerRoute);
 app.use("/login", loginRoute);
 app.use("/logout", logoutRoute);
 

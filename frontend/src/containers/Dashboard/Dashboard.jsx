@@ -15,12 +15,13 @@ class Dashboard extends Component {
     fetchDB({
       query: `
       mutation MyMutation {
-        createPerson(input: {person: {email: "sjfhsjdhfds@senado.leg.br", surname: "surnamee", phone: "23423", category: E, contract: "CT-2014-0088", department: "SINFRA", personId: 167, name: "nome"}}) {
+        registerUser(input: {inputEmail: "aabbcc@senado.leg.br", inputName: "lkjsdklj", inputSurname: "junior", inputPhone: "4654", inputDepartment: "SINFRA", inputContract: "CT-2014-0088", inputCategory: "E", inputPassword: "123456"}) {
           person {
-            personId
+            email
           }
         }
       }
+      
       
     `,
       variables: {med: 123}
