@@ -71,7 +71,7 @@ app.use(postgraphile(
       const person_id = req.user ? req.user : 'anonymous';
       return {
       'role': role,
-      'auth.data.user_id': person_id,
+      'auth.data.person_id': person_id,
       }
     }
   }
