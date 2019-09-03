@@ -7,6 +7,8 @@ import {
   Col
 } from 'reactstrap';
 
+import "./FacilitiesForm.css";
+
 import AssetCard from '../../components/Cards/AssetCard'
 import InputWithDropdown from '../../components/Forms/InputWithDropdown';
 import SingleInputWithDropDown from '../../components/Forms/SingleInputWithDropdown';
@@ -35,6 +37,14 @@ const facilities = [
   { id: 'ANX1-002-001', name: 'Anexo 1 - Pavimento 02' },
   { id: 'ANX1-003-001', name: 'Anexo 1 - Pavimento 03' },
   { id: 'ANX1-004-001', name: 'Anexo 1 - Pavimento 04' },
+];
+
+const category = [
+  { id: 1, name: 'Ala' },
+  { id: 2, name: 'Auditório' },
+  { id: 3, name: 'Edifício' },
+  { id: 4, name: 'Sala' },
+  { id: 5, name: 'Pavimento' },
 ];
 
 class FacilitiesForm extends Component {
@@ -83,7 +93,7 @@ class FacilitiesForm extends Component {
               </Col>
               <Col xs={'4'}>
                 <FormGroup>
-                  <Label htmlFor="area">Área</Label>
+                  <Label htmlFor="area">Área (m²)</Label>
                   <Input type="text" id="area" placeholder="Área total ..." />
                 </FormGroup>
               </Col>
@@ -100,8 +110,11 @@ class FacilitiesForm extends Component {
             <FormGroup row>
               <Col xs={'4'}>
                 <FormGroup>
-                  <Label htmlFor="latitude">Categoria</Label>
-                  <Input type="text" id="latitude" placeholder="Categoria ..." />
+                  <SingleInputWithDropDown
+                    label={'Categoria'}
+                    placeholder="Categoria ..."
+                    listDropdown={category}
+                  />
                 </FormGroup>
               </Col>
               <Col xs={'4'}>
