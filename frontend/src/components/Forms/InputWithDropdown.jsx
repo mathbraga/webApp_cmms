@@ -136,6 +136,7 @@ class InputWithDropdown extends Component {
         ))}
         <Input
           type="text"
+          autoComplete="off"
           id="department"
           style={departmentValues.length === 0 ? {} : { marginTop: "10px" }}
           value={departmentInputValue}

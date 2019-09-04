@@ -117,6 +117,7 @@ class SingleInputWithDropDown extends Component {
         <Label htmlFor="input">{label}</Label>
         <Input
           type="text"
+          autoComplete="off"
           id="input"
           value={inputValue}
           placeholder={placeholder}
