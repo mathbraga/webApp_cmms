@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import signup from "../../utils/authentication/signup";
-import login from "../../utils/authentication/login";
+import loginFetch from "../../utils/authentication/loginFetch";
 import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
 class SignUp extends Component {
@@ -44,7 +44,7 @@ class SignUp extends Component {
     // });
     // signup(this.state)
     //   .then(() => {
-    //     login(this.state.email, this.state.password1)
+    //     loginFetch(this.state.email, this.state.password1)
     //       .then(() => {
     //         this.props.history.push("/painel")
     //       })

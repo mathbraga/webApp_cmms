@@ -14,8 +14,6 @@ import {
   InputGroupAddon,
   InputGroupText
 } from "reactstrap";
-import forgotCognito from "../../utils/authentication/forgotCognito";
-import setNewPasswordCognito from "../../utils/authentication/setNewPasswordCognito";
 
 class ModalForgottenPassword extends Component {
   constructor(props){
@@ -31,51 +29,51 @@ class ModalForgottenPassword extends Component {
     }
   }
 
-  handleChangeInputs = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
+  // handleChangeInputs = event => {
+  //   this.setState({
+  //     [event.target.name]: event.target.value
+  //   });
+  // }
 
-  requestCode = event => {
-    event.preventDefault();
-    forgotCognito(this.state.email).then(response => {
-      if(response){
-        this.setState({
-          alertVisible: false,
-          emailOK: true
-        });
-      } else {
-        this.setState({
-          alertVisible: true,
-          emailOK: false
-        });
-      }
-    });
-  }
+  // requestCode = event => {
+  //   event.preventDefault();
+  //   forgotCognito(this.state.email).then(response => {
+  //     if(response){
+  //       this.setState({
+  //         alertVisible: false,
+  //         emailOK: true
+  //       });
+  //     } else {
+  //       this.setState({
+  //         alertVisible: true,
+  //         emailOK: false
+  //       });
+  //     }
+  //   });
+  // }
 
-  handleNewPassword = event => {
-    event.preventDefault();
-    setNewPasswordCognito(this.state.email, this.state.code, this.state.newPassword1, this.state.newPassword2).then(response => {
-      if(response){
-        this.setState({
-          alertVisible: true,
-          newPasswordOK: true
-        });
-      } else {
-        this.setState({
-          alertVisible: true,
-          newPasswordOK: false
-        });
-      }
-    });
-  }
+  // handleNewPassword = event => {
+  //   event.preventDefault();
+  //   setNewPasswordCognito(this.state.email, this.state.code, this.state.newPassword1, this.state.newPassword2).then(response => {
+  //     if(response){
+  //       this.setState({
+  //         alertVisible: true,
+  //         newPasswordOK: true
+  //       });
+  //     } else {
+  //       this.setState({
+  //         alertVisible: true,
+  //         newPasswordOK: false
+  //       });
+  //     }
+  //   });
+  // }
 
-  closeAlert = event => {
-    this.setState({
-      alertVisible: false
-    });
-  }
+  // closeAlert = event => {
+  //   this.setState({
+  //     alertVisible: false
+  //   });
+  // }
   
   render() {
 
@@ -109,10 +107,16 @@ class ModalForgottenPassword extends Component {
                     {!this.state.emailOK && !this.state.newPasswordOK &&
                       <React.Fragment>
                         <Form>
-                          <p className="text-muted">
+                          {/* <p className="text-muted">
                             Insira seu email no campo abaixo para solicitar o código de verificação e cadastrar uma nova senha.
+                          </p> */}
+
+                          <p className="text-muted">
+                            Funcionalidade ainda não disponível. Por favor, entre em contato com o SEPLAG.
                           </p>
-                          <InputGroup className="mb-4 mt-3">
+
+
+                          {/* <InputGroup className="mb-4 mt-3">
                             <InputGroupAddon addonType="prepend">
                               <InputGroupText>
                                 <i className="icon-user"></i>
@@ -133,7 +137,7 @@ class ModalForgottenPassword extends Component {
                             color="primary"
                             onClick={this.requestCode}
                           >Solicitar código de verificação
-                          </Button>
+                          </Button> */}
                         </Form>
 
                         <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
