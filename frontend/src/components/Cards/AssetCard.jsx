@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardBody, Col, Row, Button, CardHeader } from "reactstrap";
+import { Card, CardBody, Col, Row, Button, CardHeader, CardFooter } from "reactstrap";
 import "./AssetCard.css"
 
 const configIcon = require("../../assets/icons/config_icon.png");
@@ -20,7 +20,8 @@ class AssetCard extends Component {
       sectionDescription,
       handleCardButton,
       buttonName,
-      children
+      children,
+      isForm = false
     } = this.props;
 
     return (
@@ -48,6 +49,12 @@ class AssetCard extends Component {
           </Row>
         </CardHeader>
         <CardBody>{children}</CardBody>
+        {isForm && (
+          <CardFooter>
+            <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i>  Cadastrar</Button>
+            <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i>  Cancelar</Button>
+          </CardFooter>
+        )}
       </Card>
     );
   }

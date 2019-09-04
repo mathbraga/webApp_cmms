@@ -16,7 +16,7 @@ import createWorkOrder from "../../utils/maintenance/createWorkOrder";
 import { allAssets } from "./allAssets";
 
 class NewWorkOrderForm extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       assetsList: [""],
@@ -42,26 +42,26 @@ class NewWorkOrderForm extends Component {
       alertMessage: "Cadastrando ordem de serviço..."
     });
     createWorkOrder(this.state)
-    .then(resolveMessage => {
-      this.setState({
-        alertVisible: true,
-        alertColor: "success",
-        alertMessage: resolveMessage
+      .then(resolveMessage => {
+        this.setState({
+          alertVisible: true,
+          alertColor: "success",
+          alertMessage: resolveMessage
+        });
+      })
+      .catch(rejectMessage => {
+        this.setState({
+          alertVisible: true,
+          alertColor: "danger",
+          alertMessage: rejectMessage
+        });
       });
-    })
-    .catch(rejectMessage => {
-      this.setState({
-        alertVisible: true,
-        alertColor: "danger",
-        alertMessage: rejectMessage
-      });
-    });
   }
 
   assignAsset = event => {
     let i = parseInt(event.target.name, 10);
     let assetId = event.target.value;
-    if(this.state.assetsList.includes(assetId)){
+    if (this.state.assetsList.includes(assetId)) {
       alert('ATIVO REPETIDO! O ATIVO SERÁ REMOVIDO DA LISTA.');
       this.setState(prevState => {
         let nextAssetsList = [...prevState.assetsList];
@@ -91,7 +91,7 @@ class NewWorkOrderForm extends Component {
 
   removeAsset = event => {
     let i = parseInt(event.target.name, 10);
-    if(this.state.assetsList.length === 1){
+    if (this.state.assetsList.length === 1) {
       alert("Pelo menos um ativo deve ser escolhido.");
     } else {
       let nextAssetsList = [...this.state.assetsList];
@@ -482,7 +482,7 @@ class NewWorkOrderForm extends Component {
                 >Remover</Button>
               </InputGroup>
             ))}
-            
+
             <Button
               color="warning"
               onClick={this.addAsset}
@@ -527,7 +527,7 @@ class NewWorkOrderForm extends Component {
 
 const mapStateToProps = storeState => {
   return {
-    session: storeState.auth.session
+    session: storeState.auth.session,
   }
 }
 
