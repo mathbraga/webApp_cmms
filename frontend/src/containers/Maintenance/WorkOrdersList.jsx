@@ -46,8 +46,7 @@ class WorkOrdersList extends Component {
   render() {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
-
-    const allEdges = allItems.data.allOrders.edges;
+    const allEdges = allItems.allOrders.edges;
 
     let filteredItems = allEdges;
     if (searchTerm.length > 0) {
