@@ -49,7 +49,7 @@ class FacilitiesList extends Component {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
-    const allEdges = allItems.data.allAssets.edges;
+    const allEdges = allItems.allAssets.edges;
 
     let filteredItems = allEdges;
     if (searchTerm.length > 0) {
