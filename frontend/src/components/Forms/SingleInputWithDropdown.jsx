@@ -14,10 +14,9 @@ const updateChosenValue = (filteredList) => (prevState) => {
     };
   }
   const newValue = filteredList[prevState.hoveredItem].name;
-  const newHoveredItem = prevState.hoveredItem === 0 ? 0 : (prevState.hoveredItem - 1);
   return {
     chosenValue: newValue,
-    hoveredItem: newHoveredItem,
+    hoveredItem: 0,
     inputValue: newValue,
   };
 };
