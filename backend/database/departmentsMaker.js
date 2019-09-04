@@ -851,7 +851,7 @@ arr.forEach(function(setor, i){
   var nome = setorArray.slice(1).join(' ');
   departments += "INSERT INTO departments VALUES ('" + sigla + "', '" + nome + "');\n"
   if(i === 0){
-    result += "INSERT INTO departments_parents VALUES ('SF', 'SF');\n";
+    result += "INSERT INTO departments VALUES ('SF', 'SF', 'Senado Federal', true);\n";
   } else {
     var x = 0;
     for(var n = 0; n <= setor.length - 1;n++){
@@ -871,7 +871,7 @@ arr.forEach(function(setor, i){
       
       if(y < x){
         var sigla_pai = arr[j].split(' ')[0];
-        result += "INSERT INTO departments_parents VALUES ('" + sigla + "', '" + sigla_pai + "');\n";
+        result += "INSERT INTO departments VALUES ('" + sigla + "', '" + sigla_pai + "', '" + nome + "', true);\n";
         break;
       }
     }
@@ -879,4 +879,4 @@ arr.forEach(function(setor, i){
 })
 
 
-fs.writeFileSync('./backend/database/setores.sql', ('BEGIN;\n\n' + departments + '\n\n\n\n' + result + '\nCOMMIT;\n').replace(/1\./g, ''));
+fs.writeFileSync('./backend/database/departments.sql', result.replace(/1\./g, ''));
