@@ -13,18 +13,29 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
+import { onError } from 'apollo-link-error';
+import { ApolloLink } from 'apollo-link';
 
 const store = configureStore(preloadedState);
+
 const httpLink = new HttpLink({
-  uri: 'http://172.30.49.152:3001/graphiql',
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  },
+  uri: 'http://172.30.49.152:3001/db',
+  credentials: 'include',
+});
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if(graphQLErrors){
+    console.log("Erro de busca no banco de dados.");
+  }
+  if(networkError){
+    console.log("Erro de conexão.");
+  }
 });
 const cache = new InMemoryCache();
+const link = ApolloLink.from([errorLink, httpLink]);
+
 const client = new ApolloClient({
-  link: httpLink,
+  link,
   cache,
 });
 

@@ -6,13 +6,12 @@ import { tableConfig } from "./WorkOrdersTableConfig";
 import getAllWorkOrders from "../../utils/maintenance/getAllWorkOrders";
 import { connect } from "react-redux";
 import fetchDB from "../../utils/fetch/fetchDB";
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class WorkOrders extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      workOrders: []
-    }
     this.viewEntity = {
       id: event => {
         let workOrderId = event.target.name;
@@ -23,48 +22,47 @@ class WorkOrders extends Component {
         this.props.history.push(`/ativos/view/${assetId}`);
       }
     }
-    this.handleOSChange = this.handleOSChange.bind(this);
-  }
-
-  handleOSChange(dbResponse){
-    this.setState({ workOrders: dbResponse });
-  }
-
-  componentDidMount(){
-    fetchDB({
-      query: `
-        query WorkOrderQuery{
-          allOrders {
-            edges {
-              node {
-                category
-                requestPerson
-                status
-                requestText
-                orderId
-                createdAt
-                dateLimit
-              }
-            }
-          }
-        }
-    `
-    })
-    .then(r => r.json())
-    .then(rjson => this.handleOSChange(rjson))
-    .catch(() => console.log("Houve um erro ao baixar as ordens de serviços."));
   }
 
   render() {
-    return (
-      <React.Fragment>
-        {this.state.workOrders.length !== 0 &&
-        <WorkOrdersList
-          allItems={this.state.workOrders}
-          viewEntity={this.viewEntity}
-        />
+    const osQuery = gql`
+    query WorkOrderQuery{
+      allOrders(orderBy: ORDER_ID_ASC) {
+        edges {
+          node {
+            category
+            requestPerson
+            status
+            requestText
+            orderId
+            createdAt
+            dateLimit
+          }
         }
-      </React.Fragment>
+      }
+    }`;
+
+    return (
+      <Query query={osQuery}>{
+        ({loading, error, data}) => {
+        if(loading) return null
+        if(error){
+          console.log("Erro ao tentar baixar as OS!");
+          return null
+        }
+        const workOrders = data;
+
+        return(
+          <React.Fragment>
+            {workOrders.allOrders.edges.length !== 0 &&
+            <WorkOrdersList
+              allItems={workOrders}
+              viewEntity={this.viewEntity}
+            />
+            }
+          </React.Fragment>
+        )}
+        }</Query>
     );
   }
 }
