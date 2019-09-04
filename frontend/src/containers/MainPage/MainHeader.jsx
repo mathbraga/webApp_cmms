@@ -40,7 +40,7 @@ class MainHeader extends Component {
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <Nav className="d-md-down-none ml-auto" navbar>
-          {!this.props.session &&
+          {!this.props.email &&
             <React.Fragment>
               <NavItem className="px-3">
                 <Link to="/cadastro" className="nav-link">
@@ -54,12 +54,12 @@ class MainHeader extends Component {
               </NavItem>
             </React.Fragment>
           }
-          {this.props.session &&
+          {this.props.email &&
             <AppHeaderDropdown direction="down">
               <React.Fragment>
                 <DropdownToggle nav className="px-3">
                   <i className="fa fa-user-circle" />
-                  {" " + this.props.session.idToken.payload.email}
+                  {" " + this.props.email}
                 </DropdownToggle>
                 <DropdownMenu right style={{ right: 'auto' }}>
                   {/* <DropdownItem><i className="fa fa-user"></i>Perfil</DropdownItem> */}
@@ -76,9 +76,9 @@ class MainHeader extends Component {
 }
 
 const mapStateToProps = storeState => {
-  let session = storeState.auth.session;
+  let email = storeState.auth.email;
   return {
-    session
+    email
   }
 }
 

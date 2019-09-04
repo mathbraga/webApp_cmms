@@ -1,4 +1,4 @@
-export default function login(email, password){
+export default function loginFetch(email, password){
   return new Promise((resolve, reject) => {
     
     fetch(process.env.REACT_APP_SERVER_URL + '/login', {

@@ -10,51 +10,31 @@ const http = require('http');
 const server = http.createServer(app);
 const middleware = require('./middleware');
 const cors = require('cors')
-const cookieParser = require('cookie-parser');
 const passport = require('passport');
-// const LocalStrategy = require('passport-local').Strategy;
 const cookieSession = require('cookie-session');
-const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
 
-// app.set('trust proxy', true);
+// Configure application (https://expressjs.com/en/4x/api.html#app.set)
+// app.set('trust proxy', 1);
 
 // Middlewares
 app.use(cors({
   origin: true,
   credentials: true,
-  // allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Content-Length', 'Accept', 'Authorization', 'X-Apollo-Tracing'],
 }));
-// app.use(middleware);
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-app.use(cookieParser());
 app.use(cookieSession({
   name: 'cmms:session',
   keys: ['key0', 'key1', 'key2'],
-  secret: 'secret',
   signed: true,
-  httpOnly: false
+  httpOnly: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(middleware);
-
-app.use("/register", registerRoute);
 app.use("/login", loginRoute);
 app.use("/logout", logoutRoute);
-
-// Testing route (/teste)
-app.get('/teste', function(req, res){
-  console.log('inside /teste')
-  console.log(req.session)
-  console.log(req.cookies)
-  console.log(req.signedCookies)
-  // console.log(req.session.isNew)
-  res.json({'response': '/teste'})
-})
 
 // PostGraphile route (/db)
 app.use(postgraphile(
@@ -69,7 +49,7 @@ app.use(postgraphile(
   },
 
   // schemaName (array of strings)
-  ["public"/*, "private_schema"*/],
+  ["public"],
 
   // options (object)
   {
@@ -77,9 +57,6 @@ app.use(postgraphile(
     // https://www.graphile.org/postgraphile/usage-library/#api-postgraphilepgconfig-schemaname-options
     watchPg: true,
     enableCors: false,
-    // exportJsonSchemaPath: "../schema.json",
-    // exportGqlSchemaPath: "../schema.graphql",
-    // sortExport: true,
     graphqlRoute: "/db",
     graphiql: true,
     graphiqlRoute: "/graphiql",
@@ -88,15 +65,12 @@ app.use(postgraphile(
     dynamicJson: true,
     showErrorStack: 'json',
     extendedErrors: ['hint', 'detail', 'errcode'],
-    // jwtPgTypeIdentifier: 'public.jwt_token',
-    // jwtSecret: 'SECRET',
-    // pgDefaultRole: 'unauth',
     pgSettings: async req => {
       const role = req.user ? 'auth': 'unauth';
-      const person_id = req.user ? req.user : 'anonymous';
+      const person_id = req.user ? req.user : 3;
       return {
-      'role': role,
-      'auth.data.user_id': person_id,
+        'role': role,
+        'auth.data.person_id': person_id,
       }
     }
   }

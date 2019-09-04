@@ -1,6 +1,6 @@
-import loginCognito from "../utils/authentication/loginCognito";
-import logoutCognito from "../utils/authentication/logoutCognito";
 import handleSearch from "../utils/consumptionMonitor/handleSearch";
+import loginFetch from "../utils/authentication/loginFetch";
+import logoutFetch from "../utils/authentication/logoutFetch";
 
 // Action types
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
@@ -27,10 +27,10 @@ function loginRequest() {
   };
 }
 
-function loginSuccess(userSession) {
+function loginSuccess(loggedUserEmail) {
   return {
     type: LOGIN_SUCCESS,
-    session: userSession
+    email: loggedUserEmail
   };
 }
 
@@ -43,14 +43,14 @@ function loginFailure() {
 export function login(email, password, history) {
   return dispatch => {
     dispatch(loginRequest());
-    return loginCognito(email, password).then(session => {
-      if (session) {
-        dispatch(loginSuccess(session));
+    return loginFetch(email, password)
+      .then(() => {
+        dispatch(loginSuccess(email));
         history.push("/painel");
-      } else {
+      })
+      .catch(() => {
         dispatch(loginFailure());
-      }
-    });
+      });
   };
 }
 
@@ -81,15 +81,15 @@ function cleanCache() {
 export function logout(history) {
   return (dispatch, getState) => {
     dispatch(logoutRequest());
-    return logoutCognito(getState().auth.session).then(logoutResponse => {
-      if (logoutResponse) {
+    return logoutFetch()
+      .then(() => {
         dispatch(logoutSuccess());
         dispatch(cleanCache());
         history.push("/login");
-      } else {
+      })
+      .catch(() => {
         dispatch(logoutFailure());
-      }
-    });
+      });
   };
 }
 

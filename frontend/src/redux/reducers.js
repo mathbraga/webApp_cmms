@@ -17,7 +17,7 @@ import {
 
 function auth(
   state = {
-    session: false,
+    email: false,
     isFetching: false,
     loginError: false
   },
@@ -32,7 +32,7 @@ function auth(
 
     case LOGIN_SUCCESS:
       return Object.assign({}, state, {
-        session: action.session,
+        email: action.email,
         isFetching: false,
         loginError: false
       });
@@ -51,7 +51,7 @@ function auth(
 
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
-        session: false,
+        email: false,
         isFetching: false,
         logoutError: false
       });

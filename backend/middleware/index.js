@@ -1,10 +1,16 @@
 function middleware(req, res, next){
 
+  const date = new Date();
   // console.log(req)
 
   // Logs
-  console.log('\n\n\n\n---------------------------------------------------------------');
-  console.log('HOST ' + req.ip + '                REQUESTED PATH: ' + req.path + '\n\n');
+  console.log('\n\n\n\n-----------------------------------------------------------------------');
+  console.log(
+    'HOST ' + req.ip +
+    '    REQUESTED PATH: ' + req.path +
+    '    TIME: ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() +
+    '\n\n'
+  );
   // console.log('new req session? : ' + req.session.isNew);
   // console.log('req session: ' + req.user);
   // console.log('LOGGING MIDDLEWARE FOR ALL ROUTES');
