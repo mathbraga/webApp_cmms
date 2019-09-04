@@ -15,13 +15,6 @@ import { locationItems, equipmentItems } from "./AssetsFakeData";
 import { Switch, Route } from "react-router-dom";
 
 class Assets extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      assets: []
-    };
-  }
-
   render() {
     const category = this.props.location.pathname.slice(8) === "edificios" ? "F" : "E";
     const fetchAssets = gql`
