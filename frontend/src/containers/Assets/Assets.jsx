@@ -19,7 +19,7 @@ class Assets extends Component {
     const category = this.props.location.pathname.slice(8) === "edificios" ? "F" : "E";
     const fetchAssets = gql`
       query assetsQuery($category: AssetCategoryType!) {
-        allAssets(condition: {category: $category}) {
+        allAssets(condition: {category: $category}, orderBy: ASSET_ID_ASC) {
           edges {
             node {
               parent
