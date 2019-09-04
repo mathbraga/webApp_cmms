@@ -153,7 +153,6 @@ export const equipmentItems = [
 export const locationConfig = [
   { name: "location", description: "Localização", style: { width: "200px" }, className: "" },
   { name: "code", description: "Código", style: { width: "80px" }, className: "text-center" },
-  { name: "visiting", description: "Visitação", style: { width: "70px" }, className: "text-center" },
   { name: "area", description: "Área", style: { width: "50px" }, className: "text-center" },
   { name: "map", description: "Planta", style: { width: "50px" }, className: "text-center" }
 ];

@@ -49,15 +49,17 @@ class EquipmentsList extends Component {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
-    let filteredItems = allItems;
+    const allEdges = allItems.data.allAssets.edges;
+
+    let filteredItems = allEdges;
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = allItems.filter(function (item) {
+      filteredItems = allEdges.filter(function (item) {
         return (
-          item.id.toLowerCase().includes(searchTermLower) ||
-          item.nome.toLowerCase().includes(searchTermLower) ||
-          item.parent.toLowerCase().includes(searchTermLower) ||
-          item.modelo.toLowerCase().includes(searchTermLower)
+          item.node.assetId.toLowerCase().includes(searchTermLower) ||
+          item.node.name.toLowerCase().includes(searchTermLower) ||
+          item.node.parent.toLowerCase().includes(searchTermLower) ||
+          item.node.model.toLowerCase().includes(searchTermLower)
         );
       });
     }
@@ -80,18 +82,18 @@ class EquipmentsList extends Component {
 
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/ativos/view/' + item.id) }}
+        onClick={() => { this.props.history.push('/ativos/view/' + item.node.assetId) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
-          <div>{item.id}</div>
-          <div className="small text-muted">{item.parent}</div>
+          <div>{item.node.assetId}</div>
+          <div className="small text-muted">{item.node.parent}</div>
         </td>
-        <td className="text-center">Marca</td>
-        <td className="text-center">{item.modelo}</td>
+        <td className="text-center">{item.node.manufacturer}</td>
+        <td className="text-center">{item.node.model}</td>
         <td>
           <div className="text-center">
-            {item.serie}
+            {item.node.serialnum}
           </div>
         </td>
       </tr>))

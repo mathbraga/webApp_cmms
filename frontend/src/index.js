@@ -9,14 +9,32 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import configureStore from "./redux/store";
 import { preloadedState } from "./redux/preloadedState";
+import { ApolloClient } from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloProvider } from 'react-apollo';
 
 const store = configureStore(preloadedState);
+const httpLink = new HttpLink({
+  uri: 'http://172.30.49.152:3001/graphiql',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
+});
+const cache = new InMemoryCache();
+const client = new ApolloClient({
+  link: httpLink,
+  cache,
+});
 
 const renderApp = () =>
   ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ApolloProvider>,
     document.getElementById("root")
   );
 

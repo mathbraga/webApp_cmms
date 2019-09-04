@@ -15,14 +15,19 @@ class Dashboard extends Component {
     console.clear();
     fetchDB({
       query: `
-      query MyQuery($medidor: Int!) {
-        cebMeterByMed(med: $medidor) {
-          id
+      query MyQuery($med: Int!){
+        cebMeterByMeterId(meterId: $med) {
+          meterId
+          meterName
         }
       }
     `,
-      variables: { medidor: 123 }
+      variables: {med: 123}
     })
+    // fetch('http://172.30.49.152:3001/teste', {
+    //   method: 'GET',
+    //   credentials: 'include'
+    // })
       .then(r => r.json())
       .then(rjson => console.log(rjson))
       .catch(() => console.log('Erro no fecth em Dashboard'));
