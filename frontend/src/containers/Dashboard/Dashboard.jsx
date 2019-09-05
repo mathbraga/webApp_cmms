@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody } from "reactstrap";
 import fetchDB from "../../utils/fetch/fetchDB";
-import EquipmentsForm from "../Assets/EquipmentsForm";
+import OrderForm from "../Maintenance/OrderForm";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -94,7 +94,7 @@ class Dashboard extends Component {
       //     </Container>
       //   </div>
       // </React.Fragment>
-      <EquipmentsForm />
+      <OrderForm />
     );
   }
 }
