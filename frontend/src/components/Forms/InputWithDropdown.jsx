@@ -49,9 +49,11 @@ class InputWithDropdown extends Component {
   }
 
   toggleDropdown(isDropdownOpen) {
-    this.setState({
-      isDropdownOpen
-    });
+    this.setState(prevState => ({
+      isDropdownOpen,
+      hoveredItem: isDropdownOpen ? 0 : prevState.hoveredItem,
+      departmentInputValue: isDropdownOpen ? '' : prevState.departmentInputValue,
+    }));
   }
 
   onHoverItem(index) {

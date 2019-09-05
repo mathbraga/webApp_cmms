@@ -48,9 +48,12 @@ class SingleInputWithDropDown extends Component {
   }
 
   toggleDropdown(isDropdownOpen) {
-    this.setState({
-      isDropdownOpen
-    });
+    this.setState(prevState => ({
+      isDropdownOpen,
+      inputValue: isDropdownOpen ? '' : prevState.inputValue,
+      hoveredItem: isDropdownOpen ? 0 : prevState.hoveredItem,
+      chosenValue: isDropdownOpen ? '' : prevState.chosenValue,
+    }));
   }
 
   onHoverItem(index) {
