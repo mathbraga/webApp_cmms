@@ -13,6 +13,8 @@ import AssetCard from '../../components/Cards/AssetCard'
 import InputWithDropdown from '../../components/Forms/InputWithDropdown';
 import SingleInputWithDropDown from '../../components/Forms/SingleInputWithDropdown';
 
+import { withRouter } from "react-router-dom";
+
 const departments = [
   { id: 'sinfra', name: 'Sinfra - Secretaria de Infraestrutura' },
   { id: 'coemant', name: 'Coemant - Coordenação de Manutenção' },
@@ -137,4 +139,4 @@ class FacilitiesForm extends Component {
   }
 }
 
-export default FacilitiesForm;
+export default withRouter(FacilitiesForm);
