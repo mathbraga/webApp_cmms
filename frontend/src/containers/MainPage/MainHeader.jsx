@@ -51,7 +51,7 @@ class MainHeader extends Component {
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <Nav className="d-md-down-none ml-auto" navbar>
-          {!this.props.email &&
+          {window.localStorage.getItem('session') === null ? (
             <React.Fragment>
               <NavItem className="px-3">
                 <Link to="/cadastro" className="nav-link">
@@ -64,8 +64,9 @@ class MainHeader extends Component {
                 </Link>
               </NavItem>
             </React.Fragment>
-          }
-          {this.props.email &&
+
+          ) : (
+
             <Dropdown
               direction="down"
               toggle={this.handleDropdownClick}
@@ -73,7 +74,7 @@ class MainHeader extends Component {
             >
               <DropdownToggle nav className="px-3">
                   <i className="fa fa-user-circle" />
-                  {" " + this.props.email}
+                  {" " + window.localStorage.getItem('session')}
               </DropdownToggle>
               <DropdownMenu right style={{ right: 'auto' }}>
                   {/* <DropdownItem><i className="fa fa-user"></i>Perfil</DropdownItem> */}
@@ -81,7 +82,7 @@ class MainHeader extends Component {
                   <DropdownItem onClick={this.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
               </DropdownMenu>
             </Dropdown>
-          }
+          )}
         </Nav>
       </React.Fragment>
     );
