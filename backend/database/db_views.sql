@@ -22,7 +22,8 @@ CREATE VIEW equipments AS
     serialnum,
     model,
     price,
-    warranty
+    warranty,
+    place
   FROM assets
   WHERE category = 'E';
 
