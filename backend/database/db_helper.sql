@@ -1,5 +1,9 @@
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
+
+-- bypass de RLS ---> SOMENTE PARA ADMINS!
+ALTER ROLE role_name WITH BYPASSRLS;
+
 CREATE ROLE unauth;
 CREATE ROLE auth;
 
@@ -11,6 +15,8 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO unauth;
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO unauth;
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO auth;
 
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO unauth;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO auth;
 
 delete from private.accounts where person_id between 10 and 20;
 delete from persons where person_id between 10 and 20;
