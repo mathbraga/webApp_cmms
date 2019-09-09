@@ -48,9 +48,12 @@ class SingleInputWithDropDown extends Component {
   }
 
   toggleDropdown(isDropdownOpen) {
-    this.setState({
-      isDropdownOpen
-    });
+    this.setState(prevState => ({
+      isDropdownOpen,
+      inputValue: isDropdownOpen ? '' : prevState.inputValue,
+      hoveredItem: isDropdownOpen ? 0 : prevState.hoveredItem,
+      chosenValue: isDropdownOpen ? '' : prevState.chosenValue,
+    }));
   }
 
   onHoverItem(index) {
@@ -117,6 +120,7 @@ class SingleInputWithDropDown extends Component {
         <Label htmlFor="input">{label}</Label>
         <Input
           type="text"
+          autoComplete="off"
           id="input"
           value={inputValue}
           placeholder={placeholder}

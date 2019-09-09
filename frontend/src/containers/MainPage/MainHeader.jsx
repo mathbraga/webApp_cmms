@@ -70,9 +70,7 @@ class MainHeader extends Component {
                 </Link>
               </NavItem>
             </React.Fragment>
-
           ) : (
-
             <Dropdown
               direction="down"
               toggle={this.handleDropdownClick}
