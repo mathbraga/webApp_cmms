@@ -28,6 +28,7 @@ class EquipmentsList extends Component {
     this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
+    this.handleURLChange = this.handleURLChange.bind(this);
   }
 
   handleChangeSearchTerm(event) {
@@ -42,6 +43,10 @@ class EquipmentsList extends Component {
     this.setState({ pageCurrent: pageCurrent }, () => {
       this.setState({ goToPage: pageCurrent });
     });
+  }
+
+  handleURLChange(){
+    this.props.history.push('/ativos/equipamentos/novo');
   }
 
   render() {
@@ -100,7 +105,7 @@ class EquipmentsList extends Component {
       <AssetCard
         sectionName={'Equipamentos'}
         sectionDescription={'Lista de equipamentos'}
-        handleCardButton={() => { }}
+        handleCardButton={this.handleURLChange}
         buttonName={'Novo Equipamento'}
       >
         <Row style={{ marginTop: "10px", marginBottom: "5px" }}>

@@ -12,6 +12,7 @@ const NewWorkOrderForm = React.lazy(() => import("./containers/Maintenance/NewWo
 const WorkOrderView = React.lazy(() => import("./containers/Maintenance/WorkOrderView"));
 const AssetInfo = React.lazy(() => import("./containers/Assets/AssetInfo"));
 const FacilitiesForm = React.lazy(() => import("./containers/Assets/FacilitiesForm"));
+const EquipmentsForm = React.lazy(() => import("./containers/Assets/EquipmentsForm"));
 const Error404 = React.lazy(() => import("./containers/MainPage/Error404"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -27,6 +28,7 @@ const routes = [
   { path: "/ativos/edificios", exact: true, name: "Ativos", component: Assets },
   { path: "/ativos/equipamentos", exact: true, name: "Ativos", component: Assets },
   { path: "/ativos/edificios/novo", exact: true, name: "Novo Edificio", component: FacilitiesForm },
+  { path: "/ativos/equipamentos/novo", exact: true, name: "Novo Equipamento", component: EquipmentsForm },
   { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: WorkOrders },
   { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: NewWorkOrderForm },
   { path: "/manutencao/os/view/:id", exact: false, name: "OS", component: WorkOrderView },
