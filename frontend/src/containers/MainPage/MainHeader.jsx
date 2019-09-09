@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import {
   Nav,
   NavItem,
+  Dropdown,
   DropdownItem,
   DropdownToggle,
   DropdownMenu
@@ -22,12 +23,28 @@ import { connect } from "react-redux";
 class MainHeader extends Component {
   constructor(props) {
     super(props);
+    this.handleProfile = this.handleProfile.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleDropdownClick = this.handleDropdownClick.bind(this);
+    this.state = {
+      dropdownOpen: false,
+    }
+  }
+
+  handleProfile(event) {
+    event.preventDefault();
+    this.props.history.push('/perfil');
   }
 
   handleLogout(event) {
     event.preventDefault();
     this.props.dispatch(logout(this.props.history));
+  }
+
+  handleDropdownClick(event) {
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }));
   }
 
   render() {
@@ -40,7 +57,7 @@ class MainHeader extends Component {
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <Nav className="d-md-down-none ml-auto" navbar>
-          {!this.props.email &&
+          {!this.props.email ? (
             <React.Fragment>
               <NavItem className="px-3">
                 <Link to="/cadastro" className="nav-link">
@@ -53,22 +70,25 @@ class MainHeader extends Component {
                 </Link>
               </NavItem>
             </React.Fragment>
-          }
-          {this.props.email &&
-            <AppHeaderDropdown direction="down">
-              <React.Fragment>
-                <DropdownToggle nav className="px-3">
+
+          ) : (
+
+            <Dropdown
+              direction="down"
+              toggle={this.handleDropdownClick}
+              isOpen={this.state.dropdownOpen}
+            >
+              <DropdownToggle nav className="px-3">
                   <i className="fa fa-user-circle" />
                   {" " + this.props.email}
-                </DropdownToggle>
-                <DropdownMenu right style={{ right: 'auto' }}>
-                  {/* <DropdownItem><i className="fa fa-user"></i>Perfil</DropdownItem> */}
+              </DropdownToggle>
+              <DropdownMenu right style={{ right: 'auto' }}>
+                  <DropdownItem onClick={this.handleProfile}><i className="fa fa-user"></i>Perfil</DropdownItem>
                   {/* <DropdownItem><i className="fa fa-wrench"></i>Configurações</DropdownItem> */}
                   <DropdownItem onClick={this.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
-                </DropdownMenu>
-              </React.Fragment>
-            </AppHeaderDropdown>
-          }
+              </DropdownMenu>
+            </Dropdown>
+          )}
         </Nav>
       </React.Fragment>
     );
