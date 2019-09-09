@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION check_appliance_place()
+CREATE OR REPLACE FUNCTION check_asset_place()
 RETURNS trigger
 LANGUAGE plpgsql
 AS $$
@@ -12,9 +12,9 @@ END;
 $$;
 
 
-CREATE TRIGGER check_appliance_place
+CREATE TRIGGER check_asset_place
   BEFORE INSERT OR UPDATE ON assets
-  FOR EACH ROW EXECUTE FUNCTION check_appliance_place();
+  FOR EACH ROW EXECUTE FUNCTION check_asset_place();
 
 
 INSERT INTO assets VALUES ('ZZZZ-000-ZZZ-9999', 'BL14-MEZ-041', 'Nome do equipamento', 'Descricao do ativo', 'E', 0, 0, 0, 'Fabricante', '-', 'CARRIER - 42LS', '0', 'Garantia', 'BL02-000-000');
