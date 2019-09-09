@@ -25,7 +25,7 @@ CREATE VIEW appliances AS
     warranty,
     place
   FROM assets
-  WHERE category = 'E';
+  WHERE category = 'A';
 
 
 CREATE VIEW omfrontend AS

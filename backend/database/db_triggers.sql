@@ -17,4 +17,19 @@ CREATE TRIGGER check_asset_place
   FOR EACH ROW EXECUTE FUNCTION check_asset_place();
 
 
-INSERT INTO assets VALUES ('ZZZZ-000-ZZZ-9999', 'BL14-MEZ-041', 'Nome do equipamento', 'Descricao do ativo', 'E', 0, 0, 0, 'Fabricante', '-', 'CARRIER - 42LS', '0', 'Garantia', 'BL02-000-000');
+INSERT INTO assets VALUES (
+  'ZZZZ-000-ZZZ-9999',
+  'BL14-MEZ-041',
+  'Nome do equipamento',
+  'Descricao do ativo',
+  'E',
+  0,
+  0,
+  0,
+  'Fabricante',
+  '-',
+  'CARRIER - 42LS',
+  '0',
+  'Garantia',
+  'BL02-000-000'
+);
