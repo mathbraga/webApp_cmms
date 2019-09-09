@@ -23,9 +23,9 @@ class Profile extends Component {
   }
 
   componentWillMount = () => {
-    // if(!this.props.email){
-    //   this.props.history.push("/cadastro");
-    // }
+    if(!this.props.email){
+      this.props.history.push("/cadastro");
+    }
   }
 
   handleInputs = event => {
