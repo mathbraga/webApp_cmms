@@ -110,15 +110,6 @@ class FacilitiesForm extends Component {
             <FormGroup row>
               <Col xs={'4'}>
                 <FormGroup>
-                  <SingleInputWithDropDown
-                    label={'Categoria'}
-                    placeholder="Categoria ..."
-                    listDropdown={category}
-                  />
-                </FormGroup>
-              </Col>
-              <Col xs={'4'}>
-                <FormGroup>
                   <Label htmlFor="latitude">Latitude</Label>
                   <Input type="text" id="latitude" placeholder="Latitude ..." />
                 </FormGroup>

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody } from "reactstrap";
 import fetchDB from "../../utils/fetch/fetchDB";
 import OrderForm from "../Maintenance/OrderForm";
+import FacilitiesForm from "../Assets/FacilitiesForm";
+import EquipmentsForm from "../Assets/EquipmentsForm";
 
 class Dashboard extends Component {
   constructor(props) {

@@ -44,8 +44,8 @@ const assets = [
   { id: 'ACAT-001-001', name: 'Ar condicionado - Midea' },
   { id: 'AFDE-001-001', name: 'Casa de máquinas' },
   { id: 'QDEL-001-001', name: 'Quadro de energia elétrica - Sinfra' },
-  { id: 'QDEL-001-001', name: 'Quadro de energia elétrica - Coemant' },
-  { id: 'QDEL-001-002', name: 'Quadro de energia elétrica - Seplag' },
+  { id: 'QDEL-001-002', name: 'Quadro de energia elétrica - Coemant' },
+  { id: 'QDEL-001-003', name: 'Quadro de energia elétrica - Seplag' },
   { id: 'GMG1-001-001', name: 'Grupo motor gerador - Painel' },
   { id: 'GMG1-001-002', name: 'Grupo motor gerador - Motor' },
   { id: 'GMG1-002-003', name: 'Grupo motor gerador - Gerador' },
@@ -122,7 +122,7 @@ class OrderForm extends Component {
           buttonName={"Botão"}
           isForm={true}
         >
-          <Nav tabs>
+          <Nav tabs style={{ borderBottom: "2px solid #c8ced3" }}>
             <NavItem>
               <NavLink
                 className={this.state.activeTab === '1' ? 'active' : ''}
