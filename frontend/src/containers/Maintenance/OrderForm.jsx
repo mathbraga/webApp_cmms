@@ -16,6 +16,10 @@ import AssetCard from '../../components/Cards/AssetCard'
 import InputWithDropdown from '../../components/Forms/InputWithDropdown';
 import SingleInputWithDropDown from '../../components/Forms/SingleInputWithDropdown';
 
+import { withRouter } from "react-router-dom";
+import { Query, Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+
 const ORDER_STATUS = [
   { id: 'can', name: 'Cancelado' },
   { id: 'neg', name: 'Negado' },
@@ -300,4 +304,4 @@ class OrderForm extends Component {
   }
 }
 
-export default OrderForm;
+export default withRouter(OrderForm);
