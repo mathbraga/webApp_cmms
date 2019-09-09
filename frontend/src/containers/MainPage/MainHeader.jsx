@@ -77,7 +77,7 @@ class MainHeader extends Component {
                   {" " + window.localStorage.getItem('session')}
               </DropdownToggle>
               <DropdownMenu right style={{ right: 'auto' }}>
-                  {/* <DropdownItem><i className="fa fa-user"></i>Perfil</DropdownItem> */}
+                  <DropdownItem onClick={this.props.history.push('/perfil')}><i className="fa fa-user"></i>Perfil</DropdownItem>
                   {/* <DropdownItem><i className="fa fa-wrench"></i>Configurações</DropdownItem> */}
                   <DropdownItem onClick={this.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
               </DropdownMenu>
