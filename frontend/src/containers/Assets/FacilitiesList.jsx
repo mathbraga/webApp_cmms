@@ -47,7 +47,7 @@ class FacilitiesList extends Component {
   }
 
   handleURLChange(){
-    this.props.history.push('/ativos/edificios' + '/novo');
+    this.props.history.push('/ativos/edificios/novo');
   }
 
   render() {
