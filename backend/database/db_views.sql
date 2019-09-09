@@ -11,7 +11,7 @@ CREATE VIEW facilities AS
   FROM assets
   WHERE category = 'F';
 
-CREATE VIEW equipments AS
+CREATE VIEW appliances AS
   SELECT
     asset_id,
     parent,
