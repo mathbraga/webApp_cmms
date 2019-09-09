@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardBody, Col, Row, Button, CardHeader, CardFooter } from "reactstrap";
-import "./AssetCard.css"
+import "./AssetCard.css";
 
 const configIcon = require("../../assets/icons/config_icon.png");
 
@@ -13,6 +13,7 @@ class AssetCard extends Component {
    *    handleCardButton
    *    buttonName
    */
+
 
   render() {
     let {
@@ -37,7 +38,9 @@ class AssetCard extends Component {
               </div>
             </Col>
             <Col md="4" xs="6" className="container-left">
-              <Button className="ghost-button" onClick={handleCardButton} style={{ width: "auto", height: "38px", padding: "8px 40px" }}>{buttonName}</Button>
+              <Button 
+                onClick={() =>  handleCardButton()}
+                className="ghost-button" style={{ width: "auto", height: "38px", padding: "8px 40px" }}>{buttonName}</Button>
               <Button
                 className="ghost-button"
                 outline

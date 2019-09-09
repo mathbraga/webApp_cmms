@@ -29,6 +29,7 @@ class FacilitiesList extends Component {
     this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
+    this.handleURLChange = this.handleURLChange.bind(this);
   }
 
   handleChangeSearchTerm(event) {
@@ -43,6 +44,10 @@ class FacilitiesList extends Component {
     this.setState({ pageCurrent: pageCurrent }, () => {
       this.setState({ goToPage: pageCurrent });
     });
+  }
+
+  handleURLChange(){
+    this.props.history.push('/ativos/edificios/novo');
   }
 
   render() {
@@ -83,7 +88,7 @@ class FacilitiesList extends Component {
 
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/ativos/view/' + item.node.assetId) }}
+        onClick={() => { this.props.history.push('/ativos/edificio/' + item.node.assetId) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
@@ -105,7 +110,7 @@ class FacilitiesList extends Component {
       <AssetCard
         sectionName={'Edifícios e áreas'}
         sectionDescription={'Endereçamento do Senado Federal'}
-        handleCardButton={() => { }}
+        handleCardButton={this.handleURLChange}
         buttonName={'Cadastrar Área'}
       >
         <Row style={{ marginTop: "10px", marginBottom: "5px" }}>

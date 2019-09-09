@@ -16,7 +16,8 @@ import { Switch, Route } from "react-router-dom";
 
 class Assets extends Component {
   render() {
-    const category = this.props.location.pathname.slice(8) === "edificios" ? "F" : "E";
+    console.log(this.props)
+    const category = this.props.location.pathname.slice(8) === "edificios" ? "F" : "A";
     const fetchAssets = gql`
       query assetsQuery($category: AssetCategoryType!) {
         allAssets(condition: {category: $category}, orderBy: ASSET_ID_ASC) {
@@ -49,7 +50,6 @@ class Assets extends Component {
 
           return(
             <React.Fragment>
-              {console.clear()}
               {(assets.allAssets.edges.length !== 0 && this.props.location.pathname.slice(8) === "edificios") &&
                 <FacilitiesList
                   allItems={assets}
