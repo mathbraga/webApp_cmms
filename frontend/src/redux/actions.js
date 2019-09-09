@@ -45,6 +45,7 @@ export function login(email, password, history) {
     dispatch(loginRequest());
     return loginFetch(email, password)
       .then(() => {
+        window.localStorage.setItem('session', email);
         dispatch(loginSuccess(email));
         history.push("/painel");
       })
@@ -83,6 +84,7 @@ export function logout(history) {
     dispatch(logoutRequest());
     return logoutFetch()
       .then(() => {
+        window.localStorage.removeItem('session');
         dispatch(logoutSuccess());
         dispatch(cleanCache());
         history.push("/login");
