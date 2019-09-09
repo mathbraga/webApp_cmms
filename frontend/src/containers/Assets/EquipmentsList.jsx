@@ -16,7 +16,6 @@ const mapIcon = require("../../assets/icons/map.png");
 
 const ENTRIES_PER_PAGE = 15;
 
-
 class EquipmentsList extends Component {
   constructor(props) {
     super(props);
@@ -48,7 +47,6 @@ class EquipmentsList extends Component {
   render() {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
-
     const allEdges = allItems.allAssets.edges;
 
     let filteredItems = allEdges;
