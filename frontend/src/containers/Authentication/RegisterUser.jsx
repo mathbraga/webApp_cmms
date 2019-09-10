@@ -23,6 +23,12 @@ class SignUp extends Component {
     }
   }
 
+  componentWillMount = () => {
+    if(this.props.email || window.localStorage.getItem('session') !== null){
+      this.props.history.push("/painel");
+    }
+  }
+
   handleInputs = event => {
     this.setState({
       [event.target.name]: event.target.value

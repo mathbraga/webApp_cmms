@@ -18,7 +18,7 @@ class Login extends Component {
   }
 
   componentWillMount = () => {
-    if(this.props.email){
+    if(this.props.email || window.localStorage.getItem('session') !== null){
       this.props.history.push("/painel");
     }
   }

@@ -53,6 +53,9 @@ class MainHeader extends Component {
   }
 
   render() {
+    
+    const email = this.props.email ? this.props.email : window.localStorage.getItem('session');
+    
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
@@ -62,7 +65,7 @@ class MainHeader extends Component {
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <Nav className="d-md-down-none ml-auto" navbar>
-          {!this.props.email ? (
+          {!email ? (
             <React.Fragment>
               <NavItem className="px-3">
                 <Link to="/cadastro" className="nav-link">
@@ -83,7 +86,7 @@ class MainHeader extends Component {
             >
               <DropdownToggle nav className="px-3">
                   <i className="fa fa-user-circle" />
-                  {" " + this.props.email}
+                  {" " + email}
               </DropdownToggle>
               <DropdownMenu right style={{ right: 'auto' }}>
                   <DropdownItem onClick={this.handleProfile}><i className="fa fa-user"></i>Perfil</DropdownItem>
@@ -99,9 +102,9 @@ class MainHeader extends Component {
 }
 
 const mapStateToProps = storeState => {
-  let email = window.localStorage.getItem('session') || storeState.auth.email;
+  let email = storeState.auth.email;
   return {
-    email
+    email: email
   }
 }
 

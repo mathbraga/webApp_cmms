@@ -23,7 +23,7 @@ class Profile extends Component {
   }
 
   componentWillMount = () => {
-    if(window.localStorage.getItem('session') === null){
+    if(!this.props.email || window.localStorage.getItem('session') === null){
       this.props.history.push("/cadastro");
     }
   }
@@ -79,6 +79,9 @@ class Profile extends Component {
   }
 
   render() {
+
+    const email = this.props.email ? this.props.email : window.localStorage.getItem('session');
+
     return (
       <React.Fragment>
 
@@ -91,7 +94,7 @@ class Profile extends Component {
                     <Form>
                       <h1>Perfil</h1>
                       <div>
-                        <h3 className="text-muted my-4 text-center">{this.props.email}</h3>
+                        <h3 className="text-muted my-4 text-center">{email}</h3>
                       </div>
 
                       
