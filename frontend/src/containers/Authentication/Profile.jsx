@@ -23,7 +23,7 @@ class Profile extends Component {
   }
 
   componentWillMount = () => {
-    if(!this.props.email || window.localStorage.getItem('session') === null){
+    if(window.localStorage.getItem('session') === null){
       this.props.history.push("/cadastro");
     }
   }

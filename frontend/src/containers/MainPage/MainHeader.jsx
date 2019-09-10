@@ -16,17 +16,20 @@ import {
 
 import logo from "../../assets/img/brand/logo.svg";
 import sygnet from "../../assets/img/brand/sygnet.svg";
-import { logout } from "../../redux/actions";
+import { logout, logoutSuccess } from "../../redux/actions";
 import { connect } from "react-redux";
+import logoutFetch from "../../utils/authentication/logoutFetch";
 
 class MainHeader extends Component {
   constructor(props) {
     super(props);
     this.handleProfile = this.handleProfile.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    // this.handleSession = this.handleSession.bind(this);
     this.handleDropdownClick = this.handleDropdownClick.bind(this);
     this.state = {
       dropdownOpen: false,
+      email: window.localStorage.getItem('session'),
     }
   }
 
@@ -38,12 +41,30 @@ class MainHeader extends Component {
     }
   }
 
+  handleSession() {
+    this.setState({
+      email: window.localStorage.getItem('session')
+    });
+  }
+
   handleProfile(event) {
     this.props.history.push('/perfil');
   }
 
   handleLogout(event) {
-    this.props.dispatch(logout(this.props.history));
+    logoutFetch()
+      .then(() => {
+        this.setState({
+          email: null,
+        });
+        window.localStorage.removeItem('session');
+        window.localStorage.setItem('logout-event', 'logout' + Math.random());
+        this.props.dispatch(logoutSuccess());
+        this.props.history.push('/login');
+      })
+      .catch(() => {
+        alert('Logout falhou. Tente novamente.')
+      });
   }
 
   handleDropdownClick(event) {
@@ -54,7 +75,11 @@ class MainHeader extends Component {
 
   render() {
     
-    const email = this.props.email ? this.props.email : window.localStorage.getItem('session');
+    window.addEventListener('storage', event => {
+      if (event.key === 'session') { 
+        this.handleSession();
+      }
+    });
     
     return (
       <React.Fragment>
@@ -65,7 +90,7 @@ class MainHeader extends Component {
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <Nav className="d-md-down-none ml-auto" navbar>
-          {!email ? (
+          {this.state.email === null ? (
             <React.Fragment>
               <NavItem className="px-3">
                 <Link to="/cadastro" className="nav-link">
@@ -86,7 +111,7 @@ class MainHeader extends Component {
             >
               <DropdownToggle nav className="px-3">
                   <i className="fa fa-user-circle" />
-                  {" " + email}
+                  {" " + this.state.email}
               </DropdownToggle>
               <DropdownMenu right style={{ right: 'auto' }}>
                   <DropdownItem onClick={this.handleProfile}><i className="fa fa-user"></i>Perfil</DropdownItem>

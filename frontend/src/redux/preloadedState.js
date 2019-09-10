@@ -3,9 +3,9 @@
 
 export const preloadedState = {
   auth: {
-    email: window.localStorage.getItem('session') || false,
-    isFetching: false,
-    loginError: false
+    email: window.localStorage.getItem('session'),
+    // isFetching: false,
+    // loginError: false
   },
   // consumptionMonitorCache: 
   // ... other reducers ...

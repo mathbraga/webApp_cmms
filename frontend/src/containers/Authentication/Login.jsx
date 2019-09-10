@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import ModalForgottenPassword from "../../components/Modals/ModalForgottenPassword";
 import { connect } from "react-redux";
-import { login } from "../../redux/actions";
+import { login, loginSuccess } from "../../redux/actions";
+import loginFetch from "../../utils/authentication/loginFetch";
 
 class Login extends Component {
   constructor(props){
@@ -13,27 +14,29 @@ class Login extends Component {
       email: "",
       password: "",
       alertVisible: false,
-      modalVisible: false
+      modalVisible: false,
+      isFetching: false,
+      loginError: false,
     }
   }
 
   componentWillMount = () => {
-    if(this.props.email || window.localStorage.getItem('session') !== null){
+    if(window.localStorage.getItem('session') !== null){
       this.props.history.push("/painel");
     }
   }
 
-  componentDidUpdate = prevProps => {
-    if(this.props.loginError !== prevProps.loginError){
-      if(this.props.loginError){
-        this.setState({
-          alertVisible: true,
-          password: ""
-        });
-        this.passwordRef.current.value = "";
-      }
-    }
-  }
+  // componentDidUpdate = prevProps => {
+    // if(this.props.loginError !== prevProps.loginError){
+    //   if(this.props.loginError){
+    //     this.setState({
+    //       alertVisible: true,
+    //       password: ""
+    //     });
+    //     this.passwordRef.current.value = "";
+    //   }
+    // }
+  // }
 
   handleEnterKeyDown = event => {
     event.persist();
@@ -50,7 +53,34 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.dispatch(login(this.state.email, this.state.password, this.props.history));  
+    // this.props.dispatch(login(this.state.email, this.state.password, this.props.history));  
+    this.setState({
+      loginError: false,
+      isFetching: true,
+      alertVisible: true,
+    });
+    
+    loginFetch(this.state.email, this.state.password)
+      .then(() => {
+        this.setState({
+          loginError: false,
+          isFetching: false,
+          alertVisible: false,
+        });
+        window.localStorage.setItem('session', this.state.email);
+        // window.localStorage.setItem('login-event', 'login' + Math.random());
+        this.props.dispatch(loginSuccess(this.state.email));
+        this.props.history.push("/painel");
+      })
+      .catch(() => {
+        this.setState({
+          loginError: true,
+          isFetching: false,
+          alertVisible: true,
+          password: "",
+        });
+        this.passwordRef.current.value = "";
+      });
   }
 
   closeAlert = event => {
@@ -97,7 +127,7 @@ class Login extends Component {
                           innerRef={this.emailRef}
                           placeholder="usuario@senado.leg.br"
                           onChange={this.handleInputs}
-                          disabled={this.props.isFetching}
+                          disabled={this.state.isFetching}
                           onKeyDown={this.handleEnterKeyDown}
                           autoFocus
                         />
@@ -116,7 +146,7 @@ class Login extends Component {
                           innerRef={this.passwordRef}
                           placeholder="Senha"
                           onChange={this.handleInputs}
-                          disabled={this.props.isFetching}
+                          disabled={this.state.isFetching}
                           onKeyDown={this.handleEnterKeyDown}
                         />
                       </InputGroup>
@@ -128,7 +158,7 @@ class Login extends Component {
                             color="primary"
                             className="px-4"
                             onClick={this.handleSubmit}  
-                            disabled={this.props.isFetching}
+                            disabled={this.state.isFetching}
                           >Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
@@ -138,7 +168,7 @@ class Login extends Component {
                             color="primary"
                             className="px-0"
                             onClick={this.openModal}
-                            disabled={this.props.isFetching}
+                            disabled={this.state.isFetching}
                           >Esqueceu sua senha?
                           </Button>
                         </Col>
@@ -149,10 +179,10 @@ class Login extends Component {
 
                 <Alert
                   className="mt-4 mx-4"
-                  color={this.props.loginError ? "danger": "warning"}
+                  color={this.state.loginError ? "danger": "warning"}
                   isOpen={this.state.alertVisible}
                   toggle={this.closeAlert}
-                >{this.props.isFetching ? "Realizando login..." : "Login falhou. Tente novamente."}
+                >{this.state.isFetching ? "Realizando login..." : "Login falhou. Tente novamente."}
                 </Alert>
 
               </Col>
