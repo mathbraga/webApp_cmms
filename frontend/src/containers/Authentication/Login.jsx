@@ -37,7 +37,7 @@ class Login extends Component {
 
   handleEnterKeyDown = event => {
     event.persist();
-    if(event.which === 13){
+    if(event.key === "Enter"){
       this.handleSubmit(event);
     }
   }
