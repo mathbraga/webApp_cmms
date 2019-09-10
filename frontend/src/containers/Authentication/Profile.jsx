@@ -23,7 +23,7 @@ class Profile extends Component {
   }
 
   componentWillMount = () => {
-    if(!this.props.email){
+    if(window.localStorage.getItem('session') === null){
       this.props.history.push("/cadastro");
     }
   }
@@ -91,7 +91,7 @@ class Profile extends Component {
                     <Form>
                       <h1>Perfil</h1>
                       <div>
-                        <h3 className="text-muted my-4 text-center">{window.localStorage.session}</h3>
+                        <h3 className="text-muted my-4 text-center">{this.props.email}</h3>
                       </div>
 
                       

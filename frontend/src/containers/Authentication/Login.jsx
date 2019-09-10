@@ -35,6 +35,13 @@ class Login extends Component {
     }
   }
 
+  handleEnterKeyDown = event => {
+    event.persist();
+    if(event.which === 13){
+      this.handleSubmit(event);
+    }
+  }
+
   handleInputs = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -91,6 +98,7 @@ class Login extends Component {
                           placeholder="usuario@senado.leg.br"
                           onChange={this.handleInputs}
                           disabled={this.props.isFetching}
+                          onKeyDown={this.handleEnterKeyDown}
                           autoFocus
                         />
                       </InputGroup>
@@ -109,6 +117,7 @@ class Login extends Component {
                           placeholder="Senha"
                           onChange={this.handleInputs}
                           disabled={this.props.isFetching}
+                          onKeyDown={this.handleEnterKeyDown}
                         />
                       </InputGroup>
 

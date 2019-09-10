@@ -11,8 +11,7 @@ import {
 
 import {
   AppNavbarBrand,
-  AppSidebarToggler,
-  AppHeaderDropdown
+  AppSidebarToggler
 } from "@coreui/react";
 
 import logo from "../../assets/img/brand/logo.svg";
@@ -31,13 +30,19 @@ class MainHeader extends Component {
     }
   }
 
+  componentDidUpdate = prevProps => {
+    if(this.props.email !== prevProps.email){
+      this.setState({
+        email: this.props.email
+      });
+    }
+  }
+
   handleProfile(event) {
-    event.preventDefault();
     this.props.history.push('/perfil');
   }
 
   handleLogout(event) {
-    event.preventDefault();
     this.props.dispatch(logout(this.props.history));
   }
 
@@ -94,7 +99,7 @@ class MainHeader extends Component {
 }
 
 const mapStateToProps = storeState => {
-  let email = storeState.auth.email;
+  let email = window.localStorage.getItem('session') || storeState.auth.email;
   return {
     email
   }
