@@ -199,13 +199,13 @@ class OrderForm extends Component {
                 <FormGroup row>
                   <Col xs={'4'}>
                     <FormGroup>
-                      <Label htmlFor="initial-date">Data Inicial</Label>
+                      <Label htmlFor="initial-date">Data inicial</Label>
                       <Input type="date" id="initial-date" placeholder="Início da execução" />
                     </FormGroup>
                   </Col>
                   <Col xs={'4'}>
                     <FormGroup>
-                      <Label htmlFor="final-date">Data Final (Prazo)</Label>
+                      <Label htmlFor="final-date">Data final (prazo)</Label>
                       <Input type="date" id="final-date" placeholder="Prazo final para execução" />
                     </FormGroup>
                   </Col>
@@ -258,13 +258,13 @@ class OrderForm extends Component {
                 <FormGroup row>
                   <Col xs='6'>
                     <FormGroup>
-                      <Label htmlFor="request_person">Nome do Solicitante</Label>
+                      <Label htmlFor="request_person">Nome do solicitante</Label>
                       <Input type="text" id="request_person" placeholder="Pessoa que abriu a solicitação" />
                     </FormGroup>
                   </Col>
                   <Col xs='6'>
                     <FormGroup>
-                      <Label htmlFor="request_department">Departamento do colicitante</Label>
+                      <Label htmlFor="request_department">Departamento do solicitante</Label>
                       <Input type="text" id="request_department" placeholder="Departamento da pessoa que abriu a solicitação" />
                     </FormGroup>
                   </Col>
