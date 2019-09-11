@@ -105,6 +105,37 @@ class FacilitiesForm extends Component {
 
   render() {
     console.log(this.state)
+    const newFacility = gql`
+      mutation MyMutation {
+        customCreateFacility(
+          input: {
+            inputArea: "1000"
+            inputDepartmentsArray: ["SINFRA"]
+            inputDescription: "Testando"
+            inputFacilityId: "99999"
+            inputLatitude: "1"
+            inputLongitude: "1"
+            inputName: "ZZZZZYU"
+            inputParent: "CASF-000-000"
+          }
+        ){
+        clientMutationId
+        string
+      }
+    }`;
+
+    const test = () => (
+    <Mutation mutation={newFacility}>
+      {(error) => {
+        if(error){
+          console.log("Erro!");
+          return null;
+        }
+        else
+          console.log("Mutation Success.");
+      }}
+    </Mutation>
+    );
     return (
       <Query query={depQuery}>{
         ({loading, error, data}) => {
@@ -138,6 +169,7 @@ class FacilitiesForm extends Component {
             handleCardButton={() => console.log('Handle Card')}
             buttonName={"Botão"}
             isForm={true}
+            formSubmit={test}
           >
             <Form className="form-horizontal">
               <FormGroup row>

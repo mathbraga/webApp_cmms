@@ -54,7 +54,9 @@ class AssetCard extends Component {
         <CardBody>{children}</CardBody>
         {isForm && (
           <CardFooter>
-            <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i>  Cadastrar</Button>
+            <Button 
+              onClick={this.props.formSubmit}
+              type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i>  Cadastrar</Button>
             <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i>  Cancelar</Button>
           </CardFooter>
         )}
