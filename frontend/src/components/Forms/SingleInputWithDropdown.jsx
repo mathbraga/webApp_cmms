@@ -117,7 +117,6 @@ class SingleInputWithDropDown extends Component {
       (
         item.name.toLowerCase().includes(inputValue.toLowerCase())
       ));
-    console.log(this.state.inputValue);
     return (
       <FormGroup className={'dropdown-container'}>
         <Label htmlFor="input">{label}</Label>

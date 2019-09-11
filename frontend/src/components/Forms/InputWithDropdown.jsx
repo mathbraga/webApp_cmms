@@ -7,21 +7,6 @@ import {
 
 import "./InputWithDropdown.css";
 
-const updateDepartmentValues = (filteredList) => (prevState) => {
-  if (prevState.hoveredItem < 0 || prevState.hoveredItem >= filteredList.length) {
-    return {
-      departmentInputValue: "",
-    };
-  }
-  const newListofDepartments = [...prevState.departmentValues, filteredList[prevState.hoveredItem]];
-  const newHoveredItem = prevState.hoveredItem === 0 ? 0 : (prevState.hoveredItem - 1);
-  return {
-    departmentValues: newListofDepartments,
-    hoveredItem: newHoveredItem,
-    departmentInputValue: "",
-  };
-};
-
 class InputWithDropdown extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +22,7 @@ class InputWithDropdown extends Component {
     this.onKeyDownInput = this.onKeyDownInput.bind(this);
     this.onRemoveItemFromList = this.onRemoveItemFromList.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
+    this.updateDepartmentValues = this.updateDepartmentValues.bind(this);
     this.arrayItems = {};
   }
 
@@ -88,7 +74,7 @@ class InputWithDropdown extends Component {
         break;
       case 13:
         this.inputDrop.blur();
-        this.setState(updateDepartmentValues(filteredList));
+        this.setState(this.updateDepartmentValues(filteredList));
         break;
     }
   }
@@ -105,8 +91,24 @@ class InputWithDropdown extends Component {
   }
 
   onClickItem = (filteredList) => () => {
-    this.setState(updateDepartmentValues(filteredList));
+    this.setState(this.updateDepartmentValues(filteredList));
   }
+
+  updateDepartmentValues = (filteredList) => (prevState) => {
+    if (prevState.hoveredItem < 0 || prevState.hoveredItem >= filteredList.length) {
+      return {
+        departmentInputValue: "",
+      };
+    }
+    const newListofDepartments = [...prevState.departmentValues, filteredList[prevState.hoveredItem]];
+    const newHoveredItem = prevState.hoveredItem === 0 ? 0 : (prevState.hoveredItem - 1);
+    this.props.update(newListofDepartments);
+    return {
+      departmentValues: newListofDepartments,
+      hoveredItem: newHoveredItem,
+      departmentInputValue: "",
+    };
+  };
 
   render() {
     const { label, placeholder, listDropdown } = this.props;

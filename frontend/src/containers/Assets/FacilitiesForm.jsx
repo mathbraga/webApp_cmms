@@ -16,6 +16,7 @@ import SingleInputWithDropDown from '../../components/Forms/SingleInputWithDropd
 import { withRouter } from "react-router-dom";
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import WidgetThreeColumns from '../../components/Widgets/WidgetThreeColumns';
 
 // const departments = [
 //   { id: 'sinfra', name: 'Sinfra - Secretaria de Infraestrutura' },
@@ -75,17 +76,35 @@ class FacilitiesForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      parent: ''
+      assetName: '',
+      assetId: '',
+      description: '',
+      area: '',
+      latitude: '',
+      longitude: '',
+      assetParent: '',
+      departments: []
     };
 
-    this.handleDropDownChange = this.handleDropDownChange.bind(this);
+    this.handleFacilitiesDropDownChange = this.handleFacilitiesDropDownChange.bind(this);
+    this.handleDepartmentsDropDownChange = this.handleDepartmentsDropDownChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleDropDownChange(assetParent){
-    this.setState({ parent: assetParent });
+  handleFacilitiesDropDownChange(assetParent){
+    this.setState({ assetParent: assetParent });
+  }
+
+  handleDepartmentsDropDownChange(departments){
+    this.setState({ departments: departments });
+  }
+
+  handleInputChange(event){
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
+    console.log(this.state)
     return (
       <Query query={depQuery}>{
         ({loading, error, data}) => {
@@ -125,19 +144,25 @@ class FacilitiesForm extends Component {
                 <Col xs={'8'}>
                   <FormGroup>
                     <Label htmlFor="facilities-name">Nome do espaço</Label>
-                    <Input name="assetName" type="text" id="facilities-name" placeholder="Digite o nome do local ..." />
+                    <Input 
+                      onChange={this.handleInputChange}
+                      name="assetName" type="text" id="facilities-name" placeholder="Digite o nome do local ..." />
                   </FormGroup>
                 </Col>
                 <Col xs={'4'}>
                   <FormGroup>
                     <Label htmlFor="facilities-code">Código</Label>
-                    <Input name="assetId" type="text" id="facilities-code" placeholder="Digite o código do endereçamento ..." />
+                    <Input 
+                      onChange={this.handleInputChange}
+                      name="assetId" type="text" id="facilities-code" placeholder="Digite o código do endereçamento ..." />
                   </FormGroup>
                 </Col>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="description">Descrição</Label>
-                <Input name="description" type="textarea" id="description" placeholder="Descrição do edifício ..." rows="4" />
+                <Input 
+                  onChange={this.handleInputChange}
+                  name="description" type="textarea" id="description" placeholder="Descrição do edifício ..." rows="4" />
               </FormGroup>
               <FormGroup row>
                 <Col xs={'8'}>
@@ -146,14 +171,16 @@ class FacilitiesForm extends Component {
                       label={'Ativo pai'}
                       placeholder="Nível superior da localização ..."
                       listDropdown={facs}
-                      update={this.handleDropDownChange}
+                      update={this.handleFacilitiesDropDownChange}
                     />
                   </FormGroup>
                 </Col>
                 <Col xs={'4'}>
                   <FormGroup>
                     <Label htmlFor="area">Área (m²)</Label>
-                    <Input type="text" id="area" placeholder="Área total ..." />
+                    <Input 
+                      onChange={this.handleInputChange}
+                      name="area" type="text" id="area" placeholder="Área total ..." />
                   </FormGroup>
                 </Col>
               </FormGroup>
@@ -163,6 +190,7 @@ class FacilitiesForm extends Component {
                     label={'Departamentos'}
                     placeholder={'Departamentos que utilizam esta área ...'}
                     listDropdown={deps}
+                    update={this.handleDepartmentsDropDownChange}
                   />
                 </Col>
               </FormGroup>
@@ -179,13 +207,17 @@ class FacilitiesForm extends Component {
                 <Col xs={'4'}>
                   <FormGroup>
                     <Label htmlFor="latitude">Latitude</Label>
-                    <Input type="text" id="latitude" placeholder="Latitude ..." />
+                    <Input 
+                      onChange={this.handleInputChange}
+                      name="latitude" type="text" id="latitude" placeholder="Latitude ..." />
                   </FormGroup>
                 </Col>
                 <Col xs={'4'}>
                   <FormGroup>
                     <Label htmlFor="longitude">Longitude</Label>
-                    <Input type="text" id="longitude" placeholder="Longitude ..." />
+                    <Input 
+                      onChange={this.handleInputChange}
+                      name="longitude" type="text" id="longitude" placeholder="Longitude ..." />
                   </FormGroup>
                 </Col>
               </FormGroup>
