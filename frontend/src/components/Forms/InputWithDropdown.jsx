@@ -83,6 +83,7 @@ class InputWithDropdown extends Component {
     this.setState(prevState => {
       const newList = prevState.departmentValues.filter(item =>
         item.id !== id);
+      this.props.update(newList);
       return {
         departmentValues: newList,
         hoveredItem: 0,
