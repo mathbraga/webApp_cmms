@@ -9,7 +9,8 @@ CREATE VIEW facilities AS
     longitude,
     area
   FROM assets
-  WHERE category = 'F';
+  WHERE category = 'F'
+  ORDER BY asset_id;
 
 CREATE VIEW appliances AS
   SELECT
@@ -25,8 +26,8 @@ CREATE VIEW appliances AS
     warranty,
     place
   FROM assets
-  WHERE category = 'A';
-
+  WHERE category = 'A'
+  ORDER BY asset_id;
 
 CREATE VIEW omfrontend AS
   SELECT
