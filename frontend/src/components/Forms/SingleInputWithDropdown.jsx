@@ -7,20 +7,6 @@ import {
 
 import "./InputWithDropdown.css";
 
-const updateChosenValue = (filteredList) => (prevState) => {
-  if (prevState.hoveredItem < 0 || prevState.hoveredItem >= filteredList.length) {
-    return {
-      inputValue: "",
-    };
-  }
-  const newValue = filteredList[prevState.hoveredItem].name;
-  return {
-    chosenValue: newValue,
-    hoveredItem: 0,
-    inputValue: newValue,
-  };
-};
-
 class SingleInputWithDropDown extends Component {
   constructor(props) {
     super(props);
@@ -36,6 +22,7 @@ class SingleInputWithDropDown extends Component {
     this.onKeyDownInput = this.onKeyDownInput.bind(this);
     this.onRemoveItemFromList = this.onRemoveItemFromList.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
+    this.updateChosenValue = this.updateChosenValue.bind(this);
     this.arrayItems = {};
   }
 
@@ -88,7 +75,7 @@ class SingleInputWithDropDown extends Component {
         break;
       case 13:
         this.inputDrop.blur();
-        this.setState(updateChosenValue(filteredList));
+        this.setState(this.updateChosenValue(filteredList));
         break;
     }
   }
@@ -105,8 +92,23 @@ class SingleInputWithDropDown extends Component {
   }
 
   onClickItem = (filteredList) => () => {
-    this.setState(updateChosenValue(filteredList));
+    this.setState(this.updateChosenValue(filteredList));
   }
+
+  updateChosenValue = (filteredList) => (prevState) => {
+    if (prevState.hoveredItem < 0 || prevState.hoveredItem >= filteredList.length) {
+      return {
+        inputValue: "",
+      };
+    }
+    const newValue = filteredList[prevState.hoveredItem].name;
+    this.props.update(newValue);
+    return {
+      chosenValue: newValue,
+      hoveredItem: 0,
+      inputValue: newValue,
+    };
+  };
 
   render() {
     const { label, placeholder, listDropdown } = this.props;
@@ -115,6 +117,7 @@ class SingleInputWithDropDown extends Component {
       (
         item.name.toLowerCase().includes(inputValue.toLowerCase())
       ));
+    console.log(this.state.inputValue);
     return (
       <FormGroup className={'dropdown-container'}>
         <Label htmlFor="input">{label}</Label>

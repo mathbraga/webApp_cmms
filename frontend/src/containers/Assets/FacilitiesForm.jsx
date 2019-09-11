@@ -74,6 +74,15 @@ const depQuery = gql`
 class FacilitiesForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      parent: ''
+    };
+
+    this.handleDropDownChange = this.handleDropDownChange.bind(this);
+  }
+
+  handleDropDownChange(assetParent){
+    this.setState({ parent: assetParent });
   }
 
   render() {
@@ -100,6 +109,7 @@ class FacilitiesForm extends Component {
           const facs = [];
           for(let i = 0; i<facID.length; i++)
             facs.push({id: facID[i], name: facName[i]});
+
           
         return(
         <div style={{ margin: "0 100px" }}>
@@ -136,6 +146,7 @@ class FacilitiesForm extends Component {
                       label={'Ativo pai'}
                       placeholder="Nível superior da localização ..."
                       listDropdown={facs}
+                      update={this.handleDropDownChange}
                     />
                   </FormGroup>
                 </Col>

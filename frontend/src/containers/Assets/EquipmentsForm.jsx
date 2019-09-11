@@ -39,9 +39,9 @@ import gql from 'graphql-tag';
 //   { id: 'GMG1-001-005', name: 'Gerador do Grupo Motor Gerador' },
 // ];
 
-const allAssets = gql`
+const allFacilities = gql`
         query MyQuery {
-          allAssets(condition: {category: F}, orderBy: ASSET_ID_ASC) {
+          allFacilities(orderBy: ASSET_ID_ASC) {
             edges {
               node {
                 assetId
@@ -58,7 +58,7 @@ class EquipmentsForm extends Component {
 
   render() {
     return (
-      <Query query={allAssets}>{
+      <Query query={allFacilities}>{
         ({loading, error, data}) => {
           if(loading) return null
           if(error){
@@ -66,8 +66,8 @@ class EquipmentsForm extends Component {
             return null
           }
 
-          const assetId = data.allAssets.edges.map((item) => item.node.assetId);
-          const assetName = data.allAssets.edges.map((item) => item.node.name);
+          const assetId = data.allFacilities.edges.map((item) => item.node.assetId);
+          const assetName = data.allFacilities.edges.map((item) => item.node.name);
           console.log(assetId);
           console.log(assetName);
           

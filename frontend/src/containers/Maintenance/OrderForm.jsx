@@ -100,7 +100,7 @@ const contract = [
 
 const ordersQuery = gql`
         query MyQuery {
-          allOrders {
+          allOrders (orderBy: ORDER_ID_ASC){
             edges {
               node {
                 orderId
@@ -108,7 +108,7 @@ const ordersQuery = gql`
               }
             }
           }
-          allFacilities {
+          allFacilities (orderBy: ASSET_ID_ASC){
             edges {
               node {
                 assetId
