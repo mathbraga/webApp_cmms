@@ -32,11 +32,39 @@ SECURITY DEFINER
 LANGUAGE plpgsql;
 -----------------------------------------------------------------
 CREATE TRIGGER log_changes
+AFTER INSERT OR UPDATE OR DELETE ON orders
+FOR EACH ROW EXECUTE FUNCTION create_logs();
+-----------------------------------------------------------------
+CREATE TRIGGER log_changes
+AFTER INSERT OR UPDATE OR DELETE ON orders_messages
+FOR EACH ROW EXECUTE FUNCTION create_logs();
+-----------------------------------------------------------------
+CREATE TRIGGER log_changes
+AFTER INSERT OR UPDATE OR DELETE ON orders_assets
+FOR EACH ROW EXECUTE FUNCTION create_logs();
+-----------------------------------------------------------------
+CREATE TRIGGER log_changes
 AFTER INSERT OR UPDATE OR DELETE ON assets
 FOR EACH ROW EXECUTE FUNCTION create_logs();
 -----------------------------------------------------------------
 CREATE TRIGGER log_changes
-AFTER INSERT OR UPDATE OR DELETE ON orders
+AFTER INSERT OR UPDATE OR DELETE ON assets_departments;
+FOR EACH ROW EXECUTE FUNCTION create_logs();
+-----------------------------------------------------------------
+CREATE TRIGGER log_changes
+AFTER INSERT OR UPDATE OR DELETE ON contracts
+FOR EACH ROW EXECUTE FUNCTION create_logs();
+-----------------------------------------------------------------
+CREATE TRIGGER log_changes
+AFTER INSERT OR UPDATE OR DELETE ON departments
+FOR EACH ROW EXECUTE FUNCTION create_logs();
+-----------------------------------------------------------------
+CREATE TRIGGER log_changes
+AFTER INSERT OR UPDATE OR DELETE ON persons
+FOR EACH ROW EXECUTE FUNCTION create_logs();
+-----------------------------------------------------------------
+CREATE TRIGGER log_changes
+AFTER INSERT OR UPDATE OR DELETE ON private.accounts
 FOR EACH ROW EXECUTE FUNCTION create_logs();
 -----------------------------------------------------------------
 -- begin;
