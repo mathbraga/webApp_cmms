@@ -22,7 +22,7 @@ BEGIN
 
   -- Appliance case
   IF NEW.category = 'A' THEN
-    IF (SELECT category FROM assets WHERE asset_id = NEW.parent) = 'F' THEN
+    IF (SELECT category FROM assets WHERE asset_id = NEW.parent) = 'A' THEN
       RETURN NEW;
     ELSE
       RAISE EXCEPTION  'Parent attribute of the new appliance must be an appliance';

@@ -28,6 +28,7 @@ BEGIN
 
 END;
 $$
+SECURITY DEFINER
 LANGUAGE plpgsql;
 -----------------------------------------------------------------
 CREATE TRIGGER log_changes
@@ -38,7 +39,7 @@ CREATE TRIGGER log_changes
 AFTER INSERT OR UPDATE OR DELETE ON orders
 FOR EACH ROW EXECUTE FUNCTION create_logs();
 -----------------------------------------------------------------
-begin;
-set local auth.data.person_id to 1;
-delete from orders where order_id > 3000;
-commit;
+-- begin;
+-- set local auth.data.person_id to 1;
+-- delete from assets where asset_id = 'zzzz';
+-- commit;
