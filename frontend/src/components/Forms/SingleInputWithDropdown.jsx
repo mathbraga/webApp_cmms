@@ -102,7 +102,8 @@ class SingleInputWithDropDown extends Component {
       };
     }
     const newValue = filteredList[prevState.hoveredItem].name;
-    this.props.update(newValue);
+    const newValueId = filteredList[prevState.hoveredItem].id;
+    this.props.update(newValueId);
     return {
       chosenValue: newValue,
       hoveredItem: 0,
