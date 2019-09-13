@@ -70,14 +70,15 @@ end; $$;
 begin;
 set local auth.data.person_id to 1;
 select custom_create_appliance (
-  'input_appliance_id',
+  'ZY',
   'input_name',
   'input_description',
-  'CASF-000-000',
+  'ACAT-000-QDR-00308',
   'CASF-000-000',
   '99',
   'input_manufacturer',
   'input_model',
   'input_serialnum'
 );
+delete from assets where asset_id = 'ZY';
 commit;
