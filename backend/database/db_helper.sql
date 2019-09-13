@@ -2,3 +2,6 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 ALTER SEQUENCE orders_order_id_seq RESTART WITH 10;
 ALTER SEQUENCE persons_person_id_seq RESTART WITH 10;
+
+
+SELECT * FROM assets WHERE asset_id SIMILAR TO '%((ACAT-))%';
