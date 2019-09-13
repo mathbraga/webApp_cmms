@@ -22,7 +22,7 @@ CREATE VIEW appliances AS
     parent,
     name,
     description,
-    -- category,
+    category,
     manufacturer,
     serialnum,
     model,
