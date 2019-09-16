@@ -79,9 +79,9 @@ class FacilitiesForm extends Component {
       assetName: '',
       assetId: '',
       description: '',
-      area: '',
-      latitude: '',
-      longitude: '',
+      area: 0,
+      latitude: 0,
+      longitude: 0,
       assetParent: '',
       departments: ['']
     };
@@ -107,25 +107,28 @@ class FacilitiesForm extends Component {
     console.log(this.state)
     const newFacility = gql`
       mutation MyMutation (
-        $area: String!,
+        $area: Float!,
         $depsArray: [String!]!,
         $description: String!,
         $facId: String!,
-        $lat: String!,
-        $lon: String!,
+        $lat: Float!,
+        $lon: Float!,
         $name: String!,
         $parent: String!
         ){
         customCreateFacility(
           input: {
-            inputArea: $area
-            inputDepartmentsArray: $depsArray
-            inputDescription: $description
-            inputFacilityId: $facId
-            inputLatitude: $lat
-            inputLongitude: $lon
-            inputName: $name
-            inputParent: $parent
+            facilityAttributes: {
+              area: $area
+              assetId: $facId
+              description: $description
+              latitude: $lat
+              longitude: $lon
+              name: $name
+              parent: $parent
+              category: F
+            }
+            departmentsArray: $depsArray
           }
         ){
         clientMutationId
@@ -133,19 +136,19 @@ class FacilitiesForm extends Component {
       }
     }`;
 
-    const test = (newData) => (
+    const mutate = (newData) => (
       newData().then(console.log("Mutation"))
     )
     return (
       <Mutation 
         mutation={newFacility} 
         variables={{
-          area: this.state.area,
+          area: parseInt(this.state.area),
           depsArray: this.state.departments.map((item) => item.id),
           description: this.state.description,
           facId: this.state.assetId,
-          lat: this.state.latitude,
-          lon: this.state.longitude,
+          lat: parseInt(this.state.latitude),
+          lon: parseInt(this.state.longitude),
           name: this.state.assetName,
           parent: this.state.assetParent
           }}
@@ -186,7 +189,7 @@ class FacilitiesForm extends Component {
             className="form-horizontal"
             onSubmit={e => {
               e.preventDefault();
-              test(mutation, this.state)}}
+              mutate(mutation, this.state)}}
           >
             <AssetCard
               sectionName={"Novo edifício"}

@@ -14,7 +14,7 @@ import InputWithDropdown from '../../components/Forms/InputWithDropdown';
 import SingleInputWithDropDown from '../../components/Forms/SingleInputWithDropdown';
 
 import { withRouter } from "react-router-dom";
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
 // const assets = [
@@ -54,9 +54,37 @@ const allFacilities = gql`
 class EquipmentsForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      assetName: '',
+      assetId: '',
+      description: '',
+      assetParent: '',
+      price: 0,
+      location: '',
+      manufacturer: '',
+      model: '',
+      serialNum: ''
+    };
+
+    this.handleParentDropDownChange = this.handleParentDropDownChange.bind(this);
+    this.handleLocationDropDownChange = this.handleLocationDropDownChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleParentDropDownChange(assetId){
+    this.setState({ assetParent: assetId });
+  }
+
+  handleLocationDropDownChange(location){
+    this.setState({ location: location });
+  }
+
+  handleInputChange(event){
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
+    console.log(this.state);
     return (
       <Query query={allFacilities}>{
         ({loading, error, data}) => {
@@ -68,42 +96,46 @@ class EquipmentsForm extends Component {
 
           const assetId = data.allFacilities.edges.map((item) => item.node.assetId);
           const assetName = data.allFacilities.edges.map((item) => item.node.name);
-          console.log(assetId);
-          console.log(assetName);
+          //console.log(assetId);
+          //console.log(assetName);
           
           const assets = [];
           for(let i = 0; i<assetId.length; i++)
             assets.push({id: assetId[i], name: assetName[i]});
-
-          console.log(assets);
           
         return(
           <div style={{ margin: "0 100px" }}>
-            <AssetCard
-              sectionName={"Novo equipamento"}
-              sectionDescription={"Formulário para cadastro de equipamentos"}
-              handleCardButton={() => console.log('Handle Card')}
-              buttonName={"Botão"}
-              isForm={true}
-            >
-              <Form className="form-horizontal">
+            <Form className="form-horizontal">
+              <AssetCard
+                sectionName={"Novo equipamento"}
+                sectionDescription={"Formulário para cadastro de equipamentos"}
+                handleCardButton={() => console.log('Handle Card')}
+                buttonName={"Botão"}
+                isForm={true}
+              >
                 <FormGroup row>
                   <Col xs={'8'}>
                     <FormGroup>
                       <Label htmlFor="equipment-name">Nome do equipamento</Label>
-                      <Input type="text" id="equipment-name" placeholder="Digite o nome do equipamento" />
+                      <Input 
+                        onChange={this.handleInputChange}
+                        name="assetName" type="text" id="equipment-name" placeholder="Digite o nome do equipamento" />
                     </FormGroup>
                   </Col>
                   <Col xs={'4'}>
                     <FormGroup>
                       <Label htmlFor="equipment-code">Código</Label>
-                      <Input type="text" id="equipment-code" placeholder="Digite o código do equipamento" />
+                      <Input 
+                        onChange={this.handleInputChange}
+                        name="assetId" type="text" id="equipment-code" placeholder="Digite o código do equipamento" />
                     </FormGroup>
                   </Col>
                 </FormGroup>
                 <FormGroup>
                   <Label htmlFor="description">Descrição</Label>
-                  <Input type="textarea" id="description" placeholder="Descrição do equipamento" rows="4" />
+                  <Input 
+                    onChange={this.handleInputChange}
+                    name="description" type="textarea" id="description" placeholder="Descrição do equipamento" rows="4" />
                 </FormGroup>
                 <FormGroup row>
                   <Col xs={'8'}>
@@ -112,22 +144,26 @@ class EquipmentsForm extends Component {
                         label={'Ativo pai'}
                         placeholder="Nível superior do equipamento (outro equipamento ou localização)"
                         listDropdown={assets}
+                        update={this.handleParentDropDownChange}
                       />
                     </FormGroup>
                   </Col>
                   <Col xs={'4'}>
                     <FormGroup>
                       <Label htmlFor="price">Preço (R$)</Label>
-                      <Input type="text" id="area" placeholder="Preço de aquisição" />
+                      <Input 
+                        onChange={this.handleInputChange}
+                        name="price" type="text" id="area" placeholder="Preço de aquisição" />
                     </FormGroup>
                   </Col>
                 </FormGroup>
                 <FormGroup row>
                   <Col xs='8'>
-                    <InputWithDropdown
+                    <SingleInputWithDropDown
                       label={'Localização'}
                       placeholder={'Localização da manutenção ...'}
                       listDropdown={assets}
+                      update={this.handleLocationDropDownChange}
                     />
                   </Col>
                 </FormGroup>
@@ -135,24 +171,30 @@ class EquipmentsForm extends Component {
                   <Col xs={'4'}>
                     <FormGroup>
                       <Label htmlFor="manufacturer">Fabricante</Label>
-                      <Input type="text" id="manufacturer" placeholder="Empresa fabricante" />
+                      <Input 
+                        onChange={this.handleInputChange}
+                        name="manufacturer" type="text" id="manufacturer" placeholder="Empresa fabricante" />
                     </FormGroup>
                   </Col>
                   <Col xs={'4'}>
                     <FormGroup>
                       <Label htmlFor="model">Modelo</Label>
-                      <Input type="text" id="model" placeholder="Modelo" />
+                      <Input 
+                        onChange={this.handleInputChange}
+                        name="model" type="text" id="model" placeholder="Modelo" />
                     </FormGroup>
                   </Col>
                   <Col xs={'4'}>
                     <FormGroup>
                       <Label htmlFor="serial-num">Número serial</Label>
-                      <Input type="text" id="serial-num" placeholder="Número serial" />
+                      <Input 
+                        onChange={this.handleInputChange}
+                        name="serialNum" type="text" id="serial-num" placeholder="Número serial" />
                     </FormGroup>
                   </Col>
                 </FormGroup>
-              </Form>
-            </AssetCard>
+              </AssetCard>
+            </Form>
           </div>
         )}}</Query>
     );
