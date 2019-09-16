@@ -1,67 +1,31 @@
 drop function if exists custom_create_appliance;
 -------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION	custom_create_appliance (
-  input_appliance_id text,
-  input_name text,
-  input_description text,
-  input_parent text,
-  input_place text,
-  input_price text,
-  input_manufacturer text,
-  input_model text,
-  input_serialnum text
+  appliance_attributes         appliances,
+  departments_array  text[]
 )
 RETURNS text
 LANGUAGE plpgsql
 AS $$
 DECLARE	
   new_appliance_id text;
+  dept text;
 BEGIN
 
-IF input_description = '' THEN
-  input_description = NULL;
-END IF;
+INSERT INTO	appliances VALUES (appliance_attributes.*)
+  returning asset_id into new_appliance_id;
 
-IF input_price = '' THEN
-  input_price = NULL;
+IF departments_array IS NOT NULL THEN
+  FOREACH	dept IN ARRAY departments_array::text[] LOOP
+    INSERT INTO	assets_departments (
+      asset_id,
+      department_id
+    ) VALUES (	
+      new_appliance_id,
+      dept
+    );
+  END LOOP;
 END IF;
-
-IF input_manufacturer = '' THEN
-  input_manufacturer = NULL;
-END IF;
-
-IF input_model = '' THEN
-  input_model = NULL;
-END IF;
-
-IF input_serialnum = '' THEN
-  input_serialnum = NULL;
-END IF;
-
-INSERT INTO	assets (
-  asset_id,
-  name,
-  description,
-  parent,
-  place,
-  category,
-  price,
-  manufacturer,
-  model,
-  serialnum
-) VALUES (	
-  input_appliance_id,
-  input_name,
-  input_description,
-  input_parent,
-  input_place,
-  'A'::asset_category_type,
-  input_price::real,
-  input_manufacturer,
-  input_model,
-  input_serialnum
-)
-returning asset_id into new_appliance_id;
 
 return new_appliance_id;
 
@@ -70,15 +34,17 @@ end; $$;
 begin;
 set local auth.data.person_id to 1;
 select custom_create_appliance (
-  'ZY',
-  'input_name',
-  'input_description',
+  ('zzksfdkkzz',
   'ACAT-000-QDR-00308',
-  'CASF-000-000',
-  '99',
-  'input_manufacturer',
-  'input_model',
-  'input_serialnum'
+  'name',
+  'description',
+  'A',
+  'manufacturer',
+  'serialnum',
+  'model',
+  65465,
+  'warranty',
+  'CASF-000-000'),
+  null
 );
-delete from assets where asset_id = 'ZY';
 commit;
