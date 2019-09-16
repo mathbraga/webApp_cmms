@@ -189,7 +189,7 @@ class FacilitiesForm extends Component {
             className="form-horizontal"
             onSubmit={e => {
               e.preventDefault();
-              mutate(mutation, this.state)}}
+              mutate(mutation)}}
           >
             <AssetCard
               sectionName={"Novo edifício"}
