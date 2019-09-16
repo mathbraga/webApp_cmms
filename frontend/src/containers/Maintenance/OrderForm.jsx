@@ -108,7 +108,7 @@ const ordersQuery = gql`
               }
             }
           }
-          allFacilities (orderBy: ASSET_ID_ASC){
+          allAssets (orderBy: ASSET_ID_ASC){
             edges {
               node {
                 assetId
@@ -148,8 +148,8 @@ class OrderForm extends Component {
           const orderID = data.allOrders.edges.map((item) => item.node.orderId);
           const orderText = data.allOrders.edges.map((item) => item.node.requestText);
 
-          const facilityID = data.allFacilities.edges.map((item) => item.node.assetId);
-          const facilityName = data.allFacilities.edges.map((item) => item.node.name);
+          const assetId = data.allAssets.edges.map((item) => item.node.assetId);
+          const assetName = data.allAssets.edges.map((item) => item.node.name);
           //console.log(orderID);
           //console.log(orderText);
 
@@ -157,9 +157,9 @@ class OrderForm extends Component {
           for(let i = 0; i<orderID.length; i++)
             orders.push({id: orderID[i], name: orderText[i]});
 
-          const facilities = [];
-          for(let i = 0; i<facilityID.length; i++)
-            facilities.push({id: facilityID[i], name: facilityName[i]});
+          const assets = [];
+          for(let i = 0; i<assetId.length; i++)
+            assets.push({id: assetId[i], name: assetName[i]});
 
           return (
             <div style={{ margin: "0 100px" }}>
@@ -285,7 +285,7 @@ class OrderForm extends Component {
                             <InputWithDropdown
                               label={'Ativos'}
                               placeholder={'Ativos alvos da manutenção ...'}
-                              listDropdown={facilities}
+                              listDropdown={assets}
                             />
                           </FormGroup>
                         </Col>
@@ -295,7 +295,7 @@ class OrderForm extends Component {
                           <InputWithDropdown
                             label={'Localização'}
                             placeholder={'Localização da manutenção ...'}
-                            listDropdown={facilities}
+                            listDropdown={assets}
                           />
                         </Col>
                       </FormGroup>

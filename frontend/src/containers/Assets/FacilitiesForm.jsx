@@ -76,19 +76,20 @@ class FacilitiesForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      assetName: '',
-      assetId: '',
-      description: '',
-      area: 0,
-      latitude: 0,
-      longitude: 0,
-      assetParent: '',
-      departments: ['']
+      assetName: null,
+      assetId: null,
+      description: null,
+      area: null,
+      latitude: null,
+      longitude: null,
+      assetParent: null,
+      departments: null
     };
 
     this.handleFacilitiesDropDownChange = this.handleFacilitiesDropDownChange.bind(this);
     this.handleDepartmentsDropDownChange = this.handleDepartmentsDropDownChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCancelButton = this.handleCancelButton.bind(this);
   }
 
   handleFacilitiesDropDownChange(assetId){
@@ -100,19 +101,33 @@ class FacilitiesForm extends Component {
   }
 
   handleInputChange(event){
+    if(event.target.value.length === 0)
+      return this.setState({ [event.target.name]: null });
     this.setState({ [event.target.name]: event.target.value });
+  }
+
+  handleCancelButton(){
+    this.setState({
+      assetName: null,
+      assetId: null,
+      description: null,
+      area: null,
+      latitude: null,
+      longitude: null,
+      assetParent: null
+    });
   }
 
   render() {
     console.log(this.state)
     const newFacility = gql`
       mutation MyMutation (
-        $area: Float!,
-        $depsArray: [String!]!,
+        $area: Float,
+        $depsArray: [String],
         $description: String!,
         $facId: String!,
-        $lat: Float!,
-        $lon: Float!,
+        $lat: Float,
+        $lon: Float,
         $name: String!,
         $parent: String!
         ){
@@ -139,19 +154,22 @@ class FacilitiesForm extends Component {
     const mutate = (newData) => (
       newData().then(console.log("Mutation"))
     )
+
+    const depsArray = this.state.departments === null ? null : this.state.departments.map((item) => item.id);
+
     return (
       <Mutation 
-        mutation={newFacility} 
+        mutation={newFacility}
         variables={{
           area: parseInt(this.state.area),
-          depsArray: this.state.departments.map((item) => item.id),
+          depsArray: depsArray,
           description: this.state.description,
           facId: this.state.assetId,
           lat: parseInt(this.state.latitude),
           lon: parseInt(this.state.longitude),
           name: this.state.assetName,
           parent: this.state.assetParent
-          }}
+        }}
       >
       {(mutation, {data, loading, error}) => {
         if (loading) return null;
@@ -190,6 +208,7 @@ class FacilitiesForm extends Component {
             onSubmit={e => {
               e.preventDefault();
               mutate(mutation)}}
+            onReset={this.handleCancelButton}
           >
             <AssetCard
               sectionName={"Novo edifício"}
