@@ -77,13 +77,8 @@ class FacilitiesList extends Component {
       });
     }
 
-    console.log("Filtered Items:");
-    console.log(filteredItems);
-
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
-
-    console.log(showItems);
 
     const thead =
       <tr>
@@ -102,9 +97,9 @@ class FacilitiesList extends Component {
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
           <div>{item.node.name}</div>
-          <div className="small text-muted">{item.node.parent}</div>
+          <div className="small text-muted">{item.node.assetId}</div>
         </td>
-        <td className="text-center">{item.node.assetId}</td>
+        <td className="text-center">{item.node.parent}</td>
         <td>
           <div className="text-center">{item.node.area}</div>
         </td>
