@@ -1,3 +1,17 @@
+-- - CREATE EXTENSION
+-- - CREATE TYPES
+-- - CREATE SCHEMA
+-- - CREATE TABLE
+-- - CREATE POLICY
+-- - CREATE VIEW
+-- - CREATE FUNCTION
+-- - CREATE TRIGGER
+-- - CREATE ROLE
+-- - GRANT
+-- - COMMENTS
+
+
+
 drop table if exists order_items;
 drop table if exists items;
 drop table if exists orders;

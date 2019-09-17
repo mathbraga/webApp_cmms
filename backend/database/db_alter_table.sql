@@ -16,6 +16,11 @@ ALTER TABLE orders ALTER COLUMN order_id DROP NOT NULL;
 alter table orders alter column order_id drop default;
 alter table orders alter column order_id add generated always as identity;
 
+alter table teste alter column f1 drop default;
+alter table teste alter column f1 add generated always as identity;
 
-
-
+drop table teste;
+create table teste (
+  f1 integer primary key generated always as identity,
+  f2 text
+);
