@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import signup from "../../utils/authentication/signup";
 import loginFetch from "../../utils/authentication/loginFetch";
 import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { Query, Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
 
-class SignUp extends Component {
+class RegisterUser extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -13,7 +15,7 @@ class SignUp extends Component {
       phone: "",
       department: "",
       contract: "",
-      category: "",
+      category: "E",
       password1: "",
       password2: "",
       isFetching: false,
@@ -30,47 +32,31 @@ class SignUp extends Component {
   }
 
   handleInputs = event => {
-    this.setState({
+    event.persist();
+    if(event.target.name === 'category'){
+      switch(event.target.value){
+        case 'E':
+          this.setState({
+            category: 'E',
+            contract: null,
+          });
+          break;
+        case 'T':
+          this.setState({
+            category: 'T',
+            department: null,
+          });
+          break;
+      }
+    } else {
+      this.setState({
       [event.target.name]: event.target.value
     });
   }
+  }
 
   handleSubmit = event => {
-    
 
-    // DELETE CODE BELOW. USE APOLLO CLIENT WITH REGISTERUSER MUTATION.
-
-    
-    // event.preventDefault();
-    // this.setState({
-    //   isFetching: true,
-    //   alertVisible: true,
-    //   alertMessage: "Realizando o cadastro...",
-    //   signupError: false,
-    // });
-    // signup(this.state)
-    //   .then(() => {
-    //     loginFetch(this.state.email, this.state.password1)
-    //       .then(() => {
-    //         this.props.history.push("/painel")
-    //       })
-    //       .catch(alertMessage  => {
-    //         this.setState({
-    //           signupError: true,
-    //           isFetching: false,
-    //           alertVisible: true,
-    //           alertMessage: alertMessage,
-    //         })
-    //       });
-    //   })
-    //   .catch(alertMessage => {
-    //     this.setState({
-    //       signupError: true,
-    //       isFetching: false,
-    //       alertVisible: true,
-    //       alertMessage: alertMessage,
-    //     })
-    //   })
   }
 
   closeAlert = () => {
@@ -80,192 +66,339 @@ class SignUp extends Component {
   }
 
   render() {
+
+    const formOptions = gql`
+      {
+        __type(name: "PersonCategoryType") {
+          name
+          enumValues {
+            name
+          }
+        }
+        allContracts {
+          nodes {
+            contractId
+          }
+        }
+        allDepartments {
+          nodes {
+            departmentId
+            name
+          }
+        }
+      }
+    `;
+    
+    const newUser = gql`
+      mutation MyMutation(
+        $email: String!
+        $name: String!
+        $surname: String!
+        $phone: String!
+        $department: String
+        $contract: String
+        $category: String
+        $password: String!
+        ){
+        registerUser(input: {
+            inputEmail: $email,
+            inputName: $name,
+            inputSurname: $surname,
+            inputPhone: $phone,
+            inputDepartment: $department,
+            inputContract: $contract,
+            inputCategory: $category,
+            inputPassword: $password
+        }) {
+          person {
+            email
+          }
+        }
+      }
+    `;
+    
+    const mutate = newData => (
+      newData.then(() => {
+        console.log('funcionou :)')
+      })
+    )
+
     return (
-      <React.Fragment>
+      <Mutation
+        mutation={newUser}
+        variables={{
+          email: this.state.email,
+          name: this.state.name,
+          surname: this.state.surname,
+          phone: this.state.phone,
+          department: this.state.department,
+          contract: this.state.contract,
+          category: this.state.category,
+          password: this.state.password1
+        }}
+      >{(mutation, {data, loading, error}) => {
+        if (loading) return null;
+        if(error){
+          console.log(error);
+          return null;
+        }
+        return(
+          <Query query={formOptions}>{({data, loading, error}) => {
+            if(loading) return null
+            if(error){
+              console.log(error);
+              return null
+            }
 
-        <div className="flex-row align-items-center">
-          <Container>
-            <Row className="justify-content-center">
-              <Col md="6">
-                <Card className="mx-4">
-                  <CardBody className="p-4">
-                    <Form>
-                      <h1>Cadastro</h1>
-                      <p className="text-muted">Crie sua conta para acessar o CMMS da SINFRA.</p>
-                      
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-user"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="text"
-                          id="name"
-                          name="name"
-                          placeholder="Nome"
-                          onChange={this.handleInputs}
-                          disabled={this.state.isFetching}
-                          autoFocus
-                        />
-                      </InputGroup>
-                      
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-user"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="text"
-                          id="surname"
-                          name="surname"
-                          placeholder="Sobrenome"
-                          onChange={this.handleInputs}
-                          innerRef={this.emailInputRef}
-                          disabled={this.state.isFetching}
-                        />
-                      </InputGroup>
-                      
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-user"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="text"
-                          id="email"
-                          name="email"
-                          placeholder="usuario@senado.leg.br"
-                          onChange={this.handleInputs}
-                          disabled={this.state.isFetching}
-                        />
-                      </InputGroup>
+            const categoriesArr = data.__type.enumValues;
 
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-phone"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="text"
-                          id="phone"
-                          name="phone"
-                          placeholder="Telefone"
-                          onChange={this.handleInputs}
-                          disabled={this.state.isFetching}
-                        />
-                      </InputGroup>
+            const contractsArr = data.allContracts.nodes;
 
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-briefcase"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="text"
-                          id="department"
-                          name="department"
-                          placeholder="Departamento"
-                          onChange={this.handleInputs}
-                          disabled={this.state.isFetching}
-                        />
-                      </InputGroup>
+            const departmentsArr = data.allDepartments.nodes;
 
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-briefcase"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="text"
-                          id="contract"
-                          name="contract"
-                          placeholder="Contrato"
-                          onChange={this.handleInputs}
-                          disabled={this.state.isFetching}
-                        />
-                      </InputGroup>
+            console.log('form options:\n');
+            console.log('categories:');
+            console.log(categoriesArr);
+            console.log('contracts:');
+            console.log(contractsArr);
+            console.log('departments:');
+            console.log(departmentsArr);
 
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-briefcase"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="text"
-                          id="category"
-                          name="category"
-                          placeholder="Categoria"
-                          onChange={this.handleInputs}
-                          disabled={this.state.isFetching}
-                        />
-                      </InputGroup>
+            return(
+              <Form
+                onSubmit={event => {
+                  event.preventDefault();
+                  mutate=(mutation);
+                }}
+              >
+                <div className="flex-row align-items-center">
+                  <Container>
+                    <Row className="justify-content-center">
+                      <Col md="6">
+                        <Card className="mx-4">
+                          <CardBody className="p-4">
+                            <Form>
+                              <h1>Cadastro</h1>
+                              <p className="text-muted">Crie sua conta para acessar o CMMS da SINFRA.</p>
+                              
+                              <InputGroup className="mb-3">
+                                <InputGroupAddon addonType="prepend">
+                                  <InputGroupText>
+                                    <i className="icon-user"></i>
+                                  </InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                  type="text"
+                                  id="name"
+                                  name="name"
+                                  placeholder="Nome"
+                                  onChange={this.handleInputs}
+                                  disabled={this.state.isFetching}
+                                  autoFocus
+                                />
+                              </InputGroup>
+                              
+                              <InputGroup className="mb-3">
+                                <InputGroupAddon addonType="prepend">
+                                  <InputGroupText>
+                                    <i className="icon-user"></i>
+                                  </InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                  type="text"
+                                  id="surname"
+                                  name="surname"
+                                  placeholder="Sobrenome"
+                                  onChange={this.handleInputs}
+                                  innerRef={this.emailInputRef}
+                                  disabled={this.state.isFetching}
+                                />
+                              </InputGroup>
+                              
+                              <InputGroup className="mb-3">
+                                <InputGroupAddon addonType="prepend">
+                                  <InputGroupText>
+                                    <i className="icon-user"></i>
+                                  </InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                  type="text"
+                                  id="email"
+                                  name="email"
+                                  placeholder="Email"
+                                  onChange={this.handleInputs}
+                                  disabled={this.state.isFetching}
+                                />
+                              </InputGroup>
 
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-lock"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="password"
-                          placeholder="Senha"
-                          id="password1"
-                          name="password1"
-                          onChange={this.handleInputs}
-                          disabled={this.state.isFetching}
-                        />
-                      </InputGroup>
+                              <InputGroup className="mb-3">
+                                <InputGroupAddon addonType="prepend">
+                                  <InputGroupText>
+                                    <i className="icon-phone"></i>
+                                  </InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                  type="text"
+                                  id="phone"
+                                  name="phone"
+                                  placeholder="Telefone"
+                                  onChange={this.handleInputs}
+                                  disabled={this.state.isFetching}
+                                />
+                              </InputGroup>
 
-                      <InputGroup className="mb-4">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-lock"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="password"
-                          placeholder="Repita sua senha"
-                          id="password2"
-                          name="password2"
-                          onChange={this.handleInputs}
-                          disabled={this.state.isFetching}
-                        />
-                      </InputGroup>
+                              <InputGroup className="mb-3">
+                                <InputGroupAddon addonType="prepend">
+                                  <InputGroupText>
+                                    <i className="icon-briefcase"></i>
+                                  </InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                  type="select"
+                                  id="category"
+                                  name="category"
+                                  placeholder="Categoria"
+                                  onChange={this.handleInputs}
+                                  disabled={this.state.isFetching}
+                                >
+                                  <option
+                                    value={'E'}
+                                  >Servidor Efetivo ou Comissionado
+                                  </option>
+                                  <option
+                                    value={'T'}
+                                  >Terceirizado
+                                  </option>
+                                ))}
+                                </Input>
+                              </InputGroup>
 
-                      <Button
-                        color="primary"
-                        block
-                        onClick={this.handleSubmit}
-                        disabled={this.state.isFetching}
-                        >Cadastrar
-                      </Button>
+                              <InputGroup className="mb-3">
+                                <InputGroupAddon addonType="prepend">
+                                  <InputGroupText>
+                                    <i className="icon-briefcase"></i>
+                                  </InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                  type="select"
+                                  id="department"
+                                  name="department"
+                                  placeholder="Departamento"
+                                  onChange={this.handleInputs}
+                                  disabled={this.state.category === 'T'}
+                                  value={this.state.department}
+                                >
+                                  <option
+                                    value={null}
+                                  >
+                                    Selecione o departamento
+                                  </option>
+                                  {departmentsArr.map(dept => (
+                                  <option
+                                    key={dept.departmentId}
+                                    value={dept.department}
+                                  >
+                                    {dept.departmentId}
+                                  </option>
+                                ))}
+                                </Input>
+                              </InputGroup>
 
-                    </Form>
-                  </CardBody>
-                </Card>
+                              <InputGroup className="mb-3">
+                                <InputGroupAddon addonType="prepend">
+                                  <InputGroupText>
+                                    <i className="icon-briefcase"></i>
+                                  </InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                  type="select"
+                                  id="contract"
+                                  name="contract"
+                                  placeholder="Contrato"
+                                  onChange={this.handleInputs}
+                                  disabled={this.state.category === 'E'}
+                                  value={this.state.contract}
+                                >
+                                  <option
+                                    value={null}
+                                  >
+                                    Selecione o contrato
+                                  </option>
+                                  {contractsArr.map(contract => (
+                                  <option
+                                    key={contract.contractId}
+                                    value={contract.contractId}
+                                    >
+                                    {contract.contractId}
+                                  </option>
+                                ))}
+                                </Input>
+                              </InputGroup>
 
-                <Alert
-                  className="mt-4 mx-4"
-                  color={this.state.signupError ? "danger" : "warning"}
-                  isOpen={this.state.alertVisible}
-                  toggle={this.closeAlert}
-                >{this.state.alertMessage}
-                </Alert>
-                
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      </React.Fragment>
+                              <InputGroup className="mb-3">
+                                <InputGroupAddon addonType="prepend">
+                                  <InputGroupText>
+                                    <i className="icon-lock"></i>
+                                  </InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                  type="password"
+                                  placeholder="Senha"
+                                  id="password1"
+                                  name="password1"
+                                  onChange={this.handleInputs}
+                                  disabled={this.state.isFetching}
+                                />
+                              </InputGroup>
+
+                              <InputGroup className="mb-4">
+                                <InputGroupAddon addonType="prepend">
+                                  <InputGroupText>
+                                    <i className="icon-lock"></i>
+                                  </InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                  type="password"
+                                  placeholder="Repita sua senha"
+                                  id="password2"
+                                  name="password2"
+                                  onChange={this.handleInputs}
+                                  disabled={this.state.isFetching}
+                                />
+                              </InputGroup>
+
+                              <Button
+                                color="primary"
+                                type="submit"
+                                block
+                                // onClick={this.handleSubmit}
+                                disabled={this.state.isFetching}
+                                >Cadastrar
+                              </Button>
+
+                            </Form>
+                          </CardBody>
+                        </Card>
+
+                        <Alert
+                          className="mt-4 mx-4"
+                          color={this.state.signupError ? "danger" : "warning"}
+                          isOpen={this.state.alertVisible}
+                          toggle={this.closeAlert}
+                        >{this.state.alertMessage}
+                        </Alert>
+                        
+                      </Col>
+                    </Row>
+                  </Container>
+                </div>
+              </Form>
+            )
+          }}</Query>
+        );
+      }}</Mutation>
     );
   }
 }
 
-export default SignUp;
+export default RegisterUser;
