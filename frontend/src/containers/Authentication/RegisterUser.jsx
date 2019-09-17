@@ -50,13 +50,9 @@ class RegisterUser extends Component {
       }
     } else {
       this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
-  }
-
-  handleSubmit = event => {
-
+        [event.target.name]: event.target.value
+      });
+    }
   }
 
   closeAlert = () => {
@@ -95,9 +91,9 @@ class RegisterUser extends Component {
         $name: String!
         $surname: String!
         $phone: String!
-        $department: String
-        $contract: String
-        $category: String
+        $department: String!
+        $contract: String!
+        $category: String!
         $password: String!
         ){
         registerUser(input: {
@@ -117,11 +113,9 @@ class RegisterUser extends Component {
       }
     `;
     
-    const mutate = newData => (
-      newData.then(() => {
-        console.log('funcionou :)')
-      })
-    )
+    const mutate = (newData) => {
+      newData().then((data) => console.log(data))
+    }
 
     return (
       <Mutation
@@ -140,7 +134,7 @@ class RegisterUser extends Component {
         if (loading) return null;
         if(error){
           console.log(error);
-          return null;
+          // this.handleError();
         }
         return(
           <Query query={formOptions}>{({data, loading, error}) => {
@@ -156,243 +150,245 @@ class RegisterUser extends Component {
 
             const departmentsArr = data.allDepartments.nodes;
 
-            console.log('form options:\n');
-            console.log('categories:');
-            console.log(categoriesArr);
-            console.log('contracts:');
-            console.log(contractsArr);
-            console.log('departments:');
-            console.log(departmentsArr);
+            // console.log('form options:\n');
+            // console.log('categories:');
+            // console.log(categoriesArr);
+            // console.log('contracts:');
+            // console.log(contractsArr);
+            // console.log('departments:');
+            // console.log(departmentsArr);
 
             return(
-              <Form
-                onSubmit={event => {
-                  event.preventDefault();
-                  mutate=(mutation);
-                }}
-              >
-                <div className="flex-row align-items-center">
-                  <Container>
-                    <Row className="justify-content-center">
-                      <Col md="6">
-                        <Card className="mx-4">
-                          <CardBody className="p-4">
-                            <Form>
-                              <h1>Cadastro</h1>
-                              <p className="text-muted">Crie sua conta para acessar o CMMS da SINFRA.</p>
-                              
-                              <InputGroup className="mb-3">
-                                <InputGroupAddon addonType="prepend">
-                                  <InputGroupText>
-                                    <i className="icon-user"></i>
-                                  </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                  type="text"
-                                  id="name"
-                                  name="name"
-                                  placeholder="Nome"
-                                  onChange={this.handleInputs}
-                                  disabled={this.state.isFetching}
-                                  autoFocus
-                                />
-                              </InputGroup>
-                              
-                              <InputGroup className="mb-3">
-                                <InputGroupAddon addonType="prepend">
-                                  <InputGroupText>
-                                    <i className="icon-user"></i>
-                                  </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                  type="text"
-                                  id="surname"
-                                  name="surname"
-                                  placeholder="Sobrenome"
-                                  onChange={this.handleInputs}
-                                  innerRef={this.emailInputRef}
-                                  disabled={this.state.isFetching}
-                                />
-                              </InputGroup>
-                              
-                              <InputGroup className="mb-3">
-                                <InputGroupAddon addonType="prepend">
-                                  <InputGroupText>
-                                    <i className="icon-user"></i>
-                                  </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                  type="text"
-                                  id="email"
-                                  name="email"
-                                  placeholder="Email"
-                                  onChange={this.handleInputs}
-                                  disabled={this.state.isFetching}
-                                />
-                              </InputGroup>
-
-                              <InputGroup className="mb-3">
-                                <InputGroupAddon addonType="prepend">
-                                  <InputGroupText>
-                                    <i className="icon-phone"></i>
-                                  </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                  type="text"
-                                  id="phone"
-                                  name="phone"
-                                  placeholder="Telefone"
-                                  onChange={this.handleInputs}
-                                  disabled={this.state.isFetching}
-                                />
-                              </InputGroup>
-
-                              <InputGroup className="mb-3">
-                                <InputGroupAddon addonType="prepend">
-                                  <InputGroupText>
-                                    <i className="icon-briefcase"></i>
-                                  </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                  type="select"
-                                  id="category"
-                                  name="category"
-                                  placeholder="Categoria"
-                                  onChange={this.handleInputs}
-                                  disabled={this.state.isFetching}
-                                >
-                                  <option
-                                    value={'E'}
-                                  >Servidor Efetivo ou Comissionado
-                                  </option>
-                                  <option
-                                    value={'T'}
-                                  >Terceirizado
-                                  </option>
-                                ))}
-                                </Input>
-                              </InputGroup>
-
-                              <InputGroup className="mb-3">
-                                <InputGroupAddon addonType="prepend">
-                                  <InputGroupText>
-                                    <i className="icon-briefcase"></i>
-                                  </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                  type="select"
-                                  id="department"
-                                  name="department"
-                                  placeholder="Departamento"
-                                  onChange={this.handleInputs}
-                                  disabled={this.state.category === 'T'}
-                                  value={this.state.department}
-                                >
-                                  <option
-                                    value={null}
-                                  >
-                                    Selecione o departamento
-                                  </option>
-                                  {departmentsArr.map(dept => (
-                                  <option
-                                    key={dept.departmentId}
-                                    value={dept.department}
-                                  >
-                                    {dept.departmentId}
-                                  </option>
-                                ))}
-                                </Input>
-                              </InputGroup>
-
-                              <InputGroup className="mb-3">
-                                <InputGroupAddon addonType="prepend">
-                                  <InputGroupText>
-                                    <i className="icon-briefcase"></i>
-                                  </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                  type="select"
-                                  id="contract"
-                                  name="contract"
-                                  placeholder="Contrato"
-                                  onChange={this.handleInputs}
-                                  disabled={this.state.category === 'E'}
-                                  value={this.state.contract}
-                                >
-                                  <option
-                                    value={null}
-                                  >
-                                    Selecione o contrato
-                                  </option>
-                                  {contractsArr.map(contract => (
-                                  <option
-                                    key={contract.contractId}
-                                    value={contract.contractId}
-                                    >
-                                    {contract.contractId}
-                                  </option>
-                                ))}
-                                </Input>
-                              </InputGroup>
-
-                              <InputGroup className="mb-3">
-                                <InputGroupAddon addonType="prepend">
-                                  <InputGroupText>
-                                    <i className="icon-lock"></i>
-                                  </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                  type="password"
-                                  placeholder="Senha"
-                                  id="password1"
-                                  name="password1"
-                                  onChange={this.handleInputs}
-                                  disabled={this.state.isFetching}
-                                />
-                              </InputGroup>
-
-                              <InputGroup className="mb-4">
-                                <InputGroupAddon addonType="prepend">
-                                  <InputGroupText>
-                                    <i className="icon-lock"></i>
-                                  </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                  type="password"
-                                  placeholder="Repita sua senha"
-                                  id="password2"
-                                  name="password2"
-                                  onChange={this.handleInputs}
-                                  disabled={this.state.isFetching}
-                                />
-                              </InputGroup>
-
-                              <Button
-                                color="primary"
-                                type="submit"
-                                block
-                                // onClick={this.handleSubmit}
+              <div className="flex-row align-items-center">
+                <Container>
+                  <Row className="justify-content-center">
+                    <Col md="6">
+                      <Card className="mx-4">
+                        <CardBody className="p-4">
+                          <Form
+                            onSubmit={event => {
+                              event.preventDefault();
+                              if(this.state.password1 === this.state.password2){
+                                mutate(mutation);
+                              } else {
+                                console.log('hehehe');
+                              }
+                            }}
+                          >
+                            <h1>Cadastro</h1>
+                            <p className="text-muted">Crie sua conta para acessar o CMMS da SINFRA.</p>
+                            
+                            <InputGroup className="mb-3">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  <i className="icon-user"></i>
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Nome"
+                                onChange={this.handleInputs}
                                 disabled={this.state.isFetching}
-                                >Cadastrar
-                              </Button>
+                                autoFocus
+                              />
+                            </InputGroup>
+                            
+                            <InputGroup className="mb-3">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  <i className="icon-user"></i>
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input
+                                type="text"
+                                id="surname"
+                                name="surname"
+                                placeholder="Sobrenome"
+                                onChange={this.handleInputs}
+                                innerRef={this.emailInputRef}
+                                disabled={this.state.isFetching}
+                              />
+                            </InputGroup>
+                            
+                            <InputGroup className="mb-3">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  <i className="icon-user"></i>
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input
+                                type="text"
+                                id="email"
+                                name="email"
+                                placeholder="Email"
+                                onChange={this.handleInputs}
+                                disabled={this.state.isFetching}
+                              />
+                            </InputGroup>
 
-                            </Form>
-                          </CardBody>
-                        </Card>
+                            <InputGroup className="mb-3">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  <i className="icon-phone"></i>
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input
+                                type="text"
+                                id="phone"
+                                name="phone"
+                                placeholder="Telefone"
+                                onChange={this.handleInputs}
+                                disabled={this.state.isFetching}
+                              />
+                            </InputGroup>
 
-                        <Alert
-                          className="mt-4 mx-4"
-                          color={this.state.signupError ? "danger" : "warning"}
-                          isOpen={this.state.alertVisible}
-                          toggle={this.closeAlert}
-                        >{this.state.alertMessage}
-                        </Alert>
-                        
-                      </Col>
-                    </Row>
-                  </Container>
-                </div>
-              </Form>
+                            <InputGroup className="mb-3">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  <i className="icon-briefcase"></i>
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input
+                                type="select"
+                                id="category"
+                                name="category"
+                                placeholder="Categoria"
+                                onChange={this.handleInputs}
+                                disabled={this.state.isFetching}
+                              >
+                                <option
+                                  value={'E'}
+                                >Servidor Efetivo ou Comissionado
+                                </option>
+                                <option
+                                  value={'T'}
+                                >Terceirizado
+                                </option>
+                              ))}
+                              </Input>
+                            </InputGroup>
+
+                            <InputGroup className="mb-3">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  <i className="icon-briefcase"></i>
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input
+                                type="select"
+                                id="department"
+                                name="department"
+                                placeholder="Departamento"
+                                onChange={this.handleInputs}
+                                disabled={this.state.category === 'T'}
+                                value={this.state.department}
+                              >
+                                <option
+                                  value={''}
+                                >
+                                  Selecione o departamento
+                                </option>
+                                {departmentsArr.map(dept => (
+                                <option
+                                  key={dept.departmentId}
+                                  value={dept.department}
+                                >
+                                  {dept.departmentId}
+                                </option>
+                              ))}
+                              </Input>
+                            </InputGroup>
+
+                            <InputGroup className="mb-3">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  <i className="icon-briefcase"></i>
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input
+                                type="select"
+                                id="contract"
+                                name="contract"
+                                placeholder="Contrato"
+                                onChange={this.handleInputs}
+                                disabled={this.state.category === 'E'}
+                                value={this.state.contract}
+                              >
+                                <option
+                                  value={''}
+                                >
+                                  Selecione o contrato
+                                </option>
+                                {contractsArr.map(contract => (
+                                <option
+                                  key={contract.contractId}
+                                  value={contract.contractId}
+                                  >
+                                  {contract.contractId}
+                                </option>
+                              ))}
+                              </Input>
+                            </InputGroup>
+
+                            <InputGroup className="mb-3">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  <i className="icon-lock"></i>
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input
+                                type="password"
+                                placeholder="Senha"
+                                id="password1"
+                                name="password1"
+                                onChange={this.handleInputs}
+                                disabled={this.state.isFetching}
+                              />
+                            </InputGroup>
+
+                            <InputGroup className="mb-4">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  <i className="icon-lock"></i>
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input
+                                type="password"
+                                placeholder="Repita sua senha"
+                                id="password2"
+                                name="password2"
+                                onChange={this.handleInputs}
+                                disabled={this.state.isFetching}
+                              />
+                            </InputGroup>
+
+                            <Button
+                              color="primary"
+                              type="submit"
+                              block
+                              // onClick={this.handleSubmit}
+                              disabled={this.state.isFetching}
+                              >Cadastrar
+                            </Button>
+
+                          </Form>
+                        </CardBody>
+                      </Card>
+
+                      <Alert
+                        className="mt-4 mx-4"
+                        color={this.state.signupError ? "danger" : "warning"}
+                        isOpen={this.state.alertVisible}
+                        toggle={this.closeAlert}
+                      >{this.state.alertMessage}
+                      </Alert>
+                      
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
             )
           }}</Query>
         );
