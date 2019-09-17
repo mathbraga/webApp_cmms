@@ -148,7 +148,7 @@ class OrderForm extends Component {
               </NavLink>
             </NavItem>
           </Nav>
-          <TabContent activeTab={this.state.activeTab} style={{ border: 'none' }}>
+          <TabContent activeTab={this.state.activeTab} style={{ border: 'none', padding: "10px 2px" }}>
             <TabPane tabId="1">
               <Form className="form-horizontal">
                 <FormGroup row>
