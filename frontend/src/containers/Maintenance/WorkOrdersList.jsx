@@ -22,6 +22,37 @@ const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
 
+const ORDER_CATEGORY_TYPE = {
+  'EST': 'Avaliação estrutural',
+  'FOR': 'Reparo em forro',
+  'INF': 'Infiltração',
+  'ELE': 'Instalações elétricas',
+  'HID': 'Instalações hidrossanitárias',
+  'MAR': 'Marcenaria',
+  'PIS': 'Reparo em piso',
+  'REV': 'Revestimento',
+  'VED': 'Vedação espacial',
+  'VID': 'Vidraçaria / Esquadria',
+  'SER': 'Serralheria',
+};
+
+const ORDER_STATUS_TYPE = {
+  'CAN': 'Cancelada',
+  'NEG': 'Negada',
+  'PEN': 'Pendente',
+  'SUS': 'Suspensa',
+  'FIL': 'Fila de espera',
+  'EXE': 'Execução',
+  'CON': 'Concluída',
+}
+
+const ORDER_PRIORITY_TYPE = {
+  'BAI': 'Baixa',
+  'NOR': 'Normal',
+  'ALT': 'Alta',
+  'URG': 'Urgente',
+};
+
 
 class WorkOrdersList extends Component {
   constructor(props) {
@@ -76,6 +107,18 @@ class WorkOrdersList extends Component {
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
+    // Create array with all places:
+    const places = {};
+    showItems.forEach(item => {
+      const tempPlaces = []
+      item.node.orderAssetsByOrderId.edges.forEach(asset => {
+        tempPlaces.push(asset.node.assetByAssetId.assetByPlace);
+      });
+      if (tempPlaces.length > 0) { places[item.node.orderId] = tempPlaces; }
+    });
+
+    console.log("Places: ", places);
+
     const thead =
       <tr>
         <th className="text-center checkbox-cell">
@@ -93,18 +136,23 @@ class WorkOrdersList extends Component {
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td className="text-center">{item.node.orderId}</td>
         <td>
-          <div>{item.node.requestText}</div>
-          <div className="small text-muted">{item.node.category}</div>
+          <div>{item.node.requestTitle}</div>
+          <div className="small text-muted">{ORDER_CATEGORY_TYPE[item.node.category]}</div>
         </td>
-        <td className="text-center">{item.node.status}</td>
+        <td className="text-center">{ORDER_STATUS_TYPE[item.node.status]}</td>
         <td>
-          <div className="text-center">{item.node.createdAt}</div>
-        </td>
-        <td>
-          <div className="text-center">{item.node.dateLimit}</div>
+          <div className="text-center">{ORDER_PRIORITY_TYPE[item.node.priority]}</div>
         </td>
         <td>
-          <div className="text-center">{item.node.requestPerson}</div>
+          <div className="text-center">{item.node.dateLimit && item.node.dateLimit.split('T')[0]}</div>
+        </td>
+        <td>
+          <div className="text-center">
+            {
+              places[item.node.orderId] &&
+              places[item.node.orderId].map(place => (<div>{place.name}</div>))
+            }
+          </div>
         </td>
       </tr>))
 
