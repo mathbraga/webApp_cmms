@@ -11,7 +11,7 @@ ALTER TABLE assets ALTER COLUMN category SET NOT NULL;
 
 alter table orders alter column created_at set default now();
 
-ALTER TABLE orders ALTER COLUMN order_id DROP NOT NULL;
+alter table assets alter column description DROP NOT NULL;
 
 alter table orders alter column order_id drop default;
 alter table orders alter column order_id add generated always as identity;
@@ -24,3 +24,6 @@ create table teste (
   f1 integer primary key generated always as identity,
   f2 text
 );
+
+
+alter table assets add foreign key (place) references assets (asset_id);

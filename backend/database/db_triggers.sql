@@ -13,6 +13,7 @@ BEGIN
     ELSE
       RAISE EXCEPTION  'Parent attribute of the new facility must be a facility';
     END IF;
+  
     IF (SELECT category FROM assets WHERE asset_id = NEW.place) = 'F' THEN
       RETURN NEW;
     ELSE
@@ -32,6 +33,9 @@ BEGIN
     ELSE
       RAISE EXCEPTION  'Place attribute of the new appliance must be a facility';
     END IF;
+    if (new.description = '' or new.description = null) then
+      raise exception 'New appliance must have a description';
+    end if;
   END IF;
 END;
 $$;

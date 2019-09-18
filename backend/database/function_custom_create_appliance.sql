@@ -34,7 +34,7 @@ end; $$;
 begin;
 set local auth.data.person_id to 1;
 select custom_create_appliance (
-  ('zzksfdkkzz',
+  ('zzksfdkddddkzz',
   'ACAT-000-QDR-00308',
   'name',
   'description',

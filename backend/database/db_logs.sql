@@ -2,70 +2,70 @@ drop table if exists private.logs;
 drop trigger if exists log_changes on assets;
 drop trigger if exists log_changes on orders;
 -----------------------------------------------------------------
-CREATE TABLE private.logs (
-  person_id         integer      NOT NULL,
-  stamp             timestamp    NOT NULL,
-  operation         text         NOT NULL,
-  tablename         text         NOT NULL,
+create table private.logs (
+  person_id         integer      not null,
+  stamp             timestamp    not null,
+  operation         text         not null,
+  tablename         text         not null,
   old_row           text,
   new_row           text
 );
 -----------------------------------------------------------------
-CREATE OR REPLACE FUNCTION create_logs ()
-RETURNS TRIGGER AS $$
-BEGIN
+create or replace function create_logs ()
+returns trigger as $$
+begin
 
-  INSERT INTO private.logs VALUES (
+  insert into private.logs2 values (
     current_setting('auth.data.person_id')::integer,
     now(),
-    TG_OP,
-    TG_TABLE_NAME::text,
-    OLD::text,
-    NEW::text
+    tg_op,
+    tg_table_name::text,
+    row_to_json(old, false),
+    row_to_json(new, false)
   );
 
-  RETURN NULL; -- result is ignored since this is an AFTER trigger
+  return null; -- result is ignored since this is an after trigger
 
-END;
+end;
 $$
-SECURITY DEFINER
-LANGUAGE plpgsql;
+security definer
+language plpgsql;
 -----------------------------------------------------------------
-CREATE TRIGGER log_changes
-AFTER INSERT OR UPDATE OR DELETE ON orders
-FOR EACH ROW EXECUTE FUNCTION create_logs();
+create trigger log_changes
+after insert or update or delete on orders
+for each row execute function create_logs();
 -----------------------------------------------------------------
-CREATE TRIGGER log_changes
-AFTER INSERT OR UPDATE OR DELETE ON orders_messages
-FOR EACH ROW EXECUTE FUNCTION create_logs();
+create trigger log_changes
+after insert or update or delete on orders_messages
+for each row execute function create_logs();
 -----------------------------------------------------------------
-CREATE TRIGGER log_changes
-AFTER INSERT OR UPDATE OR DELETE ON orders_assets
-FOR EACH ROW EXECUTE FUNCTION create_logs();
+create trigger log_changes
+after insert or update or delete on orders_assets
+for each row execute function create_logs();
 -----------------------------------------------------------------
-CREATE TRIGGER log_changes
-AFTER INSERT OR UPDATE OR DELETE ON assets
-FOR EACH ROW EXECUTE FUNCTION create_logs();
+create trigger log_changes
+after insert or update or delete on assets
+for each row execute function create_logs();
 -----------------------------------------------------------------
-CREATE TRIGGER log_changes
-AFTER INSERT OR UPDATE OR DELETE ON assets_departments;
-FOR EACH ROW EXECUTE FUNCTION create_logs();
+create trigger log_changes
+after insert or update or delete on assets_departments;
+for each row execute function create_logs();
 -----------------------------------------------------------------
-CREATE TRIGGER log_changes
-AFTER INSERT OR UPDATE OR DELETE ON contracts
-FOR EACH ROW EXECUTE FUNCTION create_logs();
+create trigger log_changes
+after insert or update or delete on contracts
+for each row execute function create_logs();
 -----------------------------------------------------------------
-CREATE TRIGGER log_changes
-AFTER INSERT OR UPDATE OR DELETE ON departments
-FOR EACH ROW EXECUTE FUNCTION create_logs();
+create trigger log_changes
+after insert or update or delete on departments
+for each row execute function create_logs();
 -----------------------------------------------------------------
-CREATE TRIGGER log_changes
-AFTER INSERT OR UPDATE OR DELETE ON persons
-FOR EACH ROW EXECUTE FUNCTION create_logs();
+create trigger log_changes
+after insert or update or delete on persons
+for each row execute function create_logs();
 -----------------------------------------------------------------
-CREATE TRIGGER log_changes
-AFTER INSERT OR UPDATE OR DELETE ON private.accounts
-FOR EACH ROW EXECUTE FUNCTION create_logs();
+create trigger log_changes
+after insert or update or delete on private.accounts
+for each row execute function create_logs();
 -----------------------------------------------------------------
 begin;
 set local auth.data.person_id to 1;
