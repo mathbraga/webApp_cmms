@@ -1,3 +1,33 @@
+--------------------------------------------------------------------------------
+/*
+
+                          Generate new CMMS database script
+
+  Order of commands:
+
+    drop database
+    create new database
+    connect to the new database
+    create extensions
+    create additional schemas
+    begin transaction
+    create custom types
+    create tables
+    create views
+    create policies (row-level security)
+    create functions
+    create triggers
+    create roles (already created for the database cluster, not necessary in new databases)
+    grant permissions
+    create comments
+    insert rows into tables
+    alter sequences
+
+*/
+--------------------------------------------------------------------------------
+-- drop database
+drop database if exists cmms3;
+
 -- create new database
 create database cmms3 with owner postgres template template0 encoding 'WIN1252';
 
@@ -287,6 +317,7 @@ create view appliances as
   select
     asset_id,
     parent,
+    place,
     name,
     description,
     category,
@@ -294,8 +325,7 @@ create view appliances as
     serialnum,
     model,
     price,
-    warranty,
-    place
+    warranty
   from assets
   where category = 'A'
   order by asset_id;
@@ -313,7 +343,6 @@ create policy graphiql on rlstest for all to postgres using (true) with check (t
 -- 4) default policy is deny.
 
 
-
 -- create functions
 
 -- create triggers
@@ -325,20 +354,51 @@ create policy graphiql on rlstest for all to postgres using (true) with check (t
 -- grant permissions
 grant select on all tables in schema public to unauth;
 grant select, insert, update, delete on all tables in schema public to auth;
-
 -----------------------
-grant usage on all sequences in schema public to unauth;
-grant usage on all sequences in schema public to auth;
-alter default privileges in schema public grant all on tables to unauth;
-alter default privileges in schema public grant all on tables to auth;
+-- grant usage on all sequences in schema public to unauth;
+-- grant usage on all sequences in schema public to auth;
+-- alter default privileges in schema public grant all on tables to unauth;
+-- alter default privileges in schema public grant all on tables to auth;
 --------------------
 
 
 -- create comments
+comment on type order_status_type is E'
+  Significados dos possíveis valores do enum order_status_type:\n
+  CAN: Cancelada;\n 
+  NEG: Negada;\n
+  PEN: Pendente;\n
+  SUS: Suspensa;\n
+  FIL: Fila de espera;\n
+  EXE: Execução;\n
+  CON: Concluída.
+';
+
+comment on type order_category_type is E'
+  Significados dos possíveis valores do enum order_category_type:\n
+  EST: Avaliação estrutural;\n
+  FOR: Reparo em forro;\n
+  INF: Infiltração;\n
+  ELE: Instalações elétricas;\n
+  HID: Instalações hidrossanitárias;\n
+  MAR: Marcenaria;\n
+  PIS: Reparo em piso;\n
+  REV: Revestimento;\n
+  VED: Vedação espacial;\n
+  VID: Vidraçaria / Esquadria;\n
+  SER: Serralheria.
+';
+
+comment on type order_priority_type is E'
+  Significados dos possíveis valores do enum order_priority_type:\n
+  BAI: Baixa;\n
+  NOR: Normal;\n
+  ALT: Alta;\n
+  URG: Urgente.
+';
+
+-- insert rows into tables
 
 -- alter sequences
 alter sequence orders_order_id_seq restart with 100;
 alter sequence persons_person_id_seq restart with 100;
-
--- commit transaction
-commit transaction;
