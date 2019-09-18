@@ -101,7 +101,7 @@ class SingleInputWithDropDown extends Component {
         inputValue: "",
       };
     }
-    const newValue = filteredList[prevState.hoveredItem].name;
+    const newValue = filteredList[prevState.hoveredItem].text;
     const newValueId = filteredList[prevState.hoveredItem].id;
     this.props.update(newValueId);
     return {
@@ -116,7 +116,7 @@ class SingleInputWithDropDown extends Component {
     const { inputValue, isDropdownOpen, hoveredItem } = this.state;
     const filteredList = listDropdown.filter((item) =>
       (
-        item.name.toLowerCase().includes(inputValue.toLowerCase())
+        item.text.toLowerCase().includes(inputValue.toLowerCase())
       ));
     return (
       <FormGroup className={'dropdown-container'}>
@@ -135,7 +135,7 @@ class SingleInputWithDropDown extends Component {
         />
         {isDropdownOpen && (
           <div
-            className="dropdown-input"
+            className={"dropdown-input"}
             ref={(el) => { this.containerScroll = el }}
           >
             <ul>
@@ -147,7 +147,7 @@ class SingleInputWithDropDown extends Component {
                   onMouseDown={this.onClickItem(filteredList)}
                   className={filteredList[hoveredItem].id === item.id ? 'active' : ''}
                   ref={(el) => this.arrayItems[item.id] = el}
-                >{item.id + ' - ' + item.name}</li>
+                >{item.text}<div className="small text-muted">{item.subtext}</div></li>
               ), this)}
             </ul>
           </div>

@@ -81,7 +81,6 @@ class EquipmentsForm extends Component {
     this.handleParentDropDownChange = this.handleParentDropDownChange.bind(this);
     this.handleLocationDropDownChange = this.handleLocationDropDownChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleCancelButton = this.handleCancelButton.bind(this);
   }
 
   handleParentDropDownChange(assetId){
@@ -96,18 +95,6 @@ class EquipmentsForm extends Component {
     if(event.target.value.length === 0)
       return this.setState({ [event.target.name]: null });
     this.setState({ [event.target.name]: event.target.value });
-  }
-
-  handleCancelButton(){
-    this.setState({
-      assetName: null,
-      assetId: null,
-      description: null,
-      area: null,
-      latitude: null,
-      longitude: null,
-      assetParent: null
-    });
   }
 
   render() {
@@ -204,7 +191,7 @@ class EquipmentsForm extends Component {
                 onSubmit={e => {
                   e.preventDefault();
                   mutate(mutation)}}
-                onReset={this.handleCancelButton}
+                onReset={() => this.props.history.push('/ativos/equipamentos')}
               >
                 <AssetCard
                   sectionName={"Novo equipamento"}

@@ -154,7 +154,6 @@ class OrderForm extends Component {
     this.handleParentDropDownChange = this.handleParentDropDownChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleAssetsDropDownChange = this.handleAssetsDropDownChange.bind(this);
-    this.handleCancelButton = this.handleCancelButton.bind(this);
   }
 
   toggle(tab) {
@@ -189,26 +188,6 @@ class OrderForm extends Component {
     if(event.target.value.length === 0)
       return this.setState({ [event.target.name]: null });
     this.setState({ [event.target.name]: event.target.value });
-  }
-
-  handleCancelButton(){
-    this.setState({
-      title: null,
-      status: null,
-      priority: null,
-      category: null,
-      description: null,
-      dateStart: null,
-      dateLimit: null,
-      execution: null,
-      parent: null,
-      assets: null,
-      requestPerson: null,
-      requestDepartment: null,
-      requestContactName: null,
-      requestContactPhone: null,
-      requestContactEmail: null
-    });
   }
 
   render() {
@@ -320,7 +299,7 @@ class OrderForm extends Component {
                 onSubmit={e => {
                   e.preventDefault();
                   mutate(mutation)}}
-                onReset={this.handleCancelButton}
+                onReset={() => this.props.history.push('/manutencao/os')}
               >
                 <AssetCard
                   sectionName={"Nova Ordem de Serviço"}

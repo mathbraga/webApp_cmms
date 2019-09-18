@@ -89,7 +89,6 @@ class FacilitiesForm extends Component {
     this.handleFacilitiesDropDownChange = this.handleFacilitiesDropDownChange.bind(this);
     this.handleDepartmentsDropDownChange = this.handleDepartmentsDropDownChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleCancelButton = this.handleCancelButton.bind(this);
   }
 
   handleFacilitiesDropDownChange(assetId){
@@ -104,18 +103,6 @@ class FacilitiesForm extends Component {
     if(event.target.value.length === 0)
       return this.setState({ [event.target.name]: null });
     this.setState({ [event.target.name]: event.target.value });
-  }
-
-  handleCancelButton(){
-    this.setState({
-      assetName: null,
-      assetId: null,
-      description: null,
-      area: null,
-      latitude: null,
-      longitude: null,
-      assetParent: null
-    });
   }
 
   render() {
@@ -195,11 +182,11 @@ class FacilitiesForm extends Component {
           
           const deps = [];
           for(let i = 0; i<depsID.length; i++)
-            deps.push({id: depsID[i], name: depsName[i]});
+            deps.push({id: depsID[i], text: depsName[i]});
 
           const facs = [];
           for(let i = 0; i<facID.length; i++)
-            facs.push({id: facID[i], name: facName[i]});
+            facs.push({id: facID[i], text: facName[i], subtext: facID[i]});
 
         return(
         <div style={{ margin: "0 100px" }}>
@@ -208,7 +195,7 @@ class FacilitiesForm extends Component {
             onSubmit={e => {
               e.preventDefault();
               mutate(mutation)}}
-            onReset={this.handleCancelButton}
+            onReset={() => this.props.history.push('/ativos/edificios')}
           >
             <AssetCard
               sectionName={"Novo edifício"}

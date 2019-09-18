@@ -117,7 +117,7 @@ class InputWithDropdown extends Component {
     const { departmentInputValue, isDropdownOpen, hoveredItem, departmentValues } = this.state;
     const filteredList = listDropdown.filter((item) =>
       (
-        item.name.toLowerCase().includes(departmentInputValue.toLowerCase())
+        item.text.toLowerCase().includes(departmentInputValue.toLowerCase())
         && !departmentValues.some(selectedItem => selectedItem.id === item.id)
       ));
     return (
@@ -127,7 +127,7 @@ class InputWithDropdown extends Component {
           <div className='container-selected-items'>
             <Input
               type="text"
-              value={item.name}
+              value={item.text}
               disabled
               className='selected-items'
             />
@@ -167,7 +167,7 @@ class InputWithDropdown extends Component {
                   onMouseDown={this.onClickItem(filteredList)}
                   className={filteredList[hoveredItem].id === item.id ? 'active' : ''}
                   ref={(el) => this.arrayItems[item.id] = el}
-                >{item.id + ' - ' + item.name}</li>
+                >{item.id + ' - ' + item.text}</li>
               ), this)}
             </ul>
           </div>
