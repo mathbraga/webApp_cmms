@@ -400,6 +400,54 @@ create policy graphiql on rlstest for all to postgres using (true) with check (t
 
 
 -- create functions
+create or replace function authenticate (
+  input_email    text,
+  input_password text
+) returns integer
+language plpgsql
+strict
+security definer
+as $$
+declare
+  account private.accounts;
+begin
+
+  select a.* into account
+    from persons as p
+    join private.accounts as a using(person_id)
+    where p.email = 'hzlopes@senado.leg.br';
+ 
+  if (
+    account.password_hash = crypt(input_password, account.password_hash)
+    and account.is_active
+  ) then
+    return account.person_id;
+  else
+    return null;
+  end if;
+  
+end; $$;
+
+create or replace function create_logs ()
+returns trigger
+language plpgsql
+security definer
+as $$
+begin
+
+  insert into private.logs values (
+    current_setting('auth.data.person_id')::integer,
+    now(),
+    tg_op,
+    tg_table_name::text,
+    row_to_json(old, false),
+    row_to_json(new, false)
+  );
+
+  return null; -- result is ignored since this is an after trigger
+
+end; $$;
+
 
 -- create triggers
 
