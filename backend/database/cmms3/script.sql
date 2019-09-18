@@ -428,7 +428,7 @@ begin
   
 end; $$;
 
-create or replace function create_logs ()
+create or replace function create_log ()
 returns trigger
 language plpgsql
 security definer
