@@ -6,11 +6,6 @@
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.30);
 }
 
-.table-container::-webkit-scrollbar-thumb,
-.table-container::-webkit-scrollbar {
-  height: 0px;
-}
-
 .content-table {
   table-layout: fixed;
   width: 100%;

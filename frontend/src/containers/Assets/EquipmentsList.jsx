@@ -92,16 +92,13 @@ class EquipmentsList extends Component {
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
-          <div>{item.node.assetId}</div>
-          <div className="small text-muted">{item.node.parent}</div>
+          <div>{item.node.name}</div>
+          <div className="small text-muted">{item.node.assetId}</div>
         </td>
+        <td className="text-center">{item.node.assetByPlace.name}</td>
         <td className="text-center">{item.node.manufacturer}</td>
         <td className="text-center">{item.node.model}</td>
-        <td>
-          <div className="text-center">
-            {item.node.serialnum}
-          </div>
-        </td>
+        <td className="text-center">{item.node.assetByParent.assetId}</td>
       </tr>))
 
     return (
