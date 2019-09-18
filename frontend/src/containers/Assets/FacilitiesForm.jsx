@@ -124,7 +124,7 @@ class FacilitiesForm extends Component {
       mutation MyMutation (
         $area: Float,
         $depsArray: [String],
-        $description: String!,
+        $description: String,
         $facId: String!,
         $lat: Float,
         $lon: Float,
@@ -161,12 +161,12 @@ class FacilitiesForm extends Component {
       <Mutation 
         mutation={newFacility}
         variables={{
-          area: parseInt(this.state.area),
+          area: Number(this.state.area),
           depsArray: depsArray,
           description: this.state.description,
           facId: this.state.assetId,
-          lat: parseInt(this.state.latitude),
-          lon: parseInt(this.state.longitude),
+          lat: Number(this.state.latitude),
+          lon: Number(this.state.longitude),
           name: this.state.assetName,
           parent: this.state.assetParent
         }}

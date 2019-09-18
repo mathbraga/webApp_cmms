@@ -67,20 +67,21 @@ class EquipmentsForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      assetName: '',
-      assetId: '',
-      description: '',
-      assetParent: '',
-      price: 0,
-      location: '',
-      manufacturer: '',
-      model: '',
-      serialNum: ''
+      assetName: null,
+      assetId: null,
+      description: null,
+      assetParent: null,
+      price: null,
+      location: null,
+      manufacturer: null,
+      model: null,
+      serialNum: null
     };
 
     this.handleParentDropDownChange = this.handleParentDropDownChange.bind(this);
     this.handleLocationDropDownChange = this.handleLocationDropDownChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCancelButton = this.handleCancelButton.bind(this);
   }
 
   handleParentDropDownChange(assetId){
@@ -92,7 +93,21 @@ class EquipmentsForm extends Component {
   }
 
   handleInputChange(event){
+    if(event.target.value.length === 0)
+      return this.setState({ [event.target.name]: null });
     this.setState({ [event.target.name]: event.target.value });
+  }
+
+  handleCancelButton(){
+    this.setState({
+      assetName: null,
+      assetId: null,
+      description: null,
+      area: null,
+      latitude: null,
+      longitude: null,
+      assetParent: null
+    });
   }
 
   render() {
@@ -101,13 +116,13 @@ class EquipmentsForm extends Component {
       mutation MyMutation (
           $assetId: String!,
           $description: String!,
-          $manufacturer: String!,
-          $model: String!,
+          $manufacturer: String,
+          $model: String,
           $name: String!,
           $parent: String!,
           $place: String!,
-          $price: Float!,
-          $serialnum: String!
+          $price: Float,
+          $serialnum: String
         ){
         customCreateAppliance(
           input: {
@@ -146,7 +161,7 @@ class EquipmentsForm extends Component {
           name: this.state.assetName,
           parent: this.state.assetParent,
           place: this.state.location,
-          price: parseInt(this.state.price),
+          price: Number(this.state.price),
           serialnum: this.state.serialNum
         }}
       >
@@ -180,7 +195,7 @@ class EquipmentsForm extends Component {
             const appliances = [];
             for(let i = 0; i<applianceId.length; i++)
               appliances.push({id: applianceId[i], name: parentName[i]});
-            console.log(appliances);
+            //console.log(appliances);
             
           return(
             <div style={{ margin: "0 100px" }}>
@@ -189,6 +204,7 @@ class EquipmentsForm extends Component {
                 onSubmit={e => {
                   e.preventDefault();
                   mutate(mutation)}}
+                onReset={this.handleCancelButton}
               >
                 <AssetCard
                   sectionName={"Novo equipamento"}

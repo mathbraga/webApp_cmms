@@ -110,7 +110,7 @@ class WorkOrdersList extends Component {
         sectionName={'Edifícios e áreas'}
         sectionDescription={'Endereçamento do Senado Federal'}
         handleCardButton={this.handleURLChange}
-        buttonName={'Cadastrar Área'}
+        buttonName={'Nova OS'}
       >
         <Row style={{ marginTop: "10px", marginBottom: "5px" }}>
           <Col md="2">
