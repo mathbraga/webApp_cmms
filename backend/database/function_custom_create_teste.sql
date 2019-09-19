@@ -1,16 +1,16 @@
 drop function if exists custom_create_teste;
 -------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION	custom_create_teste (
+create or replace function	custom_create_teste (
   input appliances
 )
-RETURNS text
-LANGUAGE plpgsql
-AS $$
--- DECLARE	
+returns text
+language plpgsql
+as $$
+-- declare	
 --   new_appliance_id text;
-BEGIN
+begin
 
-  INSERT INTO 
+  insert into 
 
 end; $$;
 -------------------------------------------------------------------------------

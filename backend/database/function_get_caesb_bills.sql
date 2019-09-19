@@ -1,21 +1,21 @@
 drop function if exists get_caesb_bills;
 -------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION get_caesb_bills (
+create or replace function get_caesb_bills (
   input_meter   integer,
   input_yyyymm1	integer,
   input_yyyymm2 integer
-) RETURNS SETOF caesb_bills
-LANGUAGE plpgsql STABLE AS $$
-BEGIN
-IF input_meter = 299 THEN
-  RETURN QUERY SELECT * FROM caesb_bills
-  WHERE TRUE AND yyyymm BETWEEN input_yyyymm1 AND input_yyyymm2
-  ORDER BY caesb_bills.meter_id, caesb_bills.yyyymm;
-ELSE
-  RETURN QUERY SELECT * FROM caesb_bills
-  WHERE meter_id = input_meter AND yyyymm BETWEEN input_yyyymm1 AND input_yyyymm2
-  ORDER BY caesb_bills.meter_id, caesb_bills.yyyymm;
-END IF;
-END; $$;
+) returns setof caesb_bills
+language plpgsql stable as $$
+begin
+if input_meter = 299 then
+  return query select * from caesb_bills
+  where true and yyyymm between input_yyyymm1 and input_yyyymm2
+  order by caesb_bills.meter_id, caesb_bills.yyyymm;
+else
+  return query select * from caesb_bills
+  where meter_id = input_meter and yyyymm between input_yyyymm1 and input_yyyymm2
+  order by caesb_bills.meter_id, caesb_bills.yyyymm;
+end if;
+end; $$;
 -------------------------------------------------------------------------------
 select get_caesb_bills(201, 201801, 201812);

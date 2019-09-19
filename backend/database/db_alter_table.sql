@@ -1,17 +1,17 @@
-ALTER TABLE orders ALTER COLUMN request_department SET NOT NULL;
+alter table orders alter column request_department set not null;
 
-ALTER TABLE orders ALTER COLUMN completed DROP NOT NULL;
-ALTER TABLE orders ALTER COLUMN ans_factor DROP NOT NULL;
-ALTER TABLE orders ALTER COLUMN request_local DROP NOT NULL;
-ALTER TABLE orders ALTER COLUMN sigad DROP NOT NULL;
+alter table orders alter column completed drop not null;
+alter table orders alter column ans_factor drop not null;
+alter table orders alter column request_local drop not null;
+alter table orders alter column sigad drop not null;
 
-ALTER TABLE assets ALTER COLUMN category DROP NOT NULL;
-ALTER TABLE assets ALTER COLUMN category SET NOT NULL;
+alter table assets alter column category drop not null;
+alter table assets alter column category set not null;
 
 
 alter table orders alter column created_at set default now();
 
-alter table assets alter column description DROP NOT NULL;
+alter table assets alter column description drop not null;
 
 alter table orders alter column order_id drop default;
 alter table orders alter column order_id add generated always as identity;

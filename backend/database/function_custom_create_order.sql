@@ -1,19 +1,19 @@
 drop function if exists custom_create_order;
 -------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION	custom_create_order (
+create or replace function	custom_create_order (
   order_attributes orders,
   assets_array text[]
 )
 returns integer
 language plpgsql
-strict -- THIS IS TO FORCE NO NULL INPUTS (MUST HAVE ASSIGNED ASSETS IN ORDER)
-AS $$
-DECLARE	
+strict -- this is to force no null inputs (must have assigned assets in order)
+as $$
+declare	
   new_order_id	 integer;
   assigned_asset text;
-BEGIN
+begin
 
-INSERT INTO	orders (
+insert into	orders (
     order_id,
     status,
     priority,
@@ -34,7 +34,7 @@ INSERT INTO	orders (
     date_start,
     created_at,
     contract
-) VALUES (
+) values (
     default,
     order_attributes.status,
     order_attributes.priority,
@@ -58,15 +58,15 @@ INSERT INTO	orders (
 ) returning order_id into new_order_id;
 
 -- if assets_array is not null then
-FOREACH	assigned_asset IN ARRAY assets_array LOOP
-  INSERT INTO	orders_assets (
+foreach	assigned_asset in array assets_array loop
+  insert into	orders_assets (
     order_id,
     asset_id
-  ) VALUES (
+  ) values (
     new_order_id,
     assigned_asset
   );
-END LOOP;
+end loop;
 -- end if;
 
 return new_order_id;

@@ -1,16 +1,16 @@
--- bypass de RLS ---> SOMENTE PARA ADMINS!
-ALTER ROLE role_name WITH BYPASSRLS;
+-- bypass de rls ---> somente para admins!
+alter role role_name with bypassrls;
 
-CREATE ROLE unauth;
-CREATE ROLE auth;
+create role unauth;
+create role auth;
 
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO unauth;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO auth;
+grant select on all tables in schema public to unauth;
+grant select, insert, update, delete on all tables in schema public to auth;
 
 ---- tudo:
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO unauth;
-GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO unauth;
-GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO auth;
+grant select, insert, update, delete on all tables in schema public to unauth;
+grant usage on all sequences in schema public to unauth;
+grant usage on all sequences in schema public to auth;
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO unauth;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO auth;
+alter default privileges in schema public grant all on tables to unauth;
+alter default privileges in schema public grant all on tables to auth;

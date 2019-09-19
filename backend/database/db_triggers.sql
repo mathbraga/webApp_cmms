@@ -1,45 +1,45 @@
 drop trigger if exists check_asset_integrity on assets;
 drop function if exists check_asset_integrity;
 ---------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION check_asset_integrity()
-RETURNS trigger
-LANGUAGE plpgsql
-AS $$
-BEGIN
-  -- Facility case
-  IF NEW.category = 'F' THEN
-    IF (SELECT category FROM assets WHERE asset_id = NEW.parent) = 'F' THEN
-      RETURN NEW;
-    ELSE
-      RAISE EXCEPTION  'Parent attribute of the new facility must be a facility';
-    END IF;
+create or replace function check_asset_integrity()
+returns trigger
+language plpgsql
+as $$
+begin
+  -- facility case
+  if new.category = 'f' then
+    if (select category from assets where asset_id = new.parent) = 'f' then
+      return new;
+    else
+      raise exception  'Parent attribute of the new facility must be a facility';
+    end if;
   
-    IF (SELECT category FROM assets WHERE asset_id = NEW.place) = 'F' THEN
-      RETURN NEW;
-    ELSE
-      RAISE EXCEPTION  'Place attribute of the new facility must be a facility';
-    END IF;
-  END IF;
+    if (select category from assets where asset_id = new.place) = 'f' then
+      return new;
+    else
+      raise exception  'Place attribute of the new facility must be a facility';
+    end if;
+  end if;
 
-  -- Appliance case
-  IF NEW.category = 'A' THEN
-    IF (SELECT category FROM assets WHERE asset_id = NEW.parent) = 'A' THEN
-      RETURN NEW;
-    ELSE
-      RAISE EXCEPTION  'Parent attribute of the new appliance must be an appliance';
-    END IF;
-    IF (SELECT category FROM assets WHERE asset_id = NEW.place) = 'A' THEN
-      RETURN NEW;
-    ELSE
-      RAISE EXCEPTION  'Place attribute of the new appliance must be a facility';
-    END IF;
-    if (new.description = '' or new.description = null) then
+  -- appliance case
+  if new.category = 'a' then
+    if (select category from assets where asset_id = new.parent) = 'a' then
+      return new;
+    else
+      raise exception  'Parent attribute of the new appliance must be an appliance';
+    end if;
+    if (select category from assets where asset_id = new.place) = 'a' then
+      return new;
+    else
+      raise exception  'Place attribute of the new appliance must be a facility';
+    end if;
+    if (new.description = '' or new.description is null) then
       raise exception 'New appliance must have a description';
     end if;
-  END IF;
-END;
+  end if;
+end;
 $$;
 
-CREATE TRIGGER check_asset_integrity
-  BEFORE INSERT OR UPDATE ON assets
-  FOR EACH ROW EXECUTE FUNCTION check_asset_integrity();
+create trigger check_asset_integrity
+  before insert or update on assets
+  for each row execute function check_asset_integrity();

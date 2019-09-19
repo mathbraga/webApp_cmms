@@ -1,31 +1,31 @@
 drop function if exists custom_create_appliance;
 -------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION	custom_create_appliance (
+create or replace function	custom_create_appliance (
   appliance_attributes         appliances,
   departments_array  text[]
 )
-RETURNS text
-LANGUAGE plpgsql
-AS $$
-DECLARE	
+returns text
+language plpgsql
+as $$
+declare	
   new_appliance_id text;
   dept text;
-BEGIN
+begin
 
-INSERT INTO	appliances VALUES (appliance_attributes.*)
+insert into	appliances values (appliance_attributes.*)
   returning asset_id into new_appliance_id;
 
-IF departments_array IS NOT NULL THEN
-  FOREACH	dept IN ARRAY departments_array::text[] LOOP
-    INSERT INTO	assets_departments (
+if departments_array is not null then
+  foreach	dept in array departments_array::text[] loop
+    insert into	assets_departments (
       asset_id,
       department_id
-    ) VALUES (	
+    ) values (	
       new_appliance_id,
       dept
     );
-  END LOOP;
-END IF;
+  end loop;
+end if;
 
 return new_appliance_id;
 
@@ -35,16 +35,16 @@ begin;
 set local auth.data.person_id to 1;
 select custom_create_appliance (
   ('zzksfdkddddkzz',
-  'ACAT-000-QDR-00308',
+  'acat-000-qdr-00308',
   'name',
   'description',
-  'A',
+  'a',
   'manufacturer',
   'serialnum',
   'model',
   65465,
   'warranty',
-  'CASF-000-000'),
+  'casf-000-000'),
   null
 );
 commit;

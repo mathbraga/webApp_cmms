@@ -1,6 +1,6 @@
 drop function if exists custom_update_order;
 -------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION	custom_update_order (
+create or replace function	custom_update_order (
 input_order_id integer,
 input_status	text,
 input_priority	text,
@@ -25,16 +25,16 @@ input_assets_array	text[]
 )	
 returns integer
 language plpgsql
-AS $$
-DECLARE	
+as $$
+declare	
   assigned_asset text;
-BEGIN	
+begin	
 
-IF input_parent = '' THEN
+if input_parent = '' then
   input_parent = null;
-END IF;
+end if;
 
-UPDATE orders SET (
+update orders set (
   status	,
   priority	,
   category	,
@@ -74,15 +74,15 @@ UPDATE orders SET (
   input_date_start::timestamp,	
   now()::timestamp,
   input_contract	
-) WHERE order_id = input_order_id;
+) where order_id = input_order_id;
 
-INSERT INTO	orders_messages (
+insert into	orders_messages (
   order_id,
   person_id	,
   message	,
   created_at	,
   updated_at	
-) VALUES (	
+) values (	
   input_order_id	,
   current_setting('auth.data.person_id')::integer,
   input_message	,
@@ -90,15 +90,15 @@ INSERT INTO	orders_messages (
   now()::timestamp	
 );	
 
-FOREACH	assigned_asset IN ARRAY input_assets_array LOOP
-  INSERT INTO	orders_assets (
+foreach	assigned_asset in array input_assets_array loop
+  insert into	orders_assets (
     order_id	,
     asset_id	
-  ) VALUES (	
+  ) values (	
     new_order_id	,
     assigned_asset
   );	
-END LOOP;
+end loop;
 
 return new_order_id;	
 
@@ -107,14 +107,14 @@ end; $$;
 begin;
 set local auth.data.person_id to 1;
 select custom_update_order (
-  'R',
-  'H',
-  'E',
+  'r',
+  'h',
+  'e',
   '',
   '0',
-  'REQUEST TEXT',
-  'SINFRA',
-  'REQUEST PERSON',
+  'request text',
+  'sinfra',
+  'request person',
   'request contact name',
   'request_contact_phone',
   'email@email.com',
@@ -124,8 +124,8 @@ select custom_update_order (
   'sigad',
   '2019-10-14',
   '2019-10-12',
-  'CT-2014-0088',
-  'THIS IS THE MESSAGE',
-  ARRAY['BL14-MEZ-000', 'BL14-000-000']
+  'ct-2014-0088',
+  'this is the message',
+  array['bl14-mez-000', 'bl14-000-000']
 );
 commit;
