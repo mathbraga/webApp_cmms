@@ -240,7 +240,7 @@ create table departments (
 );
 
 create table persons (
-  person_id serial primary key,
+  person_id integer primary key generated always as identity,
   email text not null unique check (email ~* '^.+@.+\..+$'),
   forename text not null,
   surname text not null,
@@ -400,6 +400,58 @@ create policy graphiql on rlstest for all to postgres using (true) with check (t
 
 
 -- create functions
+create or replace function register_user (
+  person_attributes persons,
+  input_password text
+) returns persons
+language plpgsql
+strict
+security definer
+as $$
+declare
+  new_user persons;
+begin
+
+  insert into persons (
+    person_id,
+    email,
+    forename,
+    surname,
+    phone,
+    cellphone,
+    department_id,
+    contract_id,
+    category
+  ) values (
+    default,
+    person_attributes.email,
+    person_attributes.forename,
+    person_attributes.surname,
+    person_attributes.phone,
+    person_attributes.cellphone,
+    person_attributes.department_id,
+    person_attributes.contract_id,
+    person_attributes.category
+  ) returning * into new_user;
+  
+  insert into private.accounts (
+    person_id,
+    password_hash,
+    created_at,
+    updated_at,
+    is_active
+  ) values (
+    new_user.person_id,
+    crypt(input_password, gen_salt('bf', 10)),
+    now(),
+    now(),
+    true
+  );
+
+  return new_user;
+
+end; $$;
+
 create or replace function authenticate (
   input_email    text,
   input_password text
@@ -447,6 +499,9 @@ begin
   return null; -- result is ignored since this is an after trigger
 
 end; $$;
+
+
+
 
 
 -- create triggers

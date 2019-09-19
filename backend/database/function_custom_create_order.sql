@@ -72,3 +72,32 @@ END LOOP;
 return new_order_id;
 
 end; $$;
+--------------------------------------------------------------------------------
+begin;
+set local auth.data.person_id to 1;
+select custom_create_order (
+  (
+    null,
+    'PEN',
+    'URG',
+    'ELE',
+    null,
+    0,
+    'request_text',
+    'SINFRA',
+    'request_person',
+    'request_contact_name',
+    'request_contact_phone',
+    'request_contact_email',
+    'request_title',
+    'request_local',
+    323,
+    'sigad',
+    null,
+    null,
+    now()::timestamp,
+    null
+  ),
+  ARRAY['CASF-000-000']
+);
+commit;

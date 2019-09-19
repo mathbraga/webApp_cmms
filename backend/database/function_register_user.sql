@@ -1,34 +1,19 @@
 drop function if exists register_user;
 -------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION register_user (
-  input_email      text,
-  input_name       text,
-  input_surname    text,
-  input_phone      text,
-  input_department text,
-  input_contract   text,
-  input_category   text,
+create or replace function register_user (
+  person_attributes persons,
   input_password   text
-) returns persons as $$
+) returns persons
+language plpgsql
+strict
+security definer
+as $$
 declare
   new_user persons;
-  use_contract text;
-  use_department text;
 begin
 
-  if input_department = '' then
-    use_department = null;
-  else
-    use_department = input_department;
-  end if;
-
-  if input_contract = '' then
-    use_contract = null;
-  else
-    use_contract = input_contract;
-  end if;
-
   insert into persons (
+    person_id,
     email,
     name,
     surname,
@@ -37,14 +22,16 @@ begin
     contract,
     category
   ) values (
-    input_email,
-    input_name,
-    input_surname,
-    input_phone,
-    use_department,
-    use_contract,
-    input_category::person_category_type
+    default,
+    person_attributes.email,
+    person_attributes.name,
+    person_attributes.surname,
+    person_attributes.phone,
+    person_attributes.department,
+    person_attributes.contract,
+    person_attributes.category
   ) returning * into new_user;
+  
   insert into private.accounts (
     person_id,
     password_hash,
@@ -58,17 +45,20 @@ begin
     now(),
     true
   );
+
   return new_user;
-end;
-$$ language plpgsql strict security definer;
+
+end; $$;
 -------------------------------------------------------------------------------
 select register_user(
-  'input_email',
+  (
+  'ejaklfsd@exemplo.com',
   'input_name',
   'input_surname',
   'input_phone',
-  'input_department',
-  'input_contract',
-  'input_category',
-  'input_password'
+  'SINFRA',
+  null,
+  'E'
+  ),
+  '123456'
 );
