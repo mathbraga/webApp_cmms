@@ -46,12 +46,12 @@
     create views
     create policies (row-level security)
     create functions
-    create triggers
     create roles (already created for the database cluster, not necessary in new databases)
     grant permissions
     create comments
     insert rows into tables
     alter sequences
+    create triggers
 
 */
 --------------------------------------------------------------------------------
