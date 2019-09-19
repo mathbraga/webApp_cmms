@@ -2,20 +2,20 @@ drop table if exists order_status_texts;
 drop table if exists order_category_texts;
 drop table if exists order_priority_texts;
 -------------------------------------------------------------
-CREATE TABLE order_status_texts (
+create table order_status_texts (
   val order_status_type not null primary key,
   txt text
 );
-CREATE TABLE order_category_texts (
+create table order_category_texts (
   val order_category_type not null primary key,
   txt text
 );
-CREATE TABLE order_priority_texts (
+create table order_priority_texts (
   val order_priority_type not null primary key,
   txt text
 );
 --------------------------------------------------------------------------------
-INSERT INTO order_status_texts VALUES
+insert into order_status_texts values
   ('CAN', 'Cancelada'),
   ('NEG', 'Negada'),
   ('PEN', 'Pendente'),
@@ -25,7 +25,7 @@ INSERT INTO order_status_texts VALUES
   ('CON', 'Concluída')
 ;
 
-INSERT INTO order_category_texts VALUES
+insert into order_category_texts values
   ('EST', 'Avaliação estrutural'),
   ('FOR', 'Reparo em forro'),
   ('INF', 'Infiltração'),
@@ -39,7 +39,7 @@ INSERT INTO order_category_texts VALUES
   ('SER', 'Serralheria')
 ;
 
-INSERT INTO order_priority_texts VALUES
+insert into order_priority_texts values
   ('BAI', 'Baixa'),
   ('NOR', 'Normal'),
   ('ALT', 'Alta'),

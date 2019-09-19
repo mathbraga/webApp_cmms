@@ -500,11 +500,143 @@ begin
 
 end; $$;
 
+create or replace function insert_appliance (
+  appliance_attributes appliances,
+  departments_array  text[]
+)
+returns text
+language plpgsql
+as $$
+declare
+  new_appliance_id text;
+  dept text;
+begin
+
+insert into appliances values (appliance_attributes.*)
+  returning asset_id into new_appliance_id;
+
+if departments_array is not null then
+  foreach dept in array departments_array::text[] loop
+    insert into assets_departments (
+      asset_id,
+      department_id
+    ) values (
+      new_appliance_id,
+      dept
+    );
+  end loop;
+end if;
+
+return new_appliance_id;
+
+end; $$;
+
+
+create or replace function insert_facility (
+  facility_attributes facilities,
+  departments_array text[]
+)
+returns text
+language plpgsql
+as $$
+declare 
+  new_facility_id text;
+  dept text;
+begin
+
+insert into facilities values (facility_attributes.*)
+  returning asset_id into new_facility_id;
+
+if departments_array is not null then
+  foreach dept in array departments_array::text[] loop
+    insert into assets_departments (
+      asset_id,
+      department_id
+    ) values ( 
+      new_facility_id,
+      dept
+    );
+  end loop;
+end if;
+
+return new_facility_id;
+
+end; $$;
 
 
 
+create or replace function insert_order (
+  order_attributes orders,
+  assets_array text[]
+)
+returns integer
+language plpgsql
+strict -- this is to enforce no null inputs (must have assigned assets in order)
+as $$
+declare 
+  new_order_id  integer;
+  assigned_asset text;
+begin
 
--- create triggers
+insert into orders (
+  order_id,
+  status,
+  priority,
+  category,
+  parent,
+  completed,
+  request_text,
+  request_department,
+  request_person,
+  request_contact_name,
+  request_contact_phone,
+  request_contact_email,
+  request_title,
+  request_local,
+  ans_factor,
+  sigad,
+  date_limit,
+  date_start,
+  created_at,
+  contract
+) values (
+  default,
+  order_attributes.status,
+  order_attributes.priority,
+  order_attributes.category,
+  order_attributes.parent,
+  order_attributes.completed,
+  order_attributes.request_text,
+  order_attributes.request_department,
+  order_attributes.request_person,
+  order_attributes.request_contact_name,
+  order_attributes.request_contact_phone,
+  order_attributes.request_contact_email,
+  order_attributes.request_title,
+  order_attributes.request_local,
+  order_attributes.ans_factor,
+  order_attributes.sigad,
+  order_attributes.date_limit,
+  order_attributes.date_start,
+  default,
+  order_attributes.contract
+) returning order_id into new_order_id;
+
+foreach assigned_asset in array assets_array loop
+  insert into orders_assets (
+    order_id,
+    asset_id
+  ) values (
+    new_order_id,
+    assigned_asset
+  );
+end loop;
+
+return new_order_id;
+
+end; $$;
+
+
 
 -- create roles (already created for the database cluster, not necessary in new databases)
 -- create role unauth;
@@ -6039,7 +6171,35 @@ insert into departments values ('GLMAICN', 'SF', 'GABINETE DA LIDERANÇA DO BLOC
 -- items
 -- order_items
 
-
 -- alter sequences
 alter sequence orders_order_id_seq restart with 100;
 alter sequence persons_person_id_seq restart with 100;
+
+-- create triggers
+create trigger log_changes
+after insert or update or delete on orders
+for each row execute function create_logs();
+
+create trigger log_changes
+after insert or update or delete on orders_messages
+for each row execute function create_logs();
+
+create trigger log_changes
+after insert or update or delete on orders_assets
+for each row execute function create_logs();
+
+create trigger log_changes
+after insert or update or delete on assets
+for each row execute function create_logs();
+
+create trigger log_changes
+after insert or update or delete on assets_departments;
+for each row execute function create_logs();
+
+create trigger log_changes
+after insert or update or delete on contracts
+for each row execute function create_logs();
+
+create trigger log_changes
+after insert or update or delete on departments
+for each row execute function create_logs();

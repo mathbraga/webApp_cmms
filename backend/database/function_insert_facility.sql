@@ -1,26 +1,26 @@
-drop function if exists custom_create_facility;
+drop function if exists insert_facility;
 -------------------------------------------------------------------------------
-create or replace function	custom_create_facility (
+create or replace function insert_facility (
   facility_attributes facilities,
-  departments_array   text[]
+  departments_array text[]
 )
 returns text
 language plpgsql
 as $$
-declare	
+declare 
   new_facility_id text;
   dept text;
 begin
 
-insert into	facilities values (facility_attributes.*)
+insert into facilities values (facility_attributes.*)
   returning asset_id into new_facility_id;
 
 if departments_array is not null then
-  foreach	dept in array departments_array::text[] loop
-    insert into	assets_departments (
+  foreach dept in array departments_array::text[] loop
+    insert into assets_departments (
       asset_id,
       department_id
-    ) values (	
+    ) values ( 
       new_facility_id,
       dept
     );
@@ -33,7 +33,7 @@ end; $$;
 -------------------------------------------------------------------------------
 begin;
 set local auth.data.person_id to 1;
-select custom_create_facility (
+select insert_facility (
   (
     'rttr',
     'CASF-000-000',

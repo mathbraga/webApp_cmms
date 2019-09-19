@@ -59,15 +59,17 @@ create trigger log_changes
 after insert or update or delete on departments
 for each row execute function create_logs();
 -----------------------------------------------------------------
-create trigger log_changes
-after insert or update or delete on persons
-for each row execute function create_logs();
+
+            -- persons and private.logs tables must not log
+            -- because operations in those tables might
+            -- have no current_setting(auth.data.person_id)
+
+
+-- create trigger log_changes
+-- after insert or update or delete on persons
+-- for each row execute function create_logs();
 -----------------------------------------------------------------
-create trigger log_changes
-after insert or update or delete on private.accounts
-for each row execute function create_logs();
+-- create trigger log_changes
+-- after insert or update or delete on private.accounts
+-- for each row execute function create_logs();
 -----------------------------------------------------------------
-begin;
-set local auth.data.person_id to 1;
-delete from assets where category is null;
-commit;
