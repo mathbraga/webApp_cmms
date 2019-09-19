@@ -22,6 +22,8 @@
     create extensions
     create additional schemas
     begin transaction
+    create roles
+    alter default privileges
     create custom types
     create tables
       assets
@@ -44,14 +46,12 @@
       items
       order_items
     create views
-    create policies (row-level security)
     create functions
-    create roles (already created for the database cluster, not necessary in new databases)
-    grant permissions
     create comments
     insert rows into tables
     alter sequences
     create triggers
+    create policies
 
 */
 --------------------------------------------------------------------------------
@@ -72,6 +72,18 @@ create schema private;
 
 -- begin transaction
 begin transaction;
+
+-- create roles (already created for the database cluster, not necessary in new databases)
+-- create role unauth;
+-- create role auth;
+
+-- alter default privileges
+alter default privileges in schema public grant select on tables to unauth;
+alter default privileges in schema public grant all on tables to auth;
+alter default privileges in schema public grant usage on sequences to unauth;
+alter default privileges in schema public grant usage on sequences to auth;
+alter default privileges in schema public grant execute on routines to unauth;
+alter default privileges in schema public grant execute on routines to auth;
 
 -- create custom types
 create type asset_category_type as enum ('F', 'A');
@@ -386,19 +398,6 @@ create view appliances as
   where category = 'A'
   order by asset_id;
 
--- create policies (row-level security)
-alter table tablename enable row level security;
-create policy unauth_policy on rlstest for select to unauth using (true);
-create policy auth_policy on rlstest for all to auth using (true) with check (true);
-create policy graphiql on rlstest for all to postgres using (true) with check (true);
-------- instructions:
--- 0) set all access privileges (grant or revoke commands)
--- 1) enable / disable rls for the table (can be used if a policy exists or not --> does not delete existing policies)
--- 2) create / drop policy (using --> select, update, delete ;  with check --> insert, update)
--- 3) if "for all" ==> 
--- 4) default policy is deny.
-
-
 -- create functions
 create or replace function register_user (
   person_attributes persons,
@@ -635,23 +634,6 @@ end loop;
 return new_order_id;
 
 end; $$;
-
-
-
--- create roles (already created for the database cluster, not necessary in new databases)
--- create role unauth;
--- create role auth;
-
--- grant permissions
-grant select on all tables in schema public to unauth;
-grant select, insert, update, delete on all tables in schema public to auth;
------------------------
--- grant usage on all sequences in schema public to unauth;
--- grant usage on all sequences in schema public to auth;
--- alter default privileges in schema public grant all on tables to unauth;
--- alter default privileges in schema public grant all on tables to auth;
---------------------
-
 
 -- create comments
 comment on type order_status_type is E'
@@ -6203,3 +6185,15 @@ for each row execute function create_logs();
 create trigger log_changes
 after insert or update or delete on departments
 for each row execute function create_logs();
+
+-- create policies (row-level security)
+-- alter table tablename enable row level security;
+-- create policy unauth_policy on rlstest for select to unauth using (true);
+-- create policy auth_policy on rlstest for all to auth using (true) with check (true);
+-- create policy graphiql on rlstest for all to postgres using (true) with check (true);
+------- instructions:
+-- 0) set all access privileges (grant or revoke commands)
+-- 1) enable / disable rls for the table (can be used if a policy exists or not --> does not delete existing policies)
+-- 2) create / drop policy ("using" --> select, update, delete ;  "with check" --> insert, update)
+-- 3) if "for all" ==> 
+-- 4) default policy is deny.
