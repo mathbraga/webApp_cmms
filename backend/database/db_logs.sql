@@ -15,7 +15,7 @@ create or replace function create_logs ()
 returns trigger as $$
 begin
 
-  insert into private.logs2 values (
+  insert into private.logs values (
     current_setting('auth.data.person_id')::integer,
     now(),
     tg_op,
