@@ -85,7 +85,7 @@ begin transaction;
 -- create role auth;
 
 -- alter default privileges
-alter default privileges in schema public grant select on tables to unauth;
+alter default privileges in schema public grant all on tables to unauth;
 alter default privileges in schema public grant all on tables to auth;
 alter default privileges in schema public grant usage on sequences to unauth;
 alter default privileges in schema public grant usage on sequences to auth;
@@ -384,6 +384,7 @@ create view facilities as
   select
     asset_id,
     parent,
+    place,
     name,
     description,
     category,
@@ -529,7 +530,7 @@ insert into appliances values (appliance_attributes.*)
 
 if departments_array is not null then
   foreach dept in array departments_array::text[] loop
-    insert into assets_departments (
+    insert into asset_departments (
       asset_id,
       department_id
     ) values (
@@ -561,7 +562,7 @@ insert into facilities values (facility_attributes.*)
 
 if departments_array is not null then
   foreach dept in array departments_array::text[] loop
-    insert into assets_departments (
+    insert into asset_departments (
       asset_id,
       department_id
     ) values ( 
@@ -605,8 +606,6 @@ insert into orders (
   request_contact_email,
   request_title,
   request_local,
-  ans_factor,
-  sigad,
   date_limit,
   date_start,
   created_at,
@@ -626,8 +625,6 @@ insert into orders (
   order_attributes.request_contact_email,
   order_attributes.request_title,
   order_attributes.request_local,
-  order_attributes.ans_factor,
-  order_attributes.sigad,
   order_attributes.date_limit,
   order_attributes.date_start,
   default,
@@ -635,7 +632,7 @@ insert into orders (
 ) returning order_id into new_order_id;
 
 foreach assigned_asset in array assets_array loop
-  insert into orders_assets (
+  insert into order_assets (
     order_id,
     asset_id
   ) values (
