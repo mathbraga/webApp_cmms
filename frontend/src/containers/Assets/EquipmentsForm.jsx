@@ -111,7 +111,7 @@ class EquipmentsForm extends Component {
           $price: Float,
           $serialnum: String
         ){
-        customCreateAppliance(
+        insertAppliance(
           input: {
             applianceAttributes: {
               assetId: $assetId
@@ -124,7 +124,6 @@ class EquipmentsForm extends Component {
               price: $price
               serialnum: $serialnum
               category: A
-              warranty: "Garantia"
             }
           }
         ){
@@ -174,14 +173,15 @@ class EquipmentsForm extends Component {
             
             const assets = [];
             for(let i = 0; i<assetId.length; i++)
-              assets.push({id: assetId[i], name: assetName[i]});
+              assets.push({id: assetId[i], text: assetName[i], subtext: assetId[i]});
 
             const applianceId = data.allAssets.edges.map((item) => item.node.assetId);
-            const parentName = data.allAssets.edges.map((item) => item.node.assetByParent.name)
+            const parentName = data.allAssets.edges.map((item) => item.node.assetByParent.name);
+            const applianceName = data.allAssets.edges.map((item) => item.node.name);
 
             const appliances = [];
             for(let i = 0; i<applianceId.length; i++)
-              appliances.push({id: applianceId[i], name: parentName[i]});
+              appliances.push({id: applianceId[i], text: applianceName[i], subtext: parentName[i]});
             //console.log(appliances);
             
           return(

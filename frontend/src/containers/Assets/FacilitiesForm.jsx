@@ -58,7 +58,7 @@ const depQuery = gql`
             edges {
               node {
                 departmentId
-                name
+                fullName
               }
             }
           }
@@ -116,9 +116,10 @@ class FacilitiesForm extends Component {
         $lat: Float,
         $lon: Float,
         $name: String!,
-        $parent: String!
+        $parent: String!,
+        $place: String!
         ){
-        customCreateFacility(
+        insertFacility(
           input: {
             facilityAttributes: {
               area: $area
@@ -129,6 +130,7 @@ class FacilitiesForm extends Component {
               name: $name
               parent: $parent
               category: F
+              place: $place
             }
             departmentsArray: $depsArray
           }
@@ -155,7 +157,8 @@ class FacilitiesForm extends Component {
           lat: Number(this.state.latitude),
           lon: Number(this.state.longitude),
           name: this.state.assetName,
-          parent: this.state.assetParent
+          parent: this.state.assetParent,
+          place: this.state.assetParent
         }}
       >
       {(mutation, {data, loading, error}) => {
@@ -173,7 +176,7 @@ class FacilitiesForm extends Component {
             return null
           }
           const depsID = data.allDepartments.edges.map((item) => item.node.departmentId);
-          const depsName = data.allDepartments.edges.map((item) => item.node.name);
+          const depsName = data.allDepartments.edges.map((item) => item.node.fullName);
 
           const facID = data.allFacilities.edges.map((item) => item.node.assetId);
           const facName = data.allFacilities.edges.map((item) => item.node.name);
@@ -182,7 +185,7 @@ class FacilitiesForm extends Component {
           
           const deps = [];
           for(let i = 0; i<depsID.length; i++)
-            deps.push({id: depsID[i], text: depsName[i]});
+            deps.push({id: depsID[i], text: depsName[i], subtext: depsID[i]});
 
           const facs = [];
           for(let i = 0; i<facID.length; i++)

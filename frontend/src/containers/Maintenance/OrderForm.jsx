@@ -21,53 +21,53 @@ import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const ORDER_STATUS = [
-  { id: 'CAN', name: 'Cancelado' },
-  { id: 'NEG', name: 'Negado' },
-  { id: 'PEN', name: 'Pendente' },
-  { id: 'SUS', name: 'Suspenso' },
-  { id: 'FIL', name: 'Fila de espera' },
-  { id: 'EXE', name: 'Em execução' },
-  { id: 'CON', name: 'Concluído' },
+  { id: 'CAN', text: 'Cancelado', subtext: "" },
+  { id: 'NEG', text: 'Negado', subtext: "" },
+  { id: 'PEN', text: 'Pendente', subtext: "" },
+  { id: 'SUS', text: 'Suspenso', subtext: "" },
+  { id: 'FIL', text: 'Fila de espera', subtext: "" },
+  { id: 'EXE', text: 'Em execução', subtext: "" },
+  { id: 'CON', text: 'Concluído', subtext: "" },
 ];
 
 const ORDER_PRIORITY = [
-  { id: 'BAI', name: 'Baixa' },
-  { id: 'NOR', name: 'Normal' },
-  { id: 'ALT', name: 'Alta' },
-  { id: 'URG', name: 'Urgente' },
+  { id: 'BAI', text: 'Baixa', subtext: "" },
+  { id: 'NOR', text: 'Normal', subtext: "" },
+  { id: 'ALT', text: 'Alta', subtext: "" },
+  { id: 'URG', text: 'Urgente', subtext: "" },
 ];
 
 const ORDER_CATEGORY = [
-  { id: 'EST', name: 'Avaliação Estrutural' },
-  { id: 'FOR', name: 'Reparo em Forro' },
-  { id: 'INF', name: 'Infiltração' },
-  { id: 'ELE', name: 'Instalações Elétricas' },
-  { id: 'HID', name: 'Instalações Hidrossanitárias' },
-  { id: 'MAR', name: 'Marcenaria' },
-  { id: 'PIS', name: 'Reparo em Piso' },
-  { id: 'REV', name: 'Revestimento' },
-  { id: 'VED', name: 'Vedação Espacial' },
-  { id: 'VID', name: 'Vidraçaria/Esquadria' },
-  { id: 'SER', name: 'Serralheria' },
+  { id: 'EST', text: 'Avaliação Estrutural', subtext: "" },
+  { id: 'FOR', text: 'Reparo em Forro', subtext: "" },
+  { id: 'INF', text: 'Infiltração', subtext: "" },
+  { id: 'ELE', text: 'Instalações Elétricas', subtext: "" },
+  { id: 'HID', text: 'Instalações Hidrossanitárias', subtext: "" },
+  { id: 'MAR', text: 'Marcenaria', subtext: "" },
+  { id: 'PIS', text: 'Reparo em Piso', subtext: "" },
+  { id: 'REV', text: 'Revestimento', subtext: "" },
+  { id: 'VED', text: 'Vedação Espacial', subtext: "" },
+  { id: 'VID', text: 'Vidraçaria/Esquadria', subtext: "" },
+  { id: 'SER', text: 'Serralheria', subtext: "" },
 ];
 
-const assets = [
-  { id: 'ACAT-001-001', name: 'Ar condicionado - Midea' },
-  { id: 'AFDE-001-001', name: 'Casa de máquinas' },
-  { id: 'QDEL-001-001', name: 'Quadro de energia elétrica - Sinfra' },
-  { id: 'QDEL-001-002', name: 'Quadro de energia elétrica - Coemant' },
-  { id: 'QDEL-001-003', name: 'Quadro de energia elétrica - Seplag' },
-  { id: 'GMG1-001-001', name: 'Grupo motor gerador - Painel' },
-  { id: 'GMG1-001-002', name: 'Grupo motor gerador - Motor' },
-  { id: 'GMG1-002-003', name: 'Grupo motor gerador - Gerador' },
-  { id: 'ANX2-001-001', name: 'Anexo 2 - Rui Barbosa' },
-  { id: 'ANX2-002-001', name: 'Anexo 2 - Petrônio Portela' },
-  { id: 'ANX2-003-001', name: 'Anexo 2 - Auditório' },
-  { id: 'ANX1-001-001', name: 'Anexo 1 - Pavimento 01' },
-  { id: 'ANX1-002-001', name: 'Anexo 1 - Pavimento 02' },
-  { id: 'ANX1-003-001', name: 'Anexo 1 - Pavimento 03' },
-  { id: 'ANX1-004-001', name: 'Anexo 1 - Pavimento 04' },
-];
+// const assets = [
+//   { id: 'ACAT-001-001', name: 'Ar condicionado - Midea' },
+//   { id: 'AFDE-001-001', name: 'Casa de máquinas' },
+//   { id: 'QDEL-001-001', name: 'Quadro de energia elétrica - Sinfra' },
+//   { id: 'QDEL-001-002', name: 'Quadro de energia elétrica - Coemant' },
+//   { id: 'QDEL-001-003', name: 'Quadro de energia elétrica - Seplag' },
+//   { id: 'GMG1-001-001', name: 'Grupo motor gerador - Painel' },
+//   { id: 'GMG1-001-002', name: 'Grupo motor gerador - Motor' },
+//   { id: 'GMG1-002-003', name: 'Grupo motor gerador - Gerador' },
+//   { id: 'ANX2-001-001', name: 'Anexo 2 - Rui Barbosa' },
+//   { id: 'ANX2-002-001', name: 'Anexo 2 - Petrônio Portela' },
+//   { id: 'ANX2-003-001', name: 'Anexo 2 - Auditório' },
+//   { id: 'ANX1-001-001', name: 'Anexo 1 - Pavimento 01' },
+//   { id: 'ANX1-002-001', name: 'Anexo 1 - Pavimento 02' },
+//   { id: 'ANX1-003-001', name: 'Anexo 1 - Pavimento 03' },
+//   { id: 'ANX1-004-001', name: 'Anexo 1 - Pavimento 04' },
+// ];
 
 // const facilities = [
 //   { id: 'BL14-001-001', name: 'Bloco 14 - Pavimento 01' },
@@ -210,7 +210,7 @@ class OrderForm extends Component {
         $requestDepartment: String!,
         $assetsArray: [String]!
         ){
-          customCreateOrder(
+          insertOrder(
             input: {
               orderAttributes: {
                 status: $status
@@ -285,12 +285,18 @@ class OrderForm extends Component {
             //console.log(orderText);
 
             const orders = [];
+            const shortOrderText = orderText.map(
+              (item) => {
+                if(item.length > 40) 
+                  return item.slice(0, 41) + "..."
+                return item
+              });
             for(let i = 0; i<orderID.length; i++)
-              orders.push({id: orderID[i], name: orderText[i]});
+              orders.push({id: orderID[i], text: "OS " + orderID[i] + " - " + shortOrderText[i], subtext: ""});
 
             const assets = [];
             for(let i = 0; i<assetId.length; i++)
-              assets.push({id: assetId[i], name: assetName[i]});
+              assets.push({id: assetId[i], text: assetName[i], subtext: assetId[i]});
 
             return (
               <div style={{ margin: "0 100px" }}>

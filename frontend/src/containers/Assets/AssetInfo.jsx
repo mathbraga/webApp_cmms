@@ -55,7 +55,7 @@ class AssetInfo extends Component {
           category
           assetId
           model
-          ordersAssetsByAssetId(condition: {assetId: $assetId}, orderBy: ASSET_ID_ASC) {
+          orderAssetsByAssetId(condition: {assetId: $assetId}, orderBy: ASSET_ID_ASC) {
             edges {
               node {
                 assetId
@@ -91,8 +91,8 @@ class AssetInfo extends Component {
       const assetsInfo = data;
       console.log(assetsInfo.assetByAssetId);
 
-      const pageLength = assetsInfo.assetByAssetId.ordersAssetsByAssetId.edges.length;
-      const edges = assetsInfo.assetByAssetId.ordersAssetsByAssetId.edges;
+      const pageLength = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges.length;
+      const edges = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges;
 
       const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
       const showItems = edges.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
