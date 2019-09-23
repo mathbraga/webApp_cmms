@@ -741,6 +741,7 @@ create or replace function modify_order (
 )
 returns integer
 language plpgsql
+strict
 as $$
 begin
   update orders as o
