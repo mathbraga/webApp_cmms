@@ -50,7 +50,7 @@
     create functions
     create comments
     insert rows into tables
-    alter sequences
+    alter sequences (necessary if the inserts do not use the default value in the columns that have a sequence)
     create triggers
     create policies
 
@@ -277,8 +277,8 @@ create table persons (
 create table private.accounts (
   person_id integer not null references persons (person_id),
   password_hash text not null,
-  created_at timestamp not null,
-  updated_at timestamp not null,
+  created_at timestamptz not null,
+  updated_at timestamptz not null,
   is_active boolean not null default true
 );
 
@@ -298,19 +298,19 @@ create table orders (
   request_contact_email text not null,
   request_title text not null,
   request_local text,
-  date_limit timestamp,
-  date_start timestamp,
-  date_end timestamp,
-  created_at timestamp not null default now(),
-  updated_at timestamp not null default now()
+  date_limit timestamptz,
+  date_start timestamptz,
+  date_end timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
 );
 
 create table order_messages (
   order_id integer not null references orders (order_id),
   person_id integer not null references persons (person_id),
   message text not null,
-  created_at timestamp not null,
-  updated_at timestamp not null
+  created_at timestamptz not null,
+  updated_at timestamptz not null
 );
 
 create table order_assets (
@@ -327,11 +327,11 @@ create table asset_departments (
 
 create table private.logs (
   person_id integer not null,
-  stamp timestamp not null,
+  created_at timestamptz not null,
   operation text not null,
   tablename text not null,
-  old_row json,
-  new_row json
+  old_row jsonb,
+  new_row jsonb
 );
 
 -- create table specs (
@@ -469,29 +469,21 @@ create or replace function authenticate (
   input_email    text,
   input_password text
 ) returns integer
-language plpgsql
+language sql
 strict
 security definer
 as $$
-declare
-  account private.accounts;
-begin
 
-  select a.* into account
+  select p.person_id
     from persons as p
     join private.accounts as a using(person_id)
-    where p.email = 'hzlopes@senado.leg.br';
- 
-  if (
-    account.password_hash = crypt(input_password, account.password_hash)
-    and account.is_active
-  ) then
-    return account.person_id;
-  else
-    return null;
-  end if;
+    where p.email = input_email
+          and
+          a.password_hash = crypt(input_password, a.password_hash)
+          and
+          a.is_active;
   
-end; $$;
+$$;
 
 create or replace function create_log ()
 returns trigger
@@ -505,8 +497,8 @@ begin
     now(),
     tg_op,
     tg_table_name::text,
-    row_to_json(old, false),
-    row_to_json(new, false)
+    to_jsonb(old),
+    to_jsonb(new)
   );
 
   return null; -- result is ignored since this is an after trigger
@@ -6813,15 +6805,25 @@ after insert or update or delete on departments
 for each row execute function create_log();
 
 -- create policies (row-level security)
--- alter table tablename enable row level security;
--- create policy unauth_policy on rlstest for select to unauth using (true);
--- create policy auth_policy on rlstest for all to auth using (true) with check (true);
--- create policy graphiql on rlstest for all to postgres using (true) with check (true);
-------- instructions:
--- 0) set all access privileges (grant or revoke commands)
--- 1) enable / disable rls for the table (can be used if a policy exists or not --> does not delete existing policies)
--- 2) create / drop policy ("using" --> select, update, delete ;  "with check" --> insert, update)
--- 3) if "for all" ==> 
--- 4) default policy is deny.
+begin;
+alter table persons enable row level security;
+-- create policy unauth_policy on persons for select to unauth
+--   using (true);
+create policy auth_policy on persons for all to auth
+  using (current_setting('auth.data.person_id')::integer = person_id)
+  with check (current_setting('auth.data.person_id')::integer = person_id);
+
+alter table private.accounts enable row level security;
+create policy auth_policy on private.accounts for all to auth
+  using (current_setting('auth.data.person_id')::integer = person_id)
+  with check (current_setting('auth.data.person_id')::integer = person_id);
+
+alter table order_messages enable row level security;
+create policy unauth_policy on order_messages for select to unauth
+  using (true);
+create policy auth_policy on order_messages for all to auth
+  using (current_setting('auth.data.person_id')::integer = person_id)
+  with check (current_setting('auth.data.person_id')::integer = person_id);
+commit;
 
 commit;
