@@ -515,7 +515,6 @@ language plpgsql
 as $$
 declare
   new_appliance_id text;
-  dept text;
 begin
 
 insert into appliances values (appliance_attributes.*)
