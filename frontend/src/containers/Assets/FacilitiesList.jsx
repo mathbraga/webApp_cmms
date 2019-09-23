@@ -92,7 +92,7 @@ class FacilitiesList extends Component {
 
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/ativos/edificio/' + item.node.assetId) }}
+        onClick={() => { this.props.history.push('/ativos/view/' + item.node.assetId) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>

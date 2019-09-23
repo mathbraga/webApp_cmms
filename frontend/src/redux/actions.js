@@ -27,7 +27,7 @@ function loginRequest() {
   };
 }
 
-function loginSuccess(loggedUserEmail) {
+export function loginSuccess(loggedUserEmail) {
   return {
     type: LOGIN_SUCCESS,
     email: loggedUserEmail
@@ -46,6 +46,7 @@ export function login(email, password, history) {
     return loginFetch(email, password)
       .then(() => {
         window.localStorage.setItem('session', email);
+        window.localStorage.setItem('session-event', 'login' + Math.random());
         dispatch(loginSuccess(email));
         history.push("/painel");
       })
@@ -61,7 +62,7 @@ function logoutRequest() {
   };
 }
 
-function logoutSuccess() {
+export function logoutSuccess() {
   return {
     type: LOGOUT_SUCCESS
   };
@@ -85,6 +86,7 @@ export function logout(history) {
     return logoutFetch()
       .then(() => {
         window.localStorage.removeItem('session');
+        window.localStorage.setItem('session-event', 'logout' + Math.random());
         dispatch(logoutSuccess());
         dispatch(cleanCache());
         history.push("/login");
