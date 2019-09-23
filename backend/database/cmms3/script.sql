@@ -53,6 +53,7 @@
     alter sequences (necessary if the inserts do not use the default value in the columns that have a sequence)
     create triggers
     create policies
+    create smart comments
     commit transaction
 
 */
@@ -6842,6 +6843,18 @@ create policy unauth_policy on order_messages for select to unauth
 create policy auth_policy on order_messages for all to auth
   using (current_setting('auth.data.person_id')::integer = person_id)
   with check (current_setting('auth.data.person_id')::integer = person_id);
+
+-- create smart comments
+comment on table persons is E'@omit create,update,delete';
+comment on table assets is E'@omit create,update,delete';
+comment on view appliances is E'@omit create,update,delete';
+comment on view facilities is E'@omit create,update,delete';
+comment on table orders is E'@omit create,update,delete';
+comment on table asset_departments is E'@omit create,update,delete';
+comment on table order_assets is E'@omit create,update,delete';
+comment on table order_messages is E'@omit create,update,delete';
+comment on table departments is E'@omit create,update,delete';
+comment on table contracts is E'@omit create,update,delete';
 
 -- commit transaction
 commit;
