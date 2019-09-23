@@ -472,6 +472,7 @@ create or replace function authenticate (
   input_password text
 ) returns integer
 language sql
+stable
 strict
 security definer
 as $$
