@@ -650,6 +650,95 @@ begin
 end; $$;
 
 
+create or replace function modify_appliance (
+  appliance_id text,
+  appliance_attributes appliances,
+  departments_array text[]
+)
+returns text
+language plpgsql
+as $$
+begin
+  update assets as a
+    set (
+      parent,
+      place,
+      name,
+      description,
+      category,
+      manufacturer,
+      serialnum,
+      model,
+      price,
+      warranty
+    ) = (
+      appliance_attributes.parent,
+      appliance_attributes.place,
+      appliance_attributes.name,
+      appliance_attributes.description,
+      appliance_attributes.category,
+      appliance_attributes.manufacturer,
+      appliance_attributes.serialnum,
+      appliance_attributes.model,
+      appliance_attributes.price,
+      appliance_attributes.warranty
+    ) where a.asset_id = appliance_id;
+
+  delete from asset_departments where asset_id = appliance_id;
+
+  if departments_array is not null then
+    insert into asset_departments select appliance_id, unnest(departments_array);
+  end if;
+
+  return appliance_id;
+
+end; $$;
+
+
+
+
+
+create or replace function modify_facility (
+  facility_id text,
+  facility_attributes facilities,
+  departments_array text[]
+)
+returns text
+language plpgsql
+as $$
+begin
+  update assets as a
+    set (
+      parent,
+      place,
+      name,
+      description,
+      category,
+      latitude,
+      longitude,
+      area
+    ) = (
+      facility_attributes.parent,
+      facility_attributes.place,
+      facility_attributes.name,
+      facility_attributes.description,
+      facility_attributes.category,
+      facility_attributes.latitude,
+      facility_attributes.longitude,
+      facility_attributes.area
+    ) where a.asset_id = facility_id;
+
+  delete from asset_departments where asset_id = facility_id;
+
+  if departments_array is not null then
+    insert into asset_departments select facility_id, unnest(departments_array);
+  end if;
+
+  return facility_id;
+
+end; $$;
+
+
 
 
 -- create comments
