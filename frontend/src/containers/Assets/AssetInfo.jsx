@@ -89,7 +89,6 @@ class AssetInfo extends Component {
           return null
         }
       const assetsInfo = data;
-      console.log(assetsInfo.assetByAssetId);
 
       const pageLength = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges.length;
       const edges = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges;
@@ -133,10 +132,11 @@ class AssetInfo extends Component {
         </tr>))
       return (
         <AssetCard
-          sectionName={assetsInfo.assetByAssetId.assetId === 'E' ? 'Equipamento' : 'Edifício'}
+          sectionName={assetsInfo.assetByAssetId.category === 'A' ? 'Equipamento' : 'Edifício'}
           sectionDescription={'Ficha descritiva'}
-          handleCardButton={() => { }}
-          buttonName={assetsInfo.assetByAssetId.assetId === 'E' ? 'Equipamentos' : 'Edifícios'}
+          handleCardButton={() => assetsInfo.assetByAssetId.category === 'A' ? 
+            this.props.history.push('/ativos/equipamentos') : this.props.history.push('/ativos/edificios')}
+          buttonName={assetsInfo.assetByAssetId.category === 'A' ? 'Equipamentos' : 'Edifícios'}
         >
           <Row>
             <Col md="2">
