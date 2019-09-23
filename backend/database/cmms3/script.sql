@@ -476,7 +476,6 @@ stable
 strict
 security definer
 as $$
-
   select p.person_id
     from persons as p
     join private.accounts as a using(person_id)
@@ -485,7 +484,6 @@ as $$
           a.password_hash = crypt(input_password, a.password_hash)
           and
           a.is_active;
-  
 $$;
 
 create or replace function create_log ()
