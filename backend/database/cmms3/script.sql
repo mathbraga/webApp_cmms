@@ -563,7 +563,6 @@ strict -- this is to enforce no null inputs (must have assigned assets in order)
 as $$
 declare 
   new_order_id  integer;
-  assigned_asset text;
 begin
 
 insert into orders (
@@ -606,15 +605,7 @@ insert into orders (
   order_attributes.contract
 ) returning order_id into new_order_id;
 
-foreach assigned_asset in array assets_array loop
-  insert into order_assets (
-    order_id,
-    asset_id
-  ) values (
-    new_order_id,
-    assigned_asset
-  );
-end loop;
+insert into order_assets select new_order_id, unnest(assets_array);
 
 return new_order_id;
 
