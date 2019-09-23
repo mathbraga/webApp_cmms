@@ -51,7 +51,7 @@ function auth(
 
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
-        email: false,
+        email: null,
         isFetching: false,
         logoutError: false
       });
