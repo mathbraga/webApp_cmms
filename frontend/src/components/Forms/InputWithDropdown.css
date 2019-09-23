@@ -58,7 +58,7 @@
   cursor: pointer;
 }
 
-div ul li{
+.dropdown-input li {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

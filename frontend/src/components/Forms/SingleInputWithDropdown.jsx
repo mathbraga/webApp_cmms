@@ -147,7 +147,10 @@ class SingleInputWithDropDown extends Component {
                   onMouseDown={this.onClickItem(filteredList)}
                   className={filteredList[hoveredItem].id === item.id ? 'active' : ''}
                   ref={(el) => this.arrayItems[item.id] = el}
-                >{item.text}<div className="small text-muted">{item.subtext}</div></li>
+                >
+                  {item.text}
+                  <div className="small text-muted">{item.subtext}</div>
+                </li>
               ), this)}
             </ul>
           </div>
