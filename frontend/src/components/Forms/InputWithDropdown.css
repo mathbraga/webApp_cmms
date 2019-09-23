@@ -57,3 +57,9 @@
 .remove-image img:hover {
   cursor: pointer;
 }
+
+div ul li{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

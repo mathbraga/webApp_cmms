@@ -285,14 +285,8 @@ class OrderForm extends Component {
             //console.log(orderText);
 
             const orders = [];
-            const shortOrderText = orderText.map(
-              (item) => {
-                if(item.length > 40) 
-                  return item.slice(0, 41) + "..."
-                return item
-              });
             for(let i = 0; i<orderID.length; i++)
-              orders.push({id: orderID[i], text: "OS " + orderID[i] + " - " + shortOrderText[i], subtext: ""});
+              orders.push({id: orderID[i], text: "OS " + orderID[i] + " - " + orderText[i], subtext: ""});
 
             const assets = [];
             for(let i = 0; i<assetId.length; i++)
