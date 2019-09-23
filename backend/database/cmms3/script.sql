@@ -53,6 +53,7 @@
     alter sequences (necessary if the inserts do not use the default value in the columns that have a sequence)
     create triggers
     create policies
+    commit transaction
 
 */
 --------------------------------------------------------------------------------
@@ -6804,8 +6805,7 @@ create trigger log_changes
 after insert or update or delete on departments
 for each row execute function create_log();
 
--- create policies (row-level security)
-begin;
+-- create policies
 alter table persons enable row level security;
 -- create policy unauth_policy on persons for select to unauth
 --   using (true);
@@ -6824,6 +6824,6 @@ create policy unauth_policy on order_messages for select to unauth
 create policy auth_policy on order_messages for all to auth
   using (current_setting('auth.data.person_id')::integer = person_id)
   with check (current_setting('auth.data.person_id')::integer = person_id);
-commit;
 
+-- commit transaction
 commit;
