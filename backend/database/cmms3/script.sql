@@ -522,15 +522,7 @@ insert into appliances values (appliance_attributes.*)
   returning asset_id into new_appliance_id;
 
 if departments_array is not null then
-  foreach dept in array departments_array::text[] loop
-    insert into asset_departments (
-      asset_id,
-      department_id
-    ) values (
-      new_appliance_id,
-      dept
-    );
-  end loop;
+  insert into asset_departments select new_appliance_id, unnest(departments_array);
 end if;
 
 return new_appliance_id;
