@@ -632,7 +632,7 @@ begin
   end if;
 
   -- appliance case
-  if new.category = 'a' then
+  if new.category = 'A' then
     if (select category from assets where asset_id = new.parent) = 'A' then
       return new;
     else
@@ -6796,32 +6796,32 @@ create trigger check_before_insert
   for each row execute function check_asset_integrity();
 
 create trigger log_changes
-after insert or update or delete on orders
-for each row execute function create_log();
+  after insert or update or delete on orders
+  for each row execute function create_log();
 
 create trigger log_changes
-after insert or update or delete on order_messages
-for each row execute function create_log();
+  after insert or update or delete on order_messages
+  for each row execute function create_log();
 
 create trigger log_changes
-after insert or update or delete on order_assets
-for each row execute function create_log();
+  after insert or update or delete on order_assets
+  for each row execute function create_log();
 
 create trigger log_changes
-after insert or update or delete on assets
-for each row execute function create_log();
+  after insert or update or delete on assets
+  for each row execute function create_log();
 
 create trigger log_changes
-after insert or update or delete on asset_departments
-for each row execute function create_log();
+  after insert or update or delete on asset_departments
+  for each row execute function create_log();
 
 create trigger log_changes
-after insert or update or delete on contracts
-for each row execute function create_log();
+  after insert or update or delete on contracts
+  for each row execute function create_log();
 
 create trigger log_changes
-after insert or update or delete on departments
-for each row execute function create_log();
+  after insert or update or delete on departments
+  for each row execute function create_log();
 
 -- create policies
 alter table persons enable row level security;
