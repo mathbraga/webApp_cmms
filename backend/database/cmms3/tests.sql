@@ -1,1 +1,0 @@
-alter table private.logs add constraint logs_person_id_fkey foreign key (person_id) references persons (person_id);

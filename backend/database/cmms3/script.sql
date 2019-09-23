@@ -547,22 +547,13 @@ language plpgsql
 as $$
 declare 
   new_facility_id text;
-  dept text;
 begin
 
 insert into facilities values (facility_attributes.*)
   returning asset_id into new_facility_id;
 
 if departments_array is not null then
-  foreach dept in array departments_array::text[] loop
-    insert into asset_departments (
-      asset_id,
-      department_id
-    ) values ( 
-      new_facility_id,
-      dept
-    );
-  end loop;
+  insert into asset_departments select new_facility_id, unnest(departments_array);
 end if;
 
 return new_facility_id;
@@ -637,6 +628,47 @@ end loop;
 return new_order_id;
 
 end; $$;
+
+create or replace function check_asset_integrity()
+returns trigger
+language plpgsql
+as $$
+begin
+  -- facility case
+  if new.category = 'F' then
+    if (select category from assets where asset_id = new.parent) = 'F' then
+      return new;
+    else
+      raise exception  'Parent attribute of the new facility must be a facility';
+    end if;
+  
+    if (select category from assets where asset_id = new.place) = 'F' then
+      return new;
+    else
+      raise exception  'Place attribute of the new facility must be a facility';
+    end if;
+  end if;
+
+  -- appliance case
+  if new.category = 'a' then
+    if (select category from assets where asset_id = new.parent) = 'A' then
+      return new;
+    else
+      raise exception  'Parent attribute of the new appliance must be an appliance';
+    end if;
+    if (select category from assets where asset_id = new.place) = 'A' then
+      return new;
+    else
+      raise exception  'Place attribute of the new appliance must be a facility';
+    end if;
+    if (new.description = '' or new.description is null) then
+      raise exception 'New appliance must have a description';
+    end if;
+  end if;
+end; $$;
+
+
+
 
 -- create comments
 -- comment on type order_status_type is E'
@@ -6777,6 +6809,10 @@ insert into asset_departments values ('BL14-MEZ-046', 'SEAU');
 -- alter sequence persons_person_id_seq restart with 100;
 
 -- create triggers
+create trigger check_before_insert
+  before insert or update on assets
+  for each row execute function check_asset_integrity();
+
 create trigger log_changes
 after insert or update or delete on orders
 for each row execute function create_log();
