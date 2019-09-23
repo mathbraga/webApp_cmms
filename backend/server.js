@@ -67,7 +67,7 @@ app.use(postgraphile(
     extendedErrors: ['hint', 'detail', 'errcode'],
     pgSettings: async req => {
       const role = req.user ? 'auth': 'unauth';
-      const person_id = req.user ? req.user : 9999;
+      const person_id = req.user ? req.user : 0;
       return {
         'role': role,
         'auth.data.person_id': person_id,

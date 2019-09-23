@@ -326,7 +326,7 @@ create table asset_departments (
 );
 
 create table private.logs (
-  person_id integer not null,
+  person_id integer not null references persons (person_id),
   created_at timestamptz not null,
   operation text not null,
   tablename text not null,
@@ -6207,7 +6207,7 @@ insert into departments values ('CMO', 'COCN', 'COMISSï¿½O MISTA DE PLANOS, ORï¿
 insert into departments values ('DMEDR', 'SF', 'CONSELHO DO DIPLOMA DO Mï¿½RITO EDUCATIVO DARCY RIBEIRO', true);
 insert into departments values ('GLMAICN', 'SF', 'GABINETE DA LIDERANï¿½A DO BLOCO DA MAIORIA NO CONGRESSO NACIONAL', true);
 
-
+insert into persons overriding system value values (0, 'anonimo@senado.leg.br', 'Anonymous', 'Anonymous', '0000', null, 'SEPLAG', null, 'E');
 insert into persons values (default, 'hzlopes@senado.leg.br', 'Henrique', 'Zaidan Lopes', '2339', null, 'SEPLAG', null, 'E');
 insert into persons values (default, 'pedrohs@senado.leg.br', 'Pedro Henrique', 'Serafim', '2339', null, 'SEPLAG', null, 'E');
 insert into persons values (default, 'matheus.braga@senado.leg.br', 'Matheus', 'Oliveira Braga', '2339', null, 'SEPLAG', null, 'E');
