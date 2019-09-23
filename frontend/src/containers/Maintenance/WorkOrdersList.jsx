@@ -27,6 +27,7 @@ class WorkOrdersList extends Component {
     this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
+    this.handleURLChange = this.handleURLChange.bind(this);
   }
 
   handleChangeSearchTerm(event) {
@@ -41,6 +42,10 @@ class WorkOrdersList extends Component {
     this.setState({ pageCurrent: pageCurrent }, () => {
       this.setState({ goToPage: pageCurrent });
     });
+  }
+
+  handleURLChange(){
+    this.props.history.push('/manutencao/os/nova');
   }
 
   render() {
@@ -104,8 +109,8 @@ class WorkOrdersList extends Component {
       <AssetCard
         sectionName={'Edifícios e áreas'}
         sectionDescription={'Endereçamento do Senado Federal'}
-        handleCardButton={() => { }}
-        buttonName={'Cadastrar Área'}
+        handleCardButton={this.handleURLChange}
+        buttonName={'Nova OS'}
       >
         <Row style={{ marginTop: "10px", marginBottom: "5px" }}>
           <Col md="2">

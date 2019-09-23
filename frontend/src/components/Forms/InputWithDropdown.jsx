@@ -7,21 +7,6 @@ import {
 
 import "./InputWithDropdown.css";
 
-const updateDepartmentValues = (filteredList) => (prevState) => {
-  if (prevState.hoveredItem < 0 || prevState.hoveredItem >= filteredList.length) {
-    return {
-      departmentInputValue: "",
-    };
-  }
-  const newListofDepartments = [...prevState.departmentValues, filteredList[prevState.hoveredItem]];
-  const newHoveredItem = prevState.hoveredItem === 0 ? 0 : (prevState.hoveredItem - 1);
-  return {
-    departmentValues: newListofDepartments,
-    hoveredItem: newHoveredItem,
-    departmentInputValue: "",
-  };
-};
-
 class InputWithDropdown extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +22,7 @@ class InputWithDropdown extends Component {
     this.onKeyDownInput = this.onKeyDownInput.bind(this);
     this.onRemoveItemFromList = this.onRemoveItemFromList.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
+    this.updateDepartmentValues = this.updateDepartmentValues.bind(this);
     this.arrayItems = {};
   }
 
@@ -88,7 +74,7 @@ class InputWithDropdown extends Component {
         break;
       case 13:
         this.inputDrop.blur();
-        this.setState(updateDepartmentValues(filteredList));
+        this.setState(this.updateDepartmentValues(filteredList));
         break;
     }
   }
@@ -97,6 +83,8 @@ class InputWithDropdown extends Component {
     this.setState(prevState => {
       const newList = prevState.departmentValues.filter(item =>
         item.id !== id);
+      const tempList = newList.length === 0 ? null : newList;
+      this.props.update(tempList);
       return {
         departmentValues: newList,
         hoveredItem: 0,
@@ -105,15 +93,31 @@ class InputWithDropdown extends Component {
   }
 
   onClickItem = (filteredList) => () => {
-    this.setState(updateDepartmentValues(filteredList));
+    this.setState(this.updateDepartmentValues(filteredList));
   }
+
+  updateDepartmentValues = (filteredList) => (prevState) => {
+    if (prevState.hoveredItem < 0 || prevState.hoveredItem >= filteredList.length) {
+      return {
+        departmentInputValue: "",
+      };
+    }
+    const newListofDepartments = [...prevState.departmentValues, filteredList[prevState.hoveredItem]];
+    const newHoveredItem = prevState.hoveredItem === 0 ? 0 : (prevState.hoveredItem - 1);
+    this.props.update(newListofDepartments);
+    return {
+      departmentValues: newListofDepartments,
+      hoveredItem: newHoveredItem,
+      departmentInputValue: "",
+    };
+  };
 
   render() {
     const { label, placeholder, listDropdown } = this.props;
     const { departmentInputValue, isDropdownOpen, hoveredItem, departmentValues } = this.state;
     const filteredList = listDropdown.filter((item) =>
       (
-        item.name.toLowerCase().includes(departmentInputValue.toLowerCase())
+        item.text.toLowerCase().includes(departmentInputValue.toLowerCase())
         && !departmentValues.some(selectedItem => selectedItem.id === item.id)
       ));
     return (
@@ -123,7 +127,7 @@ class InputWithDropdown extends Component {
           <div className='container-selected-items'>
             <Input
               type="text"
-              value={item.name}
+              value={item.text}
               disabled
               className='selected-items'
             />
@@ -163,7 +167,10 @@ class InputWithDropdown extends Component {
                   onMouseDown={this.onClickItem(filteredList)}
                   className={filteredList[hoveredItem].id === item.id ? 'active' : ''}
                   ref={(el) => this.arrayItems[item.id] = el}
-                >{item.id + ' - ' + item.name}</li>
+                >
+                  {item.text}
+                  <div className="small text-muted">{item.subtext}</div>
+                </li>
               ), this)}
             </ul>
           </div>
