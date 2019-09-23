@@ -6986,20 +6986,16 @@ create policy auth_policy on order_messages for all to auth
 
 -- create smart comments
 comment on function authenticate is E'@omit execute';
-comment on table persons is E'@omit create,update,delete';
 comment on table assets is E'@omit create,update,delete';
 comment on view appliances is E'@omit create,update,delete';
 comment on view facilities is E'@omit create,update,delete';
 comment on table orders is E'@omit create,update,delete';
 comment on table asset_departments is E'@omit create,update,delete';
 comment on table order_assets is E'@omit create,update,delete';
-comment on table order_messages is E'@omit create,update,delete';
+comment on table order_messages is E'@omit all,create,update,delete';
 comment on table departments is E'@omit create,update,delete';
-comment on table contracts is E'@omit create,update,delete';
-comment on table assets is E'@omit all';
-comment on table contracts is E'@omit all';
-comment on table persons is E'@omit all';
-comment on table order_messages is E'@omit all';
+comment on table contracts is E'@omit all,create,update,delete';
+comment on table persons is E'@omit all,create,update,delete';
 comment on constraint persons_pkey on persons is E'@omit';
 comment on constraint persons_email_key on persons is E'@omit';
 comment on constraint contracts_pkey on contracts is E'@omit';
