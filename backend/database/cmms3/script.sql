@@ -6845,6 +6845,7 @@ create policy auth_policy on order_messages for all to auth
   with check (current_setting('auth.data.person_id')::integer = person_id);
 
 -- create smart comments
+comment on function authenticate is E'@omit execute';
 comment on table persons is E'@omit create,update,delete';
 comment on table assets is E'@omit create,update,delete';
 comment on view appliances is E'@omit create,update,delete';
