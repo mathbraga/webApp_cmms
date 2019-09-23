@@ -10,7 +10,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class WorkOrders extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.viewEntity = {
       id: event => {
@@ -26,43 +26,58 @@ class WorkOrders extends Component {
 
   render() {
     const osQuery = gql`
-    query WorkOrderQuery{
-      allOrders(orderBy: ORDER_ID_ASC) {
-        edges {
-          node {
-            category
-            requestPerson
-            status
-            requestText
-            orderId
-            createdAt
-            dateLimit
+      query WorkOrderQuery {
+        allOrders(orderBy: ORDER_ID_ASC) {
+          edges {
+            node {
+              category
+              requestPerson
+              status
+              requestText
+              orderId
+              createdAt
+              dateLimit
+              requestTitle
+              priority
+              orderAssetsByOrderId {
+                edges {
+                  node {
+                    assetByAssetId {
+                      assetByPlace {
+                        name
+                        assetId
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
-      }
-    }`;
+      }`;
 
     return (
       <Query query={osQuery}>{
-        ({loading, error, data}) => {
-        if(loading) return null
-        if(error){
-          console.log("Erro ao tentar baixar as OS!");
-          return null
-        }
-        const workOrders = data;
+        ({ loading, error, data }) => {
+          if (loading) return null
+          if (error) {
+            console.log("Erro ao tentar baixar as OS!");
+            return null
+          }
+          const workOrders = data;
 
-        return(
-          <React.Fragment>
-            {workOrders.allOrders.edges.length !== 0 &&
-            <WorkOrdersList
-              allItems={workOrders}
-              viewEntity={this.viewEntity}
-            />
-            }
-          </React.Fragment>
-        )}
-        }</Query>
+          return (
+            <React.Fragment>
+              {workOrders.allOrders.edges.length !== 0 &&
+                <WorkOrdersList
+                  allItems={workOrders}
+                  viewEntity={this.viewEntity}
+                />
+              }
+            </React.Fragment>
+          )
+        }
+      }</Query>
     );
   }
 }

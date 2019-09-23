@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, } from "reactstrap";
 import TableWithPages from "../../components/Tables/TableWithPages";
 import AssetCard from "../../components/Cards/AssetCard";
-import { Badge, CustomInput } from "reactstrap";
+import {
+  Badge,
+  Button,
+  Row,
+  Col,
+  InputGroupText,
+  CustomInput,
+  InputGroup,
+  InputGroupAddon,
+  Input,
+} from "reactstrap";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
@@ -46,7 +55,7 @@ class FacilitiesList extends Component {
     });
   }
 
-  handleURLChange(){
+  handleURLChange() {
     this.props.history.push('/ativos/edificios/novo');
   }
 
@@ -68,13 +77,8 @@ class FacilitiesList extends Component {
       });
     }
 
-    console.log("Filtered Items:");
-    console.log(filteredItems);
-
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
-
-    console.log(showItems);
 
     const thead =
       <tr>
@@ -93,9 +97,9 @@ class FacilitiesList extends Component {
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
           <div>{item.node.name}</div>
-          <div className="small text-muted">{item.node.parent}</div>
+          <div className="small text-muted">{item.node.assetId}</div>
         </td>
-        <td className="text-center">{item.node.assetId}</td>
+        <td className="text-center">{item.node.parent}</td>
         <td>
           <div className="text-center">{item.node.area}</div>
         </td>
@@ -134,14 +138,13 @@ class FacilitiesList extends Component {
           </Col>
           <Col md="4">
             <form>
-              <div className="search-input" >
-                <input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
-                <img src={searchItem} alt="" style={{ width: "18px", height: "15px", margin: "3px 0px" }} />
-              </div>
+              <InputGroup>
+                <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
+                <InputGroupAddon addonType="append">
+                  <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
+                </InputGroupAddon>
+              </InputGroup>
             </form>
-            <div style={{ color: "blue", textDecoration: "underline", marginLeft: "10px", fontSize: "12.4px" }}>
-              Pesquisa Avançada
-            </div>
           </Col>
           <Col md="6">
           </Col>
