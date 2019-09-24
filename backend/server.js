@@ -14,6 +14,7 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
+const cronjob = require('./cron/cronjob');
 
 // Configure application (https://expressjs.com/en/4x/api.html#app.set)
 // app.set('trust proxy', 1);
