@@ -12,9 +12,8 @@ const middleware = require('./middleware');
 const cors = require('cors')
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-const loginRoute = require('./routes/login');
-const logoutRoute = require('./routes/logout');
-const cronjob = require('./cron/cronjob');
+const authRoute = require('./routes/auth');
+// const cronjob = require('./cron/cronjob');
 
 // Configure application (https://expressjs.com/en/4x/api.html#app.set)
 // app.set('trust proxy', 1);
@@ -34,8 +33,7 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(middleware);
-app.use("/login", loginRoute);
-app.use("/logout", logoutRoute);
+app.use("/auth", authRoute);
 
 // PostGraphile route (/db)
 app.use(postgraphile(

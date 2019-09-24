@@ -1,7 +1,7 @@
 const client = require('../pgclient');
 const CronJob = require('cron').CronJob;
 
-client.connect();
+// client.connect(); // Client already defined in auth route
 
 module.exports = new CronJob(
   '* * * * * *',
