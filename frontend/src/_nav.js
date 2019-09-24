@@ -5,23 +5,23 @@ export default {
       url: "/painel",
       icon: "cui-chart"
     },
-    {
-      name: "Monitor de consumo",
-      url: "/consumo",
-      icon: "icon-speedometer",
-      children: [
-        {
-          name: "Água",
-          url: "/agua",
-          icon: "icon-drop"
-        },
-        {
-          name: "Energia elétrica",
-          url: "/energia",
-          icon: "cui-lightbulb"
-        }
-      ]
-    },
+    // {
+    //   name: "Monitor de consumo",
+    //   url: "/consumo",
+    //   icon: "icon-speedometer",
+    //   children: [
+    //     {
+    //       name: "Água",
+    //       url: "/agua",
+    //       icon: "icon-drop"
+    //     },
+    //     {
+    //       name: "Energia elétrica",
+    //       url: "/energia",
+    //       icon: "cui-lightbulb"
+    //     }
+    //   ]
+    // },
     {
       name: "Ativos",
       url: "/ativos",

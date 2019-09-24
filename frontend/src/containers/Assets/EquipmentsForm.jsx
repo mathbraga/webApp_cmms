@@ -83,16 +83,16 @@ class EquipmentsForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleParentDropDownChange(assetId){
+  handleParentDropDownChange(assetId) {
     this.setState({ assetParent: assetId });
   }
 
-  handleLocationDropDownChange(location){
+  handleLocationDropDownChange(location) {
     this.setState({ location: location });
   }
 
-  handleInputChange(event){
-    if(event.target.value.length === 0)
+  handleInputChange(event) {
+    if (event.target.value.length === 0)
       return this.setState({ [event.target.name]: null });
     this.setState({ [event.target.name]: event.target.value });
   }
@@ -132,13 +132,13 @@ class EquipmentsForm extends Component {
       }
     }`;
 
-    const mutate = (newData) => (
-      newData().then(console.log("Mutation"))
+    const mutate = (insertData) => (
+      insertData().then(console.log("Mutation"))
     )
 
     return (
-      <Mutation 
-        mutation={newEquipment} 
+      <Mutation
+        mutation={newEquipment}
         variables={{
           assetId: this.state.assetId,
           description: this.state.description,
@@ -151,140 +151,143 @@ class EquipmentsForm extends Component {
           serialnum: this.state.serialNum
         }}
       >
-      {(mutation, {data, loading, error}) => {
-        if (loading) return null;
-        if(error){
-          console.log(error);
-          return null;
-        }
-        return(
-        <Query query={formsQuery}>{
-          ({loading, error, data}) => {
-            if(loading) return null
-            if(error){
-              console.log("Erro ao tentar baixar os dados!");
-              return null
-            }
+        {(mutation, { data, loading, error }) => {
+          if (loading) return null;
+          if (error) {
+            console.log(error);
+            return null;
+          }
+          return (
+            <Query query={formsQuery}>{
+              ({ loading, error, data }) => {
+                if (loading) return null
+                if (error) {
+                  console.log("Erro ao tentar baixar os dados!");
+                  return null
+                }
 
-            const assetId = data.allFacilities.edges.map((item) => item.node.assetId);
-            const assetName = data.allFacilities.edges.map((item) => item.node.name);
-            //console.log(assetId);
-            //console.log(assetName);
-            
-            const assets = [];
-            for(let i = 0; i<assetId.length; i++)
-              assets.push({id: assetId[i], text: assetName[i], subtext: assetId[i]});
+                const assetId = data.allFacilities.edges.map((item) => item.node.assetId);
+                const assetName = data.allFacilities.edges.map((item) => item.node.name);
+                //console.log(assetId);
+                //console.log(assetName);
 
-            const applianceId = data.allAssets.edges.map((item) => item.node.assetId);
-            const parentName = data.allAssets.edges.map((item) => item.node.assetByParent.name);
-            const applianceName = data.allAssets.edges.map((item) => item.node.name);
+                const assets = [];
+                for (let i = 0; i < assetId.length; i++)
+                  assets.push({ id: assetId[i], text: assetName[i], subtext: assetId[i] });
 
-            const appliances = [];
-            for(let i = 0; i<applianceId.length; i++)
-              appliances.push({id: applianceId[i], text: applianceName[i], subtext: parentName[i]});
-            //console.log(appliances);
-            
-          return(
-            <div style={{ margin: "0 100px" }}>
-              <Form 
-                className="form-horizontal"
-                onSubmit={e => {
-                  e.preventDefault();
-                  mutate(mutation)}}
-                onReset={() => this.props.history.push('/ativos/equipamentos')}
-              >
-                <AssetCard
-                  sectionName={"Novo equipamento"}
-                  sectionDescription={"Formulário para cadastro de equipamentos"}
-                  handleCardButton={() => console.log('Handle Card')}
-                  buttonName={"Botão"}
-                  isForm={true}
-                >
-                  <FormGroup row>
-                    <Col xs={'8'}>
-                      <FormGroup>
-                        <Label htmlFor="equipment-name">Nome do equipamento</Label>
-                        <Input 
-                          onChange={this.handleInputChange}
-                          name="assetName" type="text" id="equipment-name" placeholder="Digite o nome do equipamento" />
-                      </FormGroup>
-                    </Col>
-                    <Col xs={'4'}>
-                      <FormGroup>
-                        <Label htmlFor="equipment-code">Código</Label>
-                        <Input 
-                          onChange={this.handleInputChange}
-                          name="assetId" type="text" id="equipment-code" placeholder="Digite o código do equipamento" />
-                      </FormGroup>
-                    </Col>
-                  </FormGroup>
-                  <FormGroup>
-                    <Label htmlFor="description">Descrição</Label>
-                    <Input 
-                      onChange={this.handleInputChange}
-                      name="description" type="textarea" id="description" placeholder="Descrição do equipamento" rows="4" />
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col xs={'8'}>
-                      <FormGroup>
-                        <SingleInputWithDropDown
-                          label={'Ativo pai'}
-                          placeholder="Nível superior do equipamento (outro equipamento ou localização)"
-                          listDropdown={appliances}
-                          update={this.handleParentDropDownChange}
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col xs={'4'}>
-                      <FormGroup>
-                        <Label htmlFor="price">Preço (R$)</Label>
-                        <Input 
-                          onChange={this.handleInputChange}
-                          name="price" type="text" id="area" placeholder="Preço de aquisição" />
-                      </FormGroup>
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col xs='8'>
-                      <SingleInputWithDropDown
-                        label={'Localização'}
-                        placeholder={'Localização da manutenção ...'}
-                        listDropdown={assets}
-                        update={this.handleLocationDropDownChange}
-                      />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col xs={'4'}>
-                      <FormGroup>
-                        <Label htmlFor="manufacturer">Fabricante</Label>
-                        <Input 
-                          onChange={this.handleInputChange}
-                          name="manufacturer" type="text" id="manufacturer" placeholder="Empresa fabricante" />
-                      </FormGroup>
-                    </Col>
-                    <Col xs={'4'}>
-                      <FormGroup>
-                        <Label htmlFor="model">Modelo</Label>
-                        <Input 
-                          onChange={this.handleInputChange}
-                          name="model" type="text" id="model" placeholder="Modelo" />
-                      </FormGroup>
-                    </Col>
-                    <Col xs={'4'}>
-                      <FormGroup>
-                        <Label htmlFor="serial-num">Número serial</Label>
-                        <Input 
-                          onChange={this.handleInputChange}
-                          name="serialNum" type="text" id="serial-num" placeholder="Número serial" />
-                      </FormGroup>
-                    </Col>
-                  </FormGroup>
-                </AssetCard>
-              </Form>
-            </div>
-        )}}</Query>
-      )}}</Mutation>
+                const applianceId = data.allAssets.edges.map((item) => item.node.assetId);
+                const parentName = data.allAssets.edges.map((item) => item.node.assetByParent.name);
+                const applianceName = data.allAssets.edges.map((item) => item.node.name);
+
+                const appliances = [];
+                for (let i = 0; i < applianceId.length; i++)
+                  appliances.push({ id: applianceId[i], text: applianceName[i], subtext: parentName[i] });
+                //console.log(appliances);
+
+                return (
+                  <div style={{ margin: "0 100px" }}>
+                    <Form
+                      className="form-horizontal"
+                      onSubmit={e => {
+                        e.preventDefault();
+                        mutate(mutation)
+                      }}
+                      onReset={() => this.props.history.push('/ativos/equipamentos')}
+                    >
+                      <AssetCard
+                        sectionName={"Novo equipamento"}
+                        sectionDescription={"Formulário para cadastro de equipamentos"}
+                        handleCardButton={() => console.log('Handle Card')}
+                        buttonName={"Botão"}
+                        isForm={true}
+                      >
+                        <FormGroup row>
+                          <Col xs={'8'}>
+                            <FormGroup>
+                              <Label htmlFor="equipment-name">Nome do equipamento</Label>
+                              <Input
+                                onChange={this.handleInputChange}
+                                name="assetName" type="text" id="equipment-name" placeholder="Digite o nome do equipamento" />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={'4'}>
+                            <FormGroup>
+                              <Label htmlFor="equipment-code">Código</Label>
+                              <Input
+                                onChange={this.handleInputChange}
+                                name="assetId" type="text" id="equipment-code" placeholder="Digite o código do equipamento" />
+                            </FormGroup>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup>
+                          <Label htmlFor="description">Descrição</Label>
+                          <Input
+                            onChange={this.handleInputChange}
+                            name="description" type="textarea" id="description" placeholder="Descrição do equipamento" rows="4" />
+                        </FormGroup>
+                        <FormGroup row>
+                          <Col xs={'8'}>
+                            <FormGroup>
+                              <SingleInputWithDropDown
+                                label={'Ativo pai'}
+                                placeholder="Nível superior do equipamento (outro equipamento ou localização)"
+                                listDropdown={appliances}
+                                update={this.handleParentDropDownChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={'4'}>
+                            <FormGroup>
+                              <Label htmlFor="price">Preço (R$)</Label>
+                              <Input
+                                onChange={this.handleInputChange}
+                                name="price" type="text" id="area" placeholder="Preço de aquisição" />
+                            </FormGroup>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                          <Col xs='8'>
+                            <SingleInputWithDropDown
+                              label={'Localização'}
+                              placeholder={'Localização da manutenção ...'}
+                              listDropdown={assets}
+                              update={this.handleLocationDropDownChange}
+                            />
+                          </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                          <Col xs={'4'}>
+                            <FormGroup>
+                              <Label htmlFor="manufacturer">Fabricante</Label>
+                              <Input
+                                onChange={this.handleInputChange}
+                                name="manufacturer" type="text" id="manufacturer" placeholder="Empresa fabricante" />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={'4'}>
+                            <FormGroup>
+                              <Label htmlFor="model">Modelo</Label>
+                              <Input
+                                onChange={this.handleInputChange}
+                                name="model" type="text" id="model" placeholder="Modelo" />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={'4'}>
+                            <FormGroup>
+                              <Label htmlFor="serial-num">Número serial</Label>
+                              <Input
+                                onChange={this.handleInputChange}
+                                name="serialNum" type="text" id="serial-num" placeholder="Número serial" />
+                            </FormGroup>
+                          </Col>
+                        </FormGroup>
+                      </AssetCard>
+                    </Form>
+                  </div>
+                )
+              }}</Query>
+          )
+        }}</Mutation>
     );
   }
 }

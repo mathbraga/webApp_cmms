@@ -2,7 +2,11 @@
 // This object has precedence over default state defined in the reducers functions.
 
 export const preloadedState = {
-  // auth: TODO,
+  auth: {
+    email: window.localStorage.getItem('session'),
+    // isFetching: false,
+    // loginError: false
+  },
   // consumptionMonitorCache: 
   // ... other reducers ...
 };

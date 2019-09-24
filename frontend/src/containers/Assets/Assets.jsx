@@ -31,39 +31,47 @@ class Assets extends Component {
               category
               serialnum
               area
+              assetByPlace {
+                assetId
+                name
+              }
+              assetByParent {
+                name
+                assetId
+              }
             }
           }
         }
       }`;
     return (
-      <Query 
-          query={fetchAssets}
-          variables={{category: category}}
-        >{
-        ({loading, error, data}) => {
-          if(loading) return null
-          if(error){
-            console.log("Erro ao tentar baixar os ativos!");
-            return null
-          }
-          const assets = data;
+      <Query
+        query={fetchAssets}
+        variables={{ category: category }}
+      >{
+          ({ loading, error, data }) => {
+            if (loading) return null
+            if (error) {
+              console.log("Erro ao tentar baixar os ativos!");
+              return null
+            }
+            const assets = data;
 
-          return(
-            <React.Fragment>
-              {(assets.allAssets.edges.length !== 0 && this.props.location.pathname.slice(8) === "edificios") &&
-                <FacilitiesList
-                  allItems={assets}
-                />
-              }
-              {(assets.allAssets.edges.length !== 0 && this.props.location.pathname.slice(8) === "equipamentos") &&
-                <EquipmentsList
-                  allItems={assets}
-                />
-              }
-            </React.Fragment>
-          )
-        }
-      }</Query>
+            return (
+              <React.Fragment>
+                {(assets.allAssets.edges.length !== 0 && this.props.location.pathname.slice(8) === "edificios") &&
+                  <FacilitiesList
+                    allItems={assets}
+                  />
+                }
+                {(assets.allAssets.edges.length !== 0 && this.props.location.pathname.slice(8) === "equipamentos") &&
+                  <EquipmentsList
+                    allItems={assets}
+                  />
+                }
+              </React.Fragment>
+            )
+          }
+        }</Query>
     )
   }
 }

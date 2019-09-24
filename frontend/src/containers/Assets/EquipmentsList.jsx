@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, } from "reactstrap";
+import {
+  Row,
+  Col,
+  Button,
+  CustomInput,
+  InputGroup,
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+} from "reactstrap";
 import TableWithPages from "../../components/Tables/TableWithPages";
 import AssetCard from "../../components/Cards/AssetCard";
-import { CustomInput } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
@@ -88,16 +96,13 @@ class EquipmentsList extends Component {
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
-          <div>{item.node.assetId}</div>
-          <div className="small text-muted">{item.node.parent}</div>
+          <div>{item.node.name}</div>
+          <div className="small text-muted">{item.node.assetId}</div>
         </td>
+        <td className="text-center">{item.node.assetByPlace.name}</td>
         <td className="text-center">{item.node.manufacturer}</td>
         <td className="text-center">{item.node.model}</td>
-        <td>
-          <div className="text-center">
-            {item.node.serialnum}
-          </div>
-        </td>
+        <td className="text-center">{item.node.assetByParent.assetId}</td>
       </tr>))
 
     return (
@@ -128,14 +133,13 @@ class EquipmentsList extends Component {
           </Col>
           <Col md="4">
             <form>
-              <div className="search-input" >
-                <input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
-                <img src={searchItem} alt="" style={{ width: "18px", height: "15px", margin: "3px 0px" }} />
-              </div>
+              <InputGroup>
+                <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
+                <InputGroupAddon addonType="append">
+                  <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
+                </InputGroupAddon>
+              </InputGroup>
             </form>
-            <div style={{ color: "blue", textDecoration: "underline", marginLeft: "10px", fontSize: "12.4px" }}>
-              Pesquisa Avançada
-            </div>
           </Col>
           <Col md="6">
           </Col>
