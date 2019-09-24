@@ -6,6 +6,7 @@ import {
 } from 'reactstrap';
 
 import "./InputWithDropdown.css";
+import { List, AutoSizer } from 'react-virtualized';
 
 class InputWithDropdown extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class InputWithDropdown extends Component {
     this.onRemoveItemFromList = this.onRemoveItemFromList.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
     this.updateDepartmentValues = this.updateDepartmentValues.bind(this);
+    this.renderRow = this.renderRow.bind(this);
     this.arrayItems = {};
   }
 
@@ -112,6 +114,19 @@ class InputWithDropdown extends Component {
     };
   };
 
+  renderRow({ index, key, style }){
+    return(
+      <div key={key} style={style}>
+        <ul>
+          <li>
+            {this.props.listDropdown[index].text}
+            <div className="small text-muted">{this.props.listDropdown[index].subtext}</div>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+
   render() {
     const { label, placeholder, listDropdown } = this.props;
     const { departmentInputValue, isDropdownOpen, hoveredItem, departmentValues } = this.state;
@@ -120,6 +135,7 @@ class InputWithDropdown extends Component {
         item.text.toLowerCase().includes(departmentInputValue.toLowerCase())
         && !departmentValues.some(selectedItem => selectedItem.id === item.id)
       ));
+    console.log(filteredList);
     return (
       <FormGroup className={'dropdown-container'}>
         <Label htmlFor="department">{label}</Label>
@@ -154,26 +170,18 @@ class InputWithDropdown extends Component {
           innerRef={(el) => { this.inputDrop = el; }}
         />
         {isDropdownOpen && (
-          <div
-            className="dropdown-input"
-            ref={(el) => { this.containerScroll = el }}
-          >
-            <ul>
-              {filteredList.map((item, index) => (
-                <li
-                  key={item.id}
-                  id={item.id}
-                  onMouseOver={() => this.onHoverItem(index)}
-                  onMouseDown={this.onClickItem(filteredList)}
-                  className={filteredList[hoveredItem].id === item.id ? 'active' : ''}
-                  ref={(el) => this.arrayItems[item.id] = el}
-                >
-                  {item.text}
-                  <div className="small text-muted">{item.subtext}</div>
-                </li>
-              ), this)}
-            </ul>
-          </div>
+          <AutoSizer>
+            {({ width }) => (
+              <List
+                className='dropdown-input'
+                width={width}
+                height={180}
+                rowHeight={35}
+                rowRenderer={this.renderRow}
+                rowCount={filteredList.length}
+              />
+            )}
+          </AutoSizer>
         )}
       </FormGroup>
     );
