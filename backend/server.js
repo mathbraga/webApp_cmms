@@ -13,7 +13,7 @@ const cors = require('cors')
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const authRoute = require('./routes/auth');
-// const cronjob = require('./cron/cronjob');
+// const cronJob = require('./cron');
 
 // Configure application (https://expressjs.com/en/4x/api.html#app.set)
 // app.set('trust proxy', 1);
