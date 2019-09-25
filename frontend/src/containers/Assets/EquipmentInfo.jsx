@@ -53,6 +53,8 @@ class EquipmentInfo extends Component {
 
     const assetsInfo = this.props.data;
 
+    console.log("AssetsInfo: ", assetsInfo);
+
     const pageLength = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges.length;
     const edges = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges;
 
@@ -96,11 +98,11 @@ class EquipmentInfo extends Component {
 
     return (
       <AssetCard
-        sectionName={assetsInfo.assetByAssetId.category === 'A' ? 'Equipamento' : 'Edifício'}
-        sectionDescription={'Ficha descritiva'}
+        sectionName={'Equipamento'}
+        sectionDescription={'Ficha descritiva de um equipamento'}
         handleCardButton={() => assetsInfo.assetByAssetId.category === 'A' ?
           this.props.history.push('/ativos/equipamentos') : this.props.history.push('/ativos/edificios')}
-        buttonName={assetsInfo.assetByAssetId.category === 'A' ? 'Equipamentos' : 'Edifícios'}
+        buttonName={'Lista de Equipamentos'}
       >
         <Row>
           <Col md="2">
@@ -114,26 +116,26 @@ class EquipmentInfo extends Component {
           <Col className="flex-column" md="10">
             <div style={{ flexGrow: "1" }}>
               <Row>
-                <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Ar-condicionado</span></Col>
-                <Col md="9" style={{ textAlign: "justify" }}><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non aliquet ante. Nunc consectetur nulla id diam sodales sagittis vel sed ligula. Praesent ullamcorper turpis nibh, eu varius magna efficitur eu. Duis euismod faucibus mi, quis fermentum est aliquet nec.</span></Col>
-              </Row>
-            </div>
-            <div>
-              <Row>
-                <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Categoria</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>Máquinas eletromecânicas</span></Col>
-              </Row>
-            </div>
-            <div>
-              <Row>
-                <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Fabricante</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.model}</span></Col>
+                <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Equipamento / Sistema</span></Col>
+                <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{assetsInfo.assetByAssetId.name}</span></Col>
               </Row>
             </div>
             <div>
               <Row>
                 <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
                 <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.assetId}</span></Col>
+              </Row>
+            </div>
+            <div>
+              <Row>
+                <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Localização</span></Col>
+                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.place}</span></Col>
+              </Row>
+            </div>
+            <div>
+              <Row>
+                <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Fabricante</span></Col>
+                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.manufacturer}</span></Col>
               </Row>
             </div>
           </Col>
