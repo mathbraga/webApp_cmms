@@ -13,7 +13,7 @@ passport.use(new LocalStrategy(
     // console.log('inside passport.use')
     let data;
     try {
-      data = await client.query('SELECT authenticate($1, $2)', [email, password]);
+      data = await client.query('select authenticate($1, $2)', [email, password]);
       if (data.rows.length === 0) {
         return done(null, false, {message: 'Incorrect'});
       }
@@ -35,7 +35,7 @@ passport.serializeUser((userId, done) => {
 passport.deserializeUser(async (userId, done) => {
   console.log('\nDESERIALIZATION\n')
   try {
-    let data = await client.query('SELECT person_id FROM persons WHERE person_id = $1', [userId]);
+    let data = await client.query('select person_id from persons where person_id = $1', [userId]);
     if (data.rows.length === 0){
       return done(new Error('user not found'));
     }
