@@ -651,7 +651,6 @@ end; $$;
 
 
 create or replace function modify_appliance (
-  appliance_id text,
   appliance_attributes appliances,
   departments_array text[]
 )
@@ -682,20 +681,19 @@ begin
       appliance_attributes.model,
       appliance_attributes.price,
       appliance_attributes.warranty
-    ) where a.asset_id = appliance_id;
+    ) where a.asset_id = appliance_attributes.asset_id;
 
-  delete from asset_departments where asset_id = appliance_id;
+  delete from asset_departments where asset_id = appliance_attributes.asset_id;
 
   if departments_array is not null then
-    insert into asset_departments select appliance_id, unnest(departments_array);
+    insert into asset_departments select appliance_attributes.asset_id, unnest(departments_array);
   end if;
 
-  return appliance_id;
+  return appliance_attributes.asset_id;
 
 end; $$;
 
 create or replace function modify_facility (
-  facility_id text,
   facility_attributes facilities,
   departments_array text[]
 )
@@ -722,20 +720,19 @@ begin
       facility_attributes.latitude,
       facility_attributes.longitude,
       facility_attributes.area
-    ) where a.asset_id = facility_id;
+    ) where a.asset_id = facility_attributes.asset_id;
 
-  delete from asset_departments where asset_id = facility_id;
+  delete from asset_departments where asset_id = facility_attributes.asset_id;
 
   if departments_array is not null then
-    insert into asset_departments select facility_id, unnest(departments_array);
+    insert into asset_departments select facility_attributes.asset_id, unnest(departments_array);
   end if;
 
-  return facility_id;
+  return facility_attributes.asset_id;
 
 end; $$;
 
 create or replace function modify_order (
-  orderid integer,
   order_attributes orders,
   assets_array text[]
 )
@@ -781,15 +778,15 @@ begin
       order_attributes.date_limit,
       order_attributes.date_start,
       now()
-    ) where o.order_id = orderid;
+    ) where o.order_id = order_attributes.order_id;
 
-  delete from order_assets as oa where oa.order_id = orderid;
+  delete from order_assets as oa where oa.order_id = order_attributes.order_id;
 
   if assets_array is not null then
-    insert into order_assets select orderid, unnest(assets_array);
+    insert into order_assets select order_attributes.order_id, unnest(assets_array);
   end if;
 
-  return orderid;
+  return order_attributes.order_id;
 
 end; $$;
 
