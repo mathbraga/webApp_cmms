@@ -5,6 +5,9 @@ import { connect } from "react-redux";
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import EquipmentInfo from './EquipmentInfo';
+import FacilitiesInfo from './FacilitiesInfo';
+
 
 class AssetInfo extends Component {
 
@@ -47,7 +50,6 @@ class AssetInfo extends Component {
         }
       }
     `;
-
     return (
       <Query
         query={assetInfoQuery}
@@ -55,16 +57,18 @@ class AssetInfo extends Component {
       >
         {
           ({ loading, error, data }) => {
-            const { category } = data.assetByAssetId;
             if (loading) return null
             if (error) {
               console.log("Erro ao tentar baixar os ativos!");
               return null
             }
-            if (category === 'F') {
-              return <div>Facilities</div>;
-            } else if (category === 'E') {
-              return <div>Equipment</div>;
+
+            const { category } = data.assetByAssetId;
+
+            if (category === 'A') {
+              return <EquipmentInfo data={data} />;
+            } else if (category === 'F') {
+              return <FacilitiesInfo data={data} />;
             }
           }
         }
