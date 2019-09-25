@@ -89,113 +89,16 @@ create table assets (
 );
 
 create table contracts (
-  contract_id text not null primary key,
+  contract_id integer not null primary key generated always as identity,
+  parent integer references contracts (contract_id),
+  contract_num integer,
   sign_date date not null,
-  end_date date,
-  start_date date not null,
-  description text not null,
+  date_start date not null,
+  date_end date,
   company text not null,
+  description text not null,
   url text not null
-  -- parent_type text,
-  -- parent_number integer,
-  -- contract_type text not null, -- transform into enum
-  -- contract_number integer not null,
-  -- date_start date not null,
-  -- date_end date not null,
-  -- primary key (contract_type, contract_number),
-  -- foreign key (parent_type, parent_number) references contracts (contract_type, contract_number)
 );
-
--- create table ceb_meters  (
---   meter_id integer not null primary key,
---   meter_name text not null,
---   description text not null,
---   modtar_text text not null,
---   contract text not null references contracts (contract_id),
---   classe text not null,
---   subclasse text not null,
---   grupo text not null,
---   subgrupo text not null,
---   fases text not null,
---   dcf integer not null,
---   dcp integer not null
--- );
-
--- create table ceb_meter_assets (
---   meter_id integer not null references ceb_meters (meter_id),
---   asset_id text not null references assets (asset_id),
---   primary key (meter_id, asset_id)
--- );
-
--- create table ceb_bills (
---   meter_id integer not null references ceb_meters (meter_id),
---   yyyymm integer not null,
---   modtar integer not null,
---   datav date not null,
---   kwh integer not null,
---   confat integer not null,
---   icms money not null,
---   cip money not null,
---   trib money not null,
---   jma money not null,
---   desconto money not null,
---   basec money not null,
---   vliq money not null,
---   vbru money not null,
---   kwhp integer not null,
---   kwhf integer not null,
---   dmp integer not null,
---   dmf integer not null,
---   dfp integer not null,
---   dff integer not null,
---   uferp integer not null,
---   uferf integer not null,
---   verexp money not null,
---   verexf money not null,
---   vdfp money not null,
---   vdff money not null,
---   vudp money not null,
---   vudf money not null,
---   dcp integer not null,
---   dcf integer not null,
---   primary key (meter_id, yyyymm)    
--- );
-
--- create table caesb_meters (
---   meter_id integer not null primary key,
---   meter_name text not null,
---   description text not null,
---   contract text not null references contracts (contract_id),
---   hidrom text not null,
---   cat integer not null
--- );
-    
--- create table caesb_meter_assets (
---   meter_id integer not null references caesb_meters (meter_id),
---   asset_id text not null references assets (asset_id),
---   primary key (meter_id, asset_id)
--- );
-
--- create table caesb_bills (
---   meter_id integer not null references caesb_meters (meter_id),
---   yyyymm integer not null,
---   lat integer not null,
---   dlat integer not null,
---   lan integer not null,
---   dlan integer not null,
---   dif integer not null,
---   consm integer not null,
---   consf integer not null,
---   vagu money not null,
---   vesg money not null,
---   adic money not null,
---   subtotal money not null,
---   cofins money not null,
---   irpj money not null,
---   csll money not null,
---   pasep money not null,
---   primary key (meter_id, yyyymm)    
--- );
 
 create table departments (
   department_id text not null primary key,
@@ -276,50 +179,46 @@ create table private.logs (
   new_row jsonb
 );
 
--- create table specs (
---   spec_id text,
---   spec_name text,
---   group text,
---   subgroup text,
---   details text,
---   materials text,
---   services text,
---   activities text,
---   observations text,
---   criteria text,
---   graphics text, -- actually, those are photos ==> should be out of the db
---   tables text,
---   lifespan text,
---   commercial_reference text,
---   external_reference text,
---   is_subcont boolean,
---   documental_reference text,
---   catmat_catser text
--- );
+create table specs (
+  spec_id integer not null primary key generated always as identity,
+  spec_name text,
+  category text,
+  subcategory text,
+  details text,
+  materials text,
+  services text,
+  activities text,
+  comments text,
+  criteria text,
+  tables jsonb,
+  lifespan interval,
+  commercial_ref text,
+  external_ref text,
+  is_subcont boolean,
+  documental_ref text,
+  catmatcatser text
+);
 
--- create table items (
---   contract_type text not null,
---   contract_number integer not null,
---   item_id text,
---   standard_id text references standards (standard_id),
---   description text,
---   available real not null,
---   provisioned real not null, -- alternative column name: blocked?
---   consumed real not null,
---   quantity_type text not null, -- transformar em enum (integer or real)
---   unit text,
---   primary key (contract_type, contract_number, item_id),
---   foreign key (contract_type, contract_number) references contracts (contract_type, contract_number)
--- );
+create table supplies (
+  contract_id integer not null references contracts (contract_id),
+  supply_id text not null,
+  spec_id integer references specs (spec_id),
+  description text,
+  qty_available real not null,
+  qty_blocked real not null,
+  qty_consumed real not null,
+  qty_type text not null, -- transformar em enum (integer or real)
+  unit text,
+  primary key (contract_id, supply_id)
+);
 
--- create table order_items (
---   order_id integer references orders (order_id),
---   contract_type text not null,
---   contract_number integer not null,
---   item_id text not null,
---   quantity real,
---   foreign key (contract_type, contract_number, item_id) references items (contract_type, contract_number, item_id)
--- );
+create table order_supplies (
+  order_id integer not null references orders (order_id),
+  contract_id integer not null,
+  supply_id text not null,
+  qty real not null,
+  foreign key (contract_id, supply_id) references supplies (contract_id, supply_id)
+);
 
 -- create views
 create view facilities as
@@ -687,7 +586,7 @@ begin
       priority,
       category,
       parent,
-      contract,
+      contract_id,
       completed,
       request_text,
       request_department,
