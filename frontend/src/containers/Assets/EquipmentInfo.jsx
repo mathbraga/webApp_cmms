@@ -102,7 +102,7 @@ class EquipmentInfo extends Component {
         sectionDescription={'Ficha descritiva de um equipamento'}
         handleCardButton={() => assetsInfo.assetByAssetId.category === 'A' ?
           this.props.history.push('/ativos/equipamentos') : this.props.history.push('/ativos/edificios')}
-        buttonName={'Lista de Equipamentos'}
+        buttonName={'Equipamentos'}
       >
         <Row>
           <Col md="2">

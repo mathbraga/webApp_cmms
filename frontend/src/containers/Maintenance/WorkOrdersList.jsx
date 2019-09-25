@@ -34,6 +34,10 @@ const ORDER_CATEGORY_TYPE = {
   'VED': 'Vedação espacial',
   'VID': 'Vidraçaria / Esquadria',
   'SER': 'Serralheria',
+  'ARC': 'Ar-condicionado',
+  'ELV': 'Elevadores',
+  'EXA': 'Exaustores',
+  'GRL': 'Serviços Gerais',
 };
 
 const ORDER_STATUS_TYPE = {
@@ -83,7 +87,7 @@ class WorkOrdersList extends Component {
     });
   }
 
-  handleURLChange(){
+  handleURLChange() {
     this.props.history.push('/manutencao/os/nova');
   }
 
