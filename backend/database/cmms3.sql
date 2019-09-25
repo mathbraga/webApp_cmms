@@ -627,7 +627,7 @@ begin
     if (select category from assets where asset_id = new.place) = 'F' then
       return new;
     else
-      raise exception  'Place attribute of the new facility must be a facility';
+      raise exception 'Place attribute of the new facility must be a facility';
     end if;
   end if;
 
@@ -636,12 +636,12 @@ begin
     if (select category from assets where asset_id = new.parent) = 'A' then
       return new;
     else
-      raise exception  'Parent attribute of the new appliance must be an appliance';
+      raise exception 'Parent attribute of the new appliance must be an appliance';
     end if;
     if (select category from assets where asset_id = new.place) = 'A' then
       return new;
     else
-      raise exception  'Place attribute of the new appliance must be a facility';
+      raise exception 'Place attribute of the new appliance must be a facility';
     end if;
     if (new.description = '' or new.description is null) then
       raise exception 'New appliance must have a description';
