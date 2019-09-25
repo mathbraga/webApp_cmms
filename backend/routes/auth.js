@@ -4,8 +4,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const client = require('../pgclient');
 
-client.connect();
-
 passport.use(new LocalStrategy(
   {
     usernameField: 'email',

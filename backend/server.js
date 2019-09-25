@@ -33,9 +33,11 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(middleware);
+
+// Routes
 app.use("/auth", authRoute);
 
-// PostGraphile route (/db)
+// PostGraphile route
 app.use(postgraphile(
   
   // pgConfig (object)
@@ -52,8 +54,6 @@ app.use(postgraphile(
 
   // options (object)
   {
-    // Check other options at:
-    // https://www.graphile.org/postgraphile/usage-library/#api-postgraphilepgconfig-schemaname-options
     watchPg: true,
     enableCors: false,
     graphqlRoute: "/db",

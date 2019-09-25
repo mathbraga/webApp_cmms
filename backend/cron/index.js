@@ -1,8 +1,6 @@
 const client = require('../pgclient');
 const CronJob = require('cron').CronJob;
 
-// client.connect(); // Client already defined in auth route
-
 module.exports = new CronJob(
   '* * * * * *',
   async function() {
@@ -11,9 +9,9 @@ module.exports = new CronJob(
         data = await client.query('select now()');
       }
       catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    console.log(data.rows[0])
+    console.log(data.rows[0]);
   },
   null,
   true,
