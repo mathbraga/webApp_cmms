@@ -29,7 +29,7 @@ class SingleInputWithDropDown extends Component {
   }
 
   onChangeInput(event) {
-    this.containerScroll.scrollTo(0, 0);
+    // this.containerScroll.scrollTo(0, 0);
     this.setState({
       inputValue: event.target.value,
       hoveredItem: 0,
@@ -147,7 +147,7 @@ class SingleInputWithDropDown extends Component {
                 rowRenderer={({ index, key, style }) => {
                               return(
                                 <div 
-                                  ref={(el) => { this.containerScroll = el }}
+                                  // ref={(el) => { this.containerScroll = el }}
                                   key={key}
                                   style={style}
                                 >

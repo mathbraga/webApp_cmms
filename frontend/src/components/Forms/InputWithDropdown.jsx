@@ -29,7 +29,7 @@ class InputWithDropdown extends Component {
   }
 
   onChangeInputDepartment(event) {
-    this.containerScroll.scrollTo(0, 0);
+    //this.containerScroll.scrollTo(0, 0);
     this.setState({
       departmentInputValue: event.target.value,
       hoveredItem: 0,
@@ -167,7 +167,7 @@ class InputWithDropdown extends Component {
                 rowRenderer={({ index, key, style }) => {
                               return(
                                 <div 
-                                  ref={(el) => { this.containerScroll = el }}
+                                  // ref={(el) => { this.containerScroll = el }}
                                   key={key}
                                   style={style}
                                 >
