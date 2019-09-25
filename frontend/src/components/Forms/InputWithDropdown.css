@@ -26,6 +26,9 @@
 .dropdown-input div ul li {
   margin: 3px 0;
   padding: 2px;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
 .dropdown-input .active {
@@ -56,11 +59,4 @@
 
 .remove-image img:hover {
   cursor: pointer;
-}
-
-.dropdown-input div ul li {
-  cursor: pointer;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }

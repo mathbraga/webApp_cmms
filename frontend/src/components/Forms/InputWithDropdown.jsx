@@ -6,6 +6,7 @@ import {
 } from 'reactstrap';
 
 import "./InputWithDropdown.css";
+import 'react-virtualized/styles.css';
 import { List, AutoSizer } from 'react-virtualized';
 
 class InputWithDropdown extends Component {
