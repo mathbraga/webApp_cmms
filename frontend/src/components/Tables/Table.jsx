@@ -4,8 +4,6 @@ import "./Table.css";
 class TableItems extends Component {
   render() {
     const { thead, tbody } = this.props;
-    console.log("tBody: ", tbody);
-    console.log("tHead: ", thead);
 
     return (
       <div className="table-container">
