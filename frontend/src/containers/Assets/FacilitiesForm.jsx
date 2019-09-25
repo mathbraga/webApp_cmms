@@ -190,7 +190,7 @@ class FacilitiesForm extends Component {
           const facs = [];
           for(let i = 0; i<facID.length; i++)
             facs.push({id: facID[i], text: facName[i], subtext: facID[i]});
-
+          
         return(
         <div style={{ margin: "0 100px" }}>
           <Form 

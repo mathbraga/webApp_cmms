@@ -17,13 +17,13 @@
   overflow-y: scroll;
 }
 
-.dropdown-input ul {
+.dropdown-input div ul {
   list-style: none;
   padding: 0;
-  margin: 12px;
+  margin: 8px;
 }
 
-.dropdown-input ul li {
+.dropdown-input div ul li {
   margin: 3px 0;
   padding: 2px;
 }
@@ -64,9 +64,3 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.auto-crop-dropdown ul li {
-  margin: 3px 0;
-  padding: 2px;
-}
-

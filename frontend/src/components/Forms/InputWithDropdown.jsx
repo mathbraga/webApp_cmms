@@ -24,7 +24,6 @@ class InputWithDropdown extends Component {
     this.onRemoveItemFromList = this.onRemoveItemFromList.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
     this.updateDepartmentValues = this.updateDepartmentValues.bind(this);
-    this.renderRow = this.renderRow.bind(this);
     this.arrayItems = {};
   }
 
@@ -114,19 +113,6 @@ class InputWithDropdown extends Component {
     };
   };
 
-  renderRow({ index, key, style }){
-    return(
-      <div key={key} style={style}>
-        <ul>
-          <li>
-            {this.props.listDropdown[index].text}
-            <div className="small text-muted">{this.props.listDropdown[index].subtext}</div>
-          </li>
-        </ul>
-      </div>
-    );
-  }
-
   render() {
     const { label, placeholder, listDropdown } = this.props;
     const { departmentInputValue, isDropdownOpen, hoveredItem, departmentValues } = this.state;
@@ -173,11 +159,30 @@ class InputWithDropdown extends Component {
           <AutoSizer>
             {({ width }) => (
               <List
-                className='dropdown-input'
+                className={"dropdown-input"}
                 width={width}
                 height={180}
-                rowHeight={35}
-                rowRenderer={this.renderRow}
+                rowHeight={45}
+                rowRenderer={({ index, key, style }) => {
+                              return(
+                                <div 
+                                  ref={(el) => { this.containerScroll = el }}
+                                  key={key}
+                                  style={style}
+                                >
+                                  <ul>
+                                    <li
+                                      onMouseOver={() => this.onHoverItem(index)}
+                                      onMouseDown={this.onClickItem(filteredList)}
+                                      className={filteredList[hoveredItem].id === filteredList[index].id ? 'active' : ''}
+                                      ref={(el) => this.arrayItems[filteredList[index].id] = el}
+                                    >
+                                      {filteredList[index].text}
+                                      <div className="small text-muted">{filteredList[index].subtext}</div>
+                                    </li>
+                                </ul>
+                              </div>
+                              )}}
                 rowCount={filteredList.length}
               />
             )}
