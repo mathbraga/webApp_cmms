@@ -47,6 +47,16 @@ class AssetInfo extends Component {
               }
             }
           }
+          assetDepartmentsByAssetId {
+            edges {
+              node {
+                departmentByDepartmentId {
+                  fullName
+                  departmentId
+                }
+              }
+            }
+          }
         }
       }
     `;
