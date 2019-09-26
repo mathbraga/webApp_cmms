@@ -346,107 +346,86 @@ begin
 end; $$;
 
 create or replace function insert_appliance (
-  appliance_attributes appliances,
-  departments_array  text[]
+  in appliance_attributes appliances,
+  in departments_array  text[],
+  out new_appliance_id text
 )
-returns text
 language plpgsql
 as $$
-declare
-  new_appliance_id text;
 begin
-
-insert into appliances values (appliance_attributes.*)
-  returning asset_id into new_appliance_id;
-
-if departments_array is not null then
-  insert into asset_departments select new_appliance_id, unnest(departments_array);
-end if;
-
-return new_appliance_id;
-
+  insert into appliances values (appliance_attributes.*)
+    returning asset_id into new_appliance_id;
+  if departments_array is not null then
+    insert into asset_departments select new_appliance_id, unnest(departments_array);
+  end if;
 end; $$;
 
 
 create or replace function insert_facility (
-  facility_attributes facilities,
-  departments_array text[]
+  in facility_attributes facilities,
+  in departments_array text[],
+  out new_facility_id text
 )
-returns text
 language plpgsql
 as $$
-declare 
-  new_facility_id text;
 begin
-
-insert into facilities values (facility_attributes.*)
-  returning asset_id into new_facility_id;
-
-if departments_array is not null then
-  insert into asset_departments select new_facility_id, unnest(departments_array);
-end if;
-
-return new_facility_id;
-
+  insert into facilities values (facility_attributes.*)
+    returning asset_id into new_facility_id;
+  if departments_array is not null then
+    insert into asset_departments select new_facility_id, unnest(departments_array);
+  end if;
 end; $$;
 
-
-
 create or replace function insert_order (
-  order_attributes orders,
-  assets_array text[]
+  in order_attributes orders,
+  in assets_array text[],
+  out new_order_id integer
 )
-returns integer
 language plpgsql
-strict -- this is to enforce no null inputs (must have assigned assets in order)
+strict -- this is to make all inputs mandatory (there must be assigned assets in order)
 as $$
-declare 
-  new_order_id  integer;
 begin
+  insert into orders (
+    order_id,
+    status,
+    priority,
+    category,
+    parent,
+    completed,
+    request_text,
+    request_department,
+    request_person,
+    request_contact_name,
+    request_contact_phone,
+    request_contact_email,
+    request_title,
+    request_local,
+    date_limit,
+    date_start,
+    created_at,
+    contract
+  ) values (
+    default,
+    order_attributes.status,
+    order_attributes.priority,
+    order_attributes.category,
+    order_attributes.parent,
+    order_attributes.completed,
+    order_attributes.request_text,
+    order_attributes.request_department,
+    order_attributes.request_person,
+    order_attributes.request_contact_name,
+    order_attributes.request_contact_phone,
+    order_attributes.request_contact_email,
+    order_attributes.request_title,
+    order_attributes.request_local,
+    order_attributes.date_limit,
+    order_attributes.date_start,
+    default,
+    order_attributes.contract
+  ) returning order_id into new_order_id;
 
-insert into orders (
-  order_id,
-  status,
-  priority,
-  category,
-  parent,
-  completed,
-  request_text,
-  request_department,
-  request_person,
-  request_contact_name,
-  request_contact_phone,
-  request_contact_email,
-  request_title,
-  request_local,
-  date_limit,
-  date_start,
-  created_at,
-  contract
-) values (
-  default,
-  order_attributes.status,
-  order_attributes.priority,
-  order_attributes.category,
-  order_attributes.parent,
-  order_attributes.completed,
-  order_attributes.request_text,
-  order_attributes.request_department,
-  order_attributes.request_person,
-  order_attributes.request_contact_name,
-  order_attributes.request_contact_phone,
-  order_attributes.request_contact_email,
-  order_attributes.request_title,
-  order_attributes.request_local,
-  order_attributes.date_limit,
-  order_attributes.date_start,
-  default,
-  order_attributes.contract
-) returning order_id into new_order_id;
-
-insert into order_assets select new_order_id, unnest(assets_array);
-
-return new_order_id;
+  insert into order_assets select new_order_id, unnest(assets_array);
 
 end; $$;
 
@@ -488,12 +467,11 @@ begin
   end if;
 end; $$;
 
-
 create or replace function modify_appliance (
-  appliance_attributes appliances,
-  departments_array text[]
+  in appliance_attributes appliances,
+  in departments_array text[],
+  out modified_appliance_id text
 )
-returns text
 language plpgsql
 as $$
 begin
@@ -528,15 +506,15 @@ begin
     insert into asset_departments select appliance_attributes.asset_id, unnest(departments_array);
   end if;
 
-  return appliance_attributes.asset_id;
+  modified_appliance_id = appliance_attributes.asset_id;
 
 end; $$;
 
 create or replace function modify_facility (
-  facility_attributes facilities,
-  departments_array text[]
+  in facility_attributes facilities,
+  in departments_array text[],
+  out modified_facility_id text
 )
-returns text
 language plpgsql
 as $$
 begin
@@ -567,15 +545,15 @@ begin
     insert into asset_departments select facility_attributes.asset_id, unnest(departments_array);
   end if;
 
-  return facility_attributes.asset_id;
+  modified_facility_id = facility_attributes.asset_id;
 
 end; $$;
 
 create or replace function modify_order (
-  order_attributes orders,
-  assets_array text[]
+  in order_attributes orders,
+  in assets_array text[],
+  out modified_order_id integer
 )
-returns integer
 language plpgsql
 strict
 as $$
@@ -625,7 +603,7 @@ begin
     insert into order_assets select order_attributes.order_id, unnest(assets_array);
   end if;
 
-  return order_attributes.order_id;
+  modified_order_id = order_attributes.order_id;
 
 end; $$;
 
