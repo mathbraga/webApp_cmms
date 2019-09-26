@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AssetCard from "../../components/Cards/AssetCard";
 import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput } from "reactstrap";
 import TableWithPages from "../../components/Tables/TableWithPages";
-import "./EquipmentInfo.css";
+import "./AssetInfo.css";
 import { connect } from "react-redux";
 import { compose } from 'redux';
 import { tableConfig } from "../Maintenance/WorkOrdersTableConfig";
@@ -13,10 +13,25 @@ import gql from 'graphql-tag';
 
 import { equipmentItems, equipmentConfig } from "./AssetsFakeData";
 
-const descriptionImage = require("../../assets/img/test/equipment_picture.jpg");
 const mapIcon = require("../../assets/icons/map.png");
 
 const ENTRIES_PER_PAGE = 15;
+
+const IMAGE_PATHS = {
+  'civl-bm': "../../assets/img/test/civl-bm.jpg",
+  'civl-hd': '../../assets/img/test/civl-hd.jpg',
+  'elet-ca': "../../assets/img/test/elet-ca.jpg",
+  'elet-ci': '../../assets/img/test/elet-ci.jpg',
+  'elet-et': '../../assets/img/test/elet-et.jpg',
+  'elet-nb': '../../assets/img/test/elet-nb.jpg',
+  'elet-qd': '../../assets/img/test/elet-qd.jpg',
+  'elet-tf': '../../assets/img/test/elet-tf.jpg',
+  'elet-00': '../../assets/img/test/elet.jpg',
+  'mecn-ca': '../../assets/img/test/mecn-ca.jpg',
+  'mecn-fc': '../../assets/img/test/mecn-fc.jpg',
+  'mecn-sr': '../../assets/img/test/mecn-sr.jpg',
+  'elet-ci': '../../assets/img/test/elet-ci.jpg',
+};
 
 class EquipmentInfo extends Component {
   constructor(props) {
@@ -53,7 +68,12 @@ class EquipmentInfo extends Component {
 
     const assetsInfo = this.props.data;
 
-    console.log("AssetsInfo: ", assetsInfo);
+    const imgIndxArray = this.props.location.pathname.split("-");
+    const imgIndx = (imgIndxArray[0].split("/")[3] + "-" + imgIndxArray[1]).toLowerCase();
+    const path = IMAGE_PATHS[imgIndx] ? IMAGE_PATHS[imgIndx] : '../../assets/img/test/elet.jpg';
+    console.log("Path: ", path, typeof (path));
+
+    const descriptionImage = require('../../assets/img/test/equip.png');
 
     const pageLength = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges.length;
     const edges = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges;
@@ -97,124 +117,128 @@ class EquipmentInfo extends Component {
       </tr>))
 
     return (
-      <AssetCard
-        sectionName={'Equipamento'}
-        sectionDescription={'Ficha descritiva de um equipamento'}
-        handleCardButton={() => assetsInfo.assetByAssetId.category === 'A' ?
-          this.props.history.push('/ativos/equipamentos') : this.props.history.push('/ativos/edificios')}
-        buttonName={'Equipamentos'}
-      >
-        <Row>
-          <Col md="2">
-            <div className="desc-box">
-              <img className="desc-image" src={descriptionImage} alt="Ar-condicionado" />
-              <div className="desc-status">
-                <Badge className="mr-1 desc-badge" color="success" >Funcionando</Badge>
+      <div className="asset-container">
+        <AssetCard
+          sectionName={'Equipamento'}
+          sectionDescription={'Ficha descritiva de um equipamento'}
+          handleCardButton={() => assetsInfo.assetByAssetId.category === 'A' ?
+            this.props.history.push('/ativos/equipamentos') : this.props.history.push('/ativos/edificios')}
+          buttonName={'Equipamentos'}
+        >
+          <Row>
+            <Col md="2">
+              <div className="desc-box">
+                <div className="desc-img-container">
+                  <img className="desc-image" src={descriptionImage} alt="Ar-condicionado" />
+                </div>
+                <div className="desc-status">
+                  <Badge className="mr-1 desc-badge" color="success" >Funcionando</Badge>
+                </div>
               </div>
-            </div>
-          </Col>
-          <Col className="flex-column" md="10">
-            <div style={{ flexGrow: "1" }}>
-              <Row>
-                <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Equipamento / Sistema</span></Col>
-                <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{assetsInfo.assetByAssetId.name}</span></Col>
-              </Row>
-            </div>
-            <div>
-              <Row>
-                <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.assetId}</span></Col>
-              </Row>
-            </div>
-            <div>
-              <Row>
-                <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Localização</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.place}</span></Col>
-              </Row>
-            </div>
-            <div>
-              <Row>
-                <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Fabricante</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.manufacturer}</span></Col>
-              </Row>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <div style={{ margin: "20px", width: "100%" }}>
-            <Nav tabs>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Localização</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Manutenção</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Garantia</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("asset") }} active={tabSelected === "asset"} >Ativos</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("file") }} active={tabSelected === "file"} >Arquivos</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("log") }} active={tabSelected === "log"} >Histórico</NavLink>
-              </NavItem>
-            </Nav>
-            <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
-              <TabPane tabId="info" style={{ width: "100%" }}>
-                <div>
-                  Informações gerais sobre o equipamento.
-                  </div>
-              </TabPane>
-              <TabPane tabId="location" style={{ width: "100%" }}>
-                <div>
-                  Localização do equipamento.
-                  </div>
-              </TabPane>
-              <TabPane tabId="maintenance" style={{ width: "100%" }}>
+            </Col>
+            <Col className="flex-column" md="10">
+              <div style={{ flexGrow: "1" }}>
                 <Row>
-                  <Col>
-                    <TableWithPages
-                      thead={thead}
-                      tbody={tbody}
-                      pagesTotal={pagesTotal}
-                      pageCurrent={pageCurrent}
-                      goToPage={goToPage}
-                      setCurrentPage={this.setCurrentPage}
-                      setGoToPage={this.setGoToPage}
-                    />
-                  </Col>
+                  <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Equipamento / Sistema</span></Col>
+                  <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{assetsInfo.assetByAssetId.name}</span></Col>
                 </Row>
-              </TabPane>
-              <TabPane tabId="warranty" style={{ width: "100%" }}>
-                <div>
-                  Garantias.
+              </div>
+              <div>
+                <Row>
+                  <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.assetId}</span></Col>
+                </Row>
+              </div>
+              <div>
+                <Row>
+                  <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Localização</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.place}</span></Col>
+                </Row>
+              </div>
+              <div>
+                <Row>
+                  <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Fabricante</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.manufacturer}</span></Col>
+                </Row>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <div style={{ margin: "40px 20px 20px 20px", width: "100%" }}>
+              <Nav tabs>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Localização</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Manutenção</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Garantia</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("asset") }} active={tabSelected === "asset"} >Ativos</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("file") }} active={tabSelected === "file"} >Arquivos</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("log") }} active={tabSelected === "log"} >Histórico</NavLink>
+                </NavItem>
+              </Nav>
+              <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
+                <TabPane tabId="info" style={{ width: "100%" }}>
+                  <div>
+                    Informações gerais sobre o equipamento.
                   </div>
-              </TabPane>
-              <TabPane tabId="asset" style={{ width: "100%" }}>
-                <div>
-                  Lista de ativo.
+                </TabPane>
+                <TabPane tabId="location" style={{ width: "100%" }}>
+                  <div>
+                    Localização do equipamento.
                   </div>
-              </TabPane>
-              <TabPane tabId="file" style={{ width: "100%" }}>
-                <div>
-                  Lista de arquivos.
+                </TabPane>
+                <TabPane tabId="maintenance" style={{ width: "100%" }}>
+                  <Row>
+                    <Col>
+                      <TableWithPages
+                        thead={thead}
+                        tbody={tbody}
+                        pagesTotal={pagesTotal}
+                        pageCurrent={pageCurrent}
+                        goToPage={goToPage}
+                        setCurrentPage={this.setCurrentPage}
+                        setGoToPage={this.setGoToPage}
+                      />
+                    </Col>
+                  </Row>
+                </TabPane>
+                <TabPane tabId="warranty" style={{ width: "100%" }}>
+                  <div>
+                    Garantias.
                   </div>
-              </TabPane>
-              <TabPane tabId="log" style={{ width: "100%" }}>
-                <div>
-                  Histórico sobre o equipamento.
+                </TabPane>
+                <TabPane tabId="asset" style={{ width: "100%" }}>
+                  <div>
+                    Lista de ativo.
                   </div>
-              </TabPane>
-            </TabContent>
-          </div>
-        </Row>
-      </AssetCard>
+                </TabPane>
+                <TabPane tabId="file" style={{ width: "100%" }}>
+                  <div>
+                    Lista de arquivos.
+                  </div>
+                </TabPane>
+                <TabPane tabId="log" style={{ width: "100%" }}>
+                  <div>
+                    Histórico sobre o equipamento.
+                  </div>
+                </TabPane>
+              </TabContent>
+            </div>
+          </Row>
+        </AssetCard>
+      </div>
     );
   }
 }

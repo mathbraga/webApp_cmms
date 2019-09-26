@@ -4,6 +4,7 @@ import getAsset from "../../utils/assets/getAsset";
 import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput } from "reactstrap";
 import TableWithPages from "../../components/Tables/TableWithPages";
 import "./AssetInfo.css";
+import "./FacilitiesInfo.css";
 import fetchDB from "../../utils/fetch/fetchDB";
 import { connect } from "react-redux";
 import { compose } from 'redux';

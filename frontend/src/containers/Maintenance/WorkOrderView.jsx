@@ -175,37 +175,37 @@ class WorkOrderView extends Component {
                         <TabPane tabId="info" style={{ width: "100%" }}>
                           <div>
                             Informações gerais sobre o equipamento.
-                    </div>
+                          </div>
                         </TabPane>
                         <TabPane tabId="location" style={{ width: "100%" }}>
                           <div>
                             Localização do equipamento.
-                    </div>
+                          </div>
                         </TabPane>
                         <TabPane tabId="maintenance" style={{ width: "100%" }}>
                           <div>
                             Lista de manutenção.
-                    </div>
+                           </div>
                         </TabPane>
                         <TabPane tabId="warranty" style={{ width: "100%" }}>
                           <div>
                             Garantias.
-                    </div>
+                          </div>
                         </TabPane>
                         <TabPane tabId="asset" style={{ width: "100%" }}>
                           <div>
                             Lista de ativo.
-                    </div>
+                          </div>
                         </TabPane>
                         <TabPane tabId="file" style={{ width: "100%" }}>
                           <div>
                             Lista de arquivos.
-                    </div>
+                         </div>
                         </TabPane>
                         <TabPane tabId="log" style={{ width: "100%" }}>
                           <div>
                             Histórico sobre o equipamento.
-                    </div>
+                          </div>
                         </TabPane>
                       </TabContent>
                     </div>
