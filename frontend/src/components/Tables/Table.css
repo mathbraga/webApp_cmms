@@ -29,6 +29,10 @@
 
 .content-table tbody td {
   border-bottom: 1px solid #d4d4d4;
+  height: 55px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
 }
 
 .content-table tbody tr:hover {
@@ -37,4 +41,16 @@
 
 .checkbox-cell {
   width: 47px;
+}
+
+.no-items-table {
+  padding-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+}
+
+.no-items-description {
+  font-size: 16px;
 }
