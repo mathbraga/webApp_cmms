@@ -133,7 +133,7 @@ create table orders (
   priority order_priority_type not null,
   category order_category_type not null,
   parent integer references orders (order_id),
-  contract text references contracts (contract_id),
+  contract_id text references contracts (contract_id),
   completed integer check (completed >= 0 and completed <= 100),
   request_text text not null,
   request_department text not null references departments (department_id),
@@ -403,7 +403,7 @@ begin
     date_limit,
     date_start,
     created_at,
-    contract
+    contract_id
   ) values (
     default,
     order_attributes.status,
@@ -422,7 +422,7 @@ begin
     order_attributes.date_limit,
     order_attributes.date_start,
     default,
-    order_attributes.contract
+    order_attributes.contract_id
   ) returning order_id into new_order_id;
 
   insert into order_assets select new_order_id, unnest(assets_array);
