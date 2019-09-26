@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AssetCard from "../../components/Cards/AssetCard";
-import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput } from "reactstrap";
+import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput, InputGroup, Input, InputGroupAddon, InputGroupText } from "reactstrap";
 import TableWithPages from "../../components/Tables/TableWithPages";
 import "./EquipmentInfo.css";
 import { connect } from "react-redux";
@@ -15,6 +15,7 @@ import { equipmentItems, equipmentConfig } from "./AssetsFakeData";
 
 const descriptionImage = require("../../assets/img/test/equipment_picture.jpg");
 const mapIcon = require("../../assets/icons/map.png");
+const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
 
@@ -25,11 +26,13 @@ class EquipmentInfo extends Component {
       tabSelected: "info",
       location: false,
       pageCurrent: 1,
-      goToPage: 1
+      goToPage: 1,
+      searchTerm: "",
     };
     this.handleClickOnNav = this.handleClickOnNav.bind(this);
     this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
+    this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
   }
 
   handleClickOnNav(tabSelected) {
@@ -46,6 +49,10 @@ class EquipmentInfo extends Component {
     });
   }
 
+  handleChangeSearchTerm(event) {
+    this.setState({ searchTerm: event.target.value, pageCurrent: 1, goToPage: 1 });
+  }
+
   render() {
 
     const { pageCurrent, goToPage, searchTerm } = this.state;
@@ -58,8 +65,23 @@ class EquipmentInfo extends Component {
     const pageLength = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges.length;
     const edges = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges;
 
+    console.clear();
+    console.log(edges);
+    let filteredItems = edges;
+    if (searchTerm.length > 0) {
+      const searchTermLower = searchTerm.toLowerCase();
+      filteredItems = edges.filter(function (item) {
+        return (
+          // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
+          item.node.orderByOrderId.requestPerson.toLowerCase().includes(searchTermLower) ||
+          item.node.orderByOrderId.requestText.toLowerCase().includes(searchTermLower) ||
+          item.node.orderByOrderId.status.toLowerCase().includes(searchTermLower)
+        );
+      });
+    }
+
     const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
-    const showItems = edges.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+    const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
     const thead =
       <tr>
@@ -179,6 +201,16 @@ class EquipmentInfo extends Component {
               <TabPane tabId="maintenance" style={{ width: "100%" }}>
                 <Row>
                   <Col>
+                    <Col md="4" className="mt-4 ml-4">
+                      <form>
+                        <InputGroup>
+                          <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
+                          <InputGroupAddon addonType="append">
+                            <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
+                          </InputGroupAddon>
+                        </InputGroup>
+                      </form>
+                    </Col>
                     <TableWithPages
                       thead={thead}
                       tbody={tbody}
