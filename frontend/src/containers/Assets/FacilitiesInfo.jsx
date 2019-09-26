@@ -151,16 +151,16 @@ class FacilitiesInfo extends Component {
             </Col>
           </Row>
           <Row>
-            <div style={{ margin: "40px 20px 20px 20px", width: "100%" }}>
+            <div style={{ margin: "40px 20px 20px 20px", width: "96%" }}>
               <Nav tabs>
                 <NavItem>
                   <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Localização</NavLink>
+                  <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Planta Arquitetônica</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Manutenção</NavLink>
+                  <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Manutenções</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Garantia</NavLink>
@@ -177,29 +177,105 @@ class FacilitiesInfo extends Component {
               </Nav>
               <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
                 <TabPane tabId="info" style={{ width: "100%" }}>
-                  <div>
-                    Informações gerais sobre o equipamento.
+                  <div className="asset-info-container">
+                    <h1 className="asset-info-title">Dados Gerais</h1>
+                    <div className="asset-info-content">
+                      <Row>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Nome do Edifício ou Área</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.name}</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Código</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetId}</div>
+                          </div>
+                        </Col>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Departamento (s)</div>
+                            <div className="asset-info-content-data">{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ')}</div>
+                          </div>
+                        </Col>
+                      </Row>
+                      <div className="asset-info-single-container">
+                        <div className="desc-sub">Descrição do Edifício</div>
+                        <div className="asset-info-content-data">{assetsInfo.assetByAssetId.description}</div>
+                      </div>
+                    </div>
+                    <h1 className="asset-info-title">Localização</h1>
+                    <div className="asset-info-content">
+                      <Row>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Ativo Pai</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetByParent.assetId + " / " + assetsInfo.assetByAssetId.assetByParent.name}</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Área</div>
+                            <div className="asset-info-content-data">{Math.trunc(assetsInfo.assetByAssetId.area) + " m²"}</div>
+                          </div>
+                        </Col>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Latidude do Local</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.latitude}</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Longitude do Local</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.longitude}</div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
                   </div>
                 </TabPane>
                 <TabPane tabId="location" style={{ width: "100%" }}>
-                  <div>
-                    Localização do equipamento.
+                  <div className="asset-info-container">
+                    <h1 className="asset-info-title">Planta Arquitetônica</h1>
+                    <div className="asset-info-content">
+                      <div className="asset-info-map"></div>
+                    </div>
                   </div>
                 </TabPane>
                 <TabPane tabId="maintenance" style={{ width: "100%" }}>
-                  <Row>
-                    <Col>
-                      <TableWithPages
-                        thead={thead}
-                        tbody={tbody}
-                        pagesTotal={pagesTotal}
-                        pageCurrent={pageCurrent}
-                        goToPage={goToPage}
-                        setCurrentPage={this.setCurrentPage}
-                        setGoToPage={this.setGoToPage}
-                      />
-                    </Col>
-                  </Row>
+                  <div className="asset-info-container">
+                    <h1 className="asset-info-title">Informações Gerais</h1>
+                    <div className="asset-info-content">
+                      <Row>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Manutenções Pendentes</div>
+                            <div className="asset-info-content-data">0003</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Manutenções Totais</div>
+                            <div className="asset-info-content-data">0006</div>
+                          </div>
+                        </Col>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Preventivas Agendadas</div>
+                            <div className="asset-info-content-data">OS-0021 / OS-0025</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Requisições para Análise</div>
+                            <div className="asset-info-content-data">RQ-0011 / RQ-0015</div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
+                    <h1 className="asset-info-title">Tabela de Manutenções</h1>
+                  </div>
+                  <TableWithPages
+                    thead={thead}
+                    tbody={tbody}
+                    pagesTotal={pagesTotal}
+                    pageCurrent={pageCurrent}
+                    goToPage={goToPage}
+                    setCurrentPage={this.setCurrentPage}
+                    setGoToPage={this.setGoToPage}
+                  />
                 </TabPane>
                 <TabPane tabId="warranty" style={{ width: "100%" }}>
                   <div>

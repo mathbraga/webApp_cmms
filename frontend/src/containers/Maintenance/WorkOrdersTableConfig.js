@@ -1,9 +1,9 @@
 export const tableConfig = [
   { name: "OS", style: { width: "80px" }, className: "text-center" },
   { name: "Título", style: { width: "400px" }, className: "text-justify" },
-  { name: "Status", style: { width: "auto" }, className: "text-center" },
+  { name: "Status", style: { width: "100px" }, className: "text-center" },
   { name: "Prioridade", style: { width: "150px" }, className: "text-center" },
-  { name: "Prazo Final", style: { width: "auto" }, className: "text-center" },
+  { name: "Prazo Final", style: { width: "100px" }, className: "text-center" },
   { name: "Localização", style: { width: "250px" }, className: "text-center" },
 ];
 
