@@ -65,8 +65,6 @@ class EquipmentInfo extends Component {
     const pageLength = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges.length;
     const edges = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges;
 
-    console.clear();
-    console.log(edges);
     let filteredItems = edges;
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
