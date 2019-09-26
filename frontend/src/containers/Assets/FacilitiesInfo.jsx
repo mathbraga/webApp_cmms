@@ -240,7 +240,7 @@ class FacilitiesInfo extends Component {
                 </TabPane>
                 <TabPane tabId="maintenance" style={{ width: "100%" }}>
                   <div className="asset-info-container">
-                    <h1 className="asset-info-title">Informações Gerais</h1>
+                    <h1 className="asset-info-title">Relatório de Manutenções</h1>
                     <div className="asset-info-content">
                       <Row>
                         <Col md="6">
@@ -278,8 +278,32 @@ class FacilitiesInfo extends Component {
                   />
                 </TabPane>
                 <TabPane tabId="warranty" style={{ width: "100%" }}>
-                  <div>
-                    Garantias.
+                  <div className="asset-info-container">
+                    <h1 className="asset-info-title">Dados da Garantia</h1>
+                    <div className="asset-info-content">
+                      <Row>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Fornecedor</div>
+                            <div className="asset-info-content-data">Over Elevadores Ltda</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Telefone</div>
+                            <div className="asset-info-content-data">(61) 3256-4562</div>
+                          </div>
+                        </Col>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Data Inicial</div>
+                            <div className="asset-info-content-data">01/01/2019</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Data Final</div>
+                            <div className="asset-info-content-data">01/01/2022</div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
                   </div>
                 </TabPane>
                 <TabPane tabId="asset" style={{ width: "100%" }}>
