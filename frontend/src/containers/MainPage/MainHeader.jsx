@@ -92,11 +92,11 @@ class MainHeader extends Component {
         <Nav className="d-md-down-none ml-auto" navbar>
           {this.state.email === null ? (
             <React.Fragment>
-              <NavItem className="px-3">
+              {/* <NavItem className="px-3">
                 <Link to="/cadastro" className="nav-link">
                   Cadastro
                 </Link>
-              </NavItem>
+              </NavItem> */}
               <NavItem className="px-3">
                 <Link to="/login" className="nav-link">
                   Login
