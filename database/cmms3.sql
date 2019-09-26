@@ -217,6 +217,7 @@ create table order_supplies (
   contract_id integer not null,
   supply_id text not null,
   qty real not null,
+  primary key (order_id, contract_id, supply_id),
   foreign key (contract_id, supply_id) references supplies (contract_id, supply_id)
 );
 
