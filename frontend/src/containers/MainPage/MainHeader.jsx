@@ -114,7 +114,7 @@ class MainHeader extends Component {
                   {" " + this.state.email}
               </DropdownToggle>
               <DropdownMenu right style={{ right: 'auto' }}>
-                  <DropdownItem onClick={this.handleProfile}><i className="fa fa-user"></i>Perfil</DropdownItem>
+                  {/* <DropdownItem onClick={this.handleProfile}><i className="fa fa-user"></i>Perfil</DropdownItem> */}
                   {/* <DropdownItem><i className="fa fa-wrench"></i>Configurações</DropdownItem> */}
                   <DropdownItem onClick={this.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
               </DropdownMenu>
