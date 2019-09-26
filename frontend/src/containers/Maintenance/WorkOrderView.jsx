@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import getWorkOrder from "../../utils/maintenance/getWorkOrder";
 import AssetCard from "../../components/Cards/AssetCard";
 import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput } from "reactstrap";
-import './WorkOrderView.css';
+import '../Assets/AssetInfo.css';
 
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -101,115 +101,117 @@ class WorkOrderView extends Component {
             const orderInfo = data.orderByOrderId;
             console.log("WO Data: ", orderInfo);
             return (
-              <AssetCard
-                sectionName={'Ordem de Serviço'}
-                sectionDescription={'Ficha descritiva do serviço'}
-                handleCardButton={() => this.props.history.push('/manutencao/os')}
-                buttonName={'Ordens de Serviço'}
-              >
-                <Row>
-                  <Col md="2">
-                    <div className="desc-box">
-                      <div className="desc-img-container">
-                        <img className="desc-image" src={descriptionImage} alt="Ar-condicionado" />
+              <div className="asset-container">
+                <AssetCard
+                  sectionName={'Ordem de Serviço'}
+                  sectionDescription={'Ficha descritiva do serviço'}
+                  handleCardButton={() => this.props.history.push('/manutencao/os')}
+                  buttonName={'Ordens de Serviço'}
+                >
+                  <Row>
+                    <Col md="2" style={{ textAlign: "left" }}>
+                      <div className="desc-box">
+                        <div className="desc-img-container">
+                          <img className="desc-image" src={descriptionImage} alt="Ar-condicionado" />
+                        </div>
+                        <div className="desc-status">
+                          <Badge className="mr-1 desc-badge" color="success" >{ORDER_STATUS_TYPE[orderInfo.status]}</Badge>
+                        </div>
                       </div>
-                      <div className="desc-status">
-                        <Badge className="mr-1 desc-badge" color="success" >{ORDER_STATUS_TYPE[orderInfo.status]}</Badge>
+                    </Col>
+                    <Col className="flex-column" md="10">
+                      <div style={{ flexGrow: "1" }}>
+                        <Row>
+                          <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Serviço (descrição breve)</span></Col>
+                          <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{orderInfo.requestTitle}</span></Col>
+                        </Row>
                       </div>
+                      <div>
+                        <Row>
+                          <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Ordem de Serviço nº</span></Col>
+                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{(orderInfo.orderId + "").padStart(4, "0")}</span></Col>
+                        </Row>
+                      </div>
+                      <div>
+                        <Row>
+                          <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Local da Intervenção</span></Col>
+                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{orderInfo.requestLocal}</span></Col>
+                        </Row>
+                      </div>
+                      <div>
+                        <Row>
+                          <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Categoria</span></Col>
+                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{ORDER_CATEGORY_TYPE[orderInfo.category]}</span></Col>
+                        </Row>
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <div style={{ margin: "40px 20px 20px 20px", width: "100%" }}>
+                      <Nav tabs>
+                        <NavItem>
+                          <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Localização</NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Ativos</NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Arquivos</NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink onClick={() => { this.handleClickOnNav("asset") }} active={tabSelected === "asset"} >Solicitante</NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink onClick={() => { this.handleClickOnNav("file") }} active={tabSelected === "file"} >Atribuido para</NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink onClick={() => { this.handleClickOnNav("log") }} active={tabSelected === "log"} >Histórico</NavLink>
+                        </NavItem>
+                      </Nav>
+                      <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
+                        <TabPane tabId="info" style={{ width: "100%" }}>
+                          <div>
+                            Informações gerais sobre o equipamento.
                     </div>
-                  </Col>
-                  <Col className="flex-column" md="10">
-                    <div style={{ flexGrow: "1" }}>
-                      <Row>
-                        <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Serviço (descrição breve)</span></Col>
-                        <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{orderInfo.requestTitle}</span></Col>
-                      </Row>
+                        </TabPane>
+                        <TabPane tabId="location" style={{ width: "100%" }}>
+                          <div>
+                            Localização do equipamento.
                     </div>
-                    <div>
-                      <Row>
-                        <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Ordem de Serviço nº</span></Col>
-                        <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{(orderInfo.orderId + "").padStart(4, "0")}</span></Col>
-                      </Row>
+                        </TabPane>
+                        <TabPane tabId="maintenance" style={{ width: "100%" }}>
+                          <div>
+                            Lista de manutenção.
                     </div>
-                    <div>
-                      <Row>
-                        <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Local da Intervenção</span></Col>
-                        <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{orderInfo.requestLocal}</span></Col>
-                      </Row>
+                        </TabPane>
+                        <TabPane tabId="warranty" style={{ width: "100%" }}>
+                          <div>
+                            Garantias.
                     </div>
-                    <div>
-                      <Row>
-                        <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Categoria</span></Col>
-                        <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{ORDER_CATEGORY_TYPE[orderInfo.category]}</span></Col>
-                      </Row>
+                        </TabPane>
+                        <TabPane tabId="asset" style={{ width: "100%" }}>
+                          <div>
+                            Lista de ativo.
                     </div>
-                  </Col>
-                </Row>
-                <Row>
-                  <div style={{ margin: "20px", width: "100%" }}>
-                    <Nav tabs>
-                      <NavItem>
-                        <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Localização</NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Ativos</NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Arquivos</NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink onClick={() => { this.handleClickOnNav("asset") }} active={tabSelected === "asset"} >Solicitante</NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink onClick={() => { this.handleClickOnNav("file") }} active={tabSelected === "file"} >Atribuido para</NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink onClick={() => { this.handleClickOnNav("log") }} active={tabSelected === "log"} >Histórico</NavLink>
-                      </NavItem>
-                    </Nav>
-                    <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
-                      <TabPane tabId="info" style={{ width: "100%" }}>
-                        <div>
-                          Informações gerais sobre o equipamento.
+                        </TabPane>
+                        <TabPane tabId="file" style={{ width: "100%" }}>
+                          <div>
+                            Lista de arquivos.
                     </div>
-                      </TabPane>
-                      <TabPane tabId="location" style={{ width: "100%" }}>
-                        <div>
-                          Localização do equipamento.
+                        </TabPane>
+                        <TabPane tabId="log" style={{ width: "100%" }}>
+                          <div>
+                            Histórico sobre o equipamento.
                     </div>
-                      </TabPane>
-                      <TabPane tabId="maintenance" style={{ width: "100%" }}>
-                        <div>
-                          Lista de manutenção.
+                        </TabPane>
+                      </TabContent>
                     </div>
-                      </TabPane>
-                      <TabPane tabId="warranty" style={{ width: "100%" }}>
-                        <div>
-                          Garantias.
-                    </div>
-                      </TabPane>
-                      <TabPane tabId="asset" style={{ width: "100%" }}>
-                        <div>
-                          Lista de ativo.
-                    </div>
-                      </TabPane>
-                      <TabPane tabId="file" style={{ width: "100%" }}>
-                        <div>
-                          Lista de arquivos.
-                    </div>
-                      </TabPane>
-                      <TabPane tabId="log" style={{ width: "100%" }}>
-                        <div>
-                          Histórico sobre o equipamento.
-                    </div>
-                      </TabPane>
-                    </TabContent>
-                  </div>
-                </Row>
-              </AssetCard>
+                  </Row>
+                </AssetCard>
+              </div>
             )
           }}</Query>
     );

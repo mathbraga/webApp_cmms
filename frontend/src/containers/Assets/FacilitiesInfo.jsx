@@ -3,7 +3,7 @@ import AssetCard from "../../components/Cards/AssetCard";
 import getAsset from "../../utils/assets/getAsset";
 import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput } from "reactstrap";
 import TableWithPages from "../../components/Tables/TableWithPages";
-import "./FacilitiesInfo.css";
+import "./AssetInfo.css";
 import fetchDB from "../../utils/fetch/fetchDB";
 import { connect } from "react-redux";
 import { compose } from 'redux';
@@ -101,126 +101,130 @@ class FacilitiesInfo extends Component {
 
     console.log("AssetsInfo: ", assetsInfo);
     return (
-      <AssetCard
-        sectionName={'Edifício / Área'}
-        sectionDescription={'Ficha descritiva do imóvel'}
-        handleCardButton={() => assetsInfo.assetByAssetId.category === 'A' ?
-          this.props.history.push('/ativos/equipamentos') : this.props.history.push('/ativos/edificios')}
-        buttonName={'Edifícios'}
-      >
-        <Row>
-          <Col md="2">
-            <div className="desc-box">
-              <img className="desc-image" src={descriptionImage} alt="Ar-condicionado" />
-              <div className="desc-status">
-                <Badge className="mr-1 desc-badge" color="success" >Trânsito Livre</Badge>
+      <div className="asset-container">
+        <AssetCard
+          sectionName={'Edifício / Área'}
+          sectionDescription={'Ficha descritiva do imóvel'}
+          handleCardButton={() => assetsInfo.assetByAssetId.category === 'A' ?
+            this.props.history.push('/ativos/equipamentos') : this.props.history.push('/ativos/edificios')}
+          buttonName={'Edifícios'}
+        >
+          <Row>
+            <Col md="2" style={{ textAlign: "left" }}>
+              <div className="desc-box">
+                <div className="desc-img-container">
+                  <img className="desc-image" src={descriptionImage} alt="Ar-condicionado" />
+                </div>
+                <div className="desc-status">
+                  <Badge className="mr-1 desc-badge" color="success" >Trânsito Livre</Badge>
+                </div>
               </div>
-            </div>
-          </Col>
-          <Col className="flex-column" md="10">
-            <div style={{ flexGrow: "1" }}>
-              <Row>
-                <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Edifício / Área</span></Col>
-                <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{assetsInfo.assetByAssetId.name}</span></Col>
-              </Row>
-            </div>
-            <div>
-              <Row>
-                <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.assetId}</span></Col>
-              </Row>
-            </div>
-            <div>
-              <Row>
-                <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Departamento(s)</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}>
-                  <span>{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ')}</span>
-                </Col>
-              </Row>
-            </div>
-            <div>
-              <Row>
-                <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Área</span></Col>
-                <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.area}</span></Col>
-              </Row>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <div style={{ margin: "20px", width: "100%" }}>
-            <Nav tabs>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Localização</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Manutenção</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Garantia</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("asset") }} active={tabSelected === "asset"} >Ativos</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("file") }} active={tabSelected === "file"} >Arquivos</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={() => { this.handleClickOnNav("log") }} active={tabSelected === "log"} >Histórico</NavLink>
-              </NavItem>
-            </Nav>
-            <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
-              <TabPane tabId="info" style={{ width: "100%" }}>
-                <div>
-                  Informações gerais sobre o equipamento.
-                  </div>
-              </TabPane>
-              <TabPane tabId="location" style={{ width: "100%" }}>
-                <div>
-                  Localização do equipamento.
-                  </div>
-              </TabPane>
-              <TabPane tabId="maintenance" style={{ width: "100%" }}>
+            </Col>
+            <Col className="flex-column" md="10">
+              <div style={{ flexGrow: "1" }}>
                 <Row>
-                  <Col>
-                    <TableWithPages
-                      thead={thead}
-                      tbody={tbody}
-                      pagesTotal={pagesTotal}
-                      pageCurrent={pageCurrent}
-                      goToPage={goToPage}
-                      setCurrentPage={this.setCurrentPage}
-                      setGoToPage={this.setGoToPage}
-                    />
+                  <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Edifício / Área</span></Col>
+                  <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{assetsInfo.assetByAssetId.name}</span></Col>
+                </Row>
+              </div>
+              <div>
+                <Row>
+                  <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.assetId}</span></Col>
+                </Row>
+              </div>
+              <div>
+                <Row>
+                  <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Departamento(s)</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}>
+                    <span>{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ')}</span>
                   </Col>
                 </Row>
-              </TabPane>
-              <TabPane tabId="warranty" style={{ width: "100%" }}>
-                <div>
-                  Garantias.
+              </div>
+              <div>
+                <Row>
+                  <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Área</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.area}</span></Col>
+                </Row>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <div style={{ margin: "40px 20px 20px 20px", width: "100%" }}>
+              <Nav tabs>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Localização</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Manutenção</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Garantia</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("asset") }} active={tabSelected === "asset"} >Ativos</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("file") }} active={tabSelected === "file"} >Arquivos</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("log") }} active={tabSelected === "log"} >Histórico</NavLink>
+                </NavItem>
+              </Nav>
+              <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
+                <TabPane tabId="info" style={{ width: "100%" }}>
+                  <div>
+                    Informações gerais sobre o equipamento.
                   </div>
-              </TabPane>
-              <TabPane tabId="asset" style={{ width: "100%" }}>
-                <div>
-                  Lista de ativo.
+                </TabPane>
+                <TabPane tabId="location" style={{ width: "100%" }}>
+                  <div>
+                    Localização do equipamento.
                   </div>
-              </TabPane>
-              <TabPane tabId="file" style={{ width: "100%" }}>
-                <div>
-                  Lista de arquivos.
+                </TabPane>
+                <TabPane tabId="maintenance" style={{ width: "100%" }}>
+                  <Row>
+                    <Col>
+                      <TableWithPages
+                        thead={thead}
+                        tbody={tbody}
+                        pagesTotal={pagesTotal}
+                        pageCurrent={pageCurrent}
+                        goToPage={goToPage}
+                        setCurrentPage={this.setCurrentPage}
+                        setGoToPage={this.setGoToPage}
+                      />
+                    </Col>
+                  </Row>
+                </TabPane>
+                <TabPane tabId="warranty" style={{ width: "100%" }}>
+                  <div>
+                    Garantias.
                   </div>
-              </TabPane>
-              <TabPane tabId="log" style={{ width: "100%" }}>
-                <div>
-                  Histórico sobre o equipamento.
+                </TabPane>
+                <TabPane tabId="asset" style={{ width: "100%" }}>
+                  <div>
+                    Lista de ativo.
                   </div>
-              </TabPane>
-            </TabContent>
-          </div>
-        </Row>
-      </AssetCard>
+                </TabPane>
+                <TabPane tabId="file" style={{ width: "100%" }}>
+                  <div>
+                    Lista de arquivos.
+                  </div>
+                </TabPane>
+                <TabPane tabId="log" style={{ width: "100%" }}>
+                  <div>
+                    Histórico sobre o equipamento.
+                  </div>
+                </TabPane>
+              </TabContent>
+            </div>
+          </Row>
+        </AssetCard>
+      </div>
     );
   }
 }
