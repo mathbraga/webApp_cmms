@@ -2,18 +2,22 @@ function middleware(req, res, next){
 
   const date = new Date();
 
-  // Logs
-  console.log('\n\n\n\n-----------------------------------------------------------------------');
+  // Log
   console.log(
-    'HOST ' + req.ip +
+    '\n\n\n\n----------------------------------------------------------------------------------------------' +
+    '\n' +
+    'ORIGIN ' + req.ip +
     '    REQUESTED PATH: ' + req.path +
+    '    DATE: ' + date.getDate() + '/' + (parseInt(date.getMonth(), 10) + 1).toString() + '/' + date.getUTCFullYear() +
     '    TIME: ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() +
+    '\n\n' +
+    'req user: ' + JSON.stringify(req.user) +
+    '\n\n' +
+    req.session.isNew +
+    '\n\n' +
+    'req session: ' + JSON.stringify(req.session) +
     '\n\n'
   );
-  console.log('req user: ' + JSON.stringify(req.user));
-  console.log(req.session.isNew);
-  console.log('req session: ' + JSON.stringify(req.session));
-  console.log('\n\n');
 
   // Call next
   next();
