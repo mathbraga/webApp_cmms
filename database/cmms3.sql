@@ -582,7 +582,7 @@ begin
       order_attributes.priority,
       order_attributes.category,
       order_attributes.parent,
-      order_attributes.contract,
+      order_attributes.contract_id,
       order_attributes.completed,
       order_attributes.request_text,
       order_attributes.request_department,
