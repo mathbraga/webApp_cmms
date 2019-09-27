@@ -4,7 +4,7 @@ set auth.data.person_id to 1;
 
 create view balances as
   with
-    oi as (
+    unfinished as (
       select
         os.contract_id,
         os.supply_id,
@@ -14,7 +14,7 @@ create view balances as
         where o.status <> 'CON'
         group by os.contract_id, os.supply_id
     ),
-    oc as (
+    finished as (
       select
         os.contract_id,
         os.supply_id,
@@ -23,16 +23,21 @@ create view balances as
           inner join order_supplies as os using (order_id)
         where o.status = 'CON'
         group by os.contract_id, os.supply_id
+    ),
+    both_cases as (
+      select s.contract_id,
+             s.supply_id,
+             s.qty_available as qty_initial,
+             coalesce(unfinished.blocked, 0) as blocked,
+             coalesce(finished.consumed, 0) as consumed
+        from supplies as s,
+             inner join unfinished using (contract_id, supply_id)
+             full outer join finished using (contract_id, supply_id)
+        group by contract_id, supply_id;
     )
-    select s.contract_id,
-           s.supply_id,
-           s.qty_available as qty_initial,
-           oi.blocked,
-           oc.consumed,
-           s.qty_available - (oi.blocked + oc.consumed) as available
-      from supplies as s
-      inner join oi using (contract_id, supply_id)
-      inner join oc using (contract_id, supply_id);
+    select *,
+           qty_initial - blocked - consumed
+      from both_cases;
 
 select * from balances;
 rollback;
