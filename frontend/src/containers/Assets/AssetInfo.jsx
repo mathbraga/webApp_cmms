@@ -31,6 +31,10 @@ class AssetInfo extends Component {
           price
           serialnum
           warranty
+          assetByParent {
+            assetId
+            name
+          }
           orderAssetsByAssetId(condition: {assetId: $assetId}, orderBy: ASSET_ID_ASC) {
             edges {
               node {
