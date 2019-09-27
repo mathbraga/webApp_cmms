@@ -6,9 +6,19 @@ This project is the development of the computerized management system (CMMS) web
 
 [Serafabr](https://github.com/Serafabr), [hzlopes](https://github.com/hzlopes) and [math59](https://github.com/math59)
 
-## Packages and tools
+## Important reference of each folder
 
-### Front-end
+### backend
+
+* [Express](https://expressjs.com/en/4x/api.html)
+
+* [PostGraphile](https://www.graphile.org/postgraphile/introduction/)
+
+### database
+
+* [PostgreSQL](https://www.postgresql.org/docs/11/index.html)
+
+### frontend
 
 * [Create React App](https://create-react-app.dev/docs/getting-started)
 
@@ -25,12 +35,3 @@ This project is the development of the computerized management system (CMMS) web
 * [Babel](https://babeljs.io/docs/en/)
 
 * [Apollo Client](https://www.apollographql.com/docs/react/)
-
-
-### Back-end
-
-* [Express](https://expressjs.com/en/4x/api.html)
-
-* [PostgreSQL](https://www.postgresql.org/docs/11/index.html)
-
-* [PostGraphile](https://www.graphile.org/postgraphile/introduction/)

@@ -12,8 +12,8 @@ const middleware = require('./middleware');
 const cors = require('cors')
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-const loginRoute = require('./routes/login');
-const logoutRoute = require('./routes/logout');
+const authRoute = require('./routes/auth');
+// const cronJob = require('./cron');
 
 // Configure application (https://expressjs.com/en/4x/api.html#app.set)
 // app.set('trust proxy', 1);
@@ -33,10 +33,11 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(middleware);
-app.use("/login", loginRoute);
-app.use("/logout", logoutRoute);
 
-// PostGraphile route (/db)
+// Routes
+app.use("/auth", authRoute);
+
+// PostGraphile route
 app.use(postgraphile(
   
   // pgConfig (object)
@@ -53,8 +54,6 @@ app.use(postgraphile(
 
   // options (object)
   {
-    // Check other options at:
-    // https://www.graphile.org/postgraphile/usage-library/#api-postgraphilepgconfig-schemaname-options
     watchPg: true,
     enableCors: false,
     graphqlRoute: "/db",
