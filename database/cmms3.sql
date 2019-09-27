@@ -89,13 +89,12 @@ create table assets (
 );
 
 create table contracts (
-  contract_id integer not null primary key generated always as identity,
-  parent integer references contracts (contract_id),
-  contract_num integer,
+  contract_id text not null primary key,
+  parent text references contracts (contract_id),
   date_sign date not null,
   date_start date not null,
   date_end date,
-  company text not null,
+  company_name text not null,
   description text not null,
   url text not null
 );
@@ -110,8 +109,7 @@ create table departments (
 create table persons (
   person_id integer primary key generated always as identity,
   email text not null unique check (email ~* '^.+@.+\..+$'),
-  forename text not null,
-  surname text not null,
+  full_name text not null,
   phone text not null,
   cellphone text,
   department_id text references departments (department_id),
@@ -305,8 +303,7 @@ begin
   insert into persons (
     person_id,
     email,
-    forename,
-    surname,
+    full_name,
     phone,
     cellphone,
     department_id,
@@ -315,8 +312,7 @@ begin
   ) values (
     default,
     person_attributes.email,
-    person_attributes.forename,
-    person_attributes.surname,
+    person_attributes.full_name,
     person_attributes.phone,
     person_attributes.cellphone,
     person_attributes.department_id,
