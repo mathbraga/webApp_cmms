@@ -204,11 +204,9 @@ create table supplies (
   supply_id text not null,
   spec_id integer references specs (spec_id),
   description text,
-  qty_available real not null,
-  qty_blocked real not null,
-  qty_consumed real not null,
-  qty_type text not null, -- transformar em enum (integer or real)
-  unit text,
+  qty_initial real not null,
+  is_qty_real boolean not null,
+  unit text not null,
   primary key (contract_id, supply_id)
 );
 
@@ -253,6 +251,43 @@ create view appliances as
   from assets
   where category = 'A'
   order by asset_id;
+
+create view balances as
+  with
+    unfinished as (
+      select
+        os.contract_id,
+        os.supply_id,
+        sum(os.qty) as blocked
+          from orders as o
+          inner join order_supplies as os using (order_id)
+      where o.status <> 'CON'
+      group by os.contract_id, os.supply_id
+    ),
+    finished as (
+      select
+        os.contract_id,
+        os.supply_id,
+        sum(os.qty) as consumed
+          from orders as o
+          inner join order_supplies as os using (order_id)
+      where o.status = 'CON'
+      group by os.contract_id, os.supply_id
+    ),
+    both_cases as (
+      select s.contract_id,
+             s.supply_id,
+             s.qty_available as qty_initial,
+             coalesce(sum(blocked), 0) as blocked,
+             coalesce(sum(consumed), 0) as consumed
+        from supplies as s
+        inner join unfinished using (contract_id, supply_id)
+        full outer join finished using (contract_id, supply_id)
+      group by s.contract_id, s.supply_id
+    )
+    select *,
+          qty_initial - blocked - consumed as available
+      from both_cases;
 
 -- create functions
 create or replace function register_user (

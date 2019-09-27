@@ -5672,6 +5672,22 @@
 -- insert into asset_departments values ('BL14-P01-044', 'COPROJ');
 -- insert into asset_departments values ('BL14-MEZ-046', 'SEAU');
 
+-- insert into supplies values (1, 'M1', null, null, 1000, true, 'L');
+-- insert into supplies values (1, 'M2', null, null, 2000, true, 'm²');
+-- insert into supplies values (1, 'S1', null, null, 48, true, 'un');
+-- insert into supplies values (1, 'S2', null, null, 120, true, 'un');
+
+-- insert into order_supplies values (1, 1, 'M1', 12);
+-- insert into order_supplies values (2, 1, 'M1', 4);
+-- insert into order_supplies values (2, 1, 'M2', 5);
+-- insert into order_supplies values (3, 1, 'M2', 2);
+-- insert into order_supplies values (3, 1, 'M1', 33);
+-- insert into order_supplies values (4, 1, 'M2', 19);
+-- insert into order_supplies values (5, 1, 'S1', 1);
+-- insert into order_supplies values (5, 1, 'S2', 1);
+-- insert into order_supplies values (5, 1, 'M1', 10);
+-- insert into order_supplies values (5, 1, 'M2', 12);
+
 -- -- alter sequences
 -- -- alter sequence orders_order_id_seq restart with 100;
 -- -- alter sequence persons_person_id_seq restart with 100;
