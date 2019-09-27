@@ -89,13 +89,12 @@ create table assets (
 );
 
 create table contracts (
-  contract_id integer not null primary key generated always as identity,
-  parent integer references contracts (contract_id),
-  contract_num integer,
-  sign_date date not null,
+  contract_id text not null primary key,
+  parent text references contracts (contract_id),
+  date_sign date not null,
   date_start date not null,
   date_end date,
-  company text not null,
+  company_name text not null,
   description text not null,
   url text not null
 );
@@ -110,8 +109,7 @@ create table departments (
 create table persons (
   person_id integer primary key generated always as identity,
   email text not null unique check (email ~* '^.+@.+\..+$'),
-  forename text not null,
-  surname text not null,
+  full_name text not null,
   phone text not null,
   cellphone text,
   department_id text references departments (department_id),
@@ -204,11 +202,9 @@ create table supplies (
   supply_id text not null,
   spec_id integer references specs (spec_id),
   description text,
-  qty_available real not null,
-  qty_blocked real not null,
-  qty_consumed real not null,
-  qty_type text not null, -- transformar em enum (integer or real)
-  unit text,
+  qty_initial real not null,
+  is_qty_real boolean not null,
+  unit text not null,
   primary key (contract_id, supply_id)
 );
 
@@ -254,6 +250,43 @@ create view appliances as
   where category = 'A'
   order by asset_id;
 
+create view balances as
+  with
+    unfinished as (
+      select
+        os.contract_id,
+        os.supply_id,
+        sum(os.qty) as blocked
+          from orders as o
+          inner join order_supplies as os using (order_id)
+      where o.status <> 'CON'
+      group by os.contract_id, os.supply_id
+    ),
+    finished as (
+      select
+        os.contract_id,
+        os.supply_id,
+        sum(os.qty) as consumed
+          from orders as o
+          inner join order_supplies as os using (order_id)
+      where o.status = 'CON'
+      group by os.contract_id, os.supply_id
+    ),
+    both_cases as (
+      select s.contract_id,
+             s.supply_id,
+             s.qty_available as qty_initial,
+             coalesce(sum(blocked), 0) as blocked,
+             coalesce(sum(consumed), 0) as consumed
+        from supplies as s
+        inner join unfinished using (contract_id, supply_id)
+        full outer join finished using (contract_id, supply_id)
+      group by s.contract_id, s.supply_id
+    )
+    select *,
+          qty_initial - blocked - consumed as available
+      from both_cases;
+
 -- create functions
 create or replace function register_user (
   person_attributes persons,
@@ -270,8 +303,7 @@ begin
   insert into persons (
     person_id,
     email,
-    forename,
-    surname,
+    full_name,
     phone,
     cellphone,
     department_id,
@@ -280,8 +312,7 @@ begin
   ) values (
     default,
     person_attributes.email,
-    person_attributes.forename,
-    person_attributes.surname,
+    person_attributes.full_name,
     person_attributes.phone,
     person_attributes.cellphone,
     person_attributes.department_id,

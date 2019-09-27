@@ -169,7 +169,7 @@ class FacilitiesInfo extends Component {
           <div className="text-center">{ORDER_PRIORITY_TYPE[item.node.orderByOrderId.priority]}</div>
         </td>
         <td>
-          <div className="text-center">{item.node.orderByOrderId.dateLimit.split("T")[0]}</div>
+          <div className="text-center">{item.node.orderByOrderId.dateLimit && item.node.orderByOrderId.dateLimit.split("T")[0]}</div>
         </td>
       </tr>))
 
