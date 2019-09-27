@@ -92,7 +92,7 @@ create table contracts (
   contract_id integer not null primary key generated always as identity,
   parent integer references contracts (contract_id),
   contract_num integer,
-  sign_date date not null,
+  date_sign date not null,
   date_start date not null,
   date_end date,
   company text not null,
