@@ -19,19 +19,19 @@ const searchItem = require("../../assets/icons/search_icon.png");
 const ENTRIES_PER_PAGE = 15;
 
 const IMAGE_PATHS = {
-  'civl-bm': "../../assets/img/test/civl-bm.jpg",
-  'civl-hd': '../../assets/img/test/civl-hd.jpg',
-  'elet-ca': "../../assets/img/test/elet-ca.jpg",
-  'elet-ci': '../../assets/img/test/elet-ci.jpg',
-  'elet-et': '../../assets/img/test/elet-et.jpg',
-  'elet-nb': '../../assets/img/test/elet-nb.jpg',
-  'elet-qd': '../../assets/img/test/elet-qd.jpg',
-  'elet-tf': '../../assets/img/test/elet-tf.jpg',
-  'elet-00': '../../assets/img/test/elet.jpg',
-  'mecn-ca': '../../assets/img/test/mecn-ca.jpg',
-  'mecn-fc': '../../assets/img/test/mecn-fc.jpg',
-  'mecn-sr': '../../assets/img/test/mecn-sr.jpg',
-  'elet-ci': '../../assets/img/test/elet-ci.jpg',
+  'civl-bm': require("../../assets/img/test/civl-bm.jpg"),
+  'civl-hd': require('../../assets/img/test/civl-hd.jpg'),
+  'elet-ca': require("../../assets/img/test/elet-ca.jpg"),
+  'elet-ci': require('../../assets/img/test/elet-ci.jpg'),
+  'elet-et': require('../../assets/img/test/elet-et.jpg'),
+  'elet-nb': require('../../assets/img/test/elet-nb.jpg'),
+  'elet-qd': require('../../assets/img/test/elet-qd.jpg'),
+  'elet-tf': require('../../assets/img/test/elet-tf.jpg'),
+  'elet-00': require('../../assets/img/test/elet.jpg'),
+  'mecn-ca': require('../../assets/img/test/mecn-ca.jpg'),
+  'mecn-fc': require('../../assets/img/test/mecn-fc.jpg'),
+  'mecn-sr': require('../../assets/img/test/mecn-sr.jpg'),
+  'elet-ci': require('../../assets/img/test/elet-ci.jpg'),
 };
 
 class EquipmentInfo extends Component {
@@ -44,6 +44,7 @@ class EquipmentInfo extends Component {
       goToPage: 1,
       searchTerm: "",
     };
+    console.log('OK');
     this.handleClickOnNav = this.handleClickOnNav.bind(this);
     this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
@@ -77,10 +78,10 @@ class EquipmentInfo extends Component {
 
     const imgIndxArray = this.props.location.pathname.split("-");
     const imgIndx = (imgIndxArray[0].split("/")[3] + "-" + imgIndxArray[1]).toLowerCase();
-    const path = IMAGE_PATHS[imgIndx] ? IMAGE_PATHS[imgIndx] : '../../assets/img/test/elet.jpg';
-    console.log("Path: ", path, typeof (path));
+    const path = IMAGE_PATHS[imgIndx] ? IMAGE_PATHS[imgIndx] : require('../../assets/img/test/elet.jpg');
 
     const descriptionImage = require('../../assets/img/test/equip.png');
+    // const descriptionImage = path;
 
     const pageLength = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges.length;
     const edges = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges;

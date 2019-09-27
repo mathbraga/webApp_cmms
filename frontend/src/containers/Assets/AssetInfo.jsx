@@ -47,6 +47,9 @@ class AssetInfo extends Component {
                   requestPerson
                   createdAt
                   dateLimit
+                  requestTitle
+                  requestLocal
+                  priority
                 }
               }
             }
