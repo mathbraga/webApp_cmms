@@ -137,6 +137,7 @@ class EquipmentInfo extends Component {
         </td>
       </tr>))
 
+    console.log("AssetInfo: ", assetsInfo);
     return (
       <div className="asset-container">
         <AssetCard
@@ -179,7 +180,7 @@ class EquipmentInfo extends Component {
               <div>
                 <Row>
                   <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Fabricante</span></Col>
-                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.manufacturer}</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.manufacturer || "Não cadastrado"}</span></Col>
                 </Row>
               </div>
             </Col>
@@ -211,8 +212,76 @@ class EquipmentInfo extends Component {
               </Nav>
               <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
                 <TabPane tabId="info" style={{ width: "100%" }}>
-                  <div>
-                    Informações gerais sobre o equipamento.
+                  <div className="asset-info-container">
+                    <h1 className="asset-info-title">Dados Gerais</h1>
+                    <div className="asset-info-content">
+                      <Row>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Equipamento</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.name}</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Código</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetId}</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Modelo</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.model || "Não cadastrado"}</div>
+                          </div>
+                        </Col>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Número Serial</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.serialnum || "Não cadastrado"}</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Preço</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.price ? ("R$ " + Math.trunc(assetsInfo.assetByAssetId.price) + ",00") : "Não cadastrado"}</div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
+                    <h1 className="asset-info-title">Fabricante</h1>
+                    <div className="asset-info-content">
+                      <Row>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Empresa Fabricante</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.manufacturer || "Empresa X"}</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Cidade</div>
+                            <div className="asset-info-content-data">{"Brasília"}</div>
+                          </div>
+                        </Col>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Telefone</div>
+                            <div className="asset-info-content-data">{"(61) 3356-4564"}</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">E-mail</div>
+                            <div className="asset-info-content-data">{"empresax@gmail.com"}</div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
+                    <h1 className="asset-info-title">Ativo Pai</h1>
+                    <div className="asset-info-content">
+                      <Row>
+                        <Col md="6">
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Nome do Equipamento</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetByParent.name}</div>
+                          </div>
+                          <div className="asset-info-single-container">
+                            <div className="desc-sub">Código</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetByParent.assetId}</div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
                   </div>
                 </TabPane>
                 <TabPane tabId="location" style={{ width: "100%" }}>

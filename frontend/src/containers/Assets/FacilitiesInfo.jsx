@@ -25,6 +25,7 @@ import fetchDB from "../../utils/fetch/fetchDB";
 import { connect } from "react-redux";
 import { compose } from 'redux';
 import { withRouter } from "react-router";
+import replaceNull from '../../utils/text/replaceNull';
 
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -173,7 +174,6 @@ class FacilitiesInfo extends Component {
         </td>
       </tr>))
 
-    console.log("AssetsInfo: ", assetsInfo);
     return (
       <div className="asset-container">
         <AssetCard
@@ -211,14 +211,14 @@ class FacilitiesInfo extends Component {
                 <Row>
                   <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Departamento(s)</span></Col>
                   <Col md="9" style={{ display: "flex", alignItems: "center" }}>
-                    <span>{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ')}</span>
+                    <span>{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ') || "Não cadastrado"}</span>
                   </Col>
                 </Row>
               </div>
               <div>
                 <Row>
                   <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Área</span></Col>
-                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.area}</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.area + " m²"}</span></Col>
                 </Row>
               </div>
             </Col>
@@ -267,7 +267,7 @@ class FacilitiesInfo extends Component {
                         <Col md="6">
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Departamento (s)</div>
-                            <div className="asset-info-content-data">{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ')}</div>
+                            <div className="asset-info-content-data">{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ') || "Não cadastrado"}</div>
                           </div>
                         </Col>
                       </Row>
