@@ -92,11 +92,11 @@ class MainHeader extends Component {
         <Nav className="d-md-down-none ml-auto" navbar>
           {this.state.email === null ? (
             <React.Fragment>
-              <NavItem className="px-3">
+              {/* <NavItem className="px-3">
                 <Link to="/cadastro" className="nav-link">
                   Cadastro
                 </Link>
-              </NavItem>
+              </NavItem> */}
               <NavItem className="px-3">
                 <Link to="/login" className="nav-link">
                   Login
@@ -114,7 +114,7 @@ class MainHeader extends Component {
                   {" " + this.state.email}
               </DropdownToggle>
               <DropdownMenu right style={{ right: 'auto' }}>
-                  <DropdownItem onClick={this.handleProfile}><i className="fa fa-user"></i>Perfil</DropdownItem>
+                  {/* <DropdownItem onClick={this.handleProfile}><i className="fa fa-user"></i>Perfil</DropdownItem> */}
                   {/* <DropdownItem><i className="fa fa-wrench"></i>Configurações</DropdownItem> */}
                   <DropdownItem onClick={this.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
               </DropdownMenu>
