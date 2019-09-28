@@ -26,5 +26,28 @@ as $$
       inner join orders using (order_id)
     group by child_id;
 $$;
-select * from get_children_orders('BL14')
+select * from get_children_orders('BL14');
+
+
+
+-- getting an assets's update history from private.logs table:
+create or replace function get_asset_history (
+  in asset_id text,
+  out fullname text,
+  out created_at timestamptz,
+  out asset_json jsonb
+)
+language sql
+stable
+as $$
+  with target_asset as (
+    select '{"asset_id":"' || asset_id || '"}'::jsonb
+  )
+  select p.fullname,
+         l.created_at,
+         l.new_row as asset_json
+    from private.logs as l
+    inner join persons as p using (person_id)
+  where tablename = 'assets' and new_row ? target_asset;
+$$;
 rollback;
