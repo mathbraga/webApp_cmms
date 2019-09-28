@@ -275,9 +275,9 @@ create view balances as
     both_cases as (
       select s.contract_id,
              s.supply_id,
-             s.qty_available as qty_initial,
-             coalesce(sum(blocked), 0) as blocked,
-             coalesce(sum(consumed), 0) as consumed
+             s.qty_initial,
+             sum(coalesce(blocked, 0)) as blocked,
+             sum(coalesce(consumed, 0)) as consumed
         from supplies as s
         inner join unfinished using (contract_id, supply_id)
         full outer join finished using (contract_id, supply_id)
