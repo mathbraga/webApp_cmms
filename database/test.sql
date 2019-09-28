@@ -45,7 +45,20 @@ set local auth.data.person_id to 1;
 -- $$;
 -- select * from get_children_orders('BL14');
 
+-- select * from modify_order (
+--   (5,'PEN','NOR','ELE',null,null,0,'Consertar ar-condicionado','DGER','Machado de Assis','Mario Vargas','3303-4352','Mario@senado.gov.br','Ar-condicionado nÇo estÇ funcionando','Sala 45 do Anexo I, Pavimento 9','2019-10-20 00:00:00-03',null,null,'2019-09-28 15:45:00.242708-03','2019-09-28 15:45:00.242708-03'),
+--   array['BL14-000-000']
+-- );
 
+-- select * from modify_order (
+--   (5,'FIL','NOR','ELE',null,null,0,'Consertar ar-condicionado','DGER','Machado de Assis','Mario Vargas','3303-4352','Mario@senado.gov.br','Ar-condicionado nÇo estÇ funcionando','Sala 45 do Anexo I, Pavimento 9','2019-10-20 00:00:00-03',null,null,'2019-09-28 15:45:00.242708-03','2019-09-28 15:45:00.242708-03'),
+--   array['BL14-000-000']
+-- );
+
+-- select * from modify_order (
+--   (5,'CON','NOR','ELE',null,null,100,'Consertar ar-condicionado','DGER','Machado de Assis','Mario Vargas','3303-4352','Mario@senado.gov.br','Ar-condicionado nÇo estÇ funcionando','Sala 45 do Anexo I, Pavimento 9','2019-10-20 00:00:00-03',null,null,'2019-09-28 15:45:00.242708-03','2019-09-28 15:45:00.242708-03'),
+--   array['BL14-000-000']
+-- );
 
 -- getting an assets's update history from private.logs table:
 create or replace function get_asset_history (
@@ -66,5 +79,33 @@ as $$
     inner join persons as p using (person_id)
   where l.tablename = 'assets' and l.new_row @> ('{"asset_id": "' || asset_id || '"}')::jsonb;
 $$;
-select * from get_asset_history('CIVL-BM-0001');
-rollback;
+-- select * from get_asset_history('CIVL-BM-0001');
+
+
+create or replace function get_order_history (
+  in order_id integer,
+  out fullname text,
+  out created_at timestamptz,
+  out order_json jsonb
+)
+returns setof record
+security definer
+language sql
+stable
+as $$
+  select p.full_name,
+         l.created_at,
+         l.new_row as order_json
+    from private.logs as l
+    inner join persons as p using (person_id)
+  where l.tablename = 'orders' and l.new_row @> ('{"order_id": ' || order_id::text || '}')::jsonb;
+$$;
+
+select * from get_order_history(5);
+
+
+
+
+
+
+commit;
