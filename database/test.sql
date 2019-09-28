@@ -55,6 +55,7 @@ create or replace function get_asset_history (
   out asset_json jsonb
 )
 returns setof record
+security definer
 language sql
 stable
 as $$

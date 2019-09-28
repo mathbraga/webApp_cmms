@@ -646,10 +646,6 @@ end; $$;
 -- alter sequences (included in inserts.sql file)
 
 -- create triggers
-create trigger check_before_insert
-  before insert or update on assets
-  for each row execute function check_asset_integrity();
-
 create trigger log_changes
   after insert or update or delete on orders
   for each row execute function create_log();
@@ -677,6 +673,15 @@ create trigger log_changes
 create trigger log_changes
   after insert or update or delete on departments
   for each row execute function create_log();
+
+
+
+-- \i inserts.sql
+
+
+create trigger check_before_insert
+  before insert or update on assets
+  for each row execute function check_asset_integrity();
 
 -- create policies
 alter table persons enable row level security;
