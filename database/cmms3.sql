@@ -74,6 +74,24 @@ create type person_role_type as enum (
 );
 
 -- create tables
+create table persons (
+  person_id integer primary key generated always as identity,
+  email text not null unique check (email ~* '^.+@.+\..+$'),
+  full_name text not null,
+  phone text not null,
+  cellphone text,
+  department_id text references departments (department_id),
+  contract_id text references contracts (contract_id),
+  category person_category_type
+);
+
+create table private.accounts (
+  person_id integer not null references persons (person_id),
+  password_hash text not null,
+  is_active boolean not null default true,
+  person_role person_role_type not null default 'auth'
+);
+
 create table assets (
   asset_id text not null primary key,
   parent text not null references assets (asset_id),
@@ -109,24 +127,6 @@ create table departments (
   is_active boolean not null
 );
 
-create table persons (
-  person_id integer primary key generated always as identity,
-  email text not null unique check (email ~* '^.+@.+\..+$'),
-  full_name text not null,
-  phone text not null,
-  cellphone text,
-  department_id text references departments (department_id),
-  contract_id text references contracts (contract_id),
-  category person_category_type
-);
-
-create table private.accounts (
-  person_id integer not null references persons (person_id),
-  password_hash text not null,
-  is_active boolean not null default true,
-  person_role person_role_type not null default 'auth'
-);
-
 create table orders (
   order_id integer primary key generated always as identity,
   status order_status_type not null,
@@ -146,6 +146,7 @@ create table orders (
   date_limit timestamptz,
   date_start timestamptz,
   date_end timestamptz,
+  created_at timestamptz default now()
 );
 
 create table order_messages (
@@ -412,7 +413,7 @@ create or replace function insert_order (
   out new_order_id integer
 )
 language plpgsql
-strict -- this is to make all inputs mandatory (there must be assigned assets in order)
+strict
 as $$
 begin
   insert into orders (
@@ -432,7 +433,8 @@ begin
     request_local,
     date_limit,
     date_start,
-    contract_id
+    contract_id,
+    created_at
   ) values (
     default,
     order_attributes.status,
@@ -450,7 +452,8 @@ begin
     order_attributes.request_local,
     order_attributes.date_limit,
     order_attributes.date_start,
-    order_attributes.contract_id
+    order_attributes.contract_id,
+    now()
   ) returning order_id into new_order_id;
 
   insert into order_assets select new_order_id, unnest(assets_array);
@@ -741,14 +744,6 @@ as $$
         );
 $$;
 
-
-
--- create comments (included in inserts.sql file)
-
--- insert rows into tables (included in inserts.sql file)
-
--- alter sequences (included in inserts.sql file)
-
 -- create triggers
 create trigger log_changes
   after insert or update or delete on orders
@@ -760,6 +755,10 @@ create trigger log_changes
 
 create trigger log_changes
   after insert or update or delete on order_assets
+  for each row execute function create_log();
+
+create trigger log_changes
+  after insert or update or delete on order_supplies
   for each row execute function create_log();
 
 create trigger log_changes
@@ -775,17 +774,30 @@ create trigger log_changes
   for each row execute function create_log();
 
 create trigger log_changes
+  after insert or update or delete on supplies
+  for each row execute function create_log();
+
+create trigger log_changes
   after insert or update or delete on departments
   for each row execute function create_log();
 
+---------------------------------------------------------------------------------
+-- set variable to allow log of initial rows insertions
+set local auth.data.person_id to 1;
 
+-- run file with insert commands and comments (this file should have win1252 encoding)
+\i inserts.sql
+-- Content of inserts.sql:
+-- -- insert rows into tables
+-- -- create comments
+-- -- alter sequences (currently not necessary, since inserts use default values)
 
--- \i inserts.sql
-
-
+-- this trigger must be created after inserts to avoid error during first asset insert;
+-- this trigger must be on in production environment
 create trigger check_before_insert
   before insert or update on assets
   for each row execute function check_asset_integrity();
+---------------------------------------------------------------------------------
 
 -- create policies
 alter table persons enable row level security;
