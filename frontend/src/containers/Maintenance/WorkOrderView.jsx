@@ -82,6 +82,14 @@ class WorkOrderView extends Component {
           requestText
           requestTitle
           updatedAt
+          orderByParent {
+            requestTitle
+            orderId
+            priority
+            status
+            dateStart
+            dateLimit
+          }
         }
       }
     `;
@@ -99,6 +107,7 @@ class WorkOrderView extends Component {
               return null
             }
             const orderInfo = data.orderByOrderId;
+            const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
             console.log("WO Data: ", orderInfo);
             return (
               <div className="asset-container">
@@ -173,8 +182,112 @@ class WorkOrderView extends Component {
                       </Nav>
                       <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
                         <TabPane tabId="info" style={{ width: "100%" }}>
-                          <div>
-                            Informações gerais sobre o equipamento.
+                          <div className="asset-info-container">
+                            <h1 className="asset-info-title">Detalhes do Serviço</h1>
+                            <div className="asset-info-content">
+                              <Row>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Título do Serviço</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestTitle}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Ordem de Serviço nº</div>
+                                    <div className="asset-info-content-data">{(orderInfo.orderId + "").padStart(4, "0")}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Categoria</div>
+                                    <div className="asset-info-content-data">{ORDER_CATEGORY_TYPE[orderInfo.category]}</div>
+                                  </div>
+                                </Col>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Status</div>
+                                    <div className="asset-info-content-data">{ORDER_STATUS_TYPE[orderInfo.status]}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Percentual Executado</div>
+                                    <div className="asset-info-content-data">{orderInfo.completed + "% executado"}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Prioridade</div>
+                                    <div className="asset-info-content-data">{ORDER_PRIORITY_TYPE[orderInfo.priority]}</div>
+                                  </div>
+                                </Col>
+                              </Row>
+                              <div className="asset-info-single-container">
+                                <div className="desc-sub">Descrição Técnica do Serviço</div>
+                                <div className="asset-info-content-data">{orderInfo.requestText}</div>
+                              </div>
+                            </div>
+                            <h1 className="asset-info-title">Prazos e Datas</h1>
+                            <div className="asset-info-content">
+                              <Row>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Criação da OS</div>
+                                    <div className="asset-info-content-data">{orderInfo.createdAt ? orderInfo.createdAt.split("T")[0] : "Não registrado"}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Início da Execução</div>
+                                    <div className="asset-info-content-data">{orderInfo.dateStart ? orderInfo.dateStart.split("T")[0] : "Serviço não iniciado"}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Término da Execução</div>
+                                    <div className="asset-info-content-data">{orderInfo.dateEnd ? orderInfo.dateEnd.split("T")[0] : "Serviço não finalizado"}</div>
+                                  </div>
+                                </Col>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Prazo Final</div>
+                                    <div className="asset-info-content-data">{orderInfo.dateLimit && orderInfo.dateLimit.split("T")[0]}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Dias de Atraso</div>
+                                    <div className="asset-info-content-data">
+                                      {daysOfDelay <= 0 ? "Serviço sem atraso" : Math.trunc(daysOfDelay)}
+                                    </div>
+                                  </div>
+                                </Col>
+                              </Row>
+                            </div>
+                            {orderInfo.orderByParent && (
+                              <React.Fragment>
+                                <h1 className="asset-info-title">Ordem de Serviço Pai</h1>
+                                <div className="asset-info-content">
+                                  <Row>
+                                    <Col md="6">
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Título do Serviço</div>
+                                        <div className="asset-info-content-data">{orderInfo.orderByParent.requestTitle}</div>
+                                      </div>
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Ordem de Serviço nº</div>
+                                        <div className="asset-info-content-data">{orderInfo.orderByParent.orderId.toString().padStart(4, "0")}</div>
+                                      </div>
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Status</div>
+                                        <div className="asset-info-content-data">{ORDER_STATUS_TYPE[orderInfo.orderByParent.status]}</div>
+                                      </div>
+                                    </Col>
+                                    <Col md="6">
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Prioridade</div>
+                                        <div className="asset-info-content-data">{ORDER_PRIORITY_TYPE[orderInfo.orderByParent.priority]}</div>
+                                      </div>
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Início da Execução</div>
+                                        <div className="asset-info-content-data">{orderInfo.orderByParent.dateStart ? orderInfo.orderByParent.dateStart.split("T")[0] : "Serviço não iniciado"}</div>
+                                      </div>
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Prazo Final</div>
+                                        <div className="asset-info-content-data">{orderInfo.orderByParent.dateLimit && orderInfo.orderByParent.dateLimit.split("T")[0]}</div>
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                </div>
+                              </React.Fragment>
+                            )}
                           </div>
                         </TabPane>
                         <TabPane tabId="location" style={{ width: "100%" }}>
