@@ -1,13 +1,38 @@
 import React, { Component } from "react";
 import getWorkOrder from "../../utils/maintenance/getWorkOrder";
 import AssetCard from "../../components/Cards/AssetCard";
-import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput } from "reactstrap";
+import {
+  Row,
+  Col,
+  Button,
+  Badge,
+  Nav,
+  NavItem,
+  NavLink,
+  TabContent,
+  TabPane,
+  CustomInput,
+  InputGroup,
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+} from "reactstrap";
 import '../Assets/AssetInfo.css';
+import TableWithPages from "../../components/Tables/TableWithPages";
 
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const descriptionImage = require("../../assets/img/test/order_picture.png");
+
+const searchItem = require("../../assets/icons/search_icon.png");
+
+const ENTRIES_PER_PAGE = 15;
+
+const tableConfig = [
+  { name: "Equipamento / Ativo", style: { width: "300px" }, className: "text-justifyr" },
+  { name: "Localização", style: { width: "200px" }, className: "text-center" },
+];
 
 const ORDER_CATEGORY_TYPE = {
   'EST': 'Avaliação estrutural',
@@ -49,15 +74,36 @@ class WorkOrderView extends Component {
     super(props);
     this.state = {
       tabSelected: "info",
-    }
+      pageCurrent: 1,
+      goToPage: 1,
+      searchTerm: "",
+    };
     this.handleClickOnNav = this.handleClickOnNav.bind(this);
+    this.setGoToPage = this.setGoToPage.bind(this);
+    this.setCurrentPage = this.setCurrentPage.bind(this);
+    this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
   }
 
   handleClickOnNav(tabSelected) {
     this.setState({ tabSelected: tabSelected });
   }
 
+  setGoToPage(page) {
+    this.setState({ goToPage: page });
+  }
+
+  setCurrentPage(pageCurrent) {
+    this.setState({ pageCurrent: pageCurrent }, () => {
+      this.setState({ goToPage: pageCurrent });
+    });
+  }
+
+  handleChangeSearchTerm(event) {
+    this.setState({ searchTerm: event.target.value, pageCurrent: 1, goToPage: 1 });
+  }
+
   render() {
+    const { pageCurrent, goToPage, searchTerm, tabSelected } = this.state;
     const orderId = Number(this.props.location.pathname.slice(20));
     const woQueryInfo = gql`
       query ($orderId: Int!) {
@@ -88,10 +134,24 @@ class WorkOrderView extends Component {
             dateStart
             dateLimit
           }
+          createdAt
+          orderAssetsByOrderId {
+            nodes {
+              assetByAssetId {
+                assetId
+                name
+                category
+                place
+                assetByPlace {
+                  name
+                  assetId
+                }
+              }
+            }
+          }
         }
       }
     `;
-    const { tabSelected } = this.state;
 
     return (
       <Query
@@ -107,6 +167,50 @@ class WorkOrderView extends Component {
             const orderInfo = data.orderByOrderId;
             const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
             console.log("WO Data: ", orderInfo);
+
+            const assetsByOrder = orderInfo.orderAssetsByOrderId.nodes;
+            const pageLength = assetsByOrder.length;
+
+            let filteredItems = assetsByOrder;
+            if (searchTerm.length > 0) {
+              const searchTermLower = searchTerm.toLowerCase();
+              filteredItems = orderInfo.filter(function (item) {
+                return (
+                  // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
+                  item.node.orderByOrderId.requestPerson.toLowerCase().includes(searchTermLower) ||
+                  item.node.orderByOrderId.requestText.toLowerCase().includes(searchTermLower) ||
+                  item.node.orderByOrderId.status.toLowerCase().includes(searchTermLower)
+                );
+              });
+            }
+
+            const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
+            const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+
+            const thead =
+              (<tr>
+                <th className="text-center checkbox-cell">
+                  <CustomInput type="checkbox" />
+                </th>
+                {tableConfig.map(column => (
+                  <th style={column.style} className={column.className}>{column.name}</th>))
+                }
+              </tr>);
+
+            const tbody = showItems.map(item => (
+              <tr
+                onClick={() => { this.props.history.push('/manutencao/os/view/' + item.node.orderByOrderId.orderId) }}
+              >
+                <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
+                <td>
+                  <div>{item.assetByAssetId.name}</div>
+                  <div className="small text-muted">{item.assetByAssetId.assetId}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.assetByAssetId.place}</div>
+                </td>
+              </tr>));
+
             return (
               <div className="asset-container">
                 <AssetCard
@@ -335,9 +439,30 @@ class WorkOrderView extends Component {
                           </div>
                         </TabPane>
                         <TabPane tabId="maintenance" style={{ width: "100%" }}>
-                          <div>
-                            Lista de manutenção.
-                           </div>
+                          <div className="asset-info-container">
+                            <h1 className="asset-info-title">Lista de Ativos</h1>
+                            <div className="asset-info-content">
+                              <div className="asset-info-table-search">
+                                <form>
+                                  <InputGroup>
+                                    <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
+                                    <InputGroupAddon addonType="append">
+                                      <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
+                                    </InputGroupAddon>
+                                  </InputGroup>
+                                </form>
+                              </div>
+                              <TableWithPages
+                                thead={thead}
+                                tbody={tbody}
+                                pagesTotal={pagesTotal}
+                                pageCurrent={pageCurrent}
+                                goToPage={goToPage}
+                                setCurrentPage={this.setCurrentPage}
+                                setGoToPage={this.setGoToPage}
+                              />
+                            </div>
+                          </div>
                         </TabPane>
                         <TabPane tabId="warranty" style={{ width: "100%" }}>
                           <div>
