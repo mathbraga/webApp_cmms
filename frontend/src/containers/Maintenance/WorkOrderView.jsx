@@ -199,7 +199,7 @@ class WorkOrderView extends Component {
 
             const tbody = showItems.map(item => (
               <tr
-                onClick={() => { this.props.history.push('/manutencao/os/view/' + item.node.orderByOrderId.orderId) }}
+                onClick={() => { this.props.history.push('/ativos/view/' + item.assetByAssetId.assetId) }}
               >
                 <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
                 <td>
@@ -271,9 +271,6 @@ class WorkOrderView extends Component {
                         </NavItem>
                         <NavItem>
                           <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Arquivos</NavLink>
-                        </NavItem>
-                        <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("asset") }} active={tabSelected === "asset"} >Solicitante</NavLink>
                         </NavItem>
                         <NavItem>
                           <NavLink onClick={() => { this.handleClickOnNav("file") }} active={tabSelected === "file"} >Atribuido para</NavLink>
@@ -442,25 +439,37 @@ class WorkOrderView extends Component {
                           <div className="asset-info-container">
                             <h1 className="asset-info-title">Lista de Ativos</h1>
                             <div className="asset-info-content">
-                              <div className="asset-info-table-search">
-                                <form>
-                                  <InputGroup>
-                                    <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
-                                    <InputGroupAddon addonType="append">
-                                      <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
-                                    </InputGroupAddon>
-                                  </InputGroup>
-                                </form>
+                              <Row>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Quantidade de Ativos</div>
+                                    <div className="asset-info-content-data">{pageLength.toString().padStart(3, "0")}</div>
+                                  </div>
+                                </Col>
+                              </Row>
+                              <div className="asset-info-table-container">
+                                <div className="asset-info-table">
+                                  <div className="asset-info-table-search">
+                                    <form>
+                                      <InputGroup>
+                                        <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
+                                        <InputGroupAddon addonType="append">
+                                          <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
+                                        </InputGroupAddon>
+                                      </InputGroup>
+                                    </form>
+                                  </div>
+                                  <TableWithPages
+                                    thead={thead}
+                                    tbody={tbody}
+                                    pagesTotal={pagesTotal}
+                                    pageCurrent={pageCurrent}
+                                    goToPage={goToPage}
+                                    setCurrentPage={this.setCurrentPage}
+                                    setGoToPage={this.setGoToPage}
+                                  />
+                                </div>
                               </div>
-                              <TableWithPages
-                                thead={thead}
-                                tbody={tbody}
-                                pagesTotal={pagesTotal}
-                                pageCurrent={pageCurrent}
-                                goToPage={goToPage}
-                                setCurrentPage={this.setCurrentPage}
-                                setGoToPage={this.setGoToPage}
-                              />
                             </div>
                           </div>
                         </TabPane>
