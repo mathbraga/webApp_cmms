@@ -123,8 +123,6 @@ create table persons (
 create table private.accounts (
   person_id integer not null references persons (person_id),
   password_hash text not null,
-  created_at timestamptz not null,
-  updated_at timestamptz not null,
   is_active boolean not null default true,
   person_role person_role_type not null default 'auth'
 );
@@ -148,16 +146,12 @@ create table orders (
   date_limit timestamptz,
   date_start timestamptz,
   date_end timestamptz,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
 );
 
 create table order_messages (
   order_id integer not null references orders (order_id),
   person_id integer not null references persons (person_id),
-  message text not null,
-  created_at timestamptz not null,
-  updated_at timestamptz not null
+  message text not null
 );
 
 create table order_assets (
@@ -294,7 +288,8 @@ create view balances as
 -- create functions
 create or replace function register_user (
   person_attributes persons,
-  input_password text
+  input_password text,
+  input_person_role person_role_type
 ) returns persons
 language plpgsql
 strict
@@ -327,15 +322,13 @@ begin
   insert into private.accounts (
     person_id,
     password_hash,
-    created_at,
-    updated_at,
-    is_active
+    is_active,
+    person_role
   ) values (
     new_user.person_id,
     crypt(input_password, gen_salt('bf', 10)),
-    now(),
-    now(),
-    true
+    true,
+    input_person_role
   );
 
   return new_user;
@@ -439,7 +432,6 @@ begin
     request_local,
     date_limit,
     date_start,
-    created_at,
     contract_id
   ) values (
     default,
@@ -458,7 +450,6 @@ begin
     order_attributes.request_local,
     order_attributes.date_limit,
     order_attributes.date_start,
-    default,
     order_attributes.contract_id
   ) returning order_id into new_order_id;
 
@@ -643,8 +634,7 @@ begin
       request_title,
       request_local,
       date_limit,
-      date_start,
-      updated_at
+      date_start
     ) = (
       order_attributes.status,
       order_attributes.priority,
@@ -661,8 +651,7 @@ begin
       order_attributes.request_title,
       order_attributes.request_local,
       order_attributes.date_limit,
-      order_attributes.date_start,
-      now()
+      order_attributes.date_start
     ) where o.order_id = order_attributes.order_id;
 
   with added_assets as (
