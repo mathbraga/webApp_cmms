@@ -150,19 +150,15 @@ class FacilitiesList extends Component {
             <Col md="6">
             </Col>
           </Row>
-          <Row>
-            <Col>
-              <TableWithPages
-                thead={thead}
-                tbody={tbody}
-                pagesTotal={pagesTotal}
-                pageCurrent={pageCurrent}
-                goToPage={goToPage}
-                setCurrentPage={this.setCurrentPage}
-                setGoToPage={this.setGoToPage}
-              />
-            </Col>
-          </Row>
+          <TableWithPages
+            thead={thead}
+            tbody={tbody}
+            pagesTotal={pagesTotal}
+            pageCurrent={pageCurrent}
+            goToPage={goToPage}
+            setCurrentPage={this.setCurrentPage}
+            setGoToPage={this.setGoToPage}
+          />
         </AssetCard >
       </div>
     );

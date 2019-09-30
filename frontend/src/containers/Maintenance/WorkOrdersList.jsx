@@ -166,58 +166,60 @@ class WorkOrdersList extends Component {
       </tr>))
 
     return (
-      <AssetCard
-        sectionName={'Ordens de Serviço'}
-        sectionDescription={'Lista com ordens de serviço'}
-        handleCardButton={this.handleURLChange}
-        buttonName={'Cadastrar OS'}
-      >
-        <Row style={{ marginTop: "10px", marginBottom: "5px" }}>
-          <Col md="2">
-            <Button
-              color="dark"
-              className="button-inside"
-              outline
-              style={{ marginLeft: "10px" }}
-            >
-              <img src={hierarchyItem} alt="" style={{ width: "100%", height: "100%" }} />
-            </Button>
-            <Button
-              color="dark"
-              className="button-inside"
-              outline
-              style={{ marginLeft: "20px" }}
-            >
-              <img src={listItem} alt="" style={{ width: "100%", height: "100%" }} />
-            </Button>
-          </Col>
-          <Col md="4">
-            <form>
-              <InputGroup>
-                <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
-                <InputGroupAddon addonType="append">
-                  <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
-            </form>
-          </Col>
-          <Col md="6">
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <TableWithPages
-              thead={thead}
-              tbody={tbody}
-              pagesTotal={pagesTotal}
-              pageCurrent={pageCurrent}
-              goToPage={goToPage}
-              setCurrentPage={this.setCurrentPage}
-              setGoToPage={this.setGoToPage}
-            />
-          </Col>
-        </Row>
-      </AssetCard >
+      <div className="card-container">
+        <AssetCard
+          sectionName={'Ordens de Serviço'}
+          sectionDescription={'Lista com ordens de serviço'}
+          handleCardButton={this.handleURLChange}
+          buttonName={'Cadastrar OS'}
+        >
+          <Row style={{ marginTop: "10px", marginBottom: "5px" }}>
+            <Col md="2">
+              <Button
+                color="dark"
+                className="button-inside"
+                outline
+                style={{ marginLeft: "10px" }}
+              >
+                <img src={hierarchyItem} alt="" style={{ width: "100%", height: "100%" }} />
+              </Button>
+              <Button
+                color="dark"
+                className="button-inside"
+                outline
+                style={{ marginLeft: "20px" }}
+              >
+                <img src={listItem} alt="" style={{ width: "100%", height: "100%" }} />
+              </Button>
+            </Col>
+            <Col md="4">
+              <form>
+                <InputGroup>
+                  <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
+                  <InputGroupAddon addonType="append">
+                    <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
+                  </InputGroupAddon>
+                </InputGroup>
+              </form>
+            </Col>
+            <Col md="6">
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <TableWithPages
+                thead={thead}
+                tbody={tbody}
+                pagesTotal={pagesTotal}
+                pageCurrent={pageCurrent}
+                goToPage={goToPage}
+                setCurrentPage={this.setCurrentPage}
+                setGoToPage={this.setGoToPage}
+              />
+            </Col>
+          </Row>
+        </AssetCard >
+      </div>
     );
   }
 }
