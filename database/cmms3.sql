@@ -690,6 +690,70 @@ begin
 
 end; $$;
 
+create or replace function get_asset_history (
+  in asset_id text,
+  out fullname text,
+  out created_at timestamptz,
+  out operation text,
+  out tablename text,
+  out old_row jsonb,
+  out new_row jsonb
+)
+returns setof record
+security definer
+language sql
+stable
+as $$
+  select p.full_name,
+         l.created_at,
+         l.operation,
+         l.tablename,
+         l.old_row,
+         l.new_row
+    from private.logs as l
+    inner join persons as p using (person_id)
+  where (l.tablename = 'assets' or l.tablename = 'asset_departments' or l.tablename = 'order_assets')
+        and
+        (
+          l.new_row @> ('{"asset_id": "' || asset_id || '"}')::jsonb
+          or
+          l.old_row @> ('{"asset_id": "' || asset_id || '"}')::jsonb
+        );
+$$;
+
+create or replace function get_order_history (
+  in order_id integer,
+  out fullname text,
+  out created_at timestamptz,
+  out operation text,
+  out tablename text,
+  out old_row jsonb,
+  out new_row jsonb
+)
+returns setof record
+security definer
+language sql
+stable
+as $$
+  select p.full_name,
+         l.created_at,
+         l.operation,
+         l.tablename,
+         l.old_row,
+         l.new_row
+    from private.logs as l
+    inner join persons as p using (person_id)
+  where (l.tablename = 'orders' or l.tablename = 'order_assets' or l.tablename = 'order_supplies')
+        and
+        (
+          l.new_row @> ('{"order_id": ' || order_id || '}')::jsonb
+          or
+          l.old_row @> ('{"order_id": ' || order_id || '}')::jsonb
+        );
+$$;
+
+
+
 -- create comments (included in inserts.sql file)
 
 -- insert rows into tables (included in inserts.sql file)
