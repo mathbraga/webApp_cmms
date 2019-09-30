@@ -70,7 +70,6 @@ class WorkOrderView extends Component {
           requestDepartment
           completed
           contractId
-          createdAt
           dateEnd
           dateLimit
           dateStart
@@ -81,7 +80,6 @@ class WorkOrderView extends Component {
           requestPerson
           requestText
           requestTitle
-          updatedAt
           orderByParent {
             requestTitle
             orderId
@@ -162,7 +160,7 @@ class WorkOrderView extends Component {
                           <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Localização</NavLink>
+                          <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Dados do Solicitante</NavLink>
                         </NavItem>
                         <NavItem>
                           <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Ativos</NavLink>
@@ -198,6 +196,10 @@ class WorkOrderView extends Component {
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Categoria</div>
                                     <div className="asset-info-content-data">{ORDER_CATEGORY_TYPE[orderInfo.category]}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Local</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestLocal}</div>
                                   </div>
                                 </Col>
                                 <Col md="6">
@@ -291,8 +293,45 @@ class WorkOrderView extends Component {
                           </div>
                         </TabPane>
                         <TabPane tabId="location" style={{ width: "100%" }}>
-                          <div>
-                            Localização do equipamento.
+                          <div className="asset-info-container">
+                            <h1 className="asset-info-title">Solicitante</h1>
+                            <div className="asset-info-content">
+                              <Row>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Nome do Solicitante</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestPerson}</div>
+                                  </div>
+                                </Col>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Departamento</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestDepartment}</div>
+                                  </div>
+                                </Col>
+                              </Row>
+                            </div>
+                            <h1 className="asset-info-title">Contato</h1>
+                            <div className="asset-info-content">
+                              <Row>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Nome do Contato</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestContactName}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Telefone para Contato</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestContactPhone}</div>
+                                  </div>
+                                </Col>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">E-mail para Contato</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestContactEmail}</div>
+                                  </div>
+                                </Col>
+                              </Row>
+                            </div>
                           </div>
                         </TabPane>
                         <TabPane tabId="maintenance" style={{ width: "100%" }}>
