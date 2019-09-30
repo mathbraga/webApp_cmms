@@ -1,60 +1,6 @@
-insert into persons overriding system value values (0, 'anonymous@anonymous.com', 'Anonymous  Anonymous', '0', null, 'SEPLAG', null, 'E');
-insert into persons values (default, 'hzlopes@senado.leg.br', 'Henrique Zaidan Lopes', '2339', null, 'SEPLAG', null, 'E');
-insert into persons values (default, 'pedrohs@senado.leg.br', 'Pedro Henrique Serafim', '2339', null, 'SEPLAG', null, 'E');
-insert into persons values (default, 'matheus.braga@senado.leg.br', 'Matheus Oliveira Braga', '2339', null, 'SEPLAG', null, 'E');
-insert into persons values (default, 'felipeb@senado.leg.br', 'Felipe Brandão Cavalcanti', '2048', null, 'SINFRA', null, 'E');
-insert into persons values (default, 'laurojnr@senado.leg.br', 'Lauro Alves de Oliveira Júnior', '3456', null, 'COEMANT', null, 'E');
-insert into persons values (default, 'rpalet@senado.leg.br', 'Ricardo Paoliello Palet', '1857', null, 'SEMAINST', null, 'E');
-insert into persons values (default, 'igorlima@senado.leg.br', 'Igor Grimaldi Lyra Lima', '3629', null, 'SEGEEN', null, 'E');
-insert into persons values (default, 'lucianar@senado.leg.br', 'Luciana dos Reis Martins', '1322', null, 'SEMEL', null, 'E');
-insert into persons values (default, 'ozelim@senado.leg.br', 'Luan Carlos de Sena Monteiro Ozelim', '3444', null, 'SEMAC', null, 'E');
-insert into persons values (default, 'andrenb@senado.leg.br', 'André Nascimento Barbosa', '1322', null, 'SEMEL', null, 'E');
-insert into persons values (default, 'jessica.silva@senado.leg.br', 'Jessica Sousa Alves da Silva', '3408', null, 'SEMAC', null, 'E');
-insert into persons values (default, 'leonardo.heringer@senado.leg.br', 'Leonardo de Sousa Heringer', '3408', null, 'SEMAC', null, 'E');
-insert into persons values (default, 'genivalrs@senado.leg.br', 'Genival Ribeiro de Souza', '3408', null, 'SEMAC', null, 'E');
-insert into persons values (default, 'franciscocm@senado.leg.br', 'Francisco Clevanilson Marques e Silva', '3444', null, 'SEMAC', null, 'E');
-insert into persons values (default, 'nycolas.nunes@senado.leg.br', 'Nycolas Almeida Nunes', '3408', null, 'SEMAC', null, 'E');
-insert into persons values (default, 'nelvio@senado.leg.br', 'Nélvio dal Cortivo', '1415', null, 'SINFRA', null, 'E');
-insert into persons values (default, 'danielh@senado.leg.br', 'Daniel Henrique Salgado', '1307', null, 'SINFRA', null, 'E');
-insert into persons values (default, 'odaniel@senado.leg.br', 'Daniel Araújo Pinto Teixeira', '1415', null, 'EINFRA', null, 'E');
-insert into persons values (default, 'sidney@senado.leg.br', 'Sidney Carvalho', '1301', null, 'SEDACOPE', null, 'E');
-insert into persons values (default, 'yuri.costa@senado.leg.br', 'Yuri Rodrigues Costa', '3408', null, 'SEMAC', null, 'E');
-insert into persons values (default, 'samela.rocha@senado.leg.br', 'Sâmela Silva Rocha', '3408', null, 'SEMAC', null, 'E');
-insert into persons values (default, 'ivaldosr@senado.leg.br', 'Ivaldo Souza Ribeiro', '1415', null, 'SEMEL', null, 'E');
-insert into persons values (default, 'jaimemar@senado.leg.br', 'Jaime Marques de Araújo', '1415', null, 'SEMEL', null, 'E');
-insert into persons values (default, 'fsidnei@senado.leg.br', 'Francisco Sidnei de Morais', '1415', null, 'SEMAINST', null, 'E');
-insert into persons values (default, 'devieira@senado.leg.br', 'Denilton Alves Vieira', '1415', null, 'SEMAINST', null, 'E');
-insert into persons values (default, 'rfranco@senado.leg.br', 'Raimundo Nonato de Sousa Franco', '1415', null, 'SEMAINST', null, 'E');
-insert into persons values (default, 'andrefn@senado.leg.br', 'André Felipe Nascimento de Souza', '1415', null, 'SINFRA', null, 'E');
-
-insert into private.accounts values (1, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (2, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (3, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (4, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (5, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (6, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (7, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (8, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (9, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (10, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (11, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (12, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (13, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (14, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (15, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (16, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (17, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (18, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (19, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (20, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (21, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (22, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (23, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (24, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (25, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (26, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-insert into private.accounts values (27, crypt('123456', gen_salt('bf', 10)), true, 'auth');
-
+set local auth.data.person_id to 1;
+insert into persons overriding system value values (0, 'anonymous@anonymous.com', 'Anonymous  Anonymous', '0', null, null, null, 'E');
+insert into persons values (default, 'hzlopes@senado.leg.br', 'Henrique Zaidan Lopes', '2339', null, null, null, 'E');
 
 insert into assets values ('CASF-000-000', 'CASF-000-000', 'CASF-000-000', 'Complexo Arquitetônico - Todos', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
 insert into assets values ('EDPR-000-000', 'CASF-000-000', 'CASF-000-000', 'Edifício Principal - Todos', 'Descrição do ativo', 'F', -15.79925, -47.864063, 14942.27, null, null, null, null, null);
@@ -2450,7 +2396,7 @@ insert into assets values ('BL16-MEZ-031', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloc
 insert into assets values ('BL16-MEZ-034', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
 insert into assets values ('BL16-MEZ-041', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
 insert into assets values ('BL16-MEZ-042', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
-insert into assets values ('BL16-MEZ-045', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
+insert into assets values ('BL16-MEZ-046', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
 insert into assets values ('BL16-MEZ-047', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
 insert into assets values ('BL16-MEZ-048', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
 insert into assets values ('BL16-COB-000', 'BL16-000-000', 'BL16-000-000', 'Bloco 16 - Cobertura', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
@@ -4257,20 +4203,20 @@ insert into assets values ('CIVL-HD-0001', 'CIVL-HD-0001', 'CASF-000-000', 'Sist
 insert into assets values ('CIVL-BM-0001', 'CIVL-HD-0001', 'BL10-P01-003', 'Bomba de esgoto próxima à DGER.', 'Potência xxxxx W.', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('MECN-FC-0005', 'MECN-CA-0001', 'BL14-MEZ-043', 'Fancolete - SEMAC', 'Capacidade de X BTUS.', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('MECN-FC-0006', 'MECN-CA-0001', 'BL14-MEZ-043', 'Fancolete - COEMANT', 'Capacidade de X BTUS.', 'A', null, null, null, null, null, null, null, null);
-insert into assets values ('MECN-FC-0007', 'MECN-CA-0001', 'BL14-MEZ-045', 'Fancolete - SEAU', 'Capacidade de X BTUS.', 'A', null, null, null, null, null, null, null, null);
-insert into assets values ('ELET-CA-0002', 'ELET-QD-0002', 'BL14-MEZ-044', 'Circuito de alimentação elétrica (tomadas) - SEPLAG', 'Circuito elétrico para tomadas', 'A', null, null, null, null, null, null, null, null);
+insert into assets values ('MECN-FC-0007', 'MECN-CA-0001', 'BL14-MEZ-046', 'Fancolete - SEAU', 'Capacidade de X BTUS.', 'A', null, null, null, null, null, null, null, null);
+insert into assets values ('ELET-CA-0002', 'ELET-QD-0002', 'BL14-MEZ-046', 'Circuito de alimentação elétrica (tomadas) - SEPLAG', 'Circuito elétrico para tomadas', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('ELET-NB-0002', 'ELET-TF-0003', 'AX01-000-000', 'No break - Almoxarifado', 'Nobreak com capacidade para XXXXX.', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('ELET-NB-0003', 'ELET-TF-0004', 'AX02-000-000', 'No break - Almoxarifado', 'Nobreak com capacidade para XXXXX.', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('ELET-NB-0004', 'ELET-TF-0005', 'EDPR-000-000', 'No break - Almoxarifado', 'Nobreak com capacidade para XXXXX.', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('ELET-CI-0002', 'ELET-QD-0002', 'BL14-MEZ-043', 'Circuito de iluminação - COEMANT', 'Circuito de iluminação com lâmpadas de xxxW.', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('ELET-CI-0003', 'ELET-QD-0002', 'BL14-P01-044', 'Circuito de iluminação - COPROJ', 'Circuito de iluminação com lâmpadas de xxxW.', 'A', null, null, null, null, null, null, null, null);
-insert into assets values ('ELET-CI-0004', 'ELET-QD-0002', 'BL14-MEZ-044', 'Circuito de iluminação - SEPLAG', 'Circuito de iluminação com lâmpadas de xxxW.', 'A', null, null, null, null, null, null, null, null);
+insert into assets values ('ELET-CI-0004', 'ELET-QD-0002', 'BL14-MEZ-046', 'Circuito de iluminação - SEPLAG', 'Circuito de iluminação com lâmpadas de xxxW.', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('ELET-CI-0005', 'ELET-QD-0002', 'BL14-P01-043', 'Circuito de iluminação - COPRE', 'Circuito de iluminação com lâmpadas de xxxW.', 'A', null, null, null, null, null, null, null, null);
-insert into assets values ('ELET-CI-0006', 'ELET-QD-0002', 'BL14-MEZ-045', 'Circuito de iluminação - SEAU', 'Circuito de iluminação com lâmpadas de xxxW.', 'A', null, null, null, null, null, null, null, null);
+insert into assets values ('ELET-CI-0006', 'ELET-QD-0002', 'BL14-MEZ-046', 'Circuito de iluminação - SEAU', 'Circuito de iluminação com lâmpadas de xxxW.', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('ELET-CI-0007', 'ELET-QD-0002', 'BL14-MEZ-096', 'Circuito de iluminação - SINFRA', 'Circuito de iluminação com lâmpadas de xxxW.', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('ELET-CA-0003', 'ELET-QD-0002', 'BL14-P01-044', 'Circuito de alimentação elétrica (tomadas) - COPROJ', 'Circuito elétrico para tomadas', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('ELET-CA-0004', 'ELET-QD-0002', 'BL14-P01-043', 'Circuito de alimentação elétrica (tomadas) - COPRE', 'Circuito elétrico para tomadas', 'A', null, null, null, null, null, null, null, null);
-insert into assets values ('ELET-CA-0005', 'ELET-QD-0002', 'BL14-MEZ-045', 'Circuito de alimentação elétrica (tomadas) - SEAU', 'Circuito elétrico para tomadas', 'A', null, null, null, null, null, null, null, null);
+insert into assets values ('ELET-CA-0005', 'ELET-QD-0002', 'BL14-MEZ-046', 'Circuito de alimentação elétrica (tomadas) - SEAU', 'Circuito elétrico para tomadas', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('ELET-CA-0006', 'ELET-QD-0002', 'BL14-MEZ-096', 'Circuito de alimentação elétrica (tomadas) - SINFRA', 'Circuito elétrico para tomadas', 'A', null, null, null, null, null, null, null, null);
 insert into assets values ('ELET-CA-0007', 'ELET-TF-0005', 'AX02-AN1-070', 'Circuito de alimentação elétrica (tomadas) - CORTV', 'Circuito elétrico para tomadas', 'A', null, null, null, null, null, null, null, null);
 
@@ -5115,6 +5061,63 @@ insert into departments values ('DMEDR', 'SF', 'CONSELHO DO DIPLOMA DO MÉRITO E
 insert into departments values ('GLMAICN', 'SF', 'GABINETE DA LIDERANÇA DO BLOCO DA MAIORIA NO CONGRESSO NACIONAL', true);
 
 
+
+insert into persons values (default, 'pedrohs@senado.leg.br', 'Pedro Henrique Serafim', '2339', null, 'SEPLAG', null, 'E');
+insert into persons values (default, 'matheus.braga@senado.leg.br', 'Matheus Oliveira Braga', '2339', null, 'SEPLAG', null, 'E');
+insert into persons values (default, 'felipeb@senado.leg.br', 'Felipe Brandão Cavalcanti', '2048', null, 'SINFRA', null, 'E');
+insert into persons values (default, 'laurojnr@senado.leg.br', 'Lauro Alves de Oliveira Júnior', '3456', null, 'COEMANT', null, 'E');
+insert into persons values (default, 'rpalet@senado.leg.br', 'Ricardo Paoliello Palet', '1857', null, 'SEMAINST', null, 'E');
+insert into persons values (default, 'igorlima@senado.leg.br', 'Igor Grimaldi Lyra Lima', '3629', null, 'SEGEEN', null, 'E');
+insert into persons values (default, 'lucianar@senado.leg.br', 'Luciana dos Reis Martins', '1322', null, 'SEMEL', null, 'E');
+insert into persons values (default, 'ozelim@senado.leg.br', 'Luan Carlos de Sena Monteiro Ozelim', '3444', null, 'SEMAC', null, 'E');
+insert into persons values (default, 'andrenb@senado.leg.br', 'André Nascimento Barbosa', '1322', null, 'SEMEL', null, 'E');
+insert into persons values (default, 'jessica.silva@senado.leg.br', 'Jessica Sousa Alves da Silva', '3408', null, 'SEMAC', null, 'E');
+insert into persons values (default, 'leonardo.heringer@senado.leg.br', 'Leonardo de Sousa Heringer', '3408', null, 'SEMAC', null, 'E');
+insert into persons values (default, 'genivalrs@senado.leg.br', 'Genival Ribeiro de Souza', '3408', null, 'SEMAC', null, 'E');
+insert into persons values (default, 'franciscocm@senado.leg.br', 'Francisco Clevanilson Marques e Silva', '3444', null, 'SEMAC', null, 'E');
+insert into persons values (default, 'nycolas.nunes@senado.leg.br', 'Nycolas Almeida Nunes', '3408', null, 'SEMAC', null, 'E');
+insert into persons values (default, 'nelvio@senado.leg.br', 'Nélvio dal Cortivo', '1415', null, 'SINFRA', null, 'E');
+insert into persons values (default, 'danielh@senado.leg.br', 'Daniel Henrique Salgado', '1307', null, 'SINFRA', null, 'E');
+insert into persons values (default, 'odaniel@senado.leg.br', 'Daniel Araújo Pinto Teixeira', '1415', null, 'EINFRA', null, 'E');
+insert into persons values (default, 'sidney@senado.leg.br', 'Sidney Carvalho', '1301', null, 'SEDACOPE', null, 'E');
+insert into persons values (default, 'yuri.costa@senado.leg.br', 'Yuri Rodrigues Costa', '3408', null, 'SEMAC', null, 'E');
+insert into persons values (default, 'samela.rocha@senado.leg.br', 'Sâmela Silva Rocha', '3408', null, 'SEMAC', null, 'E');
+insert into persons values (default, 'ivaldosr@senado.leg.br', 'Ivaldo Souza Ribeiro', '1415', null, 'SEMEL', null, 'E');
+insert into persons values (default, 'jaimemar@senado.leg.br', 'Jaime Marques de Araújo', '1415', null, 'SEMEL', null, 'E');
+insert into persons values (default, 'fsidnei@senado.leg.br', 'Francisco Sidnei de Morais', '1415', null, 'SEMAINST', null, 'E');
+insert into persons values (default, 'devieira@senado.leg.br', 'Denilton Alves Vieira', '1415', null, 'SEMAINST', null, 'E');
+insert into persons values (default, 'rfranco@senado.leg.br', 'Raimundo Nonato de Sousa Franco', '1415', null, 'SEMAINST', null, 'E');
+insert into persons values (default, 'andrefn@senado.leg.br', 'André Felipe Nascimento de Souza', '1415', null, 'SINFRA', null, 'E');
+
+insert into private.accounts values (1, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (2, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (3, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (4, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (5, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (6, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (7, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (8, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (9, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (10, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (11, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (12, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (13, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (14, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (15, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (16, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (17, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (18, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (19, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (20, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (21, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (22, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (23, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (24, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (25, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (26, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+insert into private.accounts values (27, crypt('123456', gen_salt('bf', 10)), true, 'auth');
+
+
 insert into contracts values ('CT-2016-0134', null, '2016-09-23', '2016-09-23', null, 'CEB Distribuição S.A.', 'Contrato de Compra de Energia Regulada - CCER - entre o SENADO FEDERAL e a CEB Distribuição S/A, de energia elétrica para as unidades consumidoras de identificação nº 466.453-1; 491.042-7; 491.747-2; 491.750-2; 493.169-6; 605.120-0; 623.849-1; 675.051-6; 966.027-5 e 1.089.425-X.', 'https://www6g.senado.gov.br/transparencia/licitacoes-e-contratos/contratos/3842');
 insert into contracts values ('CTA-2017-0119', null, '2017-12-29', '2017-12-29', null, 'CEB Distribuição S.A.', 'Estabelecer as principais condições da prestação e utilização do serviço público de energia elétrica entre a CEB Distribuição S.A e o SENADO FEDERAL, de acordo com as condições gerais de fornecimento de energia elétrica e demais regulamentos expedidos pela Agência Nacional de Energia Elétrica - ANEEL - no fornecimento continuado de energia elétrica para as diversas Unidades Consumidoras do Senado Federal, durante o período de 60 (sessenta) meses consecutivos.', 'https://www6g.senado.gov.br/transparencia/licitacoes-e-contratos/contratos/4306');
 insert into contracts values ('TE-2017-0014', null, '2017-11-23', '2017-11-23', null, 'N/A', 'O Ministério de Estado do Planejamento, Desenvolvimento e Gestão, através da Secretaria de Patrimônio da União - MPDG/SPU - e a Presidência do SENADO FEDERAL, no uso de suas atribuições legais, resolvem celebrar a transferência ao Senado Federal, por meio de cessão de uso, do imóvel de propriedade da União situado no Setor de Clubes Esportivos Sul - SCE/SUL - Trecho 3 - Lote 07 - Brasília - Distrito Federal.', 'https://www6g.senado.gov.br/transparencia/licitacoes-e-contratos/contratos/4262');
@@ -5708,6 +5711,5 @@ BAI: Baixa;\n
 NOR: Normal;\n
 ALT: Alta;\n
 URG: Urgente.\n
-';"
-
+';
 

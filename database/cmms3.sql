@@ -5,7 +5,7 @@
 drop database if exists cmms3;
 
 -- create new database
-create database cmms3 with owner postgres template template0 encoding 'win1252';
+create database cmms3 with owner postgres template template0; --encoding 'win1252';
 
 -- connect to the new database
 \c cmms3
@@ -74,24 +74,6 @@ create type person_role_type as enum (
 );
 
 -- create tables
-create table persons (
-  person_id integer primary key generated always as identity,
-  email text not null unique check (email ~* '^.+@.+\..+$'),
-  full_name text not null,
-  phone text not null,
-  cellphone text,
-  department_id text references departments (department_id),
-  contract_id text references contracts (contract_id),
-  category person_category_type
-);
-
-create table private.accounts (
-  person_id integer not null references persons (person_id),
-  password_hash text not null,
-  is_active boolean not null default true,
-  person_role person_role_type not null default 'auth'
-);
-
 create table assets (
   asset_id text not null primary key,
   parent text not null references assets (asset_id),
@@ -125,6 +107,24 @@ create table departments (
   parent text not null references departments (department_id),
   full_name text not null,
   is_active boolean not null
+);
+
+create table persons (
+  person_id integer primary key generated always as identity,
+  email text not null unique check (email ~* '^.+@.+\..+$'),
+  full_name text not null,
+  phone text not null,
+  cellphone text,
+  department_id text references departments (department_id),
+  contract_id text references contracts (contract_id),
+  category person_category_type
+);
+
+create table private.accounts (
+  person_id integer not null references persons (person_id),
+  password_hash text not null,
+  is_active boolean not null default true,
+  person_role person_role_type not null default 'auth'
 );
 
 create table orders (
@@ -197,7 +197,7 @@ create table specs (
 );
 
 create table supplies (
-  contract_id integer not null references contracts (contract_id),
+  contract_id text not null references contracts (contract_id),
   supply_id text not null,
   spec_id integer references specs (spec_id),
   description text,
@@ -209,7 +209,7 @@ create table supplies (
 
 create table order_supplies (
   order_id integer not null references orders (order_id),
-  contract_id integer not null,
+  contract_id text not null,
   supply_id text not null,
   qty real not null,
   primary key (order_id, contract_id, supply_id),
@@ -272,19 +272,22 @@ create view balances as
       group by os.contract_id, os.supply_id
     ),
     both_cases as (
-      select s.contract_id,
-             s.supply_id,
-             s.qty_initial,
+      select contract_id,
+             supply_id,
              sum(coalesce(blocked, 0)) as blocked,
              sum(coalesce(consumed, 0)) as consumed
-        from supplies as s
-        inner join unfinished using (contract_id, supply_id)
+        from unfinished
         full outer join finished using (contract_id, supply_id)
-      group by s.contract_id, s.supply_id
+      group by contract_id, supply_id
     )
-    select *,
-          qty_initial - blocked - consumed as available
-      from both_cases;
+    select s.contract_id,
+           s.supply_id,
+           s.qty_initial,
+           bc.blocked,
+           bc.consumed,
+           s.qty_initial - bc.blocked - bc.consumed as available
+      from both_cases as bc
+      inner join supplies as s using (contract_id, supply_id);
 
 -- create functions
 create or replace function register_user (
@@ -783,7 +786,6 @@ create trigger log_changes
 
 ---------------------------------------------------------------------------------
 -- set variable to allow log of initial rows insertions
-set local auth.data.person_id to 1;
 
 -- run file with insert commands and comments (this file should have win1252 encoding)
 \i inserts.sql
