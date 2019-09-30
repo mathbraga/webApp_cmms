@@ -29,7 +29,6 @@ class InputWithDropdown extends Component {
   }
 
   onChangeInputDepartment(event) {
-    //this.containerScroll.scrollTo(0, 0);
     this.setState({
       departmentInputValue: event.target.value,
       hoveredItem: 0,
@@ -123,6 +122,14 @@ class InputWithDropdown extends Component {
         && !departmentValues.some(selectedItem => selectedItem.id === item.id)
       ));
     console.log(filteredList);
+      
+    const hasSubtext = !(filteredList.every((item) => item.subtext === ""))
+
+    const boxHeight = hasSubtext === true ? (filteredList.length >= 4 ? 180 : filteredList.length*55 + 25) : 
+        (filteredList.length >= 4 ? 130 : filteredList.length*20 + 30);
+
+    const itemHeight = hasSubtext === true ? 52 : 25;
+
     return (
       <FormGroup className={'dropdown-container'}>
         <Label htmlFor="department">{label}</Label>
@@ -162,29 +169,24 @@ class InputWithDropdown extends Component {
               <List
                 className={"dropdown-input"}
                 width={width}
-                height={180}
-                rowHeight={45}
+                height={boxHeight}
+                rowHeight={itemHeight}
                 rowRenderer={({ index, key, style }) => {
                               return(
-                                <div 
-                                  // ref={(el) => { this.containerScroll = el }}
+                                <div
                                   key={key}
                                   style={style}
+                                  onMouseOver={() => this.onHoverItem(index)}
+                                  onMouseDown={this.onClickItem(filteredList)}
+                                  className={filteredList[hoveredItem].id === filteredList[index].id ? 'active' : ''}
+                                  ref={(el) => this.arrayItems[filteredList[index].id] = el}
                                 >
-                                  <ul>
-                                    <li
-                                      onMouseOver={() => this.onHoverItem(index)}
-                                      onMouseDown={this.onClickItem(filteredList)}
-                                      className={filteredList[hoveredItem].id === filteredList[index].id ? 'active' : ''}
-                                      ref={(el) => this.arrayItems[filteredList[index].id] = el}
-                                    >
-                                      {filteredList[index].text}
-                                      <div className="small text-muted">{filteredList[index].subtext}</div>
-                                    </li>
-                                </ul>
-                              </div>
+                                  {filteredList[index].text}
+                                  {hasSubtext && <div className="small text-muted">{filteredList[index].subtext}</div>}
+                                </div>
                               )}}
                 rowCount={filteredList.length}
+                overscanRowCount={15}
               />
             )}
           </AutoSizer>

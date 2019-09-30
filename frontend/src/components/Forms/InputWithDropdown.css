@@ -13,22 +13,23 @@
   border: 1px solid #dcd6d6;
   border-radius: 3px;
   box-shadow: 2px 3px 4px 2px rgba(0, 0, 0, 0.1);
-  /*max-height: 180px;*/
-  overflow-y: scroll;
+  max-height: 180px;
+  /* overflow-y: scroll; */
 }
 
-.dropdown-input div ul {
+.dropdown-input div {
   list-style: none;
-  padding: 0;
-  margin: 8px;
-}
-
-.dropdown-input div ul li {
-  margin: 3px 0;
   padding: 2px;
+  margin: 12px;
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
+}
+
+.dropdown-input div div {
+  list-style: none;
+  margin: 3px 0;
+  padding: 2px;
 }
 
 .dropdown-input .active {
