@@ -69,6 +69,9 @@ create type order_category_type as enum (
   'VED',
   'VID'
 );
+create type person_role_type as enum (
+  'auth'
+);
 
 -- create tables
 create table assets (
@@ -122,7 +125,8 @@ create table private.accounts (
   password_hash text not null,
   created_at timestamptz not null,
   updated_at timestamptz not null,
-  is_active boolean not null default true
+  is_active boolean not null default true,
+  person_role person_role_type not null default 'auth'
 );
 
 create table orders (
@@ -339,15 +343,16 @@ begin
 end; $$;
 
 create or replace function authenticate (
-  input_email    text,
-  input_password text
-) returns integer
+  in input_email    text,
+  in input_password text,
+  out user_data text
+)
 language sql
 stable
 strict
 security definer
 as $$
-  select p.person_id
+  select p.person_id::text || '-' || a.person_role::text as user_data
     from persons as p
     join private.accounts as a using(person_id)
     where p.email = input_email
