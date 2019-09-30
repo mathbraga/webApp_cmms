@@ -532,15 +532,31 @@ begin
       appliance_attributes.warranty
     ) where a.asset_id = appliance_attributes.asset_id;
 
-  delete from asset_departments where asset_id = appliance_attributes.asset_id;
-
-  if departments_array is not null then
-    insert into asset_departments select appliance_attributes.asset_id, unnest(departments_array);
-  end if;
+  with added_departments as (
+    select unnest(departments_array) as department_id
+    except
+    select department_id
+      from asset_departments
+      where asset_id = appliance_attributes.asset_id
+  )
+  insert into asset_departments
+    select appliance_attributes.asset_id, department_id from added_departments;
+  
+  with recursive removed_departments as (
+    select department_id
+      from asset_departments
+    where asset_id = appliance_attributes.asset_id
+    except
+    select unnest(departments_array) as department_id
+  )
+  delete from asset_departments
+    where asset_id = appliance_attributes.asset_id
+          and department_id in (select department_id from removed_departments);
 
   modified_appliance_id = appliance_attributes.asset_id;
 
 end; $$;
+
 
 create or replace function modify_facility (
   in facility_attributes facilities,
@@ -571,11 +587,26 @@ begin
       facility_attributes.area
     ) where a.asset_id = facility_attributes.asset_id;
 
-  delete from asset_departments where asset_id = facility_attributes.asset_id;
-
-  if departments_array is not null then
-    insert into asset_departments select facility_attributes.asset_id, unnest(departments_array);
-  end if;
+  with added_departments as (
+    select unnest(departments_array) as department_id
+    except
+    select department_id
+      from asset_departments
+      where asset_id = facility_attributes.asset_id
+  )
+  insert into asset_departments
+    select facility_attributes.asset_id, department_id from added_departments;
+  
+  with recursive removed_departments as (
+    select department_id
+      from asset_departments
+    where asset_id = facility_attributes.asset_id
+    except
+    select unnest(departments_array) as department_id
+  )
+  delete from asset_departments
+    where asset_id = facility_attributes.asset_id
+          and department_id in (select department_id from removed_departments);
 
   modified_facility_id = facility_attributes.asset_id;
 
@@ -629,11 +660,26 @@ begin
       now()
     ) where o.order_id = order_attributes.order_id;
 
-  delete from order_assets as oa where oa.order_id = order_attributes.order_id;
-
-  if assets_array is not null then
-    insert into order_assets select order_attributes.order_id, unnest(assets_array);
-  end if;
+  with added_assets as (
+    select unnest(assets_array) as asset_id
+    except
+    select asset_id
+      from order_assets
+      where order_id = order_attributes.order_id
+  )
+  insert into order_assets
+    select order_attributes.order_id, asset_id from added_assets;
+  
+  with recursive removed_assets as (
+    select asset_id
+      from order_assets
+    where order_id = order_attributes.order_id
+    except
+    select unnest(assets_array) as asset_id
+  )
+  delete from order_assets
+    where order_id = order_attributes.order_id
+          and asset_id in (select asset_id from removed_assets);
 
   modified_order_id = order_attributes.order_id;
 
