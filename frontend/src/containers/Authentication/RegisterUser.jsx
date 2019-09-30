@@ -71,15 +71,10 @@ class RegisterUser extends Component {
             name
           }
         }
-        allContracts {
-          nodes {
-            contractId
-          }
-        }
         allDepartments {
           nodes {
             departmentId
-            name
+            fullName
           }
         }
       }
@@ -145,8 +140,6 @@ class RegisterUser extends Component {
             }
 
             const categoriesArr = data.__type.enumValues;
-
-            const contractsArr = data.allContracts.nodes;
 
             const departmentsArr = data.allDepartments.nodes;
 
@@ -301,7 +294,7 @@ class RegisterUser extends Component {
                               </Input>
                             </InputGroup>
 
-                            <InputGroup className="mb-3">
+                            {/* <InputGroup className="mb-3">
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
                                   <i className="icon-briefcase"></i>
@@ -330,7 +323,7 @@ class RegisterUser extends Component {
                                 </option>
                               ))}
                               </Input>
-                            </InputGroup>
+                            </InputGroup> */}
 
                             <InputGroup className="mb-3">
                               <InputGroupAddon addonType="prepend">

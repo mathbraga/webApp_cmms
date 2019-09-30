@@ -2,17 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const { Client } = require('pg');
-
-const client = new Client({
-  user: process.env.DB_ADMIN,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DBNAME,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT,
-});
-
-client.connect();
+const client = require('../pgclient');
 
 passport.use(new LocalStrategy(
   {
@@ -23,7 +13,7 @@ passport.use(new LocalStrategy(
     // console.log('inside passport.use')
     let data;
     try {
-      data = await client.query('SELECT authenticate($1, $2)', [email, password]);
+      data = await client.query('select authenticate($1, $2)', [email, password]);
       if (data.rows.length === 0) {
         return done(null, false, {message: 'Incorrect'});
       }
@@ -45,7 +35,7 @@ passport.serializeUser((userId, done) => {
 passport.deserializeUser(async (userId, done) => {
   console.log('\nDESERIALIZATION\n')
   try {
-    let data = await client.query('SELECT person_id FROM persons WHERE person_id = $1', [userId]);
+    let data = await client.query('select person_id from persons where person_id = $1', [userId]);
     if (data.rows.length === 0){
       return done(new Error('user not found'));
     }
@@ -56,13 +46,24 @@ passport.deserializeUser(async (userId, done) => {
   }
 });
 
-router.post('/',
+router.post('/login',
   passport.authenticate('local'),
   function(req, res){
     console.log('req session '+ JSON.stringify(req.session))
     console.log('req user '+ JSON.stringify(req.user))
     res.cookie('cmms:user', req.user.toString());
     res.json({'response': 'Login succeeded'});
+});
+
+router.get('/logout', function(req, res){
+  console.log('\nINSIDE LOGOUT\n');
+  console.log('req.session BEFORE: ' + JSON.stringify(req.session));
+  console.log('req.user BEFORE: ' + JSON.stringify(req.user));
+  req.logout();
+  req.session = null;
+  console.log('req.session AFTER: ' + JSON.stringify(req.session));
+  console.log('req.user AFTER: ' + JSON.stringify(req.user));
+  res.json({'logout': 'logged out'})
 });
 
 module.exports = router;

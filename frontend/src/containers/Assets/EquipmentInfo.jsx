@@ -1,0 +1,286 @@
+import React, { Component } from 'react';
+import AssetCard from "../../components/Cards/AssetCard";
+import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput, InputGroup, Input, InputGroupAddon, InputGroupText } from "reactstrap";
+import TableWithPages from "../../components/Tables/TableWithPages";
+import "./AssetInfo.css";
+import { connect } from "react-redux";
+import { compose } from 'redux';
+import { tableConfig } from "../Maintenance/WorkOrdersTableConfig";
+import { withRouter } from "react-router";
+
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+
+import { equipmentItems, equipmentConfig } from "./AssetsFakeData";
+
+const mapIcon = require("../../assets/icons/map.png");
+const searchItem = require("../../assets/icons/search_icon.png");
+
+const ENTRIES_PER_PAGE = 15;
+
+const IMAGE_PATHS = {
+  'civl-bm': require("../../assets/img/test/civl-bm.jpg"),
+  'civl-hd': require('../../assets/img/test/civl-hd.jpg'),
+  'elet-ca': require("../../assets/img/test/elet-ca.jpg"),
+  'elet-ci': require('../../assets/img/test/elet-ci.jpg'),
+  'elet-et': require('../../assets/img/test/elet-et.jpg'),
+  'elet-nb': require('../../assets/img/test/elet-nb.jpg'),
+  'elet-qd': require('../../assets/img/test/elet-qd.jpg'),
+  'elet-tf': require('../../assets/img/test/elet-tf.jpg'),
+  'elet-00': require('../../assets/img/test/elet.jpg'),
+  'mecn-ca': require('../../assets/img/test/mecn-ca.jpg'),
+  'mecn-fc': require('../../assets/img/test/mecn-fc.jpg'),
+  'mecn-sr': require('../../assets/img/test/mecn-sr.jpg'),
+  'elet-ci': require('../../assets/img/test/elet-ci.jpg'),
+};
+
+class EquipmentInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tabSelected: "info",
+      location: false,
+      pageCurrent: 1,
+      goToPage: 1,
+      searchTerm: "",
+    };
+    console.log('OK');
+    this.handleClickOnNav = this.handleClickOnNav.bind(this);
+    this.setGoToPage = this.setGoToPage.bind(this);
+    this.setCurrentPage = this.setCurrentPage.bind(this);
+    this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
+  }
+
+  handleClickOnNav(tabSelected) {
+    this.setState({ tabSelected: tabSelected });
+  }
+
+  setGoToPage(page) {
+    this.setState({ goToPage: page });
+  }
+
+  setCurrentPage(pageCurrent) {
+    this.setState({ pageCurrent: pageCurrent }, () => {
+      this.setState({ goToPage: pageCurrent });
+    });
+  }
+
+  handleChangeSearchTerm(event) {
+    this.setState({ searchTerm: event.target.value, pageCurrent: 1, goToPage: 1 });
+  }
+
+  render() {
+
+    const { pageCurrent, goToPage, searchTerm } = this.state;
+    const { tabSelected } = this.state;
+
+    const assetsInfo = this.props.data;
+
+    const imgIndxArray = this.props.location.pathname.split("-");
+    const imgIndx = (imgIndxArray[0].split("/")[3] + "-" + imgIndxArray[1]).toLowerCase();
+    const path = IMAGE_PATHS[imgIndx] ? IMAGE_PATHS[imgIndx] : require('../../assets/img/test/elet.jpg');
+
+    const descriptionImage = require('../../assets/img/test/equip.png');
+    // const descriptionImage = path;
+
+    const pageLength = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges.length;
+    const edges = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges;
+
+    let filteredItems = edges;
+    if (searchTerm.length > 0) {
+      const searchTermLower = searchTerm.toLowerCase();
+      filteredItems = edges.filter(function (item) {
+        return (
+          // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
+          item.node.orderByOrderId.requestPerson.toLowerCase().includes(searchTermLower) ||
+          item.node.orderByOrderId.requestText.toLowerCase().includes(searchTermLower) ||
+          item.node.orderByOrderId.status.toLowerCase().includes(searchTermLower)
+        );
+      });
+    }
+
+    const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
+    const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+
+    const thead =
+      <tr>
+        <th className="text-center checkbox-cell">
+          <CustomInput type="checkbox" />
+        </th>
+        {tableConfig.map(column => (
+          <th style={column.style} className={column.className}>{column.name}</th>))
+        }
+      </tr>
+
+    const tbody = showItems.map(item => (
+      <tr
+        onClick={() => { this.props.history.push('/manutencao/os/view/' + item.node.orderByOrderId.orderId) }}
+      >
+        <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
+        <td>
+          <div>{item.node.orderId}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.orderByOrderId.requestText}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.orderByOrderId.status}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.orderByOrderId.createdAt}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.orderByOrderId.dateLimit}</div>
+        </td>
+        <td>
+          <div className="text-center">{item.node.orderByOrderId.requestPerson}</div>
+        </td>
+      </tr>))
+
+    return (
+      <div className="asset-container">
+        <AssetCard
+          sectionName={'Equipamento'}
+          sectionDescription={'Ficha descritiva de um equipamento'}
+          handleCardButton={() => assetsInfo.assetByAssetId.category === 'A' ?
+            this.props.history.push('/ativos/equipamentos') : this.props.history.push('/ativos/edificios')}
+          buttonName={'Equipamentos'}
+        >
+          <Row>
+            <Col md="2">
+              <div className="desc-box">
+                <div className="desc-img-container">
+                  <img className="desc-image" src={descriptionImage} alt="Ar-condicionado" />
+                </div>
+                <div className="desc-status">
+                  <Badge className="mr-1 desc-badge" color="success" >Funcionando</Badge>
+                </div>
+              </div>
+            </Col>
+            <Col className="flex-column" md="10">
+              <div style={{ flexGrow: "1" }}>
+                <Row>
+                  <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Equipamento / Sistema</span></Col>
+                  <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{assetsInfo.assetByAssetId.name}</span></Col>
+                </Row>
+              </div>
+              <div>
+                <Row>
+                  <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.assetId}</span></Col>
+                </Row>
+              </div>
+              <div>
+                <Row>
+                  <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Localização</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.place}</span></Col>
+                </Row>
+              </div>
+              <div>
+                <Row>
+                  <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Fabricante</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.manufacturer}</span></Col>
+                </Row>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <div style={{ margin: "40px 20px 20px 20px", width: "100%" }}>
+              <Nav tabs>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Localização</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Manutenção</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Garantia</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("asset") }} active={tabSelected === "asset"} >Ativos</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("file") }} active={tabSelected === "file"} >Arquivos</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={() => { this.handleClickOnNav("log") }} active={tabSelected === "log"} >Histórico</NavLink>
+                </NavItem>
+              </Nav>
+              <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
+                <TabPane tabId="info" style={{ width: "100%" }}>
+                  <div>
+                    Informações gerais sobre o equipamento.
+                  </div>
+                </TabPane>
+                <TabPane tabId="location" style={{ width: "100%" }}>
+                  <div>
+                    Localização do equipamento.
+                  </div>
+                </TabPane>
+                <TabPane tabId="maintenance" style={{ width: "100%" }}>
+                  <Row>
+                    <Col>
+                      <Col md="4" className="mt-4 ml-4">
+                        <form>
+                          <InputGroup>
+                            <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
+                            <InputGroupAddon addonType="append">
+                              <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
+                            </InputGroupAddon>
+                          </InputGroup>
+                        </form>
+                      </Col>
+                      <TableWithPages
+                        thead={thead}
+                        tbody={tbody}
+                        pagesTotal={pagesTotal}
+                        pageCurrent={pageCurrent}
+                        goToPage={goToPage}
+                        setCurrentPage={this.setCurrentPage}
+                        setGoToPage={this.setGoToPage}
+                      />
+                    </Col>
+                  </Row>
+                </TabPane>
+                <TabPane tabId="warranty" style={{ width: "100%" }}>
+                  <div>
+                    Garantias.
+                  </div>
+                </TabPane>
+                <TabPane tabId="asset" style={{ width: "100%" }}>
+                  <div>
+                    Lista de ativo.
+                  </div>
+                </TabPane>
+                <TabPane tabId="file" style={{ width: "100%" }}>
+                  <div>
+                    Lista de arquivos.
+                  </div>
+                </TabPane>
+                <TabPane tabId="log" style={{ width: "100%" }}>
+                  <div>
+                    Histórico sobre o equipamento.
+                  </div>
+                </TabPane>
+              </TabContent>
+            </div>
+          </Row>
+        </AssetCard>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = storeState => {
+  return {
+    session: storeState.auth.session
+  }
+}
+
+export default compose(
+  withRouter,
+  connect(mapStateToProps),
+)(EquipmentInfo);
