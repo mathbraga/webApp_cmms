@@ -1,5 +1,5 @@
 set local auth.data.person_id to 1;
-insert into persons overriding system value values (0, 'anonymous@anonymous.com', 'Anonymous  Anonymous', '0', null, null, null, 'E');
+insert into persons overriding system value values (0, 'anonymous@anonymous.com', 'Anonymous Anonymous', '0', null, null, null, 'E');
 insert into persons values (default, 'hzlopes@senado.leg.br', 'Henrique Zaidan Lopes', '2339', null, null, null, 'E');
 
 insert into assets values ('CASF-000-000', 'CASF-000-000', 'CASF-000-000', 'Complexo Arquitetônico - Todos', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
@@ -5713,3 +5713,4 @@ ALT: Alta;\n
 URG: Urgente.\n
 ';
 
+update persons set department_id = 'SEPLAG' where person_id = 1;
