@@ -171,15 +171,16 @@ class WorkOrderView extends Component {
             const assetsByOrder = orderInfo.orderAssetsByOrderId.nodes;
             const pageLength = assetsByOrder.length;
 
+            console.log("AssetsByOrder: ", assetsByOrder);
+
             let filteredItems = assetsByOrder;
             if (searchTerm.length > 0) {
               const searchTermLower = searchTerm.toLowerCase();
-              filteredItems = orderInfo.filter(function (item) {
+              filteredItems = assetsByOrder.filter(function (item) {
                 return (
                   // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
-                  item.node.orderByOrderId.requestPerson.toLowerCase().includes(searchTermLower) ||
-                  item.node.orderByOrderId.requestText.toLowerCase().includes(searchTermLower) ||
-                  item.node.orderByOrderId.status.toLowerCase().includes(searchTermLower)
+                  item.assetByAssetId.name.toLowerCase().includes(searchTermLower) ||
+                  item.assetByAssetId.assetId.toLowerCase().includes(searchTermLower)
                 );
               });
             }
