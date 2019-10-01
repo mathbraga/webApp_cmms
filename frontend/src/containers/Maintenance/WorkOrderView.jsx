@@ -447,30 +447,42 @@ class WorkOrderView extends Component {
                                   </div>
                                 </Col>
                               </Row>
-                              <div className="asset-info-table-container">
-                                <div className="asset-info-table">
-                                  <div className="asset-info-table-search">
-                                    <form>
-                                      <InputGroup>
-                                        <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
-                                        <InputGroupAddon addonType="append">
-                                          <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
-                                        </InputGroupAddon>
-                                      </InputGroup>
-                                    </form>
-                                  </div>
-                                  <TableWithPages
-                                    thead={thead}
-                                    tbody={tbody}
-                                    pagesTotal={pagesTotal}
-                                    pageCurrent={pageCurrent}
-                                    goToPage={goToPage}
-                                    setCurrentPage={this.setCurrentPage}
-                                    setGoToPage={this.setGoToPage}
-                                  />
-                                </div>
+                            </div>
+                            <div className="card-search-container" style={{ marginTop: "30px" }}>
+                              <div className="search" style={{ width: "30%" }}>
+                                <form className="card-search-form">
+                                  <InputGroup>
+                                    <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
+                                    <InputGroupAddon addonType="append">
+                                      <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
+                                    </InputGroupAddon>
+                                  </InputGroup>
+                                </form>
+                              </div>
+                              <div className="search-filter" style={{ width: "30%" }}>
+                                <ol>
+                                  <li><span className="card-search-title">Filtro: </span></li>
+                                  <li><span className="card-search-title">Regras: </span></li>
+                                </ol>
+                                <ol>
+                                  <li>Sem filtro</li>
+                                  <li>Mostrar todos itens</li>
+                                </ol>
+                              </div>
+                              <div className="search-buttons" style={{ width: "30%" }}>
+                                <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
+                                <Button className="search-filter-button" color="primary">Criar Filtro</Button>
                               </div>
                             </div>
+                            <TableWithPages
+                              thead={thead}
+                              tbody={tbody}
+                              pagesTotal={pagesTotal}
+                              pageCurrent={pageCurrent}
+                              goToPage={goToPage}
+                              setCurrentPage={this.setCurrentPage}
+                              setGoToPage={this.setGoToPage}
+                            />
                           </div>
                         </TabPane>
                         <TabPane tabId="warranty" style={{ width: "100%" }}>

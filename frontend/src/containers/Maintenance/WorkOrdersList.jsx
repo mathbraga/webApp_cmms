@@ -187,8 +187,8 @@ class WorkOrdersList extends Component {
                 <li><span className="card-search-title">Regras: </span></li>
               </ol>
               <ol>
-                <li>Serviços da Coemant</li>
-                <li>Coemant / 2019 / Não concluído</li>
+                <li>Sem filtro</li>
+                <li>Mostrar todos itens</li>
               </ol>
             </div>
             <div className="search-buttons" style={{ width: "30%" }}>
