@@ -199,17 +199,15 @@ class WorkOrdersList extends Component {
               <Button className="search-filter-button" color="primary">Criar Filtro</Button>
             </div>
           </div>
-          <div className="list-container">
-            <TableWithPages
-              thead={thead}
-              tbody={tbody}
-              pagesTotal={pagesTotal}
-              pageCurrent={pageCurrent}
-              goToPage={goToPage}
-              setCurrentPage={this.setCurrentPage}
-              setGoToPage={this.setGoToPage}
-            />
-          </div>
+          <TableWithPages
+            thead={thead}
+            tbody={tbody}
+            pagesTotal={pagesTotal}
+            pageCurrent={pageCurrent}
+            goToPage={goToPage}
+            setCurrentPage={this.setCurrentPage}
+            setGoToPage={this.setGoToPage}
+          />
         </AssetCard >
       </div>
     );
