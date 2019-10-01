@@ -150,9 +150,6 @@ class WorkOrdersList extends Component {
         </td>
         <td className="text-center">{ORDER_STATUS_TYPE[item.node.status]}</td>
         <td>
-          <div className="text-center">{ORDER_PRIORITY_TYPE[item.node.priority]}</div>
-        </td>
-        <td>
           <div className="text-center">{item.node.dateLimit && item.node.dateLimit.split('T')[0]}</div>
         </td>
         <td>
@@ -199,17 +196,15 @@ class WorkOrdersList extends Component {
               <Button className="search-filter-button" color="primary">Criar Filtro</Button>
             </div>
           </div>
-          <div className="list-container">
-            <TableWithPages
-              thead={thead}
-              tbody={tbody}
-              pagesTotal={pagesTotal}
-              pageCurrent={pageCurrent}
-              goToPage={goToPage}
-              setCurrentPage={this.setCurrentPage}
-              setGoToPage={this.setGoToPage}
-            />
-          </div>
+          <TableWithPages
+            thead={thead}
+            tbody={tbody}
+            pagesTotal={pagesTotal}
+            pageCurrent={pageCurrent}
+            goToPage={goToPage}
+            setCurrentPage={this.setCurrentPage}
+            setGoToPage={this.setGoToPage}
+          />
         </AssetCard >
       </div>
     );

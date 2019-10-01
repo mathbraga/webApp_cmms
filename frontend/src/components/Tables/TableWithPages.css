@@ -1,0 +1,53 @@
+.list-container {
+  margin: 40px 0px 10px 0px;
+  padding: 20px 4px;
+  border: 1px solid rgb(214, 214, 214);
+  border-radius: 6px;
+  box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.12);
+  background: #fafafa;
+}
+
+.page-pagination-container {
+  display: flex;
+  margin: 0 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.table-page-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.table-page-label {
+  margin-right: 10px;
+}
+
+.table-page-input {
+  border-radius: 3px;
+  border: 1px solid #b1b1b1;
+  text-align: center;
+  padding: 2px 0;
+  width: 40px;
+}
+
+.table-items-container {
+  margin: 15px 0;
+}
+
+.pagination-item-container .pagination {
+  margin: 0;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.pagination-container .pagination {
+  margin: 0;
+}
+
