@@ -3,7 +3,12 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', (req, res) => {
-  fs.writeFile('uploaded.jpeg', data, err => {
+  
+  console.log(req.body);
+
+  // const buf = new Buffer(req.body);
+  
+  fs.writeFile('uploaded.jpg', req.body, err => {
     if(err) console.log(err);
     console.log('ok, file saved.')
   });

@@ -13,6 +13,7 @@ const cors = require('cors')
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const authRoute = require('./routes/auth');
+const uploadRoute = require('./routes/upload');
 // const cronJob = require('./cron');
 
 // Configure application (https://expressjs.com/en/4x/api.html#app.set)
@@ -36,6 +37,7 @@ app.use(middleware);
 
 // Routes
 app.use("/auth", authRoute);
+app.use("/upload", uploadRoute);
 
 // PostGraphile route
 app.use(postgraphile(

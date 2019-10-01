@@ -1,11 +1,28 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Card, CardBody } from "reactstrap";
+import { Container, Row, Col, Card, CardBody, CardHeader, FormGroup, CustomInput, Button } from "reactstrap";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+    this.fileInputRef = React.createRef();
     this.state = {
     }
+  }
+
+  handleUploadFile = event => {
+    event.preventDefault();
+    console.clear();
+    console.log(this.fileInputRef.current.files)
+    fetch('http://172.30.49.152:3001/upload', {
+      method: 'POST',
+      body: this.fileInputRef.current.files[0],
+      // headers: {
+      //   'Accept': 'image/jpeg',
+      // },
+    })
+      .then(r => r.json())
+      .then(rjson => console.log(rjson))
+      .catch(()=> console.log('erro upload.'));
   }
 
   render() {
@@ -48,6 +65,57 @@ class Dashboard extends Component {
             </Row>
           </Container>
         </div>
+
+        <Card>
+          <CardHeader>
+            <Row>
+              <Col md="12">
+                <div className="calc-title">Upload de arquivo</div>
+                <div className="calc-subtitle">
+                  <em>Utilizar faturas em formato csv</em>
+                </div>
+              </Col>
+            </Row>
+          </CardHeader>
+          <CardBody>
+            <Row>
+              <Col xs="4">
+                <FormGroup>
+                  <CustomInput
+                    label="Clique ou arraste para selecionar"
+                    type="file"
+                    id="csv-file"
+                    name="csv-file"
+                    innerRef={this.fileInputRef}
+                    // onChange={this.handleSelection}
+                  />
+                </FormGroup>
+              </Col>
+              {/* <Col xs="4">
+                {this.state.isSelected
+                  ? <p className="my-2">Arquivo selecionado:
+                      <strong>
+                      {" " + this.fileInputRef.current.files[0].name}
+                    </strong>
+                  </p>
+                  : <p className="text-muted my-2">Nenhum arquivo selecionado</p>
+                }
+              </Col> */}
+              <Col xs="4">
+                <Button
+                  className=""
+                  type="submit"
+                  size="md"
+                  color="primary"
+                  onClick={this.handleUploadFile}
+                >Enviar arquivo
+                </Button>
+              </Col>
+            </Row>
+          </CardBody>
+        </Card>
+
+
       </React.Fragment>
     );
   }
