@@ -2396,7 +2396,7 @@ insert into assets values ('BL16-MEZ-031', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloc
 insert into assets values ('BL16-MEZ-034', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
 insert into assets values ('BL16-MEZ-041', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
 insert into assets values ('BL16-MEZ-042', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
-insert into assets values ('BL16-MEZ-046', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
+insert into assets values ('BL16-MEZ-045', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
 insert into assets values ('BL16-MEZ-047', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
 insert into assets values ('BL16-MEZ-048', 'BL16-MEZ-000', 'BL16-MEZ-000', 'Bloco 16 - Mezanino', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);
 insert into assets values ('BL16-COB-000', 'BL16-000-000', 'BL16-000-000', 'Bloco 16 - Cobertura', 'Descrição do ativo', 'F', 0, 0, 0, null, null, null, null, null);

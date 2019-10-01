@@ -204,6 +204,7 @@ create table supplies (
   qty_initial real not null,
   is_qty_real boolean not null,
   unit text not null,
+  price money not null,
   primary key (contract_id, supply_id)
 );
 
