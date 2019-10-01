@@ -13,7 +13,9 @@ const upload = multer({ storage: storage })
 
 router.post('/', upload.single('photo'), (req, res, next) => {
   console.log(req.file);
-  next();
+  res.json({message: 'Você fez upload.'});
+  // Use next() if more backend operations are necessary
+  // next();
 });
 
 module.exports = router;
