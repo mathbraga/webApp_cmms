@@ -25,7 +25,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json());
-// app.use(express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
 app.use(cookieSession({
   name: 'cmms:session',
   keys: ['key0', 'key1', 'key2'],

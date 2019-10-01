@@ -28,7 +28,7 @@ class Dashboard extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="flex-row align-items-center">
+        {/* <div className="flex-row align-items-center">
           <Container>
             <Row className="justify-content-center">
               <Col md="8">
@@ -57,15 +57,15 @@ class Dashboard extends Component {
                         >repositório no GitHub
                           {" "}<i className="fa fa-github"></i>
                         </a>
-                      </p> */}
+                      </p> 
                     </div>
                   </CardBody>
                 </Card>
               </Col>
             </Row>
           </Container>
-        </div>
-
+        </div> */}
+{/*
         <Card>
           <CardHeader>
             <Row>
@@ -78,8 +78,12 @@ class Dashboard extends Component {
             </Row>
           </CardHeader>
           <CardBody>
-            <Form
-                  // enctype="multipart/form-data">
+
+
+
+
+             <Form
+                  enctype="multipart/form-data">
               >
               <Row>
                 <Col xs="4">
@@ -94,7 +98,7 @@ class Dashboard extends Component {
                     />
                   </FormGroup>
                 </Col>
-                {/* <Col xs="4">
+                 <Col xs="4">
                   {this.state.isSelected
                     ? <p className="my-2">Arquivo selecionado:
                         <strong>
@@ -103,7 +107,7 @@ class Dashboard extends Component {
                     </p>
                     : <p className="text-muted my-2">Nenhum arquivo selecionado</p>
                   }
-                </Col> */}
+                </Col> 
                 <Col xs="4">
                   <Button
                     className=""
@@ -115,10 +119,12 @@ class Dashboard extends Component {
                   </Button>
                 </Col>
               </Row>
-            </Form>
+            </Form> 
           </CardBody>
         </Card>
+        */}
 
+          <img src="http://localhost:3001/uploads/full-moon.jpg" alt="foto"/>
 
       </React.Fragment>
     );
