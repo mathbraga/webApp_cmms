@@ -790,13 +790,13 @@ create trigger log_changes
 
 -- run file with insert commands and comments (this file should have win1252 encoding)
 \i insertswin1252.sql
--- Content of inserts.sql:
+-- Content of inserts file:
 -- -- insert rows into tables
 -- -- create comments
 -- -- alter sequences (currently not necessary, since inserts use default values)
 
 -- this trigger must be created after inserts to avoid error during first asset insert;
--- this trigger must be on in production environment
+-- this trigger must exist in production environment
 create trigger check_before_insert
   before insert or update on assets
   for each row execute function check_asset_integrity();
