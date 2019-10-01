@@ -789,7 +789,7 @@ create trigger log_changes
 -- set variable to allow log of initial rows insertions
 
 -- run file with insert commands and comments (this file should have win1252 encoding)
-\i inserts.sql
+\i insertswin1252.sql
 -- Content of inserts.sql:
 -- -- insert rows into tables
 -- -- create comments
