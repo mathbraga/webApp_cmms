@@ -173,27 +173,9 @@ class WorkOrdersList extends Component {
           handleCardButton={this.handleURLChange}
           buttonName={'Cadastrar OS'}
         >
-          <Row style={{ marginTop: "10px", marginBottom: "5px" }}>
-            <Col md="2">
-              <Button
-                color="dark"
-                className="button-inside"
-                outline
-                style={{ marginLeft: "10px" }}
-              >
-                <img src={hierarchyItem} alt="" style={{ width: "100%", height: "100%" }} />
-              </Button>
-              <Button
-                color="dark"
-                className="button-inside"
-                outline
-                style={{ marginLeft: "20px" }}
-              >
-                <img src={listItem} alt="" style={{ width: "100%", height: "100%" }} />
-              </Button>
-            </Col>
-            <Col md="4">
-              <form>
+          <div className="card-search-container">
+            <div className="search" style={{ width: "30%" }}>
+              <form className="card-search-form">
                 <InputGroup>
                   <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
                   <InputGroupAddon addonType="append">
@@ -201,23 +183,33 @@ class WorkOrdersList extends Component {
                   </InputGroupAddon>
                 </InputGroup>
               </form>
-            </Col>
-            <Col md="6">
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <TableWithPages
-                thead={thead}
-                tbody={tbody}
-                pagesTotal={pagesTotal}
-                pageCurrent={pageCurrent}
-                goToPage={goToPage}
-                setCurrentPage={this.setCurrentPage}
-                setGoToPage={this.setGoToPage}
-              />
-            </Col>
-          </Row>
+            </div>
+            <div className="search-filter" style={{ width: "30%" }}>
+              <ol>
+                <li><span className="card-search-title">Filtro: </span></li>
+                <li><span className="card-search-title">Regras: </span></li>
+              </ol>
+              <ol>
+                <li>Serviços da Coemant</li>
+                <li>Coemant / 2019 / Não concluído</li>
+              </ol>
+            </div>
+            <div className="search-buttons" style={{ width: "30%" }}>
+              <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
+              <Button className="search-filter-button" color="primary">Criar Filtro</Button>
+            </div>
+          </div>
+          <div className="list-container">
+            <TableWithPages
+              thead={thead}
+              tbody={tbody}
+              pagesTotal={pagesTotal}
+              pageCurrent={pageCurrent}
+              goToPage={goToPage}
+              setCurrentPage={this.setCurrentPage}
+              setGoToPage={this.setGoToPage}
+            />
+          </div>
         </AssetCard >
       </div>
     );
