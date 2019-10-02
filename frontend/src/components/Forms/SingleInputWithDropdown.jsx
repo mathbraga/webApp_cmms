@@ -26,11 +26,12 @@ class SingleInputWithDropDown extends Component {
     this.onClickItem = this.onClickItem.bind(this);
     this.updateChosenValue = this.updateChosenValue.bind(this);
     this.handleClickOutsideDrop = this.handleClickOutsideDrop.bind(this);
+    this.resetScroll = this.resetScroll.bind(this);
     this.arrayItems = {};
   }
 
   onChangeInput(event) {
-    this.listContainer.scrollToRow(0);
+    this.resetScroll();
     this.setState({
       inputValue: event.target.value,
       hoveredItem: 0,
@@ -130,6 +131,12 @@ class SingleInputWithDropDown extends Component {
         isDropdownOpen: false,
       });
     }
+  }
+
+  resetScroll(){
+    if (this.listContainer === null)
+      return null
+    return this.listContainer.scrollToPosition(0);
   }
 
   render() {
