@@ -134,8 +134,7 @@ class FacilitiesForm extends Component {
             departmentsArray: $depsArray
           }
         ){
-        clientMutationId
-        string
+        newFacilityId
       }
     }`;
 
@@ -196,7 +195,8 @@ class FacilitiesForm extends Component {
                       className="form-horizontal"
                       onSubmit={e => {
                         e.preventDefault();
-                        mutate(mutation)
+                        mutate(mutation);
+                        this.props.history.push('/ativos/edificios');
                       }}
                       onReset={() => this.props.history.push('/ativos/edificios')}
                     >
