@@ -26,6 +26,7 @@ class InputWithDropdown extends Component {
     this.onClickItem = this.onClickItem.bind(this);
     this.updateChosenValue = this.updateChosenValue.bind(this);
     this.handleClickOutsideDrop = this.handleClickOutsideDrop.bind(this);
+    this.handleSelectOutsideDrop = this.handleSelectOutsideDrop.bind(this);
     this.arrayItems = {};
   }
 
@@ -120,13 +121,30 @@ class InputWithDropdown extends Component {
 
   componentDidMount() {
     document.addEventListener('mouseup', this.handleClickOutsideDrop);
+    document.addEventListener('keyup', this.handleSelectOutsideDrop);
   }
 
   componentWillMount() {
     document.removeEventListener('mouseup', this.handleClickOutsideDrop);
+    document.removeEventListener('keyup', this.handleSelectOutsideDrop);
   }
 
   handleClickOutsideDrop() {
+    if (document.activeElement.id !== 'input-list-' + this.props.id &&
+      document.activeElement.id !== 'list-container-' + this.props.id) {
+      this.setState({
+        isDropdownOpen: false,
+      });
+    }
+  }
+
+  handleSelectOutsideDrop(e) {
+    if (e.keyCode === 9 && (document.activeElement.id === 'input-list-' + this.props.id)) {
+      this.setState({
+        isDropdownOpen: true,
+        inputValue: "",
+      });
+    }
     if (document.activeElement.id !== 'input-list-' + this.props.id &&
       document.activeElement.id !== 'list-container-' + this.props.id) {
       this.setState({
