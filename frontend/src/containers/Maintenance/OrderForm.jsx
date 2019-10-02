@@ -354,6 +354,7 @@ class OrderForm extends Component {
                                 placeholder="Situação da OS"
                                 listDropdown={ORDER_STATUS}
                                 update={this.handleStatusDropDownChange}
+                                id={'status'}
                               />
                             </FormGroup>
                           </Col>
@@ -364,6 +365,7 @@ class OrderForm extends Component {
                                 placeholder="Prioridade da OS"
                                 listDropdown={ORDER_PRIORITY}
                                 update={this.handlePriorityDropDownChange}
+                                id={'priority'}
                               />
                             </FormGroup>
                           </Col>
@@ -374,6 +376,7 @@ class OrderForm extends Component {
                                 placeholder="Categoria da OS"
                                 listDropdown={ORDER_CATEGORY}
                                 update={this.handleCategoryDropDownChange}
+                                id={'category'}
                               />
                             </FormGroup>
                           </Col>
@@ -422,6 +425,7 @@ class OrderForm extends Component {
                                 placeholder="Nível superior da localização ..."
                                 listDropdown={orders}
                                 update={this.handleParentDropDownChange}
+                                id={'order-parent'}
                               />
                             </FormGroup>
                           </Col>
@@ -436,6 +440,7 @@ class OrderForm extends Component {
                                 placeholder={'Ativos alvos da manutenção ...'}
                                 listDropdown={assets}
                                 update={this.handleAssetsDropDownChange}
+                                id={'assets'}
                               />
                             </FormGroup>
                           </Col>
@@ -447,6 +452,7 @@ class OrderForm extends Component {
                               placeholder={'Localização da manutenção ...'}
                               listDropdown={assets}
                               update={() => console.log()}
+                              id={'location'}
                             />
                           </Col>
                         </FormGroup>

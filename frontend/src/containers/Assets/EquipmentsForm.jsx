@@ -233,6 +233,7 @@ class EquipmentsForm extends Component {
                                 placeholder="Nível superior do equipamento (outro equipamento ou localização)"
                                 listDropdown={appliances}
                                 update={this.handleParentDropDownChange}
+                                id={'appliances'}
                               />
                             </FormGroup>
                           </Col>
@@ -252,6 +253,7 @@ class EquipmentsForm extends Component {
                               placeholder={'Localização da manutenção ...'}
                               listDropdown={assets}
                               update={this.handleLocationDropDownChange}
+                              id={'location'}
                             />
                           </Col>
                         </FormGroup>

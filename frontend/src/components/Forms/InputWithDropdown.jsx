@@ -37,7 +37,7 @@ class InputWithDropdown extends Component {
     });
   }
 
-  toggleDropdown(isDropdownOpen) {
+  toggleDropdown(isDropdownOpen = !this.state.isDropdownOpen) {
     this.setState(prevState => ({
       isDropdownOpen,
       hoveredItem: isDropdownOpen ? 0 : prevState.hoveredItem,
@@ -125,7 +125,8 @@ class InputWithDropdown extends Component {
   }
 
   handleClickOutsideDrop(){
-    if(document.activeElement.id !== 'input-list' && document.activeElement !== 'list-container'){
+    if(document.activeElement.id !== 'input-list-' + this.props.id && 
+    document.activeElement.id !== 'list-container-' + this.props.id){
       this.setState({
         isDropdownOpen: false,
       });
@@ -135,6 +136,8 @@ class InputWithDropdown extends Component {
   render() {
     const { label, placeholder, listDropdown } = this.props;
     const { inputValue, isDropdownOpen, hoveredItem, chosenValue } = this.state;
+    const inputId = 'input-list-' + this.props.id;
+    const containerId = 'list-container-' + this.props.id;
     const filteredList = listDropdown.filter((item) =>
       (
         item.text.toLowerCase().includes(inputValue.toLowerCase())
@@ -172,7 +175,7 @@ class InputWithDropdown extends Component {
         <Input
           type="text"
           autoComplete="off"
-          id="department"
+          id={inputId}
           style={chosenValue.length === 0 ? {} : { marginTop: "10px" }}
           value={inputValue}
           placeholder={placeholder}
@@ -188,6 +191,7 @@ class InputWithDropdown extends Component {
             {({ width }) => (
               <List
                 className={"dropdown-input"}
+                id={containerId}
                 ref={(el) => { this.listContainer = el }}
                 width={width}
                 height={boxHeight}

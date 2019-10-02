@@ -239,6 +239,7 @@ class FacilitiesForm extends Component {
                         placeholder="Nível superior da localização ..."
                         listDropdown={facs}
                         update={this.handleFacilitiesDropDownChange}
+                        id={'parent'}
                       />
                     </FormGroup>
                   </Col>
@@ -258,6 +259,7 @@ class FacilitiesForm extends Component {
                       placeholder={'Departamentos que utilizam esta área ...'}
                       listDropdown={deps}
                       update={this.handleDepartmentsDropDownChange}
+                      id={'departments'}
                     />
                   </Col>
                 </FormGroup>
