@@ -124,7 +124,7 @@ class Dashboard extends Component {
         </Card>
         */}
 
-          <img src="http://localhost:3001/uploads/full-moon.jpg" alt="foto"/>
+          <img src="http://localhost:3001/photos/full-moon.jpg" alt="foto"/>
 
       </React.Fragment>
     );
