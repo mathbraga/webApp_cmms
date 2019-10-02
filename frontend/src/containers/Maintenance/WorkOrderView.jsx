@@ -1,13 +1,38 @@
 import React, { Component } from "react";
 import getWorkOrder from "../../utils/maintenance/getWorkOrder";
 import AssetCard from "../../components/Cards/AssetCard";
-import { Row, Col, Button, Badge, Nav, NavItem, NavLink, TabContent, TabPane, CustomInput } from "reactstrap";
+import {
+  Row,
+  Col,
+  Button,
+  Badge,
+  Nav,
+  NavItem,
+  NavLink,
+  TabContent,
+  TabPane,
+  CustomInput,
+  InputGroup,
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+} from "reactstrap";
 import '../Assets/AssetInfo.css';
+import TableWithPages from "../../components/Tables/TableWithPages";
 
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const descriptionImage = require("../../assets/img/test/order_picture.png");
+
+const searchItem = require("../../assets/icons/search_icon.png");
+
+const ENTRIES_PER_PAGE = 15;
+
+const tableConfig = [
+  { name: "Equipamento / Ativo", style: { width: "300px" }, className: "text-justifyr" },
+  { name: "Localização", style: { width: "200px" }, className: "text-center" },
+];
 
 const ORDER_CATEGORY_TYPE = {
   'EST': 'Avaliação estrutural',
@@ -49,15 +74,36 @@ class WorkOrderView extends Component {
     super(props);
     this.state = {
       tabSelected: "info",
-    }
+      pageCurrent: 1,
+      goToPage: 1,
+      searchTerm: "",
+    };
     this.handleClickOnNav = this.handleClickOnNav.bind(this);
+    this.setGoToPage = this.setGoToPage.bind(this);
+    this.setCurrentPage = this.setCurrentPage.bind(this);
+    this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
   }
 
   handleClickOnNav(tabSelected) {
     this.setState({ tabSelected: tabSelected });
   }
 
+  setGoToPage(page) {
+    this.setState({ goToPage: page });
+  }
+
+  setCurrentPage(pageCurrent) {
+    this.setState({ pageCurrent: pageCurrent }, () => {
+      this.setState({ goToPage: pageCurrent });
+    });
+  }
+
+  handleChangeSearchTerm(event) {
+    this.setState({ searchTerm: event.target.value, pageCurrent: 1, goToPage: 1 });
+  }
+
   render() {
+    const { pageCurrent, goToPage, searchTerm, tabSelected } = this.state;
     const orderId = Number(this.props.location.pathname.slice(20));
     const woQueryInfo = gql`
       query ($orderId: Int!) {
@@ -70,7 +116,6 @@ class WorkOrderView extends Component {
           requestDepartment
           completed
           contractId
-          createdAt
           dateEnd
           dateLimit
           dateStart
@@ -81,11 +126,32 @@ class WorkOrderView extends Component {
           requestPerson
           requestText
           requestTitle
-          updatedAt
+          orderByParent {
+            requestTitle
+            orderId
+            priority
+            status
+            dateStart
+            dateLimit
+          }
+          createdAt
+          orderAssetsByOrderId {
+            nodes {
+              assetByAssetId {
+                assetId
+                name
+                category
+                place
+                assetByPlace {
+                  name
+                  assetId
+                }
+              }
+            }
+          }
         }
       }
     `;
-    const { tabSelected } = this.state;
 
     return (
       <Query
@@ -99,7 +165,53 @@ class WorkOrderView extends Component {
               return null
             }
             const orderInfo = data.orderByOrderId;
+            const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
             console.log("WO Data: ", orderInfo);
+
+            const assetsByOrder = orderInfo.orderAssetsByOrderId.nodes;
+            const pageLength = assetsByOrder.length;
+
+            console.log("AssetsByOrder: ", assetsByOrder);
+
+            let filteredItems = assetsByOrder;
+            if (searchTerm.length > 0) {
+              const searchTermLower = searchTerm.toLowerCase();
+              filteredItems = assetsByOrder.filter(function (item) {
+                return (
+                  // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
+                  item.assetByAssetId.name.toLowerCase().includes(searchTermLower) ||
+                  item.assetByAssetId.assetId.toLowerCase().includes(searchTermLower)
+                );
+              });
+            }
+
+            const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
+            const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+
+            const thead =
+              (<tr>
+                <th className="text-center checkbox-cell">
+                  <CustomInput type="checkbox" />
+                </th>
+                {tableConfig.map(column => (
+                  <th style={column.style} className={column.className}>{column.name}</th>))
+                }
+              </tr>);
+
+            const tbody = showItems.map(item => (
+              <tr
+                onClick={() => { this.props.history.push('/ativos/view/' + item.assetByAssetId.assetId) }}
+              >
+                <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
+                <td>
+                  <div>{item.assetByAssetId.name}</div>
+                  <div className="small text-muted">{item.assetByAssetId.assetId}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.assetByAssetId.place}</div>
+                </td>
+              </tr>));
+
             return (
               <div className="asset-container">
                 <AssetCard
@@ -153,16 +265,13 @@ class WorkOrderView extends Component {
                           <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Localização</NavLink>
+                          <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Dados do Solicitante</NavLink>
                         </NavItem>
                         <NavItem>
                           <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Ativos</NavLink>
                         </NavItem>
                         <NavItem>
                           <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Arquivos</NavLink>
-                        </NavItem>
-                        <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("asset") }} active={tabSelected === "asset"} >Solicitante</NavLink>
                         </NavItem>
                         <NavItem>
                           <NavLink onClick={() => { this.handleClickOnNav("file") }} active={tabSelected === "file"} >Atribuido para</NavLink>
@@ -173,19 +282,209 @@ class WorkOrderView extends Component {
                       </Nav>
                       <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
                         <TabPane tabId="info" style={{ width: "100%" }}>
-                          <div>
-                            Informações gerais sobre o equipamento.
+                          <div className="asset-info-container">
+                            <h1 className="asset-info-title">Detalhes do Serviço</h1>
+                            <div className="asset-info-content">
+                              <Row>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Título do Serviço</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestTitle}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Ordem de Serviço nº</div>
+                                    <div className="asset-info-content-data">{(orderInfo.orderId + "").padStart(4, "0")}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Categoria</div>
+                                    <div className="asset-info-content-data">{ORDER_CATEGORY_TYPE[orderInfo.category]}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Local</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestLocal}</div>
+                                  </div>
+                                </Col>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Status</div>
+                                    <div className="asset-info-content-data">{ORDER_STATUS_TYPE[orderInfo.status]}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Percentual Executado</div>
+                                    <div className="asset-info-content-data">{orderInfo.completed + "% executado"}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Prioridade</div>
+                                    <div className="asset-info-content-data">{ORDER_PRIORITY_TYPE[orderInfo.priority]}</div>
+                                  </div>
+                                </Col>
+                              </Row>
+                              <div className="asset-info-single-container">
+                                <div className="desc-sub">Descrição Técnica do Serviço</div>
+                                <div className="asset-info-content-data">{orderInfo.requestText}</div>
+                              </div>
+                            </div>
+                            <h1 className="asset-info-title">Prazos e Datas</h1>
+                            <div className="asset-info-content">
+                              <Row>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Criação da OS</div>
+                                    <div className="asset-info-content-data">{orderInfo.createdAt ? orderInfo.createdAt.split("T")[0] : "Não registrado"}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Início da Execução</div>
+                                    <div className="asset-info-content-data">{orderInfo.dateStart ? orderInfo.dateStart.split("T")[0] : "Serviço não iniciado"}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Término da Execução</div>
+                                    <div className="asset-info-content-data">{orderInfo.dateEnd ? orderInfo.dateEnd.split("T")[0] : "Serviço não finalizado"}</div>
+                                  </div>
+                                </Col>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Prazo Final</div>
+                                    <div className="asset-info-content-data">{orderInfo.dateLimit && orderInfo.dateLimit.split("T")[0]}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Dias de Atraso</div>
+                                    <div className="asset-info-content-data">
+                                      {daysOfDelay <= 0 ? "Serviço sem atraso" : Math.trunc(daysOfDelay)}
+                                    </div>
+                                  </div>
+                                </Col>
+                              </Row>
+                            </div>
+                            {orderInfo.orderByParent && (
+                              <React.Fragment>
+                                <h1 className="asset-info-title">Ordem de Serviço Pai</h1>
+                                <div className="asset-info-content">
+                                  <Row>
+                                    <Col md="6">
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Título do Serviço</div>
+                                        <div className="asset-info-content-data">{orderInfo.orderByParent.requestTitle}</div>
+                                      </div>
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Ordem de Serviço nº</div>
+                                        <div className="asset-info-content-data">{orderInfo.orderByParent.orderId.toString().padStart(4, "0")}</div>
+                                      </div>
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Status</div>
+                                        <div className="asset-info-content-data">{ORDER_STATUS_TYPE[orderInfo.orderByParent.status]}</div>
+                                      </div>
+                                    </Col>
+                                    <Col md="6">
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Prioridade</div>
+                                        <div className="asset-info-content-data">{ORDER_PRIORITY_TYPE[orderInfo.orderByParent.priority]}</div>
+                                      </div>
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Início da Execução</div>
+                                        <div className="asset-info-content-data">{orderInfo.orderByParent.dateStart ? orderInfo.orderByParent.dateStart.split("T")[0] : "Serviço não iniciado"}</div>
+                                      </div>
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Prazo Final</div>
+                                        <div className="asset-info-content-data">{orderInfo.orderByParent.dateLimit && orderInfo.orderByParent.dateLimit.split("T")[0]}</div>
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                </div>
+                              </React.Fragment>
+                            )}
                           </div>
                         </TabPane>
                         <TabPane tabId="location" style={{ width: "100%" }}>
-                          <div>
-                            Localização do equipamento.
+                          <div className="asset-info-container">
+                            <h1 className="asset-info-title">Solicitante</h1>
+                            <div className="asset-info-content">
+                              <Row>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Nome do Solicitante</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestPerson}</div>
+                                  </div>
+                                </Col>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Departamento</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestDepartment}</div>
+                                  </div>
+                                </Col>
+                              </Row>
+                            </div>
+                            <h1 className="asset-info-title">Contato</h1>
+                            <div className="asset-info-content">
+                              <Row>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Nome do Contato</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestContactName}</div>
+                                  </div>
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Telefone para Contato</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestContactPhone}</div>
+                                  </div>
+                                </Col>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">E-mail para Contato</div>
+                                    <div className="asset-info-content-data">{orderInfo.requestContactEmail}</div>
+                                  </div>
+                                </Col>
+                              </Row>
+                            </div>
                           </div>
                         </TabPane>
                         <TabPane tabId="maintenance" style={{ width: "100%" }}>
-                          <div>
-                            Lista de manutenção.
-                           </div>
+                          <div className="asset-info-container">
+                            <h1 className="asset-info-title">Lista de Ativos</h1>
+                            <div className="asset-info-content">
+                              <Row>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Quantidade de Ativos</div>
+                                    <div className="asset-info-content-data">{pageLength.toString().padStart(3, "0")}</div>
+                                  </div>
+                                </Col>
+                              </Row>
+                            </div>
+                            <div className="card-search-container" style={{ marginTop: "30px" }}>
+                              <div className="search" style={{ width: "30%" }}>
+                                <form className="card-search-form">
+                                  <InputGroup>
+                                    <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
+                                    <InputGroupAddon addonType="append">
+                                      <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
+                                    </InputGroupAddon>
+                                  </InputGroup>
+                                </form>
+                              </div>
+                              <div className="search-filter" style={{ width: "30%" }}>
+                                <ol>
+                                  <li><span className="card-search-title">Filtro: </span></li>
+                                  <li><span className="card-search-title">Regras: </span></li>
+                                </ol>
+                                <ol>
+                                  <li>Sem filtro</li>
+                                  <li>Mostrar todos itens</li>
+                                </ol>
+                              </div>
+                              <div className="search-buttons" style={{ width: "30%" }}>
+                                <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
+                                <Button className="search-filter-button" color="primary">Criar Filtro</Button>
+                              </div>
+                            </div>
+                            <TableWithPages
+                              thead={thead}
+                              tbody={tbody}
+                              pagesTotal={pagesTotal}
+                              pageCurrent={pageCurrent}
+                              goToPage={goToPage}
+                              setCurrentPage={this.setCurrentPage}
+                              setGoToPage={this.setGoToPage}
+                            />
+                          </div>
                         </TabPane>
                         <TabPane tabId="warranty" style={{ width: "100%" }}>
                           <div>

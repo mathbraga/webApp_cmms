@@ -25,6 +25,7 @@ import fetchDB from "../../utils/fetch/fetchDB";
 import { connect } from "react-redux";
 import { compose } from 'redux';
 import { withRouter } from "react-router";
+import replaceNull from '../../utils/text/replaceNull';
 
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -118,8 +119,6 @@ class FacilitiesInfo extends Component {
     edges.forEach(item => statusCounter[item.node.orderByOrderId.status] += 1);
     const totalOS = edges.length;
 
-    console.log("statusCounter: ", statusCounter);
-
     let filteredItems = edges;
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
@@ -173,7 +172,6 @@ class FacilitiesInfo extends Component {
         </td>
       </tr>))
 
-    console.log("AssetsInfo: ", assetsInfo);
     return (
       <div className="asset-container">
         <AssetCard
@@ -211,14 +209,14 @@ class FacilitiesInfo extends Component {
                 <Row>
                   <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Departamento(s)</span></Col>
                   <Col md="9" style={{ display: "flex", alignItems: "center" }}>
-                    <span>{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ')}</span>
+                    <span>{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ') || "Não cadastrado"}</span>
                   </Col>
                 </Row>
               </div>
               <div>
                 <Row>
                   <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Área</span></Col>
-                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.area}</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.area + " m²"}</span></Col>
                 </Row>
               </div>
             </Col>
@@ -234,9 +232,6 @@ class FacilitiesInfo extends Component {
                 </NavItem>
                 <NavItem>
                   <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Manutenções</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Garantia</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink onClick={() => { this.handleClickOnNav("asset") }} active={tabSelected === "asset"} >Ativos</NavLink>
@@ -267,7 +262,7 @@ class FacilitiesInfo extends Component {
                         <Col md="6">
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Departamento (s)</div>
-                            <div className="asset-info-content-data">{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ')}</div>
+                            <div className="asset-info-content-data">{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ') || "Não cadastrado"}</div>
                           </div>
                         </Col>
                       </Row>
@@ -320,7 +315,7 @@ class FacilitiesInfo extends Component {
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Manutenções Pendentes</div>
                             <div className="asset-info-content-data">
-                              {((statusCounter['FIL'] + statusCounter['PEN'] + statusCounter['SUS']) + "").padStart(4, "0")}
+                              {((statusCounter['FIL'] + statusCounter['EXE'] + statusCounter['PEN'] + statusCounter['SUS']) + "").padStart(4, "0")}
                             </div>
                           </div>
                           <div className="asset-info-single-container">
@@ -355,8 +350,10 @@ class FacilitiesInfo extends Component {
                           </FormGroup>
                         </Col>
                       </Row>
-                      <div className="asset-info-table-search">
-                        <form>
+                    </div>
+                    <div className="card-search-container" style={{ marginTop: "30px" }}>
+                      <div className="search" style={{ width: "30%" }}>
+                        <form className="card-search-form">
                           <InputGroup>
                             <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
                             <InputGroupAddon addonType="append">
@@ -364,6 +361,20 @@ class FacilitiesInfo extends Component {
                             </InputGroupAddon>
                           </InputGroup>
                         </form>
+                      </div>
+                      <div className="search-filter" style={{ width: "30%" }}>
+                        <ol>
+                          <li><span className="card-search-title">Filtro: </span></li>
+                          <li><span className="card-search-title">Regras: </span></li>
+                        </ol>
+                        <ol>
+                          <li>Sem filtro</li>
+                          <li>Mostrar todos itens</li>
+                        </ol>
+                      </div>
+                      <div className="search-buttons" style={{ width: "30%" }}>
+                        <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
+                        <Button className="search-filter-button" color="primary">Criar Filtro</Button>
                       </div>
                     </div>
                     <TableWithPages
@@ -377,35 +388,7 @@ class FacilitiesInfo extends Component {
                     />
                   </div>
                 </TabPane>
-                <TabPane tabId="warranty" style={{ width: "100%" }}>
-                  <div className="asset-info-container">
-                    <h1 className="asset-info-title">Dados da Garantia</h1>
-                    <div className="asset-info-content">
-                      <Row>
-                        <Col md="6">
-                          <div className="asset-info-single-container">
-                            <div className="desc-sub">Fornecedor</div>
-                            <div className="asset-info-content-data">Over Elevadores Ltda</div>
-                          </div>
-                          <div className="asset-info-single-container">
-                            <div className="desc-sub">Telefone</div>
-                            <div className="asset-info-content-data">(61) 3256-4562</div>
-                          </div>
-                        </Col>
-                        <Col md="6">
-                          <div className="asset-info-single-container">
-                            <div className="desc-sub">Data Inicial</div>
-                            <div className="asset-info-content-data">01/01/2019</div>
-                          </div>
-                          <div className="asset-info-single-container">
-                            <div className="desc-sub">Data Final</div>
-                            <div className="asset-info-content-data">01/01/2022</div>
-                          </div>
-                        </Col>
-                      </Row>
-                    </div>
-                  </div>
-                </TabPane>
+
                 <TabPane tabId="asset" style={{ width: "100%" }}>
                   <div>
                     Lista de ativo.

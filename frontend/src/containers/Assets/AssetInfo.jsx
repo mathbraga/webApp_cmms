@@ -64,6 +64,20 @@ class AssetInfo extends Component {
               }
             }
           }
+          assetByPlace {
+            assetId
+            latitude
+            longitude
+            name
+            assetDepartmentsByAssetId {
+              nodes {
+                departmentByDepartmentId {
+                  fullName
+                  departmentId
+                }
+              }
+            }
+          }
         }
       }
     `;
