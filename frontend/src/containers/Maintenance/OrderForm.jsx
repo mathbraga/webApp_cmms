@@ -107,7 +107,7 @@ const contract = [
 
 const ordersQuery = gql`
         query MyQuery {
-          allOrders (orderBy: ORDER_ID_ASC){
+          allOrders(orderBy: ORDER_ID_ASC) {
             edges {
               node {
                 orderId
@@ -115,12 +115,18 @@ const ordersQuery = gql`
               }
             }
           }
-          allAssets (orderBy: ASSET_ID_ASC){
+          allAssets(orderBy: ASSET_ID_ASC) {
             edges {
               node {
                 assetId
                 name
               }
+            }
+          }
+          allDepartments {
+            nodes {
+              departmentId
+              fullName
             }
           }
         }`;
@@ -154,6 +160,7 @@ class OrderForm extends Component {
     this.handleParentDropDownChange = this.handleParentDropDownChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleAssetsDropDownChange = this.handleAssetsDropDownChange.bind(this);
+    this.handleDepartmentDropDownChange = this.handleDepartmentDropDownChange.bind(this);
   }
 
   toggle(tab) {
@@ -178,6 +185,10 @@ class OrderForm extends Component {
 
   handleParentDropDownChange(parent) {
     this.setState({ parent: parent });
+  }
+
+  handleDepartmentDropDownChange(requestDepartment) {
+    this.setState({ requestDepartment: requestDepartment });
   }
 
   handleAssetsDropDownChange(assets) {
@@ -283,6 +294,14 @@ class OrderForm extends Component {
                 //console.log(orderID);
                 //console.log(orderText);
 
+                const departments = data.allDepartments.nodes.map(item => {
+                  return {
+                    id: item.departmentId,
+                    text: item.fullName,
+                    subtext: item.departmentId
+                  };
+                });
+
                 const orders = [];
                 for (let i = 0; i < orderID.length; i++)
                   orders.push({ id: orderID[i], text: "OS " + orderID[i] + " - " + orderText[i], subtext: "" });
@@ -297,7 +316,8 @@ class OrderForm extends Component {
                       className="form-horizontal"
                       onSubmit={e => {
                         e.preventDefault();
-                        mutate(mutation)
+                        mutate(mutation);
+                        this.props.history.push('/manutencao/os');
                       }}
                       onReset={() => this.props.history.push('/manutencao/os')}
                     >
@@ -469,10 +489,13 @@ class OrderForm extends Component {
                               </Col>
                               <Col xs='6'>
                                 <FormGroup>
-                                  <Label htmlFor="request_department">Departamento do Solicitante</Label>
-                                  <Input
-                                    onChange={this.handleInputChange}
-                                    name="requestDepartment" type="text" id="request_department" placeholder="Departamento da pessoa que abriu a solicitação" />
+                                  <SingleInputWithDropDown
+                                    label={'Departamento do Solicitante'}
+                                    placeholder="Departamento da pessoa que abriu a solicitação"
+                                    listDropdown={departments}
+                                    update={this.handleDepartmentDropDownChange}
+                                    id={'status'}
+                                  />
                                 </FormGroup>
                               </Col>
                             </FormGroup>
