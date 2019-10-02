@@ -2,13 +2,13 @@
 \c hzl
 
 -- drop database
-drop database if exists cmms3;
+drop database if exists cmms4;
 
 -- create new database
-create database cmms3 with owner postgres template template0 encoding 'win1252';
+create database cmms4 with owner postgres template template0 encoding 'win1252';
 
 -- connect to the new database
-\c cmms3
+\c cmms4
 
 -- create extensions
 create extension if not exists pgcrypto;
@@ -69,6 +69,9 @@ create type order_category_type as enum (
   'VED',
   'VID'
 );
+create type person_role_type as enum (
+  'auth'
+);
 
 -- create tables
 create table assets (
@@ -120,9 +123,8 @@ create table persons (
 create table private.accounts (
   person_id integer not null references persons (person_id),
   password_hash text not null,
-  created_at timestamptz not null,
-  updated_at timestamptz not null,
-  is_active boolean not null default true
+  is_active boolean not null default true,
+  person_role person_role_type not null default 'auth'
 );
 
 create table orders (
@@ -144,16 +146,13 @@ create table orders (
   date_limit timestamptz,
   date_start timestamptz,
   date_end timestamptz,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
+  created_at timestamptz default now()
 );
 
 create table order_messages (
   order_id integer not null references orders (order_id),
   person_id integer not null references persons (person_id),
-  message text not null,
-  created_at timestamptz not null,
-  updated_at timestamptz not null
+  message text not null
 );
 
 create table order_assets (
@@ -198,19 +197,20 @@ create table specs (
 );
 
 create table supplies (
-  contract_id integer not null references contracts (contract_id),
+  contract_id text not null references contracts (contract_id),
   supply_id text not null,
   spec_id integer references specs (spec_id),
   description text,
   qty_initial real not null,
   is_qty_real boolean not null,
   unit text not null,
+  price money not null,
   primary key (contract_id, supply_id)
 );
 
 create table order_supplies (
   order_id integer not null references orders (order_id),
-  contract_id integer not null,
+  contract_id text not null,
   supply_id text not null,
   qty real not null,
   primary key (order_id, contract_id, supply_id),
@@ -273,24 +273,28 @@ create view balances as
       group by os.contract_id, os.supply_id
     ),
     both_cases as (
-      select s.contract_id,
-             s.supply_id,
-             s.qty_available as qty_initial,
-             coalesce(sum(blocked), 0) as blocked,
-             coalesce(sum(consumed), 0) as consumed
-        from supplies as s
-        inner join unfinished using (contract_id, supply_id)
+      select contract_id,
+             supply_id,
+             sum(coalesce(blocked, 0)) as blocked,
+             sum(coalesce(consumed, 0)) as consumed
+        from unfinished
         full outer join finished using (contract_id, supply_id)
-      group by s.contract_id, s.supply_id
+      group by contract_id, supply_id
     )
-    select *,
-          qty_initial - blocked - consumed as available
-      from both_cases;
+    select s.contract_id,
+           s.supply_id,
+           s.qty_initial,
+           bc.blocked,
+           bc.consumed,
+           s.qty_initial - bc.blocked - bc.consumed as available
+      from both_cases as bc
+      inner join supplies as s using (contract_id, supply_id);
 
 -- create functions
 create or replace function register_user (
   person_attributes persons,
-  input_password text
+  input_password text,
+  input_person_role person_role_type
 ) returns persons
 language plpgsql
 strict
@@ -323,15 +327,13 @@ begin
   insert into private.accounts (
     person_id,
     password_hash,
-    created_at,
-    updated_at,
-    is_active
+    is_active,
+    person_role
   ) values (
     new_user.person_id,
     crypt(input_password, gen_salt('bf', 10)),
-    now(),
-    now(),
-    true
+    true,
+    input_person_role
   );
 
   return new_user;
@@ -339,15 +341,16 @@ begin
 end; $$;
 
 create or replace function authenticate (
-  input_email    text,
-  input_password text
-) returns integer
+  in input_email    text,
+  in input_password text,
+  out user_data text
+)
 language sql
 stable
 strict
 security definer
 as $$
-  select p.person_id
+  select p.person_id::text || '-' || a.person_role::text as user_data
     from persons as p
     join private.accounts as a using(person_id)
     where p.email = input_email
@@ -414,7 +417,7 @@ create or replace function insert_order (
   out new_order_id integer
 )
 language plpgsql
-strict -- this is to make all inputs mandatory (there must be assigned assets in order)
+strict
 as $$
 begin
   insert into orders (
@@ -434,8 +437,8 @@ begin
     request_local,
     date_limit,
     date_start,
-    created_at,
-    contract_id
+    contract_id,
+    created_at
   ) values (
     default,
     order_attributes.status,
@@ -453,8 +456,8 @@ begin
     order_attributes.request_local,
     order_attributes.date_limit,
     order_attributes.date_start,
-    default,
-    order_attributes.contract_id
+    order_attributes.contract_id,
+    now()
   ) returning order_id into new_order_id;
 
   insert into order_assets select new_order_id, unnest(assets_array);
@@ -532,15 +535,31 @@ begin
       appliance_attributes.warranty
     ) where a.asset_id = appliance_attributes.asset_id;
 
-  delete from asset_departments where asset_id = appliance_attributes.asset_id;
-
-  if departments_array is not null then
-    insert into asset_departments select appliance_attributes.asset_id, unnest(departments_array);
-  end if;
+  with added_departments as (
+    select unnest(departments_array) as department_id
+    except
+    select department_id
+      from asset_departments
+      where asset_id = appliance_attributes.asset_id
+  )
+  insert into asset_departments
+    select appliance_attributes.asset_id, department_id from added_departments;
+  
+  with recursive removed_departments as (
+    select department_id
+      from asset_departments
+    where asset_id = appliance_attributes.asset_id
+    except
+    select unnest(departments_array) as department_id
+  )
+  delete from asset_departments
+    where asset_id = appliance_attributes.asset_id
+          and department_id in (select department_id from removed_departments);
 
   modified_appliance_id = appliance_attributes.asset_id;
 
 end; $$;
+
 
 create or replace function modify_facility (
   in facility_attributes facilities,
@@ -571,11 +590,26 @@ begin
       facility_attributes.area
     ) where a.asset_id = facility_attributes.asset_id;
 
-  delete from asset_departments where asset_id = facility_attributes.asset_id;
-
-  if departments_array is not null then
-    insert into asset_departments select facility_attributes.asset_id, unnest(departments_array);
-  end if;
+  with added_departments as (
+    select unnest(departments_array) as department_id
+    except
+    select department_id
+      from asset_departments
+      where asset_id = facility_attributes.asset_id
+  )
+  insert into asset_departments
+    select facility_attributes.asset_id, department_id from added_departments;
+  
+  with recursive removed_departments as (
+    select department_id
+      from asset_departments
+    where asset_id = facility_attributes.asset_id
+    except
+    select unnest(departments_array) as department_id
+  )
+  delete from asset_departments
+    where asset_id = facility_attributes.asset_id
+          and department_id in (select department_id from removed_departments);
 
   modified_facility_id = facility_attributes.asset_id;
 
@@ -607,8 +641,7 @@ begin
       request_title,
       request_local,
       date_limit,
-      date_start,
-      updated_at
+      date_start
     ) = (
       order_attributes.status,
       order_attributes.priority,
@@ -625,31 +658,97 @@ begin
       order_attributes.request_title,
       order_attributes.request_local,
       order_attributes.date_limit,
-      order_attributes.date_start,
-      now()
+      order_attributes.date_start
     ) where o.order_id = order_attributes.order_id;
 
-  delete from order_assets as oa where oa.order_id = order_attributes.order_id;
-
-  if assets_array is not null then
-    insert into order_assets select order_attributes.order_id, unnest(assets_array);
-  end if;
+  with added_assets as (
+    select unnest(assets_array) as asset_id
+    except
+    select asset_id
+      from order_assets
+      where order_id = order_attributes.order_id
+  )
+  insert into order_assets
+    select order_attributes.order_id, asset_id from added_assets;
+  
+  with recursive removed_assets as (
+    select asset_id
+      from order_assets
+    where order_id = order_attributes.order_id
+    except
+    select unnest(assets_array) as asset_id
+  )
+  delete from order_assets
+    where order_id = order_attributes.order_id
+          and asset_id in (select asset_id from removed_assets);
 
   modified_order_id = order_attributes.order_id;
 
 end; $$;
 
--- create comments (included in inserts.sql file)
+create or replace function get_asset_history (
+  in asset_id text,
+  out fullname text,
+  out created_at timestamptz,
+  out operation text,
+  out tablename text,
+  out old_row jsonb,
+  out new_row jsonb
+)
+returns setof record
+security definer
+language sql
+stable
+as $$
+  select p.full_name,
+         l.created_at,
+         l.operation,
+         l.tablename,
+         l.old_row,
+         l.new_row
+    from private.logs as l
+    inner join persons as p using (person_id)
+  where (l.tablename = 'assets' or l.tablename = 'asset_departments' or l.tablename = 'order_assets')
+        and
+        (
+          l.new_row @> ('{"asset_id": "' || asset_id || '"}')::jsonb
+          or
+          l.old_row @> ('{"asset_id": "' || asset_id || '"}')::jsonb
+        );
+$$;
 
--- insert rows into tables (included in inserts.sql file)
-
--- alter sequences (included in inserts.sql file)
+create or replace function get_order_history (
+  in order_id integer,
+  out fullname text,
+  out created_at timestamptz,
+  out operation text,
+  out tablename text,
+  out old_row jsonb,
+  out new_row jsonb
+)
+returns setof record
+security definer
+language sql
+stable
+as $$
+  select p.full_name,
+         l.created_at,
+         l.operation,
+         l.tablename,
+         l.old_row,
+         l.new_row
+    from private.logs as l
+    inner join persons as p using (person_id)
+  where (l.tablename = 'orders' or l.tablename = 'order_assets' or l.tablename = 'order_supplies')
+        and
+        (
+          l.new_row @> ('{"order_id": ' || order_id || '}')::jsonb
+          or
+          l.old_row @> ('{"order_id": ' || order_id || '}')::jsonb
+        );
+$$;
 
 -- create triggers
-create trigger check_before_insert
-  before insert or update on assets
-  for each row execute function check_asset_integrity();
-
 create trigger log_changes
   after insert or update or delete on orders
   for each row execute function create_log();
@@ -660,6 +759,10 @@ create trigger log_changes
 
 create trigger log_changes
   after insert or update or delete on order_assets
+  for each row execute function create_log();
+
+create trigger log_changes
+  after insert or update or delete on order_supplies
   for each row execute function create_log();
 
 create trigger log_changes
@@ -675,8 +778,29 @@ create trigger log_changes
   for each row execute function create_log();
 
 create trigger log_changes
+  after insert or update or delete on supplies
+  for each row execute function create_log();
+
+create trigger log_changes
   after insert or update or delete on departments
   for each row execute function create_log();
+
+---------------------------------------------------------------------------------
+-- set variable to allow log of initial rows insertions
+
+-- run file with insert commands and comments (this file should have win1252 encoding)
+\i insertswin1252.sql
+-- Content of inserts file:
+-- -- insert rows into tables
+-- -- create comments
+-- -- alter sequences (currently not necessary, since inserts use default values)
+
+-- this trigger must be created after inserts to avoid error during first asset insert;
+-- this trigger must exist in production environment
+create trigger check_before_insert
+  before insert or update on assets
+  for each row execute function check_asset_integrity();
+---------------------------------------------------------------------------------
 
 -- create policies
 alter table persons enable row level security;

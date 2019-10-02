@@ -2,6 +2,7 @@
 require('dotenv').config();
 
 // Initialization and imports
+const compression = require('compression'); // Add this in production?
 const express = require('express');
 const app = express();
 const port = 3001;
@@ -13,17 +14,20 @@ const cors = require('cors')
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const authRoute = require('./routes/auth');
+const uploadRoute = require('./routes/upload');
 // const cronJob = require('./cron');
 
 // Configure application (https://expressjs.com/en/4x/api.html#app.set)
 // app.set('trust proxy', 1);
 
 // Middlewares
+// app.use(compression());
 app.use(cors({
   origin: true,
   credentials: true,
 }));
 app.use(express.json());
+app.use(express.static('public'));
 app.use(cookieSession({
   name: 'cmms:session',
   keys: ['key0', 'key1', 'key2'],
@@ -36,6 +40,7 @@ app.use(middleware);
 
 // Routes
 app.use("/auth", authRoute);
+app.use("/db", uploadRoute);
 
 // PostGraphile route
 app.use(postgraphile(
@@ -65,8 +70,7 @@ app.use(postgraphile(
     showErrorStack: 'json',
     extendedErrors: ['hint', 'detail', 'errcode'],
     pgSettings: async req => {
-      const role = req.user ? 'auth': 'unauth';
-      const person_id = req.user ? req.user : 0;
+      const [person_id, role] = req.session.passport ? req.session.passport.user.split('-') : ['0', 'unauth'];
       return {
         'role': role,
         'auth.data.person_id': person_id,

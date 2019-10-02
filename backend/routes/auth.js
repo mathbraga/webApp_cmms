@@ -20,22 +20,22 @@ passport.use(new LocalStrategy(
     } catch (error) {
       return done(error);
     }
-    // console.log('user::: ' + JSON.stringify(user));
-    let userId = data.rows[0].authenticate;
-    return done(null, userId);
+    let userData = data.rows[0].authenticate;
+    // console.log(data.rows[0].authenticate);
+    return done(null, userData);
   }
 ));
 
-passport.serializeUser((userId, done) => {
+passport.serializeUser((userData, done) => {
   console.log('\nSERIALIZATION\n')
-  console.log(userId)
-  done(null, userId);
+  console.log(userData)
+  done(null, userData);
 });
 
-passport.deserializeUser(async (userId, done) => {
+passport.deserializeUser(async (userData, done) => {
   console.log('\nDESERIALIZATION\n')
   try {
-    let data = await client.query('select person_id from persons where person_id = $1', [userId]);
+    let data = await client.query('select person_id from persons where person_id = $1', [parseInt(userData.split('-')[0],10)]);
     if (data.rows.length === 0){
       return done(new Error('user not found'));
     }
@@ -51,7 +51,7 @@ router.post('/login',
   function(req, res){
     console.log('req session '+ JSON.stringify(req.session))
     console.log('req user '+ JSON.stringify(req.user))
-    res.cookie('cmms:user', req.user.toString());
+    res.cookie('cmms:user', req.user);
     res.json({'response': 'Login succeeded'});
 });
 
