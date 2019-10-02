@@ -9,6 +9,18 @@ class Dashboard extends Component {
     }
   }
 
+  componentWillMount = () => {
+    console.clear();
+    fetch('http://redminesf.senado.gov.br/redmine/issues/75351.json', {
+      method: 'GET',
+      // mode: 'no-cors',
+      credentials: "include",
+    })
+    .then(r => console.log(r))
+    .catch(r => console.log(r))
+  }
+
+
   handleUploadFile = event => {
     event.preventDefault();
     console.clear();
