@@ -19,7 +19,7 @@ import { ApolloLink } from 'apollo-link';
 const store = configureStore(preloadedState);
 
 const httpLink = new HttpLink({
-  uri: 'http://172.30.49.152:3001/db',
+  uri: process.env.REACT_APP_SERVER_URL + process.env.REACT_APP_DB_PATH,
   credentials: 'include',
 });
 
