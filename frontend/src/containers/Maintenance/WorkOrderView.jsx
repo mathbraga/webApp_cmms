@@ -451,14 +451,14 @@ class WorkOrderView extends Component {
                             </div>
                             <div className="card-search-container" style={{ marginTop: "30px" }}>
                               <div className="search" style={{ width: "30%" }}>
-                                <form className="card-search-form">
+                                <div className="card-search-form">
                                   <InputGroup>
                                     <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
                                     <InputGroupAddon addonType="append">
                                       <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
                                     </InputGroupAddon>
                                   </InputGroup>
-                                </form>
+                                </div>
                               </div>
                               <div className="search-filter" style={{ width: "30%" }}>
                                 <ol>
