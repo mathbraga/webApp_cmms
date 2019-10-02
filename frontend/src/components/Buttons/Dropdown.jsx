@@ -23,8 +23,6 @@ class Dropdown extends Component {
 
   render() {
     const { selectedItem, dropdownItems, changeItem } = this.props;
-    console.log("ChangeItem:");
-    console.log(changeItem);
 
     return (
       <ButtonDropdown

@@ -98,7 +98,6 @@ class EquipmentsForm extends Component {
   }
 
   render() {
-    console.log(this.state);
     const newEquipment = gql`
       mutation MyMutation (
           $assetId: String!,
@@ -162,7 +161,6 @@ class EquipmentsForm extends Component {
               ({ loading, error, data }) => {
                 if (loading) return null
                 if (error) {
-                  console.log("Erro ao tentar baixar os dados!");
                   return null
                 }
 

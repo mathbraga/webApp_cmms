@@ -74,9 +74,6 @@ class EquipmentsList extends Component {
       });
     }
 
-    console.log("Filtered Items:");
-    console.log(filteredItems);
-
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 

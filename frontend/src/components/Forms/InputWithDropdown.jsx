@@ -145,7 +145,6 @@ class InputWithDropdown extends Component {
         item.text.toLowerCase().includes(inputValue.toLowerCase())
         && !chosenValue.some(selectedItem => selectedItem.id === item.id)
       ));
-    console.log(filteredList);
 
     const hasSubtext = !(filteredList.every((item) => item.subtext === ""))
 

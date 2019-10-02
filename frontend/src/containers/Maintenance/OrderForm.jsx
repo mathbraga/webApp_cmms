@@ -202,7 +202,6 @@ class OrderForm extends Component {
   }
 
   render() {
-    console.log(this.state)
     const newWorkOrder = gql`
       mutation MyMutation (
         $status: OrderStatusType!,

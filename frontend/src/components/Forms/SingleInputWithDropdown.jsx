@@ -57,7 +57,6 @@ class SingleInputWithDropDown extends Component {
   onKeyDownInput = (filteredList) => (event) => {
     const { hoveredItem } = this.state;
     const lengthList = filteredList.length;
-    console.log("Key Code: ", event.keyCode);
     switch (event.keyCode) {
       case 40:
         this.setState(prevState => {
@@ -139,10 +138,11 @@ class SingleInputWithDropDown extends Component {
     }
   }
 
-  handleSelectOutsideDrop() {
-    if (document.activeElement.id === 'input-list-' + this.props.id) {
+  handleSelectOutsideDrop(e) {
+    if (e.keyCode === 9 && (document.activeElement.id === 'input-list-' + this.props.id)) {
       this.setState({
         isDropdownOpen: true,
+        inputValue: "",
       });
     }
     if (document.activeElement.id !== 'input-list-' + this.props.id &&
@@ -168,7 +168,6 @@ class SingleInputWithDropDown extends Component {
       (
         item.text.toLowerCase().includes(inputValue.toLowerCase())
       ));
-    console.log(filteredList)
 
     const hasSubtext = !(filteredList.every((item) => item.subtext === ""))
 

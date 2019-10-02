@@ -90,7 +90,6 @@ class AssetInfo extends Component {
           ({ loading, error, data }) => {
             if (loading) return null
             if (error) {
-              console.log("Erro ao tentar baixar os ativos!");
               return null
             }
 

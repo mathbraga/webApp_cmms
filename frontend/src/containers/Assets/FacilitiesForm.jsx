@@ -91,22 +91,21 @@ class FacilitiesForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleFacilitiesDropDownChange(assetId){
+  handleFacilitiesDropDownChange(assetId) {
     this.setState({ assetParent: assetId });
   }
 
-  handleDepartmentsDropDownChange(departments){
+  handleDepartmentsDropDownChange(departments) {
     this.setState({ departments: departments });
   }
 
-  handleInputChange(event){
-    if(event.target.value.length === 0)
+  handleInputChange(event) {
+    if (event.target.value.length === 0)
       return this.setState({ [event.target.name]: null });
     this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
-    console.log(this.state)
     const newFacility = gql`
       mutation MyMutation (
         $area: Float,
@@ -147,7 +146,7 @@ class FacilitiesForm extends Component {
     const depsArray = this.state.departments === null ? null : this.state.departments.map((item) => item.id);
 
     return (
-      <Mutation 
+      <Mutation
         mutation={newFacility}
         variables={{
           area: Number(this.state.area),
@@ -161,110 +160,111 @@ class FacilitiesForm extends Component {
           place: this.state.assetParent
         }}
       >
-      {(mutation, {data, loading, error}) => {
-        if (loading) return null;
-        if(error){
-          console.log(error);
-          return null;
-        }
-        return(
-        <Query query={depQuery}>{
-        ({loading, error, data}) => {
-          if(loading) return null
-          if(error){
-            console.log("Erro ao tentar baixar os dados!");
-            return null
+        {(mutation, { data, loading, error }) => {
+          if (loading) return null;
+          if (error) {
+            console.log(error);
+            return null;
           }
-          const depsID = data.allDepartments.edges.map((item) => item.node.departmentId);
-          const depsName = data.allDepartments.edges.map((item) => item.node.fullName);
+          return (
+            <Query query={depQuery}>{
+              ({ loading, error, data }) => {
+                if (loading) return null
+                if (error) {
+                  console.log("Erro ao tentar baixar os dados!");
+                  return null
+                }
+                const depsID = data.allDepartments.edges.map((item) => item.node.departmentId);
+                const depsName = data.allDepartments.edges.map((item) => item.node.fullName);
 
-          const facID = data.allFacilities.edges.map((item) => item.node.assetId);
-          const facName = data.allFacilities.edges.map((item) => item.node.name);
-          //console.log(facID);
-          //console.log(facName);
-          
-          const deps = [];
-          for(let i = 0; i<depsID.length; i++)
-            deps.push({id: depsID[i], text: depsName[i], subtext: depsID[i]});
+                const facID = data.allFacilities.edges.map((item) => item.node.assetId);
+                const facName = data.allFacilities.edges.map((item) => item.node.name);
+                //console.log(facID);
+                //console.log(facName);
 
-          const facs = [];
-          for(let i = 0; i<facID.length; i++)
-            facs.push({id: facID[i], text: facName[i], subtext: facID[i]});
-          
-        return(
-        <div style={{ margin: "0 100px" }}>
-          <Form 
-            className="form-horizontal"
-            onSubmit={e => {
-              e.preventDefault();
-              mutate(mutation)}}
-            onReset={() => this.props.history.push('/ativos/edificios')}
-          >
-            <AssetCard
-              sectionName={"Novo edifício"}
-              sectionDescription={"Formulário para cadastro de localidades"}
-              handleCardButton={() => console.log('Handle Card')}
-              buttonName={"Botão"}
-              isForm={true}
-            >
-                <FormGroup row>
-                  <Col xs={'8'}>
-                    <FormGroup>
-                      <Label htmlFor="facilities-name">Nome do espaço</Label>
-                      <Input 
-                        onChange={this.handleInputChange}
-                        name="assetName" type="text" id="facilities-name" placeholder="Digite o nome do local ..." />
-                    </FormGroup>
-                  </Col>
-                  <Col xs={'4'}>
-                    <FormGroup>
-                      <Label htmlFor="facilities-code">Código</Label>
-                      <Input 
-                        onChange={this.handleInputChange}
-                        name="assetId" type="text" id="facilities-code" placeholder="Digite o código do endereçamento ..." />
-                    </FormGroup>
-                  </Col>
-                </FormGroup>
-                <FormGroup>
-                  <Label htmlFor="description">Descrição</Label>
-                  <Input 
-                    onChange={this.handleInputChange}
-                    name="description" type="textarea" id="description" placeholder="Descrição do edifício ..." rows="4" />
-                </FormGroup>
-                <FormGroup row>
-                  <Col xs={'8'}>
-                    <FormGroup>
-                      <SingleInputWithDropDown
-                        label={'Ativo pai'}
-                        placeholder="Nível superior da localização ..."
-                        listDropdown={facs}
-                        update={this.handleFacilitiesDropDownChange}
-                        id={'parent'}
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col xs={'4'}>
-                    <FormGroup>
-                      <Label htmlFor="area">Área (m²)</Label>
-                      <Input 
-                        onChange={this.handleInputChange}
-                        name="area" type="text" id="area" placeholder="Área total ..." />
-                    </FormGroup>
-                  </Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Col xs={'8'}>
-                    <InputWithDropdown
-                      label={'Departamentos'}
-                      placeholder={'Departamentos que utilizam esta área ...'}
-                      listDropdown={deps}
-                      update={this.handleDepartmentsDropDownChange}
-                      id={'departments'}
-                    />
-                  </Col>
-                </FormGroup>
-                <FormGroup row>
-                  {/* <Col xs={'4'}>
+                const deps = [];
+                for (let i = 0; i < depsID.length; i++)
+                  deps.push({ id: depsID[i], text: depsName[i], subtext: depsID[i] });
+
+                const facs = [];
+                for (let i = 0; i < facID.length; i++)
+                  facs.push({ id: facID[i], text: facName[i], subtext: facID[i] });
+
+                return (
+                  <div style={{ margin: "0 100px" }}>
+                    <Form
+                      className="form-horizontal"
+                      onSubmit={e => {
+                        e.preventDefault();
+                        mutate(mutation)
+                      }}
+                      onReset={() => this.props.history.push('/ativos/edificios')}
+                    >
+                      <AssetCard
+                        sectionName={"Novo edifício"}
+                        sectionDescription={"Formulário para cadastro de localidades"}
+                        handleCardButton={() => console.log('Handle Card')}
+                        buttonName={"Botão"}
+                        isForm={true}
+                      >
+                        <FormGroup row>
+                          <Col xs={'8'}>
+                            <FormGroup>
+                              <Label htmlFor="facilities-name">Nome do espaço</Label>
+                              <Input
+                                onChange={this.handleInputChange}
+                                name="assetName" type="text" id="facilities-name" placeholder="Digite o nome do local ..." />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={'4'}>
+                            <FormGroup>
+                              <Label htmlFor="facilities-code">Código</Label>
+                              <Input
+                                onChange={this.handleInputChange}
+                                name="assetId" type="text" id="facilities-code" placeholder="Digite o código do endereçamento ..." />
+                            </FormGroup>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup>
+                          <Label htmlFor="description">Descrição</Label>
+                          <Input
+                            onChange={this.handleInputChange}
+                            name="description" type="textarea" id="description" placeholder="Descrição do edifício ..." rows="4" />
+                        </FormGroup>
+                        <FormGroup row>
+                          <Col xs={'8'}>
+                            <FormGroup>
+                              <SingleInputWithDropDown
+                                label={'Ativo pai'}
+                                placeholder="Nível superior da localização ..."
+                                listDropdown={facs}
+                                update={this.handleFacilitiesDropDownChange}
+                                id={'parent'}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={'4'}>
+                            <FormGroup>
+                              <Label htmlFor="area">Área (m²)</Label>
+                              <Input
+                                onChange={this.handleInputChange}
+                                name="area" type="text" id="area" placeholder="Área total ..." />
+                            </FormGroup>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                          <Col xs={'8'}>
+                            <InputWithDropdown
+                              label={'Departamentos'}
+                              placeholder={'Departamentos que utilizam esta área ...'}
+                              listDropdown={deps}
+                              update={this.handleDepartmentsDropDownChange}
+                              id={'departments'}
+                            />
+                          </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                          {/* <Col xs={'4'}>
                     <FormGroup>
                       <SingleInputWithDropDown
                         label={'Categoria'}
@@ -273,28 +273,30 @@ class FacilitiesForm extends Component {
                       />
                     </FormGroup>
                   </Col> */}
-                  <Col xs={'4'}>
-                    <FormGroup>
-                      <Label htmlFor="latitude">Latitude</Label>
-                      <Input 
-                        onChange={this.handleInputChange}
-                        name="latitude" type="text" id="latitude" placeholder="Latitude ..." />
-                    </FormGroup>
-                  </Col>
-                  <Col xs={'4'}>
-                    <FormGroup>
-                      <Label htmlFor="longitude">Longitude</Label>
-                      <Input 
-                        onChange={this.handleInputChange}
-                        name="longitude" type="text" id="longitude" placeholder="Longitude ..." />
-                    </FormGroup>
-                  </Col>
-                </FormGroup>
-            </AssetCard>
-          </Form>
-        </div>
-      )}}</Query>
-      )}}</Mutation>
+                          <Col xs={'4'}>
+                            <FormGroup>
+                              <Label htmlFor="latitude">Latitude</Label>
+                              <Input
+                                onChange={this.handleInputChange}
+                                name="latitude" type="text" id="latitude" placeholder="Latitude ..." />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={'4'}>
+                            <FormGroup>
+                              <Label htmlFor="longitude">Longitude</Label>
+                              <Input
+                                onChange={this.handleInputChange}
+                                name="longitude" type="text" id="longitude" placeholder="Longitude ..." />
+                            </FormGroup>
+                          </Col>
+                        </FormGroup>
+                      </AssetCard>
+                    </Form>
+                  </div>
+                )
+              }}</Query>
+          )
+        }}</Mutation>
     );
   }
 }
