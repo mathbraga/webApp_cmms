@@ -12,11 +12,18 @@ class Dashboard extends Component {
   handleUploadFile = event => {
     event.preventDefault();
     console.clear();
-    let photo = this.fileInputRef.current.files[0];
+    let files = this.fileInputRef.current.files;
+    let l = files.length;
+    console.log(files);
     let formData = new FormData();
-    formData.append("photo", photo);
-    // console.log(this.fileInputRef.current.files[0]);
-    fetch('http://172.30.49.152:3001/upload', {
+    for(let i = 0; i < l; i++){ // forEach() and map() are not defined for an array of files
+      formData.append(
+        'files[]',
+        files[i],
+        'newfilename' + '-' + (i + 1).toString() + '.' + files[i].type.split('/')[1]
+      );
+    }
+    fetch('http://172.30.49.152:3001/db', {
       method: 'POST',
       body: formData,
     })
@@ -65,7 +72,7 @@ class Dashboard extends Component {
             </Row>
           </Container>
         </div> */}
-{/*
+
         <Card>
           <CardHeader>
             <Row>
@@ -78,17 +85,12 @@ class Dashboard extends Component {
             </Row>
           </CardHeader>
           <CardBody>
-
-
-
-
-             <Form
-                  enctype="multipart/form-data">
-              >
+            <Form>
               <Row>
                 <Col xs="4">
                   <FormGroup>
                     <CustomInput
+                      multiple={true}
                       label="Clique ou arraste para selecionar"
                       type="file"
                       id="csv-file"
@@ -122,9 +124,25 @@ class Dashboard extends Component {
             </Form> 
           </CardBody>
         </Card>
-        */}
-
-          <img src="http://localhost:3001/photos/full-moon.jpg" alt="foto"/>
+        
+        <div>
+        <img
+          src="http://localhost:3001/files/newfilename-1.jpeg"
+          alt="foto"
+          height="140"
+          width="190"
+        />
+       </div>
+        
+        <div>
+          <img
+            src="http://localhost:3001/files/newfilename-2.jpeg"
+            alt="foto"
+            height="140"
+            width="140"
+          />
+        </div>
+        
 
       </React.Fragment>
     );

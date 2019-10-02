@@ -3,7 +3,7 @@ const router = express.Router();
 const multer  = require('multer');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, 'public/files/');
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -11,11 +11,12 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-router.post('/', upload.single('photo'), (req, res, next) => {
-  console.log(req.file);
-  res.json({message: 'Você fez upload.'});
+router.post('/', upload.array('files[]'), (req, res, next) => {
+  // console.log(req.files);
+  // console.log(req.body);
+  // res.json({message: 'Você fez upload.'});
   // Use next() if more backend operations are necessary
-  // next();
+  next();
 });
 
 module.exports = router;

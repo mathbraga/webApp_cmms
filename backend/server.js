@@ -38,7 +38,7 @@ app.use(middleware);
 
 // Routes
 app.use("/auth", authRoute);
-app.use("/upload", uploadRoute);
+app.use("/db", uploadRoute);
 
 // PostGraphile route
 app.use(postgraphile(
