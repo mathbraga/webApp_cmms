@@ -147,6 +147,7 @@ class OrderForm extends Component {
       parent: null,
       assets: null,
       requestPerson: null,
+      requestLocal: null,
       requestDepartment: null,
       requestContactName: null,
       requestContactPhone: null,
@@ -214,6 +215,7 @@ class OrderForm extends Component {
         $requestPerson: String!,
         $requestText: String!,
         $completed: Int,
+        $requestLocal: String!,
         $requestContactEmail: String!,
         $requestContactName: String!,
         $requestContactPhone: String!,
@@ -233,6 +235,7 @@ class OrderForm extends Component {
                 requestPerson: $requestPerson
                 requestText: $requestText
                 completed: $completed
+                requestLocal: $requestLocal
                 requestContactEmail: $requestContactEmail
                 requestContactName: $requestContactName
                 requestContactPhone: $requestContactPhone
@@ -265,6 +268,7 @@ class OrderForm extends Component {
           requestText: this.state.description,
           completed: parseInt(this.state.execution),
           requestContactEmail: this.state.requestContactEmail,
+          requestLocal: this.state.requestLocal,
           requestContactName: this.state.requestContactName,
           requestContactPhone: this.state.requestContactPhone,
           requestDepartment: this.state.requestDepartment,
@@ -471,13 +475,18 @@ class OrderForm extends Component {
                             </FormGroup>
                             <FormGroup row>
                               <Col xs='8'>
-                                <InputWithDropdown
+                                <Label htmlFor="location">Localização (campo livre)</Label>
+                                <Input
+                                  autocomplete="new-password"
+                                  onChange={this.handleInputChange}
+                                  name="requestLocal" type="text" id="requestLocal" placeholder="Localização da manutenção ..." />
+                                {/* <InputWithDropdown
                                   label={'Localização'}
                                   placeholder={'Localização da manutenção ...'}
                                   listDropdown={assets}
                                   update={() => console.log()}
                                   id={'location'}
-                                />
+                                /> */}
                               </Col>
                             </FormGroup>
                           </TabPane>
