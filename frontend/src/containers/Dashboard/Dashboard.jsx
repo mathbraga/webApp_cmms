@@ -9,16 +9,16 @@ class Dashboard extends Component {
     }
   }
 
-  componentWillMount = () => {
-    console.clear();
-    fetch('http://redminesf.senado.gov.br/redmine/issues/75351.json', {
-      method: 'GET',
-      // mode: 'no-cors',
-      credentials: "include",
-    })
-    .then(r => console.log(r))
-    .catch(r => console.log(r))
-  }
+  // componentWillMount = () => {
+  //   console.clear();
+  //   fetch('http://redminesf.senado.gov.br/redmine/issues/75351.json', {
+  //     method: 'GET',
+  //     // mode: 'no-cors',
+  //     credentials: "include",
+  //   })
+  //   .then(r => console.log(r))
+  //   .catch(r => console.log(r))
+  // }
 
 
   handleUploadFile = event => {
@@ -28,7 +28,7 @@ class Dashboard extends Component {
     let l = files.length;
     console.log(files);
     let formData = new FormData();
-    for(let i = 0; i < l; i++){ // forEach() and map() are not defined for an array of files
+    for (let i = 0; i < l; i++) { // forEach() and map() are not defined for an array of files
       formData.append(
         'files[]',
         files[i],
@@ -41,13 +41,13 @@ class Dashboard extends Component {
     })
       .then(r => r.json())
       .then(rjson => console.log(rjson))
-      .catch(()=> console.log('erro upload.'));
+      .catch(() => console.log('erro upload.'));
   }
 
   render() {
     return (
       <React.Fragment>
-        {/* <div className="flex-row align-items-center">
+        <div className="flex-row align-items-center">
           <Container>
             <Row className="justify-content-center">
               <Col md="8">
@@ -76,16 +76,16 @@ class Dashboard extends Component {
                         >repositório no GitHub
                           {" "}<i className="fa fa-github"></i>
                         </a>
-                      </p> 
+                      </p> */}
                     </div>
                   </CardBody>
                 </Card>
               </Col>
             </Row>
           </Container>
-        </div> */}
+        </div>
 
-        <Card>
+        {/* <Card>
           <CardHeader>
             <Row>
               <Col md="12">
@@ -108,11 +108,11 @@ class Dashboard extends Component {
                       id="csv-file"
                       name="csv-file"
                       innerRef={this.fileInputRef}
-                      // onChange={this.handleSelection}
+                    // onChange={this.handleSelection}
                     />
                   </FormGroup>
                 </Col>
-                 <Col xs="4">
+                <Col xs="4">
                   {this.state.isSelected
                     ? <p className="my-2">Arquivo selecionado:
                         <strong>
@@ -121,7 +121,7 @@ class Dashboard extends Component {
                     </p>
                     : <p className="text-muted my-2">Nenhum arquivo selecionado</p>
                   }
-                </Col> 
+                </Col>
                 <Col xs="4">
                   <Button
                     className=""
@@ -133,19 +133,19 @@ class Dashboard extends Component {
                   </Button>
                 </Col>
               </Row>
-            </Form> 
+            </Form>
           </CardBody>
         </Card>
-        
+
         <div>
-        <img
-          src="http://localhost:3001/files/newfilename-1.jpeg"
-          alt="foto"
-          height="140"
-          width="190"
-        />
-       </div>
-        
+          <img
+            src="http://localhost:3001/files/newfilename-1.jpeg"
+            alt="foto"
+            height="140"
+            width="190"
+          />
+        </div>
+
         <div>
           <img
             src="http://localhost:3001/files/newfilename-2.jpeg"
@@ -153,8 +153,8 @@ class Dashboard extends Component {
             height="140"
             width="140"
           />
-        </div>
-        
+        </div> */}
+
 
       </React.Fragment>
     );
