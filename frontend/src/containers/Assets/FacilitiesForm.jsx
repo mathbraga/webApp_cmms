@@ -190,7 +190,7 @@ class FacilitiesForm extends Component {
           const facs = [];
           for(let i = 0; i<facID.length; i++)
             facs.push({id: facID[i], text: facName[i], subtext: facID[i]});
-
+          
         return(
         <div style={{ margin: "0 100px" }}>
           <Form 
@@ -239,6 +239,7 @@ class FacilitiesForm extends Component {
                         placeholder="Nível superior da localização ..."
                         listDropdown={facs}
                         update={this.handleFacilitiesDropDownChange}
+                        id={'parent'}
                       />
                     </FormGroup>
                   </Col>
@@ -258,6 +259,7 @@ class FacilitiesForm extends Component {
                       placeholder={'Departamentos que utilizam esta área ...'}
                       listDropdown={deps}
                       update={this.handleDepartmentsDropDownChange}
+                      id={'departments'}
                     />
                   </Col>
                 </FormGroup>

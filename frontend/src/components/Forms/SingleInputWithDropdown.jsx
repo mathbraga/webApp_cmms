@@ -6,6 +6,8 @@ import {
 } from 'reactstrap';
 
 import "./InputWithDropdown.css";
+import 'react-virtualized/styles.css';
+import { List, AutoSizer } from 'react-virtualized';
 
 class SingleInputWithDropDown extends Component {
   constructor(props) {
@@ -23,18 +25,20 @@ class SingleInputWithDropDown extends Component {
     this.onRemoveItemFromList = this.onRemoveItemFromList.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
     this.updateChosenValue = this.updateChosenValue.bind(this);
+    this.handleClickOutsideDrop = this.handleClickOutsideDrop.bind(this);
+    this.resetScroll = this.resetScroll.bind(this);
     this.arrayItems = {};
   }
 
   onChangeInput(event) {
-    this.containerScroll.scrollTo(0, 0);
+    this.resetScroll();
     this.setState({
       inputValue: event.target.value,
       hoveredItem: 0,
     });
   }
 
-  toggleDropdown(isDropdownOpen) {
+  toggleDropdown(isDropdownOpen = !this.state.isDropdownOpen) {
     this.setState(prevState => ({
       isDropdownOpen,
       inputValue: isDropdownOpen ? '' : prevState.inputValue,
@@ -92,6 +96,7 @@ class SingleInputWithDropDown extends Component {
   }
 
   onClickItem = (filteredList) => () => {
+    this.toggleDropdown(false);
     this.setState(this.updateChosenValue(filteredList));
   }
 
@@ -111,49 +116,92 @@ class SingleInputWithDropDown extends Component {
     };
   };
 
+  componentDidMount() {
+    document.addEventListener('mouseup', this.handleClickOutsideDrop);
+  }
+
+  componentWillMount() {
+    document.removeEventListener('mouseup', this.handleClickOutsideDrop);
+  }
+
+  handleClickOutsideDrop(){
+    if(document.activeElement.id !== 'input-list-' + this.props.id && 
+    document.activeElement.id !== 'list-container-' + this.props.id){
+      this.setState({
+        isDropdownOpen: false,
+      });
+    }
+  }
+
+  resetScroll(){
+    if (this.listContainer === null)
+      return null
+    return this.listContainer.scrollToPosition(0);
+  }
+
   render() {
     const { label, placeholder, listDropdown } = this.props;
     const { inputValue, isDropdownOpen, hoveredItem } = this.state;
+    const inputId = 'input-list-' + this.props.id;
+    const containerId = 'list-container-' + this.props.id;
     const filteredList = listDropdown.filter((item) =>
       (
         item.text.toLowerCase().includes(inputValue.toLowerCase())
       ));
+    console.log(filteredList)
+
+    const hasSubtext = !(filteredList.every((item) => item.subtext === ""))
+
+    const boxHeight = hasSubtext === true ? (filteredList.length >= 4 ? 180 : filteredList.length*55 + 25) : 
+        (filteredList.length >= 4 ? 130 : filteredList.length*20 + 30);
+
+    const itemHeight = hasSubtext === true ? 52 : 25;
+
     return (
       <FormGroup className={'dropdown-container'}>
         <Label htmlFor="input">{label}</Label>
         <Input
           type="text"
           autoComplete="off"
-          id="input"
+          id={inputId}
           value={inputValue}
           placeholder={placeholder}
           onChange={this.onChangeInput}
-          onFocus={() => this.toggleDropdown(true)}
-          onBlur={() => this.toggleDropdown(false)}
+          onClick={() => this.toggleDropdown(true)}
+          // onFocus={() => this.toggleDropdown(true)}
+          // onBlur={() => this.toggleDropdown(false)}
           onKeyDown={this.onKeyDownInput(filteredList)}
           innerRef={(el) => { this.inputDrop = el; }}
         />
         {isDropdownOpen && (
-          <div
-            className={"dropdown-input"}
-            ref={(el) => { this.containerScroll = el }}
-          >
-            <ul>
-              {filteredList.map((item, index) => (
-                <li
-                  key={item.id}
-                  id={item.id}
-                  onMouseOver={() => this.onHoverItem(index)}
-                  onMouseDown={this.onClickItem(filteredList)}
-                  className={filteredList[hoveredItem].id === item.id ? 'active' : ''}
-                  ref={(el) => this.arrayItems[item.id] = el}
-                >
-                  {item.text}
-                  <div className="small text-muted">{item.subtext}</div>
-                </li>
-              ), this)}
-            </ul>
-          </div>
+          <AutoSizer>
+            {({ width }) => (
+              <List
+                className={"dropdown-input"}
+                id={containerId}
+                ref={(el) => { this.listContainer = el }}
+                width={width}
+                height={boxHeight}
+                rowHeight={itemHeight}
+                rowRenderer={({ index, key, style }) => {
+                              return(
+                                  <div
+                                    key={key}
+                                    style={style}
+                                    onMouseOver={() => this.onHoverItem(index)}
+                                    onMouseDown={this.onClickItem(filteredList)}
+                                    className={filteredList[hoveredItem].id === filteredList[index].id ? 'active' : ''}
+                                    ref={(el) => this.arrayItems[filteredList[index].id] = el}
+                                  >
+                                    {filteredList[index].text}
+                                    {hasSubtext && <div className="small text-muted">{filteredList[index].subtext}</div>}
+                                  </div>
+                              )}}
+                rowCount={filteredList.length}
+                overscanRowCount={15}
+              />
+            )}
+          </AutoSizer>
         )}
       </FormGroup>
     );

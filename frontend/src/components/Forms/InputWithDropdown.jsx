@@ -6,39 +6,42 @@ import {
 } from 'reactstrap';
 
 import "./InputWithDropdown.css";
+import 'react-virtualized/styles.css';
+import { List, AutoSizer } from 'react-virtualized';
 
 class InputWithDropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      departmentInputValue: '',
+      inputValue: '',
       isDropdownOpen: false,
       hoveredItem: 0,
-      departmentValues: [],
+      chosenValue: [],
     }
-    this.onChangeInputDepartment = this.onChangeInputDepartment.bind(this);
+    this.onChangeInput = this.onChangeInput.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.onHoverItem = this.onHoverItem.bind(this);
     this.onKeyDownInput = this.onKeyDownInput.bind(this);
     this.onRemoveItemFromList = this.onRemoveItemFromList.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
-    this.updateDepartmentValues = this.updateDepartmentValues.bind(this);
+    this.updateChosenValue = this.updateChosenValue.bind(this);
+    this.handleClickOutsideDrop = this.handleClickOutsideDrop.bind(this);
     this.arrayItems = {};
   }
 
-  onChangeInputDepartment(event) {
-    this.containerScroll.scrollTo(0, 0);
+  onChangeInput(event) {
+    this.listContainer.scrollToPosition(0);
     this.setState({
-      departmentInputValue: event.target.value,
+      inputValue: event.target.value,
       hoveredItem: 0,
     });
   }
 
-  toggleDropdown(isDropdownOpen) {
+  toggleDropdown(isDropdownOpen = !this.state.isDropdownOpen) {
     this.setState(prevState => ({
       isDropdownOpen,
       hoveredItem: isDropdownOpen ? 0 : prevState.hoveredItem,
-      departmentInputValue: isDropdownOpen ? '' : prevState.departmentInputValue,
+      inputValue: isDropdownOpen ? '' : prevState.inputValue,
     }));
   }
 
@@ -74,56 +77,85 @@ class InputWithDropdown extends Component {
         break;
       case 13:
         this.inputDrop.blur();
-        this.setState(this.updateDepartmentValues(filteredList));
+        this.setState(this.updateChosenValue(filteredList));
         break;
     }
   }
 
   onRemoveItemFromList(id) {
     this.setState(prevState => {
-      const newList = prevState.departmentValues.filter(item =>
+      const newList = prevState.chosenValue.filter(item =>
         item.id !== id);
       const tempList = newList.length === 0 ? null : newList;
       this.props.update(tempList);
       return {
-        departmentValues: newList,
+        chosenValue: newList,
         hoveredItem: 0,
       };
     });
   }
 
   onClickItem = (filteredList) => () => {
-    this.setState(this.updateDepartmentValues(filteredList));
+    this.toggleDropdown(false);
+    this.setState(this.updateChosenValue(filteredList));
   }
 
-  updateDepartmentValues = (filteredList) => (prevState) => {
+  updateChosenValue = (filteredList) => (prevState) => {
     if (prevState.hoveredItem < 0 || prevState.hoveredItem >= filteredList.length) {
       return {
-        departmentInputValue: "",
+        inputValue: "",
       };
     }
-    const newListofDepartments = [...prevState.departmentValues, filteredList[prevState.hoveredItem]];
+    const newList = [...prevState.chosenValue, filteredList[prevState.hoveredItem]];
     const newHoveredItem = prevState.hoveredItem === 0 ? 0 : (prevState.hoveredItem - 1);
-    this.props.update(newListofDepartments);
+    this.props.update(newList);
     return {
-      departmentValues: newListofDepartments,
+      chosenValue: newList,
       hoveredItem: newHoveredItem,
-      departmentInputValue: "",
+      inputValue: "",
     };
   };
 
+  componentDidMount() {
+    document.addEventListener('mouseup', this.handleClickOutsideDrop);
+  }
+
+  componentWillMount() {
+    document.removeEventListener('mouseup', this.handleClickOutsideDrop);
+  }
+
+  handleClickOutsideDrop(){
+    if(document.activeElement.id !== 'input-list-' + this.props.id && 
+    document.activeElement.id !== 'list-container-' + this.props.id){
+      this.setState({
+        isDropdownOpen: false,
+      });
+    }
+  }
+
   render() {
     const { label, placeholder, listDropdown } = this.props;
-    const { departmentInputValue, isDropdownOpen, hoveredItem, departmentValues } = this.state;
+    const { inputValue, isDropdownOpen, hoveredItem, chosenValue } = this.state;
+    const inputId = 'input-list-' + this.props.id;
+    const containerId = 'list-container-' + this.props.id;
     const filteredList = listDropdown.filter((item) =>
       (
-        item.text.toLowerCase().includes(departmentInputValue.toLowerCase())
-        && !departmentValues.some(selectedItem => selectedItem.id === item.id)
+        item.text.toLowerCase().includes(inputValue.toLowerCase())
+        && !chosenValue.some(selectedItem => selectedItem.id === item.id)
       ));
+    console.log(filteredList);
+      
+    const hasSubtext = !(filteredList.every((item) => item.subtext === ""))
+
+    const boxHeight = hasSubtext === true ? (filteredList.length >= 4 ? 180 : filteredList.length*55 + 25) : 
+        (filteredList.length >= 4 ? 130 : filteredList.length*20 + 30);
+
+    const itemHeight = hasSubtext === true ? 52 : 25;
+
     return (
       <FormGroup className={'dropdown-container'}>
         <Label htmlFor="department">{label}</Label>
-        {departmentValues.map(item => (
+        {chosenValue.map(item => (
           <div className='container-selected-items'>
             <Input
               type="text"
@@ -143,37 +175,46 @@ class InputWithDropdown extends Component {
         <Input
           type="text"
           autoComplete="off"
-          id="department"
-          style={departmentValues.length === 0 ? {} : { marginTop: "10px" }}
-          value={departmentInputValue}
+          id={inputId}
+          style={chosenValue.length === 0 ? {} : { marginTop: "10px" }}
+          value={inputValue}
           placeholder={placeholder}
-          onChange={this.onChangeInputDepartment}
-          onFocus={() => this.toggleDropdown(true)}
-          onBlur={() => this.toggleDropdown(false)}
+          onChange={this.onChangeInput}
+          onClick={() => this.toggleDropdown(true)}
+          // onFocus={() => this.toggleDropdown(true)}
+          // onBlur={() => this.toggleDropdown(false)}
           onKeyDown={this.onKeyDownInput(filteredList)}
           innerRef={(el) => { this.inputDrop = el; }}
         />
         {isDropdownOpen && (
-          <div
-            className="dropdown-input"
-            ref={(el) => { this.containerScroll = el }}
-          >
-            <ul>
-              {filteredList.map((item, index) => (
-                <li
-                  key={item.id}
-                  id={item.id}
-                  onMouseOver={() => this.onHoverItem(index)}
-                  onMouseDown={this.onClickItem(filteredList)}
-                  className={filteredList[hoveredItem].id === item.id ? 'active' : ''}
-                  ref={(el) => this.arrayItems[item.id] = el}
-                >
-                  {item.text}
-                  <div className="small text-muted">{item.subtext}</div>
-                </li>
-              ), this)}
-            </ul>
-          </div>
+          <AutoSizer>
+            {({ width }) => (
+              <List
+                className={"dropdown-input"}
+                id={containerId}
+                ref={(el) => { this.listContainer = el }}
+                width={width}
+                height={boxHeight}
+                rowHeight={itemHeight}
+                rowRenderer={({ index, key, style }) => {
+                              return(
+                                <div
+                                  key={key}
+                                  style={style}
+                                  onMouseOver={() => this.onHoverItem(index)}
+                                  onMouseDown={this.onClickItem(filteredList)}
+                                  className={filteredList[hoveredItem].id === filteredList[index].id ? 'active' : ''}
+                                  ref={(el) => this.arrayItems[filteredList[index].id] = el}
+                                >
+                                  {filteredList[index].text}
+                                  {hasSubtext && <div className="small text-muted">{filteredList[index].subtext}</div>}
+                                </div>
+                              )}}
+                rowCount={filteredList.length}
+                overscanRowCount={15}
+              />
+            )}
+          </AutoSizer>
         )}
       </FormGroup>
     );
