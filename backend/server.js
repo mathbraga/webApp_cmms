@@ -2,6 +2,7 @@
 require('dotenv').config();
 
 // Initialization and imports
+const compression = require('compression'); // Add this in production?
 const express = require('express');
 const app = express();
 const port = 3001;
@@ -20,6 +21,7 @@ const uploadRoute = require('./routes/upload');
 // app.set('trust proxy', 1);
 
 // Middlewares
+// app.use(compression());
 app.use(cors({
   origin: true,
   credentials: true,
