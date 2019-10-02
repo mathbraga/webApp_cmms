@@ -25,10 +25,12 @@ class SingleInputWithDropDown extends Component {
     this.onRemoveItemFromList = this.onRemoveItemFromList.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
     this.updateChosenValue = this.updateChosenValue.bind(this);
+    this.handleClickOutsideDrop = this.handleClickOutsideDrop.bind(this);
     this.arrayItems = {};
   }
 
   onChangeInput(event) {
+    this.listContainer.scrollToRow(0);
     this.setState({
       inputValue: event.target.value,
       hoveredItem: 0,
@@ -93,6 +95,7 @@ class SingleInputWithDropDown extends Component {
   }
 
   onClickItem = (filteredList) => () => {
+    this.toggleDropdown(false);
     this.setState(this.updateChosenValue(filteredList));
   }
 
@@ -111,6 +114,22 @@ class SingleInputWithDropDown extends Component {
       inputValue: newValue,
     };
   };
+
+  componentDidMount() {
+    document.addEventListener('mouseup', this.handleClickOutsideDrop);
+  }
+
+  componentWillMount() {
+    document.removeEventListener('mouseup', this.handleClickOutsideDrop);
+  }
+
+  handleClickOutsideDrop(){
+    if(document.activeElement.id !== 'input-list' && document.activeElement !== 'list-container'){
+      this.setState({
+        isDropdownOpen: false,
+      });
+    }
+  }
 
   render() {
     const { label, placeholder, listDropdown } = this.props;
@@ -138,8 +157,9 @@ class SingleInputWithDropDown extends Component {
           value={inputValue}
           placeholder={placeholder}
           onChange={this.onChangeInput}
-          onFocus={() => this.toggleDropdown(true)}
-          onBlur={() => this.toggleDropdown(false)}
+          onClick={() => this.toggleDropdown(true)}
+          // onFocus={() => this.toggleDropdown(true)}
+          // onBlur={() => this.toggleDropdown(false)}
           onKeyDown={this.onKeyDownInput(filteredList)}
           innerRef={(el) => { this.inputDrop = el; }}
         />
@@ -148,6 +168,7 @@ class SingleInputWithDropDown extends Component {
             {({ width }) => (
               <List
                 className={"dropdown-input"}
+                ref={(el) => { this.listContainer = el }}
                 width={width}
                 height={boxHeight}
                 rowHeight={itemHeight}

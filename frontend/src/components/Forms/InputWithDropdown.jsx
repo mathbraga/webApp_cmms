@@ -13,24 +13,26 @@ class InputWithDropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      departmentInputValue: '',
+      inputValue: '',
       isDropdownOpen: false,
       hoveredItem: 0,
-      departmentValues: [],
+      chosenValue: [],
     }
-    this.onChangeInputDepartment = this.onChangeInputDepartment.bind(this);
+    this.onChangeInput = this.onChangeInput.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.onHoverItem = this.onHoverItem.bind(this);
     this.onKeyDownInput = this.onKeyDownInput.bind(this);
     this.onRemoveItemFromList = this.onRemoveItemFromList.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
-    this.updateDepartmentValues = this.updateDepartmentValues.bind(this);
+    this.updateChosenValue = this.updateChosenValue.bind(this);
+    this.handleClickOutsideDrop = this.handleClickOutsideDrop.bind(this);
     this.arrayItems = {};
   }
 
-  onChangeInputDepartment(event) {
+  onChangeInput(event) {
+    this.listContainer.scrollToPosition(0);
     this.setState({
-      departmentInputValue: event.target.value,
+      inputValue: event.target.value,
       hoveredItem: 0,
     });
   }
@@ -39,7 +41,7 @@ class InputWithDropdown extends Component {
     this.setState(prevState => ({
       isDropdownOpen,
       hoveredItem: isDropdownOpen ? 0 : prevState.hoveredItem,
-      departmentInputValue: isDropdownOpen ? '' : prevState.departmentInputValue,
+      inputValue: isDropdownOpen ? '' : prevState.inputValue,
     }));
   }
 
@@ -75,51 +77,68 @@ class InputWithDropdown extends Component {
         break;
       case 13:
         this.inputDrop.blur();
-        this.setState(this.updateDepartmentValues(filteredList));
+        this.setState(this.updateChosenValue(filteredList));
         break;
     }
   }
 
   onRemoveItemFromList(id) {
     this.setState(prevState => {
-      const newList = prevState.departmentValues.filter(item =>
+      const newList = prevState.chosenValue.filter(item =>
         item.id !== id);
       const tempList = newList.length === 0 ? null : newList;
       this.props.update(tempList);
       return {
-        departmentValues: newList,
+        chosenValue: newList,
         hoveredItem: 0,
       };
     });
   }
 
   onClickItem = (filteredList) => () => {
-    this.setState(this.updateDepartmentValues(filteredList));
+    this.toggleDropdown(false);
+    this.setState(this.updateChosenValue(filteredList));
   }
 
-  updateDepartmentValues = (filteredList) => (prevState) => {
+  updateChosenValue = (filteredList) => (prevState) => {
     if (prevState.hoveredItem < 0 || prevState.hoveredItem >= filteredList.length) {
       return {
-        departmentInputValue: "",
+        inputValue: "",
       };
     }
-    const newListofDepartments = [...prevState.departmentValues, filteredList[prevState.hoveredItem]];
+    const newList = [...prevState.chosenValue, filteredList[prevState.hoveredItem]];
     const newHoveredItem = prevState.hoveredItem === 0 ? 0 : (prevState.hoveredItem - 1);
-    this.props.update(newListofDepartments);
+    this.props.update(newList);
     return {
-      departmentValues: newListofDepartments,
+      chosenValue: newList,
       hoveredItem: newHoveredItem,
-      departmentInputValue: "",
+      inputValue: "",
     };
   };
 
+  componentDidMount() {
+    document.addEventListener('mouseup', this.handleClickOutsideDrop);
+  }
+
+  componentWillMount() {
+    document.removeEventListener('mouseup', this.handleClickOutsideDrop);
+  }
+
+  handleClickOutsideDrop(){
+    if(document.activeElement.id !== 'input-list' && document.activeElement !== 'list-container'){
+      this.setState({
+        isDropdownOpen: false,
+      });
+    }
+  }
+
   render() {
     const { label, placeholder, listDropdown } = this.props;
-    const { departmentInputValue, isDropdownOpen, hoveredItem, departmentValues } = this.state;
+    const { inputValue, isDropdownOpen, hoveredItem, chosenValue } = this.state;
     const filteredList = listDropdown.filter((item) =>
       (
-        item.text.toLowerCase().includes(departmentInputValue.toLowerCase())
-        && !departmentValues.some(selectedItem => selectedItem.id === item.id)
+        item.text.toLowerCase().includes(inputValue.toLowerCase())
+        && !chosenValue.some(selectedItem => selectedItem.id === item.id)
       ));
     console.log(filteredList);
       
@@ -133,7 +152,7 @@ class InputWithDropdown extends Component {
     return (
       <FormGroup className={'dropdown-container'}>
         <Label htmlFor="department">{label}</Label>
-        {departmentValues.map(item => (
+        {chosenValue.map(item => (
           <div className='container-selected-items'>
             <Input
               type="text"
@@ -154,12 +173,13 @@ class InputWithDropdown extends Component {
           type="text"
           autoComplete="off"
           id="department"
-          style={departmentValues.length === 0 ? {} : { marginTop: "10px" }}
-          value={departmentInputValue}
+          style={chosenValue.length === 0 ? {} : { marginTop: "10px" }}
+          value={inputValue}
           placeholder={placeholder}
-          onChange={this.onChangeInputDepartment}
-          onFocus={() => this.toggleDropdown(true)}
-          onBlur={() => this.toggleDropdown(false)}
+          onChange={this.onChangeInput}
+          onClick={() => this.toggleDropdown(true)}
+          // onFocus={() => this.toggleDropdown(true)}
+          // onBlur={() => this.toggleDropdown(false)}
           onKeyDown={this.onKeyDownInput(filteredList)}
           innerRef={(el) => { this.inputDrop = el; }}
         />
@@ -168,6 +188,7 @@ class InputWithDropdown extends Component {
             {({ width }) => (
               <List
                 className={"dropdown-input"}
+                ref={(el) => { this.listContainer = el }}
                 width={width}
                 height={boxHeight}
                 rowHeight={itemHeight}
