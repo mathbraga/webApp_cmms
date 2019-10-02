@@ -199,7 +199,7 @@ class InputWithDropdown extends Component {
           value={inputValue}
           placeholder={placeholder}
           onChange={this.onChangeInput}
-          onClick={() => this.toggleDropdown(true)}
+          onMouseDown={() => this.toggleDropdown(true)}
           // onFocus={() => this.toggleDropdown(true)}
           // onBlur={() => this.toggleDropdown(false)}
           onKeyDown={this.onKeyDownInput(filteredList)}
