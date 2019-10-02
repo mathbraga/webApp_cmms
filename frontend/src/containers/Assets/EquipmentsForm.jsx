@@ -126,8 +126,7 @@ class EquipmentsForm extends Component {
             }
           }
         ){
-        clientMutationId
-        string
+          newApplianceId
       }
     }`;
 
@@ -188,7 +187,8 @@ class EquipmentsForm extends Component {
                       className="form-horizontal"
                       onSubmit={e => {
                         e.preventDefault();
-                        mutate(mutation)
+                        mutate(mutation);
+                        this.props.history.push('/ativos/equipamentos');
                       }}
                       onReset={() => this.props.history.push('/ativos/equipamentos')}
                     >
