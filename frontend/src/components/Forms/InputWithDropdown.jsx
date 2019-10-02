@@ -203,6 +203,7 @@ class InputWithDropdown extends Component {
                                   style={style}
                                   onMouseOver={() => this.onHoverItem(index)}
                                   onMouseDown={this.onClickItem(filteredList)}
+                                  onMouseUp={document.getElementById(inputId).focus()}
                                   className={filteredList[hoveredItem].id === filteredList[index].id ? 'active' : ''}
                                   ref={(el) => this.arrayItems[filteredList[index].id] = el}
                                 >
