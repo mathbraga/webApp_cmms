@@ -164,28 +164,28 @@ class OrderForm extends Component {
     }
   }
 
-  handleStatusDropDownChange(status){
+  handleStatusDropDownChange(status) {
     this.setState({ status: status });
   }
 
-  handlePriorityDropDownChange(priority){
+  handlePriorityDropDownChange(priority) {
     this.setState({ priority: priority });
   }
 
-  handleCategoryDropDownChange(category){
+  handleCategoryDropDownChange(category) {
     this.setState({ category: category });
   }
 
-  handleParentDropDownChange(parent){
+  handleParentDropDownChange(parent) {
     this.setState({ parent: parent });
   }
 
-  handleAssetsDropDownChange(assets){
+  handleAssetsDropDownChange(assets) {
     this.setState({ assets: assets });
   }
 
-  handleInputChange(event){
-    if(event.target.value.length === 0)
+  handleInputChange(event) {
+    if (event.target.value.length === 0)
       return this.setState({ [event.target.name]: null });
     this.setState({ [event.target.name]: event.target.value });
   }
@@ -231,8 +231,7 @@ class OrderForm extends Component {
               assetsArray: $assetsArray
             }
           ) {
-            clientMutationId
-            integer
+            newOrderId
           }
     }`;
 
@@ -240,9 +239,9 @@ class OrderForm extends Component {
       newData().then(console.log("Mutation"))
     )
     const assetsArray = this.state.assets === null ? null : this.state.assets.map((item) => item.id);
-    
-    return(
-      <Mutation 
+
+    return (
+      <Mutation
         mutation={newWorkOrder}
         variables={{
           status: this.state.status,
@@ -262,255 +261,258 @@ class OrderForm extends Component {
           assetsArray: assetsArray
         }}
       >
-      {(mutation, {data, loading, error}) => {
-        if (loading) return null;
-        if(error){
-          console.log(error);
-          return null;
-        }
-        return(
-        <Query query={ordersQuery}>{
-          ({loading, error, data}) => {
-            if(loading) return null
-            if(error){
-              console.log("Erro ao tentar baixar os dados!");
-              return null
-            }
-            const orderID = data.allOrders.edges.map((item) => item.node.orderId);
-            const orderText = data.allOrders.edges.map((item) => item.node.requestText);
+        {(mutation, { data, loading, error }) => {
+          if (loading) return null;
+          if (error) {
+            console.log(error.message);
+            return null;
+          }
+          return (
+            <Query query={ordersQuery}>{
+              ({ loading, error, data }) => {
+                if (loading) return null
+                if (error) {
+                  console.log("Erro ao tentar baixar os dados!");
+                  return null
+                }
+                const orderID = data.allOrders.edges.map((item) => item.node.orderId);
+                const orderText = data.allOrders.edges.map((item) => item.node.requestText);
 
-            const assetId = data.allAssets.edges.map((item) => item.node.assetId);
-            const assetName = data.allAssets.edges.map((item) => item.node.name);
-            //console.log(orderID);
-            //console.log(orderText);
+                const assetId = data.allAssets.edges.map((item) => item.node.assetId);
+                const assetName = data.allAssets.edges.map((item) => item.node.name);
+                //console.log(orderID);
+                //console.log(orderText);
 
-            const orders = [];
-            for(let i = 0; i<orderID.length; i++)
-              orders.push({id: orderID[i], text: "OS " + orderID[i] + " - " + orderText[i], subtext: ""});
+                const orders = [];
+                for (let i = 0; i < orderID.length; i++)
+                  orders.push({ id: orderID[i], text: "OS " + orderID[i] + " - " + orderText[i], subtext: "" });
 
-            const assets = [];
-            for(let i = 0; i<assetId.length; i++)
-              assets.push({id: assetId[i], text: assetName[i], subtext: assetId[i]});
+                const assets = [];
+                for (let i = 0; i < assetId.length; i++)
+                  assets.push({ id: assetId[i], text: assetName[i], subtext: assetId[i] });
 
-            return (
-              <div style={{ margin: "0 100px" }}>
-              <Form 
-                className="form-horizontal"
-                onSubmit={e => {
-                  e.preventDefault();
-                  mutate(mutation)}}
-                onReset={() => this.props.history.push('/manutencao/os')}
-              >
-                <AssetCard
-                  sectionName={"Nova Ordem de Serviço"}
-                  sectionDescription={"Formulário para cadastro de ordem de serviço"}
-                  handleCardButton={() => console.log('Handle Card')}
-                  buttonName={"Botão"}
-                  isForm={true}
-                >
-                  <Nav tabs style={{ borderBottom: "2px solid #c8ced3" }}>
-                    <NavItem>
-                      <NavLink
-                        className={this.state.activeTab === '1' ? 'active' : ''}
-                        onClick={() => { this.toggle('1'); }}
+                return (
+                  <div style={{ margin: "0 100px" }}>
+                    <Form
+                      className="form-horizontal"
+                      onSubmit={e => {
+                        e.preventDefault();
+                        mutate(mutation)
+                      }}
+                      onReset={() => this.props.history.push('/manutencao/os')}
+                    >
+                      <AssetCard
+                        sectionName={"Nova Ordem de Serviço"}
+                        sectionDescription={"Formulário para cadastro de ordem de serviço"}
+                        handleCardButton={() => console.log('Handle Card')}
+                        buttonName={"Botão"}
+                        isForm={true}
                       >
-                        Ordem de Serviço
+                        <Nav tabs style={{ borderBottom: "2px solid #c8ced3" }}>
+                          <NavItem>
+                            <NavLink
+                              className={this.state.activeTab === '1' ? 'active' : ''}
+                              onClick={() => { this.toggle('1'); }}
+                            >
+                              Ordem de Serviço
                       </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink
-                        className={this.state.activeTab === '2' ? 'active' : ''}
-                        onClick={() => { this.toggle('2'); }}
-                      >
-                        Localização / Ativos da OS
+                          </NavItem>
+                          <NavItem>
+                            <NavLink
+                              className={this.state.activeTab === '2' ? 'active' : ''}
+                              onClick={() => { this.toggle('2'); }}
+                            >
+                              Localização / Ativos da OS
                       </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink
-                        className={this.state.activeTab === '3' ? 'active' : ''}
-                        onClick={() => { this.toggle('3'); }}
-                      >
-                        Informações do Solicitante
+                          </NavItem>
+                          <NavItem>
+                            <NavLink
+                              className={this.state.activeTab === '3' ? 'active' : ''}
+                              onClick={() => { this.toggle('3'); }}
+                            >
+                              Informações do Solicitante
                       </NavLink>
-                    </NavItem>
-                  </Nav>
-                  <TabContent activeTab={this.state.activeTab} style={{ border: 'none' }}>
-                    <TabPane tabId="1">
-                        <FormGroup row>
-                          <Col xs={'12'}>
-                            <FormGroup>
-                              <Label htmlFor="order-title">Título</Label>
-                              <Input 
-                                onChange={this.handleInputChange}
-                                name="title" type="text" id="order-title" placeholder="Título da ordem de serviço" />
+                          </NavItem>
+                        </Nav>
+                        <TabContent activeTab={this.state.activeTab} style={{ border: 'none' }}>
+                          <TabPane tabId="1">
+                            <FormGroup row>
+                              <Col xs={'12'}>
+                                <FormGroup>
+                                  <Label htmlFor="order-title">Título</Label>
+                                  <Input
+                                    onChange={this.handleInputChange}
+                                    name="title" type="text" id="order-title" placeholder="Título da ordem de serviço" />
+                                </FormGroup>
+                              </Col>
                             </FormGroup>
-                          </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                          <Col xs={'4'}>
-                            <FormGroup>
-                              <SingleInputWithDropDown
-                                label={'Status'}
-                                placeholder="Situação da OS"
-                                listDropdown={ORDER_STATUS}
-                                update={this.handleStatusDropDownChange}
-                                id={'status'}
-                              />
+                            <FormGroup row>
+                              <Col xs={'4'}>
+                                <FormGroup>
+                                  <SingleInputWithDropDown
+                                    label={'Status'}
+                                    placeholder="Situação da OS"
+                                    listDropdown={ORDER_STATUS}
+                                    update={this.handleStatusDropDownChange}
+                                    id={'status'}
+                                  />
+                                </FormGroup>
+                              </Col>
+                              <Col xs={'4'}>
+                                <FormGroup>
+                                  <SingleInputWithDropDown
+                                    label={'Prioridade'}
+                                    placeholder="Prioridade da OS"
+                                    listDropdown={ORDER_PRIORITY}
+                                    update={this.handlePriorityDropDownChange}
+                                    id={'priority'}
+                                  />
+                                </FormGroup>
+                              </Col>
+                              <Col xs={'4'}>
+                                <FormGroup>
+                                  <SingleInputWithDropDown
+                                    label={'Categoria'}
+                                    placeholder="Categoria da OS"
+                                    listDropdown={ORDER_CATEGORY}
+                                    update={this.handleCategoryDropDownChange}
+                                    id={'category'}
+                                  />
+                                </FormGroup>
+                              </Col>
                             </FormGroup>
-                          </Col>
-                          <Col xs={'4'}>
-                            <FormGroup>
-                              <SingleInputWithDropDown
-                                label={'Prioridade'}
-                                placeholder="Prioridade da OS"
-                                listDropdown={ORDER_PRIORITY}
-                                update={this.handlePriorityDropDownChange}
-                                id={'priority'}
-                              />
+                            <FormGroup row>
+                              <Col>
+                                <FormGroup>
+                                  <Label htmlFor="description">Descrição</Label>
+                                  <Input
+                                    onChange={this.handleInputChange}
+                                    name="description" type="textarea" id="description" placeholder="Descrição da ordem de serviço" rows="4" />
+                                </FormGroup>
+                              </Col>
                             </FormGroup>
-                          </Col>
-                          <Col xs={'4'}>
-                            <FormGroup>
-                              <SingleInputWithDropDown
-                                label={'Categoria'}
-                                placeholder="Categoria da OS"
-                                listDropdown={ORDER_CATEGORY}
-                                update={this.handleCategoryDropDownChange}
-                                id={'category'}
-                              />
+                            <FormGroup row>
+                              <Col xs={'4'}>
+                                <FormGroup>
+                                  <Label htmlFor="initial-date">Data Inicial</Label>
+                                  <Input
+                                    onChange={this.handleInputChange}
+                                    name="dateStart" type="date" id="initial-date" placeholder="Início da execução" />
+                                </FormGroup>
+                              </Col>
+                              <Col xs={'4'}>
+                                <FormGroup>
+                                  <Label htmlFor="final-date">Data Final (Prazo)</Label>
+                                  <Input
+                                    onChange={this.handleInputChange}
+                                    name="dateLimit" type="date" id="final-date" placeholder="Prazo final para execução" />
+                                </FormGroup>
+                              </Col>
+                              <Col xs={'4'}>
+                                <FormGroup>
+                                  <Label htmlFor="accomplished">Executado (%)</Label>
+                                  <Input
+                                    onChange={this.handleInputChange}
+                                    name="execution" type="text" id="accomplished" placeholder="Título da ordem de serviço" />
+                                </FormGroup>
+                              </Col>
                             </FormGroup>
-                          </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                          <Col>
-                            <FormGroup>
-                              <Label htmlFor="description">Descrição</Label>
-                              <Input 
-                                onChange={this.handleInputChange}
-                                name="description" type="textarea" id="description" placeholder="Descrição da ordem de serviço" rows="4" />
+                            <FormGroup row>
+                              <Col xs={'8'}>
+                                <FormGroup>
+                                  <SingleInputWithDropDown
+                                    label={'OS pai'}
+                                    placeholder="Nível superior da localização ..."
+                                    listDropdown={orders}
+                                    update={this.handleParentDropDownChange}
+                                    id={'order-parent'}
+                                  />
+                                </FormGroup>
+                              </Col>
                             </FormGroup>
-                          </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                          <Col xs={'4'}>
-                            <FormGroup>
-                              <Label htmlFor="initial-date">Data Inicial</Label>
-                              <Input 
-                                onChange={this.handleInputChange}
-                                name="dateStart" type="date" id="initial-date" placeholder="Início da execução" />
+                          </TabPane>
+                          <TabPane tabId="2">
+                            <FormGroup row>
+                              <Col xs={'8'}>
+                                <FormGroup>
+                                  <InputWithDropdown
+                                    label={'Ativos'}
+                                    placeholder={'Ativos alvos da manutenção ...'}
+                                    listDropdown={assets}
+                                    update={this.handleAssetsDropDownChange}
+                                    id={'assets'}
+                                  />
+                                </FormGroup>
+                              </Col>
                             </FormGroup>
-                          </Col>
-                          <Col xs={'4'}>
-                            <FormGroup>
-                              <Label htmlFor="final-date">Data Final (Prazo)</Label>
-                              <Input 
-                                onChange={this.handleInputChange}
-                                name="dateLimit" type="date" id="final-date" placeholder="Prazo final para execução" />
+                            <FormGroup row>
+                              <Col xs='8'>
+                                <InputWithDropdown
+                                  label={'Localização'}
+                                  placeholder={'Localização da manutenção ...'}
+                                  listDropdown={assets}
+                                  update={() => console.log()}
+                                  id={'location'}
+                                />
+                              </Col>
                             </FormGroup>
-                          </Col>
-                          <Col xs={'4'}>
-                            <FormGroup>
-                              <Label htmlFor="accomplished">Executado (%)</Label>
-                              <Input 
-                                onChange={this.handleInputChange}
-                                name="execution" type="text" id="accomplished" placeholder="Título da ordem de serviço" />
+                          </TabPane>
+                          <TabPane tabId="3">
+                            <FormGroup row>
+                              <Col xs='6'>
+                                <FormGroup>
+                                  <Label htmlFor="request_person">Nome do Solicitante</Label>
+                                  <Input
+                                    onChange={this.handleInputChange}
+                                    name="requestPerson" type="text" id="request_person" placeholder="Pessoa que abriu a solicitação" />
+                                </FormGroup>
+                              </Col>
+                              <Col xs='6'>
+                                <FormGroup>
+                                  <Label htmlFor="request_department">Departamento do Solicitante</Label>
+                                  <Input
+                                    onChange={this.handleInputChange}
+                                    name="requestDepartment" type="text" id="request_department" placeholder="Departamento da pessoa que abriu a solicitação" />
+                                </FormGroup>
+                              </Col>
                             </FormGroup>
-                          </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                          <Col xs={'8'}>
-                            <FormGroup>
-                              <SingleInputWithDropDown
-                                label={'OS pai'}
-                                placeholder="Nível superior da localização ..."
-                                listDropdown={orders}
-                                update={this.handleParentDropDownChange}
-                                id={'order-parent'}
-                              />
+                            <FormGroup row>
+                              <Col xs='6'>
+                                <FormGroup>
+                                  <Label htmlFor="request_contact_name">Nome do contato</Label>
+                                  <Input
+                                    onChange={this.handleInputChange}
+                                    name="requestContactName" type="text" id="request_contact_name" placeholder="Contato para a solicitação" />
+                                </FormGroup>
+                              </Col>
+                              <Col xs='6'>
+                                <FormGroup>
+                                  <Label htmlFor="request_contact_phone">Telefone para contato</Label>
+                                  <Input
+                                    onChange={this.handleInputChange}
+                                    name="requestContactPhone" type="text" id="request_contact_phone" placeholder="Telefone para contato" />
+                                </FormGroup>
+                              </Col>
                             </FormGroup>
-                          </Col>
-                        </FormGroup>
-                    </TabPane>
-                    <TabPane tabId="2">
-                        <FormGroup row>
-                          <Col xs={'8'}>
-                            <FormGroup>
-                              <InputWithDropdown
-                                label={'Ativos'}
-                                placeholder={'Ativos alvos da manutenção ...'}
-                                listDropdown={assets}
-                                update={this.handleAssetsDropDownChange}
-                                id={'assets'}
-                              />
+                            <FormGroup row>
+                              <Col xs='8'>
+                                <FormGroup>
+                                  <Label htmlFor="request_contact_email">Email para contato</Label>
+                                  <Input
+                                    onChange={this.handleInputChange}
+                                    name="requestContactEmail" type="text" id="request_contact_email" placeholder="Email para contato" />
+                                </FormGroup>
+                              </Col>
                             </FormGroup>
-                          </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                          <Col xs='8'>
-                            <InputWithDropdown
-                              label={'Localização'}
-                              placeholder={'Localização da manutenção ...'}
-                              listDropdown={assets}
-                              update={() => console.log()}
-                              id={'location'}
-                            />
-                          </Col>
-                        </FormGroup>
-                    </TabPane>
-                    <TabPane tabId="3">
-                        <FormGroup row>
-                          <Col xs='6'>
-                            <FormGroup>
-                              <Label htmlFor="request_person">Nome do Solicitante</Label>
-                              <Input 
-                                onChange={this.handleInputChange}
-                                name="requestPerson" type="text" id="request_person" placeholder="Pessoa que abriu a solicitação" />
-                            </FormGroup>
-                          </Col>
-                          <Col xs='6'>
-                            <FormGroup>
-                              <Label htmlFor="request_department">Departamento do Solicitante</Label>
-                              <Input 
-                                onChange={this.handleInputChange}
-                                name="requestDepartment" type="text" id="request_department" placeholder="Departamento da pessoa que abriu a solicitação" />
-                            </FormGroup>
-                          </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                          <Col xs='6'>
-                            <FormGroup>
-                              <Label htmlFor="request_contact_name">Nome do contato</Label>
-                              <Input 
-                                onChange={this.handleInputChange}
-                                name="requestContactName" type="text" id="request_contact_name" placeholder="Contato para a solicitação" />
-                            </FormGroup>
-                          </Col>
-                          <Col xs='6'>
-                            <FormGroup>
-                              <Label htmlFor="request_contact_phone">Telefone para contato</Label>
-                              <Input 
-                                onChange={this.handleInputChange}
-                                name="requestContactPhone" type="text" id="request_contact_phone" placeholder="Telefone para contato" />
-                            </FormGroup>
-                          </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                          <Col xs='8'>
-                            <FormGroup>
-                              <Label htmlFor="request_contact_email">Email para contato</Label>
-                              <Input 
-                                onChange={this.handleInputChange}
-                                name="requestContactEmail" type="text" id="request_contact_email" placeholder="Email para contato" />
-                            </FormGroup>
-                          </Col>
-                        </FormGroup>
-                    </TabPane>
-                  </TabContent>
-                </AssetCard>
-              </Form>
-              </div>
-          )}}</Query>
-        )}}</Mutation>
+                          </TabPane>
+                        </TabContent>
+                      </AssetCard>
+                    </Form>
+                  </div>
+                )
+              }}</Query>
+          )
+        }}</Mutation>
     );
   }
 }

@@ -56,6 +56,7 @@ class SingleInputWithDropDown extends Component {
   onKeyDownInput = (filteredList) => (event) => {
     const { hoveredItem } = this.state;
     const lengthList = filteredList.length;
+    console.log("Key Code: ", event.keyCode);
     switch (event.keyCode) {
       case 40:
         this.setState(prevState => {
@@ -79,6 +80,8 @@ class SingleInputWithDropDown extends Component {
         break;
       case 13:
         this.inputDrop.blur();
+        this.toggleDropdown(false);
+        event.preventDefault();
         this.setState(this.updateChosenValue(filteredList));
         break;
     }
@@ -124,16 +127,16 @@ class SingleInputWithDropDown extends Component {
     document.removeEventListener('mouseup', this.handleClickOutsideDrop);
   }
 
-  handleClickOutsideDrop(){
-    if(document.activeElement.id !== 'input-list-' + this.props.id && 
-    document.activeElement.id !== 'list-container-' + this.props.id){
+  handleClickOutsideDrop() {
+    if (document.activeElement.id !== 'input-list-' + this.props.id &&
+      document.activeElement.id !== 'list-container-' + this.props.id) {
       this.setState({
         isDropdownOpen: false,
       });
     }
   }
 
-  resetScroll(){
+  resetScroll() {
     if (this.listContainer === null)
       return null
     return this.listContainer.scrollToPosition(0);
@@ -152,8 +155,8 @@ class SingleInputWithDropDown extends Component {
 
     const hasSubtext = !(filteredList.every((item) => item.subtext === ""))
 
-    const boxHeight = hasSubtext === true ? (filteredList.length >= 4 ? 180 : filteredList.length*55 + 25) : 
-        (filteredList.length >= 4 ? 130 : filteredList.length*20 + 30);
+    const boxHeight = hasSubtext === true ? (filteredList.length >= 4 ? 180 : filteredList.length * 55 + 25) :
+      (filteredList.length >= 4 ? 130 : filteredList.length * 20 + 30);
 
     const itemHeight = hasSubtext === true ? 52 : 25;
 
@@ -184,20 +187,21 @@ class SingleInputWithDropDown extends Component {
                 height={boxHeight}
                 rowHeight={itemHeight}
                 rowRenderer={({ index, key, style }) => {
-                              return(
-                                  <div
-                                    key={key}
-                                    style={style}
-                                    onMouseOver={() => this.onHoverItem(index)}
-                                    onMouseDown={this.onClickItem(filteredList)}
-                                    onMouseUp={document.getElementById(inputId).focus()}
-                                    className={filteredList[hoveredItem].id === filteredList[index].id ? 'active' : ''}
-                                    ref={(el) => this.arrayItems[filteredList[index].id] = el}
-                                  >
-                                    {filteredList[index].text}
-                                    {hasSubtext && <div className="small text-muted">{filteredList[index].subtext}</div>}
-                                  </div>
-                              )}}
+                  return (
+                    <div
+                      key={key}
+                      style={style}
+                      onMouseOver={() => this.onHoverItem(index)}
+                      onMouseDown={this.onClickItem(filteredList)}
+                      onMouseUp={document.getElementById(inputId).focus()}
+                      className={filteredList[hoveredItem].id === filteredList[index].id ? 'active' : ''}
+                      ref={(el) => this.arrayItems[filteredList[index].id] = el}
+                    >
+                      {filteredList[index].text}
+                      {hasSubtext && <div className="small text-muted">{filteredList[index].subtext}</div>}
+                    </div>
+                  )
+                }}
                 rowCount={filteredList.length}
                 overscanRowCount={15}
               />
