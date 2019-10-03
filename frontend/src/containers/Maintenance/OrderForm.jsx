@@ -131,6 +131,35 @@ const ordersQuery = gql`
           }
         }`;
 
+function isEmpty(field) {
+  return field === null || field === "";
+}
+
+function checkAndSubmitForm(inputObject) {
+  const {
+    title,
+    status,
+    priority,
+    category,
+    description,
+    dateStart,
+    dateLimit,
+    execution,
+    parent,
+    assets,
+    requestPerson,
+    requestLocal,
+    requestDepartment,
+    requestContactName,
+    requestContactPhone,
+    requestContactEmail
+  } = inputObject;
+
+  const errorObject = {};
+
+
+}
+
 class OrderForm extends Component {
   constructor(props) {
     super(props);
@@ -366,7 +395,9 @@ class OrderForm extends Component {
                                   <Input
                                     autocomplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="title" type="text" id="order-title" placeholder="Título da ordem de serviço" />
+                                    name="title" type="text" id="order-title" placeholder="Título da ordem de serviço"
+                                    required
+                                  />
                                 </FormGroup>
                               </Col>
                             </FormGroup>
@@ -379,6 +410,7 @@ class OrderForm extends Component {
                                     listDropdown={ORDER_STATUS}
                                     update={this.handleStatusDropDownChange}
                                     id={'status'}
+                                    required
                                   />
                                 </FormGroup>
                               </Col>
@@ -390,6 +422,7 @@ class OrderForm extends Component {
                                     listDropdown={ORDER_PRIORITY}
                                     update={this.handlePriorityDropDownChange}
                                     id={'priority'}
+                                    required
                                   />
                                 </FormGroup>
                               </Col>
@@ -401,6 +434,7 @@ class OrderForm extends Component {
                                     listDropdown={ORDER_CATEGORY}
                                     update={this.handleCategoryDropDownChange}
                                     id={'category'}
+                                    required
                                   />
                                 </FormGroup>
                               </Col>
@@ -412,7 +446,9 @@ class OrderForm extends Component {
                                   <Input
                                     autocomplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="description" type="textarea" id="description" placeholder="Descrição da ordem de serviço" rows="4" />
+                                    name="description" type="textarea" id="description" placeholder="Descrição da ordem de serviço" rows="4"
+                                    required
+                                  />
                                 </FormGroup>
                               </Col>
                             </FormGroup>
@@ -423,7 +459,8 @@ class OrderForm extends Component {
                                   <Input
                                     autocomplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="dateStart" type="date" id="initial-date" placeholder="Início da execução" />
+                                    name="dateStart" type="date" id="initial-date" placeholder="Início da execução"
+                                  />
                                 </FormGroup>
                               </Col>
                               <Col xs={'4'}>
@@ -469,6 +506,7 @@ class OrderForm extends Component {
                                     listDropdown={assets}
                                     update={this.handleAssetsDropDownChange}
                                     id={'assets'}
+                                    required
                                   />
                                 </FormGroup>
                               </Col>
@@ -479,7 +517,9 @@ class OrderForm extends Component {
                                 <Input
                                   autocomplete="new-password"
                                   onChange={this.handleInputChange}
-                                  name="requestLocal" type="text" id="requestLocal" placeholder="Localização da manutenção ..." />
+                                  name="requestLocal" type="text" id="requestLocal" placeholder="Localização da manutenção ..."
+                                  required
+                                />
                                 {/* <InputWithDropdown
                                   label={'Localização'}
                                   placeholder={'Localização da manutenção ...'}
@@ -498,7 +538,9 @@ class OrderForm extends Component {
                                   <Input
                                     autocomplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="requestPerson" type="text" id="request_person" placeholder="Pessoa que abriu a solicitação" />
+                                    name="requestPerson" type="text" id="request_person" placeholder="Pessoa que abriu a solicitação"
+                                    required
+                                  />
                                 </FormGroup>
                               </Col>
                               <Col xs='6'>
@@ -509,6 +551,7 @@ class OrderForm extends Component {
                                     listDropdown={departments}
                                     update={this.handleDepartmentDropDownChange}
                                     id={'status'}
+                                    required
                                   />
                                 </FormGroup>
                               </Col>
@@ -520,7 +563,9 @@ class OrderForm extends Component {
                                   <Input
                                     autocomplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="requestContactName" type="text" id="request_contact_name" placeholder="Contato para a solicitação" />
+                                    name="requestContactName" type="text" id="request_contact_name" placeholder="Contato para a solicitação"
+                                    required
+                                  />
                                 </FormGroup>
                               </Col>
                               <Col xs='6'>
@@ -529,7 +574,9 @@ class OrderForm extends Component {
                                   <Input
                                     autocomplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="requestContactPhone" type="text" id="request_contact_phone" placeholder="Telefone para contato" />
+                                    name="requestContactPhone" type="text" id="request_contact_phone" placeholder="Telefone para contato"
+                                    required
+                                  />
                                 </FormGroup>
                               </Col>
                             </FormGroup>
@@ -541,7 +588,9 @@ class OrderForm extends Component {
                                   <Input
                                     autocomplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="requestContactEmail" type="text" id="request_contact_email" placeholder="Email para contato" />
+                                    name="requestContactEmail" type="text" id="request_contact_email" placeholder="Email para contato"
+                                    required
+                                  />
                                 </FormGroup>
                               </Col>
                             </FormGroup>
