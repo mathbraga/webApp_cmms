@@ -160,7 +160,8 @@ class InputWithDropdown extends Component {
     const containerId = 'list-container-' + this.props.id;
     const filteredList = listDropdown.filter((item) =>
       (
-        item.text.toLowerCase().includes(inputValue.toLowerCase())
+        (item.text.toLowerCase().includes(inputValue.toLowerCase()) ||
+         item.subtext.toLowerCase().includes(inputValue.toLowerCase()))
         && !chosenValue.some(selectedItem => selectedItem.id === item.id)
       ));
 
@@ -178,7 +179,7 @@ class InputWithDropdown extends Component {
           <div className='container-selected-items'>
             <Input
               type="text"
-              value={item.text}
+              value={item.text + " " + `(${item.subtext})`}
               disabled
               className='selected-items'
             />

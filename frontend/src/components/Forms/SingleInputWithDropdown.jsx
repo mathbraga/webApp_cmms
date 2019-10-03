@@ -111,11 +111,18 @@ class SingleInputWithDropDown extends Component {
     }
     const newValue = filteredList[prevState.hoveredItem].text;
     const newValueId = filteredList[prevState.hoveredItem].id;
+
+    const renderedInput = this.props.label === 'Status' ?
+      newValue : (this.props.label === 'Prioridade' ? 
+        newValue : (this.props.label === 'Categoria' ?
+          newValue : (this.props.label === 'OS pai' ?
+            newValue : newValue + " " + `(${newValueId})`)));
+    
     this.props.update(newValueId);
     return {
       chosenValue: newValue,
       hoveredItem: 0,
-      inputValue: newValue,
+      inputValue: renderedInput,
     };
   };
 
@@ -166,7 +173,8 @@ class SingleInputWithDropDown extends Component {
     const containerId = 'list-container-' + this.props.id;
     const filteredList = listDropdown.filter((item) =>
       (
-        item.text.toLowerCase().includes(inputValue.toLowerCase())
+        item.text.toLowerCase().includes(inputValue.toLowerCase()) ||
+        item.subtext.toLowerCase().includes(inputValue.toLowerCase())
       ));
 
     const hasSubtext = !(filteredList.every((item) => item.subtext === ""))

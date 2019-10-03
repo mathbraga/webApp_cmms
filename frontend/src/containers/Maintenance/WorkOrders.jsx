@@ -38,6 +38,7 @@ class WorkOrders extends Component {
               createdAt
               dateLimit
               requestTitle
+              requestLocal
               priority
               orderAssetsByOrderId {
                 edges {

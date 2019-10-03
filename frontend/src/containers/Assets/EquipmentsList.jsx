@@ -69,7 +69,11 @@ class EquipmentsList extends Component {
         return (
           item.node.assetId.toLowerCase().includes(searchTermLower) ||
           item.node.name.toLowerCase().includes(searchTermLower) ||
-          item.node.parent.toLowerCase().includes(searchTermLower)
+          item.node.assetByPlace.name.toLowerCase().includes(searchTermLower) ||
+          String(item.node.manufacturer).toLowerCase().includes(searchTermLower) ||
+          String(item.node.model).toLowerCase().includes(searchTermLower) ||
+          item.node.assetByParent.assetId.toLowerCase().includes(searchTermLower) ||
+          item.node.assetByParent.name.toLowerCase().includes(searchTermLower)
         );
       });
     }
