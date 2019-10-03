@@ -195,8 +195,10 @@ class FacilitiesForm extends Component {
                       className="form-horizontal"
                       onSubmit={e => {
                         e.preventDefault();
-                        mutate(mutation);
-                        this.props.history.push('/ativos/edificios');
+                        mutate(mutation).then(() => {
+                          this.props.history.push('/ativos/edificios');
+                          window.location.reload();
+                        });
                       }}
                       onReset={() => this.props.history.push('/ativos/edificios')}
                     >
