@@ -143,11 +143,11 @@ class EquipmentInfo extends Component {
       filteredItems = edges.filter(function (item) {
         return (
           // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
-          String(item.node.orderId).includes(searchTermLower) ||
           String((item.node.orderId + "").padStart(4, "0")).includes(searchTermLower) ||
           item.node.orderByOrderId.requestTitle.toLowerCase().includes(searchTermLower) ||
-          item.node.orderByOrderId.status.toLowerCase().includes(searchTermLower) ||
-          item.node.orderByOrderId.priority.toLowerCase().includes(searchTermLower) ||
+          item.node.orderByOrderId.requestLocal.toLowerCase().includes(searchTermLower) ||
+          ORDER_STATUS_TYPE[item.node.orderByOrderId.status].toLowerCase().includes(searchTermLower) ||
+          ORDER_PRIORITY_TYPE[item.node.orderByOrderId.priority].toLowerCase().includes(searchTermLower) ||
           String(item.node.orderByOrderId.dateLimit).includes(searchTermLower)
         );
       });
