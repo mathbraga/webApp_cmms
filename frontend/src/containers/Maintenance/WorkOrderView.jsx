@@ -309,7 +309,7 @@ class WorkOrderView extends Component {
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Percentual Executado</div>
-                                    <div className="asset-info-content-data">{orderInfo.completed + "% executado"}</div>
+                                    <div className="asset-info-content-data">{(orderInfo.completed || "0") + "% executado"}</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Prioridade</div>
@@ -319,7 +319,7 @@ class WorkOrderView extends Component {
                               </Row>
                               <div className="asset-info-single-container">
                                 <div className="desc-sub">Descrição Técnica do Serviço</div>
-                                <div className="asset-info-content-data">{orderInfo.requestText}</div>
+                                <div className="asset-info-content-data">{orderInfo.requestText || "Não cadastrado"}</div>
                               </div>
                             </div>
                             <h1 className="asset-info-title">Prazos e Datas</h1>
@@ -342,12 +342,12 @@ class WorkOrderView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Prazo Final</div>
-                                    <div className="asset-info-content-data">{orderInfo.dateLimit && orderInfo.dateLimit.split("T")[0]}</div>
+                                    <div className="asset-info-content-data">{orderInfo.dateLimit ? orderInfo.dateLimit.split("T")[0] : "Não registrado"}</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Dias de Atraso</div>
                                     <div className="asset-info-content-data">
-                                      {daysOfDelay <= 0 ? "Serviço sem atraso" : Math.trunc(daysOfDelay)}
+                                      {(daysOfDelay <= 0 || isNaN(daysOfDelay)) ? "Serviço sem atraso" : Math.trunc(daysOfDelay)}
                                     </div>
                                   </div>
                                 </Col>
@@ -383,7 +383,7 @@ class WorkOrderView extends Component {
                                       </div>
                                       <div className="asset-info-single-container">
                                         <div className="desc-sub">Prazo Final</div>
-                                        <div className="asset-info-content-data">{orderInfo.orderByParent.dateLimit && orderInfo.orderByParent.dateLimit.split("T")[0]}</div>
+                                        <div className="asset-info-content-data">{orderInfo.orderByParent.dateLimit ? orderInfo.orderByParent.dateLimit.split("T")[0] : "Não registrado"}</div>
                                       </div>
                                     </Col>
                                   </Row>
