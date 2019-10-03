@@ -135,31 +135,6 @@ function isEmpty(field) {
   return field === null || field === "";
 }
 
-function checkAndSubmitForm(inputObject) {
-  const {
-    title,
-    status,
-    priority,
-    category,
-    description,
-    dateStart,
-    dateLimit,
-    execution,
-    parent,
-    assets,
-    requestPerson,
-    requestLocal,
-    requestDepartment,
-    requestContactName,
-    requestContactPhone,
-    requestContactEmail
-  } = inputObject;
-
-  const errorObject = {};
-
-
-}
-
 class OrderForm extends Component {
   constructor(props) {
     super(props);
@@ -347,6 +322,7 @@ class OrderForm extends Component {
                     <Form
                       className="form-horizontal"
                       onSubmit={e => {
+                        console.log("Event: ", e);
                         e.preventDefault();
                         mutate(mutation);
                         this.props.history.push('/manutencao/os');
@@ -393,7 +369,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="order-title">Título</Label>
                                   <Input
-                                    autocomplete="new-password"
+                                    autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="title" type="text" id="order-title" placeholder="Título da ordem de serviço"
                                     required
@@ -444,7 +420,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="description">Descrição</Label>
                                   <Input
-                                    autocomplete="new-password"
+                                    autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="description" type="textarea" id="description" placeholder="Descrição da ordem de serviço" rows="4"
                                     required
@@ -457,7 +433,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="initial-date">Data Inicial</Label>
                                   <Input
-                                    autocomplete="new-password"
+                                    autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="dateStart" type="date" id="initial-date" placeholder="Início da execução"
                                   />
@@ -467,7 +443,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="final-date">Data Final (Prazo)</Label>
                                   <Input
-                                    autocomplete="new-password"
+                                    autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="dateLimit" type="date" id="final-date" placeholder="Prazo final para execução" />
                                 </FormGroup>
@@ -476,7 +452,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="accomplished">Executado (%)</Label>
                                   <Input
-                                    autocomplete="new-password"
+                                    autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="execution" type="text" id="accomplished" placeholder="Título da ordem de serviço" />
                                 </FormGroup>
@@ -515,7 +491,7 @@ class OrderForm extends Component {
                               <Col xs='8'>
                                 <Label htmlFor="location">Localização (campo livre)</Label>
                                 <Input
-                                  autocomplete="new-password"
+                                  autoComplete="new-password"
                                   onChange={this.handleInputChange}
                                   name="requestLocal" type="text" id="requestLocal" placeholder="Localização da manutenção ..."
                                   required
@@ -536,7 +512,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="request_person">Nome do Solicitante</Label>
                                   <Input
-                                    autocomplete="new-password"
+                                    autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="requestPerson" type="text" id="request_person" placeholder="Pessoa que abriu a solicitação"
                                     required
@@ -561,7 +537,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="request_contact_name">Nome do contato</Label>
                                   <Input
-                                    autocomplete="new-password"
+                                    autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="requestContactName" type="text" id="request_contact_name" placeholder="Contato para a solicitação"
                                     required
@@ -572,7 +548,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="request_contact_phone">Telefone para contato</Label>
                                   <Input
-                                    autocomplete="new-password"
+                                    autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="requestContactPhone" type="text" id="request_contact_phone" placeholder="Telefone para contato"
                                     required
@@ -584,9 +560,9 @@ class OrderForm extends Component {
                               <Col xs='8'>
                                 <FormGroup>
                                   <Label htmlFor="request_contact_email">Email para contato</Label>
-                                  <input type="text" autocomplete="off" style={{ display: "none" }}></input>
+                                  <input type="text" autoComplete="off" style={{ display: "none" }}></input>
                                   <Input
-                                    autocomplete="new-password"
+                                    autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="requestContactEmail" type="text" id="request_contact_email" placeholder="Email para contato"
                                     required
