@@ -95,22 +95,21 @@ class WorkOrdersList extends Component {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
     const allEdges = allItems.allOrders.edges;
-    
 
     let filteredItems = allEdges;
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
       filteredItems = allEdges.filter(function (item) {
         return (
-          item.node.category.toLowerCase().includes(searchTermLower) ||
-          String(item.node.orderId).includes(searchTermLower) ||
-          String(item.node.dateLimit).includes(searchTermLower) ||
-          item.node.status.toLowerCase().includes(searchTermLower) ||
-          item.node.requestTitle.toLowerCase().includes(searchTermLower)
+          (ORDER_CATEGORY_TYPE[item.node.category] && ORDER_CATEGORY_TYPE[item.node.category].toLowerCase().includes(searchTermLower)) ||
+          (String(item.node.orderId).includes(searchTermLower)) ||
+          (String(item.node.dateLimit) && String(item.node.dateLimit).includes(searchTermLower)) ||
+          (ORDER_STATUS_TYPE[item.node.status] && ORDER_STATUS_TYPE[item.node.status].toLowerCase().includes(searchTermLower)) ||
+          (item.node.requestTitle.toLowerCase().includes(searchTermLower)) ||
+          (item.node.requestLocal && item.node.requestLocal.toLowerCase().includes(searchTermLower))
         );
       });
     }
-
 
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
@@ -135,6 +134,7 @@ class WorkOrdersList extends Component {
         }
       </tr>
 
+    console.log("Show Items: ", showItems);
     const tbody = showItems.map(item => (
       <tr
         onClick={() => { this.props.history.push('/manutencao/os/view/' + item.node.orderId) }}
@@ -151,10 +151,7 @@ class WorkOrdersList extends Component {
         </td>
         <td>
           <div className="text-center">
-            {
-              places[item.node.orderId] &&
-              places[item.node.orderId].map(place => (<div>{place.name}</div>))
-            }
+            {item.node.requestLocal}
           </div>
         </td>
       </tr>))
