@@ -177,7 +177,8 @@ class WorkOrderView extends Component {
                 return (
                   // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
                   item.assetByAssetId.name.toLowerCase().includes(searchTermLower) ||
-                  item.assetByAssetId.assetId.toLowerCase().includes(searchTermLower)
+                  item.assetByAssetId.assetId.toLowerCase().includes(searchTermLower) ||
+                  item.assetByAssetId.place.toLowerCase().includes(searchTermLower)
                 );
               });
             }

@@ -72,7 +72,8 @@ class FacilitiesList extends Component {
         return (
           item.node.assetId.toLowerCase().includes(searchTermLower) ||
           item.node.name.toLowerCase().includes(searchTermLower) ||
-          item.node.parent.toLowerCase().includes(searchTermLower)
+          item.node.parent.toLowerCase().includes(searchTermLower) ||
+          String(item.node.area).includes(searchTermLower)
         );
       });
     }

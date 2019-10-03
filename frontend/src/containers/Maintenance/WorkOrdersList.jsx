@@ -95,6 +95,7 @@ class WorkOrdersList extends Component {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
     const allEdges = allItems.allOrders.edges;
+    
 
     let filteredItems = allEdges;
     if (searchTerm.length > 0) {
@@ -102,12 +103,14 @@ class WorkOrdersList extends Component {
       filteredItems = allEdges.filter(function (item) {
         return (
           item.node.category.toLowerCase().includes(searchTermLower) ||
-          item.node.requestPerson.toLowerCase().includes(searchTermLower) ||
-          item.node.requestText.toLowerCase().includes(searchTermLower) ||
-          item.node.status.toLowerCase().includes(searchTermLower)
+          String(item.node.orderId).includes(searchTermLower) ||
+          String(item.node.dateLimit).includes(searchTermLower) ||
+          item.node.status.toLowerCase().includes(searchTermLower) ||
+          item.node.requestTitle.toLowerCase().includes(searchTermLower)
         );
       });
     }
+
 
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
