@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import signup from "../../utils/authentication/signup";
-import loginFetch from "../../utils/authentication/loginFetch";
 import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -9,50 +7,25 @@ class RegisterUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      fullName: "",
+      cpf: "",
       email: "",
-      name: "",
-      surname: "",
       phone: "",
-      department: "",
-      contract: "",
-      category: "E",
-      password1: "",
-      password2: "",
+      cellphone: "",
+      personRole: "",
+      teamsList: null,
       isFetching: false,
-      signupError: false,
+      registerUserError: false,
       alertVisible: false,
       alertMessage: "",
     }
   }
 
-  componentWillMount = () => {
-    if (this.props.email || window.localStorage.getItem('session') !== null) {
-      this.props.history.push("/painel");
-    }
-  }
-
   handleInputs = event => {
     event.persist();
-    if (event.target.name === 'category') {
-      switch (event.target.value) {
-        case 'E':
-          this.setState({
-            category: 'E',
-            contract: null,
-          });
-          break;
-        case 'T':
-          this.setState({
-            category: 'T',
-            department: null,
-          });
-          break;
-      }
-    } else {
-      this.setState({
-        [event.target.name]: event.target.value
-      });
-    }
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
 
   closeAlert = () => {
@@ -129,7 +102,6 @@ class RegisterUser extends Component {
         if (loading) return null;
         if (error) {
           console.log(error);
-          // this.handleError();
         }
         return (
           <Query query={formOptions}>{({ data, loading, error }) => {
@@ -138,18 +110,6 @@ class RegisterUser extends Component {
               console.log(error);
               return null
             }
-
-            const categoriesArr = data.__type.enumValues;
-
-            const departmentsArr = data.allDepartments.nodes;
-
-            // console.log('form options:\n');
-            // console.log('categories:');
-            // console.log(categoriesArr);
-            // console.log('contracts:');
-            // console.log(contractsArr);
-            // console.log('departments:');
-            // console.log(departmentsArr);
 
             return (
               <div className="flex-row align-items-center">
@@ -167,7 +127,7 @@ class RegisterUser extends Component {
                             }}
                           >
                             <h1>Cadastro</h1>
-                            <p className="text-muted">Crie sua conta para acessar o CMMS da SINFRA.</p>
+                            <p className="text-muted mb-4">Cadastre um novo usuário do webSINFRA.</p>
 
                             <InputGroup className="mb-3">
                               <InputGroupAddon addonType="prepend">
@@ -206,7 +166,7 @@ class RegisterUser extends Component {
                             <InputGroup className="mb-3">
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
-                                  <i className="icon-user"></i>
+                                  <i className="icon-envelope"></i>
                                 </InputGroupText>
                               </InputGroupAddon>
                               <Input
@@ -254,117 +214,39 @@ class RegisterUser extends Component {
                             <InputGroup className="mb-3">
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
-                                  <i className="icon-briefcase"></i>
+                                  <i className="icon-wrench"></i>
                                 </InputGroupText>
                               </InputGroupAddon>
                               <Input
                                 type="select"
                                 id="personRole"
                                 name="personRole"
+                                defaultValue=""
                                 onChange={this.handleInputs}
-                                disabled={this.state.isFetching}
                               >
-                                {/* <option >Nível de acesso ao CMMS</option> */}
-                                <optgroup disabled selected label='Nível de acesso ao CMMS'>
-                                  <option value={'employee'} >Colaborador da SINFRA</option>
-                                  <option value={'employee'} >Funcionário de contrato de manutenção</option>
-                                </optgroup>
-                              ))}
+                                <option disabled value="">Nível de acesso ao webSINFRA</option>
+                                <option value={'supervisor'}>&emsp;Colaborador da SINFRA</option>
+                                <option value={'employee'}>&emsp;Funcionário de contrato de manutenção</option>
                               </Input>
-                            </InputGroup>
-
-                            <InputGroup className="mb-3">
-                              <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                  <i className="icon-briefcase"></i>
-                                </InputGroupText>
-                              </InputGroupAddon>
-                              <Input
-                                type="select"
-                                id="department"
-                                name="department"
-                                placeholder="Departamento"
-                                onChange={this.handleInputs}
-                                disabled={this.state.category === 'T'}
-                                value={this.state.department}
-                              >
-                                <option
-                                  value={''}
-                                >
-                                  Selecione o departamento
-                                </option>
-                                {departmentsArr.map(dept => (
-                                  <option
-                                    key={dept.departmentId}
-                                    value={dept.department}
-                                  >
-                                    {dept.departmentId}
-                                  </option>
-                                ))}
-                              </Input>
-                            </InputGroup>
-
-                            {/* <InputGroup className="mb-3">
-                              <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                  <i className="icon-briefcase"></i>
-                                </InputGroupText>
-                              </InputGroupAddon>
-                              <Input
-                                type="select"
-                                id="contract"
-                                name="contract"
-                                placeholder="Contrato"
-                                onChange={this.handleInputs}
-                                disabled={this.state.category === 'E'}
-                                value={this.state.contract}
-                              >
-                                <option
-                                  value={''}
-                                >
-                                  Selecione o contrato
-                                </option>
-                                {contractsArr.map(contract => (
-                                <option
-                                  key={contract.contractId}
-                                  value={contract.contractId}
-                                  >
-                                  {contract.contractId}
-                                </option>
-                              ))}
-                              </Input>
-                            </InputGroup> */}
-
-                            <InputGroup className="mb-3">
-                              <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                  <i className="icon-lock"></i>
-                                </InputGroupText>
-                              </InputGroupAddon>
-                              <Input
-                                type="password"
-                                placeholder="Senha"
-                                id="password1"
-                                name="password1"
-                                onChange={this.handleInputs}
-                                disabled={this.state.isFetching}
-                              />
                             </InputGroup>
 
                             <InputGroup className="mb-4">
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
-                                  <i className="icon-lock"></i>
+                                  <i className="icon-people"></i>
                                 </InputGroupText>
                               </InputGroupAddon>
                               <Input
-                                type="password"
-                                placeholder="Repita sua senha"
-                                id="password2"
-                                name="password2"
+                                type="select"
+                                id="team"
+                                name="team"
+                                defaultValue=""
                                 onChange={this.handleInputs}
-                                disabled={this.state.isFetching}
-                              />
+                              >
+                                <option disabled value="">Vincular a uma equipe</option>
+                                <option value={'team1'}>&emsp;Equipe 1</option>
+                                <option value={'team2'}>&emsp;Equipe 2</option>
+                              </Input>
                             </InputGroup>
 
                             <Button
@@ -373,7 +255,7 @@ class RegisterUser extends Component {
                               block
                               // onClick={this.handleSubmit}
                               disabled={this.state.isFetching}
-                            >Cadastrar
+                            >Cadastrar usuário
                             </Button>
 
                           </Form>
