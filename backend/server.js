@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 // Initialization and imports
-const compression = require('compression'); // Add this in production?
+// const compression = require('compression'); // Add this in production?
 const express = require('express');
 const app = express();
 const port = 3001;

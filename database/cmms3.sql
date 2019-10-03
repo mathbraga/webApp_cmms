@@ -383,15 +383,15 @@ end; $$;
 create or replace function insert_appliance (
   in appliance_attributes appliances,
   in departments_array  text[],
-  out new_appliance_id text
+  out asset_id text
 )
 language plpgsql
 as $$
 begin
-  insert into appliances values (appliance_attributes.*)
-    returning asset_id into new_appliance_id;
+  insert into appliances as a values (appliance_attributes.*)
+    returning a.asset_id into asset_id;
   if departments_array is not null then
-    insert into asset_departments select new_appliance_id, unnest(departments_array);
+    insert into asset_departments select asset_id, unnest(departments_array);
   end if;
 end; $$;
 
@@ -399,28 +399,28 @@ end; $$;
 create or replace function insert_facility (
   in facility_attributes facilities,
   in departments_array text[],
-  out new_facility_id text
+  out asset_id text
 )
 language plpgsql
 as $$
 begin
-  insert into facilities values (facility_attributes.*)
-    returning asset_id into new_facility_id;
+  insert into facilities as f values (facility_attributes.*)
+    returning f.asset_id into asset_id;
   if departments_array is not null then
-    insert into asset_departments select new_facility_id, unnest(departments_array);
+    insert into asset_departments select asset_id, unnest(departments_array);
   end if;
 end; $$;
 
 create or replace function insert_order (
   in order_attributes orders,
   in assets_array text[],
-  out new_order_id integer
+  out order_id integer
 )
 language plpgsql
 strict
 as $$
 begin
-  insert into orders (
+  insert into orders as o (
     order_id,
     status,
     priority,
@@ -458,9 +458,9 @@ begin
     order_attributes.date_start,
     order_attributes.contract_id,
     now()
-  ) returning order_id into new_order_id;
+  ) returning o.order_id into order_id;
 
-  insert into order_assets select new_order_id, unnest(assets_array);
+  insert into order_assets select order_id, unnest(assets_array);
 
 end; $$;
 

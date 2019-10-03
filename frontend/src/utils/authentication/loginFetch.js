@@ -1,7 +1,7 @@
 export default function loginFetch(email, password){
   return new Promise((resolve, reject) => {
     
-    fetch(process.env.REACT_APP_SERVER_URL + process.env.REACT_APP_AUTH_PATH, {
+    fetch(process.env.REACT_APP_SERVER_URL + process.env.REACT_APP_LOGIN_PATH, {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify({
