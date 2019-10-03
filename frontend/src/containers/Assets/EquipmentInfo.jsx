@@ -326,11 +326,11 @@ class EquipmentInfo extends Component {
                         <Col md="6">
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Nome do Equipamento</div>
-                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetByParent.name}</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetByParent.name || "Não possui ativo pai"}</div>
                           </div>
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Código</div>
-                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetByParent.assetId}</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetByParent.assetId || "Não possui ativo pai"}</div>
                           </div>
                         </Col>
                       </Row>
@@ -359,11 +359,11 @@ class EquipmentInfo extends Component {
                         <Col md="6">
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Latidude do Local</div>
-                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetByPlace.latitude}</div>
+                            <div className="asset-info-content-data">{(assetsInfo.assetByAssetId.assetByPlace.latitude && assetsInfo.assetByAssetId.assetByPlace.latitude != 0) ? assetsInfo.assetByAssetId.assetByPlace.latitude : "Não cadastrado"}</div>
                           </div>
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Longitude do Local</div>
-                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetByPlace.longitude}</div>
+                            <div className="asset-info-content-data">{(assetsInfo.assetByAssetId.assetByPlace.longitude && assetsInfo.assetByAssetId.assetByPlace.longitude != 0) ? assetsInfo.assetByAssetId.assetByPlace.longitude : "Não cadastrado"}</div>
                           </div>
                         </Col>
                       </Row>
