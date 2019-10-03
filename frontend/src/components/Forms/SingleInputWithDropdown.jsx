@@ -166,7 +166,8 @@ class SingleInputWithDropDown extends Component {
     const containerId = 'list-container-' + this.props.id;
     const filteredList = listDropdown.filter((item) =>
       (
-        item.text.toLowerCase().includes(inputValue.toLowerCase())
+        item.text.toLowerCase().includes(inputValue.toLowerCase()) ||
+        item.subtext.toLowerCase().includes(inputValue.toLowerCase())
       ));
 
     const hasSubtext = !(filteredList.every((item) => item.subtext === ""))
