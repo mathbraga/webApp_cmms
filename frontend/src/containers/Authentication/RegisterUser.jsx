@@ -6,7 +6,7 @@ import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class RegisterUser extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       email: "",
@@ -26,15 +26,15 @@ class RegisterUser extends Component {
   }
 
   componentWillMount = () => {
-    if(this.props.email || window.localStorage.getItem('session') !== null){
+    if (this.props.email || window.localStorage.getItem('session') !== null) {
       this.props.history.push("/painel");
     }
   }
 
   handleInputs = event => {
     event.persist();
-    if(event.target.name === 'category'){
-      switch(event.target.value){
+    if (event.target.name === 'category') {
+      switch (event.target.value) {
         case 'E':
           this.setState({
             category: 'E',
@@ -79,7 +79,7 @@ class RegisterUser extends Component {
         }
       }
     `;
-    
+
     const newUser = gql`
       mutation MyMutation(
         $email: String!
@@ -107,7 +107,7 @@ class RegisterUser extends Component {
         }
       }
     `;
-    
+
     const mutate = (newData) => {
       newData().then((data) => console.log(data))
     }
@@ -125,16 +125,16 @@ class RegisterUser extends Component {
           category: this.state.category,
           password: this.state.password1
         }}
-      >{(mutation, {data, loading, error}) => {
+      >{(mutation, { data, loading, error }) => {
         if (loading) return null;
-        if(error){
+        if (error) {
           console.log(error);
           // this.handleError();
         }
-        return(
-          <Query query={formOptions}>{({data, loading, error}) => {
-            if(loading) return null
-            if(error){
+        return (
+          <Query query={formOptions}>{({ data, loading, error }) => {
+            if (loading) return null
+            if (error) {
               console.log(error);
               return null
             }
@@ -151,7 +151,7 @@ class RegisterUser extends Component {
             // console.log('departments:');
             // console.log(departmentsArr);
 
-            return(
+            return (
               <div className="flex-row align-items-center">
                 <Container>
                   <Row className="justify-content-center">
@@ -161,16 +161,14 @@ class RegisterUser extends Component {
                           <Form
                             onSubmit={event => {
                               event.preventDefault();
-                              if(this.state.password1 === this.state.password2){
+                              if (this.state.password1 === this.state.password2) {
                                 mutate(mutation);
-                              } else {
-                                console.log('hehehe');
                               }
                             }}
                           >
                             <h1>Cadastro</h1>
                             <p className="text-muted">Crie sua conta para acessar o CMMS da SINFRA.</p>
-                            
+
                             <InputGroup className="mb-3">
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
@@ -187,7 +185,7 @@ class RegisterUser extends Component {
                                 autoFocus
                               />
                             </InputGroup>
-                            
+
                             <InputGroup className="mb-3">
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
@@ -204,7 +202,7 @@ class RegisterUser extends Component {
                                 disabled={this.state.isFetching}
                               />
                             </InputGroup>
-                            
+
                             <InputGroup className="mb-3">
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
@@ -296,13 +294,13 @@ class RegisterUser extends Component {
                                   Selecione o departamento
                                 </option>
                                 {departmentsArr.map(dept => (
-                                <option
-                                  key={dept.departmentId}
-                                  value={dept.department}
-                                >
-                                  {dept.departmentId}
-                                </option>
-                              ))}
+                                  <option
+                                    key={dept.departmentId}
+                                    value={dept.department}
+                                  >
+                                    {dept.departmentId}
+                                  </option>
+                                ))}
                               </Input>
                             </InputGroup>
 
@@ -375,7 +373,7 @@ class RegisterUser extends Component {
                               block
                               // onClick={this.handleSubmit}
                               disabled={this.state.isFetching}
-                              >Cadastrar
+                            >Cadastrar
                             </Button>
 
                           </Form>
@@ -389,7 +387,7 @@ class RegisterUser extends Component {
                         toggle={this.closeAlert}
                       >{this.state.alertMessage}
                       </Alert>
-                      
+
                     </Col>
                   </Row>
                 </Container>

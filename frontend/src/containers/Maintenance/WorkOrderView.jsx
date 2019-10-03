@@ -166,12 +166,9 @@ class WorkOrderView extends Component {
             }
             const orderInfo = data.orderByOrderId;
             const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
-            console.log("WO Data: ", orderInfo);
 
             const assetsByOrder = orderInfo.orderAssetsByOrderId.nodes;
             const pageLength = assetsByOrder.length;
-
-            console.log("AssetsByOrder: ", assetsByOrder);
 
             let filteredItems = assetsByOrder;
             if (searchTerm.length > 0) {

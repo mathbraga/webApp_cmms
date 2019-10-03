@@ -109,10 +109,6 @@ class WorkOrdersList extends Component {
       });
     }
 
-    // console.clear();
-    console.log("Filtered Items:");
-    console.log(filteredItems);
-
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
@@ -125,8 +121,6 @@ class WorkOrdersList extends Component {
       });
       if (tempPlaces.length > 0) { places[item.node.orderId] = tempPlaces; }
     });
-
-    console.log("Places: ", places);
 
     const thead =
       <tr>

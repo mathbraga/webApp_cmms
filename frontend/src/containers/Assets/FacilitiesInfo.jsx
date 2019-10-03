@@ -137,8 +137,6 @@ class FacilitiesInfo extends Component {
 
     const departments = assetsInfo.assetByAssetId.assetDepartmentsByAssetId.edges;
 
-    console.log("Showitems: ", showItems);
-
     const thead =
       <tr>
         <th className="text-center checkbox-cell">

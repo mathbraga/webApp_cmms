@@ -5,7 +5,7 @@ import checkProblems from "./checkProblems";
 import removeEmptyMeters from "./removeEmptyMeters";
 import sumAllMeters from "./sumAllMeters";
 
-export default function buildResultAM(data, meterType, meters, chosenMeter, initialDate, finalDate){
+export default function buildResultAM(data, meterType, meters, chosenMeter, initialDate, finalDate) {
 
   console.log('begin r a m')
 
@@ -28,7 +28,7 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
   console.log(data);
 
   resultObject.queryResponse = sumAllMeters(data);
-  
+
   console.log(resultObject.queryResponse);
 
   let queryResponse = resultObject.queryResponse;
@@ -69,17 +69,17 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
   resultObject.widgetThreeColumnsValues = [
     formatNumber(queryResponse.dms, 0) + " kW",
     "R$ " +
-      formatNumber(
-        queryResponse.vudf + queryResponse.vudp,
-        0
-      ),
+    formatNumber(
+      queryResponse.vudf + queryResponse.vudp,
+      0
+    ),
     "R$ " + formatNumber(queryResponse.desc, 2),
     "R$ " + formatNumber(queryResponse.jma, 2),
     "R$ " +
-      formatNumber(
-        queryResponse.verexf + queryResponse.verexp,
-        2
-      ),
+    formatNumber(
+      queryResponse.verexf + queryResponse.verexp,
+      2
+    ),
     formatNumber(
       queryResponse.uferf + queryResponse.uferp,
       0
@@ -89,11 +89,11 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
   resultObject.widgetWithModalTitle = "Diagnóstico";
 
   resultObject.widgetWithModalButtonName = "Ver relatório";
-  
+
   console.log('here2');
 
   resultObject.problems = checkProblems(resultObject.queryResponse, chosenMeter, resultObject.queryResponseAll, meters);
-  
+
   resultObject.numProblems = 0;
   Object.keys(resultObject.problems).forEach(key => {
     if (resultObject.problems[key].problem === true) resultObject.numProblems += 1;
@@ -193,7 +193,7 @@ export default function buildResultAM(data, meterType, meters, chosenMeter, init
   };
 
   resultObject.initialDate = transformDateString(dateWithFourDigits(initialDate));
-  
+
   resultObject.finalDate = transformDateString(dateWithFourDigits(finalDate));
 
   console.log('ending build R A M');

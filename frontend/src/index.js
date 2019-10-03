@@ -24,11 +24,12 @@ const httpLink = new HttpLink({
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if(graphQLErrors){
+  if (graphQLErrors) {
     console.log("Erro de busca no banco de dados.");
   }
-  if(networkError){
+  if (networkError) {
     console.log("Erro de conexão.");
+    console.log("Error: ", networkError.message);
   }
 });
 const cache = new InMemoryCache();

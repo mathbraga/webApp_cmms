@@ -98,7 +98,6 @@ class EquipmentsForm extends Component {
   }
 
   render() {
-    console.log(this.state);
     const newEquipment = gql`
       mutation MyMutation (
           $assetId: String!,
@@ -127,8 +126,7 @@ class EquipmentsForm extends Component {
             }
           }
         ){
-        clientMutationId
-        string
+          assetId
       }
     }`;
 
@@ -162,7 +160,6 @@ class EquipmentsForm extends Component {
               ({ loading, error, data }) => {
                 if (loading) return null
                 if (error) {
-                  console.log("Erro ao tentar baixar os dados!");
                   return null
                 }
 
@@ -190,7 +187,8 @@ class EquipmentsForm extends Component {
                       className="form-horizontal"
                       onSubmit={e => {
                         e.preventDefault();
-                        mutate(mutation)
+                        mutate(mutation);
+                        this.props.history.push('/ativos/equipamentos');
                       }}
                       onReset={() => this.props.history.push('/ativos/equipamentos')}
                     >
@@ -207,7 +205,10 @@ class EquipmentsForm extends Component {
                               <Label htmlFor="equipment-name">Nome do equipamento</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="assetName" type="text" id="equipment-name" placeholder="Digite o nome do equipamento" />
+                                name="assetName" type="text" id="equipment-name" placeholder="Digite o nome do equipamento"
+                                required
+                                autoComplete="off"
+                              />
                             </FormGroup>
                           </Col>
                           <Col xs={'4'}>
@@ -215,7 +216,10 @@ class EquipmentsForm extends Component {
                               <Label htmlFor="equipment-code">Código</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="assetId" type="text" id="equipment-code" placeholder="Digite o código do equipamento" />
+                                name="assetId" type="text" id="equipment-code" placeholder="Digite o código do equipamento"
+                                required
+                                autoComplete="off"
+                              />
                             </FormGroup>
                           </Col>
                         </FormGroup>
@@ -223,7 +227,9 @@ class EquipmentsForm extends Component {
                           <Label htmlFor="description">Descrição</Label>
                           <Input
                             onChange={this.handleInputChange}
-                            name="description" type="textarea" id="description" placeholder="Descrição do equipamento" rows="4" />
+                            name="description" type="textarea" id="description" placeholder="Descrição do equipamento" rows="4"
+                            autoComplete="off"
+                          />
                         </FormGroup>
                         <FormGroup row>
                           <Col xs={'8'}>
@@ -242,7 +248,9 @@ class EquipmentsForm extends Component {
                               <Label htmlFor="price">Preço (R$)</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="price" type="text" id="area" placeholder="Preço de aquisição" />
+                                name="price" type="text" id="area" placeholder="Preço de aquisição"
+                                autoComplete="off"
+                              />
                             </FormGroup>
                           </Col>
                         </FormGroup>
@@ -254,6 +262,7 @@ class EquipmentsForm extends Component {
                               listDropdown={assets}
                               update={this.handleLocationDropDownChange}
                               id={'location'}
+                              required
                             />
                           </Col>
                         </FormGroup>
@@ -263,7 +272,9 @@ class EquipmentsForm extends Component {
                               <Label htmlFor="manufacturer">Fabricante</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="manufacturer" type="text" id="manufacturer" placeholder="Empresa fabricante" />
+                                name="manufacturer" type="text" id="manufacturer" placeholder="Empresa fabricante"
+                                autoComplete="off"
+                              />
                             </FormGroup>
                           </Col>
                           <Col xs={'4'}>
@@ -271,7 +282,9 @@ class EquipmentsForm extends Component {
                               <Label htmlFor="model">Modelo</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="model" type="text" id="model" placeholder="Modelo" />
+                                name="model" type="text" id="model" placeholder="Modelo"
+                                autoComplete="off"
+                              />
                             </FormGroup>
                           </Col>
                           <Col xs={'4'}>
@@ -279,7 +292,9 @@ class EquipmentsForm extends Component {
                               <Label htmlFor="serial-num">Número serial</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="serialNum" type="text" id="serial-num" placeholder="Número serial" />
+                                name="serialNum" type="text" id="serial-num" placeholder="Número serial"
+                                autoComplete="off"
+                              />
                             </FormGroup>
                           </Col>
                         </FormGroup>
