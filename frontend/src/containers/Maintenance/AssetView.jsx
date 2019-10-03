@@ -3,30 +3,28 @@ import getAsset from "../../utils/assets/getAsset";
 import { Button } from "reactstrap";
 
 class AssetView extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       asset: false
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
 
     let assetId = this.props.location.pathname.slice(13);
 
     getAsset(assetId)
-    .then(asset => {
-      console.log("Asset details:");
-      console.log(asset);
-      this.setState({
-        asset: asset,
+      .then(asset => {
+        this.setState({
+          asset: asset,
+        });
+      })
+      .catch(message => {
+        console.log(message);
       });
-    })
-    .catch(message => {
-      console.log(message);
-    });
   }
-  
+
   render() {
     return (
       <React.Fragment>
@@ -54,7 +52,7 @@ class AssetView extends Component {
             )}
           </React.Fragment>
         )} */}
-     </React.Fragment>
+      </React.Fragment>
     )
   }
 }

@@ -16,7 +16,6 @@ import { Switch, Route } from "react-router-dom";
 
 class Assets extends Component {
   render() {
-    console.log(this.props)
     const category = this.props.location.pathname.slice(8) === "edificios" ? "F" : "A";
     const fetchAssets = gql`
       query assetsQuery($category: AssetCategoryType!) {
@@ -51,7 +50,6 @@ class Assets extends Component {
           ({ loading, error, data }) => {
             if (loading) return null
             if (error) {
-              console.log("Erro ao tentar baixar os ativos!");
               return null
             }
             const assets = data;

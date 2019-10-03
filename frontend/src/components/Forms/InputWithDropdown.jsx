@@ -26,6 +26,7 @@ class InputWithDropdown extends Component {
     this.onClickItem = this.onClickItem.bind(this);
     this.updateChosenValue = this.updateChosenValue.bind(this);
     this.handleClickOutsideDrop = this.handleClickOutsideDrop.bind(this);
+    this.handleSelectOutsideDrop = this.handleSelectOutsideDrop.bind(this);
     this.arrayItems = {};
   }
 
@@ -77,6 +78,8 @@ class InputWithDropdown extends Component {
         break;
       case 13:
         this.inputDrop.blur();
+        this.toggleDropdown(false);
+        event.preventDefault();
         this.setState(this.updateChosenValue(filteredList));
         break;
     }
@@ -118,15 +121,32 @@ class InputWithDropdown extends Component {
 
   componentDidMount() {
     document.addEventListener('mouseup', this.handleClickOutsideDrop);
+    document.addEventListener('keyup', this.handleSelectOutsideDrop);
   }
 
   componentWillMount() {
     document.removeEventListener('mouseup', this.handleClickOutsideDrop);
+    document.removeEventListener('keyup', this.handleSelectOutsideDrop);
   }
 
-  handleClickOutsideDrop(){
-    if(document.activeElement.id !== 'input-list-' + this.props.id && 
-    document.activeElement.id !== 'list-container-' + this.props.id){
+  handleClickOutsideDrop() {
+    if (document.activeElement.id !== 'input-list-' + this.props.id &&
+      document.activeElement.id !== 'list-container-' + this.props.id) {
+      this.setState({
+        isDropdownOpen: false,
+      });
+    }
+  }
+
+  handleSelectOutsideDrop(e) {
+    if (e.keyCode === 9 && (document.activeElement.id === 'input-list-' + this.props.id)) {
+      this.setState({
+        isDropdownOpen: true,
+        inputValue: "",
+      });
+    }
+    if (document.activeElement.id !== 'input-list-' + this.props.id &&
+      document.activeElement.id !== 'list-container-' + this.props.id) {
       this.setState({
         isDropdownOpen: false,
       });
@@ -143,12 +163,11 @@ class InputWithDropdown extends Component {
         item.text.toLowerCase().includes(inputValue.toLowerCase())
         && !chosenValue.some(selectedItem => selectedItem.id === item.id)
       ));
-    console.log(filteredList);
-      
+
     const hasSubtext = !(filteredList.every((item) => item.subtext === ""))
 
-    const boxHeight = hasSubtext === true ? (filteredList.length >= 4 ? 180 : filteredList.length*55 + 25) : 
-        (filteredList.length >= 4 ? 130 : filteredList.length*20 + 30);
+    const boxHeight = hasSubtext === true ? (filteredList.length >= 4 ? 180 : filteredList.length * 55 + 25) :
+      (filteredList.length >= 4 ? 130 : filteredList.length * 20 + 30);
 
     const itemHeight = hasSubtext === true ? 52 : 25;
 
@@ -180,11 +199,12 @@ class InputWithDropdown extends Component {
           value={inputValue}
           placeholder={placeholder}
           onChange={this.onChangeInput}
-          onClick={() => this.toggleDropdown(true)}
+          onMouseDown={() => this.toggleDropdown(true)}
           // onFocus={() => this.toggleDropdown(true)}
           // onBlur={() => this.toggleDropdown(false)}
           onKeyDown={this.onKeyDownInput(filteredList)}
           innerRef={(el) => { this.inputDrop = el; }}
+          required={this.props.required && chosenValue.length === 0}
         />
         {isDropdownOpen && (
           <AutoSizer>
@@ -197,20 +217,21 @@ class InputWithDropdown extends Component {
                 height={boxHeight}
                 rowHeight={itemHeight}
                 rowRenderer={({ index, key, style }) => {
-                              return(
-                                <div
-                                  key={key}
-                                  style={style}
-                                  onMouseOver={() => this.onHoverItem(index)}
-                                  onMouseDown={this.onClickItem(filteredList)}
-                                  onMouseUp={document.getElementById(inputId).focus()}
-                                  className={filteredList[hoveredItem].id === filteredList[index].id ? 'active' : ''}
-                                  ref={(el) => this.arrayItems[filteredList[index].id] = el}
-                                >
-                                  {filteredList[index].text}
-                                  {hasSubtext && <div className="small text-muted">{filteredList[index].subtext}</div>}
-                                </div>
-                              )}}
+                  return (
+                    <div
+                      key={key}
+                      style={style}
+                      onMouseOver={() => this.onHoverItem(index)}
+                      onMouseDown={this.onClickItem(filteredList)}
+                      onMouseUp={document.getElementById(inputId).focus()}
+                      className={filteredList[hoveredItem].id === filteredList[index].id ? 'active' : ''}
+                      ref={(el) => this.arrayItems[filteredList[index].id] = el}
+                    >
+                      {filteredList[index].text}
+                      {hasSubtext && <div className="small text-muted">{filteredList[index].subtext}</div>}
+                    </div>
+                  )
+                }}
                 rowCount={filteredList.length}
                 overscanRowCount={15}
               />

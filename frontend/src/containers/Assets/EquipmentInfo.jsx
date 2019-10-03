@@ -84,7 +84,6 @@ class EquipmentInfo extends Component {
       goToPage: 1,
       searchTerm: "",
     };
-    console.log('OK');
     this.handleClickOnNav = this.handleClickOnNav.bind(this);
     this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
@@ -155,7 +154,6 @@ class EquipmentInfo extends Component {
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
     const departments = assetsInfo.assetByAssetId.assetByPlace.assetDepartmentsByAssetId.nodes;
-    console.log("Departments: ", departments);
 
     const thead =
       <tr>
@@ -190,7 +188,6 @@ class EquipmentInfo extends Component {
         </td>
       </tr>));
 
-    console.log("AssetInfo: ", assetsInfo);
     return (
       <div className="asset-container">
         <AssetCard
