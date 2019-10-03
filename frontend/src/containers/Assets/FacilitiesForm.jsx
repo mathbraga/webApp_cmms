@@ -215,6 +215,7 @@ class FacilitiesForm extends Component {
                                 onChange={this.handleInputChange}
                                 name="assetName" type="text" id="facilities-name" placeholder="Digite o nome do local ..."
                                 required
+                                autoComplete="off"
                               />
                             </FormGroup>
                           </Col>
@@ -225,6 +226,7 @@ class FacilitiesForm extends Component {
                                 onChange={this.handleInputChange}
                                 name="assetId" type="text" id="facilities-code" placeholder="Digite o código do endereçamento ..."
                                 required
+                                autoComplete="off"
                               />
                             </FormGroup>
                           </Col>
@@ -233,7 +235,9 @@ class FacilitiesForm extends Component {
                           <Label htmlFor="description">Descrição</Label>
                           <Input
                             onChange={this.handleInputChange}
-                            name="description" type="textarea" id="description" placeholder="Descrição do edifício ..." rows="4" />
+                            name="description" type="textarea" id="description" placeholder="Descrição do edifício ..." rows="4"
+                            autoComplete="off"
+                          />
                         </FormGroup>
                         <FormGroup row>
                           <Col xs={'8'}>
@@ -253,7 +257,9 @@ class FacilitiesForm extends Component {
                               <Label htmlFor="area">Área (m²)</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="area" type="text" id="area" placeholder="Área total ..." />
+                                name="area" type="text" id="area" placeholder="Área total ..."
+                                autoComplete="off"
+                              />
                             </FormGroup>
                           </Col>
                         </FormGroup>
@@ -283,7 +289,9 @@ class FacilitiesForm extends Component {
                               <Label htmlFor="latitude">Latitude</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="latitude" type="text" id="latitude" placeholder="Latitude ..." />
+                                name="latitude" type="text" id="latitude" placeholder="Latitude ..."
+                                autoComplete="off"
+                              />
                             </FormGroup>
                           </Col>
                           <Col xs={'4'}>
@@ -291,7 +299,9 @@ class FacilitiesForm extends Component {
                               <Label htmlFor="longitude">Longitude</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="longitude" type="text" id="longitude" placeholder="Longitude ..." />
+                                name="longitude" type="text" id="longitude" placeholder="Longitude ..."
+                                autoComplete="off"
+                              />
                             </FormGroup>
                           </Col>
                         </FormGroup>
