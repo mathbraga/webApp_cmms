@@ -1,7 +1,7 @@
 export default function logoutFetch(){
   return new Promise((resolve, reject) => {
     
-    fetch(process.env.REACT_APP_SERVER_URL + '/auth/logout', {
+    fetch(process.env.REACT_APP_SERVER_URL + process.env.REACT_APP_LOGOUT_PATH, {
       method: 'GET',
       credentials: 'include',
     })
