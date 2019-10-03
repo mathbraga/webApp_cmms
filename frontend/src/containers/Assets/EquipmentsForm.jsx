@@ -205,7 +205,9 @@ class EquipmentsForm extends Component {
                               <Label htmlFor="equipment-name">Nome do equipamento</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="assetName" type="text" id="equipment-name" placeholder="Digite o nome do equipamento" />
+                                name="assetName" type="text" id="equipment-name" placeholder="Digite o nome do equipamento"
+                                required
+                              />
                             </FormGroup>
                           </Col>
                           <Col xs={'4'}>
@@ -213,7 +215,9 @@ class EquipmentsForm extends Component {
                               <Label htmlFor="equipment-code">Código</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="assetId" type="text" id="equipment-code" placeholder="Digite o código do equipamento" />
+                                name="assetId" type="text" id="equipment-code" placeholder="Digite o código do equipamento"
+                                required
+                              />
                             </FormGroup>
                           </Col>
                         </FormGroup>
@@ -252,6 +256,7 @@ class EquipmentsForm extends Component {
                               listDropdown={assets}
                               update={this.handleLocationDropDownChange}
                               id={'location'}
+                              required
                             />
                           </Col>
                         </FormGroup>
