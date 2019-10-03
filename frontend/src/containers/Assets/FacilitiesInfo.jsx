@@ -197,13 +197,13 @@ class FacilitiesInfo extends Component {
               <div style={{ flexGrow: "1" }}>
                 <Row>
                   <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Edifício / Área</span></Col>
-                  <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{assetsInfo.assetByAssetId.name}</span></Col>
+                  <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{assetsInfo.assetByAssetId.name || "Não cadastrado"}</span></Col>
                 </Row>
               </div>
               <div>
                 <Row>
                   <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
-                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.assetId}</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.assetId || "Não cadastrado"}</span></Col>
                 </Row>
               </div>
               <div>
@@ -217,7 +217,7 @@ class FacilitiesInfo extends Component {
               <div>
                 <Row>
                   <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Área</span></Col>
-                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.area + " m²"}</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{(assetsInfo.assetByAssetId.area && assetsInfo.assetByAssetId.area != 0) ? (assetsInfo.assetByAssetId.area + " m²") : "Não cadastrado"}</span></Col>
                 </Row>
               </div>
             </Col>
@@ -253,11 +253,11 @@ class FacilitiesInfo extends Component {
                         <Col md="6">
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Nome do Edifício ou Área</div>
-                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.name}</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.name || "Não cadastrado"}</div>
                           </div>
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Código</div>
-                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetId}</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetId || "Não cadastrado"}</div>
                           </div>
                         </Col>
                         <Col md="6">
@@ -269,7 +269,7 @@ class FacilitiesInfo extends Component {
                       </Row>
                       <div className="asset-info-single-container">
                         <div className="desc-sub">Descrição do Edifício</div>
-                        <div className="asset-info-content-data">{assetsInfo.assetByAssetId.description}</div>
+                        <div className="asset-info-content-data">{assetsInfo.assetByAssetId.description || "Não cadastrado"}</div>
                       </div>
                     </div>
                     <h1 className="asset-info-title">Localização</h1>
@@ -278,7 +278,7 @@ class FacilitiesInfo extends Component {
                         <Col md="6">
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Ativo Pai</div>
-                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetByParent.assetId + " / " + assetsInfo.assetByAssetId.assetByParent.name}</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetByParent.assetId ? (assetsInfo.assetByAssetId.assetByParent.assetId + " / " + assetsInfo.assetByAssetId.assetByParent.name) : "Não cadastrado"}</div>
                           </div>
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Área</div>
@@ -288,11 +288,11 @@ class FacilitiesInfo extends Component {
                         <Col md="6">
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Latidude do Local</div>
-                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.latitude}</div>
+                            <div className="asset-info-content-data">{(assetsInfo.assetByAssetId.latitude && assetsInfo.assetByAssetId.latitude != 0) ? assetsInfo.assetByAssetId.latitude : "Não cadastrado"}</div>
                           </div>
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Longitude do Local</div>
-                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.longitude}</div>
+                            <div className="asset-info-content-data">{!(assetsInfo.assetByAssetId.longitude && assetsInfo.assetByAssetId.longitude != 0) ? assetsInfo.assetByAssetId.longitude : "Não cadastrado"}</div>
                           </div>
                         </Col>
                       </Row>
