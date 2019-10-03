@@ -21,13 +21,13 @@ import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const ORDER_STATUS = [
+  { id: 'FIL', text: 'Fila de espera', subtext: "" },
+  { id: 'EXE', text: 'Em execução', subtext: "" },
+  { id: 'CON', text: 'Concluído', subtext: "" },
   { id: 'CAN', text: 'Cancelado', subtext: "" },
   { id: 'NEG', text: 'Negado', subtext: "" },
   { id: 'PEN', text: 'Pendente', subtext: "" },
   { id: 'SUS', text: 'Suspenso', subtext: "" },
-  { id: 'FIL', text: 'Fila de espera', subtext: "" },
-  { id: 'EXE', text: 'Em execução', subtext: "" },
-  { id: 'CON', text: 'Concluído', subtext: "" },
 ];
 
 const ORDER_PRIORITY = [
