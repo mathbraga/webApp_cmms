@@ -179,7 +179,7 @@ class InputWithDropdown extends Component {
           <div className='container-selected-items'>
             <Input
               type="text"
-              value={item.text}
+              value={item.text + " " + `(${item.subtext})`}
               disabled
               className='selected-items'
             />
