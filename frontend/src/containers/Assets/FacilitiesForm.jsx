@@ -213,7 +213,9 @@ class FacilitiesForm extends Component {
                               <Label htmlFor="facilities-name">Nome do espaço</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="assetName" type="text" id="facilities-name" placeholder="Digite o nome do local ..." />
+                                name="assetName" type="text" id="facilities-name" placeholder="Digite o nome do local ..."
+                                required
+                              />
                             </FormGroup>
                           </Col>
                           <Col xs={'4'}>
@@ -221,7 +223,9 @@ class FacilitiesForm extends Component {
                               <Label htmlFor="facilities-code">Código</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="assetId" type="text" id="facilities-code" placeholder="Digite o código do endereçamento ..." />
+                                name="assetId" type="text" id="facilities-code" placeholder="Digite o código do endereçamento ..."
+                                required
+                              />
                             </FormGroup>
                           </Col>
                         </FormGroup>
@@ -240,6 +244,7 @@ class FacilitiesForm extends Component {
                                 listDropdown={facs}
                                 update={this.handleFacilitiesDropDownChange}
                                 id={'parent'}
+                                required
                               />
                             </FormGroup>
                           </Col>
