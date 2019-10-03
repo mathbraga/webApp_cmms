@@ -179,9 +179,9 @@ class RegisterUser extends Component {
                               </InputGroupAddon>
                               <Input
                                 type="text"
-                                id="name"
-                                name="name"
-                                placeholder="Nome"
+                                id="fullName"
+                                name="fullName"
+                                placeholder="Nome completo"
                                 onChange={this.handleInputs}
                                 disabled={this.state.isFetching}
                                 autoFocus
@@ -196,9 +196,9 @@ class RegisterUser extends Component {
                               </InputGroupAddon>
                               <Input
                                 type="text"
-                                id="surname"
-                                name="surname"
-                                placeholder="Sobrenome"
+                                id="cpf"
+                                name="cpf"
+                                placeholder="CPF (somente números)"
                                 onChange={this.handleInputs}
                                 innerRef={this.emailInputRef}
                                 disabled={this.state.isFetching}
@@ -240,25 +240,37 @@ class RegisterUser extends Component {
                             <InputGroup className="mb-3">
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
+                                  <i className="icon-screen-smartphone"></i>
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input
+                                type="text"
+                                id="cellphone"
+                                name="cellphone"
+                                placeholder="Celular"
+                                onChange={this.handleInputs}
+                                disabled={this.state.isFetching}
+                              />
+                            </InputGroup>
+
+                            <InputGroup className="mb-3">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
                                   <i className="icon-briefcase"></i>
                                 </InputGroupText>
                               </InputGroupAddon>
                               <Input
                                 type="select"
-                                id="category"
-                                name="category"
-                                placeholder="Categoria"
+                                id="personRole"
+                                name="personRole"
                                 onChange={this.handleInputs}
                                 disabled={this.state.isFetching}
                               >
-                                <option
-                                  value={'E'}
-                                >Servidor Efetivo ou Comissionado
-                                </option>
-                                <option
-                                  value={'T'}
-                                >Terceirizado
-                                </option>
+                                {/* <option >Nível de acesso ao CMMS</option> */}
+                                <optgroup disabled selected label='Nível de acesso ao CMMS'>
+                                  <option value={'employee'} >Colaborador da SINFRA</option>
+                                  <option value={'employee'} >Funcionário de contrato de manutenção</option>
+                                </optgroup>
                               ))}
                               </Input>
                             </InputGroup>
