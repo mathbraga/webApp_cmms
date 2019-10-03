@@ -126,7 +126,7 @@ class EquipmentsForm extends Component {
             }
           }
         ){
-          newApplianceId
+          assetId
       }
     }`;
 

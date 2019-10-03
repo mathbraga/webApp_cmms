@@ -248,7 +248,7 @@ class OrderForm extends Component {
               assetsArray: $assetsArray
             }
           ) {
-            newOrderId
+            orderId
           }
     }`;
 
@@ -293,6 +293,7 @@ class OrderForm extends Component {
                   console.log("Erro ao tentar baixar os dados!");
                   return null
                 }
+
                 const orderID = data.allOrders.edges.map((item) => item.node.orderId);
                 const orderText = data.allOrders.edges.map((item) => item.node.requestText);
 
@@ -322,10 +323,11 @@ class OrderForm extends Component {
                     <Form
                       className="form-horizontal"
                       onSubmit={e => {
-                        console.log("Event: ", e);
                         e.preventDefault();
-                        mutate(mutation);
-                        this.props.history.push('/manutencao/os');
+                        mutate(mutation).then(() => {
+                          this.props.history.push('/manutencao/os');
+                          window.location.reload();
+                        });
                       }}
                       onReset={() => this.props.history.push('/manutencao/os')}
                     >

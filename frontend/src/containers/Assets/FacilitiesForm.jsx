@@ -134,7 +134,7 @@ class FacilitiesForm extends Component {
             departmentsArray: $depsArray
           }
         ){
-        newFacilityId
+        assetId
       }
     }`;
 
