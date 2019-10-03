@@ -191,6 +191,7 @@ class SingleInputWithDropDown extends Component {
           // onBlur={() => this.toggleDropdown(false)}
           onKeyDown={this.onKeyDownInput(filteredList)}
           innerRef={(el) => { this.inputDrop = el; }}
+          required={this.props.required}
         />
         {isDropdownOpen && (
           <AutoSizer>
