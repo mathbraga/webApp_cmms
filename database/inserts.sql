@@ -5676,6 +5676,24 @@ insert into order_supplies values (26, 'CT-2014-0088', 'S5', 1);
 insert into order_supplies values (27, 'CT-2016-0110', 'S6', 1);
 insert into order_supplies values (28, 'CT-2017-0084', 'S7', 1);
 
+insert into teams values (default, 'Servidores do SEMAC', null);
+insert into teams values (default, 'Servidores da COEMANT', null);
+insert into teams values (default, 'Posto 1 - Hidrossanitário', 'CT-2017-0084');
+insert into teams values (default, 'Posto 2 - Hidrossanitário', 'CT-2017-0084');
+
+insert into team_persons values (1, 9);
+insert into team_persons values (2, 1);
+insert into team_persons values (2, 2);
+insert into team_persons values (2, 3);
+insert into team_persons values (2, 4);
+insert into team_persons values (2, 5);
+insert into team_persons values (2, 6);
+insert into team_persons values (2, 7);
+insert into team_persons values (2, 8);
+insert into team_persons values (2, 9);
+insert into team_persons values (2, 10);
+
+
 comment on type order_status_type is E'
 Significados dos possíveis valores do enum order_status_type:\n
 CAN: Cancelada;\n 

@@ -2,13 +2,13 @@
 \c hzl
 
 -- drop database
-drop database if exists cmms4;
+drop database if exists cmms5;
 
 -- create new database
-create database cmms4 with owner postgres template template0 encoding 'win1252';
+create database cmms5 with owner postgres template template0 encoding 'win1252';
 
 -- connect to the new database
-\c cmms4
+\c cmms5
 
 -- create extensions
 create extension if not exists pgcrypto;
@@ -75,7 +75,7 @@ create type person_role_type as enum (
 
 -- create tables
 create table assets (
-  asset_id text not null primary key,
+  asset_id text primary key,
   parent text not null references assets (asset_id),
   place text not null references assets (asset_id),
   name text not null,
@@ -92,7 +92,7 @@ create table assets (
 );
 
 create table contracts (
-  contract_id text not null primary key,
+  contract_id text primary key,
   parent text references contracts (contract_id),
   date_sign date not null,
   date_start date not null,
@@ -103,7 +103,7 @@ create table contracts (
 );
 
 create table departments (
-  department_id text not null primary key,
+  department_id text primary key,
   parent text not null references departments (department_id),
   full_name text not null,
   is_active boolean not null
@@ -128,21 +128,21 @@ create table private.accounts (
 );
 
 create table orders (
-  order_id integer primary key generated always as identity,
+  order_id bigint primary key generated always as identity,
   status order_status_type not null,
   priority order_priority_type not null,
   category order_category_type not null,
   parent integer references orders (order_id),
-  contract_id text references contracts (contract_id),
-  completed integer check (completed >= 0 and completed <= 100),
-  request_text text not null,
-  request_department text not null references departments (department_id),
-  request_person text not null,
-  request_contact_name text not null,
-  request_contact_phone text not null,
-  request_contact_email text not null,
-  request_title text not null,
-  request_local text,
+  contract_id text references contracts (contract_id), -------------------------------------
+  progress integer check (completed >= 0 and completed <= 100),
+  title text not null,
+  description text not null,
+  origin_department text not null references departments (department_id),
+  origin_person text not null,
+  contact_name text not null,
+  contact_phone text not null,
+  contact_email text not null,
+  contact_place text,
   date_limit timestamptz,
   date_start timestamptz,
   date_end timestamptz,
@@ -177,7 +177,7 @@ create table private.logs (
 );
 
 create table specs (
-  spec_id integer not null primary key generated always as identity,
+  spec_id integer primary key generated always as identity,
   spec_name text,
   category text,
   subcategory text,
@@ -215,6 +215,18 @@ create table order_supplies (
   qty real not null,
   primary key (order_id, contract_id, supply_id),
   foreign key (contract_id, supply_id) references supplies (contract_id, supply_id)
+);
+
+create table teams (
+  team_id integer primary key generated always as identity,
+  team_name text not null,
+  contract_id text
+);
+
+create table team_persons (
+  team_id integer references teams (team_id),
+  person_id integer references persons (person_id),
+  primary key (team_id, person_id)
 );
 
 -- create views
@@ -426,18 +438,18 @@ begin
     priority,
     category,
     parent,
-    completed,
-    request_text,
-    request_department,
-    request_person,
-    request_contact_name,
-    request_contact_phone,
-    request_contact_email,
-    request_title,
-    request_local,
+    contract_id, ---------------------------------------------------------
+    progress,
+    title,
+    description, text not null,
+    origin_department,
+    origin_person,
+    contact_name,
+    contact_phone,
+    contact_email,
+    contact_place,
     date_limit,
     date_start,
-    contract_id,
     created_at
   ) values (
     default,
@@ -445,19 +457,20 @@ begin
     order_attributes.priority,
     order_attributes.category,
     order_attributes.parent,
-    order_attributes.completed,
-    order_attributes.request_text,
-    order_attributes.request_department,
-    order_attributes.request_person,
-    order_attributes.request_contact_name,
-    order_attributes.request_contact_phone,
-    order_attributes.request_contact_email,
-    order_attributes.request_title,
-    order_attributes.request_local,
+    order_attributes.contract_id, -----------------------------------------------
+    order_attributes.progress,
+    order_attributes.title,
+    order_attributes.description,
+    order_attributes.origin_department,
+    order_attributes.origin_person,
+    order_attributes.contact_name,
+    order_attributes.contact_phone,
+    order_attributes.contact_email,
+    order_attributes.contact_place,
     order_attributes.date_limit,
     order_attributes.date_start,
-    order_attributes.contract_id,
-    now()
+    order_attributes.date_end,
+    default
   ) returning o.order_id into order_id;
 
   insert into order_assets select order_id, unnest(assets_array);
@@ -835,6 +848,8 @@ comment on table order_messages is E'@omit all,create,update,delete';
 comment on table specs is E'@omit all,create,update,delete';
 comment on table supplies is E'@omit read,all,many,create,update,delete';
 comment on table order_supplies is E'@omit all,create,update,delete';
+comment on table teams is E'@omit create,update,delete';
+comment on table team_persons is E'@omit create,update,delete';
 comment on view appliances is E'@omit create,update,delete';
 comment on view facilities is E'@omit create,update,delete';
 comment on constraint persons_pkey on persons is E'@omit';
