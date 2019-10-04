@@ -59,93 +59,101 @@ create policy supervisor_policy on order_messages for all to supervisor
 
 -- assets
 create policy employee_policy on assets for all to employee
-  using ()
-  with check ();
+  using (true)
+  with check (false);
 
 create policy supervisor_policy on assets for all to supervisor
-  using ()
-  with check ();
+  using (true)
+  with check (true);
 
 -- departments
 create policy employee_policy on departments for all to employee
-  using ()
-  with check ();
+  using (true)
+  with check (false);
 
 create policy supervisor_policy on departments for all to supervisor
-  using ()
-  with check ();
+  using (true)
+  with check (true);
 
 -- asset_departments
 create policy employee_policy on asset_departments for all to employee
-  using ()
-  with check ();
+  using (true)
+  with check (false);
 
 create policy supervisor_policy on asset_departments for all to supervisor
-  using ()
-  with check ();
+  using (true)
+  with check (true);
 
 -- contracts
 create policy employee_policy on contracts for all to employee
-  using ()
-  with check ();
+  using (true)
+  with check (false);
 
 create policy supervisor_policy on contracts for all to supervisor
-  using ()
-  with check ();
+  using (true)
+  with check (true);
 
 -- teams
 create policy employee_policy on teams for all to employee
-  using ()
-  with check ();
+  using (true)
+  with check (false);
 
 create policy supervisor_policy on teams for all to supervisor
-  using ()
-  with check ();
+  using (true)
+  with check (true);
 
 -- team_persons
 create policy employee_policy on team_persons for all to employee
-  using ()
-  with check ();
+  using (true)
+  with check (false);
 
 create policy supervisor_policy on team_persons for all to supervisor
-  using ()
-  with check ();
+  using (true)
+  with check (true);
 
 -- persons
 create policy employee_policy on persons for all to employee
-  using ()
-  with check ();
+  using (
+    person_id = current_setting('auth.data.person_id')::integer
+  )
+  with check (
+    person_id = current_setting('auth.data.person_id')::integer
+  );
 
 create policy supervisor_policy on persons for all to supervisor
-  using ()
-  with check ();
+  using (true)
+  with check (true);
 
 -- specs
 create policy employee_policy on specs for all to employee
-  using ()
-  with check ();
+  using (true)
+  with check (false);
 
 create policy supervisor_policy on specs for all to supervisor
-  using ()
-  with check ();
+  using (true)
+  with check (true);
 
 -- private.accounts
 create policy employee_policy on private.accounts for all to employee
-  using ()
-  with check ();
+  using (
+    person_id = current_setting('auth.data.person_id')::integer
+  )
+  with check (
+    person_id = current_setting('auth.data.person_id')::integer
+  );
 
 create policy supervisor_policy on private.accounts for all to supervisor
-  using ()
-  with check ();
+  using (true)
+  with check (true);
 
 -- private.logs
 create policy employee_policy on private.logs for all to employee
-  using ()
-  with check ();
+  using (true)
+  with check (false);
 
 create policy supervisor_policy on private.logs for all to supervisor
-  using ()
-  with check ();
+  using (true)
+  with check (false);
 
 ---------------------------------------------------------------------------------------
 -- rls tests
