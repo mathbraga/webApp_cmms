@@ -16,15 +16,21 @@ create extension if not exists pgcrypto;
 -- create additional schemas
 create schema private;
 
--- set variable ON_ERROR_STOP
+-- set ON_ERROR_STOP to on
 \set ON_ERROR_STOP on
 
 -- begin transaction
 begin transaction;
 
 -- create roles (already created for the database cluster, not necessary in new databases)
--- create role unauth;
--- create role auth;
+-- drop role administrator;
+-- drop role supervisor;
+-- drop role employee;
+-- drop role visitor;
+-- create role administrator;
+-- create role supervisor;
+-- create role employee;
+-- create role visitor;
 
 -- alter default privileges
 alter default privileges in schema public grant all on tables to unauth;
@@ -36,7 +42,6 @@ alter default privileges in schema public grant execute on routines to auth;
 
 -- create custom types
 create type asset_category_type as enum ('F', 'A');
-create type person_category_type AS ENUM ('E', 'T');
 create type order_status_type as enum (
   'CAN',
   'NEG',
@@ -70,7 +75,10 @@ create type order_category_type as enum (
   'VID'
 );
 create type person_role_type as enum (
-  'auth'
+  'administrator',
+  'supervisor',
+  'employee',
+  'visitor'
 );
 
 -- create tables
@@ -111,20 +119,30 @@ create table departments (
 
 create table persons (
   person_id integer primary key generated always as identity,
+  cpf text not null,
   email text not null unique check (email ~* '^.+@.+\..+$'),
   full_name text not null,
   phone text not null,
   cellphone text,
-  department_id text references departments (department_id),
-  contract_id text references contracts (contract_id),
-  category person_category_type
+  contract_id text references contracts (contract_id)
 );
 
 create table private.accounts (
   person_id integer not null references persons (person_id),
   password_hash text not null,
   is_active boolean not null default true,
-  person_role person_role_type not null default 'auth'
+  person_role person_role_type not null
+);
+
+create table teams (
+  team_id integer primary key generated always as identity,
+  team_name text not null
+);
+
+create table team_persons (
+  team_id integer references teams (team_id),
+  person_id integer references persons (person_id),
+  primary key (team_id, person_id)
 );
 
 create table orders (
@@ -133,8 +151,8 @@ create table orders (
   priority order_priority_type not null,
   category order_category_type not null,
   parent integer references orders (order_id),
-  contract_id text references contracts (contract_id), -------------------------------------
-  progress integer check (completed >= 0 and completed <= 100),
+  team_id integer references teams (team_id),
+  progress integer check (progress >= 0 and progress <= 100),
   title text not null,
   description text not null,
   origin_department text not null references departments (department_id),
@@ -215,18 +233,6 @@ create table order_supplies (
   qty real not null,
   primary key (order_id, contract_id, supply_id),
   foreign key (contract_id, supply_id) references supplies (contract_id, supply_id)
-);
-
-create table teams (
-  team_id integer primary key generated always as identity,
-  team_name text not null,
-  contract_id text
-);
-
-create table team_persons (
-  team_id integer references teams (team_id),
-  person_id integer references persons (person_id),
-  primary key (team_id, person_id)
 );
 
 -- create views
@@ -323,8 +329,7 @@ begin
     phone,
     cellphone,
     department_id,
-    contract_id,
-    category
+    contract_id
   ) values (
     default,
     person_attributes.email,
@@ -332,8 +337,7 @@ begin
     person_attributes.phone,
     person_attributes.cellphone,
     person_attributes.department_id,
-    person_attributes.contract_id,
-    person_attributes.category
+    person_attributes.contract_id
   ) returning * into new_user;
   
   insert into private.accounts (
@@ -438,10 +442,10 @@ begin
     priority,
     category,
     parent,
-    contract_id, ---------------------------------------------------------
+    team_id,
     progress,
     title,
-    description, text not null,
+    description,
     origin_department,
     origin_person,
     contact_name,
@@ -457,7 +461,7 @@ begin
     order_attributes.priority,
     order_attributes.category,
     order_attributes.parent,
-    order_attributes.contract_id, -----------------------------------------------
+    order_attributes.team_id,
     order_attributes.progress,
     order_attributes.title,
     order_attributes.description,
@@ -643,10 +647,10 @@ begin
       priority,
       category,
       parent,
-      contract_id, ---------------------------------------------------------
+      team_id,
       progress,
       title,
-      description, text not null,
+      description,
       origin_department,
       origin_person,
       contact_name,
@@ -660,10 +664,10 @@ begin
       order_attributes.priority,
       order_attributes.category,
       order_attributes.parent,
-      order_attributes.contract_id, ---------------------------------------------------------
+      order_attributes.team_id,
       order_attributes.progress,
       order_attributes.title,
-      order_attributes.description, text not null,
+      order_attributes.description,
       order_attributes.origin_department,
       order_attributes.origin_person,
       order_attributes.contact_name,
@@ -802,7 +806,7 @@ create trigger log_changes
 -- set variable to allow log of initial rows insertions
 
 -- run file with insert commands and comments (this file should have win1252 encoding)
-\i insertswin1252.sql
+-- \i insertswin1252.sql
 -- Content of inserts file:
 -- -- insert rows into tables
 -- -- create comments
@@ -856,6 +860,9 @@ comment on constraint persons_pkey on persons is E'@omit';
 comment on constraint persons_email_key on persons is E'@omit';
 comment on constraint contracts_pkey on contracts is E'@omit';
 comment on constraint specs_pkey on specs is E'@omit';
+
+-- set ON_ERROR_STOP to off
+\set ON_ERROR_STOP off
 
 -- commit transaction
 commit;

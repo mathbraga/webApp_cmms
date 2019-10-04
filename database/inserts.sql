@@ -5676,10 +5676,10 @@ insert into order_supplies values (26, 'CT-2014-0088', 'S5', 1);
 insert into order_supplies values (27, 'CT-2016-0110', 'S6', 1);
 insert into order_supplies values (28, 'CT-2017-0084', 'S7', 1);
 
-insert into teams values (default, 'Servidores do SEMAC', null);
-insert into teams values (default, 'Servidores da COEMANT', null);
-insert into teams values (default, 'Posto 1 - Hidrossanitário', 'CT-2017-0084');
-insert into teams values (default, 'Posto 2 - Hidrossanitário', 'CT-2017-0084');
+insert into teams values (default, 'Servidores do SEMAC', true);
+insert into teams values (default, 'Servidores da COEMANT', true);
+insert into teams values (default, 'Posto 1 - Hidrossanitário', true);
+insert into teams values (default, 'Posto 2 - Hidrossanitário', true);
 
 insert into team_persons values (1, 9);
 insert into team_persons values (2, 1);
