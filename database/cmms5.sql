@@ -5,7 +5,7 @@
 drop database if exists cmms5;
 
 -- create new database
-create database cmms5 with owner postgres template template0 encoding 'win1252';
+create database cmms5 with owner postgres template template0; --encoding 'win1252';
 
 -- connect to the new database
 \c cmms5
@@ -820,6 +820,10 @@ create trigger check_before_insert
 ---------------------------------------------------------------------------------
 
 -- create policies
+
+
+
+-- \i rls.sql
 alter table persons enable row level security;
 -- create policy unauth_policy on persons for select to unauth
 --   using (true);
