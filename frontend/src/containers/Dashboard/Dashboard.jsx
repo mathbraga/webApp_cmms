@@ -135,11 +135,11 @@ class Dashboard extends Component {
               </Row>
             </Form>
           </CardBody>
-        </Card>
+                </Card> */}
 
         <div>
           <img
-            src="http://localhost:3001/files/newfilename-1.jpeg"
+            src="http://localhost:3001/images/newfilename-1.jpeg"
             alt="foto"
             height="140"
             width="190"
@@ -147,15 +147,14 @@ class Dashboard extends Component {
         </div>
 
         <div>
-          <img
-            src="http://localhost:3001/files/newfilename-2.jpeg"
-            alt="foto"
-            height="140"
-            width="140"
-          />
-        </div> */}
-
-
+          <a
+            download
+            href="http://localhost:3001/files/touch.txt"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+          >Aqui o link
+          </a>
+        </div>
       </React.Fragment>
     );
   }
