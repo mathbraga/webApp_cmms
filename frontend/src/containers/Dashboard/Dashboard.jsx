@@ -35,7 +35,7 @@ class Dashboard extends Component {
         'newfilename' + '-' + (i + 1).toString() + '.' + files[i].type.split('/')[1]
       );
     }
-    fetch('http://172.30.49.152:3001/db', {
+    fetch('http://localhost:3001/db', {
       method: 'POST',
       body: formData,
     })
@@ -85,7 +85,7 @@ class Dashboard extends Component {
           </Container>
         </div>
 
-        {/* <Card>
+        <Card>
           <CardHeader>
             <Row>
               <Col md="12">
@@ -135,7 +135,7 @@ class Dashboard extends Component {
               </Row>
             </Form>
           </CardBody>
-                </Card> */}
+                </Card>
 
         <div>
           <img
