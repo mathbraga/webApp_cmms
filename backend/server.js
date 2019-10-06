@@ -15,7 +15,7 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const authRoute = require('./routes/auth');
 const uploadRoute = require('./routes/upload');
-const filesRoute = require('./routes/files');
+const downloadRoute = require('./routes/download');
 // const cronJob = require('./cron');
 
 // Configure application (https://expressjs.com/en/4x/api.html#app.set)
@@ -42,7 +42,7 @@ app.use(middleware);
 // Routes
 app.use("/auth", authRoute);
 app.use("/db", uploadRoute);
-app.use("/files", filesRoute);
+app.use("/files", downloadRoute);
 
 // PostGraphile route
 app.use(postgraphile(
