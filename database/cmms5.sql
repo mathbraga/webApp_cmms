@@ -159,7 +159,7 @@ create table orders (
   progress integer check (progress >= 0 and progress <= 100),
   title text not null,
   description text not null,
-  origin_department text not null references departments (department_id),
+  department_id text not null references departments (department_id),
   origin_person text not null,
   contact_name text not null,
   contact_phone text not null,
@@ -168,7 +168,7 @@ create table orders (
   date_limit timestamptz,
   date_start timestamptz,
   date_end timestamptz,
-  created_at timestamptz default now()
+  created_at timestamptz not null default now()
 );
 
 create table order_messages (
