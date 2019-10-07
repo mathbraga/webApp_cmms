@@ -100,13 +100,17 @@ class WorkOrdersList extends Component {
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
       filteredItems = allEdges.filter(function (item) {
+
+        const dateLimit = item.node.dateLimit === null ? "" : item.node.dateLimit;
+        const requestLocal = item.node.requestLocal === null ? "" : item.node.requestLocal;
+
         return (
           (ORDER_CATEGORY_TYPE[item.node.category] && ORDER_CATEGORY_TYPE[item.node.category].toLowerCase().includes(searchTermLower)) ||
           (String(item.node.orderId).padStart(3,"0").includes(searchTermLower)) ||
-          (String(item.node.dateLimit) && String(item.node.dateLimit).includes(searchTermLower)) ||
+          (String(dateLimit) && String(dateLimit).includes(searchTermLower)) ||
           (ORDER_STATUS_TYPE[item.node.status] && ORDER_STATUS_TYPE[item.node.status].toLowerCase().includes(searchTermLower)) ||
           (item.node.requestTitle.toLowerCase().includes(searchTermLower)) ||
-          (item.node.requestLocal && item.node.requestLocal.toLowerCase().includes(searchTermLower))
+          (requestLocal && requestLocal.toLowerCase().includes(searchTermLower))
         );
       });
     }

@@ -66,12 +66,16 @@ class EquipmentsList extends Component {
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
       filteredItems = allEdges.filter(function (item) {
+
+        const manufacturer = item.node.manufacturer === null ? "" : item.node.manufacturer;
+        const model = item.node.model === null ? "" : item.node.model;
+
         return (
           item.node.assetId.toLowerCase().includes(searchTermLower) ||
           item.node.name.toLowerCase().includes(searchTermLower) ||
           item.node.assetByPlace.name.toLowerCase().includes(searchTermLower) ||
-          String(item.node.manufacturer).toLowerCase().includes(searchTermLower) ||
-          String(item.node.model).toLowerCase().includes(searchTermLower) ||
+          manufacturer.toLowerCase().includes(searchTermLower) ||
+          model.toLowerCase().includes(searchTermLower) ||
           item.node.assetByParent.assetId.toLowerCase().includes(searchTermLower) ||
           item.node.assetByParent.name.toLowerCase().includes(searchTermLower)
         );

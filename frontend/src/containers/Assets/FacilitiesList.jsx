@@ -69,11 +69,14 @@ class FacilitiesList extends Component {
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
       filteredItems = allEdges.filter(function (item) {
+
+        const area = item.node.area === null ? "" : item.node.area;
+
         return (
           item.node.assetId.toLowerCase().includes(searchTermLower) ||
           item.node.name.toLowerCase().includes(searchTermLower) ||
           item.node.parent.toLowerCase().includes(searchTermLower) ||
-          String(item.node.area).includes(searchTermLower)
+          String(area).includes(searchTermLower)
         );
       });
     }
