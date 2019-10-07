@@ -33,15 +33,16 @@ begin transaction;
 -- create role visitor;
 
 -- alter default privileges
-alter default privileges in schema public grant all on tables to unauth;
-alter default privileges in schema public grant all on tables to auth;
-alter default privileges in schema public grant usage on sequences to unauth;
-alter default privileges in schema public grant usage on sequences to auth;
-alter default privileges in schema public grant execute on routines to unauth;
-alter default privileges in schema public grant execute on routines to auth;
+alter default privileges in schema public grant all on tables to public;
+alter default privileges in schema public grant usage on sequences to public;
+alter default privileges in schema public grant execute on routines to public;
 
 -- create custom types
-create type asset_category_type as enum ('F', 'A');
+create type asset_category_type as enum (
+  'F',
+  'A'
+);
+
 create type order_status_type as enum (
   'CAN',
   'NEG',
@@ -51,12 +52,14 @@ create type order_status_type as enum (
   'EXE',
   'CON'
 );
+
 create type order_priority_type as enum (
   'BAI',
   'NOR',
   'ALT',
   'URG'
 );
+
 create type order_category_type as enum (
   'ARC',
   'ELE',
@@ -74,6 +77,7 @@ create type order_category_type as enum (
   'VED',
   'VID'
 );
+
 create type person_role_type as enum (
   'administrator',
   'supervisor',
@@ -309,9 +313,8 @@ create view balances as
       inner join supplies as s using (contract_id, supply_id);
 
 -- create functions
-create or replace function register_user (
+create or replace function insert_person (
   person_attributes persons,
-  input_password text,
   input_person_role person_role_type
 ) returns persons
 language plpgsql
@@ -319,26 +322,26 @@ strict
 security definer
 as $$
 declare
-  new_user persons;
+  new_person persons;
 begin
 
   insert into persons (
     person_id,
+    cpf,
     email,
     full_name,
     phone,
     cellphone,
-    department_id,
     contract_id
   ) values (
     default,
+    person_attributes.cpf,
     person_attributes.email,
     person_attributes.full_name,
     person_attributes.phone,
     person_attributes.cellphone,
-    person_attributes.department_id,
     person_attributes.contract_id
-  ) returning * into new_user;
+  ) returning * into new_person;
   
   insert into private.accounts (
     person_id,
@@ -346,13 +349,13 @@ begin
     is_active,
     person_role
   ) values (
-    new_user.person_id,
-    crypt(input_password, gen_salt('bf', 10)),
+    new_person.person_id,
+    crypt('123456', gen_salt('bf', 10)),
     true,
     input_person_role
   );
 
-  return new_user;
+  return new_person;
 
 end; $$;
 
@@ -803,11 +806,10 @@ create trigger log_changes
   for each row execute function create_log();
 
 ---------------------------------------------------------------------------------
--- set variable to allow log of initial rows insertions
-
 -- run file with insert commands and comments (this file should have win1252 encoding)
 -- \i insertswin1252.sql
 -- Content of inserts file:
+-- -- set variable auth.data.person_id to allow log of initial rows insertions
 -- -- insert rows into tables
 -- -- create comments
 -- -- alter sequences (currently not necessary, since inserts use default values)
@@ -820,44 +822,23 @@ create trigger check_before_insert
 ---------------------------------------------------------------------------------
 
 -- create policies
-
-
-
 -- \i rls.sql
-alter table persons enable row level security;
--- create policy unauth_policy on persons for select to unauth
---   using (true);
-create policy auth_policy on persons for all to auth
-  using (current_setting('auth.data.person_id')::integer = person_id)
-  with check (current_setting('auth.data.person_id')::integer = person_id);
-
-alter table private.accounts enable row level security;
-create policy auth_policy on private.accounts for all to auth
-  using (current_setting('auth.data.person_id')::integer = person_id)
-  with check (current_setting('auth.data.person_id')::integer = person_id);
-
-alter table order_messages enable row level security;
-create policy unauth_policy on order_messages for select to unauth
-  using (true);
-create policy auth_policy on order_messages for all to auth
-  using (current_setting('auth.data.person_id')::integer = person_id)
-  with check (current_setting('auth.data.person_id')::integer = person_id);
 
 -- create smart comments
 comment on function authenticate is E'@omit execute';
 comment on table assets is E'@omit create,update,delete';
-comment on table contracts is E'@omit all,create,update,delete';
+comment on table contracts is E'@omit create,update,delete';
 comment on table departments is E'@omit create,update,delete';
 comment on table persons is E'@omit all,create,update,delete';
+comment on table teams is E'@omit create,update,delete';
+comment on table team_persons is E'@omit create,update,delete';
 comment on table orders is E'@omit create,update,delete';
-comment on table asset_departments is E'@omit create,update,delete';
-comment on table order_assets is E'@omit create,update,delete';
 comment on table order_messages is E'@omit all,create,update,delete';
+comment on table order_assets is E'@omit create,update,delete';
+comment on table asset_departments is E'@omit create,update,delete';
 comment on table specs is E'@omit all,create,update,delete';
 comment on table supplies is E'@omit read,all,many,create,update,delete';
 comment on table order_supplies is E'@omit all,create,update,delete';
-comment on table teams is E'@omit create,update,delete';
-comment on table team_persons is E'@omit create,update,delete';
 comment on view appliances is E'@omit create,update,delete';
 comment on view facilities is E'@omit create,update,delete';
 comment on constraint persons_pkey on persons is E'@omit';
