@@ -107,6 +107,7 @@ create table contracts (
   contract_id text primary key,
   parent text references contracts (contract_id),
   date_sign date not null,
+  date_pub date,
   date_start date not null,
   date_end date,
   company_name text not null,
@@ -160,11 +161,11 @@ create table orders (
   title text not null,
   description text not null,
   department_id text not null references departments (department_id),
-  origin_person text not null,
+  created_by text not null,
   contact_name text not null,
   contact_phone text not null,
   contact_email text not null,
-  contact_place text,
+  place text,
   date_limit timestamptz,
   date_start timestamptz,
   date_end timestamptz,
@@ -201,6 +202,7 @@ create table private.logs (
 create table specs (
   spec_id integer primary key generated always as identity,
   spec_name text,
+  spec_previous integer references specs (spec_id),
   category text,
   subcategory text,
   details text,
@@ -222,11 +224,11 @@ create table supplies (
   contract_id text not null references contracts (contract_id),
   supply_id text not null,
   spec_id integer references specs (spec_id),
-  description text,
   qty_initial real not null,
   is_qty_real boolean not null,
   unit text not null,
   price money not null,
+  estimated_price money,
   primary key (contract_id, supply_id)
 );
 
