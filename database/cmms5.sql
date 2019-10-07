@@ -123,7 +123,7 @@ create table departments (
 
 create table persons (
   person_id integer primary key generated always as identity,
-  cpf text not null,
+  cpf text not null unique check (cpf ~ '^[0-9]{11}$'),
   email text not null unique check (email ~* '^.+@.+\..+$'),
   full_name text not null,
   phone text not null,
