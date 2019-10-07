@@ -123,6 +123,9 @@ class FacilitiesInfo extends Component {
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
       filteredItems = edges.filter(function (item) {
+
+        const dateLimit = item.node.orderByOrderId.dateLimit === null ? "" : item.node.orderByOrderId.dateLimit
+
         return (
           // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
           String((item.node.orderId + "").padStart(4, "0")).includes(searchTermLower) ||
@@ -130,7 +133,7 @@ class FacilitiesInfo extends Component {
           item.node.orderByOrderId.requestLocal.toLowerCase().includes(searchTermLower) ||
           ORDER_STATUS_TYPE[item.node.orderByOrderId.status].toLowerCase().includes(searchTermLower) ||
           ORDER_PRIORITY_TYPE[item.node.orderByOrderId.priority].toLowerCase().includes(searchTermLower) ||
-          String(item.node.orderByOrderId.dateLimit).includes(searchTermLower)
+          String(dateLimit).includes(searchTermLower)
         );
       });
     }

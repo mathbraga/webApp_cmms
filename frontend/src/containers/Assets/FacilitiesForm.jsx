@@ -143,7 +143,7 @@ class FacilitiesForm extends Component {
     )
 
     const depsArray = this.state.departments === null ? null : this.state.departments.map((item) => item.id);
-
+    console.log(this.state);
     return (
       <Mutation
         mutation={newFacility}
