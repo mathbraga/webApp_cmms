@@ -484,6 +484,30 @@ begin
 
 end; $$;
 
+create or replace function insert_team (
+  in team_attributes teams,
+  in persons_array integer[],
+  out new_team_id integer
+)
+language plpgsql
+strict
+as $$
+declare
+  new_team_id integer;
+begin
+
+  insert into teams (
+    team_id,
+    team_name
+  ) values (
+    default,
+    team_attributes.team_name
+  ) returning team_id into new_team_id;
+
+  insert into team_persons select new_team_id, unnest(persons_array);
+
+end; $$;
+
 create or replace function check_asset_integrity()
 returns trigger
 language plpgsql
