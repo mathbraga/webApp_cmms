@@ -223,7 +223,7 @@ create table specs (
 create table supplies (
   contract_id text not null references contracts (contract_id),
   supply_id text not null,
-  spec_id integer references specs (spec_id),
+  spec_id integer not null references specs (spec_id),
   qty_initial real not null,
   is_qty_real boolean not null,
   unit text not null,
@@ -488,9 +488,9 @@ end; $$;
 
 create or replace function insert_team (
   in team_attributes teams,
-  in persons_array integer[],
-  out new_team_id integer
+  in persons_array integer[]
 )
+returns integer
 language plpgsql
 strict
 as $$
@@ -507,6 +507,30 @@ begin
   ) returning team_id into new_team_id;
 
   insert into team_persons select new_team_id, unnest(persons_array);
+
+  return new_team_id;
+
+end; $$;
+
+create or replace function insert_contract (
+  in contract_attributes contracts,
+  in supplies_array supplies[]
+)
+returns text
+language plpgsql
+as $$
+declare
+  new_contract_id text;
+begin
+
+  insert into contracts
+    select (contract_attributes.*)
+    returning contract_id into new_contract_id;
+
+  insert into supplies
+    select ((unnest(supplies_array)).*);
+
+  return new_contract_id;
 
 end; $$;
 
