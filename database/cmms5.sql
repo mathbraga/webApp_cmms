@@ -242,6 +242,16 @@ create table order_supplies (
   foreign key (contract_id, supply_id) references supplies (contract_id, supply_id)
 );
 
+create table asset_files (
+  asset_id text references assets (asset_id),
+  filename text
+);
+
+create table order_files (
+  order_id bigint references orders (order_id),
+  filename text
+);
+
 -- create views
 create view facilities as
   select
