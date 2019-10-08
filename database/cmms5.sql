@@ -141,7 +141,8 @@ create table private.accounts (
 
 create table teams (
   team_id integer primary key generated always as identity,
-  team_name text not null
+  team_name text not null,
+  is_active boolean not null default true
 );
 
 create table team_persons (
