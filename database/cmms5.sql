@@ -759,6 +759,52 @@ begin
 
 end; $$;
 
+create or replace function modify_team (
+  in team_attributes teams,
+  in persons_array integer[],
+  out modified_team_id integer
+)
+returns integer
+language plpgsql
+strict
+as $$
+begin
+
+  update teams
+    set (
+      team_name,
+      is_active
+    ) = (
+      team_attributes.team_name,
+      team_attributes.is_active
+    )
+    where team_id = team_attributes.team_id;
+
+  with added_persons as (
+    select unnest(persons_array) as person_id
+    except
+    select person_id
+      from team_persons
+      where team_id = team_attributes.team_id
+  )
+  insert into team_persons
+    select team_attributes.team_id, person_id from added_persons;
+  
+  with recursive removed_persons as (
+    select person_id
+      from team_persons
+    where team_id = team_attributes.team_id
+    except
+    select unnest(persons_array) as person_id
+  )
+  delete from team_persons
+    where team_id = team_attributes.team_id
+          and person_id in (select person_id from removed_persons);
+
+  modified_team_id = team_attributes.team_id;
+
+end; $$;
+
 create or replace function get_asset_history (
   in asset_id text,
   out fullname text,
