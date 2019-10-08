@@ -488,7 +488,7 @@ begin
 end; $$;
 
 create or replace function insert_team (
-  in team_attributes teams,
+  in new_team_name text,
   in persons_array integer[]
 )
 returns integer
@@ -501,10 +501,12 @@ begin
 
   insert into teams (
     team_id,
-    team_name
+    team_name,
+    is_active
   ) values (
     default,
-    team_attributes.team_name
+    new_team_name,
+    true
   ) returning team_id into new_team_id;
 
   insert into team_persons select new_team_id, unnest(persons_array);
