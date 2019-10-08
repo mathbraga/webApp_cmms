@@ -25,17 +25,17 @@ export default {
     {
       name: "Ativos",
       url: "/ativos",
-      icon: "icon-speedometer",
+      icon: "fa fa-university",
       children: [
         {
           name: "Edifícios",
           url: "/ativos/edificios",
-          icon: "icon-speedometer"
+          icon: "icon-home"
         },
         {
           name: "Equipamentos",
           url: "/ativos/equipamentos",
-          icon: "icon-speedometer"
+          icon: "icon-rocket"
         }
       ]
     },
@@ -47,6 +47,23 @@ export default {
         {
           name: "Ordens de serviço",
           url: "/manutencao/os",
+          icon: "icon-list"
+        },
+      ]
+    },
+    {
+      name: "Gestão de Contratos",
+      url: "/gestao",
+      icon: "fa fa-book",
+      children: [
+        {
+          name: "Contratos",
+          url: "/gestao/contratos",
+          icon: "fa fa-file-text-o"
+        },
+        {
+          name: "Materias e Serviços",
+          url: "/gestao/servicos",
           icon: "icon-list"
         },
       ]
