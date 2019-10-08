@@ -25,5 +25,4 @@ const materials = [
   { id: "SF-0012-01", nome: "Brita", category: "Manutenção Civil", subcategory: "Material de Construção", qtd: "120", unit: "Kg" },
   { id: "SF-0013-01", nome: "Cimento", category: "Manutenção Civil", subcategory: "Material de Construção", qtd: "120", unit: "Kg" },
   { id: "SF-0014-01", nome: "Pedra", category: "Manutenção Civil", subcategory: "Material de Construção", qtd: "120", unit: "Kg" },
-
 ];
