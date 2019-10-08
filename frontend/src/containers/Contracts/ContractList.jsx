@@ -17,10 +17,10 @@ import "./List.css";
 import { contracts } from "./FakeData";
 
 const tableConfig = [
-  { name: "Número", style: { width: "50px" }, className: "text-center" },
+  { name: "Número", style: { width: "100px" }, className: "text-center" },
   { name: "Objeto", style: { width: "300px" }, className: "text-justify" },
   { name: "Status", style: { width: "150px" }, className: "text-center" },
-  { name: "Vigência", style: { width: "200px" }, className: "text-center" },
+  { name: "Vigência", style: { width: "150px" }, className: "text-center" },
   { name: "Link", style: { width: "100px" }, className: "text-center" },
 ];
 
@@ -73,7 +73,7 @@ class ContractList extends Component {
     let filteredItems = allItems;
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = allEdges.filter(function (item) {
+      filteredItems = allItems.filter(function (item) {
         return (
           (String(item.id).includes(searchTermLower)) ||
           (String(item.finalDate).includes(searchTermLower)) ||

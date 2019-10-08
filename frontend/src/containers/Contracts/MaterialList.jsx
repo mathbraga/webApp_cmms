@@ -14,51 +14,26 @@ import AssetCard from "../../components/Cards/AssetCard";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
-import { tableConfig } from "./WorkOrdersTableConfig";
+import { materials } from "./FakeData";
 
-const hierarchyItem = require("../../assets/icons/tree_icon.png");
-const listItem = require("../../assets/icons/list_icon.png");
+const tableConfig = [
+  { name: "Material / Serviço", style: { width: "300px" }, className: "text-justify" },
+  { name: "Categoria", style: { width: "200px" }, className: "text-center" },
+  { name: "Subcategoria", style: { width: "200px" }, className: "text-center" },
+  { name: "Disponível", style: { width: "100px" }, className: "text-center" },
+];
+
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
 
-const ORDER_CATEGORY_TYPE = {
-  'EST': 'Avaliação estrutural',
-  'FOR': 'Reparo em forro',
-  'INF': 'Infiltração',
-  'ELE': 'Instalações elétricas',
-  'HID': 'Instalações hidrossanitárias',
-  'MAR': 'Marcenaria',
-  'PIS': 'Reparo em piso',
-  'REV': 'Revestimento',
-  'VED': 'Vedação espacial',
-  'VID': 'Vidraçaria / Esquadria',
-  'SER': 'Serralheria',
-  'ARC': 'Ar-condicionado',
-  'ELV': 'Elevadores',
-  'EXA': 'Exaustores',
-  'GRL': 'Serviços Gerais',
-};
+// const contractsQuery = gql`
+//       query ContractsQuery {
+//         allContracts(orderBy: ORDER_ID_ASC) {
+//         }
+//       }`;
 
-const ORDER_STATUS_TYPE = {
-  'CAN': 'Cancelada',
-  'NEG': 'Negada',
-  'PEN': 'Pendente',
-  'SUS': 'Suspensa',
-  'FIL': 'Fila de espera',
-  'EXE': 'Execução',
-  'CON': 'Concluída',
-}
-
-const ORDER_PRIORITY_TYPE = {
-  'BAI': 'Baixa',
-  'NOR': 'Normal',
-  'ALT': 'Alta',
-  'URG': 'Urgente',
-};
-
-
-class WorkOrdersList extends Component {
+class ContractList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +41,6 @@ class WorkOrdersList extends Component {
       goToPage: 1,
       searchTerm: ""
     };
-
     this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
@@ -88,41 +62,28 @@ class WorkOrdersList extends Component {
   }
 
   handleURLChange() {
-    this.props.history.push('/manutencao/os/nova');
+    this.props.history.push('/gestao/servicos/novo');
   }
 
   render() {
-    const { allItems } = this.props;
+    const allItems = materials;
     const { pageCurrent, goToPage, searchTerm } = this.state;
-    const allEdges = allItems.allOrders.edges;
 
-    let filteredItems = allEdges;
+    let filteredItems = allItems;
     if (searchTerm.length > 0) {
       const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = allEdges.filter(function (item) {
+      filteredItems = allItems.filter(function (item) {
         return (
-          (ORDER_CATEGORY_TYPE[item.node.category] && ORDER_CATEGORY_TYPE[item.node.category].toLowerCase().includes(searchTermLower)) ||
-          (String(item.node.orderId).padStart(3,"0").includes(searchTermLower)) ||
-          (String(item.node.dateLimit) && String(item.node.dateLimit).includes(searchTermLower)) ||
-          (ORDER_STATUS_TYPE[item.node.status] && ORDER_STATUS_TYPE[item.node.status].toLowerCase().includes(searchTermLower)) ||
-          (item.node.requestTitle.toLowerCase().includes(searchTermLower)) ||
-          (item.node.requestLocal && item.node.requestLocal.toLowerCase().includes(searchTermLower))
+          (String(item.id).includes(searchTermLower)) ||
+          (String(item.subcategory).includes(searchTermLower)) ||
+          (item.name.toLowerCase().includes(searchTermLower)) ||
+          (item.category.toLowerCase().includes(searchTermLower))
         );
       });
     }
 
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
-
-    // Create array with all places:
-    const places = {};
-    showItems.forEach(item => {
-      const tempPlaces = []
-      item.node.orderAssetsByOrderId.edges.forEach(asset => {
-        tempPlaces.push(asset.node.assetByAssetId.assetByPlace);
-      });
-      if (tempPlaces.length > 0) { places[item.node.orderId] = tempPlaces; }
-    });
 
     const thead =
       <tr>
@@ -134,24 +95,22 @@ class WorkOrdersList extends Component {
         }
       </tr>
 
-    console.log("Show Items: ", showItems);
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/manutencao/os/view/' + item.node.orderId) }}
+        onClick={() => { this.props.history.push('/gestao/servicos/view/' + item.id) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-        <td className="text-center">{item.node.orderId.toString().padStart(3,"0")}</td>
         <td>
-          <div>{item.node.requestTitle}</div>
-          <div className="small text-muted">{ORDER_CATEGORY_TYPE[item.node.category]}</div>
+          <div>{item.name}</div>
+          <div className="small text-muted">{item.id}</div>
         </td>
-        <td className="text-center">{ORDER_STATUS_TYPE[item.node.status]}</td>
+        <td className="text-center">{item.category}</td>
         <td>
-          <div className="text-center">{item.node.dateLimit && item.node.dateLimit.split('T')[0]}</div>
+          <div className="text-center">{item.subcategory}</div>
         </td>
         <td>
           <div className="text-center">
-            {item.node.requestLocal}
+            {item.qtd.toString() + " " + item.unit}
           </div>
         </td>
       </tr>))
@@ -159,10 +118,10 @@ class WorkOrdersList extends Component {
     return (
       <div className="card-container">
         <AssetCard
-          sectionName={'Ordens de Serviço'}
-          sectionDescription={'Lista com ordens de serviço'}
+          sectionName={'Materiais e Serviços'}
+          sectionDescription={'Lista com os materiais e serviços contratados'}
           handleCardButton={this.handleURLChange}
-          buttonName={'Cadastrar OS'}
+          buttonName={'Cadastrar Serviço'}
         >
           <div className="card-search-container">
             <div className="search" style={{ width: "30%" }}>
@@ -205,4 +164,4 @@ class WorkOrdersList extends Component {
   }
 }
 
-export default withRouter(WorkOrdersList);
+export default withRouter(ContractList);
