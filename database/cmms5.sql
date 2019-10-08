@@ -243,13 +243,15 @@ create table order_supplies (
 );
 
 create table asset_files (
-  asset_id text references assets (asset_id),
-  filename text
+  asset_id text not null references assets (asset_id),
+  filename text not null,
+  fileuuid text not null
 );
 
 create table order_files (
-  order_id bigint references orders (order_id),
-  filename text
+  order_id bigint not null references orders (order_id),
+  filename text not null,
+  fileuuid text not null
 );
 
 -- create views
