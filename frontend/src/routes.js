@@ -10,6 +10,8 @@ const Assets = React.lazy(() => import("./containers/Assets"));
 const WorkOrders = React.lazy(() => import("./containers/Maintenance/WorkOrders"));
 const NewWorkOrderForm = React.lazy(() => import("./containers/Maintenance/NewWorkOrderForm"));
 const WorkOrderView = React.lazy(() => import("./containers/Maintenance/WorkOrderView"));
+const Contracts = React.lazy(() => import("./containers/Contracts/ContractList"));
+const Materials = React.lazy(() => import("./containers/Contracts/MaterialList"));
 const AssetInfo = React.lazy(() => import("./containers/Assets/AssetInfo"));
 const FacilitiesForm = React.lazy(() => import("./containers/Assets/FacilitiesForm"));
 const EquipmentsForm = React.lazy(() => import("./containers/Assets/EquipmentsForm"));
@@ -33,6 +35,8 @@ const routes = [
   { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: WorkOrders },
   { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: OrderForm },
   { path: "/manutencao/os/view/:id", exact: false, name: "OS", component: WorkOrderView },
+  { path: "/gestao/contratos", exact: true, name: "Ordens de serviços", component: Contracts },
+  { path: "/gestao/servicos", exact: true, name: "Ordens de serviços", component: Materials },
   { path: "/erro404", exact: true, name: "Erro 404", component: Error404 }
 ];
 
