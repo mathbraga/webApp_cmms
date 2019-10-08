@@ -3,7 +3,7 @@ import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup,
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
-class RegisterUser extends Component {
+class PersonForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -126,8 +126,8 @@ class RegisterUser extends Component {
                               }
                             }}
                           >
-                            <h1>Cadastro</h1>
-                            <p className="text-muted mb-4">Cadastre um novo usuário do webSINFRA.</p>
+                            <h1 className="mb-4">Novo usuário</h1>
+                            {/* <p className="text-muted mb-4">Cadastre um novo usuário do webSINFRA.</p> */}
 
                             <InputGroup className="mb-3">
                               <InputGroupAddon addonType="prepend">
@@ -230,7 +230,7 @@ class RegisterUser extends Component {
                               </Input>
                             </InputGroup>
 
-                            <InputGroup className="mb-4">
+                            {/* <InputGroup className="mb-4">
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
                                   <i className="icon-people"></i>
@@ -247,7 +247,7 @@ class RegisterUser extends Component {
                                 <option value={'team1'}>&emsp;Equipe 1</option>
                                 <option value={'team2'}>&emsp;Equipe 2</option>
                               </Input>
-                            </InputGroup>
+                            </InputGroup> */}
 
                             <Button
                               color="primary"
@@ -282,4 +282,4 @@ class RegisterUser extends Component {
   }
 }
 
-export default RegisterUser;
+export default PersonForm;
