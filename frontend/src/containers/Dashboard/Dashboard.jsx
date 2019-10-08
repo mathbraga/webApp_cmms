@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, CardHeader, FormGroup, CustomInput, Form, Button } from "reactstrap";
+const uuidv4 = require('uuid/v4');
 
 class Dashboard extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class Dashboard extends Component {
       formData.append(
         field,
         files[i],
-        'newfilename' + '-' + (i + 1).toString() + '.' + files[i].type.split('/')[1]
+        uuidv4() + '.' + files[i].type.split('/')[1]
       );
     }
     // console.log(formData.get('image'))
