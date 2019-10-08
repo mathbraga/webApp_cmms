@@ -29,13 +29,20 @@ class Dashboard extends Component {
     console.log(files);
     let formData = new FormData();
     for (let i = 0; i < l; i++) { // forEach() and map() are not defined for an array of files
+      let field = ''
+      if(i === 0) {
+        field = 'image';
+      } else {
+        field = 'files';
+      }
       formData.append(
-        'files[]',
+        field,
         files[i],
         'newfilename' + '-' + (i + 1).toString() + '.' + files[i].type.split('/')[1]
       );
     }
-    fetch('http://localhost:3001/db', {
+    // console.log(formData.get('image'))
+    fetch('http://172.30.49.152:3001/db', {
       method: 'POST',
       body: formData,
     })
