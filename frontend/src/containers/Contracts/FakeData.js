@@ -1,4 +1,4 @@
-const contracts = [
+export const contracts = [
   { id: "CT01102019", title: "Manutenção do sistema elétrico do Senado Federal", company: "RCS Tecnologia", status: "Vigente", finalDate: "10/10/2020", url: "https://www12.senado.leg.br/hpsenado" },
   { id: "CT00972019", title: "Manutenção do sistema de impermeabilização do Senado Federal", company: "PREFAC", status: "Vigente", finalDate: "12/08/2021", url: "https://www12.senado.leg.br/hpsenado" },
   { id: "CT00212019", title: "Avaliação da qualidade do ar do Senado Federal", company: "Ambientalis", status: "Vigente", finalDate: "20/05/2024", url: "https://www12.senado.leg.br/hpsenado" },
@@ -10,7 +10,7 @@ const contracts = [
   { id: "CT00412019", title: "Manutenção do sistema de nobreaks", company: "Engmil", status: "Vigente", finalDate: "12/08/2021", url: "https://www12.senado.leg.br/hpsenado" },
 ];
 
-const materials = [
+export const materials = [
   { id: "SF-0001-01", nome: "Tomada", category: "Sistema elétrico", subcategory: "Tomadas e Interruptores", qtd: "145", unit: "un" },
   { id: "SF-0002-01", nome: "Interruptor", category: "Sistema elétrico", subcategory: "Tomadas e Interruptores", qtd: "155", unit: "un" },
   { id: "SF-0003-01", nome: "Lâmpada", category: "Sistema elétrico", subcategory: "Iluminação", qtd: "14", unit: "un" },
