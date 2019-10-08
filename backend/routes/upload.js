@@ -37,10 +37,10 @@ router.post(
   (req, res, next) => {
     // console.log(req.files);
     // console.log(req.body);
-    res.json({message: 'Você fez upload.'});
+    // res.json({message: 'Você fez upload.'});
     
     // Use next() if more backend operations are necessary
-    // next();
+    next();
   }
 );
 
