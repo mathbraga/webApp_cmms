@@ -111,8 +111,8 @@ create table contracts (
   date_start date not null,
   date_end date,
   company_name text not null,
-  short_object text not null,
-  long_object text not null,
+  object_short text not null,
+  object_long text not null,
   url text not null
 );
 
