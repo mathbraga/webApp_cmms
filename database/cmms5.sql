@@ -252,14 +252,20 @@ create table order_supplies (
 
 create table asset_files (
   asset_id text not null references assets (asset_id),
-  filename text not null,
-  fileuuid text not null
+  file_name text not null,
+  uuid text not null,
+  bytes bigint not null,
+  person_id integer not null references persons (person_id),
+  created_at timestamptz not null default now()
 );
 
 create table order_files (
   order_id bigint not null references orders (order_id),
-  filename text not null,
-  fileuuid text not null
+  file_name text not null,
+  uuid text not null,
+  bytes bigint not null,
+  person_id integer not null references persons (person_id),
+  created_at timestamptz not null default now()
 );
 
 -- create views
