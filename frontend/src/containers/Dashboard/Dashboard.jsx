@@ -12,13 +12,12 @@ class Dashboard extends Component {
 
   // componentWillMount = () => {
   //   console.clear();
-  //   fetch('http://redminesf.senado.gov.br/redmine/issues/75351.json', {
+  //   fetch('http://localhost:3000/redmine', {
   //     method: 'GET',
-  //     // mode: 'no-cors',
-  //     credentials: "include",
   //   })
-  //   .then(r => console.log(r))
-  //   .catch(r => console.log(r))
+  //   .then(r => r.json())
+  //   .then(rjson => console.log(rjson))
+  //   .catch(err => console.log(err));
   // }
 
 
