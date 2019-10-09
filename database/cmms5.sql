@@ -152,6 +152,11 @@ create table team_persons (
   primary key (team_id, person_id)
 );
 
+create table contract_teams (
+  contract_id text not null references contracts (contract_id),
+  team_id integer not null references teams (team_id)
+);
+
 create table orders (
   order_id bigint primary key generated always as identity,
   status order_status_type not null,
@@ -203,6 +208,7 @@ create table private.logs (
 
 create table specs (
   spec_id integer primary key generated always as identity,
+  spec_code text,
   spec_name text,
   spec_previous integer references specs (spec_id),
   category text,
@@ -219,7 +225,8 @@ create table specs (
   external_ref text,
   is_subcont boolean,
   documental_ref text,
-  catmatcatser text
+  catmat text,
+  catser text
 );
 
 create table supplies (
