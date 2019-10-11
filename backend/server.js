@@ -16,6 +16,7 @@ const cookieSession = require('cookie-session');
 const authRoute = require('./routes/auth');
 const uploadRoute = require('./routes/upload');
 const downloadRoute = require('./routes/download');
+const redmineRoute = require('./routes/redmine');
 // const cronJob = require('./cron');
 
 // Configure application (https://expressjs.com/en/4x/api.html#app.set)
@@ -43,6 +44,7 @@ app.use(middleware);
 app.use("/auth", authRoute);
 app.use("/db", uploadRoute);
 app.use("/files", downloadRoute);
+app.use("/redmine", redmineRoute);
 
 // PostGraphile route
 app.use(postgraphile(

@@ -10,15 +10,15 @@ class Dashboard extends Component {
     }
   }
 
-  // componentWillMount = () => {
-  //   console.clear();
-  //   fetch('http://localhost:3000/redmine', {
-  //     method: 'GET',
-  //   })
-  //   .then(r => r.json())
-  //   .then(rjson => console.log(rjson))
-  //   .catch(err => console.log(err));
-  // }
+  componentWillMount = () => {
+    console.clear();
+    fetch('http://172.30.49.152:3001/redmine', {
+      method: 'GET',
+    })
+    .then(r => r.json())
+    .then(rjson => console.log(rjson))
+    .catch(err => console.log(err));
+  }
 
 
   handleUploadFile = event => {
