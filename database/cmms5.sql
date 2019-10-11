@@ -893,6 +893,46 @@ as $$
         );
 $$;
 
+create or replace function check_conclusion()
+returns trigger
+language plpgsql
+as $$
+declare
+  contract_ok boolean;
+begin
+  if (new.status = 'CON' and new.date_end is not null) then
+    select every(coalesce(c.date_end, '9999-12-31'::date) >= new.date_end) into contract_ok
+        from order_supplies as os
+        inner join contracts as c using (contract_id)
+        where os.order_id = new.order_id;
+    if (contract_ok) then
+      return new;
+    else
+      raise exception 'Order % has an expired contract in its used supplies', new.order_id;
+    end if;
+  else
+    return new;
+  end if;
+end; $$;
+
+create or replace function check_supply_qty()
+returns trigger
+language plpgsql
+as $$
+declare
+  qty_ok boolean;
+begin
+  select (b.available + coalesce(old.qty, 0) - new.qty) >= 0 into qty_ok
+    from balances as b
+    where (b.contract_id = new.contract_id and b.supply_id = new.supply_id);
+  if qty_ok then
+    return new;
+  else
+    raise exception '% is larger than available', new.qty;
+  end if;
+end; $$;
+
+
 -- create triggers
 create trigger log_changes
   after insert or update or delete on orders
@@ -929,6 +969,14 @@ create trigger log_changes
 create trigger log_changes
   after insert or update or delete on departments
   for each row execute function create_log();
+
+create trigger check_conclusion
+  before insert or update on orders
+  for each row execute function check_conclusion();
+
+create trigger check_supply_qty
+  before insert or update on order_supplies
+  for each row execute function check_supply_qty();
 
 ---------------------------------------------------------------------------------
 -- run file with insert commands and comments (this file should have win1252 encoding)
