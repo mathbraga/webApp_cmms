@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
   // console.log(file);
   let folder = 'files/'
     if(file.fieldname === 'image'){
-      folder = 'public/images';
+      folder = 'public/images/';
     }
     cb(null, folder);
   },
