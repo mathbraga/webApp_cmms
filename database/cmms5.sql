@@ -831,6 +831,81 @@ begin
 
 end; $$;
 
+create or replace function modify_profile (
+  person_attributes persons,
+  new_password text
+)
+returns integer
+language plpgsql
+security definer
+as $$
+begin
+
+  update persons set (
+    cpf,
+    email,
+    full_name,
+    phone,
+    cellphone
+  ) = (
+    person_attributes.cpf,
+    person_attributes.email,
+    person_attributes.full_name,
+    person_attributes.phone,
+    person_attributes.cellphone
+  ) where person_id = current_setting('auth.data.person_id')::integer;
+
+  update private.accounts set (
+    password_hash
+  ) = (
+    crypt(new_password, gen_salt('bf', 10))
+  ) where person_id = current_setting('auth.data.person_id')::integer;
+
+  return current_setting('auth.data.person_id')::integer;
+
+end; $$;
+
+create or replace function modify_person (
+  person_attributes persons,
+  new_is_active boolean,
+  new_person_role text
+)
+returns integer
+language plpgsql
+security definer
+as $$
+begin
+
+  update persons set (
+    cpf,
+    email,
+    full_name,
+    phone,
+    cellphone,
+    contract_id
+  ) = (
+    person_attributes.cpf,
+    person_attributes.email,
+    person_attributes.full_name,
+    person_attributes.phone,
+    person_attributes.cellphone,
+    person_attributes.contract_id
+  ) where person_id = person_attributes.person_id;
+
+  update private.accounts set (
+    password_hash,
+    is_active,
+    person_role
+  ) = (
+    crypt(new_password, gen_salt('bf', 10)),
+    new_is_active,
+    new_person_role
+  ) where person_id = person_attributes.person_id;
+
+  return person_attributes.person_id;
+
+end; $$;
+
 create or replace function get_asset_history (
   in asset_id text,
   out fullname text,
