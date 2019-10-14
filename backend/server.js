@@ -17,7 +17,11 @@ const authRoute = require('./routes/auth');
 const uploadRoute = require('./routes/upload');
 const downloadRoute = require('./routes/download');
 const redmineRoute = require('./routes/redmine');
+const emailRoute = require('./routes/email');
 // const cronJob = require('./cron');
+
+// Environment variables
+// console.log(process.env);
 
 // Configure application (https://expressjs.com/en/4x/api.html#app.set)
 // app.set('trust proxy', 1);
@@ -45,6 +49,7 @@ app.use("/auth", authRoute);
 app.use("/db", uploadRoute);
 app.use("/files", downloadRoute);
 app.use("/redmine", redmineRoute);
+app.use("/email", emailRoute);
 
 // PostGraphile route
 app.use(postgraphile(

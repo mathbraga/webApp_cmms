@@ -12,34 +12,46 @@ class Dashboard extends Component {
 
   componentWillMount = () => {
     console.clear();
-    fetch('http://172.30.49.152:3001/redmine', {
+    fetch('http://172.30.49.152:3001/email', {
       method: 'GET',
     })
     .then(r => r.json())
-    .then(rjson => {
-      // let contracts = [];
-      // rjson.wiki_pages.forEach((page, i) => {
-      //   if(page.parent){
-      //     if(page.parent.title === 'CTAtivo' 
-      //        ||
-      //        page.parent.title === 'CTInativo'
-      //        ||
-      //        page.parent.title === 'RPAtivo'
-      //       ||
-      //        page.parent.title === 'RPInativo'
-          
-          
-      //     ){
-      //     contracts.push(page);
-      //     }
-      //   }
-      // })
-      // console.log(contracts)
-
-      console.log(rjson)
-    })
+    .then(rjson => console.log(rjson))
     .catch(err => console.log(err));
   }
+
+
+
+  // componentWillMount = () => {
+  //   console.clear();
+  //   fetch('http://172.30.49.152:3001/redmine', {
+  //     method: 'GET',
+  //   })
+  //   .then(r => r.json())
+  //   .then(rjson => {
+  //     // let contracts = [];
+  //     // rjson.wiki_pages.forEach((page, i) => {
+  //     //   if(page.parent){
+  //     //     if(page.parent.title === 'CTAtivo' 
+  //     //        ||
+  //     //        page.parent.title === 'CTInativo'
+  //     //        ||
+  //     //        page.parent.title === 'RPAtivo'
+  //     //       ||
+  //     //        page.parent.title === 'RPInativo'
+          
+          
+  //     //     ){
+  //     //     contracts.push(page);
+  //     //     }
+  //     //   }
+  //     // })
+  //     // console.log(contracts)
+
+  //     console.log(rjson)
+  //   })
+  //   .catch(err => console.log(err));
+  // }
 
 
   handleUploadFile = event => {
