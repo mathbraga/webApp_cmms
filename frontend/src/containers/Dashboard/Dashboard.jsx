@@ -16,7 +16,28 @@ class Dashboard extends Component {
       method: 'GET',
     })
     .then(r => r.json())
-    .then(rjson => console.log(rjson))
+    .then(rjson => {
+      // let contracts = [];
+      // rjson.wiki_pages.forEach((page, i) => {
+      //   if(page.parent){
+      //     if(page.parent.title === 'CTAtivo' 
+      //        ||
+      //        page.parent.title === 'CTInativo'
+      //        ||
+      //        page.parent.title === 'RPAtivo'
+      //       ||
+      //        page.parent.title === 'RPInativo'
+          
+          
+      //     ){
+      //     contracts.push(page);
+      //     }
+      //   }
+      // })
+      // console.log(contracts)
+
+      console.log(rjson)
+    })
     .catch(err => console.log(err));
   }
 
