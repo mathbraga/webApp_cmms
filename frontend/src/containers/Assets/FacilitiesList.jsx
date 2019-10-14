@@ -25,7 +25,6 @@ const mapIcon = require("../../assets/icons/map.png");
 
 const ENTRIES_PER_PAGE = 15;
 
-
 class FacilitiesList extends Component {
   constructor(props) {
     super(props);
