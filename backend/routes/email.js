@@ -11,7 +11,7 @@ async function email() {
     secure: true,
     proxy: process.env.http_proxy,
     auth: {
-        user: process.env.EMAIL_FROM,
+        user: 'hzlopes',
         pass: process.env.EMAIL_PASS,
     },
     tls: {
@@ -19,7 +19,6 @@ async function email() {
     },
     logger: true,
     debug: true,
-    ignoreTLS: true,
   });
 
   // send mail with defined transport object
