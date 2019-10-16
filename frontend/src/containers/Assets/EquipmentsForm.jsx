@@ -63,6 +63,32 @@ const formsQuery = gql`
           }
         }`;
 
+const equipListQuery = gql`
+        query assetsQuery($category: AssetCategoryType!) {
+          allAssets(condition: {category: $category}, orderBy: ASSET_ID_ASC) {
+            edges {
+              node {
+                parent
+                name
+                model
+                manufacturer
+                assetId
+                category
+                serialnum
+                area
+                assetByPlace {
+                  assetId
+                  name
+                }
+                assetByParent {
+                  name
+                  assetId
+                }
+              }
+            }
+          }
+        }`;
+
 class EquipmentsForm extends Component {
   constructor(props) {
     super(props);
@@ -148,6 +174,61 @@ class EquipmentsForm extends Component {
           price: Number(this.state.price),
           serialnum: this.state.serialNum
         }}
+        update={(cache, { data: { insertAppliance } }) => {
+          try{
+            const data = cache.readQuery({ 
+              query: equipListQuery,
+              variables: {
+                category: "A"
+              }
+            });
+            const id = insertAppliance.assetId;
+            const name = this.state.assetName;
+            const parent = this.state.assetParent;
+            const model = this.state.model;
+            const manufacturer = this.state.manufacturer;
+            const category = "A"
+            const serialnum = this.state.serialNum;
+            const area = 0;
+
+            data.allAssets.edges.push(
+              {node: {
+                area: area,
+                assetByParent: {
+                  assetId: id,
+                  name: name,
+                  __typename: "Asset"
+                },
+                assetByPlace: {
+                  assetId: id,
+                  name: name,
+                  __typename: "Asset"
+                },
+                assetId: id,
+                category: category,
+                manufacturer: manufacturer,
+                model: model,
+                name: name,
+                parent: parent,
+                serialnum: serialnum,
+                __typename: "Asset"
+              },
+              __typename: "AssetsEdge"
+              })
+            console.log(data)
+            cache.writeQuery({
+              query: equipListQuery,
+              variables: {
+                category: "A"
+              },
+              data
+            })
+          }
+          catch(error){
+            console.error(error);
+          }
+          }
+        }
       >
         {(mutation, { data, loading, error }) => {
           if (loading) return null;
@@ -189,7 +270,6 @@ class EquipmentsForm extends Component {
                         e.preventDefault();
                         mutate(mutation).then(() => {
                           this.props.history.push('/ativos/equipamentos');
-                          window.location.reload();
                         });
                       }}
                       onReset={() => this.props.history.push('/ativos/equipamentos')}
@@ -231,6 +311,7 @@ class EquipmentsForm extends Component {
                             onChange={this.handleInputChange}
                             name="description" type="textarea" id="description" placeholder="Descrição do equipamento" rows="4"
                             autoComplete="off"
+                            required
                           />
                         </FormGroup>
                         <FormGroup row>
@@ -242,6 +323,7 @@ class EquipmentsForm extends Component {
                                 listDropdown={appliances}
                                 update={this.handleParentDropDownChange}
                                 id={'appliances'}
+                                required
                               />
                             </FormGroup>
                           </Col>
@@ -260,7 +342,7 @@ class EquipmentsForm extends Component {
                           <Col xs='8'>
                             <SingleInputWithDropDown
                               label={'Localização'}
-                              placeholder={'Localização da manutenção ...'}
+                              placeholder={'Localização do equipamento ...'}
                               listDropdown={assets}
                               update={this.handleLocationDropDownChange}
                               id={'location'}

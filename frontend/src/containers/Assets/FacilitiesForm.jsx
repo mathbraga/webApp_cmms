@@ -218,7 +218,7 @@ class FacilitiesForm extends Component {
                   });
                   const id = insertFacility.assetId;
                   const name = this.state.assetName;
-                  const parent = this.state.parent;
+                  const parent = this.state.assetParent;
                   const model = null;
                   const manufacturer = null;
                   const category = "F"
