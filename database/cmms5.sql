@@ -85,6 +85,16 @@ create type person_role_type as enum (
   'visitor'
 );
 
+create type rule_category_type as enum (
+  'LEI', -- leis e decretos
+  'NMT', -- normas do ministério do trabalho
+  'TCU', -- acórdãos do tcu
+  'NAC', -- referências nacionais
+  'INT', -- referências internacionais
+  'ABN', -- normas abnt
+  'DSF'  -- diretrizes do senado federal
+);
+
 -- create tables
 create table assets (
   asset_id text primary key,
@@ -250,6 +260,29 @@ create table order_supplies (
   foreign key (contract_id, supply_id) references supplies (contract_id, supply_id)
 );
 
+create table rules (
+  rule_id integer primary key generated always as identity,
+  rule_sf text,
+  category rule_category_type,
+  title text,
+  url text
+);
+
+create table asset_rules (
+  asset_id text references assets (asset_id),
+  rule_id integer references rules (rule_id)
+);
+
+create table spec_rules (
+  spec_id integer references specs (spec_id),
+  rule_id integer references rules (rule_id)
+);
+
+create table templates (
+  template_id text primary key,
+  title text
+);
+
 create table asset_files (
   asset_id text not null references assets (asset_id),
   file_name text not null,
@@ -261,6 +294,15 @@ create table asset_files (
 
 create table order_files (
   order_id bigint not null references orders (order_id),
+  file_name text not null,
+  uuid text not null,
+  bytes bigint not null,
+  person_id integer not null references persons (person_id),
+  created_at timestamptz not null default now()
+);
+
+create table template_files (
+  template_id text not null references templates (template_id),
   file_name text not null,
   uuid text not null,
   bytes bigint not null,
