@@ -301,6 +301,15 @@ create table order_files (
   created_at timestamptz not null default now()
 );
 
+create table rule_files (
+  rule_id integer not null references rules (rule_id),
+  file_name text not null,
+  uuid text not null,
+  bytes bigint not null,
+  person_id integer not null references persons (person_id),
+  created_at timestamptz not null default now()
+);
+
 create table template_files (
   template_id text not null references templates (template_id),
   file_name text not null,
