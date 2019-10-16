@@ -19,6 +19,7 @@ import SingleInputWithDropDown from '../../components/Forms/SingleInputWithDropd
 import { withRouter } from "react-router-dom";
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 const ORDER_STATUS = [
   { id: 'FIL', text: 'Fila de espera', subtext: "" },
@@ -309,9 +310,7 @@ class OrderForm extends Component {
         }}
         update={(cache, { data: { insertOrder } }) => {
           try{
-            const data = cache.readQuery({ query: osQuery });
-            console.log(data);
-            console.log(insertOrder);
+            const listData = cache.readQuery({ query: osQuery });
 
             const id = insertOrder.orderId
             const category = this.state.category;
@@ -326,7 +325,6 @@ class OrderForm extends Component {
 
             const newEdges = []
             parentAssets.forEach(item => {
-                    return(
                       newEdges.push(
                       {node: {
                         assetByAssetId: {
@@ -340,10 +338,10 @@ class OrderForm extends Component {
                         __typename: "OrderAsset"
                       },
                       __typename: "OrderAssetsEdge"
-                      }))
+                      })
                   });
 
-            data.allOrders.edges.push(
+            listData.allOrders.edges.push(
               {node: {
                 category: category,
                 createdAt: dateStart,
@@ -363,12 +361,10 @@ class OrderForm extends Component {
               },
               __typename: "OrdersEdge"
             })
-            
-            console.log(data);
 
             cache.writeQuery({
               query: osQuery,
-              data
+              data: listData
             })
           }
           catch(error){
