@@ -224,8 +224,8 @@ create table contracts (
   date_start date not null,
   date_end date,
   company_name text not null,
-  object_short text not null,
-  object_long text not null,
+  title text not null,
+  description text not null,
   url text not null
 );
 
@@ -320,37 +320,37 @@ create table private.logs (
 );
 
 create table specs (
-  spec_id integer primary key generated always as identity,
-  spec_code text,
-  spec_name text,
-  spec_previous integer references specs (spec_id),
-  category text,
-  subcategory text,
-  details text,
+  spec_id text primary key,
+  title text not null,
+  category text not null,
+  subcategory text not null,
+  unit text not null,
+  description text,
   materials text,
   services text,
   activities text,
-  comments text,
+  qualification text,
+  notes text,
   criteria text,
-  tables jsonb,
-  lifespan interval,
-  commercial_ref text,
-  external_ref text,
+  spreadsheets text,
+  lifespan text,
+  com_ref text,
+  ext_rer text,
   is_subcont boolean,
-  documental_ref text,
   catmat text,
-  catser text
+  catser text,
+  updated_at timestamptz not null
 );
 
 create table supplies (
   contract_id text not null references contracts (contract_id),
   supply_id text not null,
-  spec_id integer not null references specs (spec_id),
+  spec_id text not null references specs (spec_id),
   qty_initial real not null,
   is_qty_real boolean not null,
   unit text not null,
-  price money not null,
-  estimated_price money,
+  bid_price money not null,
+  full_price money,
   primary key (contract_id, supply_id)
 );
 
