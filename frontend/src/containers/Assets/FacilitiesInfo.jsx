@@ -124,15 +124,19 @@ class FacilitiesInfo extends Component {
       const searchTermLower = searchTerm.toLowerCase();
       filteredItems = edges.filter(function (item) {
 
-        const dateLimit = item.node.orderByOrderId.dateLimit === null ? "" : item.node.orderByOrderId.dateLimit
+        const dateLimit = item.node.orderByOrderId.dateLimit === null ? "" : item.node.orderByOrderId.dateLimit;
+        const reqTitle = item.node.orderByOrderId.requestTitle === null ? "" : item.node.orderByOrderId.requestTitle;
+        const reqLocal = item.node.orderByOrderId.requestLocal === null ? "" : item.node.orderByOrderId.requestLocal;
+        const status = ORDER_STATUS_TYPE[item.node.orderByOrderId.status] === null ? "" : ORDER_STATUS_TYPE[item.node.orderByOrderId.status];
+        const priority = ORDER_PRIORITY_TYPE[item.node.orderByOrderId.priority] === null ? "" : ORDER_PRIORITY_TYPE[item.node.orderByOrderId.priority];
 
         return (
           // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
           String((item.node.orderId + "").padStart(4, "0")).includes(searchTermLower) ||
-          item.node.orderByOrderId.requestTitle.toLowerCase().includes(searchTermLower) ||
-          item.node.orderByOrderId.requestLocal.toLowerCase().includes(searchTermLower) ||
-          ORDER_STATUS_TYPE[item.node.orderByOrderId.status].toLowerCase().includes(searchTermLower) ||
-          ORDER_PRIORITY_TYPE[item.node.orderByOrderId.priority].toLowerCase().includes(searchTermLower) ||
+          reqTitle.toLowerCase().includes(searchTermLower) ||
+          reqLocal.toLowerCase().includes(searchTermLower) ||
+          status.toLowerCase().includes(searchTermLower) ||
+          priority.toLowerCase().includes(searchTermLower) ||
           String(dateLimit).includes(searchTermLower)
         );
       });
