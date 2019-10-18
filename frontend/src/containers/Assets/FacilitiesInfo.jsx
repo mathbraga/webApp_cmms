@@ -27,9 +27,6 @@ import { compose } from 'redux';
 import { withRouter } from "react-router";
 import replaceNull from '../../utils/text/replaceNull';
 
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
-
 import { equipmentItems, equipmentConfig } from "./AssetsFakeData";
 
 const descriptionImage = require("../../assets/img/test/facilities_picture.jpg");
@@ -299,7 +296,7 @@ class FacilitiesInfo extends Component {
                           </div>
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Longitude do Local</div>
-                            <div className="asset-info-content-data">{!(assetsInfo.assetByAssetId.longitude && assetsInfo.assetByAssetId.longitude != 0) ? assetsInfo.assetByAssetId.longitude : "Não cadastrado"}</div>
+                            <div className="asset-info-content-data">{(assetsInfo.assetByAssetId.longitude && assetsInfo.assetByAssetId.longitude != 0) ? assetsInfo.assetByAssetId.longitude : "Não cadastrado"}</div>
                           </div>
                         </Col>
                       </Row>

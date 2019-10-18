@@ -32,7 +32,14 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     console.log("Error: ", networkError.message);
   }
 });
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+    cacheRedirects: {
+      Query: {
+        orderByOrderId: (_, args, { getCacheKey }) => 
+          getCacheKey({ __typename: "Order", id: args.id})
+      },
+    },
+  });
 const link = ApolloLink.from([errorLink, httpLink]);
 
 const client = new ApolloClient({
