@@ -10,46 +10,46 @@ class Dashboard extends Component {
     }
   }
 
-  componentWillMount = () => {
-    console.clear();
-    // fetch('http://172.30.49.152:3001/email', {
-    fetch('http://172.30.49.152:3001/redmine', {
-      method: 'GET',
-    })
-    .then(r => r.json())
-    .then(rjson => console.log(rjson))
-    .catch(err => console.log(err));
-  }
+  // componentWillMount = () => {
+  //   console.clear();
+  //   // fetch('http://172.30.49.152:3001/email', {
+  //   fetch('http://172.30.49.152:3001/redmine', {
+  //     method: 'GET',
+  //   })
+  //   .then(r => r.json())
+  //   .then(rjson => console.log(rjson))
+  //   .catch(err => console.log(err));
+  // }
 
-  handleUploadFile = event => {
-    event.preventDefault();
-    console.clear();
-    let files = this.fileInputRef.current.files;
-    let l = files.length;
-    console.log(files);
-    let formData = new FormData();
-    for (let i = 0; i < l; i++) { // forEach() and map() are not defined for an array of files
-      let field = ''
-      if(i === 0) {
-        field = 'image';
-      } else {
-        field = 'files';
-      }
-      formData.append(
-        field,
-        files[i],
-        uuidv4() + '.' + files[i].type.split('/')[1]
-      );
-    }
-    // console.log(formData.get('image'))
-    fetch('http://172.30.49.152:3001/db', {
-      method: 'POST',
-      body: formData,
-    })
-      .then(r => r.json())
-      .then(rjson => console.log(rjson))
-      .catch(() => console.log('erro upload.'));
-  }
+  // handleUploadFile = event => {
+  //   event.preventDefault();
+  //   console.clear();
+  //   let files = this.fileInputRef.current.files;
+  //   let l = files.length;
+  //   console.log(files);
+  //   let formData = new FormData();
+  //   for (let i = 0; i < l; i++) { // forEach() and map() are not defined for an array of files
+  //     let field = ''
+  //     if(i === 0) {
+  //       field = 'image';
+  //     } else {
+  //       field = 'files';
+  //     }
+  //     formData.append(
+  //       field,
+  //       files[i],
+  //       uuidv4() + '.' + files[i].type.split('/')[1]
+  //     );
+  //   }
+  //   // console.log(formData.get('image'))
+  //   fetch('http://172.30.49.152:3001/db', {
+  //     method: 'POST',
+  //     body: formData,
+  //   })
+  //     .then(r => r.json())
+  //     .then(rjson => console.log(rjson))
+  //     .catch(() => console.log('erro upload.'));
+  // }
 
   render() {
     return (
@@ -92,7 +92,7 @@ class Dashboard extends Component {
           </Container>
         </div>
 
-        <Card>
+        {/* <Card>
           <CardHeader>
             <Row>
               <Col md="12">
@@ -161,7 +161,7 @@ class Dashboard extends Component {
             rel="noopener noreferrer nofollow"
           >Aqui o link
           </a>
-        </div>
+        </div> */}
       </React.Fragment>
     );
   }
