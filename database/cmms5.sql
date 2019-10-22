@@ -81,6 +81,7 @@ create type order_category_type as enum (
 create type person_role_type as enum (
   'administrator',
   'supervisor',
+  'inspector',
   'employee',
   'visitor'
 );
