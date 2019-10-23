@@ -35,8 +35,10 @@ const routes = [
   { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: WorkOrders },
   { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: OrderForm },
   { path: "/manutencao/os/view/:id", exact: false, name: "OS", component: WorkOrderView },
-  { path: "/gestao/contratos", exact: true, name: "Ordens de serviços", component: Contracts },
-  { path: "/gestao/servicos", exact: true, name: "Ordens de serviços", component: Materials },
+  { path: "/gestao/contratos", exact: true, name: "Contratos", component: Contracts },
+  { path: "/gestao/contratos/view/:id", exact: false, name: "Contrato", component: AssetInfo },
+  { path: "/gestao/servicos", exact: true, name: "Servicos", component: Materials },
+  { path: "/gestao/servicos/view/:id", exact: false, name: "Servico", component: AssetInfo },
   { path: "/erro404", exact: true, name: "Erro 404", component: Error404 }
 ];
 
