@@ -60,6 +60,10 @@ create type asset_category_type as enum (
   'A'
 );
 
+create type contract_status_type as enum (
+  'l'
+);
+
 create type order_status_type as enum (
   'CAN',
   'NEG',
@@ -222,7 +226,7 @@ create table assets (
   asset_sf text not null unique,
   name text not null,
   description text,
-  category asset_category_type not null, -- ENUM or referencing a table
+  category asset_category_type not null, -- enum or reference to a table
   latitude real,
   longitude real,
   area real,
@@ -233,7 +237,7 @@ create table assets (
 );
 
 create table asset_relations (
-  top_id integer not null references assets (asset_id), -- ENUM or referencing a table
+  top_id integer not null references assets (asset_id), -- enum or reference to a table
   parent_id integer not null references assets (asset_id),
   asset_id integer not null references assets (asset_id),
   primary key (top_id, parent_id, asset_id)
@@ -243,7 +247,7 @@ create table contracts (
   contract_id integer primary key generated always as identity,
   contract_sf text not null unique,
   parent integer references contracts (contract_id),
-  status contract_status_type not null, -- ENUM or referencing a table
+  status contract_status_type not null, -- enum or reference to a table
   date_sign date not null,
   date_pub date,
   date_start date not null,
@@ -322,7 +326,7 @@ create table orders (
 );
 
 create table order_messages (
-  message_id integer primary key generated always as identity,
+  message_id integer primary key generated always as identity, -- ????
   order_id integer not null references orders (order_id),
   person_id integer not null references persons (person_id),
   message text not null,
@@ -350,11 +354,11 @@ create table order_teams (
 
 create table specs (
   spec_id integer primary key generated always as identity,
+  spec_sf text not null, -- regex check
+  version text not null, -- regex check
   name text not null,
-  version text not null,
-  title text not null,
-  category text not null, -- ENUM or referencing a table
-  subcategory text not null, -- ENUM or referencing a table
+  category text not null, -- enum or reference to a table
+  subcategory text not null, -- enum or reference to a table
   unit text not null,
   description text,
   materials text,
@@ -363,42 +367,42 @@ create table specs (
   qualification text,
   notes text,
   criteria text,
-  spreadsheets text, -- IMPROVE
+  spreadsheets text, -- improve (link to a table? files? jsonb? xml?)
   lifespan text,
-  com_ref text, -- IMPROVE
-  ext_rer text, -- IMPROVE
+  com_ref text, -- improve (new table is necessary?)
+  ext_rer text, -- improve (new table is necessary?)
   is_subcont boolean,
   catmat text,
   catser text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
-  unique (name, version)
+  unique (spec_sf, version)
 );
 
 create table supplies (
   supply_id integer primary key generated always as identity,
   contract_id integer not null references contracts (contract_id),
   spec_id integer not null references specs (spec_id),
-  name text not null,
+  supply_sf text not null,
   qty real not null,
   is_qty_real boolean not null,
   unit text not null,
   bid_price money not null,
   full_price money,
-  unique (contract_id, name)
+  unique (contract_id, supply_sf)
 );
 
 create table order_supplies (
   order_id integer not null references orders (order_id),
-  supply_id integer not null references supplies (supplies_array),
+  supply_id integer not null references supplies (supply_id),
   qty real not null,
   primary key (order_id, supply_id)
 );
 
 create table rules (
   rule_id integer primary key generated always as identity,
-  name text not null unique,
-  category rule_category_type, -- ENUM or referencing a table
+  rule_sf text not null unique, -- regex
+  category rule_category_type, -- enum or reference to a table
   title text,
   description text,
   url text
@@ -448,7 +452,7 @@ create table rule_files (
 );
 
 create table template_files (
-  template_id text not null references templates (template_id),
+  template_id integer not null references templates (template_id),
   name text not null,
   uuid text not null,
   bytes bigint not null,
