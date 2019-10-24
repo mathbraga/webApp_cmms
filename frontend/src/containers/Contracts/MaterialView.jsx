@@ -23,8 +23,7 @@ import TableWithPages from "../../components/Tables/TableWithPages";
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const descriptionImage = require("../../assets/img/test/order_picture.png");
-
+const descriptionImage = require("../../assets/img/test/item_list.png");
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
@@ -69,7 +68,7 @@ const ORDER_PRIORITY_TYPE = {
   'URG': 'Urgente',
 };
 
-class WorkOrderView extends Component {
+class MaterialView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -104,7 +103,7 @@ class WorkOrderView extends Component {
 
   render() {
     const { pageCurrent, goToPage, searchTerm, tabSelected } = this.state;
-    const orderId = Number(this.props.location.pathname.slice(20));
+    const orderId = 1;
     const woQueryInfo = gql`
       query ($orderId: Int!) {
         orderByOrderId(orderId: $orderId) {
@@ -213,10 +212,10 @@ class WorkOrderView extends Component {
             return (
               <div className="asset-container">
                 <AssetCard
-                  sectionName={'Ordem de Serviço'}
-                  sectionDescription={'Ficha descritiva do serviço'}
-                  handleCardButton={() => this.props.history.push('/manutencao/os')}
-                  buttonName={'Ordens de Serviço'}
+                  sectionName={'Materiais e Serviços'}
+                  sectionDescription={'Especificações técnicas'}
+                  handleCardButton={() => this.props.history.push('/gestao/servicos')}
+                  buttonName={'Materiais e Serviços'}
                 >
                   <Row>
                     <Col md="2" style={{ textAlign: "left" }}>
@@ -225,33 +224,33 @@ class WorkOrderView extends Component {
                           <img className="desc-image" src={descriptionImage} alt="Ar-condicionado" />
                         </div>
                         <div className="desc-status">
-                          <Badge className="mr-1 desc-badge" color="success" >{ORDER_STATUS_TYPE[orderInfo.status]}</Badge>
+                          <Badge className="mr-1 desc-badge" color="success" >Disponível</Badge>
                         </div>
                       </div>
                     </Col>
                     <Col className="flex-column" md="10">
                       <div style={{ flexGrow: "1" }}>
                         <Row>
-                          <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Serviço (descrição breve)</span></Col>
-                          <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{orderInfo.requestTitle}</span></Col>
+                          <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Serviço / Material</span></Col>
+                          <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>Luminária 2x14 W de embutir</span></Col>
                         </Row>
                       </div>
                       <div>
                         <Row>
-                          <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Ordem de Serviço nº</span></Col>
-                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{(orderInfo.orderId + "").padStart(4, "0")}</span></Col>
+                          <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
+                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>SF-00274</span></Col>
                         </Row>
                       </div>
                       <div>
                         <Row>
-                          <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Local da Intervenção</span></Col>
-                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{orderInfo.requestLocal}</span></Col>
+                          <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Versão</span></Col>
+                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>v02 (Atualizada)</span></Col>
                         </Row>
                       </div>
                       <div>
                         <Row>
-                          <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Categoria</span></Col>
-                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{ORDER_CATEGORY_TYPE[orderInfo.category]}</span></Col>
+                          <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Disponibilidade</span></Col>
+                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>134 unidades</span></Col>
                         </Row>
                       </div>
                     </Col>
@@ -263,16 +262,10 @@ class WorkOrderView extends Component {
                           <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Dados do Solicitante</NavLink>
+                          <NavLink onClick={() => { this.handleClickOnNav("contracts") }} active={tabSelected === "contracts"} >Contratações</NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Ativos</NavLink>
-                        </NavItem>
-                        <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Arquivos</NavLink>
-                        </NavItem>
-                        <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("file") }} active={tabSelected === "file"} >Atribuido para</NavLink>
+                          <NavLink onClick={() => { this.handleClickOnNav("workOrders") }} active={tabSelected === "workOrders"} >Ordens de Serviços</NavLink>
                         </NavItem>
                         <NavItem>
                           <NavLink onClick={() => { this.handleClickOnNav("log") }} active={tabSelected === "log"} >Histórico</NavLink>
@@ -281,168 +274,344 @@ class WorkOrderView extends Component {
                       <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
                         <TabPane tabId="info" style={{ width: "100%" }}>
                           <div className="asset-info-container">
-                            <h1 className="asset-info-title">Detalhes do Serviço</h1>
+                            <h1 className="asset-info-title">Especificações Técnicas</h1>
                             <div className="asset-info-content">
                               <Row>
                                 <Col md="6">
                                   <div className="asset-info-single-container">
-                                    <div className="desc-sub">Título do Serviço</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestTitle}</div>
-                                  </div>
-                                  <div className="asset-info-single-container">
-                                    <div className="desc-sub">Ordem de Serviço nº</div>
-                                    <div className="asset-info-content-data">{(orderInfo.orderId + "").padStart(4, "0")}</div>
+                                    <div className="desc-sub">Serviço / Material</div>
+                                    <div className="asset-info-content-data">Luminária 2x14 W de embutir</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Categoria</div>
-                                    <div className="asset-info-content-data">{ORDER_CATEGORY_TYPE[orderInfo.category]}</div>
+                                    <div className="asset-info-content-data">Elétrica</div>
                                   </div>
                                   <div className="asset-info-single-container">
-                                    <div className="desc-sub">Local</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestLocal}</div>
+                                    <div className="desc-sub">Subcategoria</div>
+                                    <div className="asset-info-content-data">Iluminação</div>
                                   </div>
                                 </Col>
                                 <Col md="6">
                                   <div className="asset-info-single-container">
-                                    <div className="desc-sub">Status</div>
-                                    <div className="asset-info-content-data">{ORDER_STATUS_TYPE[orderInfo.status]}</div>
+                                    <div className="desc-sub">Código</div>
+                                    <div className="asset-info-content-data">SF-00274</div>
                                   </div>
                                   <div className="asset-info-single-container">
-                                    <div className="desc-sub">Percentual Executado</div>
-                                    <div className="asset-info-content-data">{(orderInfo.completed || "0") + "% executado"}</div>
+                                    <div className="desc-sub">Versão</div>
+                                    <div className="asset-info-content-data">v02</div>
                                   </div>
                                   <div className="asset-info-single-container">
-                                    <div className="desc-sub">Prioridade</div>
-                                    <div className="asset-info-content-data">{ORDER_PRIORITY_TYPE[orderInfo.priority]}</div>
+                                    <div className="desc-sub">CATSER</div>
+                                    <div className="asset-info-content-data">1538</div>
                                   </div>
                                 </Col>
                               </Row>
                               <div className="asset-info-single-container">
-                                <div className="desc-sub">Descrição Técnica do Serviço</div>
-                                <div className="asset-info-content-data">{orderInfo.requestText || "Não cadastrado"}</div>
+                                <div className="desc-sub">Descrição Detalhada</div>
+                                <div className="asset-info-content-data">Fornecimento e instalação de luminária de embutir completa T5 2 x 14W, com reator e lâmpada.</div>
                               </div>
                             </div>
-                            <h1 className="asset-info-title">Prazos e Datas</h1>
+                            <h1 className="asset-info-title">Definição dos Serviços e Materiais</h1>
+                            <div className="asset-info-content">
+                              <div className="asset-info-single-container">
+                                <div className="desc-sub">Detalhamento dos Materiais</div>
+                                <div className="asset-info-content-data">
+                                  Luminária de embutir completa 2 x 14W com as seguintes características mínimas:
+                                  <ul>
+                                    <li>
+                                      Dimensões aproximadas: 620 x 270 mm e perfil baixo (menor que 45 mm) para instalação em forro estreito;
+                                    </li>
+                                    <li>
+                                      Corpo em chapa de aço, completamente fechada, pintura eletroestática em tinta epóxi a pó, na cor branca;
+                                    </li>
+                                    <li>
+                                      Refletor parabólico em alumínio anodizado com pureza acima de 95%;
+                                    </li>
+                                    <li>
+                                      Aletas parabólicas em alumínio anodizado com pureza acima de 95%;
+                                    </li>
+                                    <li>
+                                      Alojamento do reator na parte inferior, com tampa removível, para fácil manutenção (sistema de encaixe de pressão, por bilhas ou molas), acesso a reator e lâmpadas manualmente, sem auxílio de ferramentas;
+                                    </li>
+                                    <li>
+                                      Rendimento acima de 75%;
+                                    </li>
+                                    <li>
+                                      Soquetes de engate rápido, com travamento antivibratório;
+                                    </li>
+                                    <li>
+                                      Esteticamente compatível com o existente no Senado Federal.
+                                    </li>
+                                  </ul>
+                                  Com 02 (duas) lâmpadas fluorescente T5 de 14 W com as seguintes características mínimas:
+                                  <ul>
+                                    <li>
+                                      Temperatura de cor mínima de 4000K;
+                                    </li>
+                                    <li>
+                                      Tensão nominal de 220 V;
+                                    </li>
+                                    <li>
+                                      Base G5;
+                                    </li>
+                                    <li>
+                                      Fluxo luminoso mínimo de 1200 lm;
+                                    </li>
+                                    <li>
+                                      Índice de Reprodução de Cor mínimo de 80;
+                                    </li>
+                                    <li>
+                                      Eficiência luminosa a 35°C de pelo menos 96 lumens/Watt;
+                                    </li>
+                                    <li>
+                                      Vida mediana mínima de 20000 horas;
+                                    </li>
+                                    <li>
+                                      Com as seguintes marcações legíveis no bulbo ou na base: potência nominal (W), designação da cor, nome do fabricante ou marca registrada e modelo.
+                                    </li>
+                                  </ul>
+                                  Reator eletrônico com as seguintes características mínimas:
+                                  <ul>
+                                    <li>
+                                      Para duas lâmpadas fluorescentes tubulares 14 W;
+                                    </li>
+                                    <li>
+                                      Partida instantânea;
+                                    </li>
+                                    <li>
+                                      Com selo do INMETRO;
+                                    </li>
+                                    <li>
+                                      Com selo do Procel;
+                                    </li>
+                                    <li>
+                                      Distorção harmônica total (THDi) inferior a 10%;
+                                    </li>
+                                    <li>
+                                      Alto fator de potência (superior a 0,97);
+                                    </li>
+                                    <li>
+                                      Alimentação de 220 V;
+                                    </li>
+                                  </ul>
+                                  Cabo de cobre multipolar isolado 0,6/1 kV 3x2,5mm² resistente a chama, livre de halogênios, com as seguintes características mínimas:
+                                  <ul>
+                                    <li>
+                                      Área nominal de cada seção condutora: 2,5 mm²;
+                                    </li>
+                                    <li>
+                                      Cabo flexível tripolar de cobre (têmpera mole) formado por fios de cobre nu (não revestido);
+                                    </li>
+                                    <li>
+                                      Veias internas nas cores preto, azul e verde;
+                                    </li>
+                                    <li>
+                                      Isolação em dupla camada por composto termofixo poliolefínico extrudado não halogenado EPR/B;
+                                    </li>
+                                    <li>
+                                      Cobertura por composto termoplástico com base poliolefínica não halogenada;
+                                    </li>
+                                    <li>
+                                      Tensão mínima de isolação (Vo/V): 0,6/1kV;
+                                    </li>
+                                    <li>
+                                      Temperatura de operação (classe térmica) em serviço contínuo (regime permanente): 90ºC;
+                                    </li>
+                                    <li>
+                                      Encordoamento extraflexível: classe 5 (ABNT NBR NM 280:2011 - Condutores de Cabos Isolados (IEC 60228, MOD));
+                                    </li>
+                                    <li>
+                                      Característica de não propagação e com autoextinção de chama, livre de halogênio, baixa emissão de fumaça e gases tóxicos, ausência de emissão de gases corrosivos;
+                                    </li>
+                                    <li>
+                                      Atendimento às exigências das normas ABNT ABNT NBR 13248 - Cabos de potência e controle e condutores isolados sem cobertura, com isolação extrudada e com baixa emissão de fumaça para tensões até 1 kVRequisitos de desempenho, NBR 13570 e ABNT NBR NM 280:2011 - Condutores de Cabos Isolados (IEC 60228, MOD);
+                                    </li>
+                                    <li>
+                                      Marcação indelével no cabo, em intervalos regulares de até 50 cm, contendo o nome do fabricante, a seção nominal do condutor (em milímetros quadrados), a tensão de isolamento (fase-fase) e o número da norma ABNT NBR 13248 - Cabos de potência e controle e condutores isolados sem cobertura, com isolação extrudada e com baixa emissão de fumaça para tensões até 1 kVRequisitos de desempenho;
+                                    </li>
+                                    <li>
+                                      Com certificado do INMETRO.
+                                    </li>
+                                    <li>
+                                      Plugue (macho) com 3 pólos (2P+T), com as seguintes características mínimas:
+                                    </li>
+                                    <li>
+                                      Para 10A e 250V
+                                    </li>
+                                    <li>
+                                      Posição 180 graus (axial)
+                                    </li>
+                                    <li>
+                                      De acordo com a norma NBR 14136
+                                    </li>
+                                    <li>
+                                      Com prensa-cabos.
+                                    </li>
+                                    <li>
+                                      Prolongador (plugue fêmea) com 3 pólos (2P+T), com as seguintes características mínimas:
+                                    </li>
+                                    <li>
+                                      Para 10A e 250V
+                                    </li>
+                                    <li>
+                                      Posição 180 graus (axial)
+                                    </li>
+                                    <li>
+                                      De acordo com a norma NBR 14136
+                                    </li>
+                                    <li>
+                                      Com prensa-cabos.
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div className="asset-info-single-container">
+                                <div className="desc-sub">Detalhamento dos Serviços</div>
+                                <div className="asset-info-content-data">
+                                  <ul>
+                                    <li>
+                                      O fornecimento das luminárias deverá ser completo, ou seja, deverá contemplar todos os acessórios para a instalação, tais como reatores, lâmpadas, elementos de fixação (tirantes, suportes, suporte “pé de galinha”, entre outros).
+                                    </li>
+                                    <li>
+                                      Deverão ser previstas bordas e acessórios para fixação em forros especiais.
+                                    </li>
+                                    <li>
+                                      Para alimentação elétrica, as luminárias deverão possuir cabos 3x2,5 mm2 com plugue macho e fêmea 2P+T (três pinos) de 10A.
+                                    </li>
+                                    <li>
+                                      O item contempla a montagem da luminária, incluindo as fixações internas de elementos como lâmpada e reatores, a fixação da luminária no forro, as conexões elétricas internas e externas (incluindo a conexão de aterramento da carcaça na luminária e no reator) e o teste de funcionamento.
+                                    </li>
+                                    <li>
+                                      Deverá ser feita a limpeza das luminárias e lâmpadas ao final dos serviços.
+                                   </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </TabPane>
+                        <TabPane tabId="contracts" style={{ width: "100%" }}>
+                          <div className="asset-info-container">
+                            <h1 className="asset-info-title">Saldo Total</h1>
                             <div className="asset-info-content">
                               <Row>
                                 <Col md="6">
                                   <div className="asset-info-single-container">
-                                    <div className="desc-sub">Criação da OS</div>
-                                    <div className="asset-info-content-data">{orderInfo.createdAt ? orderInfo.createdAt.split("T")[0] : "Não registrado"}</div>
+                                    <div className="desc-sub">Contratações Vigentes</div>
+                                    <div className="asset-info-content-data">155 unidades</div>
                                   </div>
                                   <div className="asset-info-single-container">
-                                    <div className="desc-sub">Início da Execução</div>
-                                    <div className="asset-info-content-data">{orderInfo.dateStart ? orderInfo.dateStart.split("T")[0] : "Serviço não iniciado"}</div>
-                                  </div>
-                                  <div className="asset-info-single-container">
-                                    <div className="desc-sub">Término da Execução</div>
-                                    <div className="asset-info-content-data">{orderInfo.dateEnd ? orderInfo.dateEnd.split("T")[0] : "Serviço não finalizado"}</div>
+                                    <div className="desc-sub">Saldo Disponível</div>
+                                    <div className="asset-info-content-data">134 unidades</div>
                                   </div>
                                 </Col>
                                 <Col md="6">
                                   <div className="asset-info-single-container">
-                                    <div className="desc-sub">Prazo Final</div>
-                                    <div className="asset-info-content-data">{orderInfo.dateLimit ? orderInfo.dateLimit.split("T")[0] : "Não registrado"}</div>
+                                    <div className="desc-sub">Valor Contratado</div>
+                                    <div className="asset-info-content-data">R$ 12.000,00</div>
                                   </div>
                                   <div className="asset-info-single-container">
-                                    <div className="desc-sub">Dias de Atraso</div>
-                                    <div className="asset-info-content-data">
-                                      {(daysOfDelay <= 0 || isNaN(daysOfDelay)) ? "Serviço sem atraso" : Math.trunc(daysOfDelay)}
-                                    </div>
+                                    <div className="desc-sub">Valor Disponível</div>
+                                    <div className="asset-info-content-data">R$ 9.000,00</div>
                                   </div>
                                 </Col>
                               </Row>
                             </div>
-                            {orderInfo.orderByParent && (
-                              <React.Fragment>
-                                <h1 className="asset-info-title">Ordem de Serviço Pai</h1>
-                                <div className="asset-info-content">
-                                  <Row>
+                            <h1 className="asset-info-title">Saldo por Contrato</h1>
+                            <div className="asset-info-content">
+                              <ol style={{ padding: "0", listStyle: "none" }}>
+                                <li style={{ marginTop: "15px", border: "1px solid #d2d2d2", padding: "20px" }}>
+                                  <span style={{ fontWeight: "400", fontSize: "18px" }}>Contrato nº 119/2019 - Manutenção Elétrica</span>
+                                  <Row style={{ paddingLeft: "30px" }}>
                                     <Col md="6">
                                       <div className="asset-info-single-container">
-                                        <div className="desc-sub">Título do Serviço</div>
-                                        <div className="asset-info-content-data">{orderInfo.orderByParent.requestTitle}</div>
+                                        <div className="desc-sub">Quantidade Contratada</div>
+                                        <div className="asset-info-content-data">50 unidades</div>
                                       </div>
                                       <div className="asset-info-single-container">
-                                        <div className="desc-sub">Ordem de Serviço nº</div>
-                                        <div className="asset-info-content-data">{orderInfo.orderByParent.orderId.toString().padStart(4, "0")}</div>
-                                      </div>
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Status</div>
-                                        <div className="asset-info-content-data">{ORDER_STATUS_TYPE[orderInfo.orderByParent.status]}</div>
+                                        <div className="desc-sub">Quantidade Disponível</div>
+                                        <div className="asset-info-content-data">34 unidades</div>
                                       </div>
                                     </Col>
                                     <Col md="6">
                                       <div className="asset-info-single-container">
-                                        <div className="desc-sub">Prioridade</div>
-                                        <div className="asset-info-content-data">{ORDER_PRIORITY_TYPE[orderInfo.orderByParent.priority]}</div>
+                                        <div className="desc-sub">Valor Unitário do Contrato</div>
+                                        <div className="asset-info-content-data">R$ 2,00</div>
                                       </div>
                                       <div className="asset-info-single-container">
-                                        <div className="desc-sub">Início da Execução</div>
-                                        <div className="asset-info-content-data">{orderInfo.orderByParent.dateStart ? orderInfo.orderByParent.dateStart.split("T")[0] : "Serviço não iniciado"}</div>
-                                      </div>
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Prazo Final</div>
-                                        <div className="asset-info-content-data">{orderInfo.orderByParent.dateLimit ? orderInfo.orderByParent.dateLimit.split("T")[0] : "Não registrado"}</div>
+                                        <div className="desc-sub">Valor Unitário da Pesquisa</div>
+                                        <div className="asset-info-content-data">R$ 3,00</div>
                                       </div>
                                     </Col>
                                   </Row>
-                                </div>
-                              </React.Fragment>
-                            )}
+                                </li>
+                                <li style={{ marginTop: "30px", border: "1px solid #d2d2d2", padding: "20px" }}>
+                                  <span style={{ fontWeight: "400", fontSize: "18px" }}>
+                                    Contrato nº 012/2017 - Aquisição de insumos
+                                  </span>
+                                  <Row style={{ paddingLeft: "30px" }}>
+                                    <Col md="6">
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Quantidade Contratada</div>
+                                        <div className="asset-info-content-data">50 unidades</div>
+                                      </div>
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Quantidade Disponível</div>
+                                        <div className="asset-info-content-data">34 unidades</div>
+                                      </div>
+                                    </Col>
+                                    <Col md="6">
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Valor Unitário do Contrato</div>
+                                        <div className="asset-info-content-data">R$ 2,00</div>
+                                      </div>
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Valor Unitário da Pesquisa</div>
+                                        <div className="asset-info-content-data">R$ 3,00</div>
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                </li>
+                                <li style={{ marginTop: "30px", border: "1px solid #d2d2d2", padding: "20px" }}>
+                                  <span style={{ fontWeight: "400", fontSize: "18px" }}>
+                                    Contrato nº 077/2018 - Reforma de gabinetes
+                                  </span>
+                                  <Row style={{ paddingLeft: "30px" }}>
+                                    <Col md="6">
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Quantidade Contratada</div>
+                                        <div className="asset-info-content-data">50 unidades</div>
+                                      </div>
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Quantidade Disponível</div>
+                                        <div className="asset-info-content-data">34 unidades</div>
+                                      </div>
+                                    </Col>
+                                    <Col md="6">
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Valor Unitário do Contrato</div>
+                                        <div className="asset-info-content-data">R$ 2,00</div>
+                                      </div>
+                                      <div className="asset-info-single-container">
+                                        <div className="desc-sub">Valor Unitário da Pesquisa</div>
+                                        <div className="asset-info-content-data">R$ 3,00</div>
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                </li>
+                              </ol>
+                            </div>
                           </div>
                         </TabPane>
-                        <TabPane tabId="location" style={{ width: "100%" }}>
+                        <TabPane tabId="workOrders" style={{ width: "100%" }}>
                           <div className="asset-info-container">
-                            <h1 className="asset-info-title">Solicitante</h1>
+                            <h1 className="asset-info-title">Lista de Ordens de Serviço</h1>
                             <div className="asset-info-content">
                               <Row>
                                 <Col md="6">
                                   <div className="asset-info-single-container">
-                                    <div className="desc-sub">Nome do Solicitante</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestPerson}</div>
-                                  </div>
-                                </Col>
-                                <Col md="6">
-                                  <div className="asset-info-single-container">
-                                    <div className="desc-sub">Departamento</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestDepartment}</div>
-                                  </div>
-                                </Col>
-                              </Row>
-                            </div>
-                            <h1 className="asset-info-title">Contato</h1>
-                            <div className="asset-info-content">
-                              <Row>
-                                <Col md="6">
-                                  <div className="asset-info-single-container">
-                                    <div className="desc-sub">Nome do Contato</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestContactName}</div>
-                                  </div>
-                                  <div className="asset-info-single-container">
-                                    <div className="desc-sub">Telefone para Contato</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestContactPhone}</div>
-                                  </div>
-                                </Col>
-                                <Col md="6">
-                                  <div className="asset-info-single-container">
-                                    <div className="desc-sub">E-mail para Contato</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestContactEmail}</div>
-                                  </div>
-                                </Col>
-                              </Row>
-                            </div>
-                          </div>
-                        </TabPane>
-                        <TabPane tabId="maintenance" style={{ width: "100%" }}>
-                          <div className="asset-info-container">
-                            <h1 className="asset-info-title">Lista de Ativos</h1>
-                            <div className="asset-info-content">
-                              <Row>
-                                <Col md="6">
-                                  <div className="asset-info-single-container">
-                                    <div className="desc-sub">Quantidade de Ativos</div>
-                                    <div className="asset-info-content-data">{pageLength.toString().padStart(3, "0")}</div>
+                                    <div className="desc-sub">Ordens de Serviço com o Material / Serviço</div>
+                                    <div className="asset-info-content-data">04</div>
                                   </div>
                                 </Col>
                               </Row>
@@ -464,8 +633,8 @@ class WorkOrderView extends Component {
                                   <li><span className="card-search-title">Regras: </span></li>
                                 </ol>
                                 <ol>
-                                  <li>Sem filtro</li>
-                                  <li>Mostrar todos itens</li>
+                                  <li>Últimos 12 meses</li>
+                                  <li>Fechamento nos últimos 12 meses.</li>
                                 </ol>
                               </div>
                               <div className="search-buttons" style={{ width: "30%" }}>
@@ -510,9 +679,10 @@ class WorkOrderView extends Component {
                 </AssetCard>
               </div>
             )
-          }}</Query>
+          }
+        }</Query >
     );
   }
 }
 
-export default WorkOrderView;
+export default MaterialView;
