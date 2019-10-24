@@ -386,7 +386,6 @@ create table supplies (
   supply_sf text not null,
   qty real not null,
   is_qty_real boolean not null,
-  unit text not null,
   bid_price money not null,
   full_price money,
   unique (contract_id, supply_sf)
