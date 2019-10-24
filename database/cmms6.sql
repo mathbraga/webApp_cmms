@@ -226,6 +226,7 @@ create table contracts (
   contract_id integer primary key generated always as identity,
   name text not null unique,
   parent text references contracts (contract_id),
+  status contract_status_type not null, -- ENUM or referencing a table
   date_sign date not null,
   date_pub date,
   date_start date not null,
