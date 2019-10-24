@@ -68,5 +68,22 @@ export default {
         },
       ]
     },
+    {
+      name: "Grupos de Trabalho",
+      url: "/equipes",
+      icon: "fa fa-group",
+      children: [
+        {
+          name: "Equipes",
+          url: "/equipes/grupos",
+          icon: "icon-people"
+        },
+        {
+          name: "Pessoas",
+          url: "/equipes/pessoas",
+          icon: "icon-user"
+        },
+      ]
+    },
   ]
 };
