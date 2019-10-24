@@ -334,7 +334,7 @@ class ContractView extends Component {
                         </TabPane>
                         <TabPane tabId="documents" style={{ width: "100%" }}>
                           <div className="asset-info-container">
-                            <h1 className="asset-info-title">Documento digitalizados</h1>
+                            <h1 className="asset-info-title">Documentos digitalizados</h1>
                             <div className="asset-info-content">
                               <Row>
                                 <Col md="6">
