@@ -410,12 +410,14 @@ create table rules (
 
 create table asset_rules (
   asset_id integer not null references assets (asset_id),
-  rule_id integer not null references rules (rule_id)
+  rule_id integer not null references rules (rule_id),
+  primary key (asset_id, rule_id)
 );
 
 create table spec_rules (
   spec_id integer not null references specs (spec_id),
-  rule_id integer not null references rules (rule_id)
+  rule_id integer not null references rules (rule_id),
+  primary key (spec_id, rule_id)
 );
 
 create table templates (
