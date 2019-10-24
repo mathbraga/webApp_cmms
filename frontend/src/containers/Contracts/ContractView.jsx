@@ -23,8 +23,7 @@ import TableWithPages from "../../components/Tables/TableWithPages";
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const descriptionImage = require("../../assets/img/test/order_picture.png");
-
+const descriptionImage = require("../../assets/icons/contract.png");
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
