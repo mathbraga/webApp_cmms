@@ -79,7 +79,7 @@ app.use(postgraphile(
     showErrorStack: 'json',
     extendedErrors: ['hint', 'detail', 'errcode'],
     pgSettings: async req => {
-      const [person_id, role] = req.session.passport ? req.session.passport.user.split('-') : ['0', 'unauth'];
+      const [person_id, role] = req.session.passport ? req.session.passport.user.split('-') : ['0', 'visitor'];
       return {
         'role': role,
         'auth.data.person_id': person_id,

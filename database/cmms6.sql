@@ -18,24 +18,36 @@ create extension if not exists pgcrypto;
 create schema private;
 
 -- drop roles
-drop role administrator;
-drop role supervisor;
-drop role inspector;
-drop role employee;
-drop role visitor;
+/*
+  CAUTION:
+  Roles are cluster-wise (created inside the PostgreSQL server),
+  so they are not exclusive to a specific database.
+  Dropping a role may break privileges in other databases.
+  Do not drop a role unless it is really necessary.
+*/
+-- drop role administrator;
+-- drop role supervisor;
+-- drop role inspector;
+-- drop role employee;
+-- drop role visitor;
+
+-- create roles
+/*
+  WARNING:
+  Creating a role with a name that already exists in the cluster will lead to an error.
+  This will not be a problem here since these commands are outside the transaction block.
+*/
+create role administrator;
+create role supervisor;
+create role inspector;
+create role employee;
+create role visitor;
 
 -- set ON_ERROR_STOP to on
 \set ON_ERROR_STOP on
 
 -- begin transaction
 begin transaction;
-
--- create roles
-create role administrator;
-create role supervisor;
-create role inspector;
-create role employee;
-create role visitor;
 
 -- alter default privileges
 alter default privileges in schema public grant all on tables to public;
@@ -207,7 +219,8 @@ create type rule_category_type as enum (
 -- create tables
 create table assets (
   asset_id integer primary key generated always as identity,
-  name text not null unique,
+  asset_sf text not null unique,
+  name text not null,
   description text,
   category asset_category_type not null, -- ENUM or referencing a table
   latitude real,
@@ -216,8 +229,7 @@ create table assets (
   manufacturer text,
   serialnum text,
   model text,
-  price money,
-  warranty text
+  price money
 );
 
 create table asset_relations (
@@ -229,8 +241,8 @@ create table asset_relations (
 
 create table contracts (
   contract_id integer primary key generated always as identity,
-  name text not null unique,
-  parent text references contracts (contract_id),
+  contract_sf text not null unique,
+  parent integer references contracts (contract_id),
   status contract_status_type not null, -- ENUM or referencing a table
   date_sign date not null,
   date_pub date,
@@ -239,7 +251,7 @@ create table contracts (
   company text not null,
   title text not null,
   description text not null,
-  url text not null
+  url text not null -- just one? many?
 );
 
 -- create table departments (
