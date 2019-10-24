@@ -19,6 +19,10 @@ const FacilitiesForm = React.lazy(() => import("./containers/Assets/FacilitiesFo
 const EquipmentsForm = React.lazy(() => import("./containers/Assets/EquipmentsForm"));
 const OrderForm = React.lazy(() => import("./containers/Maintenance/OrderForm"));
 const Error404 = React.lazy(() => import("./containers/MainPage/Error404"));
+const Groups = React.lazy(() => import("./containers/Teams/GroupList"));
+const GroupView = React.lazy(() => import("./containers/Teams/GroupView"));
+const Persons = React.lazy(() => import("./containers/Teams/PersonList"));
+const PersonView = React.lazy(() => import("./containers/Teams/PersonView"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -41,6 +45,10 @@ const routes = [
   { path: "/gestao/contratos/view/:id", exact: false, name: "Contrato", component: ContractView },
   { path: "/gestao/servicos", exact: true, name: "Servicos", component: Materials },
   { path: "/gestao/servicos/view/:id", exact: false, name: "Servico", component: MaterialView },
+  { path: "/equipes/grupos", exact: true, name: "Servicos", component: Groups },
+  { path: "/equipes/grupo/view/:id", exact: false, name: "Servico", component: GroupView },
+  { path: "/equipes/pessoas", exact: true, name: "Servicos", component: Persons },
+  { path: "/equipes/pessoa/view/:id", exact: false, name: "Servico", component: PersonView },
   { path: "/erro404", exact: true, name: "Erro 404", component: Error404 }
 ];
 
