@@ -12,9 +12,17 @@ create database cmms6 with owner postgres template template0 encoding 'win1252';
 
 -- create extensions
 create extension if not exists pgcrypto;
+-- create extension if not exists ltree;
 
 -- create additional schemas
 create schema private;
+
+-- drop roles
+drop role administrator;
+drop role supervisor;
+drop role inspector;
+drop role employee;
+drop role visitor;
 
 -- set ON_ERROR_STOP to on
 \set ON_ERROR_STOP on
@@ -22,15 +30,12 @@ create schema private;
 -- begin transaction
 begin transaction;
 
--- create roles (already created for the database cluster, not necessary in new databases)
--- drop role administrator;
--- drop role supervisor;
--- drop role employee;
--- drop role visitor;
--- create role administrator;
--- create role supervisor;
--- create role employee;
--- create role visitor;
+-- create roles
+create role administrator;
+create role supervisor;
+create role inspector;
+create role employee;
+create role visitor;
 
 -- alter default privileges
 alter default privileges in schema public grant all on tables to public;
