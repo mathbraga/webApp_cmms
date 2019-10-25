@@ -220,6 +220,9 @@ create type rule_category_type as enum (
   'DSF'  -- diretrizes do senado federal
 );
 
+-- create lookup tables
+-- \i lookup.sql
+
 -- create tables
 create table assets (
   asset_id integer primary key generated always as identity,
