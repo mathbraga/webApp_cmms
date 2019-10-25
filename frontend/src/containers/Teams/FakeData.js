@@ -5,19 +5,13 @@ export const groups = [
   { name: "Semainst", description: "Equipe de sevidores do Semainst", persons: ["Ricardo Pallet", "André"], status: "Inativo" },
 ];
 
-export const materials = [
-  { id: "SF-0001-01", name: "Tomada", category: "Sistema elétrico", subcategory: "Tomadas e Interruptores", qtd: "145", unit: "un" },
-  { id: "SF-0002-01", name: "Interruptor", category: "Sistema elétrico", subcategory: "Tomadas e Interruptores", qtd: "155", unit: "un" },
-  { id: "SF-0003-01", name: "Lâmpada", category: "Sistema elétrico", subcategory: "Iluminação", qtd: "14", unit: "un" },
-  { id: "SF-0004-01", name: "Lustre", category: "Sistema elétrico", subcategory: "Iluminação", qtd: "4", unit: "un" },
-  { id: "SF-0005-01", name: "Reator", category: "Sistema elétrico", subcategory: "Iluminação", qtd: "56", unit: "un" },
-  { id: "SF-0006-01", name: "Ar-condicionado Split", category: "Sistema refrigeração", subcategory: "Split", qtd: "1", unit: "un" },
-  { id: "SF-0007-01", name: "Registro para tubulação de ar-condicionado", category: "Sistema refrigeração", subcategory: "Split", qtd: "1", unit: "un" },
-  { id: "SF-0008-01", name: "Vidro temperado", category: "Manutenção Civil", subcategory: "Vidros", qtd: "12", unit: "m²" },
-  { id: "SF-0009-01", name: "Vidro blindado", category: "Manutenção Civil", subcategory: "Vidros", qtd: "122", unit: "m²" },
-  { id: "SF-0010-01", name: "Vidro 20 mm", category: "Manutenção Civil", subcategory: "Vidros", qtd: "120", unit: "m²" },
-  { id: "SF-0011-01", name: "Areia", category: "Manutenção Civil", subcategory: "Material de Construção", qtd: "120", unit: "Kg" },
-  { id: "SF-0012-01", name: "Brita", category: "Manutenção Civil", subcategory: "Material de Construção", qtd: "120", unit: "Kg" },
-  { id: "SF-0013-01", name: "Cimento", category: "Manutenção Civil", subcategory: "Material de Construção", qtd: "120", unit: "Kg" },
-  { id: "SF-0014-01", name: "Pedra", category: "Manutenção Civil", subcategory: "Material de Construção", qtd: "120", unit: "Kg" },
+export const persons = [
+  { name: "Pedro Henrique Serafim", type: "Servidor", contract: "S/N", phone: "3256-4546", email: "pedrohs@senado.gov.br" },
+  { name: "Henrique Zaidan Lopes", type: "Servidor", contract: "S/N", phone: "3515-4684", email: "hzlopes@senado.gov.br" },
+  { name: "João Marcos de Souza", type: "Terceirizado", contract: "CT 110/2018", phone: "4564-4864", email: "joaosouza@rcs.com.br" },
+  { name: "Daniel Alves Júnior", type: "Terceirizado", contract: "CT 110/2018", phone: "2154-1151", email: "danielaj@rcs.com.br" },
+  { name: "Marcelo Saulo", type: "Terceirizado", contract: "CT 025/2019", phone: "4517-9854", email: "marcelos@rcs.com.br" },
+  { name: "Alexandre Faria Gonçalves", type: "Terceirizado", contract: "CT 057/2016", phone: "5165-4412", email: "alexandred@gmail.com" },
+  { name: "Rafael Henrique", type: "Terceirizado", contract: "CT 057/2016", phone: "4587-9856", email: "rafaelf@gmail.com" },
+  { name: "Matheus de Oliveira", type: "Estagiário", contract: "S/N", phone: "4859-9854", email: "matheus32@gmail.com" },
 ];
