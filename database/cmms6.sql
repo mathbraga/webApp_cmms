@@ -545,46 +545,50 @@ create view balances as
 create or replace function insert_person (
   person_attributes persons,
   input_person_role person_role_type
-) returns persons
+) returns integer
 language plpgsql
 strict
 security definer
 as $$
 declare
-  new_person persons;
+  new_person_id integer;
 begin
 
-  insert into persons (
-    person_id,
-    cpf,
-    email,
-    full_name,
-    phone,
-    cellphone,
-    contract_id
-  ) values (
+  insert into persons 
+  -- (
+  --   person_id
+  --   cpf,
+  --   email,
+  --   name,
+  --   phone,
+  --   cellphone,
+  --   contract_id
+  -- ) 
+  values (
     default,
     person_attributes.cpf,
     person_attributes.email,
-    person_attributes.full_name,
+    person_attributes.name,
     person_attributes.phone,
     person_attributes.cellphone,
     person_attributes.contract_id
-  ) returning * into new_person;
+  ) returning * into new_person_id;
   
-  insert into private.accounts (
-    person_id,
-    password_hash,
-    is_active,
-    person_role
-  ) values (
-    new_person.person_id,
+  insert into private.accounts
+  -- (
+  --   person_id,
+  --   password_hash,
+  --   is_active,
+  --   person_role
+  -- ) 
+  values (
+    new_person_id,
     crypt('123456', gen_salt('bf', 10)),
     true,
     input_person_role
   );
 
-  return new_person;
+  return new_person_id;
 
 end; $$;
 
@@ -600,7 +604,7 @@ security definer
 as $$
   select p.person_id::text || '-' || a.person_role::text as user_data
     from persons as p
-    join private.accounts as a using(person_id)
+    inner join private.accounts as a using (person_id)
     where p.email = input_email
           and
           a.password_hash = crypt(input_password, a.password_hash)
@@ -618,7 +622,7 @@ begin
   insert into private.logs values (
     current_setting('auth.data.person_id')::integer,
     now(),
-    tg_op,
+    tg_op::text,
     tg_table_name::text,
     to_jsonb(old),
     to_jsonb(new)
@@ -631,74 +635,118 @@ end; $$;
 create or replace function insert_appliance (
   in appliance_attributes appliances,
   -- in departments_array  text[],
-  out asset_id text
+  out new_appliance_sf text
 )
 language plpgsql
 as $$
 begin
-  insert into appliances as a values (appliance_attributes.*)
-    returning a.asset_id into asset_id;
+  insert into appliances
+  -- (
+  --   asset_id,
+  --   asset_sf,
+  --   name,
+  --   description,
+  --   category,
+  --   manufacturer,
+  --   serialnum,
+  --   model,
+  --   price
+  -- )
+  values (
+    default,
+    appliance_attributes.asset_sf,
+    appliance_attributes.name,
+    appliance_attributes.description,
+    'A'::asset_category_type,
+    appliance_attributes.manufacturer,
+    appliance_attributes.serialnum,
+    appliance_attributes.model,
+    appliance_attributes.price
+  ) returning asset_sf into new_appliance_sf;
   -- if departments_array is not null then
   --   insert into asset_departments select asset_id, unnest(departments_array);
-  end if;
+  -- end if;
 end; $$;
 
 
 create or replace function insert_facility (
   in facility_attributes facilities,
   -- in departments_array text[],
-  out asset_id text
+  out new_facility_sf text
 )
 language plpgsql
 as $$
 begin
-  insert into facilities as f values (facility_attributes.*)
-    returning f.asset_id into asset_id;
+  insert into facilities
+  -- (
+  --   asset_id,
+  --   asset_sf,
+  --   name,
+  --   description,
+  --   category,
+  --   latitude,
+  --   longitude,
+  --   area
+  -- )
+  values (
+    default,
+    facility_attributes.asset_sf,
+    facility_attributes.name,
+    facility_attributes.description,
+    'F'::asset_category_type,
+    facility_attributes.latitude,
+    facility_attributes.longitude,
+    facility_attributes.area
+  ) returning asset_sf into new_facility_sf;
   -- if departments_array is not null then
   --   insert into asset_departments select asset_id, unnest(departments_array);
-  end if;
+  -- end if;
 end; $$;
 
 create or replace function insert_order (
   in order_attributes orders,
   in assets_array text[],
-  out order_id integer
+  out new_order_id integer
 )
 language plpgsql
 strict
 as $$
 begin
-  insert into orders as o (
-    order_id,
-    status,
-    priority,
-    category,
-    parent,
-    team_id,
-    progress,
-    title,
-    description,
-    origin_department,
-    origin_person,
-    contact_name,
-    contact_phone,
-    contact_email,
-    place,
-    date_limit,
-    date_start,
-    created_at
-  ) values (
+  insert into orders
+  -- (
+  --   order_id,
+  --   status,
+  --   priority,
+  --   category,
+  --   parent,
+  --   contract_id,
+  --   progress,
+  --   title,
+  --   description,
+  --   department_id,
+  --   created_by,
+  --   contact_name,
+  --   contact_phone,
+  --   contact_email,
+  --   place,
+  --   date_limit,
+  --   date_start,
+  --   date_end,
+  --   created_at,
+  --   updated_at
+  -- )
+  values (
     default,
     order_attributes.status,
     order_attributes.priority,
     order_attributes.category,
     order_attributes.parent,
-    order_attributes.team_id,
+    order_attributes.contract_id,
     order_attributes.progress,
     order_attributes.title,
     order_attributes.description,
-    order_attributes.origin_department,
-    order_attributes.origin_person,
+    order_attributes.department_id,
+    order_attributes.created_by,
     order_attributes.contact_name,
     order_attributes.contact_phone,
     order_attributes.contact_email,
@@ -708,18 +756,17 @@ begin
     order_attributes.date_end,
     default,
     default
-  ) returning o.order_id into order_id;
+  ) returning order_id into new_order_id;
 
-  insert into order_assets select order_id, unnest(assets_array);
+  insert into order_assets select new_order_id, unnest(assets_array);
 
 end; $$;
 
 create or replace function insert_team (
-  in new_team_name text,
-  in new_team_description text,
+  in team_attributes teams,
   in persons_array integer[]
+  out new_team_id integer
 )
-returns integer
 language plpgsql
 strict
 as $$
@@ -727,21 +774,14 @@ declare
   new_team_id integer;
 begin
 
-  insert into teams (
-    team_id,
-    title,
-    description,
-    is_active
-  ) values (
+  insert into teams values (
     default,
-    new_team_name,
-    new_team_description,
-    default
+    team_attributes.name,
+    team_attributes.description,
+    true
   ) returning team_id into new_team_id;
 
   insert into team_persons select new_team_id, unnest(persons_array);
-
-  return new_team_id;
 
 end; $$;
 
@@ -987,229 +1027,229 @@ end; $$;
 
 -- end; $$;
 
-create or replace function modify_team (
-  in team_attributes teams,
-  in persons_array integer[],
-  out modified_team_id integer
-)
-returns integer
-language plpgsql
-strict
-as $$
-begin
+-- create or replace function modify_team (
+--   in team_attributes teams,
+--   in persons_array integer[],
+--   out modified_team_id integer
+-- )
+-- returns integer
+-- language plpgsql
+-- strict
+-- as $$
+-- begin
 
-  update teams
-    set (
-      title,
-      description,
-      is_active
-    ) = (
-      team_attributes.title,
-      team_attributes.description,
-      team_attributes.is_active
-    )
-    where team_id = team_attributes.team_id;
+--   update teams
+--     set (
+--       name,
+--       description,
+--       is_active
+--     ) = (
+--       team_attributes.name,
+--       team_attributes.description,
+--       team_attributes.is_active
+--     )
+--     where team_id = team_attributes.team_id;
 
-  with added_persons as (
-    select unnest(persons_array) as person_id
-    except
-    select person_id
-      from team_persons
-      where team_id = team_attributes.team_id
-  )
-  insert into team_persons
-    select team_attributes.team_id, person_id from added_persons;
+--   with added_persons as (
+--     select unnest(persons_array) as person_id
+--     except
+--     select person_id
+--       from team_persons
+--       where team_id = team_attributes.team_id
+--   )
+--   insert into team_persons
+--     select team_attributes.team_id, person_id from added_persons;
   
-  with recursive removed_persons as (
-    select person_id
-      from team_persons
-    where team_id = team_attributes.team_id
-    except
-    select unnest(persons_array) as person_id
-  )
-  delete from team_persons
-    where team_id = team_attributes.team_id
-          and person_id in (select person_id from removed_persons);
+--   with recursive removed_persons as (
+--     select person_id
+--       from team_persons
+--     where team_id = team_attributes.team_id
+--     except
+--     select unnest(persons_array) as person_id
+--   )
+--   delete from team_persons
+--     where team_id = team_attributes.team_id
+--           and person_id in (select person_id from removed_persons);
 
-  modified_team_id = team_attributes.team_id;
+--   modified_team_id = team_attributes.team_id;
 
-end; $$;
+-- end; $$;
 
-create or replace function modify_profile (
-  person_attributes persons,
-  new_password text
-)
-returns integer
-language plpgsql
-security definer
-as $$
-begin
+-- create or replace function modify_profile (
+--   person_attributes persons,
+--   new_password text
+-- )
+-- returns integer
+-- language plpgsql
+-- security definer
+-- as $$
+-- begin
 
-  update persons set (
-    cpf,
-    email,
-    full_name,
-    phone,
-    cellphone
-  ) = (
-    person_attributes.cpf,
-    person_attributes.email,
-    person_attributes.full_name,
-    person_attributes.phone,
-    person_attributes.cellphone
-  ) where person_id = current_setting('auth.data.person_id')::integer;
+--   update persons set (
+--     cpf,
+--     email,
+--     full_name,
+--     phone,
+--     cellphone
+--   ) = (
+--     person_attributes.cpf,
+--     person_attributes.email,
+--     person_attributes.full_name,
+--     person_attributes.phone,
+--     person_attributes.cellphone
+--   ) where person_id = current_setting('auth.data.person_id')::integer;
 
-  update private.accounts set (
-    password_hash
-  ) = (
-    crypt(new_password, gen_salt('bf', 10))
-  ) where person_id = current_setting('auth.data.person_id')::integer;
+--   update private.accounts set (
+--     password_hash
+--   ) = (
+--     crypt(new_password, gen_salt('bf', 10))
+--   ) where person_id = current_setting('auth.data.person_id')::integer;
 
-  return current_setting('auth.data.person_id')::integer;
+--   return current_setting('auth.data.person_id')::integer;
 
-end; $$;
+-- end; $$;
 
-create or replace function modify_person (
-  person_attributes persons,
-  new_is_active boolean,
-  new_person_role text
-)
-returns integer
-language plpgsql
-security definer
-as $$
-begin
+-- create or replace function modify_person (
+--   person_attributes persons,
+--   new_is_active boolean,
+--   new_person_role text
+-- )
+-- returns integer
+-- language plpgsql
+-- security definer
+-- as $$
+-- begin
 
-  update persons set (
-    cpf,
-    email,
-    full_name,
-    phone,
-    cellphone,
-    contract_id
-  ) = (
-    person_attributes.cpf,
-    person_attributes.email,
-    person_attributes.full_name,
-    person_attributes.phone,
-    person_attributes.cellphone,
-    person_attributes.contract_id
-  ) where person_id = person_attributes.person_id;
+--   update persons set (
+--     cpf,
+--     email,
+--     full_name,
+--     phone,
+--     cellphone,
+--     contract_id
+--   ) = (
+--     person_attributes.cpf,
+--     person_attributes.email,
+--     person_attributes.full_name,
+--     person_attributes.phone,
+--     person_attributes.cellphone,
+--     person_attributes.contract_id
+--   ) where person_id = person_attributes.person_id;
 
-  update private.accounts set (
-    password_hash,
-    is_active,
-    person_role
-  ) = (
-    crypt(new_password, gen_salt('bf', 10)),
-    new_is_active,
-    new_person_role
-  ) where person_id = person_attributes.person_id;
+--   update private.accounts set (
+--     password_hash,
+--     is_active,
+--     person_role
+--   ) = (
+--     crypt(new_password, gen_salt('bf', 10)),
+--     new_is_active,
+--     new_person_role
+--   ) where person_id = person_attributes.person_id;
 
-  return person_attributes.person_id;
+--   return person_attributes.person_id;
 
-end; $$;
+-- end; $$;
 
-create or replace function get_asset_history (
-  in asset_id integer,
-  out full_name text,
-  out created_at timestamptz,
-  out operation text,
-  out tablename text,
-  out old_row jsonb,
-  out new_row jsonb
-)
-returns setof record
-security definer
-language sql
-stable
-as $$
-  select p.full_name,
-         l.created_at,
-         l.operation,
-         l.tablename,
-         l.old_row,
-         l.new_row
-    from private.logs as l
-    inner join persons as p using (person_id)
-  where (l.tablename = 'assets' or l.tablename = 'asset_departments' or l.tablename = 'order_assets')
-        and
-        (
-          l.new_row @> ('{"asset_id": "' || asset_id || '"}')::jsonb
-          or
-          l.old_row @> ('{"asset_id": "' || asset_id || '"}')::jsonb
-        );
-$$;
+-- create or replace function get_asset_history (
+--   in asset_id integer,
+--   out full_name text,
+--   out created_at timestamptz,
+--   out operation text,
+--   out tablename text,
+--   out old_row jsonb,
+--   out new_row jsonb
+-- )
+-- returns setof record
+-- security definer
+-- language sql
+-- stable
+-- as $$
+--   select p.full_name,
+--          l.created_at,
+--          l.operation,
+--          l.tablename,
+--          l.old_row,
+--          l.new_row
+--     from private.logs as l
+--     inner join persons as p using (person_id)
+--   where (l.tablename = 'assets' or l.tablename = 'asset_departments' or l.tablename = 'order_assets')
+--         and
+--         (
+--           l.new_row @> ('{"asset_id": "' || asset_id || '"}')::jsonb
+--           or
+--           l.old_row @> ('{"asset_id": "' || asset_id || '"}')::jsonb
+--         );
+-- $$;
 
-create or replace function get_order_history (
-  in order_id integer,
-  out full_name text,
-  out created_at timestamptz,
-  out operation text,
-  out tablename text,
-  out old_row jsonb,
-  out new_row jsonb
-)
-returns setof record
-security definer
-language sql
-stable
-as $$
-  select p.full_name,
-         l.created_at,
-         l.operation,
-         l.tablename,
-         l.old_row,
-         l.new_row
-    from private.logs as l
-    inner join persons as p using (person_id)
-  where (l.tablename = 'orders' or l.tablename = 'order_assets' or l.tablename = 'order_supplies')
-        and
-        (
-          l.new_row @> ('{"order_id": ' || order_id || '}')::jsonb
-          or
-          l.old_row @> ('{"order_id": ' || order_id || '}')::jsonb
-        );
-$$;
+-- create or replace function get_order_history (
+--   in order_id integer,
+--   out full_name text,
+--   out created_at timestamptz,
+--   out operation text,
+--   out tablename text,
+--   out old_row jsonb,
+--   out new_row jsonb
+-- )
+-- returns setof record
+-- security definer
+-- language sql
+-- stable
+-- as $$
+--   select p.full_name,
+--          l.created_at,
+--          l.operation,
+--          l.tablename,
+--          l.old_row,
+--          l.new_row
+--     from private.logs as l
+--     inner join persons as p using (person_id)
+--   where (l.tablename = 'orders' or l.tablename = 'order_assets' or l.tablename = 'order_supplies')
+--         and
+--         (
+--           l.new_row @> ('{"order_id": ' || order_id || '}')::jsonb
+--           or
+--           l.old_row @> ('{"order_id": ' || order_id || '}')::jsonb
+--         );
+-- $$;
 
-create or replace function check_conclusion()
-returns trigger
-language plpgsql
-as $$
-declare
-  contract_ok boolean;
-begin
-  if (new.status = 'CON' and new.date_end is not null) then
-    select every(coalesce(c.date_end, '9999-12-31'::date) >= new.date_end) into contract_ok
-        from order_supplies as os
-        inner join contracts as c using (contract_id)
-        where os.order_id = new.order_id;
-    if (contract_ok) then
-      return new;
-    else
-      raise exception 'Order % has an expired contract in its used supplies', new.order_id;
-    end if;
-  else
-    return new;
-  end if;
-end; $$;
+-- create or replace function check_conclusion()
+-- returns trigger
+-- language plpgsql
+-- as $$
+-- declare
+--   contract_ok boolean;
+-- begin
+--   if (new.status = 'CON' and new.date_end is not null) then
+--     select every(coalesce(c.date_end, '9999-12-31'::date) >= new.date_end) into contract_ok
+--         from order_supplies as os
+--         inner join contracts as c using (contract_id)
+--         where os.order_id = new.order_id;
+--     if (contract_ok) then
+--       return new;
+--     else
+--       raise exception 'Order % has an expired contract in its used supplies', new.order_id;
+--     end if;
+--   else
+--     return new;
+--   end if;
+-- end; $$;
 
-create or replace function check_supply_qty()
-returns trigger
-language plpgsql
-as $$
-declare
-  qty_ok boolean;
-begin
-  select (b.available + coalesce(old.qty, 0) - new.qty) >= 0 into qty_ok
-    from balances as b
-    where (b.contract_id = new.contract_id and b.supply_id = new.supply_id);
-  if qty_ok then
-    return new;
-  else
-    raise exception '% is larger than available', new.qty;
-  end if;
-end; $$;
+-- create or replace function check_supply_qty()
+-- returns trigger
+-- language plpgsql
+-- as $$
+-- declare
+--   qty_ok boolean;
+-- begin
+--   select (b.available + coalesce(old.qty, 0) - new.qty) >= 0 into qty_ok
+--     from balances as b
+--     where (b.contract_id = new.contract_id and b.supply_id = new.supply_id);
+--   if qty_ok then
+--     return new;
+--   else
+--     raise exception '% is larger than available', new.qty;
+--   end if;
+-- end; $$;
 
 
 -- create triggers
@@ -1268,9 +1308,9 @@ end; $$;
 
 -- this trigger must be created after inserts to avoid error during first asset insert;
 -- this trigger must exist in production environment
-create trigger check_before_insert
-  before insert or update on assets
-  for each row execute function check_asset_integrity();
+-- create trigger check_before_insert
+--   before insert or update on assets
+--   for each row execute function check_asset_integrity();
 ---------------------------------------------------------------------------------
 
 -- create policies
@@ -1279,24 +1319,35 @@ create trigger check_before_insert
 -- create smart comments
 comment on function authenticate is E'@omit execute';
 comment on table assets is E'@omit create,update,delete';
+comment on table asset_relations is E'@omit create,update,delete';
 comment on table contracts is E'@omit create,update,delete';
-comment on table departments is E'@omit create,update,delete';
+-- comment on table departments is E'@omit create,update,delete';
 comment on table persons is E'@omit all,create,update,delete';
 comment on table teams is E'@omit create,update,delete';
 comment on table team_persons is E'@omit create,update,delete';
+comment on table contract_teams is E'@omit create,update,delete';
 comment on table orders is E'@omit create,update,delete';
 comment on table order_messages is E'@omit all,create,update,delete';
 comment on table order_assets is E'@omit create,update,delete';
-comment on table asset_departments is E'@omit create,update,delete';
+comment on table order_teams is E'@omit create,update,delete';
+-- comment on table asset_departments is E'@omit create,update,delete';
 comment on table specs is E'@omit all,create,update,delete';
 comment on table supplies is E'@omit read,all,many,create,update,delete';
 comment on table order_supplies is E'@omit all,create,update,delete';
+comment on table rules is E'@omit create,update,delete';
+comment on table asset_rules is E'@omit create,update,delete';
+comment on table spec_rules is E'@omit create,update,delete';
+comment on table templates is E'@omit create,update,delete';
+comment on table asset_files is E'@omit create,update,delete';
+comment on table order_files is E'@omit create,update,delete';
+comment on table rule_files is E'@omit create,update,delete';
+comment on table template_files is E'@omit create,update,delete';
 comment on view appliances is E'@omit create,update,delete';
 comment on view facilities is E'@omit create,update,delete';
-comment on constraint persons_pkey on persons is E'@omit';
-comment on constraint persons_email_key on persons is E'@omit';
-comment on constraint contracts_pkey on contracts is E'@omit';
-comment on constraint specs_pkey on specs is E'@omit';
+-- comment on constraint persons_pkey on persons is E'@omit';
+-- comment on constraint persons_email_key on persons is E'@omit';
+-- comment on constraint contracts_pkey on contracts is E'@omit';
+-- comment on constraint specs_pkey on specs is E'@omit';
 
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
