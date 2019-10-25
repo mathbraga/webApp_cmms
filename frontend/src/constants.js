@@ -1,5 +1,5 @@
 // Server address
-export const serverAddress = 'http://172.30.49.152:3001';
+export const serverAddress = 'http://172.23.22.152:3001';
 export const dbPath        = '/db';
 
 // Express paths

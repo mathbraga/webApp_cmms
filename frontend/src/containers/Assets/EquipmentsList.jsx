@@ -15,6 +15,7 @@ import { withRouter } from "react-router-dom";
 import "./List.css";
 
 import { equipmentConfig } from "./AssetsFakeData";
+import searchList from "../../utils/search/searchList";
 
 const hierarchyItem = require("../../assets/icons/tree_icon.png");
 const listItem = require("../../assets/icons/list_icon.png");
@@ -23,6 +24,9 @@ const searchItem = require("../../assets/icons/search_icon.png");
 const mapIcon = require("../../assets/icons/map.png");
 
 const ENTRIES_PER_PAGE = 15;
+const attributes = [
+  ''
+]
 
 class EquipmentsList extends Component {
   constructor(props) {
