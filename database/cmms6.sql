@@ -478,7 +478,7 @@ create view facilities as
   select
     asset_id,
     asset_sf,
-    title,
+    name,
     description,
     category,
     latitude,
@@ -491,16 +491,13 @@ create view appliances as
   select
     asset_id,
     asset_sf,
-    parent,
-    place,
     name,
     description,
     category,
     manufacturer,
     serialnum,
     model,
-    price,
-    warranty
+    price
   from assets
   where category = 'A';
 
@@ -508,41 +505,41 @@ create view balances as
   with
     unfinished as (
       select
-        os.contract_id,
         os.supply_id,
         sum(os.qty) as blocked
           from orders as o
           inner join order_supplies as os using (order_id)
       where o.status <> 'CON'
-      group by os.contract_id, os.supply_id
+      group by os.supply_id
     ),
     finished as (
       select
-        os.contract_id,
         os.supply_id,
         sum(os.qty) as consumed
           from orders as o
           inner join order_supplies as os using (order_id)
       where o.status = 'CON'
-      group by os.contract_id, os.supply_id
+      group by os.supply_id
     ),
     both_cases as (
-      select contract_id,
-             supply_id,
+      select supply_id,
              sum(coalesce(blocked, 0)) as blocked,
              sum(coalesce(consumed, 0)) as consumed
         from unfinished
-        full outer join finished using (contract_id, supply_id)
-      group by contract_id, supply_id
+        full outer join finished using (supply_id)
+      group by supply_id
     )
-    select s.contract_id,
-           s.supply_id,
-           s.qty_initial,
+    select c.contract_sf,
+           c.company,
+           c.title,
+           s.supply_sf,
+           s.qty,
            bc.blocked,
            bc.consumed,
-           s.qty_initial - bc.blocked - bc.consumed as available
+           s.qty - bc.blocked - bc.consumed as available
       from both_cases as bc
-      inner join supplies as s using (contract_id, supply_id);
+      inner join supplies as s using (supply_id)
+      inner join contracts as c using (contract_id);
 
 -- create functions
 create or replace function insert_person (
