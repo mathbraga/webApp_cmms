@@ -14,14 +14,12 @@ import AssetCard from "../../components/Cards/AssetCard";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
-import { contracts } from "./FakeData";
+import { groups } from "./FakeData";
 
 const tableConfig = [
-  { name: "Número", style: { width: "100px" }, className: "text-center" },
-  { name: "Objeto", style: { width: "300px" }, className: "text-justify" },
-  { name: "Status", style: { width: "150px" }, className: "text-center" },
-  { name: "Vigência", style: { width: "150px" }, className: "text-center" },
-  { name: "Link", style: { width: "100px" }, className: "text-center" },
+  { name: "Descrição", style: { width: "400px" }, className: "text-justify" },
+  { name: "Nome", style: { width: "150px" }, className: "text-center" },
+  { name: "Status", style: { width: "100px" }, className: "text-center" }
 ];
 
 const searchItem = require("../../assets/icons/search_icon.png");
@@ -67,7 +65,7 @@ class ContractList extends Component {
   }
 
   render() {
-    const allItems = contracts;
+    const allItems = groups;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
     let filteredItems = allItems;
@@ -101,20 +99,12 @@ class ContractList extends Component {
         onClick={() => { this.props.history.push('/gestao/contratos/view/' + item.id) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-        <td className="text-center">{item.id}</td>
         <td>
-          <div>{item.title}</div>
-          <div className="small text-muted">{item.company}</div>
+          <div>{item.description}</div>
+          <div className="small text-muted">{item.name}</div>
         </td>
+        <td className="text-center">{item.name}</td>
         <td className="text-center">{item.status}</td>
-        <td>
-          <div className="text-center">{item.finalDate}</div>
-        </td>
-        <td>
-          <div className="text-center">
-            {"Link"}
-          </div>
-        </td>
       </tr>))
 
     return (

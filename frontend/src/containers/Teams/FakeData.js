@@ -1,13 +1,8 @@
-export const contracts = [
-  { id: "CT 0110/2019", title: "Manutenção do sistema elétrico do Senado Federal", company: "RCS Tecnologia", status: "Vigente", finalDate: "10/10/2020", url: "https://www12.senado.leg.br/hpsenado" },
-  { id: "CT 0097/2019", title: "Manutenção do sistema de impermeabilização do Senado Federal", company: "PREFAC", status: "Vigente", finalDate: "12/08/2021", url: "https://www12.senado.leg.br/hpsenado" },
-  { id: "CT 0021/2019", title: "Avaliação da qualidade do ar do Senado Federal", company: "Ambientalis", status: "Vigente", finalDate: "20/05/2024", url: "https://www12.senado.leg.br/hpsenado" },
-  { id: "CT 0007/2019", title: "Serviços de engenharia civil", company: "JB Construtora", status: "Vigente", finalDate: "15/01/2021", url: "https://www12.senado.leg.br/hpsenado" },
-  { id: "CT 0022/2019", title: "Manutenção do sistema hidrossanitário do Senado Federal", company: "RCS Tecnologia", status: "Vigente", finalDate: "10/08/2020", url: "https://www12.senado.leg.br/hpsenado" },
-  { id: "CT 0055/2019", title: "Manutenção do sistema de refrigeração do Senado Federal", company: "Entherm", status: "Vigente", finalDate: "12/08/2021", url: "https://www12.senado.leg.br/hpsenado" },
-  { id: "CT 0097/2019", title: "Fornecimento de material para construção civil.", company: "CETRO", status: "Vigente", finalDate: "02/05/2020", url: "https://www12.senado.leg.br/hpsenado" },
-  { id: "CT 0095/2019", title: "Fornecimento de cimento, areia e brita", company: "Contruções SA", status: "Vigente", finalDate: "12/08/2021", url: "https://www12.senado.leg.br/hpsenado" },
-  { id: "CT 0041/2019", title: "Manutenção do sistema de nobreaks", company: "Engmil", status: "Vigente", finalDate: "12/08/2021", url: "https://www12.senado.leg.br/hpsenado" },
+export const groups = [
+  { name: "RCS Elétrica - Posto 2", description: "Posto da empresa RCS Elétrica responsável pelo Anexo II", persons: ["Michael Barbosa", "Renato Augusto", "Flávio Henrique", "Ricardo Jorge"], status: "Ativo" },
+  { name: "Semac", description: "Equipe de sevidores do Semac", persons: ["Luan Ozelim", "Jéssica Alves", "Nycollas"], status: "Ativo" },
+  { name: "Seplag", description: "Equipe de sevidores do Seplag", persons: ["Pedro Serafim", "Henrique Zaidan", "Matheus"], status: "Ativo" },
+  { name: "Semainst", description: "Equipe de sevidores do Semainst", persons: ["Ricardo Pallet", "André"], status: "Inativo" },
 ];
 
 export const materials = [
