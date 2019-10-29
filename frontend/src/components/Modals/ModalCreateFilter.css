@@ -1,0 +1,10 @@
+.filter-header {
+  padding: 15px;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid #c8ced3;
+}
+
+.filter-header,
+.filter-footer {
+  background: #f0f3f5;
+}
