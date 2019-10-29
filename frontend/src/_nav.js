@@ -69,7 +69,7 @@ export default {
       ]
     },
     {
-      name: "Grupos de Trabalho",
+      name: "Recursos Humanos",
       url: "/equipes",
       icon: "fa fa-group",
       children: [

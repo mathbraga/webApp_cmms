@@ -25,7 +25,16 @@ class ModalCreateFilter extends Component {
   render() {
     return (
       <Modal isOpen={modal} toggle={toggle}>
-        <div>Hey</div>
+        <ModalHeader toggle={toggle}>
+          Criar Filtro
+        </ModalHeader>
+        <ModalBody>
+          <div>Hey</div>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>Aplicar</Button>{' '}
+          <Button color="secondary" onClick={toggle}>Cancelar</Button>
+        </ModalFooter>
       </Modal>
     );
   }
