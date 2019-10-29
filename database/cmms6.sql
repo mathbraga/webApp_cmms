@@ -61,7 +61,9 @@ create type asset_category_type as enum (
 );
 
 create type contract_status_type as enum (
-  'l'
+  'LIC',
+  'EXE',
+  'ENC'
 );
 
 create type order_status_type as enum (
