@@ -251,9 +251,9 @@ create table contracts (
   contract_sf text not null unique,
   parent integer references contracts (contract_id),
   status contract_status_type not null, -- enum or reference to a table
-  date_sign date not null,
+  date_sign date,
   date_pub date,
-  date_start date not null,
+  date_start date,
   date_end date,
   company text not null,
   title text not null,
@@ -263,9 +263,9 @@ create table contracts (
 
 -- create table departments (
 --   department_id integer primary key generated always as identity,
+--   department_sf text not null,
 --   parent integer references departments (department_id),
 --   name text not null,
---   description text not null,
 --   is_active boolean not null
 -- );
 
@@ -329,7 +329,7 @@ create table orders (
 );
 
 create table order_messages (
-  message_id integer primary key generated always as identity, -- ????
+  message_id integer primary key generated always as identity,
   order_id integer not null references orders (order_id),
   person_id integer not null references persons (person_id),
   message text not null,
