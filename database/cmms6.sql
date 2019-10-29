@@ -1351,6 +1351,18 @@ comment on view facilities is E'@omit create,update,delete';
 -- comment on constraint contracts_pkey on contracts is E'@omit';
 -- comment on constraint specs_pkey on specs is E'@omit';
 
+-- restart sequences
+alter sequence assets_asset_id_seq restart with 10001;
+alter sequence contracts_contract_id_seq restart with 10001;
+alter sequence persons_person_id_seq restart with 10001;
+alter sequence teams_team_id_seq restart with 10001;
+alter sequence orders_order_id_seq restart with 10001;
+alter sequence order_messages_message_id_seq restart with 10001;
+alter sequence specs_spec_id_seq restart with 10001;
+alter sequence supplies_supply_id_seq restart with 10001;
+alter sequence rules_rule_id_seq restart with 10001;
+alter sequence templates_template_id_seq restart with 10001;
+
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
 
