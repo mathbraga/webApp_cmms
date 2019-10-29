@@ -9,20 +9,9 @@ import {
 } from "reactstrap";
 
 class ModalCreateFilter extends Component {
-  constructor(props) {
-    super(props);
-    state = {
-      modal: 'false'
-    };
-  }
-
-  toggle() {
-    this.setState((prevState) => ({
-      modal: !prevState.modal
-    }));
-  }
 
   render() {
+    const { toggle, modal } = this.props;
     return (
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>
