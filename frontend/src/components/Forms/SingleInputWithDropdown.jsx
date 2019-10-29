@@ -113,11 +113,11 @@ class SingleInputWithDropDown extends Component {
     const newValueId = filteredList[prevState.hoveredItem].id;
 
     const renderedInput = this.props.label === 'Status' ?
-      newValue : (this.props.label === 'Prioridade' ? 
+      newValue : (this.props.label === 'Prioridade' ?
         newValue : (this.props.label === 'Categoria' ?
           newValue : (this.props.label === 'OS pai' ?
             newValue : newValue + " " + `(${newValueId})`)));
-    
+
     this.props.update(newValueId);
     return {
       chosenValue: newValue,
@@ -167,7 +167,7 @@ class SingleInputWithDropDown extends Component {
   }
 
   render() {
-    const { label, placeholder, listDropdown } = this.props;
+    const { label, placeholder, listDropdown, withLabel = true } = this.props;
     const { inputValue, isDropdownOpen, hoveredItem } = this.state;
     const inputId = 'input-list-' + this.props.id;
     const containerId = 'list-container-' + this.props.id;
@@ -186,7 +186,7 @@ class SingleInputWithDropDown extends Component {
 
     return (
       <FormGroup className={'dropdown-container'}>
-        <Label htmlFor="input">{label}</Label>
+        {withLabel && <Label htmlFor="input">{label}</Label>}
         <Input
           type="text"
           autoComplete="off"

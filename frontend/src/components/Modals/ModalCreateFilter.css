@@ -8,3 +8,26 @@
 .filter-footer {
   background: #f0f3f5;
 }
+
+.create-filter-container {
+  margin: 40px 0;
+  min-height: 100px;
+  border: 1px solid rgb(209, 209, 209);
+  border-radius: 15px;
+}
+
+.filter-container-title {
+  margin-top: -10px;
+  margin-left: 15px;
+}
+
+.filter-title {
+  display: inline-block;
+  padding: 0 8px;
+  background: white;
+  font-weight: 700;
+}
+
+.filter-container-body {
+  padding: 10px 20px;
+}
