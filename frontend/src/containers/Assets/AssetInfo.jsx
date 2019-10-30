@@ -8,7 +8,6 @@ import gql from 'graphql-tag';
 import EquipmentInfo from './EquipmentInfo';
 import FacilitiesInfo from './FacilitiesInfo';
 
-
 class AssetInfo extends Component {
 
   render() {

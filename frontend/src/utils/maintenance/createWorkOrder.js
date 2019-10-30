@@ -72,7 +72,7 @@ export default function createWorkOrder(state){
       assetsList
     };
 
-    fetch('http://172.30.49.152:3001/manutencao/os/nova', {
+    fetch('http://172.23.22.152:3001/manutencao/os/nova', {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
