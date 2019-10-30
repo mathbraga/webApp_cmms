@@ -376,7 +376,7 @@ create table specs (
   lifespan text,
   com_ref text, -- improve (new table is necessary?)
   ext_rer text, -- improve (new table is necessary?)
-  is_subcont boolean,
+  is_subcont text, -- change this to boolean data type
   catmat text,
   catser text,
   created_at timestamptz not null default now(),
@@ -386,9 +386,9 @@ create table specs (
 
 create table supplies (
   supply_id integer primary key generated always as identity,
+  supply_sf text not null,
   contract_id integer not null references contracts (contract_id),
   spec_id integer not null references specs (spec_id),
-  supply_sf text not null,
   qty real not null,
   is_qty_real boolean not null,
   bid_price money not null,
