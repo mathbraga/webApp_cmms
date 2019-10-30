@@ -4,19 +4,18 @@ function middleware(req, res, next){
 
   // Log
   console.log(
-    '\n\n\n\n----------------------------------------------------------------------------------------------' +
     '\n' +
-    'ORIGIN ' + req.ip +
-    '    REQUESTED PATH: ' + req.path +
-    '    DATE: ' + date.getDate() + '/' + (parseInt(date.getMonth(), 10) + 1).toString() + '/' + date.getUTCFullYear() +
-    '    TIME: ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() +
-    '\n\n' +
-    'req user: ' + JSON.stringify(req.user) +
-    '\n\n' +
-    req.session.isNew +
-    '\n\n' +
-    'req session: ' + JSON.stringify(req.session) +
-    '\n\n'
+    '\n----------------------------------------------------------------------------------------------' +
+    '\nORIGIN ' + req.ip +
+    '\tREQUESTED PATH: ' + req.path +
+    '\tDATE: ' + date.getDate() + '/' + (parseInt(date.getMonth(), 10) + 1).toString() + '/' + date.getUTCFullYear() +
+    '\tTIME: ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() +
+    '\nUSER: ' + JSON.stringify(req.user) +
+    '\tNEW SESSION? ' + req.session.isNew +
+    '\tSESSION: ' + JSON.stringify(req.session) +
+    // '\nREQ.BODY: ' + JSON.stringify(req.body) +
+    '\n----------------------------------------------------------------------------------------------' +
+    '\n'
   );
 
   // Call next

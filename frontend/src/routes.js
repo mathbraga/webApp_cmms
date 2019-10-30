@@ -4,7 +4,7 @@ import MainPage from "./containers/MainPage";
 const ConsumptionMonitor = React.lazy(() => import("./containers/ConsumptionMonitor"));
 const Dashboard = React.lazy(() => import("./containers/Dashboard"));
 const Login = React.lazy(() => import("./containers/Authentication/Login"));
-const RegisterUser = React.lazy(() => import("./containers/Authentication/RegisterUser"));
+// const RegisterUser = React.lazy(() => import("./containers/Authentication/RegisterUser"));
 const Profile = React.lazy(() => import("./containers/Authentication/Profile"));
 const Assets = React.lazy(() => import("./containers/Assets"));
 const WorkOrders = React.lazy(() => import("./containers/Maintenance/WorkOrders"));
@@ -15,13 +15,15 @@ const FacilitiesForm = React.lazy(() => import("./containers/Assets/FacilitiesFo
 const EquipmentsForm = React.lazy(() => import("./containers/Assets/EquipmentsForm"));
 const OrderForm = React.lazy(() => import("./containers/Maintenance/OrderForm"));
 const Error404 = React.lazy(() => import("./containers/MainPage/Error404"));
+const TeamForm = React.lazy(() => import("./containers/Authentication/TeamForm"));
+const PersonForm = React.lazy(() => import("./containers/Authentication/PersonForm"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: "/", exact: true, component: MainPage },
   { path: "/painel", name: "Painel", component: Dashboard },
   { path: "/login", name: "Login", component: Login },
-  { path: "/cadastro", name: "Cadastro", component: RegisterUser },
+  // { path: "/cadastro", name: "Cadastro", component: RegisterUser },
   { path: "/perfil", name: "Perfil", component: Profile },
   // { path: "/energia", name: "Energia elétrica", component: ConsumptionMonitor },
   // { path: "/agua", name: "Água", component: ConsumptionMonitor },
@@ -33,7 +35,9 @@ const routes = [
   { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: WorkOrders },
   { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: OrderForm },
   { path: "/manutencao/os/view/:id", exact: false, name: "OS", component: WorkOrderView },
-  { path: "/erro404", exact: true, name: "Erro 404", component: Error404 }
+  { path: "/erro404", exact: true, name: "Erro 404", component: Error404 },
+  { path: "/team", name: "Equipe", component: TeamForm },
+  { path: "/person", name: "Equipe", component: PersonForm },
 ];
 
 export default routes;

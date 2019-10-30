@@ -1,14 +1,13 @@
 begin;
 
-drop function if exists get_delayed_orders;
+\set ON_ERROR_STOP on
 
-create or replace function get_delayed_orders ()
-returns setof orders
-language sql
-as $$
-  select * from orders where date_limit < now();
-$$;
+\i insert-contracts.sql
 
-select * from get_delayed_orders();
+\i insert-specs.sql
+
+\i insert-supplies.sql
+
+\set ON_ERROR_STOP off
 
 rollback;
