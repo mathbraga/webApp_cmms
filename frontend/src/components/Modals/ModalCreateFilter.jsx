@@ -48,12 +48,18 @@ class ModalCreateFilter extends Component {
       operator: null,
       option: null,
     };
+
+    this.handleInputSelectClick = this.handleInputSelectClick.bind(this);
   }
 
   updateValue = (param) => (itemId) => {
     this.setState(
       { [param]: itemId }
     );
+  }
+
+  handleInputSelectClick(event) {
+    console.log("Input Select:", event.target.value);
   }
 
   render() {
@@ -144,6 +150,7 @@ class ModalCreateFilter extends Component {
                     type="select"
                     name="attribute"
                     id="attribute"
+                    onClick={this.handleInputSelectClick}
                   >
                     {this.state.attribute && filterOperations[attributes[this.state.attribute].type].map(option => (
                       <option>{option.description}</option>
