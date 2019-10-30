@@ -48,6 +48,9 @@ class ModalCreateFilter extends Component {
       modal,
       attributes
     } = this.props;
+    const listDropdown = attributes.map(attribute => (
+      { id: attribute.attribute, text: attribute.name, subtext: '' }
+    ))
     return (
       <Modal
         isOpen={modal}
@@ -99,7 +102,7 @@ class ModalCreateFilter extends Component {
                 <Col sm={9}>
                   <SingleInputWithDropdown
                     withLabel={false}
-                    listDropdown={[{ id: 1, text: 'A', subtext: 'A' }, { id: 2, text: 'A', subtext: 'A' }, { id: 3, text: 'A', subtext: 'A' }]}
+                    listDropdown={listDropdown}
                     required
                   />
                 </Col>
@@ -110,16 +113,9 @@ class ModalCreateFilter extends Component {
                 </Col>
                 <Col sm={4} style={{ margin: "auto 0" }}>
                   <Input type="select" name="attribute" id="attribute" >
-                    <option>A</option>
-                    <option>B</option>
-                    <option>C</option>
-                    <option>D</option>
-                    <option>E</option>
-                    <option>F</option>
-                    <option>G</option>
-                    <option>H</option>
-                    <option>I</option>
-                    <option>J</option>
+                    {attributes.map(attribute => (
+                      <option>{attribute.name}</option>
+                    ))}
                   </Input>
                 </Col>
                 <Col sm={4}>
