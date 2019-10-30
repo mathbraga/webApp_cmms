@@ -18,25 +18,70 @@ import SingleInputWithDropdown from "../Forms/SingleInputWithDropdown";
 import "./ModalCreateFilter.css";
 
 const filterOperations = {
-  option: [
-    { name: 'equalTo', description: 'igual a', optionsType: 'selectMany' },
-    { name: 'different', description: 'diferente de', optionsType: 'selectMany' },
-    { name: 'notNull', description: 'não nulo', optionsType: 'nothing' },
-    { name: 'null', description: 'nulo', optionsType: 'nothing' }
-  ],
-  text: [
-    { name: 'include', description: 'contém', optionsType: 'text' },
-    { name: 'notInclude', description: 'não contém', optionsType: 'text' },
-    { name: 'notNull', description: 'não nulo', optionsType: 'nothing' },
-    { name: 'null', description: 'nulo', optionsType: 'nothing' }
-  ],
-  number: [
-    { name: 'equalTo', description: 'igual a', optionsType: 'number' },
-    { name: 'greaterThan', description: 'maior que', optionsType: 'number' },
-    { name: 'lowerThan', description: 'menor que', optionsType: 'number' },
-    { name: 'different', description: 'diferente de', optionsType: 'number' },
-    { name: 'between', description: 'entre', optionsType: 'twoNumbers' },
-  ],
+  option: {
+    equalTo: { description: 'igual a', optionsType: 'selectMany' },
+    different: { description: 'diferente de', optionsType: 'selectMany' },
+    notNull: { description: 'não nulo', optionsType: 'nothing' },
+    null: { description: 'nulo', optionsType: 'nothing' }
+  },
+  text: {
+    include: { description: 'contém', optionsType: 'text' },
+    notInclude: { description: 'não contém', optionsType: 'text' },
+    notNull: { description: 'não nulo', optionsType: 'nothing' },
+    null: { description: 'nulo', optionsType: 'nothing' }
+  },
+  number: {
+    equalTo: { description: 'igual a', optionsType: 'number' },
+    greaterThan: { description: 'maior que', optionsType: 'number' },
+    lowerThan: { description: 'menor que', optionsType: 'number' },
+    different: { description: 'diferente de', optionsType: 'number' },
+    between: { description: 'entre', optionsType: 'twoNumbers' },
+  },
+};
+
+const inputBasedOnOperator = {
+  selectMany: (
+    <Input
+      type="select"
+      name="attribute"
+      id="attribute"
+      multiple
+    >
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+      <option>D</option>
+    </Input>
+  ),
+  selectOne: (
+    <Input
+      type="select"
+      name="attribute"
+      id="attribute"
+      multiple
+    >
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+      <option>D</option>
+    </Input>
+  ),
+  nothing: null,
+  text: (
+    <Input
+      type="text"
+      name="attribute"
+      id="attribute"
+    />
+  ),
+  number: (
+    <Input
+      type="text"
+      name="attribute"
+      id="attribute"
+    />
+  ),
+  twoNumbers: null,
 };
 
 class ModalCreateFilter extends Component {
@@ -47,6 +92,7 @@ class ModalCreateFilter extends Component {
       attribute: null,
       operator: null,
       option: null,
+      inputBasedOnOperator: 'nothing',
     };
 
     this.handleInputSelectClick = this.handleInputSelectClick.bind(this);
@@ -59,7 +105,13 @@ class ModalCreateFilter extends Component {
   }
 
   handleInputSelectClick(event) {
-    console.log("Input Select:", event.target.value);
+    console.log("Handle:")
+    console.log(event.target.value[0]);
+    console.log(event.target.value[1]);
+    this.setState({
+      operator: event.target.value[0],
+      inputBasedOnOperator: event.target.value[1],
+    });
   }
 
   render() {
@@ -68,6 +120,8 @@ class ModalCreateFilter extends Component {
       modal,
       attributes
     } = this.props;
+
+    const type = this.state.attribute && attributes[this.state.attribute].type;
 
     console.log('State: ', this.state);
 
@@ -152,8 +206,8 @@ class ModalCreateFilter extends Component {
                     id="attribute"
                     onClick={this.handleInputSelectClick}
                   >
-                    {this.state.attribute && filterOperations[attributes[this.state.attribute].type].map(option => (
-                      <option>{option.description}</option>
+                    {this.state.attribute && Object.keys(filterOperations[type]).map(option => (
+                      <option value={option} >{filterOperations[type][option].description}</option>
                     ))}
                   </Input>
                 </Col>
