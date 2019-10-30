@@ -16,11 +16,22 @@ import "./List.css";
 
 import { tableConfig } from "./WorkOrdersTableConfig";
 
+import searchList from "../../utils/search/searchList";
+
 const hierarchyItem = require("../../assets/icons/tree_icon.png");
 const listItem = require("../../assets/icons/list_icon.png");
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
+
+const attributes = [
+  'category',
+  'orderId',
+  'dateLimit',
+  'status',
+  'requestTitle',
+  'requestLocal'
+]
 
 const ORDER_CATEGORY_TYPE = {
   'EST': 'Avaliação estrutural',

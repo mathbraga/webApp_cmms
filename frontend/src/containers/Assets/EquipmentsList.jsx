@@ -25,7 +25,13 @@ const mapIcon = require("../../assets/icons/map.png");
 
 const ENTRIES_PER_PAGE = 15;
 const attributes = [
-  ''
+  'assetId',
+  'name',
+  'assetByPlace.name',
+  'manufacturer',
+  'model',
+  'assetByParent.assetId',
+  'assetByParent.name'
 ]
 
 class EquipmentsList extends Component {
@@ -67,24 +73,7 @@ class EquipmentsList extends Component {
     const allEdges = allItems.allAssets.edges;
 
     let filteredItems = allEdges;
-    if (searchTerm.length > 0) {
-      const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = allEdges.filter(function (item) {
-
-        const manufacturer = item.node.manufacturer === null ? "" : item.node.manufacturer;
-        const model = item.node.model === null ? "" : item.node.model;
-
-        return (
-          item.node.assetId.toLowerCase().includes(searchTermLower) ||
-          item.node.name.toLowerCase().includes(searchTermLower) ||
-          item.node.assetByPlace.name.toLowerCase().includes(searchTermLower) ||
-          manufacturer.toLowerCase().includes(searchTermLower) ||
-          model.toLowerCase().includes(searchTermLower) ||
-          item.node.assetByParent.assetId.toLowerCase().includes(searchTermLower) ||
-          item.node.assetByParent.name.toLowerCase().includes(searchTermLower)
-        );
-      });
-    }
+    filteredItems = searchList(allEdges, attributes, searchTerm);
 
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);

@@ -1,8 +1,9 @@
 function findItem(items, attributes, term){
   const result = items.filter((item) => {
     for(let i = 0; i < attributes.length; i++){
-      if(String(item.node[attributes[i]]).toLowerCase().includes(term)){
-        return String(item.node[attributes[i]]).toLowerCase().includes(term);
+      const value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item.node);
+      if(String(value).toLowerCase().includes(term)){
+        return String(value).toLowerCase().includes(term);
       }
     }
   })
@@ -18,8 +19,9 @@ export default function searchList(itemsList, attributes, searchTerm){
   if(searchTermLower.length === 1){
     filteredItems = itemsList.filter((item) => {
       for(let i = 0; i < attributes.length; i++){
-        if(String(item.node[attributes[i]]).toLowerCase().includes(searchTermLower[0])){
-          return String(item.node[attributes[i]]).toLowerCase().includes(searchTermLower[0]);
+        const value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item.node);
+        if(String(value).toLowerCase().includes(searchTermLower[0])){
+          return String(value).toLowerCase().includes(searchTermLower[0]);
         }
       }
     })
