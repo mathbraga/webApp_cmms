@@ -10,7 +10,8 @@ import {
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
+  CustomInput
 } from "reactstrap";
 import SingleInputWithDropdown from "../Forms/SingleInputWithDropdown";
 
@@ -51,6 +52,14 @@ class ModalCreateFilter extends Component {
               <Input type="text" name="filterName" id="filterName" />
             </Col>
           </FormGroup>
+          <div className="switch-container">
+            <Row>
+              <Col sm={2} />
+              <Col sm={10}>
+                <CustomInput type="switch" id="saveSwitch" name="saveSwitch" label="Aplicar filtro sem salvar" />
+              </Col>
+            </Row>
+          </div>
           <div className='create-filter-container'>
             <div className={'filter-container-title'}>
               <div className="filter-title">
