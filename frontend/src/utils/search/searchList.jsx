@@ -71,39 +71,9 @@ export default function searchList(itemsList, attributes, searchTerm){
   searchTerm = searchTerm.trim().split(" ");
   const searchTermLower = searchTerm.map((item) => item.toLowerCase());
 
-  if(searchTermLower.length === 1){
-    filteredItems = itemsList.filter((item) => {
-      for(let i = 0; i < attributes.length; i++){
-        const relevantName = attributes[i].split('.').pop();
-        const attributeRoot = attributes[i].split('.')[0];
-        let value = [];
-        if(attributes[i] === 'subtext' || attributes[i] === 'text' || attributeRoot === 'assetByAssetId')
-          value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item);
-        else
-          value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item.node);
-
-        switch (relevantName) {
-          case 'orderId':
-            value = String(value).padStart(4, "0");
-            break;
-          case 'category':
-            value = ORDER_CATEGORY_TYPE[value];
-            break;
-          case 'status':
-            value = ORDER_STATUS_TYPE[value];
-            break;
-          case 'priority':
-              value = ORDER_PRIORITY_TYPE[value];
-              break;
-        }
-        if(String(value).toLowerCase().includes(searchTermLower[0]))
-          return String(value).toLowerCase().includes(searchTermLower[0]);
-      }
-    })
-  }else if(searchTermLower.length > 1){
-    searchTermLower.forEach((term) => {
-      filteredItems = findItem(filteredItems, attributes, term)});
-  }
+  searchTermLower.forEach((term) => {
+    filteredItems = findItem(filteredItems, attributes, term)
+  });
 
   return filteredItems;
 }
