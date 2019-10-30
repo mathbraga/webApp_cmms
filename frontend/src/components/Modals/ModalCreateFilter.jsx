@@ -39,12 +39,12 @@ const filterOperations = {
   },
 };
 
-const inputBasedOnOperator = {
+const inputBasedOnOperator = (type, options = null) => ({
   selectMany: (
     <Input
       type="select"
-      name="attribute"
-      id="attribute"
+      name="filterInput"
+      id="filterInput"
       multiple
     >
       <option>A</option>
@@ -56,8 +56,8 @@ const inputBasedOnOperator = {
   selectOne: (
     <Input
       type="select"
-      name="attribute"
-      id="attribute"
+      name="filterInput"
+      id="filterInput"
       multiple
     >
       <option>A</option>
@@ -70,19 +70,19 @@ const inputBasedOnOperator = {
   text: (
     <Input
       type="text"
-      name="attribute"
-      id="attribute"
+      name="filterInput"
+      id="filterInput"
     />
   ),
   number: (
     <Input
       type="text"
-      name="attribute"
-      id="attribute"
+      name="filterInput"
+      id="filterInput"
     />
   ),
   twoNumbers: null,
-};
+}[type]);
 
 class ModalCreateFilter extends Component {
   constructor(props) {
@@ -94,8 +94,6 @@ class ModalCreateFilter extends Component {
       option: null,
       inputBasedOnOperator: 'nothing',
     };
-
-    this.handleInputSelectClick = this.handleInputSelectClick.bind(this);
   }
 
   updateValue = (param) => (itemId) => {
@@ -104,13 +102,10 @@ class ModalCreateFilter extends Component {
     );
   }
 
-  handleInputSelectClick(event) {
-    console.log("Handle:")
-    console.log(event.target.value[0]);
-    console.log(event.target.value[1]);
+  handleInputSelectClick = (type) => (event) => {
     this.setState({
-      operator: event.target.value[0],
-      inputBasedOnOperator: event.target.value[1],
+      operator: event.target.value,
+      inputBasedOnOperator: filterOperations[type][event.target.value].optionsType,
     });
   }
 
@@ -204,26 +199,15 @@ class ModalCreateFilter extends Component {
                     type="select"
                     name="attribute"
                     id="attribute"
-                    onClick={this.handleInputSelectClick}
+                    onClick={this.handleInputSelectClick(type)}
                   >
                     {this.state.attribute && Object.keys(filterOperations[type]).map(option => (
                       <option value={option} >{filterOperations[type][option].description}</option>
                     ))}
                   </Input>
                 </Col>
-                <Col sm={4}>
-                  <Input
-                    className={!this.state.attribute ? 'remove-input' : ''}
-                    type="select"
-                    name="attribute"
-                    id="attribute"
-                    multiple
-                  >
-                    <option>A</option>
-                    <option>B</option>
-                    <option>C</option>
-                    <option>D</option>
-                  </Input>
+                <Col sm={4} style={{ margin: "auto 0" }}>
+                  {inputBasedOnOperator(this.state.inputBasedOnOperator)}
                 </Col>
               </FormGroup>
               <Button color="primary">Adicionar</Button>
