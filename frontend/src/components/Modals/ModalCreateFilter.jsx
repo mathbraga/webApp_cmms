@@ -114,7 +114,8 @@ class ModalCreateFilter extends Component {
           </div>
         </ModalBody>
         <ModalFooter className={'filter-footer'}>
-          Hey
+          <Button color="success">Criar Filtro</Button>
+          <Button color="danger" onClick={toggle}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     );
