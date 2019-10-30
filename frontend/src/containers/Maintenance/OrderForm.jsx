@@ -19,6 +19,7 @@ import SingleInputWithDropDown from '../../components/Forms/SingleInputWithDropd
 import { withRouter } from "react-router-dom";
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 const ORDER_STATUS = [
   { id: 'FIL', text: 'Fila de espera', subtext: "" },
@@ -131,9 +132,37 @@ const ordersQuery = gql`
           }
         }`;
 
-function isEmpty(field) {
-  return field === null || field === "";
-}
+const osQuery = gql`
+      query WorkOrderQuery {
+        allOrders(orderBy: ORDER_ID_ASC) {
+          edges {
+            node {
+              category
+              requestPerson
+              status
+              requestText
+              orderId
+              createdAt
+              dateLimit
+              requestTitle
+              requestLocal
+              priority
+              orderAssetsByOrderId {
+                edges {
+                  node {
+                    assetByAssetId {
+                      assetByPlace {
+                        name
+                        assetId
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }`;
 
 class OrderForm extends Component {
   constructor(props) {
@@ -256,6 +285,7 @@ class OrderForm extends Component {
       newData().then(console.log("Mutation"))
     )
     const assetsArray = this.state.assets === null ? null : this.state.assets.map((item) => item.id);
+    const parentAssets = this.state.assets === null ? null : this.state.assets;
 
     return (
       <Mutation
@@ -277,6 +307,69 @@ class OrderForm extends Component {
           requestContactPhone: this.state.requestContactPhone,
           requestDepartment: this.state.requestDepartment,
           assetsArray: assetsArray
+        }}
+        update={(cache, { data: { insertOrder } }) => {
+          try{
+            const listData = cache.readQuery({ query: osQuery });
+
+            const id = insertOrder.orderId
+            const category = this.state.category;
+            const dateStart = this.state.dateStart;
+            const dateLimit = this.state.dateLimit;
+            const priority = this.state.priority;
+            const reqLocal = this.state.requestLocal;
+            const reqPerson = this.state.requestPerson;
+            const reqText = this.state.description;
+            const reqTitle = this.state.title;
+            const status = this.state.status;
+
+            const newEdges = []
+            parentAssets.forEach(item => {
+                      newEdges.push(
+                      {node: {
+                        assetByAssetId: {
+                          assetByPlace: {
+                            assetId: item.id,
+                            name: item.text,
+                            __typename: "Asset"
+                          },
+                          __typename: "Asset"
+                        },
+                        __typename: "OrderAsset"
+                      },
+                      __typename: "OrderAssetsEdge"
+                      })
+                  });
+
+            listData.allOrders.edges.push(
+              {node: {
+                category: category,
+                createdAt: dateStart,
+                dateLimit: dateLimit,
+                orderAssetsByOrderId: {
+                  edges: newEdges,
+                  __typename: "OrderAssetsConnection"
+                },
+                orderId: id,
+                priority: priority,
+                requestLocal: reqLocal,
+                requestPerson: reqPerson,
+                requestText: reqText,
+                requestTitle: reqTitle,
+                status: status,
+                __typename: "Order"
+              },
+              __typename: "OrdersEdge"
+            })
+
+            cache.writeQuery({
+              query: osQuery,
+              data: listData
+            })
+          }
+          catch(error){
+            console.error(error);
+          }
         }}
       >
         {(mutation, { data, loading, error }) => {
@@ -326,7 +419,6 @@ class OrderForm extends Component {
                         e.preventDefault();
                         mutate(mutation).then(() => {
                           this.props.history.push('/manutencao/os');
-                          window.location.reload();
                         });
                       }}
                       onReset={() => this.props.history.push('/manutencao/os')}

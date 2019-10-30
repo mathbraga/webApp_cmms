@@ -135,7 +135,8 @@ class Dashboard extends Component {
                     type="submit"
                     size="md"
                     color="primary"
-                    onClick={this.handleUploadFile}
+                    onClick={this.
+                    }
                   >Enviar arquivo
                   </Button>
                 </Col>

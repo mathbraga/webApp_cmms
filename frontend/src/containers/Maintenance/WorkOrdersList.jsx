@@ -16,11 +16,22 @@ import "./List.css";
 
 import { tableConfig } from "./WorkOrdersTableConfig";
 
+import searchList from "../../utils/search/searchList";
+
 const hierarchyItem = require("../../assets/icons/tree_icon.png");
 const listItem = require("../../assets/icons/list_icon.png");
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
+
+const attributes = [
+  'category',
+  'orderId',
+  'dateLimit',
+  'status',
+  'requestTitle',
+  'requestLocal'
+]
 
 const ORDER_CATEGORY_TYPE = {
   'EST': 'Avaliação estrutural',
@@ -97,19 +108,7 @@ class WorkOrdersList extends Component {
     const allEdges = allItems.allOrders.edges;
 
     let filteredItems = allEdges;
-    if (searchTerm.length > 0) {
-      const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = allEdges.filter(function (item) {
-        return (
-          (ORDER_CATEGORY_TYPE[item.node.category] && ORDER_CATEGORY_TYPE[item.node.category].toLowerCase().includes(searchTermLower)) ||
-          (String(item.node.orderId).padStart(3,"0").includes(searchTermLower)) ||
-          (String(item.node.dateLimit) && String(item.node.dateLimit).includes(searchTermLower)) ||
-          (ORDER_STATUS_TYPE[item.node.status] && ORDER_STATUS_TYPE[item.node.status].toLowerCase().includes(searchTermLower)) ||
-          (item.node.requestTitle.toLowerCase().includes(searchTermLower)) ||
-          (item.node.requestLocal && item.node.requestLocal.toLowerCase().includes(searchTermLower))
-        );
-      });
-    }
+    filteredItems = searchList(allEdges, attributes, searchTerm);
 
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);

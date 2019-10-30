@@ -27,16 +27,23 @@ import { compose } from 'redux';
 import { withRouter } from "react-router";
 import replaceNull from '../../utils/text/replaceNull';
 
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
-
 import { equipmentItems, equipmentConfig } from "./AssetsFakeData";
+import searchList from "../../utils/search/searchList";
 
 const descriptionImage = require("../../assets/img/test/facilities_picture.jpg");
 const mapIcon = require("../../assets/icons/map.png");
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
+
+const attributes = [
+  'orderId',
+  'orderByOrderId.requestTitle',
+  'orderByOrderId.requestLocal',
+  'orderByOrderId.status',
+  'orderByOrderId.priority',
+  'orderByOrderId.dateLimit'
+]
 
 const tableConfig = [
   { name: "OS", style: { width: "50px" }, className: "text-center" },
@@ -119,21 +126,7 @@ class FacilitiesInfo extends Component {
     edges.forEach(item => statusCounter[item.node.orderByOrderId.status] += 1);
     const totalOS = edges.length;
 
-    let filteredItems = edges;
-    if (searchTerm.length > 0) {
-      const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = edges.filter(function (item) {
-        return (
-          // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
-          String((item.node.orderId + "").padStart(4, "0")).includes(searchTermLower) ||
-          item.node.orderByOrderId.requestTitle.toLowerCase().includes(searchTermLower) ||
-          item.node.orderByOrderId.requestLocal.toLowerCase().includes(searchTermLower) ||
-          ORDER_STATUS_TYPE[item.node.orderByOrderId.status].toLowerCase().includes(searchTermLower) ||
-          ORDER_PRIORITY_TYPE[item.node.orderByOrderId.priority].toLowerCase().includes(searchTermLower) ||
-          String(item.node.orderByOrderId.dateLimit).includes(searchTermLower)
-        );
-      });
-    }
+    const filteredItems = searchList(edges, attributes, searchTerm);
 
     const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
@@ -292,7 +285,7 @@ class FacilitiesInfo extends Component {
                           </div>
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Longitude do Local</div>
-                            <div className="asset-info-content-data">{!(assetsInfo.assetByAssetId.longitude && assetsInfo.assetByAssetId.longitude != 0) ? assetsInfo.assetByAssetId.longitude : "Não cadastrado"}</div>
+                            <div className="asset-info-content-data">{(assetsInfo.assetByAssetId.longitude && assetsInfo.assetByAssetId.longitude != 0) ? assetsInfo.assetByAssetId.longitude : "Não cadastrado"}</div>
                           </div>
                         </Col>
                       </Row>
