@@ -17,7 +17,6 @@ import SingleInputWithDropdown from "../Forms/SingleInputWithDropdown";
 
 import "./ModalCreateFilter.css";
 
-
 const filterOperations = {
   choice: [
     { name: 'equalTo', description: 'igual a', optionsType: 'selectMany' },
@@ -41,6 +40,21 @@ const filterOperations = {
 };
 
 class ModalCreateFilter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterName: '',
+      attribute: null,
+      operator: null,
+      option: null,
+    };
+  }
+
+  updateValue = (param) => (itemId) => {
+    this.setState(
+      { [param]: itemId }
+    );
+  }
 
   render() {
     const {
@@ -48,9 +62,13 @@ class ModalCreateFilter extends Component {
       modal,
       attributes
     } = this.props;
+
+    console.log('State: ', this.state);
+
     const listDropdown = attributes.map(attribute => (
       { id: attribute.attribute, text: attribute.name, subtext: '' }
     ))
+
     return (
       <Modal
         isOpen={modal}
@@ -104,6 +122,8 @@ class ModalCreateFilter extends Component {
                     withLabel={false}
                     listDropdown={listDropdown}
                     required
+                    update={this.updateValue('attribute')}
+                    value={this.state.attribute}
                   />
                 </Col>
               </FormGroup>
