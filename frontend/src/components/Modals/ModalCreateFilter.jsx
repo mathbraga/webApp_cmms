@@ -18,7 +18,7 @@ import SingleInputWithDropdown from "../Forms/SingleInputWithDropdown";
 import "./ModalCreateFilter.css";
 
 const filterOperations = {
-  choice: [
+  option: [
     { name: 'equalTo', description: 'igual a', optionsType: 'selectMany' },
     { name: 'different', description: 'diferente de', optionsType: 'selectMany' },
     { name: 'notNull', description: 'não nulo', optionsType: 'nothing' },
@@ -65,8 +65,8 @@ class ModalCreateFilter extends Component {
 
     console.log('State: ', this.state);
 
-    const listDropdown = attributes.map(attribute => (
-      { id: attribute.attribute, text: attribute.name, subtext: '' }
+    const listDropdown = Object.keys(attributes).map(key => (
+      { id: key, text: attributes[key].name, subtext: '' }
     ))
 
     return (
@@ -123,33 +123,45 @@ class ModalCreateFilter extends Component {
                     listDropdown={listDropdown}
                     required
                     update={this.updateValue('attribute')}
-                    value={this.state.attribute}
+                    value={this.state.attribute && attributes[this.state.attribute].name}
                   />
                 </Col>
               </FormGroup>
-              <FormGroup row>
+              <FormGroup row style={{ minHeight: "93px" }}>
                 <Col sm={4} style={{ margin: "auto 0" }}>
-                  <Input disabled type="text" name="attribute" id="attribute" />
+                  <Input
+                    style={{ textAlign: "center" }}
+                    value={this.state.attribute && attributes[this.state.attribute].name}
+                    disabled
+                    type="text"
+                    name="attribute"
+                    id="attribute"
+                  />
                 </Col>
                 <Col sm={4} style={{ margin: "auto 0" }}>
-                  <Input type="select" name="attribute" id="attribute" >
-                    {attributes.map(attribute => (
-                      <option>{attribute.name}</option>
+                  <Input
+                    className={!this.state.attribute ? 'remove-input' : ''}
+                    type="select"
+                    name="attribute"
+                    id="attribute"
+                  >
+                    {this.state.attribute && filterOperations[attributes[this.state.attribute].type].map(option => (
+                      <option>{option.description}</option>
                     ))}
                   </Input>
                 </Col>
                 <Col sm={4}>
-                  <Input type="select" name="attribute" id="attribute" multiple >
+                  <Input
+                    className={!this.state.attribute ? 'remove-input' : ''}
+                    type="select"
+                    name="attribute"
+                    id="attribute"
+                    multiple
+                  >
                     <option>A</option>
                     <option>B</option>
                     <option>C</option>
                     <option>D</option>
-                    <option>E</option>
-                    <option>F</option>
-                    <option>G</option>
-                    <option>H</option>
-                    <option>I</option>
-                    <option>J</option>
                   </Input>
                 </Col>
               </FormGroup>

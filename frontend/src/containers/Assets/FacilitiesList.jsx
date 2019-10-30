@@ -27,13 +27,12 @@ const mapIcon = require("../../assets/icons/map.png");
 const ENTRIES_PER_PAGE = 15;
 
 
-const filterAttributes = [
-  { name: 'Código', attribute: 'asset_sf', type: 'text' },
-  { name: 'Nome', attribute: 'name', type: 'text' },
-  { name: 'Descrição', attribute: 'description', type: 'text' },
-  { name: 'Área', attribute: 'area', type: 'number' }
-];
-
+const filterAttributes = {
+  asset_sf: { name: 'Código', type: 'text' },
+  name: { name: 'Nome', type: 'text' },
+  description: { name: 'Descrição', type: 'text' },
+  area: { name: 'Área', type: 'number' }
+};
 
 class FacilitiesList extends Component {
   constructor(props) {
@@ -43,6 +42,7 @@ class FacilitiesList extends Component {
       goToPage: 1,
       searchTerm: "",
       modalFilter: false,
+      appliedFilter: [],
     };
 
     this.setGoToPage = this.setGoToPage.bind(this);

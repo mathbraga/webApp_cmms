@@ -31,3 +31,7 @@
 .filter-container-body {
   padding: 10px 20px;
 }
+
+.remove-input {
+  display: none;
+}
