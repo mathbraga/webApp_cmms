@@ -17,10 +17,37 @@ import SingleInputWithDropdown from "../Forms/SingleInputWithDropdown";
 
 import "./ModalCreateFilter.css";
 
+
+const filterOperations = {
+  choice: [
+    { name: 'equalTo', description: 'igual a', optionsType: 'selectMany' },
+    { name: 'different', description: 'diferente de', optionsType: 'selectMany' },
+    { name: 'notNull', description: 'não nulo', optionsType: 'nothing' },
+    { name: 'null', description: 'nulo', optionsType: 'nothing' }
+  ],
+  text: [
+    { name: 'include', description: 'contém', optionsType: 'text' },
+    { name: 'notInclude', description: 'não contém', optionsType: 'text' },
+    { name: 'notNull', description: 'não nulo', optionsType: 'nothing' },
+    { name: 'null', description: 'nulo', optionsType: 'nothing' }
+  ],
+  number: [
+    { name: 'equalTo', description: 'igual a', optionsType: 'number' },
+    { name: 'greaterThan', description: 'maior que', optionsType: 'number' },
+    { name: 'lowerThan', description: 'menor que', optionsType: 'number' },
+    { name: 'different', description: 'diferente de', optionsType: 'number' },
+    { name: 'between', description: 'entre', optionsType: 'twoNumbers' },
+  ],
+};
+
 class ModalCreateFilter extends Component {
 
   render() {
-    const { toggle, modal } = this.props;
+    const {
+      toggle,
+      modal,
+      attributes
+    } = this.props;
     return (
       <Modal
         isOpen={modal}
