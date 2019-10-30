@@ -14,13 +14,13 @@ import AssetCard from "../../components/Cards/AssetCard";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
-import { materials } from "./FakeData";
+import { persons } from "./FakeData";
 
 const tableConfig = [
-  { name: "Material / Serviço", style: { width: "300px" }, className: "text-justify" },
-  { name: "Categoria", style: { width: "200px" }, className: "text-center" },
-  { name: "Subcategoria", style: { width: "200px" }, className: "text-center" },
-  { name: "Disponível", style: { width: "100px" }, className: "text-center" },
+  { name: "Nome", style: { width: "300px" }, className: "text-justify" },
+  { name: "Contrato", style: { width: "150px" }, className: "text-center" },
+  { name: "Telefone", style: { width: "150px" }, className: "text-center" },
+  { name: "E-mail", style: { width: "200px" }, className: "text-center" },
 ];
 
 const searchItem = require("../../assets/icons/search_icon.png");
@@ -66,7 +66,7 @@ class ContractList extends Component {
   }
 
   render() {
-    const allItems = materials;
+    const allItems = persons;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
     let filteredItems = allItems;
@@ -97,20 +97,19 @@ class ContractList extends Component {
 
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/gestao/servicos/view/' + item.id) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
           <div>{item.name}</div>
-          <div className="small text-muted">{item.id}</div>
+          <div className="small text-muted">{item.type}</div>
         </td>
-        <td className="text-center">{item.category}</td>
+        <td className="text-center">{item.contract}</td>
         <td>
-          <div className="text-center">{item.subcategory}</div>
+          <div className="text-center">{item.phone}</div>
         </td>
         <td>
           <div className="text-center">
-            {item.qtd.toString() + " " + item.unit}
+            {item.email}
           </div>
         </td>
       </tr>))

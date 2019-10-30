@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TableWithPages from "../../components/Tables/TableWithPages";
 import AssetCard from "../../components/Cards/AssetCard";
+import ModalCreateFilter from "../../components/Modals/ModalCreateFilter"
 import {
   Badge,
   Button,
@@ -32,19 +33,35 @@ const attributes = [
   'area'
 ];
 
+const filterAttributes = {
+  asset_sf: { name: 'Código', type: 'text' },
+  name: { name: 'Nome', type: 'text' },
+  description: { name: 'Descrição', type: 'text' },
+  area: { name: 'Área', type: 'number' }
+};
+
 class FacilitiesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       pageCurrent: 1,
       goToPage: 1,
-      searchTerm: ""
+      searchTerm: "",
+      modalFilter: false,
+      appliedFilter: [],
     };
 
     this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
     this.handleURLChange = this.handleURLChange.bind(this);
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState((prevState) => ({
+      modalFilter: !prevState.modalFilter
+    }));
   }
 
   handleChangeSearchTerm(event) {
@@ -138,7 +155,7 @@ class FacilitiesList extends Component {
             </div>
             <div className="search-buttons" style={{ width: "30%" }}>
               <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
-              <Button className="search-filter-button" color="primary">Criar Filtro</Button>
+              <Button className="search-filter-button" color="primary" onClick={this.toggle}>Criar Filtro</Button>
             </div>
           </div>
           <TableWithPages
@@ -149,6 +166,11 @@ class FacilitiesList extends Component {
             goToPage={goToPage}
             setCurrentPage={this.setCurrentPage}
             setGoToPage={this.setGoToPage}
+          />
+          <ModalCreateFilter
+            toggle={this.toggle}
+            modal={this.state.modalFilter}
+            attributes={filterAttributes}
           />
         </AssetCard >
       </div>
