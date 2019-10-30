@@ -23,11 +23,19 @@ import TableWithPages from "../../components/Tables/TableWithPages";
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import searchList from "../../utils/search/searchList";
+
 const descriptionImage = require("../../assets/img/test/order_picture.png");
 
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
+
+const attributes = [
+  'assetByAssetId.name',
+  'assetByAssetId.assetId',
+  'assetByAssetId.place'
+]
 
 const tableConfig = [
   { name: "Equipamento / Ativo", style: { width: "300px" }, className: "text-justifyr" },
@@ -170,18 +178,7 @@ class WorkOrderView extends Component {
             const assetsByOrder = orderInfo.orderAssetsByOrderId.nodes;
             const pageLength = assetsByOrder.length;
 
-            let filteredItems = assetsByOrder;
-            if (searchTerm.length > 0) {
-              const searchTermLower = searchTerm.toLowerCase();
-              filteredItems = assetsByOrder.filter(function (item) {
-                return (
-                  // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
-                  item.assetByAssetId.name.toLowerCase().includes(searchTermLower) ||
-                  item.assetByAssetId.assetId.toLowerCase().includes(searchTermLower) ||
-                  item.assetByAssetId.place.toLowerCase().includes(searchTermLower)
-                );
-              });
-            }
+            const filteredItems = searchList(assetsByOrder, attributes, searchTerm);
 
             const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
             const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);

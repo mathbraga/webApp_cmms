@@ -72,6 +72,32 @@ const depQuery = gql`
           }
         }`;
 
+const facListQuery = gql`
+        query assetsQuery($category: AssetCategoryType!) {
+          allAssets(condition: {category: $category}, orderBy: ASSET_ID_ASC) {
+            edges {
+              node {
+                parent
+                name
+                model
+                manufacturer
+                assetId
+                category
+                serialnum
+                area
+                assetByPlace {
+                  assetId
+                  name
+                }
+                assetByParent {
+                  name
+                  assetId
+                }
+              }
+            }
+          }
+        }`;
+
 class FacilitiesForm extends Component {
   constructor(props) {
     super(props);
@@ -143,52 +169,107 @@ class FacilitiesForm extends Component {
     )
 
     const depsArray = this.state.departments === null ? null : this.state.departments.map((item) => item.id);
-
+    console.log(this.state);
     return (
-      <Mutation
-        mutation={newFacility}
-        variables={{
-          area: Number(this.state.area),
-          depsArray: depsArray,
-          description: this.state.description,
-          facId: this.state.assetId,
-          lat: Number(this.state.latitude),
-          lon: Number(this.state.longitude),
-          name: this.state.assetName,
-          parent: this.state.assetParent,
-          place: this.state.assetParent
-        }}
-      >
-        {(mutation, { data, loading, error }) => {
-          if (loading) return null;
+      <Query query={depQuery}>{
+        ({ loading, error, data }) => {
+          if (loading) return null
           if (error) {
-            console.log(error);
-            return null;
+            console.log("Erro ao tentar baixar os dados!");
+            return null
           }
+          const depsID = data.allDepartments.edges.map((item) => item.node.departmentId);
+          const depsName = data.allDepartments.edges.map((item) => item.node.fullName);
+
+          const facID = data.allFacilities.edges.map((item) => item.node.assetId);
+          const facName = data.allFacilities.edges.map((item) => item.node.name);
+          // console.log(facID);
+          // console.log(data);
+
+          const deps = [];
+          for (let i = 0; i < depsID.length; i++)
+            deps.push({ id: depsID[i], text: depsName[i], subtext: depsID[i] });
+
+          const facs = [];
+          for (let i = 0; i < facID.length; i++)
+            facs.push({ id: facID[i], text: facName[i], subtext: facID[i] });
+
           return (
-            <Query query={depQuery}>{
-              ({ loading, error, data }) => {
-                if (loading) return null
-                if (error) {
-                  console.log("Erro ao tentar baixar os dados!");
-                  return null
+            <Mutation
+              mutation={newFacility}
+              variables={{
+                area: Number(this.state.area),
+                depsArray: depsArray,
+                description: this.state.description,
+                facId: this.state.assetId,
+                lat: Number(this.state.latitude),
+                lon: Number(this.state.longitude),
+                name: this.state.assetName,
+                parent: this.state.assetParent,
+                place: this.state.assetParent
+              }}
+              update={(cache, { data: { insertFacility } }) => {
+                try{
+                  const data = cache.readQuery({ 
+                    query: facListQuery,
+                    variables: {
+                      category: "F"
+                    }
+                  });
+                  const id = insertFacility.assetId;
+                  const name = this.state.assetName;
+                  const parent = this.state.assetParent;
+                  const model = null;
+                  const manufacturer = null;
+                  const category = "F"
+                  const serialnum = null;
+                  const area = Number(this.state.area);
+
+                  data.allAssets.edges.push(
+                    {node: {
+                      area: area,
+                      assetByParent: {
+                        assetId: id,
+                        name: name,
+                        __typename: "Asset"
+                      },
+                      assetByPlace: {
+                        assetId: id,
+                        name: name,
+                        __typename: "Asset"
+                      },
+                      assetId: id,
+                      category: category,
+                      manufacturer: manufacturer,
+                      model: model,
+                      name: name,
+                      parent: parent,
+                      serialnum: serialnum,
+                      __typename: "Asset"
+                    },
+                    __typename: "AssetsEdge"
+                    })
+                  console.log(data)
+                  cache.writeQuery({
+                    query: facListQuery,
+                    variables: {
+                      category: "F"
+                    },
+                    data
+                  })
                 }
-                const depsID = data.allDepartments.edges.map((item) => item.node.departmentId);
-                const depsName = data.allDepartments.edges.map((item) => item.node.fullName);
-
-                const facID = data.allFacilities.edges.map((item) => item.node.assetId);
-                const facName = data.allFacilities.edges.map((item) => item.node.name);
-                //console.log(facID);
-                //console.log(facName);
-
-                const deps = [];
-                for (let i = 0; i < depsID.length; i++)
-                  deps.push({ id: depsID[i], text: depsName[i], subtext: depsID[i] });
-
-                const facs = [];
-                for (let i = 0; i < facID.length; i++)
-                  facs.push({ id: facID[i], text: facName[i], subtext: facID[i] });
-
+                catch(error){
+                  console.error(error);
+                }
+                }
+              }
+            >
+              {(mutation, { data, loading, error }) => {
+                if (loading) return null;
+                if (error) {
+                  console.log(error);
+                  return null;
+                }
                 return (
                   <div style={{ margin: "0 100px" }}>
                     <Form
@@ -197,7 +278,6 @@ class FacilitiesForm extends Component {
                         e.preventDefault();
                         mutate(mutation).then(() => {
                           this.props.history.push('/ativos/edificios');
-                          window.location.reload();
                         });
                       }}
                       onReset={() => this.props.history.push('/ativos/edificios')}
@@ -311,9 +391,9 @@ class FacilitiesForm extends Component {
                     </Form>
                   </div>
                 )
-              }}</Query>
+              }}</Mutation>
           )
-        }}</Mutation>
+        }}</Query>
     );
   }
 }

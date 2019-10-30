@@ -15,6 +15,7 @@ import { withRouter } from "react-router-dom";
 import "./List.css";
 
 import { equipmentConfig } from "./AssetsFakeData";
+import searchList from "../../utils/search/searchList";
 
 const hierarchyItem = require("../../assets/icons/tree_icon.png");
 const listItem = require("../../assets/icons/list_icon.png");
@@ -23,6 +24,15 @@ const searchItem = require("../../assets/icons/search_icon.png");
 const mapIcon = require("../../assets/icons/map.png");
 
 const ENTRIES_PER_PAGE = 15;
+const attributes = [
+  'assetId',
+  'name',
+  'assetByPlace.name',
+  'manufacturer',
+  'model',
+  'assetByParent.assetId',
+  'assetByParent.name'
+]
 
 class EquipmentsList extends Component {
   constructor(props) {
@@ -63,20 +73,7 @@ class EquipmentsList extends Component {
     const allEdges = allItems.allAssets.edges;
 
     let filteredItems = allEdges;
-    if (searchTerm.length > 0) {
-      const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = allEdges.filter(function (item) {
-        return (
-          item.node.assetId.toLowerCase().includes(searchTermLower) ||
-          item.node.name.toLowerCase().includes(searchTermLower) ||
-          item.node.assetByPlace.name.toLowerCase().includes(searchTermLower) ||
-          String(item.node.manufacturer).toLowerCase().includes(searchTermLower) ||
-          String(item.node.model).toLowerCase().includes(searchTermLower) ||
-          item.node.assetByParent.assetId.toLowerCase().includes(searchTermLower) ||
-          item.node.assetByParent.name.toLowerCase().includes(searchTermLower)
-        );
-      });
-    }
+    filteredItems = searchList(allEdges, attributes, searchTerm);
 
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);

@@ -4,7 +4,7 @@ import MainPage from "./containers/MainPage";
 const ConsumptionMonitor = React.lazy(() => import("./containers/ConsumptionMonitor"));
 const Dashboard = React.lazy(() => import("./containers/Dashboard"));
 const Login = React.lazy(() => import("./containers/Authentication/Login"));
-const RegisterUser = React.lazy(() => import("./containers/Authentication/RegisterUser"));
+// const RegisterUser = React.lazy(() => import("./containers/Authentication/RegisterUser"));
 const Profile = React.lazy(() => import("./containers/Authentication/Profile"));
 const Assets = React.lazy(() => import("./containers/Assets"));
 const WorkOrders = React.lazy(() => import("./containers/Maintenance/WorkOrders"));
@@ -29,7 +29,7 @@ const routes = [
   { path: "/", exact: true, component: MainPage },
   { path: "/painel", name: "Painel", component: Dashboard },
   { path: "/login", name: "Login", component: Login },
-  { path: "/cadastro", name: "Cadastro", component: RegisterUser },
+  // { path: "/cadastro", name: "Cadastro", component: RegisterUser },
   { path: "/perfil", name: "Perfil", component: Profile },
   // { path: "/energia", name: "Energia elétrica", component: ConsumptionMonitor },
   // { path: "/agua", name: "Água", component: ConsumptionMonitor },

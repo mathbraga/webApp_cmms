@@ -8,6 +8,12 @@ import {
 import "./InputWithDropdown.css";
 import 'react-virtualized/styles.css';
 import { List, AutoSizer } from 'react-virtualized';
+import searchList from '../../utils/search/searchList';
+
+const attributes = [
+  'subtext',
+  'text'
+];
 
 class SingleInputWithDropDown extends Component {
   constructor(props) {
@@ -171,11 +177,7 @@ class SingleInputWithDropDown extends Component {
     const { inputValue, isDropdownOpen, hoveredItem } = this.state;
     const inputId = 'input-list-' + this.props.id;
     const containerId = 'list-container-' + this.props.id;
-    const filteredList = listDropdown.filter((item) =>
-      (
-        item.text.toLowerCase().includes(inputValue.toLowerCase()) ||
-        item.subtext.toLowerCase().includes(inputValue.toLowerCase())
-      ));
+    const filteredList = searchList(listDropdown, attributes, inputValue);
 
     const hasSubtext = !(filteredList.every((item) => item.subtext === ""))
 
