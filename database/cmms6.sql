@@ -37,11 +37,11 @@ create schema private;
   Creating a role with a name that already exists in the cluster will lead to an error.
   This will not be a problem here since these commands are outside the transaction block.
 */
-create role administrator;
-create role supervisor;
-create role inspector;
-create role employee;
-create role visitor;
+-- create role administrator;
+-- create role supervisor;
+-- create role inspector;
+-- create role employee;
+-- create role visitor;
 
 -- set ON_ERROR_STOP to on
 \set ON_ERROR_STOP on
@@ -766,7 +766,7 @@ end; $$;
 
 create or replace function insert_team (
   in team_attributes teams,
-  in persons_array integer[]
+  in persons_array integer[],
   out new_team_id integer
 )
 language plpgsql

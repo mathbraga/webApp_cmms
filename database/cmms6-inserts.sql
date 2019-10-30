@@ -4222,13 +4222,14 @@ insert into contracts overriding system value values (2, 'CT00662019', null, 'EX
 insert into contracts overriding system value values (3, 'CT00812017', null, 'EXE', '2017-10-19', '2017-10-25', '2017-10-19', '2020-10-18', 'RCS Tecnologia Ltda.', 'Manutenção civil', 'Contratação de empresa especializada para a prestação de serviços continuados de manutenção preventiva e corretiva dos sistemas de revestimentos, vedações, forros, pinturas e pavimentação viária no Complexo Arquitetônico do SENADO FEDERAL, durante o período de 36 (trinta e seis) meses consecutivos.', 'https://www6g.senado.gov.br/transparencia/licitacoes-e-contratos/contratos/4213');
 insert into contracts overriding system value values (4, 'RP00072019', null, 'EXE', '2019-01-24', '2019-01-25', '2019-01-24', '2020-01-23', 'Connector Engenharia Ltda.', 'Insumos e serviços de engenharia', 'Contratação de empresa para fornecimento de insumos e serviços comuns de engenharia para reformas e obras no Complexo Arquitetônico do Senado Federal e nas áreas comuns do Congresso Nacional', 'https://www6g.senado.gov.br/transparencia/licitacoes-e-contratos/atas-de-registro-de-preco/1584');
 
-insert into persons overriding system value values (1, 'hzlopes@senado.leg.br', '00000000001', 'Henrique Zaidan Lopes', '2339', null, null);
-insert into persons overriding system value values (2, 'pedrohs@senado.leg.br', '00000000002', 'Pedro Henrique Serafim', '2339', null, null);
-insert into persons overriding system value values (3, 'matheus.braga@senado.leg.br', '00000000003', 'Matheus Oliveira Braga', '2339', null, null);
-insert into persons overriding system value values (4, 'odaniel@senado.leg.br', '00000000004', 'Daniel Araújo Pinto Teixeira', '2339', null, null);
-insert into persons overriding system value values (5, 'usuario1@senado.leg.br', '00000000005', 'Anônimo 1', '1111', null, null);
-insert into persons overriding system value values (6, 'usuario2@senado.leg.br', '00000000006', 'Anônimo 2', '2222', null, null);
-insert into persons overriding system value values (7, 'usuario3@senado.leg.br', '00000000007', 'Anônimo 3', '3333', null, 1);
+insert into persons overriding system value values (1, '00000000001', 'hzlopes@senado.leg.br', 'Henrique Zaidan Lopes', '2339', null, null);
+insert into persons overriding system value values (2, '00000000002', 'pedrohs@senado.leg.br', 'Pedro Henrique Serafim', '2339', null, null);
+insert into persons overriding system value values (3, '00000000003', 'matheus.braga@senado.leg.br', 'Matheus Oliveira Braga', '2339', null, null);
+insert into persons overriding system value values (4, '00000000004', 'odaniel@senado.leg.br', 'Daniel Araújo Pinto Teixeira', '2339', null, null);
+insert into persons overriding system value values (5, '00000000005', 'usuario1@senado.leg.br', 'Anônimo 1', '1111', null, null);
+insert into persons overriding system value values (6, '00000000006', 'usuario2@senado.leg.br', 'Anônimo 2', '2222', null, null);
+insert into persons overriding system value values (7, '00000000007', 'usuario3@senado.leg.br', 'Anônimo 3', '3333', null, 1);
+
 
 insert into private.accounts values (1, crypt('123456', gen_salt('bf', 10)), true, 'administrator');
 insert into private.accounts values (2, crypt('123456', gen_salt('bf', 10)), true, 'administrator');
