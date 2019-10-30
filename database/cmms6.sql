@@ -1301,7 +1301,7 @@ end; $$;
 
 ---------------------------------------------------------------------------------
 -- run file with insert commands and comments (this file should have win1252 encoding)
--- \i insertswin1252.sql
+\i cmms6-inserts-win1252.sql
 -- Content of inserts file:
 -- -- set variable auth.data.person_id to allow log of initial rows insertions
 -- -- insert rows into tables
