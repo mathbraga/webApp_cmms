@@ -28,10 +28,21 @@ import gql from 'graphql-tag';
 
 import { equipmentItems, equipmentConfig } from "./AssetsFakeData";
 
+import searchList from "../../utils/search/searchList";
+
 const mapIcon = require("../../assets/icons/map.png");
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
+
+const attributes = [
+  'orderId',
+  'orderByOrderId.requestTitle',
+  'orderByOrderId.requestLocal',
+  'orderByOrderId.status',
+  'orderByOrderId.priority',
+  'orderByOrderId.dateLimit'
+]
 
 const tableConfig = [
   { name: "OS", style: { width: "50px" }, className: "text-center" },
@@ -137,24 +148,7 @@ class EquipmentInfo extends Component {
     edges.forEach(item => statusCounter[item.node.orderByOrderId.status] += 1);
     const totalOS = edges.length;
 
-    let filteredItems = edges;
-    if (searchTerm.length > 0) {
-      const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = edges.filter(function (item) {
-
-        const dateLimit = item.node.orderByOrderId.dateLimit === null ? "" : item.node.orderByOrderId.dateLimit;
-
-        return (
-          // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
-          String((item.node.orderId + "").padStart(4, "0")).includes(searchTermLower) ||
-          item.node.orderByOrderId.requestTitle.toLowerCase().includes(searchTermLower) ||
-          item.node.orderByOrderId.requestLocal.toLowerCase().includes(searchTermLower) ||
-          ORDER_STATUS_TYPE[item.node.orderByOrderId.status].toLowerCase().includes(searchTermLower) ||
-          ORDER_PRIORITY_TYPE[item.node.orderByOrderId.priority].toLowerCase().includes(searchTermLower) ||
-          String(dateLimit).includes(searchTermLower)
-        );
-      });
-    }
+    const filteredItems = searchList(edges, attributes, searchTerm);
 
     const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);

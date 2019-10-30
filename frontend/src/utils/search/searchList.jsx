@@ -26,18 +26,27 @@ const ORDER_STATUS_TYPE = {
   'CON': 'Concluída',
 }
 
+const ORDER_PRIORITY_TYPE = {
+  'BAI': 'Baixa',
+  'NOR': 'Normal',
+  'ALT': 'Alta',
+  'URG': 'Urgente',
+};
+
 function findItem(items, attributes, term){
   const result = items.filter((item) => {
     for(let i = 0; i < attributes.length; i++){
+      const relevantName = attributes[i].split('.').pop();
+      const attributeRoot = attributes[i].split('.')[0];
       let value = [];
-      if(attributes[i] === 'subtext' || attributes[i] === 'text')
+      if(attributes[i] === 'subtext' || attributes[i] === 'text' || attributeRoot === 'assetByAssetId')
         value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item);
       else
         value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item.node);
 
-      switch (attributes[i]) {
+      switch (relevantName) {
         case 'orderId':
-          value = String(value).padStart(3, "0");
+          value = String(value).padStart(4, "0");
           break;
         case 'category':
           value = ORDER_CATEGORY_TYPE[value];
@@ -45,13 +54,15 @@ function findItem(items, attributes, term){
         case 'status':
           value = ORDER_STATUS_TYPE[value];
           break;
+        case 'priority':
+          value = ORDER_PRIORITY_TYPE[value];
+          break;
       }
       if(String(value).toLowerCase().includes(term)){
         return String(value).toLowerCase().includes(term);
       }
     }
   })
-  console.log(result);
   return result;
 }
 
@@ -63,15 +74,17 @@ export default function searchList(itemsList, attributes, searchTerm){
   if(searchTermLower.length === 1){
     filteredItems = itemsList.filter((item) => {
       for(let i = 0; i < attributes.length; i++){
+        const relevantName = attributes[i].split('.').pop();
+        const attributeRoot = attributes[i].split('.')[0];
         let value = [];
-        if(attributes[i] === 'subtext' || attributes[i] === 'text')
+        if(attributes[i] === 'subtext' || attributes[i] === 'text' || attributeRoot === 'assetByAssetId')
           value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item);
         else
           value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item.node);
-          
-        switch (attributes[i]) {
+
+        switch (relevantName) {
           case 'orderId':
-            value = String(value).padStart(3, "0");
+            value = String(value).padStart(4, "0");
             break;
           case 'category':
             value = ORDER_CATEGORY_TYPE[value];
@@ -79,6 +92,9 @@ export default function searchList(itemsList, attributes, searchTerm){
           case 'status':
             value = ORDER_STATUS_TYPE[value];
             break;
+          case 'priority':
+              value = ORDER_PRIORITY_TYPE[value];
+              break;
         }
         if(String(value).toLowerCase().includes(searchTermLower[0]))
           return String(value).toLowerCase().includes(searchTermLower[0]);
