@@ -66,7 +66,7 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "simple-line-icons": "^2.4.1",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
     "subscriptions-transport-ws": "^0.9.16"
   },
   "devDependencies": {
