@@ -14,7 +14,7 @@ import AssetCard from "../../components/Cards/AssetCard";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
-import { contracts } from "./FakeData";
+// import { contracts } from "./FakeData";
 
 const tableConfig = [
   { name: "Número", style: { width: "100px" }, className: "text-center" },
@@ -28,13 +28,7 @@ const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
 
-// const contractsQuery = gql`
-//       query ContractsQuery {
-//         allContracts(orderBy: ORDER_ID_ASC) {
-//         }
-//       }`;
-
-class ContractList extends Component {
+class ContractsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -67,7 +61,7 @@ class ContractList extends Component {
   }
 
   render() {
-    const allItems = contracts;
+    const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
     let filteredItems = allItems;
@@ -75,9 +69,9 @@ class ContractList extends Component {
       const searchTermLower = searchTerm.toLowerCase();
       filteredItems = allItems.filter(function (item) {
         return (
-          (String(item.id).includes(searchTermLower)) ||
-          (String(item.finalDate).includes(searchTermLower)) ||
-          (item.title.toLowerCase().includes(searchTermLower)) ||
+          (item.contractSf.includes(searchTermLower)) ||
+          (item.title.includes(searchTermLower)) ||
+          // (item.title.toLowerCase().includes(searchTermLower)) ||
           (item.company.toLowerCase().includes(searchTermLower))
         );
       });
@@ -98,22 +92,28 @@ class ContractList extends Component {
 
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/gestao/contratos/view/' + item.id) }}
+        onClick={() => { this.props.history.push('/gestao/contratos/view/' + item.contractSf) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-        <td className="text-center">{item.id}</td>
+        <td className="text-center">{item.contractSf}</td>
         <td>
           <div>{item.title}</div>
           <div className="small text-muted">{item.company}</div>
         </td>
         <td className="text-center">{item.status}</td>
         <td>
-          <div className="text-center">{item.finalDate}</div>
+          <div className="text-center">{item.dateStart + ' a ' + item.finalDate}</div>
         </td>
         <td>
           <div className="text-center">
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
             {"Link"}
-          </div>
+            </a>
+          </div>  
         </td>
       </tr>))
 
@@ -166,4 +166,4 @@ class ContractList extends Component {
   }
 }
 
-export default withRouter(ContractList);
+export default withRouter(ContractsList);
