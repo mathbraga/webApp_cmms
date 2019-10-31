@@ -16,7 +16,7 @@ import {
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
-import { locationConfig } from "./AssetsFakeData";
+import { facilityConfig } from "./AssetsFakeData";
 import searchList from "../../utils/search/searchList";
 
 const hierarchyItem = require("../../assets/icons/tree_icon.png");
@@ -27,14 +27,14 @@ const mapIcon = require("../../assets/icons/map.png");
 
 const ENTRIES_PER_PAGE = 15;
 const attributes = [
-  'assetId',
+  'assetSf',
   'name',
-  'parent',
-  'area'
+  // 'parent',
+  'area',
 ];
 
 const filterAttributes = {
-  asset_sf: { name: 'Código', type: 'text' },
+  assetSf: { name: 'Código', type: 'text' },
   name: { name: 'Nome', type: 'text' },
   description: { name: 'Descrição', type: 'text' },
   area: { name: 'Área', type: 'number' }
@@ -99,21 +99,21 @@ class FacilitiesList extends Component {
         <th className="text-center checkbox-cell">
           <CustomInput type="checkbox" />
         </th>
-        {locationConfig.map(column => (
+        {facilityConfig.map(column => (
           <th style={column.style} className={column.className}>{column.description}</th>))
         }
       </tr>
 
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/ativos/view/' + item.node.assetId) }}
+        onClick={() => { this.props.history.push('/ativos/view/' + item.node.assetSf) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
           <div>{item.node.name}</div>
-          <div className="small text-muted">{item.node.assetId}</div>
+          <div className="small text-muted">{item.node.assetSf}</div>
         </td>
-        <td className="text-center">{item.node.parent}</td>
+        {/* <td className="text-center">{item.node.parent}</td> */}
         <td>
           <div className="text-center">{item.node.area}</div>
         </td>

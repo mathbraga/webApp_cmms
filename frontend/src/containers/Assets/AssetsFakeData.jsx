@@ -1,6 +1,6 @@
-export const locationConfig = [
-  { name: "location", description: "Localização", style: { width: "35%" }, className: "" },
-  { name: "parend_id", description: "Ativo Pai", style: { width: "20%" }, className: "text-center" },
+export const facilityConfig = [
+  { name: "location", description: "Ativo", style: { width: "35%" }, className: "" },
+  // { name: "parend_id", description: "Ativo Pai", style: { width: "20%" }, className: "text-center" },
   { name: "area", description: "Área", style: { width: "15%" }, className: "text-center" },
   { name: "map", description: "Planta", style: { width: "10%" }, className: "text-center" }
 ];

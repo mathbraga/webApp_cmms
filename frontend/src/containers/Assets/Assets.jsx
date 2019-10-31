@@ -22,22 +22,22 @@ class Assets extends Component {
         allAssets(condition: {category: $category}, orderBy: ASSET_ID_ASC) {
           edges {
             node {
-              parent
+              # parent
               name
               model
               manufacturer
-              assetId
+              assetSf
               category
               serialnum
               area
-              assetByPlace {
-                assetId
-                name
-              }
-              assetByParent {
-                name
-                assetId
-              }
+              # assetByPlace {
+              #  assetId
+              #  name
+              # }
+              # assetByParent {
+              #  name
+              #  assetId
+              # }
             }
           }
         }
