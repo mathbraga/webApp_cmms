@@ -62,7 +62,7 @@ export default {
           icon: "fa fa-file-text-o"
         },
         {
-          name: "Materias e Serviços",
+          name: "Espec. Técnicas",
           url: "/gestao/servicos",
           icon: "icon-list"
         },

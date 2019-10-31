@@ -14,26 +14,20 @@ import AssetCard from "../../components/Cards/AssetCard";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
-import { materials } from "./FakeData";
+// import { materials } from "./FakeData";
 
 const tableConfig = [
   { name: "Material / Serviço", style: { width: "300px" }, className: "text-justify" },
   { name: "Categoria", style: { width: "200px" }, className: "text-center" },
   { name: "Subcategoria", style: { width: "200px" }, className: "text-center" },
-  { name: "Disponível", style: { width: "100px" }, className: "text-center" },
+  // { name: "Disponível", style: { width: "100px" }, className: "text-center" },
 ];
 
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
 
-// const contractsQuery = gql`
-//       query ContractsQuery {
-//         allContracts(orderBy: ORDER_ID_ASC) {
-//         }
-//       }`;
-
-class ContractList extends Component {
+class SpecsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +60,7 @@ class ContractList extends Component {
   }
 
   render() {
-    const allItems = materials;
+    const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
     let filteredItems = allItems;
@@ -102,26 +96,26 @@ class ContractList extends Component {
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
           <div>{item.name}</div>
-          <div className="small text-muted">{item.id}</div>
+          <div className="small text-muted">{item.specSf}</div>
         </td>
         <td className="text-center">{item.category}</td>
         <td>
           <div className="text-center">{item.subcategory}</div>
         </td>
-        <td>
+        {/* <td>
           <div className="text-center">
             {item.qtd.toString() + " " + item.unit}
           </div>
-        </td>
+        </td> */}
       </tr>))
 
     return (
       <div className="card-container">
         <AssetCard
-          sectionName={'Materiais e Serviços'}
-          sectionDescription={'Lista com os materiais e serviços contratados'}
+          sectionName={'Especificações Técnicas'}
+          sectionDescription={'Lista de especiicações técnicas'}
           handleCardButton={this.handleURLChange}
-          buttonName={'Cadastrar Serviço'}
+          buttonName={'Cadastrar Especificação Técnica'}
         >
           <div className="card-search-container">
             <div className="search" style={{ width: "30%" }}>
@@ -164,4 +158,4 @@ class ContractList extends Component {
   }
 }
 
-export default withRouter(ContractList);
+export default withRouter(SpecsList);
