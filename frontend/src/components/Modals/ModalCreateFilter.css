@@ -35,3 +35,23 @@
 .remove-input {
   display: none;
 }
+
+.result-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.result-box,
+.logic-box {
+  background: #253675;
+  border-radius: 6px;
+  padding: 5px 20px;
+  margin: 3px;
+  color: white;
+  font-size: 14px;
+}
+
+.logic-box {
+  background: #129012;
+}

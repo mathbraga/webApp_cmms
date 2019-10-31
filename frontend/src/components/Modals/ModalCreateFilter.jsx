@@ -237,6 +237,19 @@ class ModalCreateFilter extends Component {
               <div className="filter-title">
                 Resultado
               </div>
+              <div className="filter-container-body">
+                <div className="result-container">
+                  <div className="result-box">
+                    Descrição contém ["bloco" e "14"]
+                </div>
+                  <div className="logic-box">
+                    E
+                </div>
+                  <div className="result-box">
+                    Área maior do que 100
+                </div>
+                </div>
+              </div>
             </div>
           </div>
         </ModalBody>
