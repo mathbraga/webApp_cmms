@@ -14,11 +14,11 @@ import AssetCard from "../../components/Cards/AssetCard";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
-import { persons } from "./FakeData";
+// import { persons } from "./FakeData";
 
 const tableConfig = [
   { name: "Nome", style: { width: "300px" }, className: "text-justify" },
-  { name: "Contrato", style: { width: "150px" }, className: "text-center" },
+  // { name: "Contrato", style: { width: "150px" }, className: "text-center" },
   { name: "Telefone", style: { width: "150px" }, className: "text-center" },
   { name: "E-mail", style: { width: "200px" }, className: "text-center" },
 ];
@@ -27,13 +27,7 @@ const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
 
-// const contractsQuery = gql`
-//       query ContractsQuery {
-//         allContracts(orderBy: ORDER_ID_ASC) {
-//         }
-//       }`;
-
-class ContractList extends Component {
+class PersonsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +60,7 @@ class ContractList extends Component {
   }
 
   render() {
-    const allItems = persons;
+    const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
     let filteredItems = allItems;
@@ -74,10 +68,10 @@ class ContractList extends Component {
       const searchTermLower = searchTerm.toLowerCase();
       filteredItems = allItems.filter(function (item) {
         return (
-          (String(item.id).includes(searchTermLower)) ||
-          (String(item.subcategory).includes(searchTermLower)) ||
-          (item.name.toLowerCase().includes(searchTermLower)) ||
-          (item.category.toLowerCase().includes(searchTermLower))
+          (item.name.includes(searchTermLower)) ||
+          (item.cpf.includes(searchTermLower)) ||
+          (item.email.toLowerCase().includes(searchTermLower))// ||
+          // (item.category.toLowerCase().includes(searchTermLower))
         );
       });
     }
@@ -101,9 +95,9 @@ class ContractList extends Component {
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
           <div>{item.name}</div>
-          <div className="small text-muted">{item.type}</div>
+          <div className="small text-muted">{item.cpf}</div>
         </td>
-        <td className="text-center">{item.contract}</td>
+        {/* <td className="text-center">{item.contract}</td> */}
         <td>
           <div className="text-center">{item.phone}</div>
         </td>
@@ -163,4 +157,4 @@ class ContractList extends Component {
   }
 }
 
-export default withRouter(ContractList);
+export default withRouter(PersonsList);

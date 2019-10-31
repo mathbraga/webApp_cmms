@@ -20,7 +20,7 @@ const OrderForm = React.lazy(() => import("./containers/Maintenance/OrderForm"))
 const Error404 = React.lazy(() => import("./containers/MainPage/Error404"));
 const Groups = React.lazy(() => import("./containers/Teams/GroupList"));
 const GroupView = React.lazy(() => import("./containers/Teams/GroupView"));
-const Persons = React.lazy(() => import("./containers/Teams/PersonList"));
+const Persons = React.lazy(() => import("./containers/Teams/Persons"));
 const PersonView = React.lazy(() => import("./containers/Teams/PersonView"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
