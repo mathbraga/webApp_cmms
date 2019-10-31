@@ -25,13 +25,13 @@ const mapIcon = require("../../assets/icons/map.png");
 
 const ENTRIES_PER_PAGE = 15;
 const attributes = [
-  'assetId',
+  'assetSf',
   'name',
-  'assetByPlace.name',
+  // 'assetByPlace.name',
   'manufacturer',
   'model',
-  'assetByParent.assetId',
-  'assetByParent.name'
+  // 'assetByParent.assetId',
+  // 'assetByParent.name'
 ]
 
 class EquipmentsList extends Component {
@@ -90,17 +90,17 @@ class EquipmentsList extends Component {
 
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/ativos/view/' + item.node.assetId) }}
+        onClick={() => { this.props.history.push('/ativos/view/' + item.node.assetSf) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
           <div>{item.node.name}</div>
-          <div className="small text-muted">{item.node.assetId}</div>
+          <div className="small text-muted">{item.node.assetSf}</div>
         </td>
-        <td className="text-center">{item.node.assetByPlace.name}</td>
+        {/* <td className="text-center">{item.node.assetByPlace.name}</td> */}
         <td className="text-center">{item.node.manufacturer}</td>
         <td className="text-center">{item.node.model}</td>
-        <td className="text-center">{item.node.assetByParent.assetId}</td>
+        {/* <td className="text-center">{item.node.assetByParent.assetId}</td> */}
       </tr>))
 
     return (

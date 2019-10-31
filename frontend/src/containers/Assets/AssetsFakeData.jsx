@@ -7,8 +7,8 @@ export const facilityConfig = [
 
 export const equipmentConfig = [
   { name: "equipment", description: "Equipamento", style: { width: "30%" }, className: "" },
-  { name: "local", description: "Localização", style: { width: "15%" }, className: "text-center" },
+  // { name: "local", description: "Localização", style: { width: "15%" }, className: "text-center" },
   { name: "manufacturer", description: "Fabricante", style: { width: "10%" }, className: "text-center" },
   { name: "model", description: "Modelo", style: { width: "10%" }, className: "text-center" },
-  { name: "parent_id", description: "Ativo Pai", style: { width: "10%" }, className: "text-center" },
+  // { name: "parent_id", description: "Ativo Pai", style: { width: "10%" }, className: "text-center" },
 ];
