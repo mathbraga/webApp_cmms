@@ -44,14 +44,16 @@
 
 .result-box,
 .logic-box {
-  background: #253675;
+  background: #eaeaea;
+  border: 1px solid #c1c1c1;
   border-radius: 6px;
   padding: 5px 20px;
   margin: 3px;
-  color: white;
+  color: black;
   font-size: 14px;
 }
 
 .logic-box {
-  background: #129012;
+  background: #edffed;
+  border: 1px solid #a0c7a0;
 }
