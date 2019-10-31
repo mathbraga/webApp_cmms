@@ -1,38 +1,36 @@
 import React, { Component } from "react";
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import PersonsList from './PersonsList';
+import TeamsList from './TeamsList';
 import { Switch, Route } from "react-router-dom";
 
-class Persons extends Component {
+class Teams extends Component {
   render() {
-    const fetchAssets = gql`
-      query PersonsQuery {
-        allPeople(orderBy: NAME_ASC) {
+    const fetchTeams = gql`
+      query TeamsQuery {
+        allTeams(orderBy: NAME_ASC) {
           nodes {
-            cpf
-            email
             name
-            phone
+            description
           }
         }
       }
     `;
     return (
       <Query
-        query={fetchAssets}
+        query={fetchTeams}
       >{
           ({ loading, error, data }) => {
             if (loading) return null
             if (error) {
               return null
             }
-            const persons = data.allPeople.nodes;
+            const teams = data.allTeams.nodes;
 
             return (
               <React.Fragment>
-                <PersonsList
-                  allItems={persons}
+                <TeamsList
+                  allItems={teams}
                 />
               </React.Fragment>
             )
@@ -42,4 +40,4 @@ class Persons extends Component {
   }
 }
 
-export default Persons;
+export default Teams;

@@ -95,7 +95,7 @@ class PersonsList extends Component {
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
           <div>{item.name}</div>
-          <div className="small text-muted">{item.cpf}</div>
+          <div className="small text-muted">{"CPF: " + item.cpf}</div>
         </td>
         {/* <td className="text-center">{item.contract}</td> */}
         <td>
@@ -111,10 +111,10 @@ class PersonsList extends Component {
     return (
       <div className="card-container">
         <AssetCard
-          sectionName={'Materiais e Serviços'}
-          sectionDescription={'Lista com os materiais e serviços contratados'}
+          sectionName={'Pessoas'}
+          sectionDescription={'Lista de usuários do webSINFRA'}
           handleCardButton={this.handleURLChange}
-          buttonName={'Cadastrar Serviço'}
+          buttonName={'Cadastrar Pessoa'}
         >
           <div className="card-search-container">
             <div className="search" style={{ width: "30%" }}>
