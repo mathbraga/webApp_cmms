@@ -148,12 +148,15 @@ class ModalCreateFilter extends Component {
       option: null,
       inputBasedOnOperator: 'nothing',
     };
-    console.log(props.filterLogic)
   }
 
-  updateValue = (param) => (itemId) => {
+  updateAttribute = () => (itemId) => {
     this.setState(
-      { [param]: itemId }
+      {
+        attribute: itemId,
+        operator: null,
+        inputBasedOnOperator: 'nothing',
+      }
     );
   }
 
@@ -161,6 +164,16 @@ class ModalCreateFilter extends Component {
     this.setState({
       operator: event.target.value,
       inputBasedOnOperator: filterOperations[type][event.target.value].optionsType,
+    });
+  }
+
+  cleanState = () => {
+    this.setState({
+      filterName: '',
+      attribute: null,
+      operator: null,
+      option: null,
+      inputBasedOnOperator: 'nothing',
     });
   }
 
@@ -233,7 +246,7 @@ class ModalCreateFilter extends Component {
                     withLabel={false}
                     listDropdown={listDropdown}
                     required
-                    update={this.updateValue('attribute')}
+                    update={this.updateAttribute()}
                     value={this.state.attribute && attributes[this.state.attribute].name}
                   />
                 </Col>
@@ -255,10 +268,13 @@ class ModalCreateFilter extends Component {
                     type="select"
                     name="attribute"
                     id="attribute"
-                    onClick={this.handleInputSelectClick(type)}
+                    onChange={this.handleInputSelectClick(type)}
                   >
-                    {this.state.attribute && Object.keys(filterOperations[type]).map(option => (
-                      <option value={option} >{filterOperations[type][option].description}</option>
+                    <option value selected style={{ display: 'none' }}></option>
+                    {this.state.attribute && Object.keys(filterOperations[type]).map((option) => (
+                      <option value={option}>
+                        {filterOperations[type][option].description}
+                      </option>
                     ))}
                   </Input>
                 </Col>
@@ -284,8 +300,8 @@ class ModalCreateFilter extends Component {
           </div>
         </ModalBody>
         <ModalFooter className={'filter-footer'}>
-          <Button color="success">Criar Filtro</Button>
-          <Button color="danger" onClick={toggle}>Cancelar</Button>
+          <Button color="success" onClick={() => { this.cleanState(); }}>Criar Filtro</Button>
+          <Button color="danger" onClick={() => { toggle(); this.cleanState(); }}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     );
