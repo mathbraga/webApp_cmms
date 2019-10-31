@@ -81,7 +81,25 @@ const inputBasedOnOperator = (type, options = null) => ({
       id="filterInput"
     />
   ),
-  twoNumbers: null,
+  twoNumbers: (
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <Input
+        type="text"
+        name="filterInput"
+        id="filterInput"
+        style={{ marginBottom: "5px" }}
+      />
+      <span>E</span>
+      <Input
+        type="text"
+        name="filterInput"
+        id="filterInput"
+        style={{ marginTop: "5px" }}
+      />
+    </div>
+  ),
 }[type]);
 
 class ModalCreateFilter extends Component {
