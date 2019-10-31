@@ -175,6 +175,7 @@ class FacilitiesList extends Component {
             toggle={this.toggle}
             modal={this.state.modalFilter}
             attributes={filterAttributes}
+            filterLogic={this.state.filterLogic}
           />
         </AssetCard >
       </div>

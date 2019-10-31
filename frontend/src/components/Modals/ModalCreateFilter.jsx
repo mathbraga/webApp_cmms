@@ -39,6 +39,42 @@ const filterOperations = {
   },
 };
 
+const filterResultUI = (filterLogic, attributes, operators) => {
+  const resultUI = [];
+  const termUIOperators = {
+    selectMany: 'ou',
+    text: 'e',
+    twoNumbers: 'e',
+  };
+
+  filterLogic.forEach(logic => {
+    const { type, attribute, verb, term } = logic;
+    if (type === 'att') {
+      const attUI = attributes[attribute].name;
+      const attType = attributes[attribute].type;
+      const verbUI = operators[attType][verb].description;
+      const termOptionsType = operators[attType][verb].optionsType;
+      const termUIOperator = termUIOperators[termOptionsType];
+      const termUI = '"' + term.reduce((acc, next) => (acc + '" ' + termUIOperator + ' "' + next.toString())).toUpperCase() + '"';
+      resultUI.push(
+        <div className="result-box">
+          {attUI + ' ' + verbUI + ' ' + termUI}
+        </div>
+      );
+    }
+    else if (type === 'opr') {
+      const oprUI = logic.verb === 'and' ? 'E' : (logic.verb === 'or' ? 'OU' : '');
+      resultUI.push(
+        <div className="logic-box">
+          {oprUI}
+        </div>
+      )
+    }
+  });
+
+  return resultUI;
+}
+
 const inputBasedOnOperator = (type, options = null) => ({
   selectMany: (
     <Input
@@ -112,6 +148,7 @@ class ModalCreateFilter extends Component {
       option: null,
       inputBasedOnOperator: 'nothing',
     };
+    console.log(props.filterLogic)
   }
 
   updateValue = (param) => (itemId) => {
@@ -131,7 +168,8 @@ class ModalCreateFilter extends Component {
     const {
       toggle,
       modal,
-      attributes
+      attributes,
+      filterLogic
     } = this.props;
 
     const type = this.state.attribute && attributes[this.state.attribute].type;
@@ -239,15 +277,7 @@ class ModalCreateFilter extends Component {
               </div>
               <div className="filter-container-body">
                 <div className="result-container">
-                  <div className="result-box">
-                    Descrição contém ["bloco" e "14"]
-                </div>
-                  <div className="logic-box">
-                    E
-                </div>
-                  <div className="result-box">
-                    Área maior do que 100
-                </div>
+                  {filterResultUI(filterLogic, attributes, filterOperations)}
                 </div>
               </div>
             </div>
