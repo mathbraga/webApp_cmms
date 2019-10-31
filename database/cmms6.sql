@@ -364,7 +364,8 @@ create table specs (
   name text not null,
   category text not null, -- enum or reference to a table
   subcategory text not null, -- enum or reference to a table
-  unit text not null,
+  unit text not null, -- enum or reference to a table??? --> no
+  allow_decimals boolean not null, -- function of unit?
   description text,
   materials text,
   services text,
@@ -390,7 +391,6 @@ create table supplies (
   contract_id integer not null references contracts (contract_id),
   spec_id integer not null references specs (spec_id),
   qty real not null,
-  is_qty_real boolean not null,
   bid_price money not null,
   full_price money,
   unique (contract_id, supply_sf)
