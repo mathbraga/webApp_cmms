@@ -31,23 +31,21 @@ class WorkOrders extends Component {
           edges {
             node {
               category
-              requestPerson
+              createdBy
               status
-              requestText
+              title
+              description
               orderId
               createdAt
               dateLimit
-              requestTitle
-              requestLocal
+              place
               priority
               orderAssetsByOrderId {
                 edges {
                   node {
                     assetByAssetId {
-                      assetByPlace {
-                        name
-                        assetId
-                      }
+                      assetSf
+                      name
                     }
                   }
                 }

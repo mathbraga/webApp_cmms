@@ -29,8 +29,8 @@ const attributes = [
   'orderId',
   'dateLimit',
   'status',
-  'requestTitle',
-  'requestLocal'
+  'title',
+  'place'
 ]
 
 const ORDER_CATEGORY_TYPE = {
@@ -118,7 +118,7 @@ class WorkOrdersList extends Component {
     showItems.forEach(item => {
       const tempPlaces = []
       item.node.orderAssetsByOrderId.edges.forEach(asset => {
-        tempPlaces.push(asset.node.assetByAssetId.assetByPlace);
+        tempPlaces.push(asset.node.assetByAssetId.assetSf);
       });
       if (tempPlaces.length > 0) { places[item.node.orderId] = tempPlaces; }
     });
@@ -141,7 +141,7 @@ class WorkOrdersList extends Component {
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td className="text-center">{item.node.orderId.toString().padStart(3,"0")}</td>
         <td>
-          <div>{item.node.requestTitle}</div>
+          <div>{item.node.title}</div>
           <div className="small text-muted">{ORDER_CATEGORY_TYPE[item.node.category]}</div>
         </td>
         <td className="text-center">{ORDER_STATUS_TYPE[item.node.status]}</td>
@@ -150,7 +150,7 @@ class WorkOrdersList extends Component {
         </td>
         <td>
           <div className="text-center">
-            {item.node.requestLocal}
+            {item.node.place}
           </div>
         </td>
       </tr>))

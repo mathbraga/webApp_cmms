@@ -8,7 +8,6 @@ const Login = React.lazy(() => import("./containers/Authentication/Login"));
 const Profile = React.lazy(() => import("./containers/Authentication/Profile"));
 const Assets = React.lazy(() => import("./containers/Assets"));
 const WorkOrders = React.lazy(() => import("./containers/Maintenance/WorkOrders"));
-const NewWorkOrderForm = React.lazy(() => import("./containers/Maintenance/NewWorkOrderForm"));
 const WorkOrderView = React.lazy(() => import("./containers/Maintenance/WorkOrderView"));
 const Contracts = React.lazy(() => import("./containers/Contracts/ContractList"));
 const ContractView = React.lazy(() => import("./containers/Contracts/ContractView"));
