@@ -2,13 +2,13 @@
 \c hzl
 
 -- drop database
-drop database if exists cmms6;
+drop database if exists cmms7;
 
 -- create new database
-create database cmms6 with owner postgres template template0 encoding 'win1252';
+create database cmms7 with owner postgres template template0 encoding 'win1252';
 
 -- connect to the new database
-\c cmms6
+\c cmms7
 
 -- create extensions
 create extension if not exists pgcrypto;
