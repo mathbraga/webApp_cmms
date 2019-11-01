@@ -1,4 +1,4 @@
-const client = require('../pgclient');
+const { pgClient } = require('../config');
 const CronJob = require('cron').CronJob;
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
@@ -15,7 +15,7 @@ module.exports = new CronJob(
     // Scheduled query to be sent to database:
     // let data;
     //   try {
-    //     data = await client.query('select now()');
+    //     data = await pgClient.query('select now()');
     //   }
     //   catch (error) {
     //     console.log(error);
@@ -23,7 +23,7 @@ module.exports = new CronJob(
     // console.log(data.rows[0]);
     
     // Scheduled bash command:
-    // const { stdout, stderr } = await exec('pg_dump -f dumps/cmms5.sql -d cmms5');
+    // const { stdout, stderr } = await exec('pg_dump -f dumps/dump.sql -d ' + process.env.DB_DBNAME);
     // console.log('Scheduled pg_dump executed.')
     // console.log('stdout:', stdout);
     // console.log('stderr:', stderr);

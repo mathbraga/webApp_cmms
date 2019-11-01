@@ -19,25 +19,25 @@ class Assets extends Component {
     const category = this.props.location.pathname.slice(8) === "edificios" ? "F" : "A";
     const fetchAssets = gql`
       query assetsQuery($category: AssetCategoryType!) {
-        allAssets(condition: {category: $category}, orderBy: ASSET_ID_ASC) {
+        allAssets(condition: {category: $category}, orderBy: ASSET_SF_ASC) {
           edges {
             node {
-              parent
+              # parent
               name
               model
               manufacturer
-              assetId
+              assetSf
               category
               serialnum
               area
-              assetByPlace {
-                assetId
-                name
-              }
-              assetByParent {
-                name
-                assetId
-              }
+              # assetByPlace {
+              #  assetId
+              #  name
+              # }
+              # assetByParent {
+              #  name
+              #  assetId
+              # }
             }
           }
         }

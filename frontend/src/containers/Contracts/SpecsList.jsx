@@ -14,25 +14,20 @@ import AssetCard from "../../components/Cards/AssetCard";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
-import { groups } from "./FakeData";
+// import { materials } from "./FakeData";
 
 const tableConfig = [
-  { name: "Descrição", style: { width: "400px" }, className: "text-justify" },
-  { name: "Nome", style: { width: "150px" }, className: "text-center" },
-  { name: "Status", style: { width: "100px" }, className: "text-center" }
+  { name: "Material / Serviço", style: { width: "300px" }, className: "text-justify" },
+  { name: "Categoria", style: { width: "200px" }, className: "text-center" },
+  { name: "Subcategoria", style: { width: "200px" }, className: "text-center" },
+  // { name: "Disponível", style: { width: "100px" }, className: "text-center" },
 ];
 
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
 
-// const contractsQuery = gql`
-//       query ContractsQuery {
-//         allContracts(orderBy: ORDER_ID_ASC) {
-//         }
-//       }`;
-
-class ContractList extends Component {
+class SpecsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,11 +56,11 @@ class ContractList extends Component {
   }
 
   handleURLChange() {
-    this.props.history.push('/gestao/contratos/novo');
+    this.props.history.push('/gestao/servicos/novo');
   }
 
   render() {
-    const allItems = groups;
+    const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
     let filteredItems = allItems;
@@ -74,9 +69,9 @@ class ContractList extends Component {
       filteredItems = allItems.filter(function (item) {
         return (
           (String(item.id).includes(searchTermLower)) ||
-          (String(item.finalDate).includes(searchTermLower)) ||
-          (item.title.toLowerCase().includes(searchTermLower)) ||
-          (item.company.toLowerCase().includes(searchTermLower))
+          (String(item.subcategory).includes(searchTermLower)) ||
+          (item.name.toLowerCase().includes(searchTermLower)) ||
+          (item.category.toLowerCase().includes(searchTermLower))
         );
       });
     }
@@ -96,23 +91,31 @@ class ContractList extends Component {
 
     const tbody = showItems.map(item => (
       <tr
+        onClick={() => { this.props.history.push('/gestao/servicos/view/' + item.id) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
-          <div>{item.description}</div>
-          <div className="small text-muted">{item.name}</div>
+          <div>{item.name}</div>
+          <div className="small text-muted">{item.specSf}</div>
         </td>
-        <td className="text-center">{item.name}</td>
-        <td className="text-center">{item.status}</td>
+        <td className="text-center">{item.category}</td>
+        <td>
+          <div className="text-center">{item.subcategory}</div>
+        </td>
+        {/* <td>
+          <div className="text-center">
+            {item.qtd.toString() + " " + item.unit}
+          </div>
+        </td> */}
       </tr>))
 
     return (
       <div className="card-container">
         <AssetCard
-          sectionName={'Contratos da Sinfra'}
-          sectionDescription={'Lista com os contratos de engenharia'}
+          sectionName={'Especificações Técnicas'}
+          sectionDescription={'Lista de especiicações técnicas'}
           handleCardButton={this.handleURLChange}
-          buttonName={'Cadastrar Contrato'}
+          buttonName={'Cadastrar Especificação Técnica'}
         >
           <div className="card-search-container">
             <div className="search" style={{ width: "30%" }}>
@@ -155,4 +158,4 @@ class ContractList extends Component {
   }
 }
 
-export default withRouter(ContractList);
+export default withRouter(SpecsList);

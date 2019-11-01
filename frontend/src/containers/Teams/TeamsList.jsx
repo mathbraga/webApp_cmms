@@ -14,27 +14,20 @@ import AssetCard from "../../components/Cards/AssetCard";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
-import { contracts } from "./FakeData";
+// import { persons } from "./FakeData";
 
 const tableConfig = [
-  { name: "Número", style: { width: "100px" }, className: "text-center" },
-  { name: "Objeto", style: { width: "300px" }, className: "text-justify" },
-  { name: "Status", style: { width: "150px" }, className: "text-center" },
-  { name: "Vigência", style: { width: "150px" }, className: "text-center" },
-  { name: "Link", style: { width: "100px" }, className: "text-center" },
+  { name: "Nome da equipe", style: { width: "300px" }, className: "text-justify" },
+  // { name: "Contrato", style: { width: "150px" }, className: "text-center" },
+  // { name: "Descrição", style: { width: "150px" }, className: "text-center" },
+  // { name: "E-mail", style: { width: "200px" }, className: "text-center" },
 ];
 
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
 
-// const contractsQuery = gql`
-//       query ContractsQuery {
-//         allContracts(orderBy: ORDER_ID_ASC) {
-//         }
-//       }`;
-
-class ContractList extends Component {
+class TeamsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,11 +56,11 @@ class ContractList extends Component {
   }
 
   handleURLChange() {
-    this.props.history.push('/gestao/contratos/novo');
+    this.props.history.push('/gestao/servicos/novo');
   }
 
   render() {
-    const allItems = contracts;
+    const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
     let filteredItems = allItems;
@@ -75,10 +68,10 @@ class ContractList extends Component {
       const searchTermLower = searchTerm.toLowerCase();
       filteredItems = allItems.filter(function (item) {
         return (
-          (String(item.id).includes(searchTermLower)) ||
-          (String(item.finalDate).includes(searchTermLower)) ||
-          (item.title.toLowerCase().includes(searchTermLower)) ||
-          (item.company.toLowerCase().includes(searchTermLower))
+          (item.name.includes(searchTermLower)) ||
+          (item.description.includes(searchTermLower))// ||
+          // (item.email.toLowerCase().includes(searchTermLower))// ||
+          // (item.category.toLowerCase().includes(searchTermLower))
         );
       });
     }
@@ -98,32 +91,30 @@ class ContractList extends Component {
 
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/gestao/contratos/view/' + item.id) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-        <td className="text-center">{item.id}</td>
         <td>
-          <div>{item.title}</div>
-          <div className="small text-muted">{item.company}</div>
+          <div>{item.name}</div>
+          <div className="small text-muted">{item.description}</div>
         </td>
-        <td className="text-center">{item.status}</td>
-        <td>
-          <div className="text-center">{item.finalDate}</div>
+        {/* <td className="text-center">{item.contract}</td> */}
+        {/* <td>
+          <div className="text-center">{item.phone}</div>
         </td>
         <td>
           <div className="text-center">
-            {"Link"}
+            {item.email}
           </div>
-        </td>
+        </td> */}
       </tr>))
 
     return (
       <div className="card-container">
         <AssetCard
-          sectionName={'Contratos da Sinfra'}
-          sectionDescription={'Lista com os contratos de engenharia'}
+          sectionName={'Equipes'}
+          sectionDescription={'Lista de equipes'}
           handleCardButton={this.handleURLChange}
-          buttonName={'Cadastrar Contrato'}
+          buttonName={'Cadastrar Equipe'}
         >
           <div className="card-search-container">
             <div className="search" style={{ width: "30%" }}>
@@ -166,4 +157,4 @@ class ContractList extends Component {
   }
 }
 
-export default withRouter(ContractList);
+export default withRouter(TeamsList);

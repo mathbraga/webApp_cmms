@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const client = require('../pgclient');
+const { pgClient } = require('../config');
 
 passport.use(new LocalStrategy(
   {
@@ -13,7 +13,7 @@ passport.use(new LocalStrategy(
     // console.log('inside passport.use')
     let data;
     try {
-      data = await client.query('select authenticate($1, $2)', [email, password]);
+      data = await pgClient.query('select authenticate($1, $2)', [email, password]);
       if (data.rows.length === 0) {
         return done(null, false, {message: 'Incorrect'});
       }
@@ -35,7 +35,7 @@ passport.serializeUser((userData, done) => {
 passport.deserializeUser(async (userData, done) => {
   console.log('\nDESERIALIZATION\n')
   try {
-    let data = await client.query('select person_id from persons where person_id = $1', [parseInt(userData.split('-')[0],10)]);
+    let data = await pgClient.query('select person_id from persons where person_id = $1', [parseInt(userData.split('-')[0],10)]);
     if (data.rows.length === 0){
       return done(new Error('user not found'));
     }
