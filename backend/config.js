@@ -1,3 +1,5 @@
+const { Client } = require('pg');
+
 const corsConfig = {
   origin: true,
   credentials: true,
@@ -17,6 +19,8 @@ const pgConfig = {
   password: process.env.DB_PASS,
   port: process.env.DB_PORT,
 };
+
+const pgClient = (new Client(pgConfig)).connect();
 
 const postgraphileConfig = {
   watchPg: true,
@@ -42,5 +46,6 @@ module.exports = {
   corsConfig,
   cookieSessionConfig,
   pgConfig,
+  pgClient,
   postgraphileConfig
 };
