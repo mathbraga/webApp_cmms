@@ -96,6 +96,16 @@ class FacilitiesList extends Component {
     const { attribute, operator, option } = logicState;
     let term = [];
 
+    if (!attribute || attribute === '') {
+      return;
+    }
+    if (!operator || operator === '') {
+      return;
+    }
+    if (!option || option === '' || option === []) {
+      return;
+    }
+
     if (filterAttributes[attribute].type === 'text') {
       option.split(" ").forEach(element => {
         term.push(element);
