@@ -20,7 +20,8 @@ const pgConfig = {
   port: process.env.DB_PORT,
 };
 
-const pgClient = (new Client(pgConfig)).connect();
+const pgClient = new Client(pgConfig);
+pgClient.connect();
 
 const postgraphileConfig = {
   watchPg: true,
