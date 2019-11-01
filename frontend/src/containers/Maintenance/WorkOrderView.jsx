@@ -33,7 +33,7 @@ const ENTRIES_PER_PAGE = 15;
 
 const attributes = [
   'assetByAssetId.name',
-  'assetByAssetId.assetId',
+  'assetByAssetId.assetSf',
   'assetByAssetId.place'
 ]
 
@@ -120,22 +120,21 @@ class WorkOrderView extends Component {
           status
           priority
           orderId
-          requestLocal
-          requestDepartment
-          completed
+          place
+          departmentId
+          progress
           contractId
           dateEnd
           dateLimit
           dateStart
           parent
-          requestContactEmail
-          requestContactName
-          requestContactPhone
-          requestPerson
-          requestText
-          requestTitle
+          contactEmail
+          contactPhone
+          createdBy
+          description
+          title
           orderByParent {
-            requestTitle
+            title
             orderId
             priority
             status
@@ -146,14 +145,9 @@ class WorkOrderView extends Component {
           orderAssetsByOrderId {
             nodes {
               assetByAssetId {
-                assetId
+                assetSf
                 name
                 category
-                place
-                assetByPlace {
-                  name
-                  assetId
-                }
               }
             }
           }
@@ -195,15 +189,15 @@ class WorkOrderView extends Component {
 
             const tbody = showItems.map(item => (
               <tr
-                onClick={() => { this.props.history.push('/ativos/view/' + item.assetByAssetId.assetId) }}
+                onClick={() => { this.props.history.push('/ativos/view/' + item.assetByAssetId.assetSf) }}
               >
                 <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
                 <td>
                   <div>{item.assetByAssetId.name}</div>
-                  <div className="small text-muted">{item.assetByAssetId.assetId}</div>
+                  <div className="small text-muted">{item.assetByAssetId.assetSf}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.assetByAssetId.place}</div>
+                  <div>{/*item.assetByAssetSf.place*/}</div>
                 </td>
               </tr>));
 
@@ -284,7 +278,7 @@ class WorkOrderView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Título do Serviço</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestTitle}</div>
+                                    <div className="asset-info-content-data">{orderInfo.title}</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Ordem de Serviço nº</div>
@@ -296,7 +290,7 @@ class WorkOrderView extends Component {
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Local</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestLocal}</div>
+                                    <div className="asset-info-content-data">{orderInfo.place}</div>
                                   </div>
                                 </Col>
                                 <Col md="6">
@@ -358,7 +352,7 @@ class WorkOrderView extends Component {
                                     <Col md="6">
                                       <div className="asset-info-single-container">
                                         <div className="desc-sub">Título do Serviço</div>
-                                        <div className="asset-info-content-data">{orderInfo.orderByParent.requestTitle}</div>
+                                        <div className="asset-info-content-data">{orderInfo.orderByParent.title}</div>
                                       </div>
                                       <div className="asset-info-single-container">
                                         <div className="desc-sub">Ordem de Serviço nº</div>
@@ -397,13 +391,13 @@ class WorkOrderView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Nome do Solicitante</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestPerson}</div>
+                                    <div className="asset-info-content-data">{orderInfo.createdBy}</div>
                                   </div>
                                 </Col>
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Departamento</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestDepartment}</div>
+                                    <div className="asset-info-content-data">{orderInfo.department_id}</div>
                                   </div>
                                 </Col>
                               </Row>
@@ -414,17 +408,17 @@ class WorkOrderView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Nome do Contato</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestContactName}</div>
+                                    <div className="asset-info-content-data">{orderInfo.contactName}</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Telefone para Contato</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestContactPhone}</div>
+                                    <div className="asset-info-content-data">{orderInfo.contactPhone}</div>
                                   </div>
                                 </Col>
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">E-mail para Contato</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestContactEmail}</div>
+                                    <div className="asset-info-content-data">{orderInfo.contactEmail}</div>
                                   </div>
                                 </Col>
                               </Row>
