@@ -5,7 +5,7 @@ require('dotenv').config();
 // const compression = require('compression'); // Add this in production?
 const express = require('express');
 const app = express();
-const port = 3001;
+const port = process.env.EXPRESS_PORT;
 const { postgraphile } = require("postgraphile");
 const http = require('http');
 const server = http.createServer(app);
@@ -18,28 +18,18 @@ const uploadRoute = require('./routes/upload');
 const downloadRoute = require('./routes/download');
 const redmineRoute = require('./routes/redmine');
 const emailRoute = require('./routes/email');
+const { corsConfig, cookieSessionConfig, pgConfig, postgraphileConfig } = require('./config');
 // const cronJob = require('./cron');
-
-// Environment variables
-// console.log(process.env);
 
 // Configure application (https://expressjs.com/en/4x/api.html#app.set)
 // app.set('trust proxy', 1);
 
 // Middlewares
 // app.use(compression());
-app.use(cors({
-  origin: true,
-  credentials: true,
-}));
+app.use(cors(corsConfig));
 app.use(express.json());
 app.use(express.static('public'));
-app.use(cookieSession({
-  name: 'cmms:session',
-  keys: ['key0', 'key1', 'key2'],
-  signed: true,
-  httpOnly: true
-}));
+app.use(cookieSession(cookieSessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(middleware);
@@ -52,41 +42,7 @@ app.use("/redmine", redmineRoute);
 app.use("/email", emailRoute);
 
 // PostGraphile route
-app.use(postgraphile(
-  
-  // pgConfig (object)
-  {
-    host:     process.env.DB_HOST,
-    port:     process.env.DB_PORT,
-    database: process.env.DB_DBNAME,
-    user:     process.env.DB_ADMIN,
-    password: process.env.DB_PASS,
-  },
-
-  // schemaName (array of strings)
-  ["public"],
-
-  // options (object)
-  {
-    watchPg: true,
-    enableCors: false,
-    graphqlRoute: "/db",
-    graphiql: true,
-    graphiqlRoute: "/graphiql",
-    enhanceGraphiql: true,
-    disableQueryLog: false,
-    dynamicJson: true,
-    showErrorStack: 'json',
-    extendedErrors: ['hint', 'detail', 'errcode'],
-    pgSettings: async req => {
-      const [person_id, role] = req.session.passport ? req.session.passport.user.split('-') : ['0', 'visitor'];
-      return {
-        'role': role,
-        'auth.data.person_id': person_id,
-      }
-    }
-  }
-));
+app.use(postgraphile(pgConfig, ["public"], postgraphileConfig));
 
 // Listen for connections on specified port
 server.listen(port, () => console.log(`Server listening on port ${port}!`));
