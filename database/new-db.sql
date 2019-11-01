@@ -59,7 +59,7 @@ begin transaction;
 -- \i comments.sql -- CAUTION: comments.sql must have win1252 encoding
 
 -- create smart comments
-\i smartcomments.sql
+\i smart-comments.sql
 
 -- restart sequences
 \i sequences.sql
