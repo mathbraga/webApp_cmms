@@ -11,6 +11,7 @@ class Contracts extends Component {
         allSpecs(orderBy: SPEC_SF_ASC) {
           nodes {
             specSf
+            version
             name
             category
             subcategory

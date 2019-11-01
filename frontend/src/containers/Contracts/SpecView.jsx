@@ -103,48 +103,34 @@ class MaterialView extends Component {
 
   render() {
     const { pageCurrent, goToPage, searchTerm, tabSelected } = this.state;
-    const orderId = 1;
-    const woQueryInfo = gql`
-      query ($orderId: Int!) {
-        orderByOrderId(orderId: $orderId) {
+    const [specSf, version] = this.props.location.pathname.slice(22).split('v');
+    const specInfo = gql`
+      query ($specSf: String!, $version: String!) {
+        specBySpecSfAndVersion(specSf: $specSf, version: $version) {
+          name
+          specSf
+          activities
           category
-          status
-          priority
-          orderId
-          requestLocal
-          requestDepartment
-          completed
-          contractId
-          dateEnd
-          dateLimit
-          dateStart
-          parent
-          requestContactEmail
-          requestContactName
-          requestContactPhone
-          requestPerson
-          requestText
-          requestTitle
-          orderByParent {
-            requestTitle
-            orderId
-            priority
-            status
-            dateStart
-            dateLimit
-          }
+          catmat
+          catser
           createdAt
-          orderAssetsByOrderId {
+          criteria
+          description
+          isSubcont
+          lifespan
+          materials
+          notes
+          qualification
+          services
+          subcategory
+          unit
+          version
+          updatedAt
+          suppliesBySpecId {
             nodes {
-              assetByAssetId {
-                assetId
-                name
-                category
-                place
-                assetByPlace {
-                  name
-                  assetId
-                }
+              bidPrice
+              contractByContractId {
+                contractSf
               }
             }
           }
@@ -154,8 +140,8 @@ class MaterialView extends Component {
 
     return (
       <Query
-        query={woQueryInfo}
-        variables={{ orderId: orderId }}
+        query={specInfo}
+        variables={{ specSf: specSf, version: 'v' + version }}
       >{
           ({ loading, error, data }) => {
             if (loading) return null
@@ -163,27 +149,36 @@ class MaterialView extends Component {
               console.log("Erro ao tentar baixar os dados da OS!");
               return null
             }
-            const orderInfo = data.orderByOrderId;
-            const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
+            const specInfo = data.specBySpecSfAndVersion;
+            const supplies =   data.specBySpecSfAndVersion.suppliesBySpecId.nodes;
+            const orders = [];
+            supplies.forEach(supply => {
+              supply.orderByOrderId.nodes.forEach(order => {
+                orders.push(order);
+              })
+            });
 
-            const assetsByOrder = orderInfo.orderAssetsByOrderId.nodes;
-            const pageLength = assetsByOrder.length;
 
-            let filteredItems = assetsByOrder;
-            if (searchTerm.length > 0) {
-              const searchTermLower = searchTerm.toLowerCase();
-              filteredItems = assetsByOrder.filter(function (item) {
-                return (
-                  // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
-                  item.assetByAssetId.name.toLowerCase().includes(searchTermLower) ||
-                  item.assetByAssetId.assetId.toLowerCase().includes(searchTermLower) ||
-                  item.assetByAssetId.place.toLowerCase().includes(searchTermLower)
-                );
-              });
-            }
+            // const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
 
-            const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
-            const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+            // const assetsByOrder = orderInfo.orderAssetsByOrderId.nodes;
+            // const pageLength = assetsByOrder.length;
+
+            // let filteredItems = assetsByOrder;
+            // if (searchTerm.length > 0) {
+            //   const searchTermLower = searchTerm.toLowerCase();
+            //   filteredItems = assetsByOrder.filter(function (item) {
+            //     return (
+            //       // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
+            //       item.assetByAssetId.name.toLowerCase().includes(searchTermLower) ||
+            //       item.assetByAssetId.assetId.toLowerCase().includes(searchTermLower) ||
+            //       item.assetByAssetId.place.toLowerCase().includes(searchTermLower)
+            //     );
+            //   });
+            // }
+
+            const pagesTotal = 1;//Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
+            // const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
             const thead =
               (<tr>
@@ -195,17 +190,17 @@ class MaterialView extends Component {
                 }
               </tr>);
 
-            const tbody = showItems.map(item => (
+            const tbody = orders.map(item => (
               <tr
-                onClick={() => { this.props.history.push('/ativos/view/' + item.assetByAssetId.assetId) }}
+                onClick={() => { this.props.history.push('/manutencao/os/view/' + item.orderId) }}
               >
                 <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
                 <td>
-                  <div>{item.assetByAssetId.name}</div>
-                  <div className="small text-muted">{item.assetByAssetId.assetId}</div>
+                  <div>{item.title}</div>
+                  <div className="small text-muted">{item.status}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.assetByAssetId.place}</div>
+                  <div>{item.status}</div>
                 </td>
               </tr>));
 
