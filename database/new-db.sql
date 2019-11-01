@@ -32,7 +32,7 @@ begin transaction;
 \i enums.sql
 
 -- create lookup tables
--- \i lookup.sql
+-- \i luts.sql
 
 -- create tables
 \i tables.sql
