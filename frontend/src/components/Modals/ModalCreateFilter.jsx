@@ -194,7 +194,8 @@ class ModalCreateFilter extends Component {
       modal,
       attributes,
       filterLogic,
-      buildFilter
+      buildFilter,
+      cleanFilter
     } = this.props;
 
     const type = this.state.attribute && attributes[this.state.attribute].type;
@@ -259,7 +260,7 @@ class ModalCreateFilter extends Component {
                     listDropdown={listDropdown}
                     required
                     update={this.updateAttribute()}
-                    value={this.state.attribute && attributes[this.state.attribute].name}
+                    value={this.state.attribute ? attributes[this.state.attribute].name : ''}
                   />
                 </Col>
               </FormGroup>
@@ -267,7 +268,7 @@ class ModalCreateFilter extends Component {
                 <Col sm={4} style={{ margin: "auto 0" }}>
                   <Input
                     style={{ textAlign: "center" }}
-                    value={this.state.attribute && attributes[this.state.attribute].name}
+                    value={this.state.attribute ? attributes[this.state.attribute].name : ''}
                     disabled
                     type="text"
                     name="attribute"
@@ -295,7 +296,8 @@ class ModalCreateFilter extends Component {
                 </Col>
               </FormGroup>
               <Button color="primary" onClick={buildFilter(this.state)}>Adicionar</Button>
-              <Button color="danger" style={{ marginLeft: "10px" }}>Limpar</Button>
+              <Button color="warning" style={{ marginLeft: "10px" }} onClick={() => { this.cleanState(); }}>Limpar</Button>
+              <Button color="danger" style={{ marginLeft: "10px" }} onClick={() => { this.cleanState(); cleanFilter(); }}>Limpar Resultado</Button>
             </div>
           </div>
           <div className='create-filter-container'>

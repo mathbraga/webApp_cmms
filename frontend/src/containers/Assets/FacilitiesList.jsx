@@ -207,6 +207,7 @@ class FacilitiesList extends Component {
             attributes={filterAttributes}
             filterLogic={this.state.filterLogic}
             buildFilter={this.buildFilter}
+            cleanFilter={this.cleanFilter}
           />
         </AssetCard >
       </div>
