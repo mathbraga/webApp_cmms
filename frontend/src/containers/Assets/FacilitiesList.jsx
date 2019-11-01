@@ -171,12 +171,12 @@ class FacilitiesList extends Component {
             setCurrentPage={this.setCurrentPage}
             setGoToPage={this.setGoToPage}
           />
-          <ModalCreateFilter
+          {/* <ModalCreateFilter
             toggle={this.toggle}
             modal={this.state.modalFilter}
             attributes={filterAttributes}
             filterLogic={this.state.filterLogic}
-          />
+          /> */}
         </AssetCard >
       </div>
     );
