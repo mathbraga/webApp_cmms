@@ -241,7 +241,7 @@ class ModalCreateFilter extends Component {
             <Row>
               <Col sm={2} />
               <Col sm={10}>
-                <CustomInput type="switch" id="saveSwitch" name="saveSwitch" label="Aplicar filtro sem salvar" />
+                <CustomInput disabled type="switch" id="saveSwitch" name="saveSwitch" label="Aplicar filtro sem salvar" />
               </Col>
             </Row>
           </div>
