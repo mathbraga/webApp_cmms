@@ -92,7 +92,8 @@ class FacilitiesList extends Component {
     });
   }
 
-  buildFilter = (logicState) => () => {
+  buildFilter = (logicState, cleanState) => () => {
+    console.log('Build: ', cleanState);
     const { attribute, operator, option } = logicState;
     let term = [];
 
@@ -107,8 +108,8 @@ class FacilitiesList extends Component {
     }
 
     if (filterAttributes[attribute].type === 'text') {
-      option.split(" ").forEach(element => {
-        term.push(element);
+      option.trim().split(" ").forEach(element => {
+        if (element.length > 0) term.push(element);
       });
     } else {
       term.push(option);
@@ -123,7 +124,7 @@ class FacilitiesList extends Component {
 
     this.setState((prevState) => ({
       filterLogic: [...prevState.filterLogic, newLogic],
-    }));
+    }), () => { cleanState() });
   }
 
   render() {

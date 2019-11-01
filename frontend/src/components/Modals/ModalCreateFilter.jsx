@@ -167,6 +167,7 @@ class ModalCreateFilter extends Component {
         attribute: itemId,
         operator: null,
         inputBasedOnOperator: 'nothing',
+        option: null,
       }
     );
   }
@@ -283,7 +284,7 @@ class ModalCreateFilter extends Component {
                     id="attribute"
                     onChange={this.handleInputSelectClick(type)}
                   >
-                    <option value selected style={{ display: 'none' }}></option>
+                    <option value selected={!this.state.operator} style={{ display: 'none' }}></option>
                     {this.state.attribute && Object.keys(filterOperations[type]).map((option) => (
                       <option value={option}>
                         {filterOperations[type][option].description}
@@ -295,7 +296,7 @@ class ModalCreateFilter extends Component {
                   {inputBasedOnOperator(this.state, this.handleChangeOption)}
                 </Col>
               </FormGroup>
-              <Button color="primary" onClick={buildFilter(this.state)}>Adicionar</Button>
+              <Button color="primary" onClick={buildFilter(this.state, this.cleanState)}>Adicionar</Button>
               <Button color="warning" style={{ marginLeft: "10px" }} onClick={() => { this.cleanState(); }}>Limpar</Button>
               <Button color="danger" style={{ marginLeft: "10px" }} onClick={() => { this.cleanState(); cleanFilter(); }}>Limpar Resultado</Button>
             </div>
