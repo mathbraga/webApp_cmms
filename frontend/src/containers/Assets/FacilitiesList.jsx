@@ -48,7 +48,11 @@ class FacilitiesList extends Component {
       goToPage: 1,
       searchTerm: "",
       modalFilter: false,
-      appliedFilter: [],
+      filterLogic: [
+        { type: 'att', attribute: 'name', verb: 'include', term: ['SQS', 'C'] },
+        { type: 'opr', attribute: null, verb: 'and', term: [] },
+        { type: 'att', attribute: 'asset_sf', verb: 'notInclude', term: ['cob'] }
+      ],
     };
 
     this.setGoToPage = this.setGoToPage.bind(this);
@@ -171,6 +175,7 @@ class FacilitiesList extends Component {
             toggle={this.toggle}
             modal={this.state.modalFilter}
             attributes={filterAttributes}
+            filterLogic={this.state.filterLogic}
           />
         </AssetCard >
       </div>

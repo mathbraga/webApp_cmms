@@ -193,7 +193,7 @@ class SingleInputWithDropDown extends Component {
           type="text"
           autoComplete="off"
           id={inputId}
-          value={inputValue}
+          value={this.props.value}
           placeholder={placeholder}
           onChange={this.onChangeInput}
           onMouseDown={() => this.toggleDropdown(true)}
