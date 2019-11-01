@@ -37,9 +37,9 @@ const searchItem = require("../../assets/icons/search_icon.png");
 const ENTRIES_PER_PAGE = 15;
 
 const attributes = [
-  'orderId',
-  'orderByOrderId.requestTitle',
-  'orderByOrderId.requestLocal',
+  'orderByOrderId.orderId',
+  'orderByOrderId.title',
+  'orderByOrderId.place',
   'orderByOrderId.status',
   'orderByOrderId.priority',
   'orderByOrderId.dateLimit'
@@ -111,8 +111,8 @@ class FacilitiesInfo extends Component {
 
     const assetsInfo = this.props.data;
 
-    const pageLength = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges.length;
-    const edges = assetsInfo.assetByAssetId.orderAssetsByAssetId.edges;
+    const pageLength = assetsInfo.assetByAssetSf.orderAssetsByAssetId.nodes.length;
+    const orders = assetsInfo.assetByAssetSf.orderAssetsByAssetId.nodes;
 
     const statusCounter = {
       'CAN': 0,
@@ -123,15 +123,15 @@ class FacilitiesInfo extends Component {
       'EXE': 0,
       'CON': 0,
     };
-    edges.forEach(item => statusCounter[item.node.orderByOrderId.status] += 1);
-    const totalOS = edges.length;
+    orders.forEach(order => statusCounter[order.status] += 1);
+    const totalOS = orders.length;
 
-    const filteredItems = searchList(edges, attributes, searchTerm);
+    // const filteredItems = searchList(orders, attributes, searchTerm);
 
     const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
-    const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+    // const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
-    const departments = assetsInfo.assetByAssetId.assetDepartmentsByAssetId.edges;
+    // const departments = assetsInfo.assetByAssetSf.assetDepartmentsByAssetId.edges;
 
     const thead =
       <tr>
@@ -143,26 +143,26 @@ class FacilitiesInfo extends Component {
         }
       </tr>
 
-    const tbody = showItems.map(item => (
+    const tbody = orders.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/manutencao/os/view/' + item.node.orderByOrderId.orderId) }}
+        onClick={() => { this.props.history.push('/manutencao/os/view/' + item.orderByOrderId.orderId) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>
-          <div className="text-center">{(item.node.orderId + "").padStart(4, "0")}</div>
+          <div className="text-center">{(item.orderByOrderId.orderId + "").padStart(4, "0")}</div>
         </td>
         <td>
-          <div>{item.node.orderByOrderId.requestTitle}</div>
-          <div className="small text-muted">{item.node.orderByOrderId.requestLocal}</div>
+          <div>{item.requestTitle}</div>
+          <div className="small text-muted">{item.orderByOrderId.place}</div>
         </td>
         <td>
-          <div className="text-center">{ORDER_STATUS_TYPE[item.node.orderByOrderId.status]}</div>
+          <div className="text-center">{ORDER_STATUS_TYPE[item.orderByOrderId.status]}</div>
         </td>
         <td>
-          <div className="text-center">{ORDER_PRIORITY_TYPE[item.node.orderByOrderId.priority]}</div>
+          <div className="text-center">{ORDER_PRIORITY_TYPE[item.orderByOrderId.priority]}</div>
         </td>
         <td>
-          <div className="text-center">{item.node.orderByOrderId.dateLimit && item.node.orderByOrderId.dateLimit.split("T")[0]}</div>
+          <div className="text-center">{item.orderByOrderId.dateLimit && item.orderByOrderId.dateLimit.split("T")[0]}</div>
         </td>
       </tr>))
 
@@ -171,7 +171,7 @@ class FacilitiesInfo extends Component {
         <AssetCard
           sectionName={'Edifício / Área'}
           sectionDescription={'Ficha descritiva do imóvel'}
-          handleCardButton={() => assetsInfo.assetByAssetId.category === 'A' ?
+          handleCardButton={() => assetsInfo.assetByAssetSf.category === 'A' ?
             this.props.history.push('/ativos/equipamentos') : this.props.history.push('/ativos/edificios')}
           buttonName={'Edifícios'}
         >
@@ -190,27 +190,27 @@ class FacilitiesInfo extends Component {
               <div style={{ flexGrow: "1" }}>
                 <Row>
                   <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Edifício / Área</span></Col>
-                  <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{assetsInfo.assetByAssetId.name || "Não cadastrado"}</span></Col>
+                  <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{assetsInfo.assetByAssetSf.name || "Não cadastrado"}</span></Col>
                 </Row>
               </div>
               <div>
                 <Row>
                   <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
-                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetId.assetId || "Não cadastrado"}</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetSf.assetSf || "Não cadastrado"}</span></Col>
                 </Row>
               </div>
               <div>
                 <Row>
                   <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Departamento(s)</span></Col>
                   <Col md="9" style={{ display: "flex", alignItems: "center" }}>
-                    <span>{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ') || "Não cadastrado"}</span>
+                    <span>{/*departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ')*/ false || "Não cadastrado"}</span>
                   </Col>
                 </Row>
               </div>
               <div>
                 <Row>
                   <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Área</span></Col>
-                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{(assetsInfo.assetByAssetId.area && assetsInfo.assetByAssetId.area != 0) ? (assetsInfo.assetByAssetId.area + " m²") : "Não cadastrado"}</span></Col>
+                  <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{(assetsInfo.assetByAssetSf.area && assetsInfo.assetByAssetSf.area != 0) ? (assetsInfo.assetByAssetSf.area + " m²") : "Não cadastrado"}</span></Col>
                 </Row>
               </div>
             </Col>
@@ -246,23 +246,23 @@ class FacilitiesInfo extends Component {
                         <Col md="6">
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Nome do Edifício ou Área</div>
-                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.name || "Não cadastrado"}</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetSf.name || "Não cadastrado"}</div>
                           </div>
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Código</div>
-                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetId || "Não cadastrado"}</div>
+                            <div className="asset-info-content-data">{assetsInfo.assetByAssetSf.assetSf || "Não cadastrado"}</div>
                           </div>
                         </Col>
                         <Col md="6">
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Departamento (s)</div>
-                            <div className="asset-info-content-data">{departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ') || "Não cadastrado"}</div>
+                            <div className="asset-info-content-data">{/*departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ')*/ false || "Não cadastrado"}</div>
                           </div>
                         </Col>
                       </Row>
                       <div className="asset-info-single-container">
                         <div className="desc-sub">Descrição do Edifício</div>
-                        <div className="asset-info-content-data">{assetsInfo.assetByAssetId.description || "Não cadastrado"}</div>
+                        <div className="asset-info-content-data">{assetsInfo.assetByAssetSf.description || "Não cadastrado"}</div>
                       </div>
                     </div>
                     <h1 className="asset-info-title">Localização</h1>
@@ -271,21 +271,21 @@ class FacilitiesInfo extends Component {
                         <Col md="6">
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Ativo Pai</div>
-                            <div className="asset-info-content-data">{assetsInfo.assetByAssetId.assetByParent.assetId ? (assetsInfo.assetByAssetId.assetByParent.assetId + " / " + assetsInfo.assetByAssetId.assetByParent.name) : "Não cadastrado"}</div>
+                            {/* <div className="asset-info-content-data">{assetsInfo.assetByAssetSf.assetByParent.assetId ? (assetsInfo.assetByAssetSf.assetByParent.assetId + " / " + assetsInfo.assetByAssetSf.assetByParent.name) : "Não cadastrado"}</div> */}
                           </div>
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Área</div>
-                            <div className="asset-info-content-data">{Math.trunc(assetsInfo.assetByAssetId.area) + " m²"}</div>
+                            <div className="asset-info-content-data">{Math.trunc(assetsInfo.assetByAssetSf.area) + " m²"}</div>
                           </div>
                         </Col>
                         <Col md="6">
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Latidude do Local</div>
-                            <div className="asset-info-content-data">{(assetsInfo.assetByAssetId.latitude && assetsInfo.assetByAssetId.latitude != 0) ? assetsInfo.assetByAssetId.latitude : "Não cadastrado"}</div>
+                            <div className="asset-info-content-data">{(assetsInfo.assetByAssetSf.latitude && assetsInfo.assetByAssetSf.latitude != 0) ? assetsInfo.assetByAssetSf.latitude : "Não cadastrado"}</div>
                           </div>
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Longitude do Local</div>
-                            <div className="asset-info-content-data">{(assetsInfo.assetByAssetId.longitude && assetsInfo.assetByAssetId.longitude != 0) ? assetsInfo.assetByAssetId.longitude : "Não cadastrado"}</div>
+                            <div className="asset-info-content-data">{(assetsInfo.assetByAssetSf.longitude && assetsInfo.assetByAssetSf.longitude != 0) ? assetsInfo.assetByAssetSf.longitude : "Não cadastrado"}</div>
                           </div>
                         </Col>
                       </Row>
