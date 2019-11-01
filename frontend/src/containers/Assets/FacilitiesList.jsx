@@ -51,7 +51,7 @@ class FacilitiesList extends Component {
       filterLogic: [
         { type: 'att', attribute: 'name', verb: 'include', term: ['SQS', 'C'] },
         { type: 'opr', attribute: null, verb: 'and', term: [] },
-        { type: 'att', attribute: 'asset_sf', verb: 'notInclude', term: ['cob'] }
+        { type: 'att', attribute: 'assetSf', verb: 'notInclude', term: ['cob'] }
       ],
     };
 
@@ -84,6 +84,36 @@ class FacilitiesList extends Component {
 
   handleURLChange() {
     this.props.history.push('/ativos/edificios/novo');
+  }
+
+  cleanFilter = () => {
+    this.setState({
+      filterLogic: [],
+    });
+  }
+
+  buildFilter = (logicState) => () => {
+    const { attribute, operator, option } = logicState;
+    let term = [];
+
+    if (filterAttributes[attribute].type === 'text') {
+      option.split(" ").forEach(element => {
+        term.push(element);
+      });
+    } else {
+      term.push(option);
+    }
+
+    const newLogic = {
+      type: (operator === 'and' || operator === 'or' ? 'opr' : 'att'),
+      attribute,
+      verb: operator,
+      term,
+    };
+
+    this.setState((prevState) => ({
+      filterLogic: [...prevState.filterLogic, newLogic],
+    }));
   }
 
   render() {
@@ -171,12 +201,13 @@ class FacilitiesList extends Component {
             setCurrentPage={this.setCurrentPage}
             setGoToPage={this.setGoToPage}
           />
-          {/* <ModalCreateFilter
+          <ModalCreateFilter
             toggle={this.toggle}
             modal={this.state.modalFilter}
             attributes={filterAttributes}
             filterLogic={this.state.filterLogic}
-          /> */}
+            buildFilter={this.buildFilter}
+          />
         </AssetCard >
       </div>
     );

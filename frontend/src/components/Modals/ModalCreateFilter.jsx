@@ -46,7 +46,6 @@ const filterResultUI = (filterLogic, attributes, operators) => {
     text: 'e',
     twoNumbers: 'e',
   };
-
   filterLogic.forEach(logic => {
     const { type, attribute, verb, term } = logic;
     if (type === 'att') {
@@ -75,7 +74,7 @@ const filterResultUI = (filterLogic, attributes, operators) => {
   return resultUI;
 }
 
-const inputBasedOnOperator = (type, options = null) => ({
+const inputBasedOnOperator = ({ inputBasedOnOperator, option }, handleChangeOption, options = null) => ({
   selectMany: (
     <Input
       type="select"
@@ -108,6 +107,8 @@ const inputBasedOnOperator = (type, options = null) => ({
       type="text"
       name="filterInput"
       id="filterInput"
+      value={option}
+      onChange={handleChangeOption}
     />
   ),
   number: (
@@ -115,6 +116,8 @@ const inputBasedOnOperator = (type, options = null) => ({
       type="text"
       name="filterInput"
       id="filterInput"
+      value={option}
+      onChange={handleChangeOption}
     />
   ),
   twoNumbers: (
@@ -136,7 +139,7 @@ const inputBasedOnOperator = (type, options = null) => ({
       />
     </div>
   ),
-}[type]);
+}[inputBasedOnOperator]);
 
 class ModalCreateFilter extends Component {
   constructor(props) {
@@ -148,6 +151,14 @@ class ModalCreateFilter extends Component {
       option: null,
       inputBasedOnOperator: 'nothing',
     };
+  }
+
+  handleChangeOption = (event) => {
+    console.log('Handle: ', event.target)
+    const { value } = event.target;
+    this.setState({
+      option: value,
+    });
   }
 
   updateAttribute = () => (itemId) => {
@@ -182,7 +193,8 @@ class ModalCreateFilter extends Component {
       toggle,
       modal,
       attributes,
-      filterLogic
+      filterLogic,
+      buildFilter
     } = this.props;
 
     const type = this.state.attribute && attributes[this.state.attribute].type;
@@ -279,10 +291,10 @@ class ModalCreateFilter extends Component {
                   </Input>
                 </Col>
                 <Col sm={4} style={{ margin: "auto 0" }}>
-                  {inputBasedOnOperator(this.state.inputBasedOnOperator)}
+                  {inputBasedOnOperator(this.state, this.handleChangeOption)}
                 </Col>
               </FormGroup>
-              <Button color="primary">Adicionar</Button>
+              <Button color="primary" onClick={buildFilter(this.state)}>Adicionar</Button>
               <Button color="danger" style={{ marginLeft: "10px" }}>Limpar</Button>
             </div>
           </div>
