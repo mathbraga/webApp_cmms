@@ -129,6 +129,15 @@ class MaterialView extends Component {
           suppliesBySpecId {
             nodes {
               bidPrice
+              orderSuppliesBySupplyId {
+                nodes {
+                  orderByOrderId {
+                    orderId
+                    title
+                    status
+                  }
+                }
+              }
               contractByContractId {
                 contractSf
               }
@@ -149,12 +158,14 @@ class MaterialView extends Component {
               console.log("Erro ao tentar baixar os dados da OS!");
               return null
             }
+            console.log(data);
+
             const specInfo = data.specBySpecSfAndVersion;
             const supplies =   data.specBySpecSfAndVersion.suppliesBySpecId.nodes;
             const orders = [];
             supplies.forEach(supply => {
-              supply.orderByOrderId.nodes.forEach(order => {
-                orders.push(order);
+              supply.orderSuppliesBySupplyId.nodes.forEach(order => {
+                orders.push(order.orderByOrderId);
               })
             });
 
