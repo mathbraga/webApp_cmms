@@ -23,50 +23,22 @@ import TableWithPages from "../../components/Tables/TableWithPages";
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import searchList from "../../utils/search/searchList";
+
 const descriptionImage = require("../../assets/icons/contract.png");
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
+const attributes = [
+  "specBySpecId.name",
+  "supplySf",
+  "qty"
+]
 
 const tableConfig = [
-  { name: "Equipamento / Ativo", style: { width: "300px" }, className: "text-justifyr" },
-  { name: "Localização", style: { width: "200px" }, className: "text-center" },
+  { name: "Material / Serviço", style: { width: "300px" }, className: "text-justifyr" },
+  { name: "Quantidade", style: { width: "200px" }, className: "text-center" },
 ];
-
-const ORDER_CATEGORY_TYPE = {
-  'EST': 'Avaliação estrutural',
-  'FOR': 'Reparo em forro',
-  'INF': 'Infiltração',
-  'ELE': 'Instalações elétricas',
-  'HID': 'Instalações hidrossanitárias',
-  'MAR': 'Marcenaria',
-  'PIS': 'Reparo em piso',
-  'REV': 'Revestimento',
-  'VED': 'Vedação espacial',
-  'VID': 'Vidraçaria / Esquadria',
-  'SER': 'Serralheria',
-  'ARC': 'Ar-condicionado',
-  'ELV': 'Elevadores',
-  'EXA': 'Exaustores',
-  'GRL': 'Serviços Gerais',
-};
-
-const ORDER_STATUS_TYPE = {
-  'CAN': 'Cancelada',
-  'NEG': 'Negada',
-  'PEN': 'Pendente',
-  'SUS': 'Suspensa',
-  'FIL': 'Fila de espera',
-  'EXE': 'Em execução',
-  'CON': 'Concluída',
-}
-
-const ORDER_PRIORITY_TYPE = {
-  'BAI': 'Baixa',
-  'NOR': 'Normal',
-  'ALT': 'Alta',
-  'URG': 'Urgente',
-};
 
 class ContractView extends Component {
   constructor(props) {
@@ -103,59 +75,40 @@ class ContractView extends Component {
 
   render() {
     const { pageCurrent, goToPage, searchTerm, tabSelected } = this.state;
-    const orderId = 1;
-    const woQueryInfo = gql`
-      query ($orderId: Int!) {
-        orderByOrderId(orderId: $orderId) {
-          category
-          status
-          priority
-          orderId
-          requestLocal
-          requestDepartment
-          completed
-          contractId
+    const contractSf = this.props.location.pathname.slice(23);
+    //const orderId = 1;
+    const contractsInfo = gql`
+      query contract ($contractSf: String!){
+        contractByContractSf(contractSf: $contractSf) {
+          company
+          contractSf
           dateEnd
-          dateLimit
+          datePub
+          dateSign
           dateStart
-          parent
-          requestContactEmail
-          requestContactName
-          requestContactPhone
-          requestPerson
-          requestText
-          requestTitle
-          orderByParent {
-            requestTitle
-            orderId
-            priority
-            status
-            dateStart
-            dateLimit
-          }
-          createdAt
-          orderAssetsByOrderId {
-            nodes {
-              assetByAssetId {
-                assetId
-                name
-                category
-                place
-                assetByPlace {
+          description
+          title
+          url
+          suppliesByContractId {
+            edges {
+              node {
+                qty
+                supplySf
+                specBySpecId {
                   name
-                  assetId
+                  specSf
                 }
               }
             }
           }
         }
-      }
+    }
     `;
 
     return (
       <Query
-        query={woQueryInfo}
-        variables={{ orderId: orderId }}
+        query={contractsInfo}
+        variables={{ contractSf: contractSf }}
       >{
           ({ loading, error, data }) => {
             if (loading) return null
@@ -163,24 +116,14 @@ class ContractView extends Component {
               console.log("Erro ao tentar baixar os dados da OS!");
               return null
             }
-            const orderInfo = data.orderByOrderId;
-            const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
+            const contractInfo = data.contractByContractSf;
+            const specInfo = contractInfo.suppliesByContractId.edges
+            const contractNumber = parseInt(contractInfo.contractSf.slice(2, 6), 10) + "/" + contractInfo.contractSf.slice(6);
+            //const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
 
-            const assetsByOrder = orderInfo.orderAssetsByOrderId.nodes;
-            const pageLength = assetsByOrder.length;
+            const pageLength = specInfo.length;
 
-            let filteredItems = assetsByOrder;
-            if (searchTerm.length > 0) {
-              const searchTermLower = searchTerm.toLowerCase();
-              filteredItems = assetsByOrder.filter(function (item) {
-                return (
-                  // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
-                  item.assetByAssetId.name.toLowerCase().includes(searchTermLower) ||
-                  item.assetByAssetId.assetId.toLowerCase().includes(searchTermLower) ||
-                  item.assetByAssetId.place.toLowerCase().includes(searchTermLower)
-                );
-              });
-            }
+            const filteredItems = searchList(specInfo, attributes, searchTerm);
 
             const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
             const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
@@ -197,15 +140,15 @@ class ContractView extends Component {
 
             const tbody = showItems.map(item => (
               <tr
-                onClick={() => { this.props.history.push('/ativos/view/' + item.assetByAssetId.assetId) }}
+                onClick={() => { this.props.history.push('/ativos/view/' + "item.assetByAssetId.assetId") }}
               >
                 <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
                 <td>
-                  <div>{item.assetByAssetId.name}</div>
-                  <div className="small text-muted">{item.assetByAssetId.assetId}</div>
+                  <div>{item.node.specBySpecId.name}</div>
+                  <div className="small text-muted">{item.node.supplySf}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.assetByAssetId.place}</div>
+                  <div>{item.node.qty}</div>
                 </td>
               </tr>));
 
@@ -232,13 +175,13 @@ class ContractView extends Component {
                       <div style={{ flexGrow: "1" }}>
                         <Row>
                           <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Objeto (descrição breve)</span></Col>
-                          <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>Manutenção do Sistema Elétrico do Senado Federal</span></Col>
+                          <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{contractInfo.title}</span></Col>
                         </Row>
                       </div>
                       <div>
                         <Row>
                           <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Contrato nº</span></Col>
-                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>110/2019</span></Col>
+                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{contractNumber}</span></Col>
                         </Row>
                       </div>
                       <div>
@@ -250,7 +193,7 @@ class ContractView extends Component {
                       <div>
                         <Row>
                           <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Empresa</span></Col>
-                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>RCS Tecnologia LTDA</span></Col>
+                          <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{contractInfo.company}</span></Col>
                         </Row>
                       </div>
                     </Col>
@@ -280,11 +223,11 @@ class ContractView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Objeto</div>
-                                    <div className="asset-info-content-data">Manutenção do Sistema Elétrico do Senado</div>
+                                    <div className="asset-info-content-data">{contractInfo.title}</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Contrato nº</div>
-                                    <div className="asset-info-content-data">110/2019</div>
+                                    <div className="asset-info-content-data">{contractNumber}</div>
                                   </div>
                                 </Col>
                                 <Col md="6">
@@ -294,13 +237,13 @@ class ContractView extends Component {
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Empresa</div>
-                                    <div className="asset-info-content-data">RCS Tecnologia LTDA</div>
+                                    <div className="asset-info-content-data">{contractInfo.company}</div>
                                   </div>
                                 </Col>
                               </Row>
                               <div className="asset-info-single-container">
                                 <div className="desc-sub">Descrição</div>
-                                <div className="asset-info-content-data">Contratação de empresa especializada para a prestação de serviços continuados e sob demanda, referentes à operação e manutenção preventiva e corretiva do Sistema Elétrico do Complexo Arquitetônico do SENADO FEDERAL, com operação de sistema informatizado de gerenciamento de manutenção e suprimento de insumos necessários à execução dos serviços, durante o período de 36 (trinta e seis) meses consecutivos.</div>
+                                <div className="asset-info-content-data">{contractInfo.description}</div>
                               </div>
                             </div>
                             <h1 className="asset-info-title">Prazos e Datas</h1>
@@ -309,23 +252,21 @@ class ContractView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Início da Vigência</div>
-                                    <div className="asset-info-content-data">10/10/2018</div>
+                                    <div className="asset-info-content-data">{contractInfo.dateStart}</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Final da Vigência</div>
-                                    <div className="asset-info-content-data">10/10/2021</div>
+                                    <div className="asset-info-content-data">{contractInfo.dateEnd}</div>
                                   </div>
                                 </Col>
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Data da Assinatura</div>
-                                    <div className="asset-info-content-data">10/10/2018</div>
+                                    <div className="asset-info-content-data">{contractInfo.dateSign}</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Data da Publicação</div>
-                                    <div className="asset-info-content-data">
-                                      10/10/2018
-                                    </div>
+                                    <div className="asset-info-content-data">{contractInfo.datePub}</div>
                                   </div>
                                 </Col>
                               </Row>
@@ -340,7 +281,9 @@ class ContractView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Link para Contrato</div>
-                                    <div className="asset-info-content-data">CT 110/2019 - Elétrica.pdf</div>
+                                    <div className="asset-info-content-data">
+                                      <a href={contractInfo.url} target="_blank">{"CT " + contractNumber}</a>
+                                    </div>
                                   </div>
                                 </Col>
                               </Row>
