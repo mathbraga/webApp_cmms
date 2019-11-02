@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const { pgClient } = require('../config');
+const { pgClient } = require('../configs');
 
 passport.use(new LocalStrategy(
   {

@@ -18,7 +18,8 @@ const uploadRoute = require('./routes/upload');
 const downloadRoute = require('./routes/download');
 const redmineRoute = require('./routes/redmine');
 const emailRoute = require('./routes/email');
-const { corsConfig, cookieSessionConfig, pgConfig, postgraphileConfig } = require('./config');
+const { corsConfig, staticConfig, cookieSessionConfig, pgConfig, postgraphileConfig } = require('./configs');
+const paths = require('./paths');
 // const cronJob = require('./cron');
 
 // Configure application (https://expressjs.com/en/4x/api.html#app.set)
@@ -28,21 +29,21 @@ const { corsConfig, cookieSessionConfig, pgConfig, postgraphileConfig } = requir
 // app.use(compression());
 app.use(cors(corsConfig));
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(staticConfig.root));
 app.use(cookieSession(cookieSessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(middleware);
 
 // Routes
-app.use("/auth", authRoute);
-app.use("/db", uploadRoute);
-app.use("/files", downloadRoute);
-app.use("/redmine", redmineRoute);
-app.use("/email", emailRoute);
+app.use(paths.auth, authRoute);
+app.use(paths.db, uploadRoute);
+app.use(paths.download, downloadRoute);
+app.use(paths.redmine, redmineRoute);
+app.use(paths.email, emailRoute);
 
 // PostGraphile route
-app.use(postgraphile(pgConfig, ["public"], postgraphileConfig));
+app.use(postgraphile(pgConfig, postgraphileConfig.schemas, postgraphileConfig.options));
 
 // Listen for connections on specified port
 server.listen(port, () => console.log(`Server listening on port ${port}!`));

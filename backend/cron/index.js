@@ -1,4 +1,4 @@
-const { pgClient } = require('../config');
+const { pgClient } = require('../configs');
 const CronJob = require('cron').CronJob;
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
