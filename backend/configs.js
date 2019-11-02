@@ -52,11 +52,68 @@ const postgraphileConfig = {
   }
 };
 
+const cronConfig = {
+  cronTime: '0 * * * * *',
+  onTick: async function() {
+    
+    // Scheduled query to be sent to database:
+    // let data;
+    //   try {
+    //     data = await pgClient.query('select now()');
+    //   }
+    //   catch (error) {
+    //     console.log(error);
+    //   }
+    // console.log(data.rows[0]);
+    
+    // Scheduled bash command:
+    // const { stdout, stderr } = await exec('pg_dump -f dumps/dump.sql -d ' + process.env.DB_DBNAME);
+    // console.log('Scheduled pg_dump executed.')
+    // console.log('stdout:', stdout);
+    // console.log('stderr:', stderr);
+  },
+  onComplete: null,
+  start: true,
+  timezone: 'America/Sao_Paulo',
+};
+
+const multerConfig = {
+  diskStorage: {
+    destination: function (req, file, cb) {
+      
+      /* Example of file:
+        {
+          fieldname: 'avatar',
+          originalname: 'originalnamefromfrontend.jpeg',
+          encoding: '7bit',
+          mimetype: 'image/jpeg'
+        }
+      */
+  
+    // console.log(file);
+    let folder = 'files/'
+      if(file.fieldname === 'image'){
+        folder = 'public/images/';
+      }
+      cb(null, folder);
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname);
+    }
+  },
+  fields: [
+    { name: 'image', maxCount: 1 },
+    { name: 'files', maxCount: 10 },
+  ],
+};
+
 module.exports = {
   corsConfig,
   staticConfig,
   cookieSessionConfig,
   pgConfig,
   pgClient,
-  postgraphileConfig
+  postgraphileConfig,
+  cronConfig,
+  multerConfig
 };
