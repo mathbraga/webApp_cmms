@@ -49,7 +49,7 @@ function findItem(items, attributes, term){
           value = String(value).padStart(4, "0");
           break;
         case 'category':
-          value = ORDER_CATEGORY_TYPE[value];
+          value = ORDER_CATEGORY_TYPE[value] || value;
           break;
         case 'status':
           value = ORDER_STATUS_TYPE[value];
