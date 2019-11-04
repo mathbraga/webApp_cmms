@@ -150,6 +150,7 @@ class ModalCreateFilter extends Component {
       operator: null,
       option: null,
       inputBasedOnOperator: 'nothing',
+      currentFilterLogic: [],
     };
   }
 
@@ -189,14 +190,52 @@ class ModalCreateFilter extends Component {
     });
   }
 
+  cleanFilter = () => {
+    this.setState({
+      currentFilterLogic: [],
+    });
+  }
+
+  buildFilter = (attributes) => () => {
+    const { attribute, operator, option } = this.state;
+    let term = [];
+
+    if (!attribute || attribute === '') {
+      return;
+    }
+    if (!operator || operator === '') {
+      return;
+    }
+    if (!option || option === '' || option === []) {
+      return;
+    }
+
+    if (attributes[attribute].type === 'text') {
+      option.trim().split(" ").forEach(element => {
+        if (element.length > 0) term.push(element);
+      });
+    } else {
+      term.push(option);
+    }
+
+    const newLogic = {
+      type: (operator === 'and' || operator === 'or' ? 'opr' : 'att'),
+      attribute,
+      verb: operator,
+      term,
+    };
+
+    this.setState((prevState) => ({
+      currentFilterLogic: [...prevState.currentFilterLogic, newLogic],
+    }), () => { this.cleanState() });
+  }
+
   render() {
     const {
       toggle,
       modal,
       attributes,
-      filterLogic,
-      buildFilter,
-      cleanFilter
+      filterLogic
     } = this.props;
 
     console.log("Attributes: ", attributes);
@@ -302,9 +341,9 @@ class ModalCreateFilter extends Component {
                   {inputBasedOnOperator(this.state, this.handleChangeOption)}
                 </Col>
               </FormGroup>
-              <Button color="primary" onClick={buildFilter(this.state, this.cleanState)}>Adicionar</Button>
+              <Button color="primary" onClick={this.buildFilter(attributes)}>Adicionar</Button>
               <Button color="warning" style={{ marginLeft: "10px" }} onClick={() => { this.cleanState(); }}>Limpar</Button>
-              <Button color="danger" style={{ marginLeft: "10px" }} onClick={() => { this.cleanState(); cleanFilter(); }}>Limpar Resultado</Button>
+              <Button color="danger" style={{ marginLeft: "10px" }} onClick={() => { this.cleanState(); this.cleanFilter(); }}>Limpar Resultado</Button>
             </div>
           </div>
           <div className='create-filter-container'>
@@ -314,7 +353,7 @@ class ModalCreateFilter extends Component {
               </div>
               <div className="filter-container-body">
                 <div className="result-container">
-                  {filterResultUI(filterLogic, attributes, filterOperations)}
+                  {filterResultUI(this.state.currentFilterLogic, attributes, filterOperations)}
                 </div>
               </div>
             </div>

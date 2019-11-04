@@ -86,47 +86,6 @@ class FacilitiesList extends Component {
     this.props.history.push('/ativos/edificios/novo');
   }
 
-  cleanFilter = () => {
-    this.setState({
-      filterLogic: [],
-    });
-  }
-
-  buildFilter = (logicState, cleanState) => () => {
-    console.log('Build: ', cleanState);
-    const { attribute, operator, option } = logicState;
-    let term = [];
-
-    if (!attribute || attribute === '') {
-      return;
-    }
-    if (!operator || operator === '') {
-      return;
-    }
-    if (!option || option === '' || option === []) {
-      return;
-    }
-
-    if (filterAttributes[attribute].type === 'text') {
-      option.trim().split(" ").forEach(element => {
-        if (element.length > 0) term.push(element);
-      });
-    } else {
-      term.push(option);
-    }
-
-    const newLogic = {
-      type: (operator === 'and' || operator === 'or' ? 'opr' : 'att'),
-      attribute,
-      verb: operator,
-      term,
-    };
-
-    this.setState((prevState) => ({
-      filterLogic: [...prevState.filterLogic, newLogic],
-    }), () => { cleanState() });
-  }
-
   render() {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
@@ -217,8 +176,8 @@ class FacilitiesList extends Component {
             modal={this.state.modalFilter}
             attributes={filterAttributes}
             filterLogic={this.state.filterLogic}
-            buildFilter={this.buildFilter}
-            cleanFilter={this.cleanFilter}
+          // buildFilter={this.buildFilter}
+          // cleanFilter={this.cleanFilter}
           />
         </AssetCard >
       </div>
