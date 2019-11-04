@@ -112,22 +112,17 @@ const ordersQuery = gql`
             edges {
               node {
                 orderId
-                requestText
+                title
               }
             }
           }
-          allAssets(orderBy: ASSET_ID_ASC) {
+          allAssets(orderBy: ASSET_SF_ASC) {
             edges {
               node {
+                assetSf
                 assetId
                 name
               }
-            }
-          }
-          allDepartments {
-            nodes {
-              departmentId
-              fullName
             }
           }
         }`;
@@ -138,14 +133,14 @@ const osQuery = gql`
           edges {
             node {
               category
-              requestPerson
+              createdBy
               status
-              requestText
+              description
               orderId
               createdAt
               dateLimit
-              requestTitle
-              requestLocal
+              title
+              place
               priority
               orderAssetsByOrderId {
                 edges {
@@ -154,6 +149,7 @@ const osQuery = gql`
                       assetByPlace {
                         name
                         assetId
+                        assetSf
                       }
                     }
                   }
@@ -176,15 +172,15 @@ class OrderForm extends Component {
       description: null,
       dateStart: null,
       dateLimit: null,
-      execution: null,
+      progress: null,
       parent: null,
       assets: null,
-      requestPerson: null,
-      requestLocal: null,
-      requestDepartment: null,
-      requestContactName: null,
-      requestContactPhone: null,
-      requestContactEmail: null
+      createdBy: null,
+      place: null,
+      departmentId: null,
+      contactName: null,
+      contactPhone: null,
+      contactEmail: null
     };
 
     this.toggle = this.toggle.bind(this);
@@ -194,7 +190,7 @@ class OrderForm extends Component {
     this.handleParentDropDownChange = this.handleParentDropDownChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleAssetsDropDownChange = this.handleAssetsDropDownChange.bind(this);
-    this.handleDepartmentDropDownChange = this.handleDepartmentDropDownChange.bind(this);
+    // this.handleDepartmentDropDownChange = this.handleDepartmentDropDownChange.bind(this);
   }
 
   toggle(tab) {
@@ -221,9 +217,9 @@ class OrderForm extends Component {
     this.setState({ parent: parent });
   }
 
-  handleDepartmentDropDownChange(requestDepartment) {
-    this.setState({ requestDepartment: requestDepartment });
-  }
+  // handleDepartmentDropDownChange(departmentId) {
+  //   this.setState({ departmentId: departmentId });
+  // }
 
   handleAssetsDropDownChange(assets) {
     this.setState({ assets: assets });
@@ -241,19 +237,19 @@ class OrderForm extends Component {
         $status: OrderStatusType!,
         $priority: OrderPriorityType!,
         $category: OrderCategoryType!,
-        $requestTitle: String!,
+        $title: String!,
         $dateStart: Datetime,
         $dateLimit: Datetime,
         $parent: Int,
-        $requestPerson: String!,
-        $requestText: String!,
-        $completed: Int,
-        $requestLocal: String!,
-        $requestContactEmail: String!,
-        $requestContactName: String!,
-        $requestContactPhone: String!,
-        $requestDepartment: String!,
-        $assetsArray: [String]!
+        $createdBy: String!,
+        $description: String!,
+        $progress: Int,
+        $place: String!,
+        $contactEmail: String!,
+        $contactName: String!,
+        $contactPhone: String!,
+        $departmentId: String!,
+        $assetsArray: [Int]!
         ){
           insertOrder(
             input: {
@@ -261,18 +257,18 @@ class OrderForm extends Component {
                 status: $status
                 priority: $priority
                 category: $category
-                requestTitle: $requestTitle
+                title: $title
                 dateStart: $dateStart
                 dateLimit: $dateLimit
                 parent: $parent
-                requestPerson: $requestPerson
-                requestText: $requestText
-                completed: $completed
-                requestLocal: $requestLocal
-                requestContactEmail: $requestContactEmail
-                requestContactName: $requestContactName
-                requestContactPhone: $requestContactPhone
-                requestDepartment: $requestDepartment
+                createdBy: $createdBy
+                description: $description
+                progress: $progress
+                place: $place
+                contactEmail: $contactEmail
+                contactName: $contactName
+                contactPhone: $contactPhone
+                departmentId: $departmentId
               }
               assetsArray: $assetsArray
             }
@@ -284,7 +280,7 @@ class OrderForm extends Component {
     const mutate = (newData) => (
       newData().then(console.log("Mutation"))
     )
-    const assetsArray = this.state.assets === null ? null : this.state.assets.map((item) => item.id);
+    const assetsArray = this.state.assets === null ? null : this.state.assets.map((item) => item.assetId);
     const parentAssets = this.state.assets === null ? null : this.state.assets;
 
     return (
@@ -294,18 +290,18 @@ class OrderForm extends Component {
           status: this.state.status,
           priority: this.state.priority,
           category: this.state.category,
-          requestTitle: this.state.title,
+          title: this.state.title,
           dateStart: this.state.dateStart,
           dateLimit: this.state.dateLimit,
           parent: parseInt(this.state.parent),
-          requestPerson: this.state.requestPerson,
+          createdBy: this.state.createdBy,
           requestText: this.state.description,
           completed: parseInt(this.state.execution),
-          requestContactEmail: this.state.requestContactEmail,
-          requestLocal: this.state.requestLocal,
-          requestContactName: this.state.requestContactName,
-          requestContactPhone: this.state.requestContactPhone,
-          requestDepartment: this.state.requestDepartment,
+          contactEmail: this.state.contactEmail,
+          place: this.state.place,
+          contactName: this.state.contactName,
+          contactPhone: this.state.contactPhone,
+          departmentId: this.state.departmentId,
           assetsArray: assetsArray
         }}
         update={(cache, { data: { insertOrder } }) => {
@@ -317,10 +313,10 @@ class OrderForm extends Component {
             const dateStart = this.state.dateStart;
             const dateLimit = this.state.dateLimit;
             const priority = this.state.priority;
-            const reqLocal = this.state.requestLocal;
-            const reqPerson = this.state.requestPerson;
-            const reqText = this.state.description;
-            const reqTitle = this.state.title;
+            const place = this.state.place;
+            const createdBy = this.state.createdBy;
+            const description = this.state.description;
+            const title = this.state.title;
             const status = this.state.status;
 
             const newEdges = []
@@ -352,10 +348,10 @@ class OrderForm extends Component {
                 },
                 orderId: id,
                 priority: priority,
-                requestLocal: reqLocal,
-                requestPerson: reqPerson,
-                requestText: reqText,
-                requestTitle: reqTitle,
+                place: place,
+                createdBy: createdBy,
+                description: description,
+                title: title,
                 status: status,
                 __typename: "Order"
               },
@@ -388,28 +384,28 @@ class OrderForm extends Component {
                 }
 
                 const orderID = data.allOrders.edges.map((item) => item.node.orderId);
-                const orderText = data.allOrders.edges.map((item) => item.node.requestText);
+                const orderText = data.allOrders.edges.map((item) => item.node.title);
 
-                const assetId = data.allAssets.edges.map((item) => item.node.assetId);
+                const assetSf = data.allAssets.edges.map((item) => item.node.assetSf);
                 const assetName = data.allAssets.edges.map((item) => item.node.name);
                 //console.log(orderID);
                 //console.log(orderText);
 
-                const departments = data.allDepartments.nodes.map(item => {
-                  return {
-                    id: item.departmentId,
-                    text: item.fullName,
-                    subtext: item.departmentId
-                  };
-                });
+                // const departments = data.allDepartments.nodes.map(item => {
+                //   return {
+                //     id: item.departmentId,
+                //     text: item.fullName,
+                //     subtext: item.departmentId
+                //   };
+                // });
 
                 const orders = [];
                 for (let i = 0; i < orderID.length; i++)
                   orders.push({ id: orderID[i], text: "OS " + orderID[i] + " - " + orderText[i], subtext: "" });
 
                 const assets = [];
-                for (let i = 0; i < assetId.length; i++)
-                  assets.push({ id: assetId[i], text: assetName[i], subtext: assetId[i] });
+                for (let i = 0; i < assetSf.length; i++)
+                  assets.push({ id: assetSf[i], text: assetName[i], subtext: assetSf[i] });
 
                 return (
                   <div style={{ margin: "0 100px" }}>
@@ -461,11 +457,11 @@ class OrderForm extends Component {
                             <FormGroup row>
                               <Col xs={'12'}>
                                 <FormGroup>
-                                  <Label htmlFor="order-title">Título</Label>
+                                  <Label htmlFor="title">Título</Label>
                                   <Input
-                                    autoComplete="new-password"
+                                    // autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="title" type="text" id="order-title" placeholder="Título da ordem de serviço"
+                                    name="title" type="text" id="title" placeholder="Título da ordem de serviço"
                                     required
                                   />
                                 </FormGroup>
@@ -475,6 +471,7 @@ class OrderForm extends Component {
                               <Col xs={'4'}>
                                 <FormGroup>
                                   <SingleInputWithDropDown
+                                    name='status'
                                     label={'Status'}
                                     placeholder="Situação da OS"
                                     listDropdown={ORDER_STATUS}
@@ -490,6 +487,7 @@ class OrderForm extends Component {
                                     label={'Prioridade'}
                                     placeholder="Prioridade da OS"
                                     listDropdown={ORDER_PRIORITY}
+                                    name='priority'
                                     update={this.handlePriorityDropDownChange}
                                     id={'priority'}
                                     required
@@ -500,6 +498,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <SingleInputWithDropDown
                                     label={'Categoria'}
+                                    name='category'
                                     placeholder="Categoria da OS"
                                     listDropdown={ORDER_CATEGORY}
                                     update={this.handleCategoryDropDownChange}
@@ -514,7 +513,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="description">Descrição</Label>
                                   <Input
-                                    autoComplete="new-password"
+                                    // autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="description" type="textarea" id="description" placeholder="Descrição da ordem de serviço" rows="4"
                                     required
@@ -527,7 +526,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="initial-date">Data Inicial</Label>
                                   <Input
-                                    autoComplete="new-password"
+                                    // autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="dateStart" type="date" id="initial-date" placeholder="Início da execução"
                                   />
@@ -537,7 +536,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="final-date">Data Final (Prazo)</Label>
                                   <Input
-                                    autoComplete="new-password"
+                                    // autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="dateLimit" type="date" id="final-date" placeholder="Prazo final para execução" />
                                 </FormGroup>
@@ -548,7 +547,7 @@ class OrderForm extends Component {
                                   <Input
                                     autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="execution" type="text" id="accomplished" placeholder="Título da ordem de serviço" />
+                                    name="progress" type="text" id="progress" placeholder="%" />
                                 </FormGroup>
                               </Col>
                             </FormGroup>
@@ -557,7 +556,7 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <SingleInputWithDropDown
                                     label={'OS pai'}
-                                    placeholder="Nível superior da localização ..."
+                                    placeholder="O.S. pai"
                                     listDropdown={orders}
                                     update={this.handleParentDropDownChange}
                                     id={'order-parent'}
@@ -585,9 +584,9 @@ class OrderForm extends Component {
                               <Col xs='8'>
                                 <Label htmlFor="location">Localização (campo livre)</Label>
                                 <Input
-                                  autoComplete="new-password"
+                                  // autoComplete="new-password"
                                   onChange={this.handleInputChange}
-                                  name="requestLocal" type="text" id="requestLocal" placeholder="Localização da manutenção ..."
+                                  name="place" type="text" id="place" placeholder="Localização da manutenção ..."
                                   required
                                 />
                                 {/* <InputWithDropdown
@@ -606,24 +605,25 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="request_person">Nome do Solicitante</Label>
                                   <Input
-                                    autoComplete="new-password"
+                                    // autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="requestPerson" type="text" id="request_person" placeholder="Pessoa que abriu a solicitação"
+                                    name="createdBy" type="text" id="createdBy" placeholder="Pessoa que abriu a solicitação"
                                     required
                                   />
                                 </FormGroup>
                               </Col>
                               <Col xs='6'>
+                              <Col xs='6'>
                                 <FormGroup>
-                                  <SingleInputWithDropDown
-                                    label={'Departamento do Solicitante'}
-                                    placeholder="Departamento da pessoa que abriu a solicitação"
-                                    listDropdown={departments}
-                                    update={this.handleDepartmentDropDownChange}
-                                    id={'status'}
+                                  <Label htmlFor="request_contact_name">Nome do contato</Label>
+                                  <Input
+                                    // autoComplete="new-password"
+                                    onChange={this.handleInputChange}
+                                    name="departmentId" type="text" id="departmentId" placeholder="Departamento"
                                     required
                                   />
                                 </FormGroup>
+                              </Col>
                               </Col>
                             </FormGroup>
                             <FormGroup row>
@@ -631,9 +631,9 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="request_contact_name">Nome do contato</Label>
                                   <Input
-                                    autoComplete="new-password"
+                                    // autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="requestContactName" type="text" id="request_contact_name" placeholder="Contato para a solicitação"
+                                    name="contactName" type="text" id="contactName" placeholder="Contato para a solicitação"
                                     required
                                   />
                                 </FormGroup>
@@ -642,9 +642,9 @@ class OrderForm extends Component {
                                 <FormGroup>
                                   <Label htmlFor="request_contact_phone">Telefone para contato</Label>
                                   <Input
-                                    autoComplete="new-password"
+                                    // autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="requestContactPhone" type="text" id="request_contact_phone" placeholder="Telefone para contato"
+                                    name="contactPhone" type="text" id="contactPhone" placeholder="Telefone para contato"
                                     required
                                   />
                                 </FormGroup>
@@ -656,9 +656,9 @@ class OrderForm extends Component {
                                   <Label htmlFor="request_contact_email">Email para contato</Label>
                                   <input type="text" autoComplete="off" style={{ display: "none" }}></input>
                                   <Input
-                                    autoComplete="new-password"
+                                    // autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="requestContactEmail" type="text" id="request_contact_email" placeholder="Email para contato"
+                                    name="contactEmail" type="text" id="contactEmail" placeholder="Email para contato"
                                     required
                                   />
                                 </FormGroup>
