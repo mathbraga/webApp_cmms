@@ -29,7 +29,6 @@ const ENTRIES_PER_PAGE = 15;
 const attributes = [
   'assetSf',
   'name',
-  // 'parent',
   'area',
 ];
 
@@ -86,11 +85,19 @@ class FacilitiesList extends Component {
     this.props.history.push('/ativos/edificios/novo');
   }
 
+  updateCurrentFilter = (filterLogic) => {
+    this.setState({
+      filterLogic,
+    });
+  }
+
   render() {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
     const allEdges = allItems.allAssets.edges;
+
+    console.log("Filter: ", this.state.filterLogic);
 
     let filteredItems = allEdges;
     filteredItems = searchList(allEdges, attributes, searchTerm);
@@ -175,9 +182,7 @@ class FacilitiesList extends Component {
             toggle={this.toggle}
             modal={this.state.modalFilter}
             attributes={filterAttributes}
-            filterLogic={this.state.filterLogic}
-          // buildFilter={this.buildFilter}
-          // cleanFilter={this.cleanFilter}
+            updateCurrentFilter={this.updateCurrentFilter}
           />
         </AssetCard >
       </div>

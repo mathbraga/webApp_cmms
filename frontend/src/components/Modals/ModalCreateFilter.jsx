@@ -54,7 +54,10 @@ const filterResultUI = (filterLogic, attributes, operators) => {
       const verbUI = operators[attType][verb].description;
       const termOptionsType = operators[attType][verb].optionsType;
       const termUIOperator = termUIOperators[termOptionsType];
-      const termUI = '"' + term.reduce((acc, next) => (acc + '" ' + termUIOperator + ' "' + next.toString())).toUpperCase() + '"';
+      let termUI = "";
+      if (termOptionsType !== 'nothing') {
+        termUI = '"' + term.reduce((acc, next) => (acc + '" ' + termUIOperator + ' "' + next.toString())).toUpperCase() + '"';
+      }
       resultUI.push(
         <div className="result-box">
           {attUI + ' ' + verbUI + ' ' + termUI}
@@ -198,6 +201,7 @@ class ModalCreateFilter extends Component {
 
   buildFilter = (attributes) => () => {
     const { attribute, operator, option } = this.state;
+
     let term = [];
 
     if (!attribute || attribute === '') {
@@ -206,11 +210,15 @@ class ModalCreateFilter extends Component {
     if (!operator || operator === '') {
       return;
     }
-    if (!option || option === '' || option === []) {
+
+    const { type } = attributes[attribute];
+    const { optionsType } = filterOperations[type][operator];
+
+    if (optionsType !== 'nothing' && (!option || option === '' || option === [])) {
       return;
     }
 
-    if (attributes[attribute].type === 'text') {
+    if (optionsType !== 'nothing' && attributes[attribute].type === 'text') {
       option.trim().split(" ").forEach(element => {
         if (element.length > 0) term.push(element);
       });
@@ -235,7 +243,7 @@ class ModalCreateFilter extends Component {
       toggle,
       modal,
       attributes,
-      filterLogic
+      updateCurrentFilter
     } = this.props;
 
     console.log("Attributes: ", attributes);
@@ -360,7 +368,7 @@ class ModalCreateFilter extends Component {
           </div>
         </ModalBody>
         <ModalFooter className={'filter-footer'}>
-          <Button color="success" onClick={() => { this.cleanState(); }}>Criar Filtro</Button>
+          <Button color="success" onClick={() => { updateCurrentFilter(this.state.currentFilterLogic); this.cleanState(); }}>Criar Filtro</Button>
           <Button color="danger" onClick={() => { toggle(); this.cleanState(); }}>Cancelar</Button>
         </ModalFooter>
       </Modal>
