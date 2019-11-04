@@ -14,6 +14,7 @@ import AssetCard from "../../components/Cards/AssetCard";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
+import searchList from "../../utils/search/searchList";
 // import { contracts } from "./FakeData";
 
 const tableConfig = [
@@ -27,6 +28,14 @@ const tableConfig = [
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
+const attributes = [
+  "contractSf",
+  "title",
+  "company",
+  "status",
+  "dateStart",
+  "finalDate"
+]
 
 class ContractsList extends Component {
   constructor(props) {
@@ -64,18 +73,7 @@ class ContractsList extends Component {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
-    let filteredItems = allItems;
-    if (searchTerm.length > 0) {
-      const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = allItems.filter(function (item) {
-        return (
-          (item.contractSf.includes(searchTermLower)) ||
-          (item.title.includes(searchTermLower)) ||
-          // (item.title.toLowerCase().includes(searchTermLower)) ||
-          (item.company.toLowerCase().includes(searchTermLower))
-        );
-      });
-    }
+    let filteredItems = searchList(allItems, attributes, searchTerm);
 
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
