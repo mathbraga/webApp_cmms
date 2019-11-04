@@ -17,6 +17,11 @@ import SingleInputWithDropdown from "../Forms/SingleInputWithDropdown";
 
 import "./ModalCreateFilter.css";
 
+const condicionalOperator = {
+  and: 'Condicional E',
+  or: 'Condicional OU'
+};
+
 const filterOperations = {
   option: {
     equalTo: { description: 'igual a', optionsType: 'selectMany' },
@@ -65,7 +70,7 @@ const filterResultUI = (filterLogic, attributes, operators) => {
       );
     }
     else if (type === 'opr') {
-      const oprUI = logic.verb === 'and' ? 'E' : (logic.verb === 'or' ? 'OU' : '');
+      const oprUI = attribute === 'and' ? 'E' : (attribute === 'or' ? 'OU' : '');
       resultUI.push(
         <div className="logic-box">
           {oprUI}
@@ -158,7 +163,6 @@ class ModalCreateFilter extends Component {
   }
 
   handleChangeOption = (event) => {
-    console.log('Handle: ', event.target)
     const { value } = event.target;
     this.setState({
       option: value,
@@ -207,27 +211,35 @@ class ModalCreateFilter extends Component {
     if (!attribute || attribute === '') {
       return;
     }
-    if (!operator || operator === '') {
+    if ((!operator || operator === '') && !condicionalOperator[attribute]) {
       return;
     }
 
-    const { type } = attributes[attribute];
-    const { optionsType } = filterOperations[type][operator];
+    console.log("Att: ", attribute);
+    console.log("Opr: ", operator);
+    console.log("Opt: ", option);
 
-    if (optionsType !== 'nothing' && (!option || option === '' || option === [])) {
-      return;
+    if (attribute !== 'and' && attribute !== 'or') {
+      const { type } = attributes[attribute];
+      const { optionsType } = filterOperations[type][operator];
+
+      if (optionsType !== 'nothing' && (!option || option === '' || option === [])) {
+        return;
+      }
+
+      if (optionsType !== 'nothing' && attributes[attribute].type === 'text') {
+        option.trim().split(" ").forEach(element => {
+          if (element.length > 0) term.push(element);
+        });
+      } else {
+        term.push(option);
+      }
     }
 
-    if (optionsType !== 'nothing' && attributes[attribute].type === 'text') {
-      option.trim().split(" ").forEach(element => {
-        if (element.length > 0) term.push(element);
-      });
-    } else {
-      term.push(option);
-    }
+    console.log("Operator: ", operator);
 
     const newLogic = {
-      type: (operator === 'and' || operator === 'or' ? 'opr' : 'att'),
+      type: (attribute === 'and' || attribute === 'or' ? 'opr' : 'att'),
       attribute,
       verb: operator,
       term,
@@ -246,11 +258,10 @@ class ModalCreateFilter extends Component {
       updateCurrentFilter
     } = this.props;
 
-    console.log("Attributes: ", attributes);
-
-    const type = this.state.attribute && attributes[this.state.attribute].type;
-
-    console.log('State: ', this.state);
+    let type = this.state.attribute && attributes[this.state.attribute] && attributes[this.state.attribute].type;
+    if (!type) {
+      type = "opr"
+    }
 
     const listDropdown = Object.keys(attributes);
 
@@ -310,11 +321,19 @@ class ModalCreateFilter extends Component {
                     onChange={this.handleAttributeSelectClick}
                   >
                     <option value selected={!this.state.attribute} style={{ display: 'none' }}></option>
-                    {attributes && listDropdown.map((option) => (
-                      <option value={option}>
-                        {attributes[option].name}
-                      </option>
-                    ))}
+                    {((attributes && (this.state.currentFilterLogic.length === 0 || this.state.currentFilterLogic.slice(-1)[0].type === 'opr'))
+                      ? (
+                        listDropdown.map((option) => (
+                          <option value={option}>
+                            {attributes[option].name}
+                          </option>
+                        )))
+                      : ([
+                        <option value='and'>Condicional E</option>,
+                        <option value='or'>Condicional OU</option>
+                      ]
+                      )
+                    )}
                   </Input>
                 </Col>
               </FormGroup>
@@ -322,7 +341,10 @@ class ModalCreateFilter extends Component {
                 <Col sm={4} style={{ margin: "auto 0" }}>
                   <Input
                     style={{ textAlign: "center" }}
-                    value={this.state.attribute ? attributes[this.state.attribute].name : ''}
+                    value={this.state.attribute ?
+                      (condicionalOperator[this.state.attribute] || attributes[this.state.attribute].name) :
+                      ''
+                    }
                     disabled
                     type="text"
                     name="attribute"
@@ -331,14 +353,14 @@ class ModalCreateFilter extends Component {
                 </Col>
                 <Col sm={4} style={{ margin: "auto 0" }}>
                   <Input
-                    className={!this.state.attribute ? 'remove-input' : ''}
+                    className={(!this.state.attribute || condicionalOperator[this.state.attribute]) ? 'remove-input' : ''}
                     type="select"
                     name="attribute"
                     id="attribute"
                     onChange={this.handleInputSelectClick(type)}
                   >
                     <option value selected={!this.state.operator} style={{ display: 'none' }}></option>
-                    {this.state.attribute && Object.keys(filterOperations[type]).map((option) => (
+                    {this.state.attribute && !condicionalOperator[this.state.attribute] && Object.keys(filterOperations[type]).map((option) => (
                       <option value={option}>
                         {filterOperations[type][option].description}
                       </option>
@@ -368,7 +390,7 @@ class ModalCreateFilter extends Component {
           </div>
         </ModalBody>
         <ModalFooter className={'filter-footer'}>
-          <Button color="success" onClick={() => { updateCurrentFilter(this.state.currentFilterLogic); this.cleanState(); }}>Criar Filtro</Button>
+          <Button color="success" onClick={() => { updateCurrentFilter(this.state.currentFilterLogic); this.cleanState(); toggle() }}>Criar Filtro</Button>
           <Button color="danger" onClick={() => { toggle(); this.cleanState(); }}>Cancelar</Button>
         </ModalFooter>
       </Modal>
