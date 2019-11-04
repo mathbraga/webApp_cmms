@@ -161,10 +161,10 @@ class ModalCreateFilter extends Component {
     });
   }
 
-  updateAttribute = () => (itemId) => {
+  handleAttributeSelectClick = (event) => {
     this.setState(
       {
-        attribute: itemId,
+        attribute: event.target.value,
         operator: null,
         inputBasedOnOperator: 'nothing',
         option: null,
@@ -199,13 +199,13 @@ class ModalCreateFilter extends Component {
       cleanFilter
     } = this.props;
 
+    console.log("Attributes: ", attributes);
+
     const type = this.state.attribute && attributes[this.state.attribute].type;
 
     console.log('State: ', this.state);
 
-    const listDropdown = Object.keys(attributes).map(key => (
-      { id: key, text: attributes[key].name, subtext: '' }
-    ))
+    const listDropdown = Object.keys(attributes);
 
     return (
       <Modal
@@ -256,13 +256,19 @@ class ModalCreateFilter extends Component {
               <FormGroup row>
                 <Label for="attribute" sm={3}>Atributo / Operação</Label>
                 <Col sm={9}>
-                  <SingleInputWithDropdown
-                    withLabel={false}
-                    listDropdown={listDropdown}
-                    required
-                    update={this.updateAttribute()}
-                    value={this.state.attribute ? attributes[this.state.attribute].name : ''}
-                  />
+                  <Input
+                    type="select"
+                    name="attribute"
+                    id="attribute"
+                    onChange={this.handleAttributeSelectClick}
+                  >
+                    <option value selected={!this.state.attribute} style={{ display: 'none' }}></option>
+                    {attributes && listDropdown.map((option) => (
+                      <option value={option}>
+                        {attributes[option].name}
+                      </option>
+                    ))}
+                  </Input>
                 </Col>
               </FormGroup>
               <FormGroup row style={{ minHeight: "93px" }}>
