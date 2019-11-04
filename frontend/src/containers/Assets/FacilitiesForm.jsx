@@ -54,18 +54,11 @@ import WidgetThreeColumns from '../../components/Widgets/WidgetThreeColumns';
 
 const depQuery = gql`
         query depQuery {
-          allDepartments(orderBy: DEPARTMENT_ID_ASC) {
-            edges {
-              node {
-                departmentId
-                fullName
-              }
-            }
-          }
           allFacilities(orderBy: ASSET_ID_ASC) {
             edges {
               node {
                 assetId
+                assetSf
                 name
               }
             }
@@ -74,10 +67,10 @@ const depQuery = gql`
 
 const facListQuery = gql`
         query assetsQuery($category: AssetCategoryType!) {
-          allAssets(condition: {category: $category}, orderBy: ASSET_ID_ASC) {
+          allAssets(condition: {category: $category}, orderBy: ASSET_SF_ASC) {
             edges {
               node {
-                parent
+                assetSf
                 name
                 model
                 manufacturer
@@ -85,14 +78,6 @@ const facListQuery = gql`
                 category
                 serialnum
                 area
-                assetByPlace {
-                  assetId
-                  name
-                }
-                assetByParent {
-                  name
-                  assetId
-                }
               }
             }
           }
@@ -113,7 +98,7 @@ class FacilitiesForm extends Component {
     };
 
     this.handleFacilitiesDropDownChange = this.handleFacilitiesDropDownChange.bind(this);
-    this.handleDepartmentsDropDownChange = this.handleDepartmentsDropDownChange.bind(this);
+    // this.handleDepartmentsDropDownChange = this.handleDepartmentsDropDownChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
@@ -121,9 +106,9 @@ class FacilitiesForm extends Component {
     this.setState({ assetParent: assetId });
   }
 
-  handleDepartmentsDropDownChange(departments) {
-    this.setState({ departments: departments });
-  }
+  // handleDepartmentsDropDownChange(departments) {
+  //   this.setState({ departments: departments });
+  // }
 
   handleInputChange(event) {
     if (event.target.value.length === 0)
@@ -135,32 +120,26 @@ class FacilitiesForm extends Component {
     const newFacility = gql`
       mutation MyMutation (
         $area: Float,
-        $depsArray: [String],
         $description: String,
-        $facId: String!,
+        $facSf: String!,
         $lat: Float,
         $lon: Float,
-        $name: String!,
-        $parent: String!,
-        $place: String!
+        $name: String!
         ){
         insertFacility(
           input: {
             facilityAttributes: {
               area: $area
-              assetId: $facId
+              assetSf: $facSf
               description: $description
               latitude: $lat
               longitude: $lon
               name: $name
-              parent: $parent
               category: F
-              place: $place
             }
-            departmentsArray: $depsArray
           }
         ){
-        assetId
+        newFacilitySf
       }
     }`;
 
@@ -168,7 +147,7 @@ class FacilitiesForm extends Component {
       newData().then(console.log("Mutation"))
     )
 
-    const depsArray = this.state.departments === null ? null : this.state.departments.map((item) => item.id);
+    // const depsArray = this.state.departments === null ? null : this.state.departments.map((item) => item.id);
     console.log(this.state);
     return (
       <Query query={depQuery}>{
@@ -178,35 +157,36 @@ class FacilitiesForm extends Component {
             console.log("Erro ao tentar baixar os dados!");
             return null
           }
-          const depsID = data.allDepartments.edges.map((item) => item.node.departmentId);
-          const depsName = data.allDepartments.edges.map((item) => item.node.fullName);
+          // const depsID = data.allDepartments.edges.map((item) => item.node.departmentId);
+          // const depsName = data.allDepartments.edges.map((item) => item.node.fullName);
 
           const facID = data.allFacilities.edges.map((item) => item.node.assetId);
+          const facSf = data.allFacilities.edges.map((item) => item.node.assetSf);
           const facName = data.allFacilities.edges.map((item) => item.node.name);
           // console.log(facID);
           // console.log(data);
 
-          const deps = [];
-          for (let i = 0; i < depsID.length; i++)
-            deps.push({ id: depsID[i], text: depsName[i], subtext: depsID[i] });
+          // const deps = [];
+          // for (let i = 0; i < depsID.length; i++)
+          //   deps.push({ id: depsID[i], text: depsName[i], subtext: depsID[i] });
 
           const facs = [];
           for (let i = 0; i < facID.length; i++)
-            facs.push({ id: facID[i], text: facName[i], subtext: facID[i] });
+            facs.push({ id: facID[i], text: facName[i], subtext: facSf[i] });
 
           return (
             <Mutation
               mutation={newFacility}
               variables={{
                 area: Number(this.state.area),
-                depsArray: depsArray,
+                // depsArray: depsArray,
                 description: this.state.description,
-                facId: this.state.assetId,
+                facSf: this.state.assetSf,
                 lat: Number(this.state.latitude),
                 lon: Number(this.state.longitude),
                 name: this.state.assetName,
-                parent: this.state.assetParent,
-                place: this.state.assetParent
+                // parent: this.state.assetParent,
+                // place: this.state.assetParent
               }}
               update={(cache, { data: { insertFacility } }) => {
                 try{
@@ -216,9 +196,9 @@ class FacilitiesForm extends Component {
                       category: "F"
                     }
                   });
-                  const id = insertFacility.assetId;
+                  const sf = insertFacility.assetSf;
                   const name = this.state.assetName;
-                  const parent = this.state.assetParent;
+                  // const parent = this.state.assetParent;
                   const model = null;
                   const manufacturer = null;
                   const category = "F"
@@ -229,21 +209,21 @@ class FacilitiesForm extends Component {
                     {node: {
                       area: area,
                       assetByParent: {
-                        assetId: id,
+                        assetSf: sf,
                         name: name,
                         __typename: "Asset"
                       },
                       assetByPlace: {
-                        assetId: id,
+                        assetId: sf,
                         name: name,
                         __typename: "Asset"
                       },
-                      assetId: id,
+                      assetSf: sf,
                       category: category,
                       manufacturer: manufacturer,
                       model: model,
                       name: name,
-                      parent: parent,
+                      // parent: parent,
                       serialnum: serialnum,
                       __typename: "Asset"
                     },
@@ -306,7 +286,7 @@ class FacilitiesForm extends Component {
                               <Label htmlFor="facilities-code">Código</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="assetId" type="text" id="facilities-code" placeholder="Digite o código do endereçamento ..."
+                                name="assetSf" type="text" id="facilities-code" placeholder="Digite o código do endereçamento ..."
                                 required
                                 autoComplete="off"
                               />
@@ -322,7 +302,7 @@ class FacilitiesForm extends Component {
                           />
                         </FormGroup>
                         <FormGroup row>
-                          <Col xs={'8'}>
+                          {/* <Col xs={'8'}>
                             <FormGroup>
                               <SingleInputWithDropDown
                                 label={'Ativo pai'}
@@ -333,7 +313,7 @@ class FacilitiesForm extends Component {
                                 required
                               />
                             </FormGroup>
-                          </Col>
+                          </Col> */}
                           <Col xs={'4'}>
                             <FormGroup>
                               <Label htmlFor="area">Área (m²)</Label>
@@ -345,7 +325,7 @@ class FacilitiesForm extends Component {
                             </FormGroup>
                           </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        {/* <FormGroup row>
                           <Col xs={'8'}>
                             <InputWithDropdown
                               label={'Departamentos'}
@@ -355,7 +335,7 @@ class FacilitiesForm extends Component {
                               id={'departments'}
                             />
                           </Col>
-                        </FormGroup>
+                        </FormGroup> */}
                         <FormGroup row>
                           {/* <Col xs={'4'}>
                     <FormGroup>
