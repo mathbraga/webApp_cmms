@@ -110,8 +110,9 @@ class ContractsList extends Component {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer nofollow"
+              onClick={(e) => e.stopPropagation()}
             >
-            {"Link"}
+            {"CT " + parseInt(item.contractSf.slice(2, 6), 10) + "/" + item.contractSf.slice(6)}
             </a>
           </div>  
         </td>
