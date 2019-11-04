@@ -103,54 +103,67 @@ class MaterialView extends Component {
 
   render() {
     const { pageCurrent, goToPage, searchTerm, tabSelected } = this.state;
-    const [specSf, version] = this.props.location.pathname.slice(22).split('v');
+    const specId = parseInt(this.props.location.pathname.slice(22), 10);
+    console.log(specId);
     const specInfo = gql`
-      query ($specSf: String!, $version: String!) {
-        specBySpecSfAndVersion(specSf: $specSf, version: $version) {
-          name
-          specSf
-          activities
-          category
-          catmat
-          catser
-          createdAt
-          criteria
-          description
-          isSubcont
-          lifespan
-          materials
-          notes
-          qualification
-          services
-          subcategory
-          unit
+      query ($specId: Int!) {
+        allBalances(condition: {specId: $specId}) {
+          nodes {
+            title
+            supplySf
+            supplyId
+            specId
+            qty
+            fullPrice
+            contractSf
+            contractId
+            consumed
+            company
+            blocked
+            bidPrice
+            available
+          }
+        }
+        specBySpecId(specId: $specId) {
           version
+          unit
           updatedAt
-          suppliesBySpecId {
-            nodes {
-              bidPrice
-              orderSuppliesBySupplyId {
-                nodes {
-                  orderByOrderId {
-                    orderId
-                    title
-                    status
-                  }
-                }
-              }
-              contractByContractId {
-                contractSf
-              }
-            }
+          subcategory
+          spreadsheets
+          specSf
+          specId
+          services
+          qualification
+          notes
+          nodeId
+          name
+          materials
+          lifespan
+          isSubcont
+          description
+          criteria
+          createdAt
+          catser
+          catmat
+          category
+          activities
+        }
+        allSpecOrders(condition: {specId: $specId}) {
+          nodes {
+            orderId
+            status
+            specId
+            title
           }
         }
       }
+    
     `;
 
     return (
       <Query
         query={specInfo}
-        variables={{ specSf: specSf, version: 'v' + version }}
+        variables={{ specId: specId }}
       >{
           ({ loading, error, data }) => {
             if (loading) return null
@@ -160,15 +173,9 @@ class MaterialView extends Component {
             }
             console.log(data);
 
-            const specInfo = data.specBySpecSfAndVersion;
-            const supplies =   data.specBySpecSfAndVersion.suppliesBySpecId.nodes;
-            const orders = [];
-            supplies.forEach(supply => {
-              supply.orderSuppliesBySupplyId.nodes.forEach(order => {
-                orders.push(order.orderByOrderId);
-              })
-            });
-
+            const spec = data.specBySpecId;
+            const balances =   data.allBalances.nodes;
+            const orders = data.allSpecOrders.nodes;
 
             // const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
 
@@ -286,35 +293,35 @@ class MaterialView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Serviço / Material</div>
-                                    <div className="asset-info-content-data">Luminária 2x14 W de embutir</div>
+                                    <div className="asset-info-content-data">{spec.name}</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Categoria</div>
-                                    <div className="asset-info-content-data">Elétrica</div>
+                                    <div className="asset-info-content-data">{spec.category}</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Subcategoria</div>
-                                    <div className="asset-info-content-data">Iluminação</div>
+                                    <div className="asset-info-content-data">{spec.subcategory}</div>
                                   </div>
                                 </Col>
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Código</div>
-                                    <div className="asset-info-content-data">SF-00274</div>
+                                    <div className="asset-info-content-data">{spec.specSf}</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Versão</div>
-                                    <div className="asset-info-content-data">v02</div>
+                                    <div className="asset-info-content-data">{spec.version}</div>
                                   </div>
                                   <div className="asset-info-single-container">
-                                    <div className="desc-sub">CATSER</div>
-                                    <div className="asset-info-content-data">1538</div>
+                                    <div className="desc-sub">CATMAT / CATSER</div>
+                                    <div className="asset-info-content-data">{spec.catmat + " / " + spec.catser}</div>
                                   </div>
                                 </Col>
                               </Row>
                               <div className="asset-info-single-container">
                                 <div className="desc-sub">Descrição Detalhada</div>
-                                <div className="asset-info-content-data">Fornecimento e instalação de luminária de embutir completa T5 2 x 14W, com reator e lâmpada.</div>
+                                <div className="asset-info-content-data">{spec.description}</div>
                               </div>
                             </div>
                             <h1 className="asset-info-title">Definição dos Serviços e Materiais</h1>
@@ -322,175 +329,13 @@ class MaterialView extends Component {
                               <div className="asset-info-single-container">
                                 <div className="desc-sub">Detalhamento dos Materiais</div>
                                 <div className="asset-info-content-data">
-                                  Luminária de embutir completa 2 x 14W com as seguintes características mínimas:
-                                  <ul>
-                                    <li>
-                                      Dimensões aproximadas: 620 x 270 mm e perfil baixo (menor que 45 mm) para instalação em forro estreito;
-                                    </li>
-                                    <li>
-                                      Corpo em chapa de aço, completamente fechada, pintura eletroestática em tinta epóxi a pó, na cor branca;
-                                    </li>
-                                    <li>
-                                      Refletor parabólico em alumínio anodizado com pureza acima de 95%;
-                                    </li>
-                                    <li>
-                                      Aletas parabólicas em alumínio anodizado com pureza acima de 95%;
-                                    </li>
-                                    <li>
-                                      Alojamento do reator na parte inferior, com tampa removível, para fácil manutenção (sistema de encaixe de pressão, por bilhas ou molas), acesso a reator e lâmpadas manualmente, sem auxílio de ferramentas;
-                                    </li>
-                                    <li>
-                                      Rendimento acima de 75%;
-                                    </li>
-                                    <li>
-                                      Soquetes de engate rápido, com travamento antivibratório;
-                                    </li>
-                                    <li>
-                                      Esteticamente compatível com o existente no Senado Federal.
-                                    </li>
-                                  </ul>
-                                  Com 02 (duas) lâmpadas fluorescente T5 de 14 W com as seguintes características mínimas:
-                                  <ul>
-                                    <li>
-                                      Temperatura de cor mínima de 4000K;
-                                    </li>
-                                    <li>
-                                      Tensão nominal de 220 V;
-                                    </li>
-                                    <li>
-                                      Base G5;
-                                    </li>
-                                    <li>
-                                      Fluxo luminoso mínimo de 1200 lm;
-                                    </li>
-                                    <li>
-                                      Índice de Reprodução de Cor mínimo de 80;
-                                    </li>
-                                    <li>
-                                      Eficiência luminosa a 35°C de pelo menos 96 lumens/Watt;
-                                    </li>
-                                    <li>
-                                      Vida mediana mínima de 20000 horas;
-                                    </li>
-                                    <li>
-                                      Com as seguintes marcações legíveis no bulbo ou na base: potência nominal (W), designação da cor, nome do fabricante ou marca registrada e modelo.
-                                    </li>
-                                  </ul>
-                                  Reator eletrônico com as seguintes características mínimas:
-                                  <ul>
-                                    <li>
-                                      Para duas lâmpadas fluorescentes tubulares 14 W;
-                                    </li>
-                                    <li>
-                                      Partida instantânea;
-                                    </li>
-                                    <li>
-                                      Com selo do INMETRO;
-                                    </li>
-                                    <li>
-                                      Com selo do Procel;
-                                    </li>
-                                    <li>
-                                      Distorção harmônica total (THDi) inferior a 10%;
-                                    </li>
-                                    <li>
-                                      Alto fator de potência (superior a 0,97);
-                                    </li>
-                                    <li>
-                                      Alimentação de 220 V;
-                                    </li>
-                                  </ul>
-                                  Cabo de cobre multipolar isolado 0,6/1 kV 3x2,5mm² resistente a chama, livre de halogênios, com as seguintes características mínimas:
-                                  <ul>
-                                    <li>
-                                      Área nominal de cada seção condutora: 2,5 mm²;
-                                    </li>
-                                    <li>
-                                      Cabo flexível tripolar de cobre (têmpera mole) formado por fios de cobre nu (não revestido);
-                                    </li>
-                                    <li>
-                                      Veias internas nas cores preto, azul e verde;
-                                    </li>
-                                    <li>
-                                      Isolação em dupla camada por composto termofixo poliolefínico extrudado não halogenado EPR/B;
-                                    </li>
-                                    <li>
-                                      Cobertura por composto termoplástico com base poliolefínica não halogenada;
-                                    </li>
-                                    <li>
-                                      Tensão mínima de isolação (Vo/V): 0,6/1kV;
-                                    </li>
-                                    <li>
-                                      Temperatura de operação (classe térmica) em serviço contínuo (regime permanente): 90ºC;
-                                    </li>
-                                    <li>
-                                      Encordoamento extraflexível: classe 5 (ABNT NBR NM 280:2011 - Condutores de Cabos Isolados (IEC 60228, MOD));
-                                    </li>
-                                    <li>
-                                      Característica de não propagação e com autoextinção de chama, livre de halogênio, baixa emissão de fumaça e gases tóxicos, ausência de emissão de gases corrosivos;
-                                    </li>
-                                    <li>
-                                      Atendimento às exigências das normas ABNT ABNT NBR 13248 - Cabos de potência e controle e condutores isolados sem cobertura, com isolação extrudada e com baixa emissão de fumaça para tensões até 1 kVRequisitos de desempenho, NBR 13570 e ABNT NBR NM 280:2011 - Condutores de Cabos Isolados (IEC 60228, MOD);
-                                    </li>
-                                    <li>
-                                      Marcação indelével no cabo, em intervalos regulares de até 50 cm, contendo o nome do fabricante, a seção nominal do condutor (em milímetros quadrados), a tensão de isolamento (fase-fase) e o número da norma ABNT NBR 13248 - Cabos de potência e controle e condutores isolados sem cobertura, com isolação extrudada e com baixa emissão de fumaça para tensões até 1 kVRequisitos de desempenho;
-                                    </li>
-                                    <li>
-                                      Com certificado do INMETRO.
-                                    </li>
-                                    <li>
-                                      Plugue (macho) com 3 pólos (2P+T), com as seguintes características mínimas:
-                                    </li>
-                                    <li>
-                                      Para 10A e 250V
-                                    </li>
-                                    <li>
-                                      Posição 180 graus (axial)
-                                    </li>
-                                    <li>
-                                      De acordo com a norma NBR 14136
-                                    </li>
-                                    <li>
-                                      Com prensa-cabos.
-                                    </li>
-                                    <li>
-                                      Prolongador (plugue fêmea) com 3 pólos (2P+T), com as seguintes características mínimas:
-                                    </li>
-                                    <li>
-                                      Para 10A e 250V
-                                    </li>
-                                    <li>
-                                      Posição 180 graus (axial)
-                                    </li>
-                                    <li>
-                                      De acordo com a norma NBR 14136
-                                    </li>
-                                    <li>
-                                      Com prensa-cabos.
-                                    </li>
-                                  </ul>
+                                  {spec.materials}
                                 </div>
                               </div>
                               <div className="asset-info-single-container">
                                 <div className="desc-sub">Detalhamento dos Serviços</div>
                                 <div className="asset-info-content-data">
-                                  <ul>
-                                    <li>
-                                      O fornecimento das luminárias deverá ser completo, ou seja, deverá contemplar todos os acessórios para a instalação, tais como reatores, lâmpadas, elementos de fixação (tirantes, suportes, suporte “pé de galinha”, entre outros).
-                                    </li>
-                                    <li>
-                                      Deverão ser previstas bordas e acessórios para fixação em forros especiais.
-                                    </li>
-                                    <li>
-                                      Para alimentação elétrica, as luminárias deverão possuir cabos 3x2,5 mm2 com plugue macho e fêmea 2P+T (três pinos) de 10A.
-                                    </li>
-                                    <li>
-                                      O item contempla a montagem da luminária, incluindo as fixações internas de elementos como lâmpada e reatores, a fixação da luminária no forro, as conexões elétricas internas e externas (incluindo a conexão de aterramento da carcaça na luminária e no reator) e o teste de funcionamento.
-                                    </li>
-                                    <li>
-                                      Deverá ser feita a limpeza das luminárias e lâmpadas ao final dos serviços.
-                                   </li>
-                                  </ul>
+                                  {spec.services}
                                 </div>
                               </div>
                             </div>
@@ -498,114 +343,25 @@ class MaterialView extends Component {
                         </TabPane>
                         <TabPane tabId="contracts" style={{ width: "100%" }}>
                           <div className="asset-info-container">
-                            <h1 className="asset-info-title">Saldo Total</h1>
+                            <h1 className="asset-info-title">Saldos</h1>
                             <div className="asset-info-content">
-                              <Row>
-                                <Col md="6">
-                                  <div className="asset-info-single-container">
-                                    <div className="desc-sub">Contratações Vigentes</div>
-                                    <div className="asset-info-content-data">155 unidades</div>
-                                  </div>
-                                  <div className="asset-info-single-container">
-                                    <div className="desc-sub">Saldo Disponível</div>
-                                    <div className="asset-info-content-data">134 unidades</div>
-                                  </div>
-                                </Col>
-                                <Col md="6">
-                                  <div className="asset-info-single-container">
-                                    <div className="desc-sub">Valor Contratado</div>
-                                    <div className="asset-info-content-data">R$ 12.000,00</div>
-                                  </div>
-                                  <div className="asset-info-single-container">
-                                    <div className="desc-sub">Valor Disponível</div>
-                                    <div className="asset-info-content-data">R$ 9.000,00</div>
-                                  </div>
-                                </Col>
-                              </Row>
-                            </div>
-                            <h1 className="asset-info-title">Saldo por Contrato</h1>
-                            <div className="asset-info-content">
-                              <ol style={{ padding: "0", listStyle: "none" }}>
-                                <li style={{ marginTop: "15px", border: "1px solid #d2d2d2", padding: "20px" }}>
-                                  <span style={{ fontWeight: "400", fontSize: "18px" }}>Contrato nº 119/2019 - Manutenção Elétrica</span>
-                                  <Row style={{ paddingLeft: "30px" }}>
-                                    <Col md="6">
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Quantidade Contratada</div>
-                                        <div className="asset-info-content-data">50 unidades</div>
-                                      </div>
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Quantidade Disponível</div>
-                                        <div className="asset-info-content-data">34 unidades</div>
-                                      </div>
-                                    </Col>
-                                    <Col md="6">
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Valor Unitário do Contrato</div>
-                                        <div className="asset-info-content-data">R$ 2,00</div>
-                                      </div>
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Valor Unitário da Pesquisa</div>
-                                        <div className="asset-info-content-data">R$ 3,00</div>
-                                      </div>
-                                    </Col>
-                                  </Row>
-                                </li>
-                                <li style={{ marginTop: "30px", border: "1px solid #d2d2d2", padding: "20px" }}>
-                                  <span style={{ fontWeight: "400", fontSize: "18px" }}>
-                                    Contrato nº 012/2017 - Aquisição de insumos
-                                  </span>
-                                  <Row style={{ paddingLeft: "30px" }}>
-                                    <Col md="6">
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Quantidade Contratada</div>
-                                        <div className="asset-info-content-data">50 unidades</div>
-                                      </div>
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Quantidade Disponível</div>
-                                        <div className="asset-info-content-data">34 unidades</div>
-                                      </div>
-                                    </Col>
-                                    <Col md="6">
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Valor Unitário do Contrato</div>
-                                        <div className="asset-info-content-data">R$ 2,00</div>
-                                      </div>
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Valor Unitário da Pesquisa</div>
-                                        <div className="asset-info-content-data">R$ 3,00</div>
-                                      </div>
-                                    </Col>
-                                  </Row>
-                                </li>
-                                <li style={{ marginTop: "30px", border: "1px solid #d2d2d2", padding: "20px" }}>
-                                  <span style={{ fontWeight: "400", fontSize: "18px" }}>
-                                    Contrato nº 077/2018 - Reforma de gabinetes
-                                  </span>
-                                  <Row style={{ paddingLeft: "30px" }}>
-                                    <Col md="6">
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Quantidade Contratada</div>
-                                        <div className="asset-info-content-data">50 unidades</div>
-                                      </div>
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Quantidade Disponível</div>
-                                        <div className="asset-info-content-data">34 unidades</div>
-                                      </div>
-                                    </Col>
-                                    <Col md="6">
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Valor Unitário do Contrato</div>
-                                        <div className="asset-info-content-data">R$ 2,00</div>
-                                      </div>
-                                      <div className="asset-info-single-container">
-                                        <div className="desc-sub">Valor Unitário da Pesquisa</div>
-                                        <div className="asset-info-content-data">R$ 3,00</div>
-                                      </div>
-                                    </Col>
-                                  </Row>
-                                </li>
-                              </ol>
+                              
+                              {balances.map(item => (
+                                <div>
+                                <h2>{item.company}</h2>
+                                <h3>{item.contractSf + " " + item.title}</h3>
+                                <ul>
+                                  <li>{"Código no contrato: " + item.supplySf}</li>
+                                  <li>{"Quantidade contratada: " + item.qty}</li>
+                                  <li>{"Quantidade bloqueada: " + item.blocked}</li>
+                                  <li>{"Quantidade consumida: " + item.consumed}</li>
+                                  <li>{"Quantidade disponível: " + item.available}</li>
+                                </ul>
+                                </div>
+                              ))}
+                              
+                              
+                              
                             </div>
                           </div>
                         </TabPane>

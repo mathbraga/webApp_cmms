@@ -91,7 +91,7 @@ class SpecsList extends Component {
 
     const tbody = showItems.map(item => (
       <tr
-        onClick={() => { this.props.history.push('/gestao/servicos/view/' + item.specSf + item.version) }}
+        onClick={() => { this.props.history.push('/gestao/servicos/view/' + item.specId) }}
       >
         <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
         <td>

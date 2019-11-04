@@ -53,11 +53,16 @@ create view balances as
         full outer join finished using (supply_id)
       group by supply_id
     )
-    select c.contract_sf,
+    select c.contract_id,
+           c.contract_sf,
            c.company,
            c.title,
+           s.supply_id,
            s.supply_sf,
            s.qty,
+           s.spec_id,
+           s.bid_price,
+           s.full_price,
            bc.blocked,
            bc.consumed,
            s.qty - bc.blocked - bc.consumed as available
