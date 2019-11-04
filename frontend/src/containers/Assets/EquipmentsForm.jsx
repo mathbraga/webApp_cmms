@@ -41,23 +41,21 @@ import gql from 'graphql-tag';
 
 const formsQuery = gql`
         query MyQuery {
-          allFacilities(orderBy: ASSET_ID_ASC) {
+          allFacilities(orderBy: ASSET_SF_ASC) {
             edges {
               node {
                 assetId
+                assetSf
                 name
               }
             }
           }
-          allAssets(condition: {category: A}, orderBy: ASSET_ID_ASC) {
+          allAssets(condition: {category: A}, orderBy: ASSET_SF_ASC) {
             edges {
               node {
                 assetId
+                assetSf
                 name
-                parent
-                assetByParent {
-                  name
-                }
               }
             }
           }
@@ -65,25 +63,17 @@ const formsQuery = gql`
 
 const equipListQuery = gql`
         query assetsQuery($category: AssetCategoryType!) {
-          allAssets(condition: {category: $category}, orderBy: ASSET_ID_ASC) {
+          allAssets(condition: {category: $category}, orderBy: ASSET_SF_ASC) {
             edges {
               node {
-                parent
                 name
                 model
                 manufacturer
                 assetId
+                assetSf
                 category
                 serialnum
                 area
-                assetByPlace {
-                  assetId
-                  name
-                }
-                assetByParent {
-                  name
-                  assetId
-                }
               }
             }
           }
@@ -94,28 +84,28 @@ class EquipmentsForm extends Component {
     super(props);
     this.state = {
       assetName: null,
-      assetId: null,
+      assetSf: null,
       description: null,
-      assetParent: null,
+      // assetParent: null,
       price: null,
-      location: null,
+      // location: null,
       manufacturer: null,
       model: null,
       serialNum: null
     };
 
-    this.handleParentDropDownChange = this.handleParentDropDownChange.bind(this);
-    this.handleLocationDropDownChange = this.handleLocationDropDownChange.bind(this);
+    // this.handleParentDropDownChange = this.handleParentDropDownChange.bind(this);
+    // this.handleLocationDropDownChange = this.handleLocationDropDownChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleParentDropDownChange(assetId) {
-    this.setState({ assetParent: assetId });
-  }
+  // handleParentDropDownChange(assetId) {
+  //   this.setState({ assetParent: assetId });
+  // }
 
-  handleLocationDropDownChange(location) {
-    this.setState({ location: location });
-  }
+  // handleLocationDropDownChange(location) {
+  //   this.setState({ location: location });
+  // }
 
   handleInputChange(event) {
     if (event.target.value.length === 0)
@@ -126,35 +116,32 @@ class EquipmentsForm extends Component {
   render() {
     const newEquipment = gql`
       mutation MyMutation (
-          $assetId: String!,
+          $assetSf: String!,
           $description: String!,
           $manufacturer: String,
           $model: String,
           $name: String!,
-          $parent: String!,
-          $place: String!,
           $price: Float,
           $serialnum: String
         ){
         insertAppliance(
           input: {
             applianceAttributes: {
-              assetId: $assetId
+              assetSf: $assetSf
               description: $description
               manufacturer: $manufacturer
               model: $model
               name: $name
-              parent: $parent
-              place: $place
               price: $price
               serialnum: $serialnum
               category: A
             }
           }
-        ){
-          assetId
+        ) {
+        newApplianceSf
+        }
       }
-    }`;
+    `;
 
     const mutate = (insertData) => (
       insertData().then(console.log("Mutation"))
@@ -164,13 +151,11 @@ class EquipmentsForm extends Component {
       <Mutation
         mutation={newEquipment}
         variables={{
-          assetId: this.state.assetId,
+          assetSf: this.state.assetSf,
           description: this.state.description,
           manufacturer: this.state.manufacturer,
           model: this.state.model,
           name: this.state.assetName,
-          parent: this.state.assetParent,
-          place: this.state.location,
           price: Number(this.state.price),
           serialnum: this.state.serialNum
         }}
@@ -182,9 +167,9 @@ class EquipmentsForm extends Component {
                 category: "A"
               }
             });
-            const id = insertAppliance.assetId;
+            const sf = insertAppliance.assetSf;
             const name = this.state.assetName;
-            const parent = this.state.assetParent;
+            // const parent = this.state.assetParent;
             const model = this.state.model;
             const manufacturer = this.state.manufacturer;
             const category = "A"
@@ -195,21 +180,21 @@ class EquipmentsForm extends Component {
               {node: {
                 area: area,
                 assetByParent: {
-                  assetId: id,
+                  assetSf: sf,
                   name: name,
                   __typename: "Asset"
                 },
                 assetByPlace: {
-                  assetId: id,
+                  assetSf: sf,
                   name: name,
                   __typename: "Asset"
                 },
-                assetId: id,
+                assetSf: sf,
                 category: category,
                 manufacturer: manufacturer,
                 model: model,
                 name: name,
-                parent: parent,
+                // parent: parent,
                 serialnum: serialnum,
                 __typename: "Asset"
               },
@@ -244,22 +229,22 @@ class EquipmentsForm extends Component {
                   return null
                 }
 
-                const assetId = data.allFacilities.edges.map((item) => item.node.assetId);
+                const assetSf = data.allFacilities.edges.map((item) => item.node.assetSf);
                 const assetName = data.allFacilities.edges.map((item) => item.node.name);
                 //console.log(assetId);
                 //console.log(assetName);
 
                 const assets = [];
-                for (let i = 0; i < assetId.length; i++)
-                  assets.push({ id: assetId[i], text: assetName[i], subtext: assetId[i] });
+                for (let i = 0; i < assetSf.length; i++)
+                  assets.push({ id: assetSf[i], text: assetName[i], subtext: assetSf[i] });
 
-                const applianceId = data.allAssets.edges.map((item) => item.node.assetId);
-                const parentName = data.allAssets.edges.map((item) => item.node.assetByParent.name);
+                const applianceSf = data.allAssets.edges.map((item) => item.node.assetSf);
+                // const parentName = data.allAssets.edges.map((item) => item.node.assetByParent.name);
                 const applianceName = data.allAssets.edges.map((item) => item.node.name);
 
                 const appliances = [];
-                for (let i = 0; i < applianceId.length; i++)
-                  appliances.push({ id: applianceId[i], text: applianceName[i], subtext: parentName[i] });
+                for (let i = 0; i < applianceSf.length; i++)
+                  appliances.push({ id: applianceSf[i], text: applianceName[i], /* subtext: parentName[i] */ });
                 //console.log(appliances);
 
                 return (
@@ -298,7 +283,7 @@ class EquipmentsForm extends Component {
                               <Label htmlFor="equipment-code">Código</Label>
                               <Input
                                 onChange={this.handleInputChange}
-                                name="assetId" type="text" id="equipment-code" placeholder="Digite o código do equipamento"
+                                name="assetSf" type="text" id="equipment-code" placeholder="Digite o código do equipamento"
                                 required
                                 autoComplete="off"
                               />
@@ -316,7 +301,7 @@ class EquipmentsForm extends Component {
                         </FormGroup>
                         <FormGroup row>
                           <Col xs={'8'}>
-                            <FormGroup>
+                            {/* <FormGroup>
                               <SingleInputWithDropDown
                                 label={'Ativo pai'}
                                 placeholder="Nível superior do equipamento (outro equipamento ou localização)"
@@ -325,7 +310,7 @@ class EquipmentsForm extends Component {
                                 id={'appliances'}
                                 required
                               />
-                            </FormGroup>
+                            </FormGroup> */}
                           </Col>
                           <Col xs={'4'}>
                             <FormGroup>
@@ -339,7 +324,7 @@ class EquipmentsForm extends Component {
                           </Col>
                         </FormGroup>
                         <FormGroup row>
-                          <Col xs='8'>
+                          {/* <Col xs='8'>
                             <SingleInputWithDropDown
                               label={'Localização'}
                               placeholder={'Localização do equipamento ...'}
@@ -348,7 +333,7 @@ class EquipmentsForm extends Component {
                               id={'location'}
                               required
                             />
-                          </Col>
+                          </Col> */}
                         </FormGroup>
                         <FormGroup row>
                           <Col xs={'4'}>
