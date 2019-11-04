@@ -356,12 +356,11 @@ class MaterialView extends Component {
                                   <li>{"Quantidade bloqueada: " + item.blocked}</li>
                                   <li>{"Quantidade consumida: " + item.consumed}</li>
                                   <li>{"Quantidade disponível: " + item.available}</li>
+                                  <li>{"Preço unitário (licitado): " + item.bidPrice}</li>
+                                  <li>{"Preço unitário (pesquisa de preços): " + item.fullPrice}</li>
                                 </ul>
                                 </div>
                               ))}
-                              
-                              
-                              
                             </div>
                           </div>
                         </TabPane>
