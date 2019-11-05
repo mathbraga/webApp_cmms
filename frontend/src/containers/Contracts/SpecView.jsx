@@ -168,7 +168,7 @@ class SpecView extends Component {
           ({ loading, error, data }) => {
             if (loading) return null
             if (error) {
-              console.log("Erro ao tentar baixar os dados da OS!");
+              console.log(error.message);
               return null
             }
             console.log(data);
