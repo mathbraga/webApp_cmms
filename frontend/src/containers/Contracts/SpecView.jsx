@@ -68,7 +68,7 @@ const ORDER_PRIORITY_TYPE = {
   'URG': 'Urgente',
 };
 
-class MaterialView extends Component {
+class SpecView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -225,7 +225,7 @@ class MaterialView extends Component {
             return (
               <div className="asset-container">
                 <AssetCard
-                  sectionName={'Materiais e Serviços'}
+                  sectionName={'Especificações técnicas'}
                   sectionDescription={'Especificações técnicas'}
                   handleCardButton={() => this.props.history.push('/gestao/servicos')}
                   buttonName={'Materiais e Serviços'}
@@ -446,4 +446,4 @@ class MaterialView extends Component {
   }
 }
 
-export default MaterialView;
+export default SpecView;

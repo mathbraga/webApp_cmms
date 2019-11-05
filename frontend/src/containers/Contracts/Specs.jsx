@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import { Switch, Route } from "react-router-dom";
 import SpecsList from "./SpecsList";
 
-class Contracts extends Component {
+class Specs extends Component {
   render() {
     const fetchSpecs = gql`
       query SpecsQuery {
@@ -44,4 +44,4 @@ class Contracts extends Component {
   }
 }
 
-export default Contracts;
+export default Specs;
