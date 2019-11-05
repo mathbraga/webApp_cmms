@@ -1,5 +1,7 @@
 const paths = require('./paths');
 const { Client } = require('pg');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
 const corsConfig = {
   origin: true,
