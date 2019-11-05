@@ -154,7 +154,8 @@ create table specs (
   catser text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
-  unique (spec_sf, version)
+  unique (spec_sf, version)--,
+  -- check ((catmat is null and catser is not null) or (catmat is not null and catser is null))
 );
 
 create table supplies (
