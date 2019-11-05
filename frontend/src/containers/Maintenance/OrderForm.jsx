@@ -174,7 +174,7 @@ class OrderForm extends Component {
       dateLimit: null,
       progress: null,
       parent: null,
-      assets: null,
+      assetsArray: null,
       createdBy: null,
       place: null,
       departmentId: null,
@@ -240,16 +240,17 @@ class OrderForm extends Component {
         $title: String!,
         $dateStart: Datetime,
         $dateLimit: Datetime,
+        $dateEnd: Datetime,
         $parent: Int,
         $createdBy: String!,
         $description: String!,
         $progress: Int,
-        $place: String!,
+        $place: String,
         $contactEmail: String!,
         $contactName: String!,
         $contactPhone: String!,
-        $departmentId: String!,
-        $assetsArray: [Int]!
+        $departmentId: String,
+        $assetsArray: [Int!]!
         ){
           insertOrder(
             input: {
@@ -258,30 +259,32 @@ class OrderForm extends Component {
                 priority: $priority
                 category: $category
                 title: $title
-                dateStart: $dateStart
-                dateLimit: $dateLimit
-                parent: $parent
-                createdBy: $createdBy
                 description: $description
-                progress: $progress
-                place: $place
-                contactEmail: $contactEmail
+                departmentId: $departmentId
+                createdBy: $createdBy
                 contactName: $contactName
                 contactPhone: $contactPhone
-                departmentId: $departmentId
+                contactEmail: $contactEmail
+                progress: $progress
+                contractId: $contractId
+                dateEnd: $dateEnd
+                dateLimit: $dateLimit
+                dateStart: $dateStart
+                place: $place
+                parent: $parent
               }
               assetsArray: $assetsArray
             }
           ) {
-            orderId
+            newOrderId
           }
     }`;
 
     const mutate = (newData) => (
       newData().then(console.log("Mutation"))
     )
-    const assetsArray = this.state.assets === null ? null : this.state.assets.map((item) => item.assetId);
-    const parentAssets = this.state.assets === null ? null : this.state.assets;
+    const assetsArray = this.state.assetsArray === null ? null : this.state.assetsArray.map((item) => item.id);
+    // const parentAssets = this.state.assetsArray === null ? null : this.state.assetsArray;
 
     return (
       <Mutation
@@ -319,23 +322,23 @@ class OrderForm extends Component {
             const title = this.state.title;
             const status = this.state.status;
 
-            const newEdges = []
-            parentAssets.forEach(item => {
-                      newEdges.push(
-                      {node: {
-                        assetByAssetId: {
-                          assetByPlace: {
-                            assetId: item.id,
-                            name: item.text,
-                            __typename: "Asset"
-                          },
-                          __typename: "Asset"
-                        },
-                        __typename: "OrderAsset"
-                      },
-                      __typename: "OrderAssetsEdge"
-                      })
-                  });
+            // const newEdges = []
+            // parentAssets.forEach(item => {
+            //           newEdges.push(
+            //           {node: {
+            //             assetByAssetId: {
+            //               assetByPlace: {
+            //                 assetId: item.id,
+            //                 name: item.text,
+            //                 __typename: "Asset"
+            //               },
+            //               __typename: "Asset"
+            //             },
+            //             __typename: "OrderAsset"
+            //           },
+            //           __typename: "OrderAssetsEdge"
+            //           })
+            //       });
 
             listData.allOrders.edges.push(
               {node: {
@@ -343,7 +346,7 @@ class OrderForm extends Component {
                 createdAt: dateStart,
                 dateLimit: dateLimit,
                 orderAssetsByOrderId: {
-                  edges: newEdges,
+                  // edges: newEdges,
                   __typename: "OrderAssetsConnection"
                 },
                 orderId: id,
@@ -385,7 +388,8 @@ class OrderForm extends Component {
 
                 const orderID = data.allOrders.edges.map((item) => item.node.orderId);
                 const orderText = data.allOrders.edges.map((item) => item.node.title);
-
+                
+                const assetId = data.allAssets.edges.map((item) => item.node.assetId);
                 const assetSf = data.allAssets.edges.map((item) => item.node.assetSf);
                 const assetName = data.allAssets.edges.map((item) => item.node.name);
                 //console.log(orderID);
@@ -404,8 +408,8 @@ class OrderForm extends Component {
                   orders.push({ id: orderID[i], text: "OS " + orderID[i] + " - " + orderText[i], subtext: "" });
 
                 const assets = [];
-                for (let i = 0; i < assetSf.length; i++)
-                  assets.push({ id: assetSf[i], text: assetName[i], subtext: assetSf[i] });
+                for (let i = 0; i < assetId.length; i++)
+                  assets.push({ id: assetId[i], text: assetName[i], subtext: assetSf[i] });
 
                 return (
                   <div style={{ margin: "0 100px" }}>
@@ -461,8 +465,8 @@ class OrderForm extends Component {
                                   <Input
                                     // autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="title" type="text" id="title" placeholder="Título da ordem de serviço"
-                                    required
+                                    name={"title"} type="text" id={"title"} placeholder="Título da ordem de serviço"
+                                    // required
                                   />
                                 </FormGroup>
                               </Col>
@@ -471,13 +475,13 @@ class OrderForm extends Component {
                               <Col xs={'4'}>
                                 <FormGroup>
                                   <SingleInputWithDropDown
-                                    name='status'
+                                    name={'status'}
                                     label={'Status'}
                                     placeholder="Situação da OS"
                                     listDropdown={ORDER_STATUS}
                                     update={this.handleStatusDropDownChange}
                                     id={'status'}
-                                    required
+                                    // required
                                   />
                                 </FormGroup>
                               </Col>
@@ -487,10 +491,10 @@ class OrderForm extends Component {
                                     label={'Prioridade'}
                                     placeholder="Prioridade da OS"
                                     listDropdown={ORDER_PRIORITY}
-                                    name='priority'
+                                    name={'priority'}
                                     update={this.handlePriorityDropDownChange}
                                     id={'priority'}
-                                    required
+                                    // required
                                   />
                                 </FormGroup>
                               </Col>
@@ -503,7 +507,7 @@ class OrderForm extends Component {
                                     listDropdown={ORDER_CATEGORY}
                                     update={this.handleCategoryDropDownChange}
                                     id={'category'}
-                                    required
+                                    // required
                                   />
                                 </FormGroup>
                               </Col>
@@ -516,7 +520,7 @@ class OrderForm extends Component {
                                     // autoComplete="new-password"
                                     onChange={this.handleInputChange}
                                     name="description" type="textarea" id="description" placeholder="Descrição da ordem de serviço" rows="4"
-                                    required
+                                    // required
                                   />
                                 </FormGroup>
                               </Col>
@@ -543,11 +547,11 @@ class OrderForm extends Component {
                               </Col>
                               <Col xs={'4'}>
                                 <FormGroup>
-                                  <Label htmlFor="accomplished">Executado (%)</Label>
+                                  <Label htmlFor="progress">Executado (%)</Label>
                                   <Input
-                                    autoComplete="new-password"
+                                    // autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="progress" type="text" id="progress" placeholder="%" />
+                                    name={"progress"} type="text" id="progress" placeholder="%" />
                                 </FormGroup>
                               </Col>
                             </FormGroup>
@@ -575,19 +579,19 @@ class OrderForm extends Component {
                                     listDropdown={assets}
                                     update={this.handleAssetsDropDownChange}
                                     id={'assets'}
-                                    required
+                                    // required
                                   />
                                 </FormGroup>
                               </Col>
                             </FormGroup>
                             <FormGroup row>
                               <Col xs='8'>
-                                <Label htmlFor="location">Localização (campo livre)</Label>
+                                <Label htmlFor="place">Localização (campo livre)</Label>
                                 <Input
                                   // autoComplete="new-password"
                                   onChange={this.handleInputChange}
-                                  name="place" type="text" id="place" placeholder="Localização da manutenção ..."
-                                  required
+                                  name={"place"} type="text" id="place" placeholder="Localização da manutenção ..."
+                                  // required
                                 />
                                 {/* <InputWithDropdown
                                   label={'Localização'}
@@ -603,24 +607,24 @@ class OrderForm extends Component {
                             <FormGroup row>
                               <Col xs='6'>
                                 <FormGroup>
-                                  <Label htmlFor="request_person">Nome do Solicitante</Label>
+                                  <Label htmlFor="createdBy">Nome do Solicitante</Label>
                                   <Input
                                     // autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="createdBy" type="text" id="createdBy" placeholder="Pessoa que abriu a solicitação"
-                                    required
+                                    name={"createdBy"} type="text" id="createdBy" placeholder="Pessoa que abriu a solicitação"
+                                    // required
                                   />
                                 </FormGroup>
                               </Col>
                               <Col xs='6'>
                               <Col xs='6'>
                                 <FormGroup>
-                                  <Label htmlFor="request_contact_name">Nome do contato</Label>
+                                  <Label htmlFor="departmentId">Nome do contato</Label>
                                   <Input
                                     // autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="departmentId" type="text" id="departmentId" placeholder="Departamento"
-                                    required
+                                    name={"departmentId"} type="text" id="departmentId" placeholder="Departamento"
+                                    // required
                                   />
                                 </FormGroup>
                               </Col>
@@ -629,23 +633,23 @@ class OrderForm extends Component {
                             <FormGroup row>
                               <Col xs='6'>
                                 <FormGroup>
-                                  <Label htmlFor="request_contact_name">Nome do contato</Label>
+                                  <Label htmlFor="contactName">Nome do contato</Label>
                                   <Input
                                     // autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="contactName" type="text" id="contactName" placeholder="Contato para a solicitação"
-                                    required
+                                    name={"contactName"} type="text" id="contactName" placeholder="Contato para a solicitação"
+                                    // required
                                   />
                                 </FormGroup>
                               </Col>
                               <Col xs='6'>
                                 <FormGroup>
-                                  <Label htmlFor="request_contact_phone">Telefone para contato</Label>
+                                  <Label htmlFor="contactPhone">Telefone para contato</Label>
                                   <Input
                                     // autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="contactPhone" type="text" id="contactPhone" placeholder="Telefone para contato"
-                                    required
+                                    name={"contactPhone"} type="text" id="contactPhone" placeholder="Telefone para contato"
+                                    // required
                                   />
                                 </FormGroup>
                               </Col>
@@ -653,13 +657,13 @@ class OrderForm extends Component {
                             <FormGroup row>
                               <Col xs='8'>
                                 <FormGroup>
-                                  <Label htmlFor="request_contact_email">Email para contato</Label>
+                                  <Label htmlFor="contactEmail">Email para contato</Label>
                                   <input type="text" autoComplete="off" style={{ display: "none" }}></input>
                                   <Input
                                     // autoComplete="new-password"
                                     onChange={this.handleInputChange}
-                                    name="contactEmail" type="text" id="contactEmail" placeholder="Email para contato"
-                                    required
+                                    name={"contactEmail"} type="text" id="contactEmail" placeholder="Email para contato"
+                                    // required
                                   />
                                 </FormGroup>
                               </Col>
