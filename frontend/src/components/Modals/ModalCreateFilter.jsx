@@ -24,7 +24,7 @@ const condicionalOperator = {
 
 const filterOperations = {
   option: {
-    equalTo: { description: 'igual a', optionsType: 'selectMany' },
+    sameTo: { description: 'igual a', optionsType: 'selectMany' },
     different: { description: 'diferente de', optionsType: 'selectMany' },
     notNull: { description: 'não nulo', optionsType: 'nothing' },
     null: { description: 'nulo', optionsType: 'nothing' }
@@ -215,10 +215,6 @@ class ModalCreateFilter extends Component {
       return;
     }
 
-    console.log("Att: ", attribute);
-    console.log("Opr: ", operator);
-    console.log("Opt: ", option);
-
     if (attribute !== 'and' && attribute !== 'or') {
       const { type } = attributes[attribute];
       const { optionsType } = filterOperations[type][operator];
@@ -236,8 +232,6 @@ class ModalCreateFilter extends Component {
       }
     }
 
-    console.log("Operator: ", operator);
-
     const newLogic = {
       type: (attribute === 'and' || attribute === 'or' ? 'opr' : 'att'),
       attribute,
@@ -248,6 +242,11 @@ class ModalCreateFilter extends Component {
     this.setState((prevState) => ({
       currentFilterLogic: [...prevState.currentFilterLogic, newLogic],
     }), () => { this.cleanState() });
+  }
+
+  fixFilter = () => {
+    const { currentFilterLogic } = this.state;
+    console.log("Fix Filter: ", currentFilterLogic);
   }
 
   render() {

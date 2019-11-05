@@ -18,6 +18,7 @@ import "./List.css";
 
 import { facilityConfig } from "./AssetsFakeData";
 import searchList from "../../utils/search/searchList";
+import filterList from "../../utils/filter/filter";
 
 const hierarchyItem = require("../../assets/icons/tree_icon.png");
 const listItem = require("../../assets/icons/list_icon.png");
@@ -47,11 +48,7 @@ class FacilitiesList extends Component {
       goToPage: 1,
       searchTerm: "",
       modalFilter: false,
-      filterLogic: [
-        { type: 'att', attribute: 'name', verb: 'include', term: ['SQS', 'C'] },
-        { type: 'opr', attribute: null, verb: 'and', term: [] },
-        { type: 'att', attribute: 'assetSf', verb: 'notInclude', term: ['cob'] }
-      ],
+      filterLogic: [],
     };
 
     this.setGoToPage = this.setGoToPage.bind(this);
@@ -86,6 +83,7 @@ class FacilitiesList extends Component {
   }
 
   updateCurrentFilter = (filterLogic) => {
+    console.log("CurrentFilter: ", filterLogic);
     this.setState({
       filterLogic,
     });
@@ -93,14 +91,15 @@ class FacilitiesList extends Component {
 
   render() {
     const { allItems } = this.props;
-    const { pageCurrent, goToPage, searchTerm } = this.state;
+    const { pageCurrent, goToPage, searchTerm, filterLogic } = this.state;
 
     const allEdges = allItems.allAssets.edges;
 
+    console.log("All Edges: ", allEdges);
     console.log("Filter: ", this.state.filterLogic);
 
-    let filteredItems = allEdges;
-    filteredItems = searchList(allEdges, attributes, searchTerm);
+    let filteredItems = filterLogic.length > 0 ? filterList(allEdges, filterLogic) : allEdges;
+    filteredItems = searchList(filteredItems, attributes, searchTerm);
 
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
