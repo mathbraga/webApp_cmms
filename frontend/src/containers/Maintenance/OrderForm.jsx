@@ -221,8 +221,8 @@ class OrderForm extends Component {
   //   this.setState({ departmentId: departmentId });
   // }
 
-  handleAssetsDropDownChange(assets) {
-    this.setState({ assets: assets });
+  handleAssetsDropDownChange(assetsArray) {
+    this.setState({ assetsArray: assetsArray });
   }
 
   handleInputChange(event) {
@@ -249,8 +249,9 @@ class OrderForm extends Component {
         $contactEmail: String!,
         $contactName: String!,
         $contactPhone: String!,
-        $departmentId: String,
-        $assetsArray: [Int!]!
+        $departmentId: String!,
+        $assetsArray: [Int!]!,
+        $contractId: Int
         ){
           insertOrder(
             input: {
@@ -298,8 +299,8 @@ class OrderForm extends Component {
           dateLimit: this.state.dateLimit,
           parent: parseInt(this.state.parent),
           createdBy: this.state.createdBy,
-          requestText: this.state.description,
-          completed: parseInt(this.state.execution),
+          description: this.state.description,
+          progress: parseInt(this.state.progress),
           contactEmail: this.state.contactEmail,
           place: this.state.place,
           contactName: this.state.contactName,
