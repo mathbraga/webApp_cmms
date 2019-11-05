@@ -137,7 +137,7 @@ create table specs (
   category text not null, -- enum or reference to a table
   subcategory text not null, -- enum or reference to a table
   unit text not null, -- enum or reference to a table??? --> no
-  allow_decimals boolean not null, -- function of unit?
+  qty_decimals boolean not null, -- function of unit?
   description text,
   materials text,
   services text,
