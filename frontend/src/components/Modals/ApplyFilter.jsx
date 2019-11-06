@@ -249,17 +249,11 @@ class ApplyFilter extends Component {
     }), () => { this.cleanState() });
   }
 
-  fixFilterAndUpdate = (updateFunction, toggleFunction) => () => {
-    const { currentFilterLogic, filterName } = this.state;
-    console.log("Filter Name: ", filterName);
-    let finalFilter = null;
-    const lastLogic = currentFilterLogic.slice(-1)[0];
-    if (lastLogic && lastLogic.type === 'opr') {
-      finalFilter = currentFilterLogic.slice(0, -1);
-    } else {
-      finalFilter = currentFilterLogic;
+  updateFilter = (updateFunction, toggleFunction) => () => {
+    const { currentFilterLogic, filterName, filterId } = this.state;
+    if (filterId) {
+      updateFunction(currentFilterLogic, filterName, filterId);
     }
-    updateFunction(finalFilter, filterName);
     this.cleanFilter();
     this.cleanState();
     toggleFunction();
@@ -384,7 +378,7 @@ class ApplyFilter extends Component {
           </div>
         </ModalBody>
         <ModalFooter className={'filter-footer'}>
-          <Button color="success" onClick={this.fixFilterAndUpdate(updateCurrentFilter, toggle)}>Aplicar Filtro</Button>
+          <Button color="success" onClick={this.updateFilter(updateCurrentFilter, toggle)}>Aplicar Filtro</Button>
           <Button color="danger" onClick={() => { toggle(); this.cleanState(); this.cleanFilter(); }}>Fechar</Button>
         </ModalFooter>
       </Modal>

@@ -86,7 +86,7 @@ const customFilters = [
   },
   {
     id: "008",
-    name: "Resideência Oficial",
+    name: "Residência Oficial",
     author: "webSINFRA Software",
     logic: [
       { attribute: 'assetSf', type: 'att', verb: 'include', term: ["SHIS"] },
@@ -129,7 +129,7 @@ const customFilters = [
     name: "Blocos - Com área maior que 1000 m²",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["Blocos"] },
+      { attribute: 'name', type: 'att', verb: 'include', term: ["Bloco"] },
       { attribute: 'and', type: 'opr', verb: null, term: [] },
       { attribute: 'area', type: 'att', verb: 'greaterThan', term: ["1000"] },
     ],
@@ -201,10 +201,13 @@ class FacilitiesList extends Component {
     this.props.history.push('/ativos/edificios/novo');
   }
 
-  updateCurrentFilter = (filterLogic, filterName) => {
+  updateCurrentFilter = (filterLogic, filterName, filterId = null) => {
     this.setState({
       filterLogic,
-      filterName
+      filterName,
+      filterId,
+      pageCurrent: 1,
+      goToPage: 1,
     });
   }
 
