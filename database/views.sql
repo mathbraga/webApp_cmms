@@ -63,11 +63,13 @@ create view balances as
            s.spec_id,
            s.bid_price,
            s.full_price,
+           z.name,
            bc.blocked,
            bc.consumed,
            s.qty - bc.blocked - bc.consumed as available
       from both_cases as bc
       inner join supplies as s using (supply_id)
+      inner join specs as z using (spec_id)
       inner join contracts as c using (contract_id);
 
 create view spec_orders as
