@@ -42,6 +42,15 @@ const tableConfig = [
   { name: "Localização", style: { width: "200px" }, className: "text-center" },
 ];
 
+const tableConfig2 = [
+  { name: "Código no contrato", style: { width: "50px" }, className: "text-justifyr" },
+  { name: "Descrição", style: { width: "200px" }, className: "text-center" },
+  { name: "Quantidade", style: { width: "50px" }, className: "text-center" },
+  { name: "Unidade", style: { width: "50px" }, className: "text-center" },
+  { name: "Preço unitário (R$)", style: { width: "50px" }, className: "text-center" },
+  { name: "Total (R$)", style: { width: "50px" }, className: "text-center" },
+];
+
 const ORDER_CATEGORY_TYPE = {
   'EST': 'Avaliação estrutural',
   'FOR': 'Reparo em forro',
@@ -152,6 +161,17 @@ class WorkOrderView extends Component {
             }
           }
         }
+        allOrderSuppliesDetails(condition: {orderId: $orderId}) {
+          nodes {
+            supplySf
+            name
+            qty
+            unit
+            bidPrice
+            total
+            specId
+          }
+        }
       }
     `;
 
@@ -166,6 +186,8 @@ class WorkOrderView extends Component {
               console.log("Erro ao tentar baixar os dados da OS!");
               return null
             }
+            console.log(data)
+            const supplies = data.allOrderSuppliesDetails.nodes;
             const orderInfo = data.orderByOrderId;
             const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
 
@@ -198,6 +220,41 @@ class WorkOrderView extends Component {
                 </td>
                 <td className="text-center">
                   <div>{/*item.assetByAssetSf.place*/}</div>
+                </td>
+              </tr>));
+
+            const thead2 =
+            (<tr>
+              <th className="text-center checkbox-cell">
+                <CustomInput type="checkbox" />
+              </th>
+              {tableConfig2.map(column => (
+                <th style={column.style} className={column.className}>{column.name}</th>))
+              }
+            </tr>);
+
+            const tbody2 = supplies.map(item => (
+              <tr
+                onClick={() => { this.props.history.push('/gestao/servicos/view/' + item.specId) }}
+              >
+                <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
+                <td className="text-center">
+                  <div>{item.supplySf}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.name}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.qty}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.unit}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.bidPrice}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.total}</div>
                 </td>
               </tr>));
 
@@ -267,6 +324,9 @@ class WorkOrderView extends Component {
                         </NavItem>
                         <NavItem>
                           <NavLink onClick={() => { this.handleClickOnNav("log") }} active={tabSelected === "log"} >Histórico</NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink onClick={() => { this.handleClickOnNav("supplies") }} active={tabSelected === "log"} >Materiais e Serviços</NavLink>
                         </NavItem>
                       </Nav>
                       <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
@@ -472,6 +532,56 @@ class WorkOrderView extends Component {
                               goToPage={goToPage}
                               setCurrentPage={this.setCurrentPage}
                               setGoToPage={this.setGoToPage}
+                            />
+                          </div>
+                        </TabPane>
+                        <TabPane tabId="supplies" style={{ width: "100%" }}>
+                          <div className="asset-info-container">
+                            <h1 className="asset-info-title">Lista de materiais e serviços</h1>
+                            <div className="asset-info-content">
+                              <Row>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Quantidade de Ativos</div>
+                                    <div className="asset-info-content-data">{pageLength.toString().padStart(3, "0")}</div>
+                                  </div>
+                                </Col>
+                              </Row>
+                            </div>
+                            <div className="card-search-container" style={{ marginTop: "30px" }}>
+                              <div className="search" style={{ width: "30%" }}>
+                                <div className="card-search-form">
+                                  <InputGroup>
+                                    <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
+                                    <InputGroupAddon addonType="append">
+                                      <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
+                                    </InputGroupAddon>
+                                  </InputGroup>
+                                </div>
+                              </div>
+                              <div className="search-filter" style={{ width: "30%" }}>
+                                <ol>
+                                  <li><span className="card-search-title">Filtro: </span></li>
+                                  <li><span className="card-search-title">Regras: </span></li>
+                                </ol>
+                                <ol>
+                                  <li>Sem filtro</li>
+                                  <li>Mostrar todos itens</li>
+                                </ol>
+                              </div>
+                              <div className="search-buttons" style={{ width: "30%" }}>
+                                <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
+                                <Button className="search-filter-button" color="primary">Criar Filtro</Button>
+                              </div>
+                            </div>
+                            <TableWithPages
+                              thead={thead2}
+                              tbody={tbody2}
+                              pagesTotal={'1'}
+                              pageCurrent={'1'}
+                              goToPage={''}
+                              setCurrentPage={''}
+                              setGoToPage={''}
                             />
                           </div>
                         </TabPane>

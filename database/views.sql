@@ -84,7 +84,9 @@ create view order_supplies_details as
   select o.order_id,
          s.supply_sf,
          z.name,
+         z.spec_id,
          o.qty,
+         z.unit,
          s.bid_price,
          o.qty * s.bid_price as total
     from order_supplies as o
