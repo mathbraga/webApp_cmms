@@ -29,7 +29,8 @@ const searchItem = require("../../assets/icons/search_icon.png");
 const ENTRIES_PER_PAGE = 15;
 const attributes = [
   "name",
-  "description"
+  "description",
+  "memberCount"
 ];
 
 class TeamsList extends Component {
