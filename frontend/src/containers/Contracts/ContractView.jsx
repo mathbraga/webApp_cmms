@@ -41,13 +41,12 @@ const attributes = [
 ]
 
 const tableConfig = [
-  { name: "SF", style: { width: "30px" }, className: "text-justifyr" },
-  { name: "Material / Serviço", style: { width: "200px" }, className: "text-justifyr" },
-  { name: "Quantidade", style: { width: "100px" }, className: "text-center" },
-  { name: "Consumido", style: { width: "100px" }, className: "text-center" },
-  { name: "Bloqueado", style: { width: "100px" }, className: "text-center" },
-  { name: "Saldo", style: { width: "100px" }, className: "text-center" },
-  { name: "Valor Unitário (R$)", style: { width: "100px" }, className: "text-center" },
+  { name: "Material / Serviço", style: { width: "300px" }, className: "text-justifyr" },
+  { name: "Quantidade", style: { width: "80px" }, className: "text-center" },
+  { name: "Consumido", style: { width: "80px" }, className: "text-center" },
+  { name: "Bloqueado", style: { width: "80px" }, className: "text-center" },
+  { name: "Saldo", style: { width: "80px" }, className: "text-center" },
+  { name: "Valor Unitário", style: { width: "80px" }, className: "text-center" },
 ];
 
 class ContractView extends Component {
@@ -116,6 +115,7 @@ class ContractView extends Component {
             contractSf
             fullPrice
             name
+            unit
           }
         }
       }
@@ -159,27 +159,24 @@ class ContractView extends Component {
                 onClick={() => { this.props.history.push('/gestao/servicos/view/' + item.specId) }}
               >
                 <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
-                <td className="text-justifyr">
-                  <div>{item.specId}</div>
-                </td>
                 <td>
                   <div>{item.name}</div>
                   <div className="small text-muted">{item.supplySf}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.qty}</div>
+                  <div>{(item.qty).toLocaleString('br') + " " + item.unit}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.consumed}</div>
+                  <div>{item.consumed + " " + item.unit}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.blocked}</div>
+                  <div>{item.blocked + " " + item.unit}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.available}</div>
+                  <div>{item.available + " " + item.unit}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.bidPrice}</div>
+                  <div>{(item.bidPrice).toLocaleString('br', { style: 'currency', currency: 'BRL'})}</div>
                 </td>
               </tr>));
 

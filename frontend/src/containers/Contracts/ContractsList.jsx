@@ -37,6 +37,10 @@ const attributes = [
   "finalDate"
 ]
 
+const CONTRACT_STATUS = {
+  'EXE': 'Execução',
+}
+
 class ContractsList extends Component {
   constructor(props) {
     super(props);
@@ -98,9 +102,9 @@ class ContractsList extends Component {
           <div>{item.title}</div>
           <div className="small text-muted">{item.company}</div>
         </td>
-        <td className="text-center">{item.status}</td>
+        <td className="text-center">{CONTRACT_STATUS[item.status]}</td>
         <td>
-          <div className="text-center">{item.dateStart + ' a ' + item.finalDate}</div>
+          <div className="text-center">{item.dateStart + ' a ' + item.dateEnd}</div>
         </td>
         <td>
           <div className="text-center">
