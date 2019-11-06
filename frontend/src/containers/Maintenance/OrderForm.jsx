@@ -601,9 +601,8 @@ class OrderForm extends Component {
                                 </FormGroup>
                               </Col>
                               <Col xs='6'>
-                              <Col xs='6'>
                                 <FormGroup>
-                                  <Label htmlFor="departmentId">Nome do contato</Label>
+                                  <Label htmlFor="departmentId">Departamento do Solicitante</Label>
                                   <Input
                                     // autoComplete="new-password"
                                     onChange={this.handleInputChange}
@@ -611,7 +610,6 @@ class OrderForm extends Component {
                                     // required
                                   />
                                 </FormGroup>
-                              </Col>
                               </Col>
                             </FormGroup>
                             <FormGroup row>

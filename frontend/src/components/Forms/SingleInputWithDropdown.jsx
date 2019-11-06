@@ -124,7 +124,7 @@ class SingleInputWithDropDown extends Component {
           newValue : (this.props.label === 'OS pai' ?
             newValue : newValue + " " + `(${newValueId})`)));
 
-    this.props.update(newValueId);
+    this.props.update(newValue);
     return {
       chosenValue: newValue,
       hoveredItem: 0,
@@ -193,7 +193,7 @@ class SingleInputWithDropDown extends Component {
           type="text"
           autoComplete="off"
           id={inputId}
-          value={this.props.value}
+          value={this.state.chosenValue}
           placeholder={placeholder}
           onChange={this.onChangeInput}
           onMouseDown={() => this.toggleDropdown(true)}
