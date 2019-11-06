@@ -40,7 +40,7 @@ const filterOperations = {
     greaterThan: { description: 'maior que', optionsType: 'number' },
     lowerThan: { description: 'menor que', optionsType: 'number' },
     different: { description: 'diferente de', optionsType: 'number' },
-    between: { description: 'entre', optionsType: 'twoNumbers' },
+    // between: { description: 'entre', optionsType: 'twoNumbers' },
   },
 };
 
@@ -128,25 +128,25 @@ const inputBasedOnOperator = ({ inputBasedOnOperator, option }, handleChangeOpti
       onChange={handleChangeOption}
     />
   ),
-  twoNumbers: (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <Input
-        type="text"
-        name="filterInput"
-        id="filterInput"
-        style={{ marginBottom: "5px" }}
-      />
-      <span>E</span>
-      <Input
-        type="text"
-        name="filterInput"
-        id="filterInput"
-        style={{ marginTop: "5px" }}
-      />
-    </div>
-  ),
+  // twoNumbers: (
+  //   <div
+  //     style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+  //   >
+  //     <Input
+  //       type="text"
+  //       name="filterInput"
+  //       id="filterInput"
+  //       style={{ marginBottom: "5px" }}
+  //     />
+  //     <span>E</span>
+  //     <Input
+  //       type="text"
+  //       name="filterInput"
+  //       id="filterInput"
+  //       style={{ marginTop: "5px" }}
+  //     />
+  //   </div>
+  // ),
 }[inputBasedOnOperator]);
 
 class ModalCreateFilter extends Component {
@@ -389,8 +389,8 @@ class ModalCreateFilter extends Component {
           </div>
         </ModalBody>
         <ModalFooter className={'filter-footer'}>
-          <Button color="success" onClick={() => { updateCurrentFilter(this.state.currentFilterLogic); this.cleanState(); toggle() }}>Criar Filtro</Button>
-          <Button color="danger" onClick={() => { toggle(); this.cleanState(); }}>Cancelar</Button>
+          <Button color="success" onClick={() => { updateCurrentFilter(this.state.currentFilterLogic); this.cleanState(); toggle(); this.cleanFilter(); }}>Criar Filtro</Button>
+          <Button color="danger" onClick={() => { toggle(); this.cleanState(); this.cleanFilter(); }}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     );
