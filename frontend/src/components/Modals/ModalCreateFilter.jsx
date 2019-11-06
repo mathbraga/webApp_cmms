@@ -244,9 +244,16 @@ class ModalCreateFilter extends Component {
     }), () => { this.cleanState() });
   }
 
-  fixFilter = () => {
+  fixFilterAndUpdate = (updateFunction) => {
     const { currentFilterLogic } = this.state;
-    console.log("Fix Filter: ", currentFilterLogic);
+    let finalFilter = null;
+    const lastLogic = currentFilterLogic.slice(-1)[0];
+    if (lastLogic.type === 'opr') {
+      finalFilter = currentFilterLogic.slice(0, -1);
+    } else {
+      finalFilter = currentFilterLogic;
+    }
+    updateFunction(finalFilter);
   }
 
   render() {
@@ -389,7 +396,7 @@ class ModalCreateFilter extends Component {
           </div>
         </ModalBody>
         <ModalFooter className={'filter-footer'}>
-          <Button color="success" onClick={() => { updateCurrentFilter(this.state.currentFilterLogic); this.cleanState(); toggle(); this.cleanFilter(); }}>Criar Filtro</Button>
+          <Button color="success" onClick={() => { this.fixFilterAndUpdate(updateCurrentFilter); this.cleanState(); toggle(); this.cleanFilter(); }}>Criar Filtro</Button>
           <Button color="danger" onClick={() => { toggle(); this.cleanState(); this.cleanFilter(); }}>Cancelar</Button>
         </ModalFooter>
       </Modal>
