@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import TableWithPages from "../../components/Tables/TableWithPages";
 import AssetCard from "../../components/Cards/AssetCard";
-import ModalCreateFilter from "../../components/Modals/ModalCreateFilter"
+import ModalCreateFilter from "../../components/Modals/ModalCreateFilter";
+import ApplyFilter from "../../components/Modals/ApplyFilter"
 import {
   Badge,
   Button,
@@ -27,6 +28,92 @@ const searchItem = require("../../assets/icons/search_icon.png");
 const mapIcon = require("../../assets/icons/map.png");
 
 const ENTRIES_PER_PAGE = 15;
+
+const customFilters = [
+  {
+    name: "Sem Filtro",
+    author: "webSINFRA Software",
+    logic: [],
+  },
+  {
+    name: "Edifícios - Blocos de Apoio",
+    author: "webSINFRA Software",
+    logic: [
+      { attributes: 'name', type: 'att', verb: 'include', term: ["Bloco"] },
+    ],
+  },
+  {
+    name: "Edifícios -  Áreas Técnicas",
+    author: "webSINFRA Software",
+    logic: [
+      { attributes: 'assetSF', type: 'att', verb: 'include', term: ["AT"] },
+    ],
+  },
+  {
+    name: "Apartamentos Funcionais - SQS 309",
+    author: "webSINFRA Software",
+    logic: [
+      { attributes: 'assetSF', type: 'att', verb: 'include', term: ["309"] },
+    ],
+  },
+  {
+    name: "SQS 309 - Bloco C",
+    author: "webSINFRA Software",
+    logic: [
+      { attributes: 'assetSF', type: 'att', verb: 'include', term: ["309C"] },
+    ],
+  },
+  {
+    name: "SQS 309 - Bloco D",
+    author: "webSINFRA Software",
+    logic: [
+      { attributes: 'assetSF', type: 'att', verb: 'include', term: ["309D"] },
+    ],
+  },
+  {
+    name: "SQS 309 - Bloco G",
+    author: "webSINFRA Software",
+    logic: [
+      { attributes: 'assetSF', type: 'att', verb: 'include', term: ["309G"] },
+    ],
+  },
+  {
+    name: "Resideência Oficial",
+    author: "webSINFRA Software",
+    logic: [
+      { attributes: 'assetSF', type: 'att', verb: 'include', term: ["SHIS"] },
+    ],
+  },
+  {
+    name: "Edifícios- Anexo I",
+    author: "webSINFRA Software",
+    logic: [
+      { attributes: 'assetSF', type: 'att', verb: 'include', term: ["AX01"] },
+    ],
+  },
+  {
+    name: "Edifícios- Anexo II",
+    author: "webSINFRA Software",
+    logic: [
+      { attributes: 'assetSF', type: 'att', verb: 'include', term: ["AX02"] },
+    ],
+  },
+  {
+    name: "Vias do CASF",
+    author: "webSINFRA Software",
+    logic: [
+      { attributes: 'name', type: 'att', verb: 'include', term: ["Via"] },
+    ],
+  },
+  {
+    name: "Edifícios - Alas do CASF",
+    author: "webSINFRA Software",
+    logic: [
+      { attributes: 'name', type: 'att', verb: 'include', term: ["Ala"] },
+    ],
+  },
+];
+
 const attributes = [
   'assetSf',
   'name',
@@ -48,6 +135,7 @@ class FacilitiesList extends Component {
       goToPage: 1,
       searchTerm: "",
       modalFilter: false,
+      modalApplyFilter: false,
       filterLogic: [],
       filterName: null,
     };
@@ -56,12 +144,19 @@ class FacilitiesList extends Component {
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
     this.handleURLChange = this.handleURLChange.bind(this);
-    this.toggle = this.toggle.bind(this);
+    this.toggleCreate = this.toggleCreate.bind(this);
+    this.toggleApply = this.toggleApply.bind(this);
   }
 
-  toggle() {
+  toggleCreate() {
     this.setState((prevState) => ({
       modalFilter: !prevState.modalFilter
+    }));
+  }
+
+  toggleApply() {
+    this.setState((prevState) => ({
+      modalApplyFilter: !prevState.modalApplyFilter
     }));
   }
 
@@ -162,8 +257,8 @@ class FacilitiesList extends Component {
               </ol>
             </div>
             <div className="search-buttons" style={{ width: "30%" }}>
-              <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
-              <Button className="search-filter-button" color="primary" onClick={this.toggle}>Criar Filtro</Button>
+              <Button className="search-filter-button" color="success" onClick={this.toggleApply}>Aplicar Filtro</Button>
+              <Button className="search-filter-button" color="primary" onClick={this.toggleCreate}>Criar Filtro</Button>
             </div>
           </div>
           <TableWithPages
@@ -176,8 +271,14 @@ class FacilitiesList extends Component {
             setGoToPage={this.setGoToPage}
           />
           <ModalCreateFilter
-            toggle={this.toggle}
+            toggle={this.toggleCreate}
             modal={this.state.modalFilter}
+            attributes={filterAttributes}
+            updateCurrentFilter={this.updateCurrentFilter}
+          />
+          <ApplyFilter
+            toggle={this.toggleApply}
+            modal={this.state.modalApplyFilter}
             attributes={filterAttributes}
             updateCurrentFilter={this.updateCurrentFilter}
           />

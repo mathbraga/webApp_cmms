@@ -32,6 +32,23 @@
   padding: 10px 20px;
 }
 
+.filter-apply-table {
+  padding: 1px 0;
+  max-height: 225.9px;
+  overflow-y: auto;
+  border-radius: 6px;
+  border: 1px solid #d0d0d0;
+}
+
+.filter-apply-table button {
+  outline: none;
+}
+
+.filter-active-filter {
+  border-left: 7px solid rgb(138, 209, 138);
+  padding-left: -7px;
+}
+
 .remove-input {
   display: none;
 }
