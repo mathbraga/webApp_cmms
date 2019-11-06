@@ -64,6 +64,7 @@ create view balances as
            s.bid_price,
            s.full_price,
            z.name,
+           z.unit,
            bc.blocked,
            bc.consumed,
            s.qty - bc.blocked - bc.consumed as available
