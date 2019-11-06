@@ -79,3 +79,14 @@ create view spec_orders as
     inner join supplies as su using (spec_id)
     inner join order_supplies as os using (supply_id)
     inner join orders as o using (order_id);
+
+create view order_supplies_details as
+  select o.order_id,
+         s.supply_sf,
+         z.name,
+         o.qty,
+         s.bid_price,
+         o.qty * s.bid_price as total
+    from order_supplies as o
+    inner join supplies as s using (supply_id)
+    inner join specs as z using (spec_id);
