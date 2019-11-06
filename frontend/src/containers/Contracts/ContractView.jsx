@@ -97,6 +97,7 @@ class ContractView extends Component {
                 specBySpecId {
                   name
                   specSf
+                  specId
                 }
               }
             }
@@ -140,7 +141,7 @@ class ContractView extends Component {
 
             const tbody = showItems.map(item => (
               <tr
-                onClick={() => { this.props.history.push('/ativos/view/' + "item.assetByAssetId.assetId") }}
+                onClick={() => { this.props.history.push('/gestao/servicos/view/' + String(item.node.specBySpecId.specId)) }}
               >
                 <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
                 <td>
