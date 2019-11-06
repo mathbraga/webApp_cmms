@@ -30,14 +30,24 @@ const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
 const attributes = [
-  "specBySpecId.name",
+  "name",
   "supplySf",
-  "qty"
+  "qty",
+  "specId",
+  "consumed",
+  "blocked",
+  "available",
+  "bidPrice",
 ]
 
 const tableConfig = [
-  { name: "Material / Serviço", style: { width: "300px" }, className: "text-justifyr" },
-  { name: "Quantidade", style: { width: "200px" }, className: "text-center" },
+  { name: "SF", style: { width: "30px" }, className: "text-justifyr" },
+  { name: "Material / Serviço", style: { width: "200px" }, className: "text-justifyr" },
+  { name: "Quantidade", style: { width: "100px" }, className: "text-center" },
+  { name: "Consumido", style: { width: "100px" }, className: "text-center" },
+  { name: "Bloqueado", style: { width: "100px" }, className: "text-center" },
+  { name: "Saldo", style: { width: "100px" }, className: "text-center" },
+  { name: "Valor Unitário (R$)", style: { width: "100px" }, className: "text-center" },
 ];
 
 class ContractView extends Component {
@@ -89,21 +99,26 @@ class ContractView extends Component {
           description
           title
           url
-          suppliesByContractId {
-            edges {
-              node {
-                qty
-                supplySf
-                specBySpecId {
-                  name
-                  specSf
-                  specId
-                }
-              }
-            }
+        }
+        allBalances(condition: {contractSf: $contractSf}) {
+          nodes {
+            available
+            supplyId
+            supplySf
+            specId
+            qty
+            consumed
+            title
+            bidPrice
+            blocked
+            company
+            contractId
+            contractSf
+            fullPrice
+            name
           }
         }
-    }
+      }
     `;
 
     return (
@@ -118,7 +133,7 @@ class ContractView extends Component {
               return null
             }
             const contractInfo = data.contractByContractSf;
-            const specInfo = contractInfo.suppliesByContractId.edges
+            const specInfo = data.allBalances.nodes;
             const contractNumber = parseInt(contractInfo.contractSf.slice(2, 6), 10) + "/" + contractInfo.contractSf.slice(6);
             //const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
 
@@ -141,15 +156,30 @@ class ContractView extends Component {
 
             const tbody = showItems.map(item => (
               <tr
-                onClick={() => { this.props.history.push('/gestao/servicos/view/' + String(item.node.specBySpecId.specId)) }}
+                onClick={() => { this.props.history.push('/gestao/servicos/view/' + item.specId) }}
               >
                 <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
+                <td className="text-justifyr">
+                  <div>{item.specId}</div>
+                </td>
                 <td>
-                  <div>{item.node.specBySpecId.name}</div>
-                  <div className="small text-muted">{item.node.supplySf}</div>
+                  <div>{item.name}</div>
+                  <div className="small text-muted">{item.supplySf}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.node.qty}</div>
+                  <div>{item.qty}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.consumed}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.blocked}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.available}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.bidPrice}</div>
                 </td>
               </tr>));
 
