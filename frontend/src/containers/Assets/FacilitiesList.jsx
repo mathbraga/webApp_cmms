@@ -157,7 +157,7 @@ class FacilitiesList extends Component {
                 <li><span className="card-search-title">Resultado: </span></li>
               </ol>
               <ol>
-                <li>{this.state.filterLogic.length === 0 ? "Sem filtro" : this.state.filterName}</li>
+                <li>{(this.state.filterLogic.length === 0) ? "Sem filtro" : (this.state.filterName || "Filtro sem nome")}</li>
                 <li><span>Página com </span><b>{filteredItems.length.toString()}</b><span> itens</span></li>
               </ol>
             </div>
