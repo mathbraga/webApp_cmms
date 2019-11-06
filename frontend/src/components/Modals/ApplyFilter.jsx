@@ -55,6 +55,8 @@ const filterResultUI = (filterLogic, attributes, operators) => {
   };
   filterLogic.forEach(logic => {
     const { type, attribute, verb, term } = logic;
+    console.log("Attributes: ", attributes);
+    console.log("Att: ", attribute);
     if (type === 'att') {
       const attUI = attributes[attribute].name;
       const attType = attributes[attribute].type;
@@ -156,6 +158,7 @@ class ApplyFilter extends Component {
     super(props);
     this.state = {
       filterName: '',
+      filterId: null,
       attribute: null,
       operator: null,
       option: null,
@@ -269,12 +272,22 @@ class ApplyFilter extends Component {
     });
   }
 
+  changeCurrentFilter = (id, name, logic) => () => {
+    this.setState({
+      currentFilterLogic: logic,
+      filterName: name,
+      filterId: id,
+    });
+  }
+
   render() {
     const {
       toggle,
       modal,
       attributes,
-      updateCurrentFilter
+      updateCurrentFilter,
+      customFilters,
+      currentFilterId
     } = this.props;
 
     let type = this.state.attribute && attributes[this.state.attribute] && attributes[this.state.attribute].type;
@@ -327,65 +340,32 @@ class ApplyFilter extends Component {
                 Escolha seu Filtro
               </div>
             </div>
-            <div className="filter-container-body" style={{ paddingBottom: "20px" }}>
+            <div className="filter-container-body" style={{ paddingTop: "15px", paddingBottom: "20px" }}>
               <div className="filter-apply-table">
                 <ListGroup style={{ borderLeft: "none" }}>
-                  <ListGroupItem tag="button" action>
-                    <Row>
-                      <Col xs={1}><b>Filtro:</b></Col>
-                      <Col xs={5}>Sem Filtro</Col>
-                      <Col xs={1}><b>Autor:</b></Col>
-                      <Col xs={5}>Pedro Serafim</Col>
-                    </Row>
-                  </ListGroupItem>
-                  <ListGroupItem className={'filter-active-filter'} tag="button" action>
-                    <Row>
-                      <Col xs={1}><b>Filtro:</b></Col>
-                      <Col xs={5}>Edifícios - Blocos de Apoio</Col>
-                      <Col xs={1}><b>Autor:</b></Col>
-                      <Col xs={5}>Pedro Serafim</Col>
-                    </Row>
-                  </ListGroupItem>
-                  <ListGroupItem tag="button" action>
-                    <Row>
-                      <Col xs={1}><b>Filtro:</b></Col>
-                      <Col xs={5}>Edifícios -  Áreas Técnicas</Col>
-                      <Col xs={1}><b>Autor:</b></Col>
-                      <Col xs={5}>Pedro Serafim</Col>
-                    </Row>
-                  </ListGroupItem>
-                  <ListGroupItem tag="button" action>
-                    <Row>
-                      <Col xs={1}><b>Filtro:</b></Col>
-                      <Col xs={5}>Apartamentos Funcionais</Col>
-                      <Col xs={1}><b>Autor:</b></Col>
-                      <Col xs={5}>Pedro Serafim</Col>
-                    </Row>
-                  </ListGroupItem>
-                  <ListGroupItem tag="button" action>
-                    <Row>
-                      <Col xs={1}><b>Filtro:</b></Col>
-                      <Col xs={5}>Edifícios- Gráfica</Col>
-                      <Col xs={1}><b>Autor:</b></Col>
-                      <Col xs={5}>Pedro Serafim</Col>
-                    </Row>
-                  </ListGroupItem>
-                  <ListGroupItem tag="button" action>
-                    <Row>
-                      <Col xs={1}><b>Filtro:</b></Col>
-                      <Col xs={5}>Edifícios- Anexo I</Col>
-                      <Col xs={1}><b>Autor:</b></Col>
-                      <Col xs={5}>Pedro Serafim</Col>
-                    </Row>
-                  </ListGroupItem>
-                  <ListGroupItem tag="button" action>
-                    <Row>
-                      <Col xs={1}><b>Filtro:</b></Col>
-                      <Col xs={5}>Edifícios- Anexo II</Col>
-                      <Col xs={1}><b>Autor:</b></Col>
-                      <Col xs={5}>Pedro Serafim</Col>
-                    </Row>
-                  </ListGroupItem>
+                  {customFilters.map(filter => (
+                    <ListGroupItem
+                      className={
+                        (filter.id === this.state.filterId ?
+                          "filter-selected-item" :
+                          "") + (
+                          !currentFilterId && currentFilterId === filter.id ?
+                            "filter-active-filter" :
+                            ""
+                        )
+                      }
+                      tag="button"
+                      action
+                      onClick={this.changeCurrentFilter(filter.id, filter.name, filter.logic)}
+                    >
+                      <Row>
+                        <Col xs={1}><b>Filtro:</b></Col>
+                        <Col xs={5}>{filter.name}</Col>
+                        <Col xs={1}><b>Autor:</b></Col>
+                        <Col xs={5}>{filter.author}</Col>
+                      </Row>
+                    </ListGroupItem>
+                  ))}
                 </ListGroup>
               </div>
             </div>

@@ -44,6 +44,11 @@
   outline: none;
 }
 
+.filter-selected-item {
+  text-decoration: none;
+  background-color: #f0f3f5;
+}
+
 .filter-active-filter {
   border-left: 7px solid rgb(138, 209, 138);
   padding-left: -7px;
