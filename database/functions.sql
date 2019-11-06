@@ -10,17 +10,7 @@ declare
   new_person_id integer;
 begin
 
-  insert into persons 
-  -- (
-  --   person_id
-  --   cpf,
-  --   email,
-  --   name,
-  --   phone,
-  --   cellphone,
-  --   contract_id
-  -- ) 
-  values (
+  insert into persons values (
     default,
     person_attributes.cpf,
     person_attributes.email,
@@ -30,14 +20,7 @@ begin
     person_attributes.contract_id
   ) returning * into new_person_id;
   
-  insert into private.accounts
-  -- (
-  --   person_id,
-  --   password_hash,
-  --   is_active,
-  --   person_role
-  -- ) 
-  values (
+  insert into private.accounts values (
     new_person_id,
     crypt('123456', gen_salt('bf', 10)),
     true,
@@ -90,25 +73,13 @@ end; $$;
 
 create or replace function insert_appliance (
   in appliance_attributes appliances,
-  -- in departments_array  text[],
+  -- in departments_array integer[],
   out new_appliance_sf text
 )
 language plpgsql
 as $$
 begin
-  insert into appliances
-  -- (
-  --   asset_id,
-  --   asset_sf,
-  --   name,
-  --   description,
-  --   category,
-  --   manufacturer,
-  --   serialnum,
-  --   model,
-  --   price
-  -- )
-  values (
+  insert into appliances values (
     default,
     appliance_attributes.asset_sf,
     appliance_attributes.name,
@@ -127,24 +98,13 @@ end; $$;
 
 create or replace function insert_facility (
   in facility_attributes facilities,
-  -- in departments_array text[],
+  -- in departments_array integer[],
   out new_facility_sf text
 )
 language plpgsql
 as $$
 begin
-  insert into facilities
-  -- (
-  --   asset_id,
-  --   asset_sf,
-  --   name,
-  --   description,
-  --   category,
-  --   latitude,
-  --   longitude,
-  --   area
-  -- )
-  values (
+  insert into facilities values (
     default,
     facility_attributes.asset_sf,
     facility_attributes.name,
@@ -161,37 +121,14 @@ end; $$;
 
 create or replace function insert_order (
   in order_attributes orders,
-  in assets_array text[],
+  in assets_array integer[],
   out new_order_id integer
 )
 language plpgsql
 strict
 as $$
 begin
-  insert into orders
-  -- (
-  --   order_id,
-  --   status,
-  --   priority,
-  --   category,
-  --   parent,
-  --   contract_id,
-  --   title,
-  --   description,
-  --   department_id,
-  --   created_by,
-  --   contact_name,
-  --   contact_phone,
-  --   contact_email,
-  --   place,
-  --   progress,
-  --   date_limit,
-  --   date_start,
-  --   date_end,
-  --   created_at,
-  --   updated_at
-  -- )
-  values (
+  insert into orders values (
     default,
     order_attributes.status,
     order_attributes.priority,

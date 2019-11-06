@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const { pgClient } = require('../config');
+const { pgClient } = require('../configs');
+const paths = require('../paths');
 
 passport.use(new LocalStrategy(
   {
@@ -46,7 +47,7 @@ passport.deserializeUser(async (userData, done) => {
   }
 });
 
-router.post('/login',
+router.post(paths.login,
   passport.authenticate('local'),
   function(req, res){
     console.log('req session '+ JSON.stringify(req.session))
@@ -55,7 +56,7 @@ router.post('/login',
     res.json({'response': 'Login succeeded'});
 });
 
-router.get('/logout', function(req, res){
+router.get(paths.logout, function(req, res){
   console.log('\nINSIDE LOGOUT\n');
   console.log('req.session BEFORE: ' + JSON.stringify(req.session));
   console.log('req.user BEFORE: ' + JSON.stringify(req.user));

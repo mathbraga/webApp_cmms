@@ -11,69 +11,32 @@ import FacilitiesInfo from './FacilitiesInfo';
 class AssetInfo extends Component {
 
   render() {
-    const assetId = this.props.location.pathname.slice(13);
+    const assetSf = this.props.location.pathname.slice(13);
     const assetInfoQuery = gql`
-      query ($assetId: String!) {
-        assetByAssetId(assetId: $assetId) {
-          category
-          assetId
-          model
+      query ($assetSf: String!) {
+        assetByAssetSf(assetSf: $assetSf) {
           area
+          assetSf
+          category
           description
           latitude
           longitude
           manufacturer
+          model
           name
           nodeId
-          parent
-          place
-          price
-          serialnum
-          warranty
-          assetByParent {
-            assetId
-            name
-          }
-          orderAssetsByAssetId(condition: {assetId: $assetId}, orderBy: ASSET_ID_ASC) {
-            edges {
-              node {
-                assetId
+          orderAssetsByAssetId {
+            nodes {
+              orderByOrderId {
+                category
+                description
+                dateLimit
+                createdBy
+                createdAt
+                priority
                 orderId
-                orderByOrderId {
-                  orderId
-                  requestText
-                  status
-                  requestPerson
-                  createdAt
-                  dateLimit
-                  requestTitle
-                  requestLocal
-                  priority
-                }
-              }
-            }
-          }
-          assetDepartmentsByAssetId {
-            edges {
-              node {
-                departmentByDepartmentId {
-                  fullName
-                  departmentId
-                }
-              }
-            }
-          }
-          assetByPlace {
-            assetId
-            latitude
-            longitude
-            name
-            assetDepartmentsByAssetId {
-              nodes {
-                departmentByDepartmentId {
-                  fullName
-                  departmentId
-                }
+                status
+                title
               }
             }
           }
@@ -83,7 +46,7 @@ class AssetInfo extends Component {
     return (
       <Query
         query={assetInfoQuery}
-        variables={{ assetId: assetId }}
+        variables={{ assetSf: assetSf }}
       >
         {
           ({ loading, error, data }) => {
@@ -92,7 +55,7 @@ class AssetInfo extends Component {
               return null
             }
 
-            const { category } = data.assetByAssetId;
+            const { category } = data.assetByAssetSf;
 
             if (category === 'A') {
               return <EquipmentInfo data={data} />;

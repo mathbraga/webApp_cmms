@@ -50,7 +50,7 @@ begin transaction;
 -- set local auth.data.person_id to 1;
 
 -- populate tables
--- \i inserts.sql -- CAUTION: inserts.sql must have win1252 encoding
+\i inserts1252.sql -- CAUTION: inserts.sql must have win1252 encoding
 
 -- create rls policies
 -- \i policies.sql
