@@ -249,7 +249,7 @@ class ModalCreateFilter extends Component {
     console.log("Filter Name: ", filterName);
     let finalFilter = null;
     const lastLogic = currentFilterLogic.slice(-1)[0];
-    if (lastLogic.type === 'opr') {
+    if (lastLogic && lastLogic.type === 'opr') {
       finalFilter = currentFilterLogic.slice(0, -1);
     } else {
       finalFilter = currentFilterLogic;
