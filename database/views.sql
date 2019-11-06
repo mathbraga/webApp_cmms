@@ -94,3 +94,15 @@ create view order_supplies_details as
     from order_supplies as o
     inner join supplies as s using (supply_id)
     inner join specs as z using (spec_id);
+
+create view active_teams as
+  select t.team_id, 
+         t.name,
+         t.description,
+         count(*) as member_count
+    from teams as t
+    inner join team_persons as p using (team_id)
+  where t.is_active
+  group by t.team_id;
+
+
