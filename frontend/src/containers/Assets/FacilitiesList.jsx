@@ -49,6 +49,7 @@ class FacilitiesList extends Component {
       searchTerm: "",
       modalFilter: false,
       filterLogic: [],
+      filterName: null,
     };
 
     this.setGoToPage = this.setGoToPage.bind(this);
@@ -82,10 +83,10 @@ class FacilitiesList extends Component {
     this.props.history.push('/ativos/edificios/novo');
   }
 
-  updateCurrentFilter = (filterLogic) => {
-    console.log("CurrentFilter: ", filterLogic);
+  updateCurrentFilter = (filterLogic, filterName) => {
     this.setState({
       filterLogic,
+      filterName
     });
   }
 
@@ -94,9 +95,6 @@ class FacilitiesList extends Component {
     const { pageCurrent, goToPage, searchTerm, filterLogic } = this.state;
 
     const allEdges = allItems.allAssets.edges;
-
-    console.log("All Edges: ", allEdges);
-    console.log("Filter: ", this.state.filterLogic);
 
     let filteredItems = filterLogic.length > 0 ? filterList(allEdges, filterLogic) : allEdges;
     filteredItems = searchList(filteredItems, attributes, searchTerm);

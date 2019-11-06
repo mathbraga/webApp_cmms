@@ -189,7 +189,6 @@ class ModalCreateFilter extends Component {
 
   cleanState = () => {
     this.setState({
-      filterName: '',
       attribute: null,
       operator: null,
       option: null,
@@ -199,6 +198,7 @@ class ModalCreateFilter extends Component {
 
   cleanFilter = () => {
     this.setState({
+      filterName: '',
       currentFilterLogic: [],
     });
   }
@@ -244,8 +244,9 @@ class ModalCreateFilter extends Component {
     }), () => { this.cleanState() });
   }
 
-  fixFilterAndUpdate = (updateFunction) => {
-    const { currentFilterLogic } = this.state;
+  fixFilterAndUpdate = (updateFunction, toggleFunction) => () => {
+    const { currentFilterLogic, filterName } = this.state;
+    console.log("Filter Name: ", filterName);
     let finalFilter = null;
     const lastLogic = currentFilterLogic.slice(-1)[0];
     if (lastLogic.type === 'opr') {
@@ -253,7 +254,10 @@ class ModalCreateFilter extends Component {
     } else {
       finalFilter = currentFilterLogic;
     }
-    updateFunction(finalFilter);
+    updateFunction(finalFilter, filterName);
+    this.cleanFilter();
+    this.cleanState();
+    toggleFunction();
   }
 
   handleChangeOnName = (event) => {
@@ -409,7 +413,7 @@ class ModalCreateFilter extends Component {
           </div>
         </ModalBody>
         <ModalFooter className={'filter-footer'}>
-          <Button color="success" onClick={() => { this.fixFilterAndUpdate(updateCurrentFilter); this.cleanState(); toggle(); this.cleanFilter(); }}>Criar Filtro</Button>
+          <Button color="success" onClick={this.fixFilterAndUpdate(updateCurrentFilter, toggle)}>Criar Filtro</Button>
           <Button color="danger" onClick={() => { toggle(); this.cleanState(); this.cleanFilter(); }}>Cancelar</Button>
         </ModalFooter>
       </Modal>
