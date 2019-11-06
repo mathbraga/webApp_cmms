@@ -7,14 +7,16 @@ import { Switch, Route } from "react-router-dom";
 class Teams extends Component {
   render() {
     const fetchTeams = gql`
-      query TeamsQuery {
-        allTeams(orderBy: NAME_ASC) {
-          nodes {
-            name
-            description
-          }
+    query ActiveTeamsQuery {
+      allActiveTeams(orderBy: NAME_ASC) {
+        nodes {
+          teamId
+          name
+          description
+          memberCount
         }
       }
+    }
     `;
     return (
       <Query
@@ -25,7 +27,7 @@ class Teams extends Component {
             if (error) {
               return null
             }
-            const teams = data.allTeams.nodes;
+            const teams = data.allActiveTeams.nodes;
 
             return (
               <React.Fragment>

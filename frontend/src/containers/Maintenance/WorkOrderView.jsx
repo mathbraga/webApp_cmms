@@ -33,13 +33,22 @@ const ENTRIES_PER_PAGE = 15;
 
 const attributes = [
   'assetByAssetId.name',
-  'assetByAssetId.assetId',
+  'assetByAssetId.assetSf',
   'assetByAssetId.place'
 ]
 
 const tableConfig = [
   { name: "Equipamento / Ativo", style: { width: "300px" }, className: "text-justifyr" },
   { name: "Localização", style: { width: "200px" }, className: "text-center" },
+];
+
+const tableConfig2 = [
+  { name: "Código no contrato", style: { width: "50px" }, className: "text-justifyr" },
+  { name: "Descrição", style: { width: "200px" }, className: "text-center" },
+  { name: "Quantidade", style: { width: "50px" }, className: "text-center" },
+  { name: "Unidade", style: { width: "50px" }, className: "text-center" },
+  { name: "Preço unitário (R$)", style: { width: "50px" }, className: "text-center" },
+  { name: "Total (R$)", style: { width: "50px" }, className: "text-center" },
 ];
 
 const ORDER_CATEGORY_TYPE = {
@@ -120,22 +129,21 @@ class WorkOrderView extends Component {
           status
           priority
           orderId
-          requestLocal
-          requestDepartment
-          completed
+          place
+          departmentId
+          progress
           contractId
           dateEnd
           dateLimit
           dateStart
           parent
-          requestContactEmail
-          requestContactName
-          requestContactPhone
-          requestPerson
-          requestText
-          requestTitle
+          contactEmail
+          contactPhone
+          createdBy
+          description
+          title
           orderByParent {
-            requestTitle
+            title
             orderId
             priority
             status
@@ -146,16 +154,22 @@ class WorkOrderView extends Component {
           orderAssetsByOrderId {
             nodes {
               assetByAssetId {
-                assetId
+                assetSf
                 name
                 category
-                place
-                assetByPlace {
-                  name
-                  assetId
-                }
               }
             }
+          }
+        }
+        allOrderSuppliesDetails(condition: {orderId: $orderId}) {
+          nodes {
+            supplySf
+            name
+            qty
+            unit
+            bidPrice
+            total
+            specId
           }
         }
       }
@@ -172,6 +186,8 @@ class WorkOrderView extends Component {
               console.log("Erro ao tentar baixar os dados da OS!");
               return null
             }
+            console.log(data)
+            const supplies = data.allOrderSuppliesDetails.nodes;
             const orderInfo = data.orderByOrderId;
             const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
 
@@ -195,15 +211,50 @@ class WorkOrderView extends Component {
 
             const tbody = showItems.map(item => (
               <tr
-                onClick={() => { this.props.history.push('/ativos/view/' + item.assetByAssetId.assetId) }}
+                onClick={() => { this.props.history.push('/ativos/view/' + item.assetByAssetId.assetSf) }}
               >
                 <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
                 <td>
                   <div>{item.assetByAssetId.name}</div>
-                  <div className="small text-muted">{item.assetByAssetId.assetId}</div>
+                  <div className="small text-muted">{item.assetByAssetId.assetSf}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.assetByAssetId.place}</div>
+                  <div>{/*item.assetByAssetSf.place*/}</div>
+                </td>
+              </tr>));
+
+            const thead2 =
+            (<tr>
+              <th className="text-center checkbox-cell">
+                <CustomInput type="checkbox" />
+              </th>
+              {tableConfig2.map(column => (
+                <th style={column.style} className={column.className}>{column.name}</th>))
+              }
+            </tr>);
+
+            const tbody2 = supplies.map(item => (
+              <tr
+                onClick={() => { this.props.history.push('/gestao/servicos/view/' + item.specId) }}
+              >
+                <td className="text-center checkbox-cell"><CustomInput type="checkbox" /></td>
+                <td className="text-center">
+                  <div>{item.supplySf}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.name}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.qty}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.unit}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.bidPrice}</div>
+                </td>
+                <td className="text-center">
+                  <div>{item.total}</div>
                 </td>
               </tr>));
 
@@ -274,6 +325,9 @@ class WorkOrderView extends Component {
                         <NavItem>
                           <NavLink onClick={() => { this.handleClickOnNav("log") }} active={tabSelected === "log"} >Histórico</NavLink>
                         </NavItem>
+                        <NavItem>
+                          <NavLink onClick={() => { this.handleClickOnNav("supplies") }} active={tabSelected === "log"} >Materiais e Serviços</NavLink>
+                        </NavItem>
                       </Nav>
                       <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
                         <TabPane tabId="info" style={{ width: "100%" }}>
@@ -284,7 +338,7 @@ class WorkOrderView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Título do Serviço</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestTitle}</div>
+                                    <div className="asset-info-content-data">{orderInfo.title}</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Ordem de Serviço nº</div>
@@ -296,7 +350,7 @@ class WorkOrderView extends Component {
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Local</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestLocal}</div>
+                                    <div className="asset-info-content-data">{orderInfo.place}</div>
                                   </div>
                                 </Col>
                                 <Col md="6">
@@ -358,7 +412,7 @@ class WorkOrderView extends Component {
                                     <Col md="6">
                                       <div className="asset-info-single-container">
                                         <div className="desc-sub">Título do Serviço</div>
-                                        <div className="asset-info-content-data">{orderInfo.orderByParent.requestTitle}</div>
+                                        <div className="asset-info-content-data">{orderInfo.orderByParent.title}</div>
                                       </div>
                                       <div className="asset-info-single-container">
                                         <div className="desc-sub">Ordem de Serviço nº</div>
@@ -397,13 +451,13 @@ class WorkOrderView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Nome do Solicitante</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestPerson}</div>
+                                    <div className="asset-info-content-data">{orderInfo.createdBy}</div>
                                   </div>
                                 </Col>
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Departamento</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestDepartment}</div>
+                                    <div className="asset-info-content-data">{orderInfo.department_id}</div>
                                   </div>
                                 </Col>
                               </Row>
@@ -414,17 +468,17 @@ class WorkOrderView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Nome do Contato</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestContactName}</div>
+                                    <div className="asset-info-content-data">{orderInfo.contactName}</div>
                                   </div>
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Telefone para Contato</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestContactPhone}</div>
+                                    <div className="asset-info-content-data">{orderInfo.contactPhone}</div>
                                   </div>
                                 </Col>
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">E-mail para Contato</div>
-                                    <div className="asset-info-content-data">{orderInfo.requestContactEmail}</div>
+                                    <div className="asset-info-content-data">{orderInfo.contactEmail}</div>
                                   </div>
                                 </Col>
                               </Row>
@@ -478,6 +532,56 @@ class WorkOrderView extends Component {
                               goToPage={goToPage}
                               setCurrentPage={this.setCurrentPage}
                               setGoToPage={this.setGoToPage}
+                            />
+                          </div>
+                        </TabPane>
+                        <TabPane tabId="supplies" style={{ width: "100%" }}>
+                          <div className="asset-info-container">
+                            <h1 className="asset-info-title">Lista de materiais e serviços</h1>
+                            <div className="asset-info-content">
+                              <Row>
+                                <Col md="6">
+                                  <div className="asset-info-single-container">
+                                    <div className="desc-sub">Quantidade de Ativos</div>
+                                    <div className="asset-info-content-data">{pageLength.toString().padStart(3, "0")}</div>
+                                  </div>
+                                </Col>
+                              </Row>
+                            </div>
+                            <div className="card-search-container" style={{ marginTop: "30px" }}>
+                              <div className="search" style={{ width: "30%" }}>
+                                <div className="card-search-form">
+                                  <InputGroup>
+                                    <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
+                                    <InputGroupAddon addonType="append">
+                                      <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
+                                    </InputGroupAddon>
+                                  </InputGroup>
+                                </div>
+                              </div>
+                              <div className="search-filter" style={{ width: "30%" }}>
+                                <ol>
+                                  <li><span className="card-search-title">Filtro: </span></li>
+                                  <li><span className="card-search-title">Regras: </span></li>
+                                </ol>
+                                <ol>
+                                  <li>Sem filtro</li>
+                                  <li>Mostrar todos itens</li>
+                                </ol>
+                              </div>
+                              <div className="search-buttons" style={{ width: "30%" }}>
+                                <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
+                                <Button className="search-filter-button" color="primary">Criar Filtro</Button>
+                              </div>
+                            </div>
+                            <TableWithPages
+                              thead={thead2}
+                              tbody={tbody2}
+                              pagesTotal={'1'}
+                              pageCurrent={'1'}
+                              goToPage={''}
+                              setCurrentPage={''}
+                              setGoToPage={''}
                             />
                           </div>
                         </TabPane>

@@ -19,7 +19,7 @@ import searchList from "../../utils/search/searchList";
 
 const tableConfig = [
   { name: "Nome da equipe", style: { width: "300px" }, className: "text-justify" },
-  // { name: "Contrato", style: { width: "150px" }, className: "text-center" },
+  { name: "Número de membros", style: { width: "150px" }, className: "text-center" },
   // { name: "Descrição", style: { width: "150px" }, className: "text-center" },
   // { name: "E-mail", style: { width: "200px" }, className: "text-center" },
 ];
@@ -91,7 +91,7 @@ class TeamsList extends Component {
           <div>{item.name}</div>
           <div className="small text-muted">{item.description}</div>
         </td>
-        {/* <td className="text-center">{item.contract}</td> */}
+        <td className="text-center">{item.memberCount}</td>
         {/* <td>
           <div className="text-center">{item.phone}</div>
         </td>
