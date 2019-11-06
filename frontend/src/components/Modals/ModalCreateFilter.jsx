@@ -256,6 +256,13 @@ class ModalCreateFilter extends Component {
     updateFunction(finalFilter);
   }
 
+  handleChangeOnName = (event) => {
+    const { value } = event.target;
+    this.setState({
+      filterName: value,
+    });
+  }
+
   render() {
     const {
       toggle,
@@ -299,7 +306,13 @@ class ModalCreateFilter extends Component {
           <FormGroup row>
             <Label for="filterName" sm={2}>Nome</Label>
             <Col sm={10}>
-              <Input type="text" name="filterName" id="filterName" />
+              <Input
+                type="text"
+                name="filterName"
+                id="filterName"
+                value={this.state.filterName}
+                onChange={this.handleChangeOnName}
+              />
             </Col>
           </FormGroup>
           <div className="switch-container">
