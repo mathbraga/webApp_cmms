@@ -97,10 +97,10 @@ class FacilitiesList extends Component {
     const allEdges = allItems.allAssets.edges;
 
     let filteredItems = filterLogic.length > 0 ? filterList(allEdges, filterLogic) : allEdges;
-    filteredItems = searchList(filteredItems, attributes, searchTerm);
+    let searchedItems = searchList(filteredItems, attributes, searchTerm);
 
-    const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
-    const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+    const pagesTotal = Math.floor(searchedItems.length / ENTRIES_PER_PAGE) + 1;
+    const showItems = searchedItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
     const thead =
       <tr>
@@ -154,11 +154,11 @@ class FacilitiesList extends Component {
             <div className="search-filter" style={{ width: "30%" }}>
               <ol>
                 <li><span className="card-search-title">Filtro: </span></li>
-                <li><span className="card-search-title">Regras: </span></li>
+                <li><span className="card-search-title">Resultado: </span></li>
               </ol>
               <ol>
-                <li>Sem filtro</li>
-                <li>Mostrar todos itens</li>
+                <li>{this.state.filterLogic.length === 0 ? "Sem filtro" : this.state.filterName}</li>
+                <li><span>Página com </span><b>{filteredItems.length.toString()}</b><span> itens</span></li>
               </ol>
             </div>
             <div className="search-buttons" style={{ width: "30%" }}>
