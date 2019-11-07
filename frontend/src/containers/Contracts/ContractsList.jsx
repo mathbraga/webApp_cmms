@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ModalCreateFilter from "../../components/Modals/ModalCreateFilter";
+import ApplyFilter from "../../components/Modals/ApplyFilter"
 import {
   Row,
   Col,
@@ -15,6 +17,7 @@ import { withRouter } from "react-router-dom";
 import "./List.css";
 
 import searchList from "../../utils/search/searchList";
+import filterList from "../../utils/filter/filter";
 // import { contracts } from "./FakeData";
 
 const tableConfig = [
@@ -28,6 +31,7 @@ const tableConfig = [
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
+
 const attributes = [
   "contractSf",
   "title",
@@ -35,11 +39,35 @@ const attributes = [
   "status",
   "dateStart",
   "finalDate"
-]
+];
+
+const customFilters = [
+  {
+    id: "001",
+    name: "Sem Filtro",
+    author: "webSINFRA Software",
+    logic: [],
+  },
+  {
+    id: "002",
+    name: "Edifícios - Blocos de Apoio",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'name', type: 'att', verb: 'include', term: ["Bloco"] },
+    ],
+  },
+];
 
 const CONTRACT_STATUS = {
   'EXE': 'Execução',
-}
+};
+
+const filterAttributes = {
+  company: { name: 'Contratada', type: 'text' },
+  contractSf: { name: 'Contrato nº', type: 'text' },
+  status: { name: 'Status', type: 'option', options: CONTRACT_STATUS },
+  title: { name: 'Título', type: 'text' }
+};
 
 class ContractsList extends Component {
   constructor(props) {
@@ -47,12 +75,31 @@ class ContractsList extends Component {
     this.state = {
       pageCurrent: 1,
       goToPage: 1,
-      searchTerm: ""
+      searchTerm: "",
+      modalFilter: false,
+      modalApplyFilter: false,
+      filterLogic: [],
+      filterName: null,
+      filterSavedId: null,
     };
     this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
     this.handleURLChange = this.handleURLChange.bind(this);
+    this.toggleCreate = this.toggleCreate.bind(this);
+    this.toggleApply = this.toggleApply.bind(this);
+  }
+
+  toggleCreate() {
+    this.setState((prevState) => ({
+      modalFilter: !prevState.modalFilter
+    }));
+  }
+
+  toggleApply() {
+    this.setState((prevState) => ({
+      modalApplyFilter: !prevState.modalApplyFilter
+    }));
   }
 
   handleChangeSearchTerm(event) {
@@ -73,14 +120,25 @@ class ContractsList extends Component {
     this.props.history.push('/gestao/contratos/novo');
   }
 
+  updateCurrentFilter = (filterLogic, filterName, filterId = null) => {
+    this.setState({
+      filterLogic,
+      filterName,
+      filterSavedId: filterId,
+      pageCurrent: 1,
+      goToPage: 1,
+    });
+  }
+
   render() {
     const { allItems } = this.props;
-    const { pageCurrent, goToPage, searchTerm } = this.state;
+    const { pageCurrent, goToPage, searchTerm, filterLogic } = this.state;
 
-    let filteredItems = searchList(allItems, attributes, searchTerm);
+    let filteredItems = filterLogic.length > 0 ? filterList(allItems, filterLogic) : allItems;
+    let searchedItems = searchList(filteredItems, attributes, searchTerm);
 
-    const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
-    const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+    const pagesTotal = Math.floor(searchedItems.length / ENTRIES_PER_PAGE) + 1;
+    const showItems = searchedItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
     const thead =
       <tr>
@@ -114,9 +172,9 @@ class ContractsList extends Component {
               rel="noopener noreferrer nofollow"
               onClick={(e) => e.stopPropagation()}
             >
-            {"CT " + parseInt(item.contractSf.slice(2, 6), 10) + "/" + item.contractSf.slice(6)}
+              {"CT " + parseInt(item.contractSf.slice(2, 6), 10) + "/" + item.contractSf.slice(6)}
             </a>
-          </div>  
+          </div>
         </td>
       </tr>))
 
@@ -142,16 +200,16 @@ class ContractsList extends Component {
             <div className="search-filter" style={{ width: "30%" }}>
               <ol>
                 <li><span className="card-search-title">Filtro: </span></li>
-                <li><span className="card-search-title">Regras: </span></li>
+                <li><span className="card-search-title">Resultado: </span></li>
               </ol>
               <ol>
-                <li>Sem filtro</li>
-                <li>Mostrar todos itens</li>
+                <li>{(this.state.filterLogic.length === 0) ? "Sem filtro" : (this.state.filterName || "Filtro sem nome")}</li>
+                <li><span>Página com </span><b>{filteredItems.length.toString()}</b><span> itens</span></li>
               </ol>
             </div>
             <div className="search-buttons" style={{ width: "30%" }}>
-              <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
-              <Button className="search-filter-button" color="primary">Criar Filtro</Button>
+              <Button className="search-filter-button" color="success" onClick={this.toggleApply}>Aplicar Filtro</Button>
+              <Button className="search-filter-button" color="primary" onClick={this.toggleCreate}>Criar Filtro</Button>
             </div>
           </div>
           <TableWithPages
@@ -162,6 +220,20 @@ class ContractsList extends Component {
             goToPage={goToPage}
             setCurrentPage={this.setCurrentPage}
             setGoToPage={this.setGoToPage}
+          />
+          <ModalCreateFilter
+            toggle={this.toggleCreate}
+            modal={this.state.modalFilter}
+            attributes={filterAttributes}
+            updateCurrentFilter={this.updateCurrentFilter}
+          />
+          <ApplyFilter
+            toggle={this.toggleApply}
+            modal={this.state.modalApplyFilter}
+            attributes={filterAttributes}
+            updateCurrentFilter={this.updateCurrentFilter}
+            customFilters={customFilters}
+            currentFilterId={this.state.filterSavedId}
           />
         </AssetCard >
       </div>
