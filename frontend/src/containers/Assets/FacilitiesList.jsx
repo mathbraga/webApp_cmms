@@ -214,7 +214,6 @@ class FacilitiesList extends Component {
   render() {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm, filterLogic } = this.state;
-
     const allEdges = allItems.allAssets.edges;
 
     let filteredItems = filterLogic.length > 0 ? filterList(allEdges, filterLogic) : allEdges;
