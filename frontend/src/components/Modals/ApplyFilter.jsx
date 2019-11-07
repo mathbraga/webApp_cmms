@@ -11,7 +11,9 @@ import {
   FormGroup,
   Label,
   Input,
-  CustomInput
+  CustomInput,
+  ListGroup,
+  ListGroupItem,
 } from "reactstrap";
 import SingleInputWithDropdown from "../Forms/SingleInputWithDropdown";
 
@@ -53,6 +55,8 @@ const filterResultUI = (filterLogic, attributes, operators) => {
   };
   filterLogic.forEach(logic => {
     const { type, attribute, verb, term } = logic;
+    console.log("Attributes: ", attributes);
+    console.log("Att: ", attribute);
     if (type === 'att') {
       const attUI = attributes[attribute].name;
       const attType = attributes[attribute].type;
@@ -149,11 +153,12 @@ const inputBasedOnOperator = ({ inputBasedOnOperator, option }, handleChangeOpti
   // ),
 }[inputBasedOnOperator]);
 
-class ModalCreateFilter extends Component {
+class ApplyFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
       filterName: '',
+      filterId: null,
       attribute: null,
       operator: null,
       option: null,
@@ -244,17 +249,11 @@ class ModalCreateFilter extends Component {
     }), () => { this.cleanState() });
   }
 
-  fixFilterAndUpdate = (updateFunction, toggleFunction) => () => {
-    const { currentFilterLogic, filterName } = this.state;
-    console.log("Filter Name: ", filterName);
-    let finalFilter = null;
-    const lastLogic = currentFilterLogic.slice(-1)[0];
-    if (lastLogic && lastLogic.type === 'opr') {
-      finalFilter = currentFilterLogic.slice(0, -1);
-    } else {
-      finalFilter = currentFilterLogic;
+  updateFilter = (updateFunction, toggleFunction) => () => {
+    const { currentFilterLogic, filterName, filterId } = this.state;
+    if (filterId) {
+      updateFunction(currentFilterLogic, filterName, filterId);
     }
-    updateFunction(finalFilter, filterName);
     this.cleanFilter();
     this.cleanState();
     toggleFunction();
@@ -267,12 +266,22 @@ class ModalCreateFilter extends Component {
     });
   }
 
+  changeCurrentFilter = (id, name, logic) => () => {
+    this.setState({
+      currentFilterLogic: logic,
+      filterName: name,
+      filterId: id,
+    });
+  }
+
   render() {
     const {
       toggle,
       modal,
       attributes,
-      updateCurrentFilter
+      updateCurrentFilter,
+      customFilters,
+      currentFilterId
     } = this.props;
 
     let type = this.state.attribute && attributes[this.state.attribute] && attributes[this.state.attribute].type;
@@ -293,16 +302,16 @@ class ModalCreateFilter extends Component {
           <Row>
             <Col md="8" xs="6">
               <div className="widget-title dash-title text-truncate">
-                <h4>Cadastrar Filtro</h4>
+                <h4>Aplicar Filtro</h4>
                 <div className="dash-subtitle text-truncate">
-                  Formulário para criação de filtros
+                  Lista de filtros salvos
                 </div>
               </div>
             </Col>
             <Col md="4" xs="6" className="container-left">
               <Button
                 onClick={() => { }}
-                className="ghost-button" style={{ width: "auto", height: "38px", padding: "8px 40px" }}>Filtros Prontos</Button>
+                className="ghost-button" style={{ width: "auto", height: "38px", padding: "8px 40px" }}>Criar Filtros</Button>
             </Col>
           </Row>
         </div>
@@ -315,94 +324,50 @@ class ModalCreateFilter extends Component {
                 name="filterName"
                 id="filterName"
                 value={this.state.filterName}
-                onChange={this.handleChangeOnName}
+                disabled
               />
             </Col>
           </FormGroup>
-          <div className="switch-container">
-            <Row>
-              <Col sm={2} />
-              <Col sm={10}>
-                <CustomInput disabled type="switch" id="saveSwitch" name="saveSwitch" label="Aplicar filtro sem salvar" />
-              </Col>
-            </Row>
-          </div>
           <div className='create-filter-container'>
             <div className={'filter-container-title'}>
               <div className="filter-title">
-                Monte seu Filtro
+                Escolha seu Filtro
               </div>
             </div>
-            <div className="filter-container-body">
-              <FormGroup row>
-                <Label for="attribute" sm={3}>Atributo / Operação</Label>
-                <Col sm={9}>
-                  <Input
-                    type="select"
-                    name="attribute"
-                    id="attribute"
-                    onChange={this.handleAttributeSelectClick}
-                  >
-                    <option value selected={!this.state.attribute} style={{ display: 'none' }}></option>
-                    {((attributes && (this.state.currentFilterLogic.length === 0 || this.state.currentFilterLogic.slice(-1)[0].type === 'opr'))
-                      ? (
-                        listDropdown.map((option) => (
-                          <option value={option}>
-                            {attributes[option].name}
-                          </option>
-                        )))
-                      : ([
-                        <option value='and'>Condicional E</option>,
-                        <option value='or'>Condicional OU</option>
-                      ]
-                      )
-                    )}
-                  </Input>
-                </Col>
-              </FormGroup>
-              <FormGroup row style={{ minHeight: "93px" }}>
-                <Col sm={4} style={{ margin: "auto 0" }}>
-                  <Input
-                    style={{ textAlign: "center" }}
-                    value={this.state.attribute ?
-                      (condicionalOperator[this.state.attribute] || attributes[this.state.attribute].name) :
-                      ''
-                    }
-                    disabled
-                    type="text"
-                    name="attribute"
-                    id="attribute"
-                  />
-                </Col>
-                <Col sm={4} style={{ margin: "auto 0" }}>
-                  <Input
-                    className={(!this.state.attribute || condicionalOperator[this.state.attribute]) ? 'remove-input' : ''}
-                    type="select"
-                    name="attribute"
-                    id="attribute"
-                    onChange={this.handleInputSelectClick(type)}
-                  >
-                    <option value selected={!this.state.operator} style={{ display: 'none' }}></option>
-                    {this.state.attribute && !condicionalOperator[this.state.attribute] && Object.keys(filterOperations[type]).map((option) => (
-                      <option value={option}>
-                        {filterOperations[type][option].description}
-                      </option>
-                    ))}
-                  </Input>
-                </Col>
-                <Col sm={4} style={{ margin: "auto 0" }}>
-                  {inputBasedOnOperator(this.state, this.handleChangeOption)}
-                </Col>
-              </FormGroup>
-              <Button color="primary" onClick={this.buildFilter(attributes)}>Adicionar</Button>
-              <Button color="warning" style={{ marginLeft: "10px" }} onClick={() => { this.cleanState(); }}>Limpar</Button>
-              <Button color="danger" style={{ marginLeft: "10px" }} onClick={() => { this.cleanState(); this.cleanFilter(); }}>Limpar Resultado</Button>
+            <div className="filter-container-body" style={{ paddingTop: "15px", paddingBottom: "20px" }}>
+              <div className="filter-apply-table">
+                <ListGroup style={{ borderLeft: "none" }}>
+                  {customFilters.map(filter => (
+                    <ListGroupItem
+                      className={
+                        (filter.id === this.state.filterId ?
+                          "filter-selected-item" :
+                          "") + (
+                          !currentFilterId && currentFilterId === filter.id ?
+                            "filter-active-filter" :
+                            ""
+                        )
+                      }
+                      tag="button"
+                      action
+                      onClick={this.changeCurrentFilter(filter.id, filter.name, filter.logic)}
+                    >
+                      <Row>
+                        <Col xs={1}><b>Filtro:</b></Col>
+                        <Col xs={5}>{filter.name}</Col>
+                        <Col xs={1}><b>Autor:</b></Col>
+                        <Col xs={5}>{filter.author}</Col>
+                      </Row>
+                    </ListGroupItem>
+                  ))}
+                </ListGroup>
+              </div>
             </div>
           </div>
           <div className='create-filter-container'>
             <div className={'filter-container-title'}>
               <div className="filter-title">
-                Resultado
+                Lógica
               </div>
               <div className="filter-container-body">
                 <div className="result-container">
@@ -413,12 +378,12 @@ class ModalCreateFilter extends Component {
           </div>
         </ModalBody>
         <ModalFooter className={'filter-footer'}>
-          <Button color="success" onClick={this.fixFilterAndUpdate(updateCurrentFilter, toggle)}>Criar Filtro</Button>
-          <Button color="danger" onClick={() => { toggle(); this.cleanState(); this.cleanFilter(); }}>Cancelar</Button>
+          <Button color="success" onClick={this.updateFilter(updateCurrentFilter, toggle)}>Aplicar Filtro</Button>
+          <Button color="danger" onClick={() => { toggle(); this.cleanState(); this.cleanFilter(); }}>Fechar</Button>
         </ModalFooter>
       </Modal>
     );
   }
 }
 
-export default ModalCreateFilter;
+export default ApplyFilter;
