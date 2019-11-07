@@ -52,13 +52,6 @@ const attributes = [
   'place'
 ];
 
-const filterAttributes = {
-  assetSf: { name: 'Código', type: 'text' },
-  name: { name: 'Nome', type: 'text' },
-  description: { name: 'Descrição', type: 'text' },
-  area: { name: 'Área', type: 'number' }
-};
-
 const ORDER_CATEGORY_TYPE = {
   'EST': 'Avaliação estrutural',
   'FOR': 'Reparo em forro',
@@ -94,6 +87,14 @@ const ORDER_PRIORITY_TYPE = {
   'URG': 'Urgente',
 };
 
+const filterAttributes = {
+  category: { name: 'Categoria', type: 'option', options: ORDER_CATEGORY_TYPE },
+  description: { name: 'Descrição', type: 'text' },
+  place: { name: 'Localização', type: 'text' },
+  priority: { name: 'Prioridade', type: 'option', options: ORDER_PRIORITY_TYPE },
+  status: { name: 'Status', type: 'option', options: ORDER_STATUS_TYPE },
+  title: { name: 'Título', type: 'text' },
+};
 
 class WorkOrdersList extends Component {
   constructor(props) {

@@ -24,8 +24,8 @@ const condicionalOperator = {
 
 const filterOperations = {
   option: {
-    sameTo: { description: 'igual a', optionsType: 'selectMany' },
-    different: { description: 'diferente de', optionsType: 'selectMany' },
+    sameChoice: { description: 'igual a', optionsType: 'selectMany' },
+    differentChoice: { description: 'diferente de', optionsType: 'selectMany' },
     notNull: { description: 'não nulo', optionsType: 'nothing' },
     null: { description: 'nulo', optionsType: 'nothing' }
   },
@@ -53,6 +53,7 @@ const filterResultUI = (filterLogic, attributes, operators) => {
   };
   filterLogic.forEach(logic => {
     const { type, attribute, verb, term } = logic;
+    console.log("Logic: ", logic);
     if (type === 'att') {
       const attUI = attributes[attribute].name;
       const attType = attributes[attribute].type;
@@ -82,31 +83,21 @@ const filterResultUI = (filterLogic, attributes, operators) => {
   return resultUI;
 }
 
-const inputBasedOnOperator = ({ inputBasedOnOperator, option }, handleChangeOption, options = null) => ({
+const inputBasedOnOperator = ({ inputBasedOnOperator, option }, handleChangeOption, handleChangeSelectOptions, options) => ({
   selectMany: (
     <Input
       type="select"
       name="filterInput"
       id="filterInput"
       multiple
+      onChange={handleChangeSelectOptions}
     >
-      <option>A</option>
-      <option>B</option>
-      <option>C</option>
-      <option>D</option>
-    </Input>
-  ),
-  selectOne: (
-    <Input
-      type="select"
-      name="filterInput"
-      id="filterInput"
-      multiple
-    >
-      <option>A</option>
-      <option>B</option>
-      <option>C</option>
-      <option>D</option>
+      {options && Object.keys(options).map(key => {
+        return (
+          <option value={key}>{options[key]}</option>
+        );
+      }
+      )}
     </Input>
   ),
   nothing: null,
@@ -169,6 +160,17 @@ class ModalCreateFilter extends Component {
     });
   }
 
+  handleChangeSelectOptions = (event) => {
+    const { options } = event.target;
+    let selectedOptions = []
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) { selectedOptions.push(options[i].value) }
+    }
+    this.setState({
+      option: selectedOptions,
+    });
+  }
+
   handleAttributeSelectClick = (event) => {
     this.setState(
       {
@@ -227,10 +229,14 @@ class ModalCreateFilter extends Component {
         option.trim().split(" ").forEach(element => {
           if (element.length > 0) term.push(element);
         });
+      } else if (optionsType !== 'nothing' && attributes[attribute].type === 'option') {
+        term.push(...option);
       } else {
         term.push(option);
       }
     }
+
+    console.log("Term: ", term);
 
     const newLogic = {
       type: (attribute === 'and' || attribute === 'or' ? 'opr' : 'att'),
@@ -272,8 +278,10 @@ class ModalCreateFilter extends Component {
       toggle,
       modal,
       attributes,
-      updateCurrentFilter
+      updateCurrentFilter,
     } = this.props;
+
+    const options = attributes[this.state.attribute] && attributes[this.state.attribute].options;
 
     let type = this.state.attribute && attributes[this.state.attribute] && attributes[this.state.attribute].type;
     if (!type) {
@@ -391,7 +399,7 @@ class ModalCreateFilter extends Component {
                   </Input>
                 </Col>
                 <Col sm={4} style={{ margin: "auto 0" }}>
-                  {inputBasedOnOperator(this.state, this.handleChangeOption)}
+                  {inputBasedOnOperator(this.state, this.handleChangeOption, this.handleChangeSelectOptions, options)}
                 </Col>
               </FormGroup>
               <Button color="primary" onClick={this.buildFilter(attributes)}>Adicionar</Button>

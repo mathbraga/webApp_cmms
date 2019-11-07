@@ -40,6 +40,12 @@ class WorkOrders extends Component {
               dateLimit
               place
               priority
+              contractId
+              contractByContractId {
+                contractSf
+                contractId
+                company
+              }
               orderTeamsByOrderId {
                 edges {
                   node {
