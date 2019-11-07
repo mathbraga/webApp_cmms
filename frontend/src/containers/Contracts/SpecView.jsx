@@ -22,11 +22,17 @@ import TableWithPages from "../../components/Tables/TableWithPages";
 
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import searchList from "../../utils/search/searchList";
 
 const descriptionImage = require("../../assets/img/test/item_list.png");
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
+
+const attributes = [
+  'title',
+  'status'
+]
 
 const tableConfig = [
   { name: "Equipamento / Ativo", style: { width: "300px" }, className: "text-justifyr" },
@@ -180,23 +186,12 @@ class SpecView extends Component {
             // const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
 
             // const assetsByOrder = orderInfo.orderAssetsByOrderId.nodes;
-            // const pageLength = assetsByOrder.length;
+            const pageLength = orders.length;
 
-            // let filteredItems = assetsByOrder;
-            // if (searchTerm.length > 0) {
-            //   const searchTermLower = searchTerm.toLowerCase();
-            //   filteredItems = assetsByOrder.filter(function (item) {
-            //     return (
-            //       // item.node.orderByOrderId.category.toLowerCase().includes(searchTermLower) ||
-            //       item.assetByAssetId.name.toLowerCase().includes(searchTermLower) ||
-            //       item.assetByAssetId.assetId.toLowerCase().includes(searchTermLower) ||
-            //       item.assetByAssetId.place.toLowerCase().includes(searchTermLower)
-            //     );
-            //   });
-            // }
+            const filteredItems = searchList(orders, attributes, searchTerm);
 
-            const pagesTotal = 1;//Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
-            // const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+            const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
+            const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
             const thead =
               (<tr>
@@ -208,7 +203,7 @@ class SpecView extends Component {
                 }
               </tr>);
 
-            const tbody = orders.map(item => (
+            const tbody = showItems.map(item => (
               <tr
                 onClick={() => { this.props.history.push('/manutencao/os/view/' + item.orderId) }}
               >
@@ -218,7 +213,7 @@ class SpecView extends Component {
                   <div className="small text-muted">{item.status}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.status}</div>
+                  <div>{ORDER_STATUS_TYPE[item.status]}</div>
                 </td>
               </tr>));
 

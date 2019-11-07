@@ -37,19 +37,19 @@ function findItem(items, attributes, term){
   const result = items.filter((item) => {
     for(let i = 0; i < attributes.length; i++){
       const relevantName = attributes[i].split('.').pop();
-      const attributeRoot = attributes[i].split('.')[0];
+      //const attributeRoot = attributes[i].split('.')[0];
       let value = [];
-      if(attributes[i] === 'subtext' || attributes[i] === 'text' || attributeRoot === 'assetByAssetId')
-        value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item);
-      else
+      if(item.node)
         value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item.node);
+      else
+        value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item);
 
       switch (relevantName) {
         case 'orderId':
           value = String(value).padStart(4, "0");
           break;
         case 'category':
-          value = ORDER_CATEGORY_TYPE[value];
+          value = ORDER_CATEGORY_TYPE[value] || value;
           break;
         case 'status':
           value = ORDER_STATUS_TYPE[value];

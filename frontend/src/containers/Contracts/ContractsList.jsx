@@ -14,6 +14,7 @@ import AssetCard from "../../components/Cards/AssetCard";
 import { withRouter } from "react-router-dom";
 import "./List.css";
 
+import searchList from "../../utils/search/searchList";
 // import { contracts } from "./FakeData";
 
 const tableConfig = [
@@ -27,6 +28,18 @@ const tableConfig = [
 const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
+const attributes = [
+  "contractSf",
+  "title",
+  "company",
+  "status",
+  "dateStart",
+  "finalDate"
+]
+
+const CONTRACT_STATUS = {
+  'EXE': 'Execução',
+}
 
 class ContractsList extends Component {
   constructor(props) {
@@ -64,18 +77,7 @@ class ContractsList extends Component {
     const { allItems } = this.props;
     const { pageCurrent, goToPage, searchTerm } = this.state;
 
-    let filteredItems = allItems;
-    if (searchTerm.length > 0) {
-      const searchTermLower = searchTerm.toLowerCase();
-      filteredItems = allItems.filter(function (item) {
-        return (
-          (item.contractSf.includes(searchTermLower)) ||
-          (item.title.includes(searchTermLower)) ||
-          // (item.title.toLowerCase().includes(searchTermLower)) ||
-          (item.company.toLowerCase().includes(searchTermLower))
-        );
-      });
-    }
+    let filteredItems = searchList(allItems, attributes, searchTerm);
 
     const pagesTotal = Math.floor(filteredItems.length / ENTRIES_PER_PAGE) + 1;
     const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
@@ -100,9 +102,9 @@ class ContractsList extends Component {
           <div>{item.title}</div>
           <div className="small text-muted">{item.company}</div>
         </td>
-        <td className="text-center">{item.status}</td>
+        <td className="text-center">{CONTRACT_STATUS[item.status]}</td>
         <td>
-          <div className="text-center">{item.dateStart + ' a ' + item.finalDate}</div>
+          <div className="text-center">{item.dateStart + ' a ' + item.dateEnd}</div>
         </td>
         <td>
           <div className="text-center">
@@ -110,8 +112,9 @@ class ContractsList extends Component {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer nofollow"
+              onClick={(e) => e.stopPropagation()}
             >
-            {"Link"}
+            {"CT " + parseInt(item.contractSf.slice(2, 6), 10) + "/" + item.contractSf.slice(6)}
             </a>
           </div>  
         </td>

@@ -142,19 +142,6 @@ const osQuery = gql`
               title
               place
               priority
-              orderAssetsByOrderId {
-                edges {
-                  node {
-                    assetByAssetId {
-                      assetByPlace {
-                        name
-                        assetId
-                        assetSf
-                      }
-                    }
-                  }
-                }
-              }
             }
           }
         }
@@ -312,7 +299,7 @@ class OrderForm extends Component {
           try{
             const listData = cache.readQuery({ query: osQuery });
 
-            const id = insertOrder.orderId
+            const id = insertOrder.newOrderId;
             const category = this.state.category;
             const dateStart = this.state.dateStart;
             const dateLimit = this.state.dateLimit;
@@ -344,19 +331,15 @@ class OrderForm extends Component {
             listData.allOrders.edges.push(
               {node: {
                 category: category,
+                createdBy: createdBy,
+                status: status,
+                description: description,
+                orderId: id,
                 createdAt: dateStart,
                 dateLimit: dateLimit,
-                orderAssetsByOrderId: {
-                  // edges: newEdges,
-                  __typename: "OrderAssetsConnection"
-                },
-                orderId: id,
-                priority: priority,
-                place: place,
-                createdBy: createdBy,
-                description: description,
                 title: title,
-                status: status,
+                place: place,
+                priority: priority,
                 __typename: "Order"
               },
               __typename: "OrdersEdge"
@@ -618,9 +601,8 @@ class OrderForm extends Component {
                                 </FormGroup>
                               </Col>
                               <Col xs='6'>
-                              <Col xs='6'>
                                 <FormGroup>
-                                  <Label htmlFor="departmentId">Nome do contato</Label>
+                                  <Label htmlFor="departmentId">Departamento do Solicitante</Label>
                                   <Input
                                     // autoComplete="new-password"
                                     onChange={this.handleInputChange}
@@ -628,7 +610,6 @@ class OrderForm extends Component {
                                     // required
                                   />
                                 </FormGroup>
-                              </Col>
                               </Col>
                             </FormGroup>
                             <FormGroup row>
