@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ModalCreateFilter from "../../components/Modals/ModalCreateFilter";
-import ApplyFilter from "../../components/Modals/ApplyFilter"
+import ApplyFilter from "../../components/Modals/ApplyFilter";
 import {
   Row,
   Col,
