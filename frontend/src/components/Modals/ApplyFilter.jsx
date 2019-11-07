@@ -26,8 +26,8 @@ const condicionalOperator = {
 
 const filterOperations = {
   option: {
-    sameTo: { description: 'igual a', optionsType: 'selectMany' },
-    different: { description: 'diferente de', optionsType: 'selectMany' },
+    sameChoice: { description: 'igual a', optionsType: 'selectMany' },
+    differentChoice: { description: 'diferente de', optionsType: 'selectMany' },
     notNull: { description: 'não nulo', optionsType: 'nothing' },
     null: { description: 'nulo', optionsType: 'nothing' }
   },

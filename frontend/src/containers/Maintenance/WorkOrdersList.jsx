@@ -35,10 +35,82 @@ const customFilters = [
   },
   {
     id: "002",
-    name: "Edifícios - Blocos de Apoio",
+    name: "OS - Reparo em forro",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["Bloco"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["FOR"] },
+    ],
+  },
+  {
+    id: "003",
+    name: "OS - Avaliação estrutural",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+    ],
+  },
+  {
+    id: "004",
+    name: "OS - Avaliação estrutural",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+    ],
+  },
+  {
+    id: "005",
+    name: "OS - Avaliação estrutural",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+    ],
+  },
+  {
+    id: "006",
+    name: "OS - Avaliação estrutural",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+    ],
+  },
+  {
+    id: "007",
+    name: "OS - Avaliação estrutural",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+    ],
+  },
+  {
+    id: "008",
+    name: "OS - Avaliação estrutural",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+    ],
+  },
+  {
+    id: "009",
+    name: "OS - Avaliação estrutural",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+    ],
+  },
+  {
+    id: "010",
+    name: "OS - Avaliação estrutural",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+    ],
+  },
+  {
+    id: "011",
+    name: "OS - Avaliação estrutural",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
     ],
   },
 ];
