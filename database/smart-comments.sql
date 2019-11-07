@@ -1,13 +1,13 @@
 -- lookup tables
-comment on table asset_categories is E'@omit create,update,delete';
-comment on table contract_statuses is E'@omit create,update,delete';
-comment on table order_statuses is E'@omit create,update,delete';
-comment on table order_priorities is E'@omit create,update,delete';
-comment on table order_categories is E'@omit create,update,delete';
-comment on table person_roles is E'@omit create,update,delete';
-comment on table spec_categories is E'@omit create,update,delete';
-comment on table spec_subcategories is E'@omit create,update,delete';
-comment on table rule_categories is E'@omit create,update,delete';
+-- comment on table asset_categories is E'@omit create,update,delete';
+-- comment on table contract_statuses is E'@omit create,update,delete';
+-- comment on table order_statuses is E'@omit create,update,delete';
+-- comment on table order_priorities is E'@omit create,update,delete';
+-- comment on table order_categories is E'@omit create,update,delete';
+-- comment on table person_roles is E'@omit create,update,delete';
+-- comment on table spec_categories is E'@omit create,update,delete';
+-- comment on table spec_subcategories is E'@omit create,update,delete';
+-- comment on table rule_categories is E'@omit create,update,delete';
 
 -- tables
 comment on table assets is E'@omit create,update,delete';
