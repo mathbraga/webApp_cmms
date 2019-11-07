@@ -86,73 +86,6 @@ const filterResultUI = (filterLogic, attributes, operators) => {
   return resultUI;
 }
 
-const inputBasedOnOperator = ({ inputBasedOnOperator, option }, handleChangeOption, options = null) => ({
-  selectMany: (
-    <Input
-      type="select"
-      name="filterInput"
-      id="filterInput"
-      multiple
-    >
-      <option>A</option>
-      <option>B</option>
-      <option>C</option>
-      <option>D</option>
-    </Input>
-  ),
-  selectOne: (
-    <Input
-      type="select"
-      name="filterInput"
-      id="filterInput"
-      multiple
-    >
-      <option>A</option>
-      <option>B</option>
-      <option>C</option>
-      <option>D</option>
-    </Input>
-  ),
-  nothing: null,
-  text: (
-    <Input
-      type="text"
-      name="filterInput"
-      id="filterInput"
-      value={option}
-      onChange={handleChangeOption}
-    />
-  ),
-  number: (
-    <Input
-      type="text"
-      name="filterInput"
-      id="filterInput"
-      value={option}
-      onChange={handleChangeOption}
-    />
-  ),
-  // twoNumbers: (
-  //   <div
-  //     style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-  //   >
-  //     <Input
-  //       type="text"
-  //       name="filterInput"
-  //       id="filterInput"
-  //       style={{ marginBottom: "5px" }}
-  //     />
-  //     <span>E</span>
-  //     <Input
-  //       type="text"
-  //       name="filterInput"
-  //       id="filterInput"
-  //       style={{ marginTop: "5px" }}
-  //     />
-  //   </div>
-  // ),
-}[inputBasedOnOperator]);
-
 class ApplyFilter extends Component {
   constructor(props) {
     super(props);
@@ -165,31 +98,6 @@ class ApplyFilter extends Component {
       inputBasedOnOperator: 'nothing',
       currentFilterLogic: [],
     };
-  }
-
-  handleChangeOption = (event) => {
-    const { value } = event.target;
-    this.setState({
-      option: value,
-    });
-  }
-
-  handleAttributeSelectClick = (event) => {
-    this.setState(
-      {
-        attribute: event.target.value,
-        operator: null,
-        inputBasedOnOperator: 'nothing',
-        option: null,
-      }
-    );
-  }
-
-  handleInputSelectClick = (type) => (event) => {
-    this.setState({
-      operator: event.target.value,
-      inputBasedOnOperator: filterOperations[type][event.target.value].optionsType,
-    });
   }
 
   cleanState = () => {
@@ -208,47 +116,6 @@ class ApplyFilter extends Component {
     });
   }
 
-  buildFilter = (attributes) => () => {
-    const { attribute, operator, option } = this.state;
-
-    let term = [];
-
-    if (!attribute || attribute === '') {
-      return;
-    }
-    if ((!operator || operator === '') && !condicionalOperator[attribute]) {
-      return;
-    }
-
-    if (attribute !== 'and' && attribute !== 'or') {
-      const { type } = attributes[attribute];
-      const { optionsType } = filterOperations[type][operator];
-
-      if (optionsType !== 'nothing' && (!option || option === '' || option === [])) {
-        return;
-      }
-
-      if (optionsType !== 'nothing' && attributes[attribute].type === 'text') {
-        option.trim().split(" ").forEach(element => {
-          if (element.length > 0) term.push(element);
-        });
-      } else {
-        term.push(option);
-      }
-    }
-
-    const newLogic = {
-      type: (attribute === 'and' || attribute === 'or' ? 'opr' : 'att'),
-      attribute,
-      verb: operator,
-      term,
-    };
-
-    this.setState((prevState) => ({
-      currentFilterLogic: [...prevState.currentFilterLogic, newLogic],
-    }), () => { this.cleanState() });
-  }
-
   updateFilter = (updateFunction, toggleFunction) => () => {
     const { currentFilterLogic, filterName, filterId } = this.state;
     if (filterId) {
@@ -257,13 +124,6 @@ class ApplyFilter extends Component {
     this.cleanFilter();
     this.cleanState();
     toggleFunction();
-  }
-
-  handleChangeOnName = (event) => {
-    const { value } = event.target;
-    this.setState({
-      filterName: value,
-    });
   }
 
   changeCurrentFilter = (id, name, logic) => () => {
@@ -283,13 +143,6 @@ class ApplyFilter extends Component {
       customFilters,
       currentFilterId
     } = this.props;
-
-    let type = this.state.attribute && attributes[this.state.attribute] && attributes[this.state.attribute].type;
-    if (!type) {
-      type = "opr"
-    }
-
-    const listDropdown = Object.keys(attributes);
 
     return (
       <Modal
@@ -343,8 +196,8 @@ class ApplyFilter extends Component {
                         (filter.id === this.state.filterId ?
                           "filter-selected-item" :
                           "") + (
-                          !currentFilterId && currentFilterId === filter.id ?
-                            "filter-active-filter" :
+                          currentFilterId && currentFilterId === filter.id ?
+                            " filter-active-filter" :
                             ""
                         )
                       }
