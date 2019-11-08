@@ -69,7 +69,6 @@ const equipListQuery = gql`
                 name
                 model
                 manufacturer
-                assetId
                 assetSf
                 category
                 serialnum
@@ -167,7 +166,7 @@ class EquipmentsForm extends Component {
                 category: "A"
               }
             });
-            const sf = insertAppliance.assetSf;
+            const sf = insertAppliance.newApplianceSf;
             const name = this.state.assetName;
             // const parent = this.state.assetParent;
             const model = this.state.model;
@@ -179,16 +178,6 @@ class EquipmentsForm extends Component {
             data.allAssets.edges.push(
               {node: {
                 area: area,
-                assetByParent: {
-                  assetSf: sf,
-                  name: name,
-                  __typename: "Asset"
-                },
-                assetByPlace: {
-                  assetSf: sf,
-                  name: name,
-                  __typename: "Asset"
-                },
                 assetSf: sf,
                 category: category,
                 manufacturer: manufacturer,
