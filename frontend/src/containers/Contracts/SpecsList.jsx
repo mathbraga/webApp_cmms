@@ -47,10 +47,74 @@ const customFilters = [
   },
   {
     id: "002",
-    name: "Edifícios - Blocos de Apoio",
+    name: "Geral",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["Bloco"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["Geral"] },
+    ],
+  },
+  {
+    id: "003",
+    name: "Civil",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["Civil"] },
+    ],
+  },
+  {
+    id: "004",
+    name: "Serviços de Apoio",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["Serviços de Apoio"] },
+    ],
+  },
+  {
+    id: "005",
+    name: "Elétrica",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["Elétrica"] },
+    ],
+  },
+  {
+    id: "006",
+    name: "Hidrossanitário",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["Hidrossanitário"] },
+    ],
+  },
+  {
+    id: "007",
+    name: "Ar Condicionado",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["Ar Condicionado"] },
+    ],
+  },
+  {
+    id: "008",
+    name: "Marcenaria e Serralheria",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["Marcenaria e Serralheria"] },
+    ],
+  },
+  {
+    id: "009",
+    name: "Rede e Telefonia",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["Rede e Telefonia"] },
+    ],
+  },
+  {
+    id: "010",
+    name: "Ferramentas e Equipamentos",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["Ferramentas e Equipamentos"] },
     ],
   },
 ];
