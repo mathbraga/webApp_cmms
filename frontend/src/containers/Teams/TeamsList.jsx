@@ -46,10 +46,18 @@ const customFilters = [
   },
   {
     id: "002",
-    name: "Edifícios - Blocos de Apoio",
+    name: "Equipe - Mínimo 02 pessoas",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["Bloco"] },
+      { attribute: 'memberCount', type: 'att', verb: 'greaterThan', term: ["2"] },
+    ],
+  },
+  {
+    id: "003",
+    name: "Individual - 01 pessoa",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'memberCount', type: 'att', verb: 'equalTo', term: ["1"] },
     ],
   },
 ];
@@ -57,6 +65,7 @@ const customFilters = [
 const filterAttributes = {
   name: { name: 'Nome da Equipe', type: 'text' },
   description: { name: 'Descrição', type: 'text' },
+  memberCount: { name: 'Número de Integrantes', type: 'number' }
 };
 
 class TeamsList extends Component {
