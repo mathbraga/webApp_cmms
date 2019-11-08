@@ -70,11 +70,10 @@ const facListQuery = gql`
           allAssets(condition: {category: $category}, orderBy: ASSET_SF_ASC) {
             edges {
               node {
-                assetSf
                 name
                 model
                 manufacturer
-                assetId
+                assetSf
                 category
                 serialnum
                 area
@@ -88,23 +87,24 @@ class FacilitiesForm extends Component {
     super(props);
     this.state = {
       assetName: null,
-      assetId: null,
+      // assetId: null,
       description: null,
       area: null,
       latitude: null,
       longitude: null,
       assetParent: null,
-      departments: null
+      departments: null,
+      assetSf: null
     };
 
-    this.handleFacilitiesDropDownChange = this.handleFacilitiesDropDownChange.bind(this);
+    // this.handleFacilitiesDropDownChange = this.handleFacilitiesDropDownChange.bind(this);
     // this.handleDepartmentsDropDownChange = this.handleDepartmentsDropDownChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleFacilitiesDropDownChange(assetId) {
-    this.setState({ assetParent: assetId });
-  }
+  // handleFacilitiesDropDownChange(assetId) {
+  //   this.setState({ assetParent: assetId });
+  // }
 
   // handleDepartmentsDropDownChange(departments) {
   //   this.setState({ departments: departments });
@@ -150,19 +150,19 @@ class FacilitiesForm extends Component {
     // const depsArray = this.state.departments === null ? null : this.state.departments.map((item) => item.id);
     console.log(this.state);
     return (
-      <Query query={depQuery}>{
-        ({ loading, error, data }) => {
-          if (loading) return null
-          if (error) {
-            console.log("Erro ao tentar baixar os dados!");
-            return null
-          }
+      // <Query query={depQuery}>{
+      //   ({ loading, error, data }) => {
+      //     if (loading) return null
+      //     if (error) {
+      //       console.log("Erro ao tentar baixar os dados!");
+      //       return null
+      //     }
           // const depsID = data.allDepartments.edges.map((item) => item.node.departmentId);
           // const depsName = data.allDepartments.edges.map((item) => item.node.fullName);
 
-          const facID = data.allFacilities.edges.map((item) => item.node.assetId);
-          const facSf = data.allFacilities.edges.map((item) => item.node.assetSf);
-          const facName = data.allFacilities.edges.map((item) => item.node.name);
+          // const facID = data.allFacilities.edges.map((item) => item.node.assetId);
+          // const facSf = data.allFacilities.edges.map((item) => item.node.assetSf);
+          // const facName = data.allFacilities.edges.map((item) => item.node.name);
           // console.log(facID);
           // console.log(data);
 
@@ -170,11 +170,11 @@ class FacilitiesForm extends Component {
           // for (let i = 0; i < depsID.length; i++)
           //   deps.push({ id: depsID[i], text: depsName[i], subtext: depsID[i] });
 
-          const facs = [];
-          for (let i = 0; i < facID.length; i++)
-            facs.push({ id: facID[i], text: facName[i], subtext: facSf[i] });
+          // const facs = [];
+          // for (let i = 0; i < facID.length; i++)
+          //   facs.push({ id: facID[i], text: facName[i], subtext: facSf[i] });
 
-          return (
+          // return (
             <Mutation
               mutation={newFacility}
               variables={{
@@ -185,6 +185,7 @@ class FacilitiesForm extends Component {
                 lat: Number(this.state.latitude),
                 lon: Number(this.state.longitude),
                 name: this.state.assetName,
+                // assetId: Number(this.state.assetId)
                 // parent: this.state.assetParent,
                 // place: this.state.assetParent
               }}
@@ -196,34 +197,24 @@ class FacilitiesForm extends Component {
                       category: "F"
                     }
                   });
-                  const sf = insertFacility.assetSf;
+                  const sf = insertFacility.newFacilitySf;
                   const name = this.state.assetName;
                   // const parent = this.state.assetParent;
+                  const category = "F"
+                  const area = Number(this.state.area);
+                  // const assetId = Number(this.state.assetId);
                   const model = null;
                   const manufacturer = null;
-                  const category = "F"
                   const serialnum = null;
-                  const area = Number(this.state.area);
 
                   data.allAssets.edges.push(
                     {node: {
                       area: area,
-                      assetByParent: {
-                        assetSf: sf,
-                        name: name,
-                        __typename: "Asset"
-                      },
-                      assetByPlace: {
-                        assetId: sf,
-                        name: name,
-                        __typename: "Asset"
-                      },
                       assetSf: sf,
                       category: category,
-                      manufacturer: manufacturer,
-                      model: model,
                       name: name,
-                      // parent: parent,
+                      model: model,
+                      manufacturer: manufacturer,
                       serialnum: serialnum,
                       __typename: "Asset"
                     },
@@ -372,8 +363,8 @@ class FacilitiesForm extends Component {
                   </div>
                 )
               }}</Mutation>
-          )
-        }}</Query>
+          // )
+        // }}</Query>
     );
   }
 }
