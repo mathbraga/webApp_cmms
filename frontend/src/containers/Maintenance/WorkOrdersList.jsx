@@ -51,42 +51,42 @@ const customFilters = [
   },
   {
     id: "004",
-    name: "OS - Avaliação estrutural",
+    name: "OS - Infiltração",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["INF"] },
     ],
   },
   {
     id: "005",
-    name: "OS - Avaliação estrutural",
+    name: "OS - Instalações elétricas",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["ELE"] },
     ],
   },
   {
     id: "006",
-    name: "OS - Avaliação estrutural",
+    name: "OS - Instalações hidrossanitárias",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["HID"] },
     ],
   },
   {
     id: "007",
-    name: "OS - Avaliação estrutural",
+    name: "OS - Marcenaria",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["MAR"] },
     ],
   },
   {
     id: "008",
-    name: "OS - Avaliação estrutural",
+    name: "OS - Reparo em piso",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["PIS"] },
     ],
   },
   {
@@ -99,20 +99,117 @@ const customFilters = [
   },
   {
     id: "010",
-    name: "OS - Avaliação estrutural",
+    name: "OS - Revestimento",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["REV"] },
     ],
   },
   {
     id: "011",
-    name: "OS - Avaliação estrutural",
+    name: "OS - Vedação espacial",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["VED"] },
     ],
   },
+  {
+    id: "012",
+    name: "OS - Vidraçaria / Esquadria",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["VID"] },
+    ],
+  },
+  {
+    id: "013",
+    name: "OS - Serralheria",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["SER"] },
+    ],
+  },
+  {
+    id: "014",
+    name: "OS - Ar-condicionado",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["ARC"] },
+    ],
+  },
+  {
+    id: "015",
+    name: "OS - Elevadores",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["ELV"] },
+    ],
+  },
+  {
+    id: "016",
+    name: "OS - Exaustores",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EXA"] },
+    ],
+  },
+  {
+    id: "017",
+    name: "OS - Revestimento",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["REV"] },
+    ],
+  },
+  {
+    id: "018",
+    name: "OS - Serviços Gerais",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["GRL"] },
+    ],
+  },
+  {
+    id: "019",
+    name: "OS - Canceladas",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["CAN"] },
+    ],
+  },
+  {
+    id: "020",
+    name: "OS - Suspensas",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["SUS"] },
+    ],
+  },
+  {
+    id: "021",
+    name: "OS - Execução",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["EXE"] },
+    ],
+  },
+  {
+    id: "022",
+    name: "OS - Concluídas",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["CON"] },
+    ],
+  },
+  {
+    id: "023",
+    name: "OS - Execução ou Fila de Espera",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["EXE", "FIL"] },
+    ],
+  },
+
 ];
 
 const attributes = [
