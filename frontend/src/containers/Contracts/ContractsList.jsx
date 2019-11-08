@@ -48,14 +48,6 @@ const customFilters = [
     author: "webSINFRA Software",
     logic: [],
   },
-  {
-    id: "002",
-    name: "Edifícios - Blocos de Apoio",
-    author: "webSINFRA Software",
-    logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["Bloco"] },
-    ],
-  },
 ];
 
 const CONTRACT_STATUS = {
