@@ -367,7 +367,7 @@ class SpecView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Ordens de Serviço com o Material / Serviço</div>
-                                    <div className="asset-info-content-data">04</div>
+                                    <div className="asset-info-content-data">{pageLength}</div>
                                   </div>
                                 </Col>
                               </Row>
@@ -383,7 +383,7 @@ class SpecView extends Component {
                                   </InputGroup>
                                 </div>
                               </div>
-                              <div className="search-filter" style={{ width: "30%" }}>
+                              {/* <div className="search-filter" style={{ width: "30%" }}>
                                 <ol>
                                   <li><span className="card-search-title">Filtro: </span></li>
                                   <li><span className="card-search-title">Regras: </span></li>
@@ -396,7 +396,7 @@ class SpecView extends Component {
                               <div className="search-buttons" style={{ width: "30%" }}>
                                 <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
                                 <Button className="search-filter-button" color="primary">Criar Filtro</Button>
-                              </div>
+                              </div> */}
                             </div>
                             <TableWithPages
                               thead={thead}

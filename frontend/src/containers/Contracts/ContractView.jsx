@@ -364,7 +364,7 @@ class ContractView extends Component {
                                   </InputGroup>
                                 </div>
                               </div>
-                              <div className="search-filter" style={{ width: "30%" }}>
+                              {/* <div className="search-filter" style={{ width: "30%" }}>
                                 <ol>
                                   <li><span className="card-search-title">Filtro: </span></li>
                                   <li><span className="card-search-title">Regras: </span></li>
@@ -377,7 +377,7 @@ class ContractView extends Component {
                               <div className="search-buttons" style={{ width: "30%" }}>
                                 <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
                                 <Button className="search-filter-button" color="primary">Criar Filtro</Button>
-                              </div>
+                              </div> */}
                             </div>
                             <TableWithPages
                               thead={thead}
