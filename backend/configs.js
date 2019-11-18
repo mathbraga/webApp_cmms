@@ -40,6 +40,7 @@ const postgraphileConfig = {
     graphiql: true,
     graphiqlRoute: paths.graphiql,
     enhanceGraphiql: true,
+    disableDefaultMutations: true,
     disableQueryLog: false,
     dynamicJson: true,
     showErrorStack: 'json',
