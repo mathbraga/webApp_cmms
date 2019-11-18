@@ -26,14 +26,14 @@ comment on table order_teams is null;
 comment on table specs is null;
 comment on table supplies is null;
 comment on table order_supplies is null;
-comment on table rules is E'@omit all,many,read';
-comment on table asset_rules is E'@omit all,many,read';
-comment on table spec_rules is E'@omit all,many,read';
-comment on table templates is E'@omit all,many,read';
-comment on table asset_files is E'@omit all,many,read';
-comment on table order_files is E'@omit all,many,read';
-comment on table rule_files is E'@omit all,many,read';
-comment on table template_files is E'@omit all,many,read';
+comment on table rules is E'@omit';
+comment on table asset_rules is E'@omit';
+comment on table spec_rules is E'@omit';
+comment on table templates is E'@omit';
+comment on table asset_files is E'@omit';
+comment on table order_files is E'@omit';
+comment on table rule_files is E'@omit';
+comment on table template_files is E'@omit';
 
 -- functions
 comment on function authenticate is E'@omit execute';
