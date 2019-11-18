@@ -31,10 +31,18 @@ const searchItem = require("../../assets/icons/search_icon.png");
 
 const ENTRIES_PER_PAGE = 15;
 
-const attributes = [
+const assetAttributes = [
   'assetByAssetId.name',
   'assetByAssetId.assetSf',
   'assetByAssetId.place'
+]
+
+const supplyAttributes = [
+  'supplySf',
+  'name',
+  'qty',
+  'bidPrice',
+  'total'
 ]
 
 const tableConfig = [
@@ -43,10 +51,9 @@ const tableConfig = [
 ];
 
 const tableConfig2 = [
-  { name: "Código no contrato", style: { width: "50px" }, className: "text-justifyr" },
-  { name: "Descrição", style: { width: "200px" }, className: "text-center" },
+  { name: "Código", style: { width: "50px" }, className: "text-center" },
+  { name: "Descrição", style: { width: "200px" }, className: "text-justifyr" },
   { name: "Quantidade", style: { width: "50px" }, className: "text-center" },
-  { name: "Unidade", style: { width: "50px" }, className: "text-center" },
   { name: "Preço unitário (R$)", style: { width: "50px" }, className: "text-center" },
   { name: "Total (R$)", style: { width: "50px" }, className: "text-center" },
 ];
@@ -99,6 +106,7 @@ class WorkOrderView extends Component {
     this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
+    this.resetOnTabSwitch = this.resetOnTabSwitch.bind(this);
   }
 
   handleClickOnNav(tabSelected) {
@@ -117,6 +125,12 @@ class WorkOrderView extends Component {
 
   handleChangeSearchTerm(event) {
     this.setState({ searchTerm: event.target.value, pageCurrent: 1, goToPage: 1 });
+  }
+
+  // Used on tab switches so that variables related to search and pagination are not 
+  // preserved between tabs on info cards that have multiple tabs with search functionality.
+  resetOnTabSwitch(){
+    this.setState({ searchTerm: "", pageCurrent: 1, goToPage: 1 });
   }
 
   render() {
@@ -192,12 +206,17 @@ class WorkOrderView extends Component {
             const daysOfDelay = -((Date.parse(orderInfo.dateLimit) - (orderInfo.dateEnd ? Date.parse(orderInfo.dateEnd) : Date.now())) / (60000 * 60 * 24));
 
             const assetsByOrder = orderInfo.orderAssetsByOrderId.nodes;
-            const pageLength = assetsByOrder.length;
+            const assetsPageLength = assetsByOrder.length;
+            const suppliesPageLength = supplies.length;
 
-            const filteredItems = searchList(assetsByOrder, attributes, searchTerm);
+            const filteredItems = searchList(assetsByOrder, assetAttributes, searchTerm);
+            const filteredSupplies = searchList(supplies, supplyAttributes, searchTerm);
 
-            const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
+            const assetsPagesTotal = Math.floor(assetsPageLength / ENTRIES_PER_PAGE) + 1;
+            const suppliesPagesTotal = Math.floor(suppliesPageLength / ENTRIES_PER_PAGE) + 1;
+
             const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+            const showSupplies = filteredSupplies.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
             const thead =
               (<tr>
@@ -233,7 +252,7 @@ class WorkOrderView extends Component {
               }
             </tr>);
 
-            const tbody2 = supplies.map(item => (
+            const tbody2 = showSupplies.map(item => (
               <tr
                 onClick={() => { this.props.history.push('/gestao/servicos/view/' + item.specId) }}
               >
@@ -241,20 +260,17 @@ class WorkOrderView extends Component {
                 <td className="text-center">
                   <div>{item.supplySf}</div>
                 </td>
-                <td className="text-center">
+                <td className="text-justifyr">
                   <div>{item.name}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.qty}</div>
+                  <div>{item.qty + " " + item.unit}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.unit}</div>
+                  <div>{(item.bidPrice).toLocaleString('br', { style: 'currency', currency: 'BRL'})}</div>
                 </td>
                 <td className="text-center">
-                  <div>{item.bidPrice}</div>
-                </td>
-                <td className="text-center">
-                  <div>{item.total}</div>
+                  <div>{(item.total).toLocaleString('br', { style: 'currency', currency: 'BRL'})}</div>
                 </td>
               </tr>));
 
@@ -308,25 +324,81 @@ class WorkOrderView extends Component {
                     <div style={{ margin: "40px 20px 20px 20px", width: "100%" }}>
                       <Nav tabs>
                         <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("info") }} active={tabSelected === "info"} >Informações Gerais</NavLink>
+                          <NavLink 
+                            onClick={() => { 
+                              this.resetOnTabSwitch()
+                              this.handleClickOnNav("info") 
+                            }} 
+                            active={tabSelected === "info"}
+                          >
+                            Informações Gerais
+                          </NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("location") }} active={tabSelected === "location"} >Dados do Solicitante</NavLink>
+                          <NavLink 
+                            onClick={() => { 
+                              this.resetOnTabSwitch()
+                              this.handleClickOnNav("location") 
+                            }} 
+                            active={tabSelected === "location"}
+                          >
+                            Dados do Solicitante
+                          </NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("maintenance") }} active={tabSelected === "maintenance"} >Ativos</NavLink>
+                          <NavLink 
+                            onClick={() => { 
+                              this.resetOnTabSwitch()
+                              this.handleClickOnNav("maintenance") 
+                            }} 
+                            active={tabSelected === "maintenance"}
+                          >
+                            Ativos
+                          </NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("warranty") }} active={tabSelected === "warranty"} >Arquivos</NavLink>
+                          <NavLink 
+                            onClick={() => { 
+                              this.resetOnTabSwitch()
+                              this.handleClickOnNav("warranty") 
+                            }} 
+                            active={tabSelected === "warranty"}
+                          >
+                            Arquivos
+                          </NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("file") }} active={tabSelected === "file"} >Atribuido para</NavLink>
+                          <NavLink 
+                            onClick={() => { 
+                              this.resetOnTabSwitch()
+                              this.handleClickOnNav("file") 
+                            }} 
+                            active={tabSelected === "file"}
+                          >
+                            Atribuido para
+                          </NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("log") }} active={tabSelected === "log"} >Histórico</NavLink>
+                          <NavLink 
+                            onClick={() => { 
+                              this.resetOnTabSwitch()
+                              this.handleClickOnNav("log") 
+                            }} 
+                            active={tabSelected === "log"}
+                          >
+                            Histórico
+                          </NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink onClick={() => { this.handleClickOnNav("supplies") }} active={tabSelected === "log"} >Materiais e Serviços</NavLink>
+                          <NavLink 
+                            onClick={() => { 
+                              this.resetOnTabSwitch()
+                              this.handleClickOnNav("supplies") 
+                            }} 
+                            active={tabSelected === "supplies"}
+                          >
+                            Materiais e Serviços
+                          </NavLink>
                         </NavItem>
                       </Nav>
                       <TabContent activeTab={this.state.tabSelected} style={{ width: "100%" }}>
@@ -493,7 +565,7 @@ class WorkOrderView extends Component {
                                 <Col md="6">
                                   <div className="asset-info-single-container">
                                     <div className="desc-sub">Quantidade de Ativos</div>
-                                    <div className="asset-info-content-data">{pageLength.toString().padStart(3, "0")}</div>
+                                    <div className="asset-info-content-data">{assetsPageLength.toString().padStart(3, "0")}</div>
                                   </div>
                                 </Col>
                               </Row>
@@ -509,7 +581,7 @@ class WorkOrderView extends Component {
                                   </InputGroup>
                                 </div>
                               </div>
-                              <div className="search-filter" style={{ width: "30%" }}>
+                              {/* <div className="search-filter" style={{ width: "30%" }}>
                                 <ol>
                                   <li><span className="card-search-title">Filtro: </span></li>
                                   <li><span className="card-search-title">Regras: </span></li>
@@ -522,12 +594,12 @@ class WorkOrderView extends Component {
                               <div className="search-buttons" style={{ width: "30%" }}>
                                 <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
                                 <Button className="search-filter-button" color="primary">Criar Filtro</Button>
-                              </div>
+                              </div> */}
                             </div>
                             <TableWithPages
                               thead={thead}
                               tbody={tbody}
-                              pagesTotal={pagesTotal}
+                              pagesTotal={assetsPagesTotal}
                               pageCurrent={pageCurrent}
                               goToPage={goToPage}
                               setCurrentPage={this.setCurrentPage}
@@ -542,8 +614,8 @@ class WorkOrderView extends Component {
                               <Row>
                                 <Col md="6">
                                   <div className="asset-info-single-container">
-                                    <div className="desc-sub">Quantidade de Ativos</div>
-                                    <div className="asset-info-content-data">{pageLength.toString().padStart(3, "0")}</div>
+                                    <div className="desc-sub">Quantidade de Materiais e Serviços</div>
+                                    <div className="asset-info-content-data">{suppliesPageLength.toString().padStart(3, "0")}</div>
                                   </div>
                                 </Col>
                               </Row>
@@ -559,7 +631,7 @@ class WorkOrderView extends Component {
                                   </InputGroup>
                                 </div>
                               </div>
-                              <div className="search-filter" style={{ width: "30%" }}>
+                              {/* <div className="search-filter" style={{ width: "30%" }}>
                                 <ol>
                                   <li><span className="card-search-title">Filtro: </span></li>
                                   <li><span className="card-search-title">Regras: </span></li>
@@ -572,16 +644,16 @@ class WorkOrderView extends Component {
                               <div className="search-buttons" style={{ width: "30%" }}>
                                 <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
                                 <Button className="search-filter-button" color="primary">Criar Filtro</Button>
-                              </div>
+                              </div> */}
                             </div>
                             <TableWithPages
                               thead={thead2}
                               tbody={tbody2}
-                              pagesTotal={'1'}
-                              pageCurrent={'1'}
-                              goToPage={''}
-                              setCurrentPage={''}
-                              setGoToPage={''}
+                              pagesTotal={suppliesPagesTotal}
+                              pageCurrent={pageCurrent}
+                              goToPage={goToPage}
+                              setCurrentPage={this.setCurrentPage}
+                              setGoToPage={this.setGoToPage}
                             />
                           </div>
                         </TabPane>
