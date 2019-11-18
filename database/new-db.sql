@@ -56,7 +56,7 @@ begin transaction;
 -- \i policies.sql
 
 -- create comments
--- \i comments.sql -- CAUTION: comments.sql must have win1252 encoding
+\i comments1252.sql -- CAUTION: comments.sql must have win1252 encoding
 
 -- create smart comments
 \i smart-comments.sql
