@@ -1,43 +1,39 @@
 -- lookup tables
--- comment on table asset_categories is E'@omit create,update,delete';
--- comment on table contract_statuses is E'@omit create,update,delete';
--- comment on table order_statuses is E'@omit create,update,delete';
--- comment on table order_priorities is E'@omit create,update,delete';
--- comment on table order_categories is E'@omit create,update,delete';
--- comment on table person_roles is E'@omit create,update,delete';
--- comment on table spec_categories is E'@omit create,update,delete';
--- comment on table spec_subcategories is E'@omit create,update,delete';
--- comment on table rule_categories is E'@omit create,update,delete';
+-- comment on table asset_categories is null;
+-- comment on table contract_statuses is null;
+-- comment on table order_statuses is null;
+-- comment on table order_priorities is null;
+-- comment on table order_categories is null;
+-- comment on table person_roles is null;
+-- comment on table spec_categories is null;
+-- comment on table spec_subcategories is null;
+-- comment on table rule_categories is null;
 
 -- tables
-comment on table assets is E'@omit create,update,delete';
-comment on table asset_relations is E'@omit create,update,delete';
-comment on table contracts is E'@omit create,update,delete';
--- comment on table departments is E'@omit create,update,delete';
-comment on table persons is E'@omit create,update,delete';
-comment on table teams is E'@omit create,update,delete';
-comment on table team_persons is E'@omit create,update,delete';
-comment on table contract_teams is E'@omit create,update,delete';
-comment on table orders is E'@omit create,update,delete';
-comment on table order_messages is E'@omit create,update,delete';
-comment on table order_assets is E'@omit create,update,delete';
-comment on table order_teams is E'@omit create,update,delete';
--- comment on table asset_departments is E'@omit create,update,delete';
-comment on table specs is E'@omit create,update,delete';
-comment on table supplies is E'@omit create,update,delete';
-comment on table order_supplies is E'@omit create,update,delete';
-comment on table rules is E'@omit all,many,read,create,update,delete';
-comment on table asset_rules is E'@omit all,many,read,create,update,delete';
-comment on table spec_rules is E'@omit all,many,read,create,update,delete';
-comment on table templates is E'@omit all,many,read,create,update,delete';
-comment on table asset_files is E'@omit all,many,read,create,update,delete';
-comment on table order_files is E'@omit all,many,read,create,update,delete';
-comment on table rule_files is E'@omit all,many,read,create,update,delete';
-comment on table template_files is E'@omit all,many,read,create,update,delete';
-
--- views
-comment on view appliances is E'@omit create,update,delete';
-comment on view facilities is E'@omit create,update,delete';
+comment on table assets is null;
+comment on table asset_relations is null;
+comment on table contracts is null;
+-- comment on table departments is null;
+comment on table persons is null;
+comment on table teams is null;
+comment on table team_persons is null;
+comment on table contract_teams is null;
+comment on table orders is null;
+comment on table order_messages is null;
+comment on table order_assets is null;
+comment on table order_teams is null;
+-- comment on table asset_departments is null;
+comment on table specs is null;
+comment on table supplies is null;
+comment on table order_supplies is null;
+comment on table rules is E'@omit all,many,read';
+comment on table asset_rules is E'@omit all,many,read';
+comment on table spec_rules is E'@omit all,many,read';
+comment on table templates is E'@omit all,many,read';
+comment on table asset_files is E'@omit all,many,read';
+comment on table order_files is E'@omit all,many,read';
+comment on table rule_files is E'@omit all,many,read';
+comment on table template_files is E'@omit all,many,read';
 
 -- functions
 comment on function authenticate is E'@omit execute';
