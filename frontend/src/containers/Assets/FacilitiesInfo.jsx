@@ -126,10 +126,10 @@ class FacilitiesInfo extends Component {
     orders.forEach(order => statusCounter[order.status] += 1);
     const totalOS = orders.length;
 
-    // const filteredItems = searchList(orders, attributes, searchTerm);
+    const filteredItems = searchList(orders, attributes, searchTerm);
 
     const pagesTotal = Math.floor(pageLength / ENTRIES_PER_PAGE) + 1;
-    // const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+    const showItems = filteredItems.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
 
     // const departments = assetsInfo.assetByAssetSf.assetDepartmentsByAssetId.edges;
 
@@ -143,7 +143,7 @@ class FacilitiesInfo extends Component {
         }
       </tr>
 
-    const tbody = orders.map(item => (
+    const tbody = showItems.map(item => (
       <tr
         onClick={() => { this.props.history.push('/manutencao/os/view/' + item.orderByOrderId.orderId) }}
       >
@@ -357,7 +357,7 @@ class FacilitiesInfo extends Component {
                           </InputGroup>
                         </div>
                       </div>
-                      <div className="search-filter" style={{ width: "30%" }}>
+                      {/* <div className="search-filter" style={{ width: "30%" }}>
                         <ol>
                           <li><span className="card-search-title">Filtro: </span></li>
                           <li><span className="card-search-title">Regras: </span></li>
@@ -368,9 +368,11 @@ class FacilitiesInfo extends Component {
                         </ol>
                       </div>
                       <div className="search-buttons" style={{ width: "30%" }}>
-                        {/* <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
-                        <Button className="search-filter-button" color="primary">Criar Filtro</Button> */}
-                      </div>
+
+                        <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
+                        <Button className="search-filter-button" color="primary">Criar Filtro</Button>
+                      </div> */}
+
                     </div>
                     <TableWithPages
                       thead={thead}

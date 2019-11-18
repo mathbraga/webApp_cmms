@@ -8,8 +8,6 @@ insert into asset_categories values
   (1, 'Equipamentos'),
   (2, 'Edifícios');
 
-comment on table asset_categories is E'@omit create,update,delete';
-
 -- contract statuses
 create table contract_statuses (
   contract_status_id integer primary key,
@@ -20,8 +18,6 @@ insert into contract_statuses values
   (1, 'Em licitação'),
   (2, 'Vigente'),
   (3, 'Encerrado');
-
-comment on table contract_statuses is E'@omit create,update,delete';
 
 -- order statuses
 create table order_statuses (
@@ -38,8 +34,6 @@ insert into order_statuses values
   (6, 'Em execução'),
   (7, 'Concluída');
 
-comment on table order_statuses is E'@omit create,update,delete';
-
 -- order priorities
 create table order_priorities (
   order_priority_id integer primary key,
@@ -51,8 +45,6 @@ insert into order_priorities values
   (2, 'Normal'),
   (3, 'Alta'),
   (4, 'Urgente');
-
-comment on table order_priorities is E'@omit create,update,delete';
 
 -- order categories
 create table order_categories (
@@ -77,8 +69,6 @@ insert into order_categories values
   (14, 'Vedação'),
   (15, 'Vidraçaria');
 
-comment on table order_categories is E'@omit create,update,delete';
-
 -- person roles
 create table person_roles (
  person_role_id text primary key,
@@ -90,8 +80,6 @@ insert into person_roles values
   ('inspector'),
   ('employee'),
   ('visitor');
-
-comment on table person_roles is E'@omit create,update,delete';
 
 -- spec categories
 create table spec_categories (
@@ -109,8 +97,6 @@ insert into spec_categories values
   (7, 'Marcenaria'),
   (8, 'Rede e Telefonia'),
   (9, 'Ferramentas e Equipamentos');
-
-comment on table spec_categories is E'@omit create,update,delete';
 
 -- spec subcategories
 create table spec_subcategories (
@@ -192,8 +178,6 @@ insert into spec_subcategories values
   (8, 71, 'Uniformes'),
   (8, 72, 'Equipamentos de Proteção Individual');
 
-comment on table spec_subcategories is E'@omit create,update,delete';
-
 create table rule_categories (
   rule_category_id integer primary key,
   rule_category_text text not null
@@ -207,5 +191,3 @@ insert into rule_categories values
   (5, 'Referências Internacionais'),
   (6, 'Normas ABNT'),
   (7, 'Diretrizes do Senado Federal');
-
-comment on table rule_categories is E'@omit create,update,delete';

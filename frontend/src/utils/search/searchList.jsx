@@ -1,3 +1,5 @@
+// Function used for search mechanics on search dependent components
+
 const ORDER_CATEGORY_TYPE = {
   'EST': 'Avaliação estrutural',
   'FOR': 'Reparo em forro',
@@ -33,6 +35,18 @@ const ORDER_PRIORITY_TYPE = {
   'URG': 'Urgente',
 };
 
+export default function searchList(itemsList, attributes, searchTerm){  
+  let filteredItems = itemsList;
+  searchTerm = searchTerm.trim().split(" ");
+  const searchTermLower = searchTerm.map((item) => item.toLowerCase());
+
+  searchTermLower.forEach((term) => {
+    filteredItems = findItem(filteredItems, attributes, term)
+  });
+
+  return filteredItems;
+}
+
 function findItem(items, attributes, term){
   const result = items.filter((item) => {
     for(let i = 0; i < attributes.length; i++){
@@ -64,16 +78,4 @@ function findItem(items, attributes, term){
     }
   })
   return result;
-}
-
-export default function searchList(itemsList, attributes, searchTerm){  
-  let filteredItems = itemsList;
-  searchTerm = searchTerm.trim().split(" ");
-  const searchTermLower = searchTerm.map((item) => item.toLowerCase());
-
-  searchTermLower.forEach((term) => {
-    filteredItems = findItem(filteredItems, attributes, term)
-  });
-
-  return filteredItems;
 }
