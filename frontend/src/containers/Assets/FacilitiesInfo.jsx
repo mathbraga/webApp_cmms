@@ -272,6 +272,7 @@ class FacilitiesInfo extends Component {
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Ativo Pai</div>
                             {/* <div className="asset-info-content-data">{assetsInfo.assetByAssetSf.assetByParent.assetId ? (assetsInfo.assetByAssetSf.assetByParent.assetId + " / " + assetsInfo.assetByAssetSf.assetByParent.name) : "Não cadastrado"}</div> */}
+                            <div className="asset-info-content-data">Não cadastrado</div>
                           </div>
                           <div className="asset-info-single-container">
                             <div className="desc-sub">Área</div>
@@ -340,7 +341,7 @@ class FacilitiesInfo extends Component {
                         </Col>
                         <Col md="6" style={{ display: "flex", alignItems: "flex-end" }}>
                           <FormGroup style={{ margin: "0" }}>
-                            <CustomInput type="switch" id="child-assets" name="customSwitch" label="Incluir ativos filhos" />
+                            <CustomInput disabled type="switch" id="child-assets" name="customSwitch" label="Incluir ativos filhos" />
                           </FormGroup>
                         </Col>
                       </Row>
@@ -367,9 +368,11 @@ class FacilitiesInfo extends Component {
                         </ol>
                       </div>
                       <div className="search-buttons" style={{ width: "30%" }}>
+
                         <Button className="search-filter-button" color="success">Aplicar Filtro</Button>
                         <Button className="search-filter-button" color="primary">Criar Filtro</Button>
                       </div> */}
+
                     </div>
                     <TableWithPages
                       thead={thead}

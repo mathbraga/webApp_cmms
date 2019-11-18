@@ -1,10 +1,16 @@
 const operatorFunction = {
   sameChoice: function (searchValues, attrValue) {
+    if (!attrValue || attrValue === "" || attrValue === []) {
+      return false;
+    }
     let answer = searchValues[0] === attrValue;
     searchValues.forEach(value => { answer = answer || (value === attrValue) })
     return answer;
   },
   differentChoice: function (searchValues, attrValue) {
+    if (!attrValue || attrValue === "" || attrValue === []) {
+      return true;
+    }
     let answer = searchValues[0] !== attrValue;
     searchValues.forEach(value => { answer = answer && (value !== attrValue) })
     return answer;
@@ -16,25 +22,43 @@ const operatorFunction = {
     return !attrValue || attrValue === "";
   },
   include: function (searchValues, attrValue) {
+    if (!attrValue || attrValue === "" || attrValue === []) {
+      return false;
+    }
     let answer = attrValue.includes(searchValues[0]);
     searchValues.forEach(value => { answer = answer && (attrValue.includes(value)) })
     return answer;
   },
   notInclude: function (searchValues, attrValue) {
+    if (!attrValue || attrValue === "" || attrValue === []) {
+      return true;
+    }
     let answer = !attrValue.includes(searchValues[0]);
     searchValues.forEach(value => { answer = answer && (!attrValue.includes(value)) })
     return answer;
   },
   equalTo: function (searchValues, attrValue) {
+    if (!attrValue || attrValue === "" || attrValue === []) {
+      return false;
+    }
     return attrValue === searchValues[0];
   },
   greaterThan: function (searchValues, attrValue) {
+    if (!attrValue || attrValue === "" || attrValue === []) {
+      return false;
+    }
     return attrValue >= searchValues[0];
   },
   lowerThan: function (searchValues, attrValue) {
+    if (!attrValue || attrValue === "" || attrValue === []) {
+      return false;
+    }
     return attrValue <= searchValues[0];
   },
   different: function (searchValues, attrValue) {
+    if (!attrValue || attrValue === "" || attrValue === []) {
+      return true;
+    }
     return attrValue !== searchValues[0];
   },
   and: function (expr1, expr2) {
