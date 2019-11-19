@@ -22,7 +22,8 @@ const Teams = React.lazy(() => import("./containers/Teams/Teams"));
 const GroupView = React.lazy(() => import("./containers/Teams/GroupView"));
 const Persons = React.lazy(() => import("./containers/Teams/Persons"));
 const PersonView = React.lazy(() => import("./containers/Teams/PersonView"));
-const Test = React.lazy(() => import("./containers/Test"));
+const Orders = React.lazy(() => import("./containers/Refactor/Orders"));
+const Order = React.lazy(() => import("./containers/Refactor/Order"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -50,7 +51,8 @@ const routes = [
   // { path: "/equipes/pessoas", exact: true, name: "Servicos", component: Persons },
   // { path: "/equipes/pessoa/view/:id", exact: false, name: "Servico", component: PersonView },
   // { path: "/erro404", exact: true, name: "Erro 404", component: Error404 },
-  { path: "/teste", exact: true, name: "Teste", component: Test },
+  { path: "/ordem", exact: true, name: "Ordens", component: Orders },
+  { path: "/ordem/:id", exact: false, name: "Ordem", component: Order },
 
 ];
 

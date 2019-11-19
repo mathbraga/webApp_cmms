@@ -86,8 +86,8 @@ export default {
     //   ]
     // },
     {
-      name: "Teste",
-      url: "/teste",
+      name: "Ordens de Serviço",
+      url: "/ordem",
       icon: "icon-wrench"
     },
   ]

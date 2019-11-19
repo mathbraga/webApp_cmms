@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
-import { gqlQuery } from "./config";
+import { query, config } from "./inputs";
 
-class Test extends Component {
+class Orders extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,20 +29,4 @@ class Test extends Component {
   }
 }
 
-export default graphql(
-  gqlQuery,
-  {
-    options: {
-      variables: {var1: 'var1'},
-      fetchPolicy: 'no-cache',
-      errorPolicy: 'ignore',
-      pollInterval: 0,
-      notifyOnNetworkStatusChange: false,
-    },
-    // props: ,
-    skip: false,
-    // name: ,
-    // withRef: ,
-    // alias: ,
-  }
-)(Test);
+export default graphql(query, config)(Orders);
