@@ -1,29 +1,30 @@
 import React from "react";
 import MainPage from "./containers/MainPage";
 
-const ConsumptionMonitor = React.lazy(() => import("./containers/ConsumptionMonitor"));
+// const ConsumptionMonitor = React.lazy(() => import("./containers/ConsumptionMonitor"));
 const Dashboard = React.lazy(() => import("./containers/Dashboard"));
 const Login = React.lazy(() => import("./containers/Authentication/Login"));
 // const RegisterUser = React.lazy(() => import("./containers/Authentication/RegisterUser"));
-const Profile = React.lazy(() => import("./containers/Authentication/Profile"));
-const Assets = React.lazy(() => import("./containers/Assets"));
-const WorkOrders = React.lazy(() => import("./containers/Maintenance/WorkOrders"));
-const WorkOrderView = React.lazy(() => import("./containers/Maintenance/WorkOrderView"));
-const Contracts = React.lazy(() => import("./containers/Contracts/Contracts"));
-const ContractView = React.lazy(() => import("./containers/Contracts/ContractView"));
-const Specs = React.lazy(() => import("./containers/Contracts/Specs"));
-const SpecView = React.lazy(() => import("./containers/Contracts/SpecView"));
-const AssetInfo = React.lazy(() => import("./containers/Assets/AssetInfo"));
-const FacilitiesForm = React.lazy(() => import("./containers/Assets/FacilitiesForm"));
-const EquipmentsForm = React.lazy(() => import("./containers/Assets/EquipmentsForm"));
-const OrderForm = React.lazy(() => import("./containers/Maintenance/OrderForm"));
-const Error404 = React.lazy(() => import("./containers/MainPage/Error404"));
-const Teams = React.lazy(() => import("./containers/Teams/Teams"));
-const GroupView = React.lazy(() => import("./containers/Teams/GroupView"));
-const Persons = React.lazy(() => import("./containers/Teams/Persons"));
-const PersonView = React.lazy(() => import("./containers/Teams/PersonView"));
+// const Profile = React.lazy(() => import("./containers/Authentication/Profile"));
+// const Assets = React.lazy(() => import("./containers/Assets"));
+// const WorkOrders = React.lazy(() => import("./containers/Maintenance/WorkOrders"));
+// const WorkOrderView = React.lazy(() => import("./containers/Maintenance/WorkOrderView"));
+// const Contracts = React.lazy(() => import("./containers/Contracts/Contracts"));
+// const ContractView = React.lazy(() => import("./containers/Contracts/ContractView"));
+// const Specs = React.lazy(() => import("./containers/Contracts/Specs"));
+// const SpecView = React.lazy(() => import("./containers/Contracts/SpecView"));
+// const AssetInfo = React.lazy(() => import("./containers/Assets/AssetInfo"));
+// const FacilitiesForm = React.lazy(() => import("./containers/Assets/FacilitiesForm"));
+// const EquipmentsForm = React.lazy(() => import("./containers/Assets/EquipmentsForm"));
+// const OrderForm = React.lazy(() => import("./containers/Maintenance/OrderForm"));
+// const Error404 = React.lazy(() => import("./containers/MainPage/Error404"));
+// const Teams = React.lazy(() => import("./containers/Teams/Teams"));
+// const GroupView = React.lazy(() => import("./containers/Teams/GroupView"));
+// const Persons = React.lazy(() => import("./containers/Teams/Persons"));
+// const PersonView = React.lazy(() => import("./containers/Teams/PersonView"));
 const Orders = React.lazy(() => import("./containers/Refactor/Orders"));
 const Order = React.lazy(() => import("./containers/Refactor/Order"));
+const OrderForm = React.lazy(() => import("./containers/Refactor/OrderForm"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -52,7 +53,9 @@ const routes = [
   // { path: "/equipes/pessoa/view/:id", exact: false, name: "Servico", component: PersonView },
   // { path: "/erro404", exact: true, name: "Erro 404", component: Error404 },
   { path: "/ordem", exact: true, name: "Ordens", component: Orders },
-  { path: "/ordem/:id", exact: false, name: "Ordem", component: Order },
+  { path: "/ordem/nova", exact: true, name: "Nova ordem", component: OrderForm },
+  { path: "/ordem/:id", exact: true, name: "Ordem", component: Order },
+  
 
 ];
 

@@ -90,5 +90,10 @@ export default {
       url: "/ordem",
       icon: "icon-wrench"
     },
+    {
+      name: "Cadastro",
+      url: "/ordem/nova",
+      icon: "icon-wrench"
+    },
   ]
 };
