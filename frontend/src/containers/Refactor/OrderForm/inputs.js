@@ -8,6 +8,13 @@ export const query = gql`
         contractSf
       }
     }
+    allTests (orderBy: TEST_ID_ASC){
+      nodes {
+        testId
+        testText
+        contractId
+      }
+    }
   }
 `;
 
@@ -82,6 +89,7 @@ export const mconfig = {
     errorPolicy: 'ignore',
     pollInterval: 0,
     notifyOnNetworkStatusChange: false,
+    update: (cache, {data: {insertTest}}) => {props.history.push('/ordem/' + insertTest.integer)}
   }),
   // props: ,
   skip: false,

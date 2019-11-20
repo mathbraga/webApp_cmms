@@ -46,6 +46,8 @@ class OrderForm extends Component {
 
     const { data, mutate } = this.props;
 
+    console.log(this.props.result)
+
     if(data.error) return <h1>{data.error}</h1>;
     if(data.loading) return <h1>Carregando...</h1>
     else{
@@ -126,5 +128,5 @@ class OrderForm extends Component {
 
 export default compose(
   graphql(query, config),
-  graphql(mquery, /*mconfig*/)
+  graphql(mquery, mconfig)
 )(OrderForm);
