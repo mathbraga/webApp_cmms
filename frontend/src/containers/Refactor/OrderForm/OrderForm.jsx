@@ -104,12 +104,19 @@ class OrderForm extends Component {
                   </Form>
                 </CardBody>
                 <CardFooter>
-                  <Button type="submit" size="sm" color="primary"
-                  
-                  onClick={()=>{ mutate({variables: this.state}) }}
-                  
-                  
-                  >Submit</Button>
+                  <Button
+                    type="submit"
+                    size="sm"
+                    color="primary"
+                    onClick={()=>{
+                      mutate({
+                        variables: {
+                          contractId: Number(this.state.contract),
+                          testText: this.state.text
+                        }
+                      })
+                    }}>Submit
+                  </Button>
                   <Button type="reset" size="sm" color="danger">Reset</Button>
                 </CardFooter>
               </Card>
@@ -123,5 +130,5 @@ class OrderForm extends Component {
 
 export default compose(
   graphql(query, config),
-  graphql(mquery, mconfig)
+  graphql(mquery, /*mconfig*/)
 )(OrderForm);

@@ -55,6 +55,12 @@ export const formConfig = {
           value: 1,
           label: '1'
         },
+        {
+          id: '2',
+          name: '2',
+          value: 2,
+          label: '2'
+        },
       ],
     }
   ]
@@ -62,23 +68,16 @@ export const formConfig = {
 
 
 export const mquery = gql`
-  mutation MyMutation2 {
-    insertTest(
-      input: {
-        testAttributes: {
-          contractId: $contractId,
-          testText: $testText
-        }
-      }
-    ) {
-      integer
-    }
+mutation ($contractId: Int!, $testText: String!) {
+  insertTest(input: {testAttributes: {contractId: $contractId, testText: $testText}}) {
+    integer
   }
+}
 `;
 
 export const mconfig = {
   options: props => ({
-    variables: {contractId: 1, testText: 'HEHEHE'},
+    // variables: {contractId: 1, testText: 'HEHEHE'},
     fetchPolicy: 'no-cache',
     errorPolicy: 'ignore',
     pollInterval: 0,
