@@ -14,7 +14,7 @@ export const query = gql`
 export const config = {
   options: {
     variables: {},
-    fetchPolicy: 'no-cache',
+    // fetchPolicy: 'no-cache',
     errorPolicy: 'ignore',
     pollInterval: 0,
     notifyOnNetworkStatusChange: false,

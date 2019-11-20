@@ -14,7 +14,7 @@ export const query = gql`
 export const config = {
   options: props => ({
     // variables: {},
-    fetchPolicy: 'no-cache',
+    // fetchPolicy: 'no-cache',
     errorPolicy: 'ignore',
     pollInterval: 0,
     notifyOnNetworkStatusChange: false,
@@ -78,7 +78,7 @@ mutation ($contractId: Int!, $testText: String!) {
 export const mconfig = {
   options: props => ({
     // variables: {contractId: 1, testText: 'HEHEHE'},
-    fetchPolicy: 'no-cache',
+    // fetchPolicy: 'no-cache',
     errorPolicy: 'ignore',
     pollInterval: 0,
     notifyOnNetworkStatusChange: false,

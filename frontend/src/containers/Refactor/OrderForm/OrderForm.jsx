@@ -46,13 +46,9 @@ class OrderForm extends Component {
 
     const { data, mutate } = this.props;
 
-
     if(data.error) return <h1>{data.error}</h1>;
     if(data.loading) return <h1>Carregando...</h1>
     else{
-
-      console.log(data);
-
       return (
         <div className="animated fadeIn">
           <Row>
