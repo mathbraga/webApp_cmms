@@ -23,7 +23,8 @@ import { Badge,
   InputGroupButtonDropdown,
   InputGroupText,
   Label,
-  Row,} from 'reactstrap';
+  Row,
+} from 'reactstrap';
 
 class OrderForm extends Component {
   constructor(props) {
