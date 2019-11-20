@@ -1,12 +1,11 @@
 import gql from 'graphql-tag';
 
 export const query = gql`
-  query {
-    allOrders {
+  query MyQuery {
+    allContracts {
       nodes {
-        orderId
-        title
-        priority
+        contractId
+        contractSf
       }
     }
   }
@@ -27,77 +26,67 @@ export const config = {
   // alias: ,
 };
 
-export const formInputs = [
-  {
-    id: 'title',
-    name: 'title',
-    label: 'Título',
-    type: 'text',
-    col: '12',
-    placeholder: 'Título',
-  },
-  {
-    id: 'description',
-    name: 'description',
-    label: 'Descrição',
-    type: 'textarea',
-    col: '12',
-    placeholder: 'Descrição',
-  },
-  {
-    id: 'title',
-    name: 'title',
-    label: 'Título',
-    type: 'text',
-    col: '12',
-    placeholder: 'Título',
-  },
-  {
-    id: 'title',
-    name: 'title',
-    label: 'Título',
-    type: 'text',
-    col: '12',
-    placeholder: 'Título',
-  },
-  {
-    id: 'title',
-    name: 'title',
-    label: 'Título',
-    type: 'text',
-    col: '12',
-    placeholder: 'Título',
-  },
-  {
-    id: 'title',
-    name: 'title',
-    label: 'Título',
-    type: 'text',
-    col: '12',
-    placeholder: 'Título',
-  },
-  {
-    id: 'title',
-    name: 'title',
-    label: 'Título',
-    type: 'text',
-    col: '12',
-    placeholder: 'Título',
-  },
-  {
-    id: 'title',
-    name: 'title',
-    label: 'Título',
-    type: 'text',
-    col: '12',
-    placeholder: 'Título',
-  },
-  {
-    id: 'title',
-    name: 'title',
-    label: 'Título',
-    type: 'text',
-    col: '12',
-    placeholder: 'Título',
-  },
-];
+export const formConfig = {
+  cardTitle: 'Título do formulário',
+  inputs: [
+    {
+      id: 'text',
+      label: 'text',
+      name: 'text',
+      type: 'text',
+      value: 'hehhe',
+      placeholder: 'text',
+      required: false,
+      selectDefault: null,
+      selectOptions: [],
+    },
+    {
+      id: 'contract',
+      label: 'contract',
+      name: 'contract',
+      type: 'select',
+      placeholder: 'contract',
+      required: true,
+      selectDefault: null,
+      selectOptions: [
+        {
+          id: '1',
+          name: '1',
+          value: 1,
+          label: '1'
+        },
+      ],
+    }
+  ]
+};
+
+
+export const mquery = gql`
+  mutation MyMutation2 {
+    insertTest(
+      input: {
+        testAttributes: {
+          contractId: $contractId,
+          testText: $testText
+        }
+      }
+    ) {
+      integer
+    }
+  }
+`;
+
+export const mconfig = {
+  options: props => ({
+    variables: {contractId: 1, testText: 'HEHEHE'},
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'ignore',
+    pollInterval: 0,
+    notifyOnNetworkStatusChange: false,
+  }),
+  // props: ,
+  skip: false,
+  // name: ,
+  // withRef: ,
+  // alias: ,
+};
