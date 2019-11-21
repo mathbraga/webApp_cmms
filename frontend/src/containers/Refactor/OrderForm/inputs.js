@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import paths from '../../../paths';
 
 export const query = gql`
-  query MyQuery {
+  query MyQuery {fsfsddfsdf
     allContracts {
       nodes {
         contractId
@@ -22,12 +22,16 @@ export const query = gql`
 export const config = {
   options: props => ({
     // variables: {},
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'no-cache',
     errorPolicy: 'ignore',
     pollInterval: 0,
     notifyOnNetworkStatusChange: false,
   }),
-  // props: ,
+  props: props => ({
+    contracts: props.data.allContracts ? props.data.allContracts.nodes : ['', ''],
+    error: props.data.error,
+    loading: props.data.loading,
+  }),
   skip: false,
   // name: ,
   // withRef: ,
@@ -84,7 +88,7 @@ mutation ($contractId: Int!, $testText: String!) {
 `;
 
 export const mconfig = {
-  // props: props => {},
+  // props: props => ({}),
   // name: ,
   // withRef: ,
   // alias: ,
