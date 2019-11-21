@@ -10,6 +10,7 @@ import {
   CardFooter,
   CardHeader,
   Col,
+  CustomInput,
   Collapse,
   DropdownItem,
   DropdownMenu,
@@ -33,6 +34,7 @@ class OrderForm extends Component {
     super(props);
     this.state = {
     }
+    this.fileInputRef = React.createRef();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.submitMutation = this.submitMutation.bind(this);
   }
@@ -110,6 +112,24 @@ class OrderForm extends Component {
                         </Col>
                       </FormGroup>
                     ))}
+
+                <Row>
+                  <Col xs="4">
+                    <FormGroup>
+                      <CustomInput
+                        multiple={true}
+                        label="Clique ou arraste para selecionar"
+                        type="file"
+                        id="csv-file"
+                        name="csv-file"
+                        innerRef={this.fileInputRef}
+                      // onChange={this.handleSelection}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+
+
                   </Form>
                 </CardBody>
                 <CardFooter>
