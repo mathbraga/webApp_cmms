@@ -34,6 +34,7 @@ class OrderForm extends Component {
     this.state = {
     }
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.submitMutation = this.submitMutation.bind(this);
   }
 
   handleInputChange(event) {
@@ -42,11 +43,23 @@ class OrderForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  submitMutation(event) {
+    event.preventDefault();
+    return this.props.mutate({
+      variables: {
+        contractId: Number(this.state.contract),
+        testText: this.state.text
+      }
+    });
+  }
+
   render() {
 
     const { data, mutate } = this.props;
 
-    console.log(this.props.result)
+    // console.log(data);
+    // console.log(this.props.result);
+    // console.log(this.props)
 
     if(data.error) return <h1>{data.error}</h1>;
     if(data.loading) return <h1>Carregando...</h1>
@@ -106,14 +119,8 @@ class OrderForm extends Component {
                     type="submit"
                     size="sm"
                     color="primary"
-                    onClick={()=>{
-                      mutate({
-                        variables: {
-                          contractId: Number(this.state.contract),
-                          testText: this.state.text
-                        }
-                      })
-                    }}>Submit
+                    onClick={this.submitMutation}
+                  >Submit
                   </Button>
                   <Button type="reset" size="sm" color="danger">Reset</Button>
                 </CardFooter>

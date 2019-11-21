@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import paths from '../../../paths';
 
 export const query = gql`
   query MyQuery {
@@ -21,7 +22,7 @@ export const query = gql`
 export const config = {
   options: props => ({
     // variables: {},
-    // fetchPolicy: 'no-cache',
+    fetchPolicy: 'cache-first',
     errorPolicy: 'ignore',
     pollInterval: 0,
     notifyOnNetworkStatusChange: false,
@@ -85,11 +86,13 @@ mutation ($contractId: Int!, $testText: String!) {
 export const mconfig = {
   options: props => ({
     // variables: {contractId: 1, testText: 'HEHEHE'},
-    // fetchPolicy: 'no-cache',
+    fetchPolicy: 'no-cache',
     errorPolicy: 'ignore',
     pollInterval: 0,
+    ignoreResults: false,
     notifyOnNetworkStatusChange: false,
-    update: (cache, {data: {insertTest}}) => {props.history.push('/ordem/' + insertTest.integer)}
+    onCompleted: data => {props.history.push(paths.ORDER + '/' + data.insertTest.integer)}
+    // update: (cache, {data: {insertTest}}) => {}
   }),
   // props: ,
   skip: false,

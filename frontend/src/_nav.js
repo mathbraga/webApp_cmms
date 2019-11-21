@@ -1,8 +1,10 @@
+import paths from './paths';
+
 export default {
   items: [
     {
       name: "Painel",
-      url: "/painel",
+      url: paths.DASHBOARD,
       icon: "cui-chart"
     },
     // {
@@ -85,14 +87,14 @@ export default {
     //     },
     //   ]
     // },
-    {
-      name: "Ordens de Serviço",
-      url: "/ordem",
-      icon: "icon-wrench"
-    },
+    // {
+    //   name: "Ordens de Serviço",
+    //   url: paths.ORDER,
+    //   icon: "icon-wrench"
+    // },
     {
       name: "Cadastro",
-      url: "/ordem/nova",
+      url: paths.ORDER + paths.NEW,
       icon: "icon-wrench"
     },
   ]
