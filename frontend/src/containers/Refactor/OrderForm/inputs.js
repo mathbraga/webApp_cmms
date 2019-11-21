@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import paths from '../../../paths';
 
 export const query = gql`
-  query MyQuery {fsfsddfsdf
+  query MyQuery {
     allContracts {
       nodes {
         contractId
