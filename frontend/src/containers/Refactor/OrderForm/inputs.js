@@ -84,19 +84,28 @@ mutation ($contractId: Int!, $testText: String!) {
 `;
 
 export const mconfig = {
+  // props: props => {},
+  // name: ,
+  // withRef: ,
+  // alias: ,
+  skip: false,
   options: props => ({
-    // variables: {contractId: 1, testText: 'HEHEHE'},
+    // variables: {},
+    // errorPolicy: ,
+    // optimisticResponse: ,
+    // refetchQueries: ,
+    // update: ,
+    // awaitRefetchQueries: ,
+    // updateQueries: , // DEPRECATED
+    // context: ,
+    // client: ,
+    // partialRefetch: ,
     fetchPolicy: 'no-cache',
     errorPolicy: 'ignore',
     pollInterval: 0,
     ignoreResults: false,
     notifyOnNetworkStatusChange: false,
-    onCompleted: data => {props.history.push(paths.ORDER + '/' + data.insertTest.integer)}
-    // update: (cache, {data: {insertTest}}) => {}
+    onCompleted: data => {props.history.push(paths.ORDER + '/' + data.insertTest.integer)},
+    onError: error => {alert(error)},
   }),
-  // props: ,
-  skip: false,
-  // name: ,
-  // withRef: ,
-  // alias: ,
 };
