@@ -16,10 +16,12 @@
     "cron": "^1.7.2",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
+    "graphql-upload": "^8.1.0",
     "multer": "^1.4.2",
     "nodemailer": "^6.3.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "postgraphile": "^4.4.2"
+    "postgraphile": "^4.4.2",
+    "postgraphile-plugin-upload-field": "^1.0.0-alpha.9"
   }
 }
