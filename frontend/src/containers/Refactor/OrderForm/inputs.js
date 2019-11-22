@@ -79,7 +79,7 @@ export const formConfig = {
 };
 
 
-export const mquery = gql`
+const noUPLOAD = gql`
   mutation (
     $contractId: Int!,
     $testText: String!
@@ -93,6 +93,23 @@ export const mquery = gql`
 #    }
   }
 `;
+
+const yesUPLOAD = gql`
+  mutation (
+    $contractId: Int!,
+    $testText: String!,
+    $files: [Upload!]!
+  ) {
+    insertTest(input: {testAttributes: {contractId: $contractId, testText: $testText}}) {
+      integer
+    }
+    uploadFiles(files: $files) {
+      success
+    }
+  }
+`;
+
+export const mquery = false ? yesUPLOAD : noUPLOAD;
 
 export const mconfig = {
   // props: props => ({}),
