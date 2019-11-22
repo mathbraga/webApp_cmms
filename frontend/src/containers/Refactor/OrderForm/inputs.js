@@ -80,11 +80,18 @@ export const formConfig = {
 
 
 export const mquery = gql`
-mutation ($contractId: Int!, $testText: String!) {
-  insertTest(input: {testAttributes: {contractId: $contractId, testText: $testText}}) {
-    integer
+  mutation (
+    $contractId: Int!,
+    $testText: String!
+#,    $files: [Upload!]!
+  ) {
+    insertTest(input: {testAttributes: {contractId: $contractId, testText: $testText}}) {
+      integer
+    }
+#    uploadFiles(files: $files) {
+#      success
+#    }
   }
-}
 `;
 
 export const mconfig = {

@@ -15,6 +15,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
+const { createUploadLink } = require('apollo-upload-client');
 
 const store = configureStore(preloadedState);
 
@@ -36,8 +37,11 @@ const cache = new InMemoryCache();
 const link = ApolloLink.from([errorLink, httpLink]);
 
 const client = new ApolloClient({
-  link,
-  cache,
+  link: createUploadLink({
+    uri: process.env.REACT_APP_SERVER_URL + process.env.REACT_APP_DB_PATH,
+    credentials: 'include',
+  }),
+  cache: cache,
 });
 
 const renderApp = () =>

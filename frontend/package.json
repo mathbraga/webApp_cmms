@@ -34,6 +34,7 @@
     "apollo-link": "^1.2.12",
     "apollo-link-http": "^1.5.15",
     "apollo-link-ws": "^1.0.19",
+    "apollo-upload-client": "^11.0.0",
     "aws-sdk": "^2.455.0",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.3.1",
@@ -66,8 +67,8 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "simple-line-icons": "^2.4.1",
-    "uuid": "^3.3.3",
-    "subscriptions-transport-ws": "^0.9.16"
+    "subscriptions-transport-ws": "^0.9.16",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "react-scripts": "2.1.5"

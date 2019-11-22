@@ -49,8 +49,9 @@ class OrderForm extends Component {
     event.preventDefault();
     return this.props.mutate({
       variables: {
-        contractId: Number(this.state.contract),
-        testText: this.state.text
+        contractId: 1,
+        testText: "texto",
+        files: this.fileInputRef.current.files
       }
     });
   }
