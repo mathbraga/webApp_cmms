@@ -34,6 +34,7 @@ class OrderForm extends Component {
     super(props);
     this.state = {
     }
+    this.formRef = React.createRef();
     this.fileInputRef = React.createRef();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.submitMutation = this.submitMutation.bind(this);
@@ -47,19 +48,21 @@ class OrderForm extends Component {
 
   submitMutation(event) {
     event.preventDefault();
-    // console.log(this.fileInputRef.current.files)
-    return this.props.mutate({
-      variables: {
-        contractId: 1,
-        testText: "texto",
-        files: this.fileInputRef.current.files,
-        fileMetadata: {
-          bytes: 123234,
-          filename: "filename",
-          uuid: "uuid"
+    console.clear();
+    // console.log(event)
+    // const fd = new FormData(event.target);
+    // const filename = fd.get('files');
+    // console.log(filename);
+    console.log(this.fileInputRef.current.files)
+    if(this.fileInputRef.current.files.length > 0){
+      return this.props.mutate({
+        variables: {
+          contractId: 1,
+          testText: "texto",
+          fileMetadata: this.fileInputRef.current.files,
         }
-      }
-    });
+      });
+    }
   }
 
   render() {
@@ -80,9 +83,17 @@ class OrderForm extends Component {
                   <strong>{formConfig.cardTitle}</strong>
                 </CardHeader>
                 <CardBody>
-                  <Form encType="multipart/form-data" className="form-horizontal">
+                  <Form
+                    encType="multipart/form-data"
+                    className="form-horizontal"
+                    innerRef={this.formRef}
+                    onSubmit={this.submitMutation}
+                  >
                     {formConfig.inputs.map(input => (
-                      <FormGroup row key={input.id}>
+                      <FormGroup
+                        row
+                        key={input.id}
+                      >
                         <Col md="3">
                           <Label htmlFor={input.id}>{input.label}</Label>
                         </Col>
@@ -130,25 +141,33 @@ class OrderForm extends Component {
                         id="files"
                         name="files"
                         innerRef={this.fileInputRef}
-                        onChange={this.handleSelection}
+                        // onChange={this.handleSelection}
+                        // onChange={event => {
+                        //   const filename =
+                        //     event.target.files.length > 0
+                        //       ? event.target.files[0].name
+                        //       : "";
+                          // document.getElementById(
+                          //   `${event.target.id}_filename`
+                          // ).value = filename;
+                        // }}
                       />
                     </FormGroup>
                   </Col>
+                </Row>
+                <Row>
+                <Button
+                    type="submit"
+                    size="sm"
+                    color="primary"
+                    // onClick={this.submitMutation}
+                  >Submit
+                  </Button>
                 </Row>
 
 
                   </Form>
                 </CardBody>
-                <CardFooter>
-                  <Button
-                    type="submit"
-                    size="sm"
-                    color="primary"
-                    onClick={this.submitMutation}
-                  >Submit
-                  </Button>
-                  <Button type="reset" size="sm" color="danger">Reset</Button>
-                </CardFooter>
               </Card>
             </Col>
           </Row>

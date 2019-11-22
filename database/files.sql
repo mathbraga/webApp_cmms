@@ -6,14 +6,14 @@ drop table if exists test_files;
 
 create table test_files (
   test_id integer,
-  file_metadata jsonb,
-  person_id integer,
-  created_at timestamptz default now()
+  file_metadata text
+  -- person_id integer,
+  -- created_at timestamptz default now()
 );
 
 create or replace function insert_with_upload (
   test_attributes tests,
-  file_metadata jsonb
+  file_metadata text
 )
 returns integer
 language plpgsql
@@ -27,9 +27,9 @@ begin
 
   insert into test_files values (
     result,
-    file_metadata,
-    current_setting('auth.data.person_id')::integer,
-    now()
+    file_metadata
+    -- current_setting('auth.data.person_id')::integer,
+    -- now()
   );
 
   return result;

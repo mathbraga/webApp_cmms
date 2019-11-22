@@ -92,15 +92,14 @@ const noUPLOAD = gql`
 `;
 
 const yesUPLOAD = gql`
-mutation (
+mutation MutationWithUpload (
   $contractId: Int!,
   $testText: String!,
-  $files: Upload,
-  $fileMetadata: JSON
+  $fileMetadata: Upload!
 ) {
   insertWithUpload(
     input: {
-      fileMetadata: $fileMetadata
+      #fileMetadata: $fileMetadata
       testAttributes: {
         contractId: $contractId,
         testText: $testText
@@ -115,7 +114,10 @@ mutation (
 export const mquery = true ? yesUPLOAD : noUPLOAD;
 
 export const mconfig = {
-  // props: props => ({}),
+  // props: props => ({
+  //   mutationData: props.data,
+  //   mutatie: props.mutate
+  // }),
   // name: ,
   // withRef: ,
   // alias: ,

@@ -59,15 +59,15 @@ const postgraphileConfig = {
         'auth.data.person_id': person_id,
       }
     },
-    appendPlugins: [PostGraphileUploadFieldPlugin],
-    graphileBuildOptions: {
-      uploadFieldDefinitions: [
-        {
-          match: ({ schema, table, column, tags }) => column === 'file_metadata',
-          resolve: resolveUpload
-        }
-      ]
-    }
+    // appendPlugins: [PostGraphileUploadFieldPlugin],
+    // graphileBuildOptions: {
+    //   uploadFieldDefinitions: [
+    //     {
+    //       match: ({ schema, table, column, tags }) => column === 'file_metadata',
+    //       resolve: resolveUpload
+    //     }
+    //   ]
+    // }
   }
 };
 
@@ -77,11 +77,7 @@ async function resolveUpload(upload) {
   // Save file to the local filesystem
   const { id, filepath } = await saveLocal({ stream, filename });
   // Return metadata to save it to Postgres
-  return {
-    bytes: 12321,
-    filename: filename,
-    uuid: 'uuid',
-  };
+  return filename;
 }
  
 function saveLocal({ stream, filename }) {
