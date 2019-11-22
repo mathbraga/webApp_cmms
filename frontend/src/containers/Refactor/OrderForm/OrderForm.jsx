@@ -47,11 +47,17 @@ class OrderForm extends Component {
 
   submitMutation(event) {
     event.preventDefault();
+    // console.log(this.fileInputRef.current.files)
     return this.props.mutate({
       variables: {
         contractId: 1,
         testText: "texto",
-        files: this.fileInputRef.current.files
+        files: this.fileInputRef.current.files,
+        fileMetadata: {
+          bytes: 123234,
+          filename: "filename",
+          uuid: "uuid"
+        }
       }
     });
   }
@@ -118,13 +124,13 @@ class OrderForm extends Component {
                   <Col xs="4">
                     <FormGroup>
                       <CustomInput
-                        multiple={true}
-                        label="Clique ou arraste para selecionar"
+                        // multiple={true}
+                        label="Selecione"
                         type="file"
-                        id="csv-file"
-                        name="csv-file"
+                        id="files"
+                        name="files"
                         innerRef={this.fileInputRef}
-                      // onChange={this.handleSelection}
+                        onChange={this.handleSelection}
                       />
                     </FormGroup>
                   </Col>

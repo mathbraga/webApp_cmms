@@ -31,6 +31,7 @@ export const config = {
     contracts: props.data.allContracts ? props.data.allContracts.nodes : ['', ''],
     error: props.data.error,
     loading: props.data.loading,
+    data: props.data,
   }),
   skip: false,
   // name: ,
@@ -83,33 +84,35 @@ const noUPLOAD = gql`
   mutation (
     $contractId: Int!,
     $testText: String!
-#,    $files: [Upload!]!
   ) {
     insertTest(input: {testAttributes: {contractId: $contractId, testText: $testText}}) {
       integer
     }
-#    uploadFiles(files: $files) {
-#      success
-#    }
   }
 `;
 
 const yesUPLOAD = gql`
-  mutation (
-    $contractId: Int!,
-    $testText: String!,
-    $files: [Upload!]!
+mutation (
+  $contractId: Int!,
+  $testText: String!,
+  $files: Upload,
+  $fileMetadata: JSON
+) {
+  insertWithUpload(
+    input: {
+      fileMetadata: $fileMetadata
+      testAttributes: {
+        contractId: $contractId,
+        testText: $testText
+      }
+    }
   ) {
-    insertTest(input: {testAttributes: {contractId: $contractId, testText: $testText}}) {
-      integer
-    }
-    uploadFiles(files: $files) {
-      success
-    }
+    integer
   }
+}
 `;
 
-export const mquery = false ? yesUPLOAD : noUPLOAD;
+export const mquery = true ? yesUPLOAD : noUPLOAD;
 
 export const mconfig = {
   // props: props => ({}),
@@ -133,7 +136,7 @@ export const mconfig = {
     pollInterval: 0,
     ignoreResults: false,
     notifyOnNetworkStatusChange: false,
-    onCompleted: data => {props.history.push(paths.ORDER + '/' + data.insertTest.integer)},
+    onCompleted: data => {console.log('DEU CERTO. Test id = ' + data.insertWithUpload.integer)},// props.history.push(paths.ORDER + '/' + data.insertTest.integer)},
     onError: error => {alert(error)},
   }),
 };

@@ -17,7 +17,7 @@ class Order extends Component {
     if(data.loading) return <h1>Carregando...</h1>
     else{
 
-      console.log(data);
+      // console.log(data);
 
       return (
         <React.Fragment>
