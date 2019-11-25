@@ -1,19 +1,20 @@
 begin;
 
-drop function if exists insert_with_upload;
-
+drop function if exists insert_test_and_upload;
 drop table if exists test_files;
 
 create table test_files (
   test_id integer,
-  file_metadata text
-  -- person_id integer,
-  -- created_at timestamptz default now()
+  filename text,
+  uuid text,
+  size bigint,
+  person_id integer,
+  created_at timestamptz
 );
 
-create or replace function insert_with_upload (
+create or replace function insert_test_and_upload(
   test_attributes tests,
-  file_metadata text
+  files_metadata test_files[]
 )
 returns integer
 language plpgsql
@@ -21,17 +22,16 @@ as $$
 declare
   result integer;
 begin
-  
   insert into tests values (default, test_attributes.test_text, test_attributes.contract_id)
   returning test_id into result;
-
-  insert into test_files values (
+  insert into test_files select 
     result,
-    file_metadata
-    -- current_setting('auth.data.person_id')::integer,
-    -- now()
-  );
-
+    a.filename,
+    a.uuid,
+    a.size,
+    current_setting('auth.data.person_id')::integer,
+    now()
+  from unnest(files_metadata) as a;
   return result;
 end; $$;
 

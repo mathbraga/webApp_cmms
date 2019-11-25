@@ -30,7 +30,6 @@ import {
 } from 'reactstrap';
 import getFiles from './getFiles';
 import getFilesMetadata from './getFilesMetadata';
-import getNewFiles from "./getNewFiles";
 
 class OrderForm extends Component {
   constructor(props) {
@@ -52,10 +51,7 @@ class OrderForm extends Component {
   submitMutation(event) {
     event.preventDefault();
     console.clear();
-    // console.log(this.fileInputRef.current.files[0]);
-    // const myNewFile = new File([this.fileInputRef.current.files[0]], 'new_name');
-    // console.log(myNewFile)
-    // const { files, filesMetadata } = getNewFiles(this.fileInputRef.current.files);
+    // console.log(this.fileInputRef.current.files);
     return this.props.mutate({
       variables: {
         contractId: 1,
