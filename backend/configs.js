@@ -47,6 +47,9 @@ const postgraphileConfig = {
     dynamicJson: true,
     showErrorStack: 'json',
     extendedErrors: ['hint', 'detail', 'errcode'],
+    exportJsonSchemaPath: '../frontend/src/schema.json',
+    exportGqlSchemaPath: '../frontend/src/schema.graphql',
+    sortExport: true,
     pgSettings: async req => {
       const [person_id, role] = req.session.passport ? req.session.passport.user.split('-') : ['0', 'visitor'];
       return {

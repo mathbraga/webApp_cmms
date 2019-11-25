@@ -1,5 +1,9 @@
 import gql from 'graphql-tag';
 import paths from '../../../paths';
+import schema from '../../../schema.json';
+
+console.clear();
+console.log(schema);
 
 export const query = gql`
   query MyQuery {
