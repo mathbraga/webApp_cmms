@@ -15,7 +15,6 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const authRoute = require('./routes/auth');
 const uploadRoute = require('./routes/upload');
-const gqlUploadRoute = require('./routes/gqlupload');
 const downloadRoute = require('./routes/download');
 const redmineRoute = require('./routes/redmine');
 const emailRoute = require('./routes/email');
@@ -38,8 +37,7 @@ app.use(middleware);
 
 // Routes
 app.use(paths.auth, authRoute);
-// app.use(paths.db, uploadRoute);
-app.use(paths.db, gqlUploadRoute);
+app.use(paths.db, uploadRoute);
 app.use(paths.download, downloadRoute);
 app.use(paths.redmine, redmineRoute);
 app.use(paths.email, emailRoute);

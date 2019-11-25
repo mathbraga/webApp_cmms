@@ -1,20 +1,60 @@
 const express = require('express');
 const router = express.Router();
-const multer  = require('multer');
-const { multerConfig } = require('../configs');
-const storage = multer.diskStorage(multerConfig.diskStorage);
-const upload = multer({ storage: storage });
+const { graphqlUploadExpress } = require('graphql-upload');
+const fs = require('fs');
+const path = require('path');
 
-router.post(
-  '/',
-  upload.fields(multerConfig.fields),
-  (req, res, next) => {
-    // console.log(req.files);
-    // console.log(req.body);
-    // res.json({message: 'Você fez upload.'});
-    
-    // Use next() if more backend operations are necessary
-    next();
+async function resolveUpload(upload, uuid) {
+  const { filename, mimetype, encoding, createReadStream } = upload;
+  const stream = createReadStream();
+  // Save file to the local filesystem
+  const filepath = await saveLocal({ stream, uuid });
+  // Return metadata to save it to Postgres
+  return;
+}
+ 
+function saveLocal({ stream, uuid }) {
+  const filepath = '/files/' + uuid;
+  const fsPath = path.join(process.cwd(), filepath);
+  return new Promise((resolve, reject) =>
+    stream
+      .on("error", error => {
+        if (stream.truncated)
+          // Delete the truncated file
+          fs.unlinkSync(fsPath);
+        reject(error);
+      })
+      .on("end", () => resolve(filepath))
+      .pipe(fs.createWriteStream(fsPath))
+  );
+}
+
+router.post('/',
+  graphqlUploadExpress({
+    // maxFieldSize: ,
+    // maxFileSize: 10000000,
+    // maxFiles: 10,
+  }),
+  async (req, res, next) => {
+    if(req.body.operationName === 'MutationWithUpload' && req.body.variables.files.length > 0){
+      // console.log(req.body.variables.files)
+      const files = req.body.variables.files;
+      const filesMetadata = req.body.variables.filesMetadata;
+      // console.log(upload);
+      Promise.all(files.map((file, i) => {
+        return file.then(async resolvedFile => {
+          return await resolveUpload(resolvedFile, filesMetadata[i].uuid)
+        })
+      }))
+        .then(() => {
+          next();
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    } else {
+      next();
+    }
   }
 );
 
