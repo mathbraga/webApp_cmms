@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
 import { compose } from 'redux';
-import { query, config, formConfig, mquery, mconfig } from "./graphql";
+import { query, config, mquery, mconfig } from "./graphql";
+import { form } from "./form";
 import { 
   Badge,
   Button,
@@ -77,7 +78,7 @@ class OrderForm extends Component {
             <Col xs="12" md="6">
               <Card>
                 <CardHeader>
-                  <strong>{formConfig.cardTitle}</strong>
+                  <strong>{form.cardTitle}</strong>
                 </CardHeader>
                 <CardBody>
                   <Form
@@ -86,7 +87,7 @@ class OrderForm extends Component {
                     innerRef={this.formRef}
                     onSubmit={this.submitMutation}
                   >
-                    {formConfig.inputs.map(input => (
+                    {form.inputs.map(input => (
                       <FormGroup
                         row
                         key={input.id}

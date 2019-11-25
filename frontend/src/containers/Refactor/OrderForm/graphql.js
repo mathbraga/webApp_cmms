@@ -1,9 +1,20 @@
 import gql from 'graphql-tag';
 import paths from '../../../paths';
 import schema from '../../../schema.json';
+import _ from 'lodash';
 
 console.clear();
-console.log(schema);
+const types = schema.data.__schema.types
+const i = _.findIndex(types, obj => obj.name === 'Person');
+const fields = types[i].fields;
+console.log(fields);
+const formFields = [];
+fields.forEach(field => {
+  if(field.name !== 'nodeId' || field.type.kind === 'SCALAR'){
+    formFields.push(field);
+  }
+});
+console.log(formFields);
 
 export const query = gql`
   query MyQuery {
@@ -43,59 +54,7 @@ export const config = {
   // alias: ,
 };
 
-export const formConfig = {
-  cardTitle: 'Título do formulário',
-  inputs: [
-    {
-      id: 'text',
-      label: 'text',
-      name: 'text',
-      type: 'text',
-      value: 'hehhe',
-      placeholder: 'text',
-      required: false,
-      selectDefault: null,
-      selectOptions: [],
-    },
-    {
-      id: 'contract',
-      label: 'contract',
-      name: 'contract',
-      type: 'select',
-      placeholder: 'contract',
-      required: true,
-      selectDefault: null,
-      selectOptions: [
-        {
-          id: '1',
-          name: '1',
-          value: 1,
-          label: '1'
-        },
-        {
-          id: '2',
-          name: '2',
-          value: 2,
-          label: '2'
-        },
-      ],
-    }
-  ]
-};
-
-
-const noUPLOAD = gql`
-  mutation (
-    $contractId: Int!,
-    $testText: String!
-  ) {
-    insertTest(input: {testAttributes: {contractId: $contractId, testText: $testText}}) {
-      integer
-    }
-  }
-`;
-
-const yesUPLOAD = gql`
+export const mquery = gql`
 mutation MutationWithUpload (
   $contractId: Int!,
   $testText: String!,
@@ -114,8 +73,6 @@ mutation MutationWithUpload (
   }
 }
 `;
-
-export const mquery = true ? yesUPLOAD : noUPLOAD;
 
 export const mconfig = {
   // props: props => ({
