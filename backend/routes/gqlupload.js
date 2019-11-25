@@ -4,17 +4,17 @@ const { graphqlUploadExpress } = require('graphql-upload');
 const fs = require('fs');
 const path = require('path');
 
-async function resolveUpload(upload) {
+async function resolveUpload(upload, uuid) {
   const { filename, mimetype, encoding, createReadStream } = upload;
   const stream = createReadStream();
   // Save file to the local filesystem
-  const filepath = await saveLocal({ stream, filename });
+  const filepath = await saveLocal({ stream, uuid });
   // Return metadata to save it to Postgres
   return;
 }
  
-function saveLocal({ stream, filename }) {
-  const filepath = '/files/' + filename;
+function saveLocal({ stream, uuid }) {
+  const filepath = '/files/' + uuid;
   const fsPath = path.join(process.cwd(), filepath);
   return new Promise((resolve, reject) =>
     stream
@@ -39,10 +39,11 @@ router.post('/',
     if(req.body.operationName === 'MutationWithUpload' && req.body.variables.files.length > 0){
       // console.log(req.body.variables.files)
       const files = req.body.variables.files;
+      const filesMetadata = req.body.variables.filesMetadata;
       // console.log(upload);
-      Promise.all(files.map(file => {
+      Promise.all(files.map((file, i) => {
         return file.then(async resolvedFile => {
-          return await resolveUpload(resolvedFile)
+          return await resolveUpload(resolvedFile, filesMetadata[i].uuid)
         })
       }))
         .then(() => {

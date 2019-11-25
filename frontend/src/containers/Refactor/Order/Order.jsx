@@ -35,14 +35,16 @@ class Order extends Component {
             </thead>
             <tbody>
               {fileList.map(file => (
-                <tr>
-                  <td><a
-                        download
-                        href={getDownloadPath(file.filename)}
-                        target="_blank"
-                        rel="noopener noreferrer nofollow"
-                      >{file.filename}
-                    </a></td>
+                <tr key={file.uuid} >
+                  <td>
+                    <a
+                      download
+                      href={getDownloadPath(file.uuid + '/' + file.filename)}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                    >{file.filename}
+                    </a>
+                  </td>
                   <td>{file.size}</td>
                   <td>{file.personId}</td>
                   <td>{file.createdAt}</td>

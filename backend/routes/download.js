@@ -4,12 +4,18 @@ const paths = require('../paths');
 const path = require('path');
 
 router.get(paths.fileuuid, (req, res, next) => {
-  res.sendFile(
+  
+  const [emptyString, uuid, filename] = req.path.split('/');
+
+  console.log(req.path)
+
+  res.download(
     path.join(
       process.cwd(),
       paths.download,
-      req.path
-    )
+      uuid
+    ),
+    filename
   )
 });
 
