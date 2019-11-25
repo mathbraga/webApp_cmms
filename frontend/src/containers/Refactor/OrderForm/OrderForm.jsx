@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
 import { compose } from 'redux';
-import { query, config, formConfig, mquery, mconfig } from "./inputs";
+import { query, config, formConfig, mquery, mconfig } from "./graphql";
 import { 
   Badge,
   Button,

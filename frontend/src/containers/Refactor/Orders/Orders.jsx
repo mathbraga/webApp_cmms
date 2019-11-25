@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
-import { query, config } from "./inputs";
+import { query, config } from "./graphql";
 
 class Orders extends Component {
   constructor(props) {
