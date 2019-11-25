@@ -36,15 +36,16 @@ router.post('/',
     // maxFiles: 10,
   }),
   async (req, res, next) => {
-    if(req.body.operationName === 'MutationWithUpload'){
-      console.log(req.body.variables.files)
+    if(req.body.operationName === 'MutationWithUpload' && req.body.variables.files.length > 0){
+      // console.log(req.body.variables.files)
       const files = req.body.variables.files;
       // console.log(upload);
-      Promise.all(files)
-        .then(async files => {
-          await files.forEach(file => {
-            resolveUpload(file);
-          });
+      Promise.all(files.map(file => {
+        return file.then(async resolvedFile => {
+          return await resolveUpload(resolvedFile)
+        })
+      }))
+        .then(() => {
           next();
         })
         .catch(error => {
