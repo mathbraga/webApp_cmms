@@ -1,20 +1,5 @@
 import gql from 'graphql-tag';
 import paths from '../../../paths';
-import schema from '../../../schema.json';
-import _ from 'lodash';
-
-console.clear();
-const types = schema.data.__schema.types
-const i = _.findIndex(types, obj => obj.name === 'Person');
-const fields = types[i].fields;
-console.log(fields);
-const formFields = [];
-fields.forEach(field => {
-  if(field.name !== 'nodeId' || field.type.kind === 'SCALAR'){
-    formFields.push(field);
-  }
-});
-console.log(formFields);
 
 export const query = gql`
   query MyQuery {
@@ -43,7 +28,7 @@ export const config = {
     notifyOnNetworkStatusChange: false,
   }),
   props: props => ({
-    contracts: props.data.allContracts ? props.data.allContracts.nodes : ['', ''],
+    contracts: props.data.allContracts ? props.data.allContracts.nodes : [],
     error: props.data.error,
     loading: props.data.loading,
     data: props.data,

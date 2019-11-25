@@ -3,37 +3,71 @@ export const form = {
   inputs: [
     {
       id: 'text',
-      label: 'text',
+      // accept:
+      // alt:
+      // autoComplete:
+      autoFocus: true,
+      // checked:
+      // // dirname: dir?
+      // disabled:
+      // form:
+      // formAction:
+      // formEncType:
+      // formMethod:
+      // formNoValidate:
+      // formTarget:
+      // height:
+      label: 'Texto de teste',
+      // list:
+      // max:
+      // maxLength:
+      // min:
+      // multiple:
       name: 'text',
-      type: 'text',
-      value: 'hehhe',
-      placeholder: 'text',
+      // pattern:
+      placeholder: 'Texto',
+      // readOnly:
       required: false,
-      selectDefault: null,
-      selectOptions: [],
+      // size:
+      // src:
+      // step:
+      type: 'text',
+      // value:
+      // width:
     },
     {
-      id: 'contract',
-      label: 'contract',
-      name: 'contract',
-      type: 'select',
-      placeholder: 'contract',
+      id: 'contractId',
+      // accept:
+      // alt:
+      // autoComplete:
+      autoFocus: false,
+      // checked:
+      // // dirname: dir?
+      // disabled:
+      // form:
+      // formAction:
+      // formEncType:
+      // formMethod:
+      // formNoValidate:
+      // formTarget:
+      // height:
+      label: 'Contrato',
+      // list:
+      // max:
+      // maxLength:
+      // min:
+      // multiple:
+      name: 'contractId',
+      // pattern:
+      placeholder: 'Escolha o contrato',
+      // readOnly:
       required: true,
-      selectDefault: null,
-      selectOptions: [
-        {
-          id: '1',
-          name: '1',
-          value: 1,
-          label: '1'
-        },
-        {
-          id: '2',
-          name: '2',
-          value: 2,
-          label: '2'
-        },
-      ],
+      // size:
+      // src:
+      // step:
+      type: 'select',
+      // value:
+      // width:
     }
   ]
 };

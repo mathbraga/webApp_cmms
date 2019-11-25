@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import { compose } from 'redux';
 import { query, config, mquery, mconfig } from "./graphql";
 import { form } from "./form";
+import getFieldsFromSchema from '../getFieldsFromSchema';
 import { 
   Badge,
   Button,
@@ -51,12 +52,12 @@ class OrderForm extends Component {
 
   submitMutation(event) {
     event.preventDefault();
-    console.clear();
+    // console.clear();
     // console.log(this.fileInputRef.current.files);
     return this.props.mutate({
       variables: {
-        contractId: 1,
-        testText: "texto",
+        contractId: Number(this.state.contractId),
+        testText: this.state.text,
         filesMetadata: getFilesMetadata(this.fileInputRef.current.files),
         files: getFiles(this.fileInputRef.current.files)
       }
@@ -105,13 +106,16 @@ class OrderForm extends Component {
                               required={input.required}
                               onChange={this.handleInputChange}
                             >
-                              {input.selectOptions.map(option => (
+                              <option
+                                key={'0'}
+                                label={'Selecione o contrato'}
+                                value={null}
+                              ></option>
+                              {contracts.map(contract => (
                                 <option
-                                  key={option.label}
-                                  label={option.label}
-                                  name={option.name}
-                                  id={option.id}
-                                  value={option.value}
+                                  key={contract.contractId}
+                                  label={contract.contractSf}
+                                  value={contract.contractId}
                                 ></option>
                               ))}
                             </Input>
