@@ -1,12 +1,23 @@
 import gql from 'graphql-tag';
+import getIdFromPath from '../getIdFromPath';
 
 export const query = gql`
-  query ($orderId: Int!) {
-    allOrders(condition: {orderId: $orderId}) {
+  query ($testId: Int!) {
+    allTests(condition: {testId: $testId}) {
       nodes {
-        orderId
-        title
-        priority
+        testId
+        contractId
+        testText
+      }
+    }
+    allTestFiles (condition: {testId: $testId}) {
+      nodes {
+        testId
+        filename
+        size
+        uuid
+        personId
+        createdAt
       }
     }
   }
@@ -14,13 +25,20 @@ export const query = gql`
 
 export const config = {
   options: props => ({
-    variables: {orderId: Number(props.location.pathname.split('/')[2])},
+    variables: {
+      testId: getIdFromPath(props.location.pathname)
+    },
     fetchPolicy: 'no-cache',
     errorPolicy: 'ignore',
     pollInterval: 0,
     notifyOnNetworkStatusChange: false,
   }),
-  // props: ,
+  props: props => ({
+    test: props.data.loading ? null : props.data.allTests.nodes[0],
+    fileList: props.data.loading ? null : props.data.allTestFiles.nodes,
+    error: props.data.error,
+    loading: props.data.loading,
+  }),
   skip: false,
   // name: ,
   // withRef: ,

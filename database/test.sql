@@ -35,34 +35,4 @@ begin
   return result;
 end; $$;
 
-set local auth.data.person_id to 1;
-
-select * from insert_test_and_upload(
-  (
-    70,
-    'text',
-    1
-  )::tests,
-  array[
-    (
-      70,
-      'filename1',
-      'uuid1',
-      12342343,
-      null,
-      null
-    )::test_files,
-    (
-      70,
-      'filename2',
-      'uuid2',
-      12342343,
-      null,
-      null
-    )::test_files
-  ]
-);
-
-table test_files;
-
 commit;

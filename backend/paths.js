@@ -7,7 +7,7 @@ const paths = {
   email: '/email',
   download: '/files',
   redmine: '/redmine',
-  filename: '/:filename',
+  fileuuid: '/:fileuuid',
 };
 
 module.exports = paths;

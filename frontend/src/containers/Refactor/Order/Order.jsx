@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
 import { query, config } from "./inputs";
+import getDownloadPath from '../getDownloadPath';
 
 class Order extends Component {
   constructor(props) {
@@ -11,10 +12,10 @@ class Order extends Component {
 
   render() {
 
-    const data = this.props.data;
+    const { test, fileList, error, loading } = this.props;
 
-    if(data.error) return <h1>{data.error}</h1>;
-    if(data.loading) return <h1>Carregando...</h1>
+    if(error) return <h1>{error}</h1>;
+    if(loading) return <h1>Carregando...</h1>
     else{
 
       // console.log(data);
@@ -22,7 +23,33 @@ class Order extends Component {
       return (
         <React.Fragment>
           <h1>Query ok</h1>
-          <p>{JSON.stringify(data)}</p>
+          <p>{JSON.stringify(test)}</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Filename</th>
+                <th>Size</th>
+                <th>PersonId</th>
+                <th>CreatedAt</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fileList.map(file => (
+                <tr>
+                  <td><a
+                        download
+                        href={getDownloadPath(file.filename)}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                      >{file.filename}
+                    </a></td>
+                  <td>{file.size}</td>
+                  <td>{file.personId}</td>
+                  <td>{file.createdAt}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </React.Fragment>
       );
     }

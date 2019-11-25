@@ -138,7 +138,7 @@ export const mconfig = {
     pollInterval: 0,
     ignoreResults: false,
     notifyOnNetworkStatusChange: false,
-    onCompleted: data => {console.log('DEU CERTO ');},// + data.insertWithUpload.integer)},// props.history.push(paths.ORDER + '/' + data.insertTest.integer)},
+    onCompleted: data => {props.history.push(paths.ORDER + '/' + data.insertTestAndUpload.integer)},
     onError: error => {alert(error)},
   }),
 };
