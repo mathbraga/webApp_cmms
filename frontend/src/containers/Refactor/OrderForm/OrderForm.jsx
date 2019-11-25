@@ -28,6 +28,8 @@ import {
   Label,
   Row,
 } from 'reactstrap';
+import getFiles from './getFiles';
+import getFilesMetadata from './getFilesMetadata';
 
 class OrderForm extends Component {
   constructor(props) {
@@ -49,20 +51,15 @@ class OrderForm extends Component {
   submitMutation(event) {
     event.preventDefault();
     console.clear();
-    // console.log(event)
-    // const fd = new FormData(event.target);
-    // const filename = fd.get('files');
-    // console.log(filename);
-    console.log(this.fileInputRef.current.files)
-    if(this.fileInputRef.current.files.length > 0){
-      return this.props.mutate({
-        variables: {
-          contractId: 1,
-          testText: "texto",
-          fileMetadata: this.fileInputRef.current.files,
-        }
-      });
-    }
+    console.log(this.fileInputRef.current.files);
+    return this.props.mutate({
+      variables: {
+        contractId: 1,
+        testText: "texto",
+        filesMetadata: getFilesMetadata(this.fileInputRef.current.files),
+        files: getFiles(this.fileInputRef.current.files)
+      }
+    });
   }
 
   render() {
@@ -135,7 +132,7 @@ class OrderForm extends Component {
                   <Col xs="4">
                     <FormGroup>
                       <CustomInput
-                        // multiple={true}
+                        multiple={true}
                         label="Selecione"
                         type="file"
                         id="files"

@@ -95,15 +95,15 @@ const yesUPLOAD = gql`
 mutation MutationWithUpload (
   $contractId: Int!,
   $testText: String!,
-  $fileMetadata: Upload!
+  $filesMetadata: [TestFileInput]
 ) {
-  insertWithUpload(
+  insertTestAndUpload(
     input: {
-      #fileMetadata: $fileMetadata
       testAttributes: {
         contractId: $contractId,
         testText: $testText
       }
+      filesMetadata: $filesMetadata
     }
   ) {
     integer
@@ -138,7 +138,7 @@ export const mconfig = {
     pollInterval: 0,
     ignoreResults: false,
     notifyOnNetworkStatusChange: false,
-    onCompleted: data => {console.log('DEU CERTO. Test id = ' + data.insertWithUpload.integer)},// props.history.push(paths.ORDER + '/' + data.insertTest.integer)},
+    onCompleted: data => {console.log('DEU CERTO ');},// + data.insertWithUpload.integer)},// props.history.push(paths.ORDER + '/' + data.insertTest.integer)},
     onError: error => {alert(error)},
   }),
 };

@@ -2,10 +2,6 @@ const paths = require('./paths');
 const { Client } = require('pg');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
-const PostGraphileUploadFieldPlugin = require("postgraphile-plugin-upload-field");
-const fs = require("fs");
-const path = require("path");
-
 
 const corsConfig = {
   origin: true,
@@ -45,7 +41,6 @@ const postgraphileConfig = {
     graphiqlRoute: paths.graphiql,
     // ignoreIndexes: false,
     // subscriptions: true,
-    // appendPlugins: [require("@graphile-contrib/make-new-build")],
     enhanceGraphiql: true,
     disableDefaultMutations: true,
     disableQueryLog: false,
@@ -58,73 +53,9 @@ const postgraphileConfig = {
         'role': role,
         'auth.data.person_id': person_id,
       }
-    },
-    // appendPlugins: [PostGraphileUploadFieldPlugin],
-    // graphileBuildOptions: {
-    //   uploadFieldDefinitions: [
-    //     {
-    //       match: ({ schema, table, column, tags }) => column === 'file_metadata',
-    //       resolve: resolveUpload
-    //     }
-    //   ]
-    // }
+    }
   }
 };
-
-async function resolveUpload(upload) {
-  const { filename, mimetype, encoding, createReadStream } = upload;
-  const stream = createReadStream();
-  // Save file to the local filesystem
-  const { id, filepath } = await saveLocal({ stream, filename });
-  // Return metadata to save it to Postgres
-  return filename;
-}
- 
-function saveLocal({ stream, filename }) {
-  const filepath = '/files/' + filename;
-  const fsPath = path.join(process.cwd(), filepath);
-  return new Promise((resolve, reject) =>
-    stream
-      .on("error", error => {
-        if (stream.truncated)
-          // Delete the truncated file
-          fs.unlinkSync(fsPath);
-        reject(error);
-      })
-      .on("end", () => resolve({ id, filepath }))
-      .pipe(fs.createWriteStream(fsPath))
-  );
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const cronConfig = {
   cronTime: '0 * * * * *',

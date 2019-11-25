@@ -7,11 +7,10 @@ const path = require('path');
 async function resolveUpload(upload) {
   const { filename, mimetype, encoding, createReadStream } = upload;
   const stream = createReadStream();
-  console.log('ponto 1');
   // Save file to the local filesystem
   const filepath = await saveLocal({ stream, filename });
   // Return metadata to save it to Postgres
-  return filepath;
+  return;
 }
  
 function saveLocal({ stream, filename }) {
@@ -30,30 +29,28 @@ function saveLocal({ stream, filename }) {
   );
 }
 
-
-
 router.post('/',
   graphqlUploadExpress({
     // maxFieldSize: ,
-    maxFileSize: 10000000,
-    maxFiles: 10,
+    // maxFileSize: 10000000,
+    // maxFiles: 10,
   }),
   async (req, res, next) => {
     if(req.body.operationName === 'MutationWithUpload'){
-      console.clear()
-      const upload = req.body.variables.fileMetadata[0];
+      console.log(req.body.variables.files)
+      const files = req.body.variables.files;
       // console.log(upload);
-      upload
-        .then(async file => {
-          console.log('ponto 2')
-          req.body.variables.fileMetadata = await resolveUpload(file);
+      Promise.all(files)
+        .then(async files => {
+          await files.forEach(file => {
+            resolveUpload(file);
+          });
           next();
         })
         .catch(error => {
           console.log(error)
         })
     } else {
-      // console.log(req);
       next();
     }
   }
