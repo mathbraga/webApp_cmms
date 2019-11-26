@@ -40,8 +40,6 @@ class Order extends Component {
                     <a
                       download
                       href={getDownloadPath(file.uuid + '/' + file.filename)}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
                     >{file.filename}
                     </a>
                   </td>
