@@ -25,7 +25,7 @@ const Login = React.lazy(() => import("./containers/Authentication/Login"));
 // const PersonView = React.lazy(() => import("./containers/Teams/PersonView"));
 const Orders = React.lazy(() => import("./containers/Refactor/Orders"));
 const Order = React.lazy(() => import("./containers/Refactor/Order"));
-const OrderForm = React.lazy(() => import("./containers/Refactor/OrderForm"));
+const Form = React.lazy(() => import("./containers/Refactor/Form"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -54,7 +54,7 @@ const routes = [
   // { path: "/equipes/pessoa/view/:id", exact: false, name: "Servico", component: PersonView },
   // { path: "/erro404", exact: true, name: "Erro 404", component: Error404 },
   { path: paths.ORDER + paths.ALL, exact: true, name: "Ordens", component: Orders },
-  { path: paths.ORDER + paths.NEW, exact: true, name: "Nova ordem", component: OrderForm },
+  { path: paths.ORDER + paths.NEW, exact: true, name: "Nova ordem", component: Form },
   { path: paths.ORDER + paths.ONE, exact: true, name: "Ordem", component: Order },
 
 ];

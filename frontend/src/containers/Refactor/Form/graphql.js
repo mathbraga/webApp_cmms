@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import paths from '../../../paths';
 
-export const query = gql`
+export const qQuery = gql`
   query MyQuery {
     allContracts {
       nodes {
@@ -19,7 +19,7 @@ export const query = gql`
   }
 `;
 
-export const config = {
+export const qConfig = {
   options: props => ({
     // variables: {},
     fetchPolicy: 'no-cache',
@@ -39,7 +39,7 @@ export const config = {
   // alias: ,
 };
 
-export const mquery = gql`
+export const mQuery = gql`
 mutation MutationWithUpload (
   $contractId: Int!,
   $filesMetadata: [TestFileInput]
@@ -57,7 +57,7 @@ mutation MutationWithUpload (
 }
 `;
 
-export const mconfig = {
+export const mConfig = {
   // props: props => ({
   //   mutationData: props.data,
   //   mutatie: props.mutate

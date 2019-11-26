@@ -1,5 +1,5 @@
-export const form = {
-  cardTitle: 'Título do formulário',
+const config = {
+  title: 'Título do formulário',
   inputs: [
     // OBJECT MANDATORY FORMAT:
     // {
@@ -214,3 +214,5 @@ export const form = {
     },
   ]
 };
+
+export default config;
