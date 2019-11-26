@@ -116,6 +116,7 @@ const config = {
     },
     {
       autoFocus: false,
+      default: 1,
       id: 'contractId',
       label: 'contractId',
       multiple: false,
@@ -124,6 +125,14 @@ const config = {
         {
           value: '1',
           text: '1'
+        },
+        {
+          value: '2',
+          text: '2'
+        },
+        {
+          value: '3',
+          text: '3'
         },  
       ],
       placeholder: 'contractId',

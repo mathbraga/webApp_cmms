@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import { query, config } from "./graphql";
 import getDownloadPath from '../../utils/getDownloadPath';
 
-class One extends Component {
+class OrderOne extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,4 +56,4 @@ class One extends Component {
   }
 }
 
-export default graphql(query, config)(One);
+export default graphql(query, config)(OrderOne);

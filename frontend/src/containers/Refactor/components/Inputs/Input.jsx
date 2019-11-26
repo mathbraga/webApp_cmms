@@ -34,6 +34,7 @@ class _Input extends Component {
             onChange={onChange}
             innerRef={innerRef}
             multiple={input.multiple}
+            defaultValue={input.default}
           >
             {input.type === 'select' ? (
               <React.Fragment>

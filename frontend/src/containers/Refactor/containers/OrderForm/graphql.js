@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import paths from '../../../../paths';
+import config from './config';
 
 export const qQuery = gql`
   query MyQuery {
@@ -32,6 +33,7 @@ export const qConfig = {
     error: props.data.error,
     loading: props.data.loading,
     data: props.data,
+    config: props.data.allContracts ? config : config,
   }),
   skip: false,
   // name: ,
@@ -58,10 +60,10 @@ mutation MutationWithUpload (
 `;
 
 export const mConfig = {
-  // props: props => ({
-  //   mutationData: props.data,
-  //   mutatie: props.mutate
-  // }),
+  props: props => ({
+    mutate: props.mutate,
+    mData: props.data ? props.data.insertTestAndUpload : null,
+  }),
   // name: ,
   // withRef: ,
   // alias: ,
@@ -82,7 +84,7 @@ export const mConfig = {
     pollInterval: 0,
     ignoreResults: false,
     notifyOnNetworkStatusChange: false,
-    onCompleted: data => {props.history.push(paths.ORDER + '/' + data.insertTestAndUpload.integer)},
+    onCompleted: mData => {props.history.push(paths.ORDER + '/' + mData.insertTestAndUpload.integer)},
     onError: error => {alert(error)},
   }),
 };
