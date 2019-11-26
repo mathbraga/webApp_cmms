@@ -33,10 +33,11 @@ class _Input extends Component {
             required={input.required}
             onChange={onChange}
             innerRef={innerRef}
+            multiple={input.multiple}
           >
             {input.type === 'select' ? (
               <React.Fragment>
-                <option value={null}>{input.placeholder}</option>
+                {/* <option value={null}>{input.placeholder}</option> */}
                 {input.options.map(option => 
                   <option
                     key={option.value}
