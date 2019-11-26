@@ -25,7 +25,7 @@ const config = {
       type: 'text',
     },
     {
-      autoFocus: true,
+      autoFocus: false,
       id: 'description',
       label: 'description',
       multiple: false,
@@ -36,7 +36,7 @@ const config = {
       type: 'textarea',
     },
     {
-      autoFocus: true,
+      autoFocus: false,
       id: 'assets',
       label: 'assets',
       multiple: true,
