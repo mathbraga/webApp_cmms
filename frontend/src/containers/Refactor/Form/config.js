@@ -1,5 +1,5 @@
 const config = {
-  title: 'Título do formulário',
+  title: 'Nova Ordem de Serviço',
   inputs: [
     // OBJECT MANDATORY FORMAT:
     // {

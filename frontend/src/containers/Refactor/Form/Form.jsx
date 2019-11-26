@@ -15,7 +15,7 @@ import {
 } from 'reactstrap';
 import getFiles from '../getFiles';
 import getFilesMetadata from '../getFilesMetadata';
-import SwitchInputs from '../Inputs/SwitchInputs';
+import _Input from '../Inputs/Input';
 
 class _Form extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class _Form extends Component {
 
   render() {
 
-    const { contracts, error, loading } = this.props;
+    const { error, loading } = this.props;
 
     if(error) {
       return <p>{JSON.stringify(error)}</p>;
@@ -65,7 +65,7 @@ class _Form extends Component {
                 <CardBody>
                   <Form>
                     {config.inputs.map(input => (
-                      <SwitchInputs
+                      <_Input
                         key={input.name}
                         input={input}
                         onChange={this.handleChange}
