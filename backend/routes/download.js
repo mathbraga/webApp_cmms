@@ -7,7 +7,7 @@ router.get(paths.fileuuid, (req, res, next) => {
   
   const [emptyString, uuid, filename] = req.path.split('/');
 
-  console.log(req.path)
+  // console.log(req.path)
 
   res.download(
     path.join(

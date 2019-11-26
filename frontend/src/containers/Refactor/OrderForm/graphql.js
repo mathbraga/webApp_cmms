@@ -42,14 +42,12 @@ export const config = {
 export const mquery = gql`
 mutation MutationWithUpload (
   $contractId: Int!,
-  $testText: String!,
   $filesMetadata: [TestFileInput]
 ) {
   insertTestAndUpload(
     input: {
       testAttributes: {
-        contractId: $contractId,
-        testText: $testText
+        contractId: $contractId
       }
       filesMetadata: $filesMetadata
     }

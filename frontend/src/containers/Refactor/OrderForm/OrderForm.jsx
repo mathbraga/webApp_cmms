@@ -3,7 +3,6 @@ import { graphql } from 'react-apollo';
 import { compose } from 'redux';
 import { query, config, mquery, mconfig } from "./graphql";
 import { form } from "./form";
-import getFieldsFromSchema from '../getFieldsFromSchema';
 import { 
   Badge,
   Button,
@@ -32,28 +31,26 @@ import {
 } from 'reactstrap';
 import getFiles from './getFiles';
 import getFilesMetadata from './getFilesMetadata';
+import SwitchInputs from '../Inputs/SwitchInputs';
 
 class OrderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
     }
-    this.formRef = React.createRef();
     this.fileInputRef = React.createRef();
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.submitMutation = this.submitMutation.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleInputChange(event) {
+  handleChange(event) {
     if (event.target.value.length === 0)
       return this.setState({ [event.target.name]: null });
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  submitMutation(event) {
+  handleSubmit(event) {
     event.preventDefault();
-    // console.clear();
-    // console.log(this.fileInputRef.current.files);
     return this.props.mutate({
       variables: {
         contractId: Number(this.state.contractId),
@@ -79,16 +76,48 @@ class OrderForm extends Component {
             <Col xs="12" md="6">
               <Card>
                 <CardHeader>
-                  <strong>{form.cardTitle}</strong>
+                  <strong>{"Título"}</strong>
                 </CardHeader>
                 <CardBody>
-                  <Form
-                    encType="multipart/form-data"
-                    className="form-horizontal"
-                    innerRef={this.formRef}
-                    onSubmit={this.submitMutation}
-                  >
+                  <Form>
                     {form.inputs.map(input => (
+                      <SwitchInputs
+                        key={input.name}
+                        input={input}
+                        onChange={this.handleChange}
+                        innerRef={input.type === 'file' ? this.fileInputRef : null}
+                      />
+                    ))}
+                    <FormGroup row>
+                      <Col>
+                        <Button
+                            type="button"
+                            color="primary"
+                            onClick={this.handleSubmit}
+                          >Enviar
+                        </Button>
+                      </Col>
+                    </FormGroup>
+                  </Form>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </div>
+      );
+    }
+  }
+}
+
+export default compose(
+  graphql(query, config),
+  graphql(mquery, mconfig)
+)(OrderForm);
+
+
+
+
+/*
                       <FormGroup
                         row
                         key={input.id}
@@ -133,53 +162,32 @@ class OrderForm extends Component {
                       </FormGroup>
                     ))}
 
-                <Row>
-                  <Col xs="4">
-                    <FormGroup>
-                      <CustomInput
-                        multiple={true}
-                        label="Selecione"
-                        type="file"
-                        id="files"
-                        name="files"
-                        innerRef={this.fileInputRef}
-                        // onChange={this.handleSelection}
-                        // onChange={event => {
-                        //   const filename =
-                        //     event.target.files.length > 0
-                        //       ? event.target.files[0].name
-                        //       : "";
-                          // document.getElementById(
-                          //   `${event.target.id}_filename`
-                          // ).value = filename;
-                        // }}
-                      />
+                    <FormGroup row>
+                      <Col md="3">
+                        <Label>Arquivos</Label>
+                      </Col>
+                      <Col xs="12" md="9">
+                        <Input
+                          multiple={true}
+                          label="Selecione"
+                          type="file"
+                          id="files"
+                          name="files"
+                          innerRef={this.fileInputRef}
+                        />
+                      </Col>
                     </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                <Button
-                    type="submit"
-                    size="sm"
-                    color="primary"
-                    // onClick={this.submitMutation}
-                  >Submit
-                  </Button>
-                </Row>
 
+                    <FormGroup row>
+                      <Col>
+                        <Button
+                            type="button"
+                            size="sm"
+                            color="primary"
+                            // onClick={this.submitMutation}
+                          >Enviar
+                        </Button>
+                      </Col>
+                    </FormGroup>
+*/
 
-                  </Form>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      );
-    }
-  }
-}
-
-export default compose(
-  graphql(query, config),
-  graphql(mquery, mconfig)
-)(OrderForm);

@@ -1,73 +1,216 @@
 export const form = {
   cardTitle: 'Título do formulário',
   inputs: [
+    // OBJECT MANDATORY FORMAT:
+    // {
+    //   autoFocus: false,
+    //   id: 'id',
+    //   label: 'label',
+    //   name: 'name',
+    //   options: [],
+    //   placeholder: 'placeholder',
+    //   required: false,
+    //   type: 'type',
+    // },
     {
-      id: 'text',
-      // accept:
-      // alt:
-      // autoComplete:
       autoFocus: true,
-      // checked:
-      // // dirname: dir?
-      // disabled:
-      // form:
-      // formAction:
-      // formEncType:
-      // formMethod:
-      // formNoValidate:
-      // formTarget:
-      // height:
-      label: 'Texto de teste',
-      // list:
-      // max:
-      // maxLength:
-      // min:
-      // multiple:
-      name: 'text',
-      // pattern:
-      placeholder: 'Texto',
-      // readOnly:
-      required: false,
-      // size:
-      // src:
-      // step:
+      id: 'title',
+      label: 'title',
+      name: 'title',
+      options: [],
+      placeholder: 'title',
+      required: true,
       type: 'text',
-      // value:
-      // width:
     },
     {
-      id: 'contractId',
-      // accept:
-      // alt:
-      // autoComplete:
-      autoFocus: false,
-      // checked:
-      // // dirname: dir?
-      // disabled:
-      // form:
-      // formAction:
-      // formEncType:
-      // formMethod:
-      // formNoValidate:
-      // formTarget:
-      // height:
-      label: 'Contrato',
-      // list:
-      // max:
-      // maxLength:
-      // min:
-      // multiple:
-      name: 'contractId',
-      // pattern:
-      placeholder: 'Escolha o contrato',
-      // readOnly:
+      autoFocus: true,
+      id: 'description',
+      label: 'description',
+      name: 'description',
+      options: [],
+      placeholder: 'description',
       required: true,
-      // size:
-      // src:
-      // step:
+      type: 'text',
+    },
+    {
+      autoFocus: false,
+      id: 'status',
+      label: 'status',
+      name: 'status',
+      options: [
+        {
+          value: 'PEN',
+          text: 'PEN'
+        },
+      ],
+      placeholder: 'status',
+      required: true,
       type: 'select',
-      // value:
-      // width:
-    }
+    },
+    {
+      autoFocus: false,
+      id: 'priority',
+      label: 'priority',
+      name: 'priority',
+      options: [
+        {
+          value: 'ALT',
+          text: 'ALT'
+        },
+      ],
+      placeholder: 'priority',
+      required: true,
+      type: 'select',
+    },
+    {
+      autoFocus: false,
+      id: 'category',
+      label: 'category',
+      name: 'category',
+      options: [
+        {
+          value: 'ELE',
+          text: 'ELE'
+        },
+      ],
+      placeholder: 'category',
+      required: true,
+      type: 'type',
+    },
+    {
+      autoFocus: false,
+      id: 'parent',
+      label: 'parent',
+      name: 'parent',
+      options: [],
+      placeholder: 'parent',
+      required: true,
+      type: 'text',
+    },
+    {
+      autoFocus: false,
+      id: 'contractId',
+      label: 'contractId',
+      name: 'contractId',
+      options: [
+        {
+          value: '1',
+          text: '1'
+        },  
+      ],
+      placeholder: 'contractId',
+      required: true,
+      type: 'select',
+    },
+    {
+      autoFocus: false,
+      id: 'departmentId',
+      label: 'departmentId',
+      name: 'departmentId',
+      options: [],
+      placeholder: 'departmentId',
+      required: false,
+      type: 'text',
+    },
+    {
+      autoFocus: false,
+      id: 'createdBy',
+      label: 'createdBy',
+      name: 'createdBy',
+      options: [],
+      placeholder: 'createdBy',
+      required: false,
+      type: 'text',
+    },
+    {
+      autoFocus: false,
+      id: 'contactName',
+      label: 'contactName',
+      name: 'contactName',
+      options: [],
+      placeholder: 'contactName',
+      required: false,
+      type: 'text',
+    },
+    {
+      autoFocus: false,
+      id: 'contactPhone',
+      label: 'contactPhone',
+      name: 'contactPhone',
+      options: [],
+      placeholder: 'contactPhone',
+      required: false,
+      type: 'text',
+    },
+    {
+      autoFocus: false,
+      id: 'contactEmail',
+      label: 'contactEmail',
+      name: 'contactEmail',
+      options: [],
+      placeholder: 'contactEmail',
+      required: false,
+      type: 'text',
+    },
+    {
+      autoFocus: false,
+      id: 'place',
+      label: 'place',
+      name: 'place',
+      options: [],
+      placeholder: 'place',
+      required: false,
+      type: 'text',
+    },
+    {
+      autoFocus: false,
+      id: 'progress',
+      label: 'progress',
+      name: 'progress',
+      options: [],
+      placeholder: 'progress',
+      required: false,
+      type: 'text',
+    },
+    {
+      autoFocus: false,
+      id: 'dateLimit',
+      label: 'dateLimit',
+      name: 'dateLimit',
+      options: [],
+      placeholder: 'dateLimit',
+      required: false,
+      type: 'date',
+    },
+    {
+      autoFocus: false,
+      id: 'dateStart',
+      label: 'dateStart',
+      name: 'dateStart',
+      options: [],
+      placeholder: 'dateStart',
+      required: false,
+      type: 'date',
+    },
+    {
+      autoFocus: false,
+      id: 'dateEnd',
+      label: 'dateEnd',
+      name: 'dateEnd',
+      options: [],
+      placeholder: 'dateEnd',
+      required: false,
+      type: 'date',
+    },
+    {
+      autoFocus: false,
+      id: 'files',
+      label: 'files',
+      name: 'files',
+      options: [],
+      placeholder: 'files',
+      required: false,
+      type: 'file',
+    },
   ]
 };

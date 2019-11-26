@@ -13,7 +13,7 @@ export default function getFilesMetadata(files){
         size: files[i].size,
       });
     }
-    console.log(filesMetadata);
+    // console.log(filesMetadata);
     return filesMetadata;
   }
 };
