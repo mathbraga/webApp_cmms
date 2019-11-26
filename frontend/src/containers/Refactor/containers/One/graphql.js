@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import getIdFromPath from '../getIdFromPath';
+import getIdFromPath from '../../utils/getIdFromPath';
 
 export const query = gql`
   query ($testId: Int!) {

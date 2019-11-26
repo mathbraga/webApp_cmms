@@ -13,9 +13,9 @@ import {
   FormGroup,
   Row,
 } from 'reactstrap';
-import getFiles from '../getFiles';
-import getFilesMetadata from '../getFilesMetadata';
-import _Input from '../Inputs/Input';
+import getFiles from '../../utils/getFiles';
+import getFilesMetadata from '../../utils/getFilesMetadata';
+import _Input from '../../components/Inputs/Input';
 
 class _Form extends Component {
   constructor(props) {

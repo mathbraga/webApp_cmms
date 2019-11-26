@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { graphql } from 'react-apollo';
 import { query, config } from "./graphql";
 
-class Orders extends Component {
+class All extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,4 +29,4 @@ class Orders extends Component {
   }
 }
 
-export default graphql(query, config)(Orders);
+export default graphql(query, config)(All);

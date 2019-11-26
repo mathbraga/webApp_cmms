@@ -23,9 +23,9 @@ const Login = React.lazy(() => import("./containers/Authentication/Login"));
 // const GroupView = React.lazy(() => import("./containers/Teams/GroupView"));
 // const Persons = React.lazy(() => import("./containers/Teams/Persons"));
 // const PersonView = React.lazy(() => import("./containers/Teams/PersonView"));
-const Orders = React.lazy(() => import("./containers/Refactor/Orders"));
-const Order = React.lazy(() => import("./containers/Refactor/Order"));
-const Form = React.lazy(() => import("./containers/Refactor/Form"));
+const All = React.lazy(() => import("./containers/Refactor/containers/All"));
+const One = React.lazy(() => import("./containers/Refactor/containers/One"));
+const Form = React.lazy(() => import("./containers/Refactor/containers/Form"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -53,9 +53,9 @@ const routes = [
   // { path: "/equipes/pessoas", exact: true, name: "Servicos", component: Persons },
   // { path: "/equipes/pessoa/view/:id", exact: false, name: "Servico", component: PersonView },
   // { path: "/erro404", exact: true, name: "Erro 404", component: Error404 },
-  { path: paths.ORDER + paths.ALL, exact: true, name: "Ordens", component: Orders },
+  { path: paths.ORDER + paths.ALL, exact: true, name: "Ordens", component: All },
   { path: paths.ORDER + paths.NEW, exact: true, name: "Nova ordem", component: Form },
-  { path: paths.ORDER + paths.ONE, exact: true, name: "Ordem", component: Order },
+  { path: paths.ORDER + paths.ONE, exact: true, name: "Ordem", component: One },
 
 ];
 

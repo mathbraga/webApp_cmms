@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import paths from '../../../paths';
+import paths from '../../../../paths';
 
 export const qQuery = gql`
   query MyQuery {
