@@ -33,7 +33,7 @@ export const qConfig = {
     error: props.data.error,
     loading: props.data.loading,
     data: props.data,
-    config: props.data.allContracts ? config : config,
+    form: props.data.allContracts ? config : config,
   }),
   skip: false,
   // name: ,

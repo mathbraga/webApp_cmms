@@ -21,7 +21,7 @@ class _Form extends Component {
 
   render() {
 
-    const { config, innerRef, onChange, onSubmit, loading } = this.props;
+    const { form, innerRef, onChange, onSubmit, loading } = this.props;
 
     return (
       <div className="animated fadeIn">
@@ -29,11 +29,11 @@ class _Form extends Component {
           <Col xs="12" md="6">
             <Card>
               <CardHeader>
-                <strong>{config.title}</strong>
+                <strong>{form.title}</strong>
               </CardHeader>
               <CardBody>
                 <Form>
-                  {config.inputs.map(input => (
+                  {form.inputs.map(input => (
                     <FormGroup row>
                       <Col md="3">
                         <Label>{input.label} {input.required ? ' *' : ''}

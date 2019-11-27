@@ -1,4 +1,4 @@
-const config = {
+export default {
   title: 'Nova Ordem de Serviço',
   inputs: [
     // OBJECT MANDATORY FORMAT:
@@ -262,5 +262,3 @@ const config = {
     },
   ]
 };
-
-export default config;
