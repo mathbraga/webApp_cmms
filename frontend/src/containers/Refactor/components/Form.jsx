@@ -54,7 +54,11 @@ class _Form extends Component {
                       >
                         {input.type === 'select' ? (
                           <React.Fragment>
-                            <option value={null}>{input.placeholder}</option>
+                            {!input.multiple ? (
+                              <option value={null}>{input.placeholder}</option>
+                            ) : (
+                              null
+                            )}
                             {input.options.map(option => 
                               <option
                                 key={option.value}
