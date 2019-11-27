@@ -41,16 +41,7 @@ export default {
       label: 'assets',
       multiple: true,
       name: 'assets',
-      options: [
-        {
-          value: '1',
-          text: 'Ativo 1'
-        },
-        {
-          value: '2',
-          text: 'Ativo 2'
-        },
-      ],
+      options: [],
       placeholder: 'assets',
       required: true,
       type: 'select',
@@ -63,8 +54,8 @@ export default {
       name: 'status',
       options: [
         {
-          value: 'PEN',
-          text: 'PEN'
+          value: null,
+          text: 'Selecione o status'
         },
       ],
       placeholder: 'status',
@@ -79,8 +70,8 @@ export default {
       name: 'priority',
       options: [
         {
-          value: 'ALT',
-          text: 'ALT'
+          value: null,
+          text: 'Selecione a prioridade'
         },
       ],
       placeholder: 'priority',
@@ -95,8 +86,8 @@ export default {
       name: 'category',
       options: [
         {
-          value: 'ELE',
-          text: 'ELE'
+          value: null,
+          text: 'Selecione a categoria'
         },
       ],
       placeholder: 'category',
@@ -116,7 +107,6 @@ export default {
     },
     {
       autoFocus: false,
-      default: 1,
       id: 'contractId',
       label: 'contractId',
       multiple: false,

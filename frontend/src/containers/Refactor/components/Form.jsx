@@ -51,7 +51,6 @@ class _Form extends Component {
                         onChange={onChange}
                         innerRef={input.type === 'file' ? innerRef : null}
                         multiple={input.multiple}
-                        defaultValue={input.default}
                       >
                         {input.type === 'select' ? (
                           <React.Fragment>
