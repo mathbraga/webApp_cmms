@@ -120,38 +120,47 @@ begin
 end; $$;
 
 create or replace function insert_order (
-  in order_attributes orders,
-  in assets_array integer[],
-  out new_order_id integer
+  in attributes orders,
+  in assets integer[],
+  in files_metadata files_metadata[],
+  out result integer
 )
 language plpgsql
-strict
 as $$
 begin
   insert into orders values (
     default,
-    order_attributes.status,
-    order_attributes.priority,
-    order_attributes.category,
-    order_attributes.parent,
-    order_attributes.contract_id,
-    order_attributes.title,
-    order_attributes.description,
-    order_attributes.department_id,
-    order_attributes.created_by,
-    order_attributes.contact_name,
-    order_attributes.contact_phone,
-    order_attributes.contact_email,
-    order_attributes.place,
-    order_attributes.progress,
-    order_attributes.date_limit,
-    order_attributes.date_start,
-    order_attributes.date_end,
+    attributes.status,
+    attributes.priority,
+    attributes.category,
+    attributes.parent,
+    attributes.contract_id,
+    attributes.title,
+    attributes.description,
+    attributes.department_id,
+    attributes.created_by,
+    attributes.contact_name,
+    attributes.contact_phone,
+    attributes.contact_email,
+    attributes.place,
+    attributes.progress,
+    attributes.date_limit,
+    attributes.date_start,
+    attributes.date_end,
     default,
     default
-  ) returning order_id into new_order_id;
+  ) returning order_id into result;
 
-  insert into order_assets select new_order_id, unnest(assets_array);
+  insert into order_assets select result, unnest(assets);
+
+  insert into order_files
+    select result,
+           f.filename,
+           f.uuid,
+           f.size,
+           current_setting('auth.data.person_id')::integer,
+           now()
+      from unnest(files_metadata) as f;
 
 end; $$;
 

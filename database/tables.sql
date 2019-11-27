@@ -217,7 +217,7 @@ create table order_files (
   filename text not null,
   uuid text not null,
   size bigint not null,
-  person_id integer not null references persons (person_id),
+  person_id integer not null,-- references persons (person_id),
   created_at timestamptz not null default now()
 );
 

@@ -43,18 +43,18 @@ export const qConfig = {
 
 export const mQuery = gql`
 mutation MutationWithUpload (
-  $order: OrderInput!,
+  $attributes: OrderInput!,
   $assets: [Int!]!,
   $filesMetadata: [FilesMetadatumInput]
 ) {
   insertOrder(
     input: {
-      orderAttributes: $order
-      assetsArray: $assets
+      attributes: $attributes
+      assets: $assets
       filesMetadata: $filesMetadata
     }
   ) {
-    newOrderId
+    result
   }
 }
 `;
@@ -83,14 +83,14 @@ export const mConfig = {
     pollInterval: 0,
     ignoreResults: false,
     notifyOnNetworkStatusChange: false,
-    onCompleted: mData => { console.log(mData); props.history.push(paths.ORDER + '/' + mData.insertOrder.newOrderId)},
+    onCompleted: mData => { console.log(mData); props.history.push(paths.ORDER + '/' + mData.insertOrder.result)},
     onError: error => {alert(error)},
   }),
 };
 
 export function getVariables(state){
   return {
-    order: {
+    attributes: {
       title: state.title ? state.title : 'title',
       description: state.description ? state.description : 'description',
       status: state.status ? state.status : 'PEN',
