@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const query = gql`
+export const qQuery = gql`
   query MyQuery {
     allOrders {
       nodes {
@@ -11,7 +11,7 @@ export const query = gql`
   }
 `;
 
-export const config = {
+export const qConfig = {
   options: {
     variables: {},
     // fetchPolicy: 'no-cache',
@@ -19,7 +19,11 @@ export const config = {
     pollInterval: 0,
     notifyOnNetworkStatusChange: false,
   },
-  // props: ,
+  props: props => ({
+    error: props.data.error,
+    loading: props.data.loading,
+    list: props.data.allOrders ? props.data.allOrders.nodes : null,
+  }),
   skip: false,
   // name: ,
   // withRef: ,

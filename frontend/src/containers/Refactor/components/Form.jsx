@@ -21,7 +21,7 @@ class _Form extends Component {
 
   render() {
 
-    const { config, innerRef, onChange, onSubmit } = this.props;
+    const { config, innerRef, onChange, onSubmit, loading } = this.props;
 
     return (
       <div className="animated fadeIn">
@@ -43,6 +43,7 @@ class _Form extends Component {
                       <Input
                         type={input.type}
                         autoFocus={input.autoFocus}
+                        disabled={loading}
                         id={input.id}
                         name={input.name}
                         placeholder={input.placeholder}
@@ -72,10 +73,11 @@ class _Form extends Component {
                   <FormGroup row>
                     <Col>
                       <Button
-                          type="button"
-                          color="primary"
-                          onClick={onSubmit}
-                        >Enviar
+                        disabled={loading}
+                        type="button"
+                        color="primary"
+                        onClick={onSubmit}
+                      >Enviar
                       </Button>
                     </Col>
                   </FormGroup>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
-import { query, config } from "./graphql";
+import { qQuery, qConfig } from "./graphql";
 
 class OrderAll extends Component {
   constructor(props) {
@@ -11,22 +11,16 @@ class OrderAll extends Component {
 
   render() {
 
-    const data = this.props.data;
+    const { error, loading, list } = this.props;
 
-    if(data.error) return <h1>{data.error}</h1>;
-    if(data.loading) return <h1>Carregando...</h1>
-    else{
+    if(error) return <p>{JSON.stringify(error)}</p>;
 
-      // console.log(data);
-
-      return (
-        <React.Fragment>
-          <h1>Query ok</h1>
-          <p>{JSON.stringify(data)}</p>
-        </React.Fragment>
-      );
-    }
+    if(loading) return <h1>Carregando...</h1>;
+    
+    return (
+      <p>{JSON.stringify(list)}</p>
+    );
   }
 }
 
-export default graphql(query, config)(OrderAll);
+export default graphql(qQuery, qConfig)(OrderAll);

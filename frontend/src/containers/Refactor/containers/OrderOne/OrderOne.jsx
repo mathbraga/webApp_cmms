@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
-import { query, config } from "./graphql";
+import { qQuery, qConfig } from "./graphql";
 import getDownloadPath from '../../utils/getDownloadPath';
 
 class OrderOne extends Component {
@@ -12,48 +12,44 @@ class OrderOne extends Component {
 
   render() {
 
-    const { test, fileList, error, loading } = this.props;
+    const { error, loading, one, files } = this.props;
 
-    if(error) return <h1>{error}</h1>;
-    if(loading) return <h1>Carregando...</h1>
-    else{
+    if(error) return <p>{JSON.stringify(error)}</p>;
 
-      // console.log(data);
-
-      return (
-        <React.Fragment>
-          <h1>Query ok</h1>
-          <p>{JSON.stringify(test)}</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Filename</th>
-                <th>Size</th>
-                <th>PersonId</th>
-                <th>CreatedAt</th>
+    if(loading) return <h1>Carregando...</h1>;
+    
+    return (
+      <React.Fragment>
+        <p>{JSON.stringify(one)}</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Filename</th>
+              <th>Size</th>
+              <th>PersonId</th>
+              <th>CreatedAt</th>
+            </tr>
+          </thead>
+          <tbody>
+            {files.map(file => (
+              <tr key={file.uuid} >
+                <td>
+                  <a
+                    download
+                    href={getDownloadPath(file.uuid + '/' + file.filename)}
+                  >{file.filename}
+                  </a>
+                </td>
+                <td>{file.size}</td>
+                <td>{file.personId}</td>
+                <td>{file.createdAt}</td>
               </tr>
-            </thead>
-            <tbody>
-              {fileList.map(file => (
-                <tr key={file.uuid} >
-                  <td>
-                    <a
-                      download
-                      href={getDownloadPath(file.uuid + '/' + file.filename)}
-                    >{file.filename}
-                    </a>
-                  </td>
-                  <td>{file.size}</td>
-                  <td>{file.personId}</td>
-                  <td>{file.createdAt}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </React.Fragment>
-      );
-    }
+            ))}
+          </tbody>
+        </table>
+      </React.Fragment>
+    );
   }
 }
 
-export default graphql(query, config)(OrderOne);
+export default graphql(qQuery, qConfig)(OrderOne);

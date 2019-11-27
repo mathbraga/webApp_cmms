@@ -33,14 +33,19 @@ class OrderForm extends Component {
 
   render() {
 
-    const { config } = this.props;
+    const { error, loading, config } = this.props;
 
+    if(error) return <p>{JSON.stringify(error)}</p>;
+
+    if(loading) return <h1>Carregando...</h1>;
+    
     return (
       <_Form
         config={config}
         innerRef={this.innerRef}
         onChange={this.handleChange}
         onSubmit={this.handleSubmit}
+        loading={loading}
       />
     );
   }

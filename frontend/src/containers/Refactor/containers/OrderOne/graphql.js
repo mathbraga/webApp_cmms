@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import getIdFromPath from '../../utils/getIdFromPath';
 
-export const query = gql`
+export const qQuery = gql`
   query ($testId: Int!) {
     allTests(condition: {testId: $testId}) {
       nodes {
@@ -23,7 +23,7 @@ export const query = gql`
   }
 `;
 
-export const config = {
+export const qConfig = {
   options: props => ({
     variables: {
       testId: getIdFromPath(props.location.pathname)
@@ -34,8 +34,8 @@ export const config = {
     notifyOnNetworkStatusChange: false,
   }),
   props: props => ({
-    test: props.data.loading ? null : props.data.allTests.nodes[0],
-    fileList: props.data.loading ? null : props.data.allTestFiles.nodes,
+    one: props.data.loading ? null : props.data.allTests.nodes[0],
+    files: props.data.loading ? null : props.data.allTestFiles.nodes,
     error: props.data.error,
     loading: props.data.loading,
   }),
