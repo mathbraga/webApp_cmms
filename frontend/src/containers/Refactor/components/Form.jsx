@@ -34,7 +34,7 @@ class _Form extends Component {
               <CardBody>
                 <Form>
                   {form.inputs.map(input => (
-                    <FormGroup row>
+                    <FormGroup row key={input.name}>
                       <Col md="3">
                         <Label>{input.label} {input.required ? ' *' : ''}
                         </Label>
@@ -54,7 +54,7 @@ class _Form extends Component {
                       >
                         {input.type === 'select' ? (
                           <React.Fragment>
-                            {/* <option value={null}>{input.placeholder}</option> */}
+                            <option value={null}>{input.placeholder}</option>
                             {input.options.map(option => 
                               <option
                                 key={option.value}

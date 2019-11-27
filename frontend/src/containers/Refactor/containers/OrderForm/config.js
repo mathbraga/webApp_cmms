@@ -52,13 +52,8 @@ export default {
       label: 'status',
       multiple: false,
       name: 'status',
-      options: [
-        {
-          value: null,
-          text: 'Selecione o status'
-        },
-      ],
-      placeholder: 'status',
+      options: [],
+      placeholder: 'Selecione o status',
       required: true,
       type: 'select',
     },
@@ -68,13 +63,8 @@ export default {
       label: 'priority',
       multiple: false,
       name: 'priority',
-      options: [
-        {
-          value: null,
-          text: 'Selecione a prioridade'
-        },
-      ],
-      placeholder: 'priority',
+      options: [],
+      placeholder: 'Selecione a prioridade',
       required: true,
       type: 'select',
     },
@@ -84,13 +74,8 @@ export default {
       label: 'category',
       multiple: false,
       name: 'category',
-      options: [
-        {
-          value: null,
-          text: 'Selecione a categoria'
-        },
-      ],
-      placeholder: 'category',
+      options: [],
+      placeholder: 'Selecione a categoria',
       required: true,
       type: 'select',
     },
