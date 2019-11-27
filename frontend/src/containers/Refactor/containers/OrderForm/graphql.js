@@ -43,18 +43,18 @@ export const qConfig = {
 
 export const mQuery = gql`
 mutation MutationWithUpload (
-  $contractId: Int!,
-  $filesMetadata: [TestFileInput]
+  $order: OrderInput!,
+  $assets: [Int!]!,
+  $filesMetadata: [FilesMetadatumInput]
 ) {
-  insertTestAndUpload(
+  insertOrder(
     input: {
-      testAttributes: {
-        contractId: $contractId
-      }
+      orderAttributes: $order
+      assetsArray: $assets
       filesMetadata: $filesMetadata
     }
   ) {
-    integer
+    newOrderId
   }
 }
 `;
@@ -62,7 +62,6 @@ mutation MutationWithUpload (
 export const mConfig = {
   props: props => ({
     mutate: props.mutate,
-    mData: props.data ? props.data.insertTestAndUpload : null,
   }),
   // name: ,
   // withRef: ,
@@ -84,14 +83,32 @@ export const mConfig = {
     pollInterval: 0,
     ignoreResults: false,
     notifyOnNetworkStatusChange: false,
-    onCompleted: mData => {props.history.push(paths.ORDER + '/' + mData.insertTestAndUpload.integer)},
+    onCompleted: mData => { console.log(mData); props.history.push(paths.ORDER + '/' + mData.insertOrder.newOrderId)},
     onError: error => {alert(error)},
   }),
 };
 
 export function getVariables(state){
   return {
-    contractId: Number(state.contractId),
-    testText: state.title,
+    order: {
+      title: state.title ? state.title : 'title',
+      description: state.description ? state.description : 'description',
+      status: state.status ? state.status : 'PEN',
+      priority: state.priority ? state.priority : 'ALT',
+      category: state.category ? state.category : 'ELE',
+      parent: state.parent ? state.parent : null,
+      contractId: state.contractId ? state.contractId : 1,
+      departmentId: state.departmentId ? state.departmentId : 'departmentId',
+      createdBy: state.createdBy ? state.createdBy : 'createdBy',
+      contactName: state.contactName ? state.contactName : 'contactName',
+      contactPhone: state.contactPhone ? state.contactPhone : 'phone',
+      contactEmail: state.contactEmail ? state.contactEmail : 'email',
+      place: state.place ? state.place : 'qualquer lugar',
+      progress: state.progress ? state.progress : 99,
+      dateLimit: state.dateLimit ? state.dateLimit : null,
+      dateStart: state.dateStart ? state.dateStart : null,
+      dateEnd: state.dateEnd ? state.dateEnd : null,
+    },
+    assets: state.assets ? state.assets : [1],
   }
 };

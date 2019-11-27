@@ -214,7 +214,7 @@ create table asset_files (
 
 create table order_files (
   order_id integer not null references orders (order_id),
-  name text not null,
+  filename text not null,
   uuid text not null,
   size bigint not null,
   person_id integer not null references persons (person_id),

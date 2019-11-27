@@ -36,7 +36,7 @@ router.post('/',
     // maxFiles: 10,
   }),
   async (req, res, next) => {
-    if(req.body.operationName === 'MutationWithUpload' && req.body.variables.files.length > 0){
+    if(req.body.operationName === 'MutationWithUpload' && req.body.variables.files !== null){
       // console.log(req.body.variables.files)
       const files = req.body.variables.files;
       const filesMetadata = req.body.variables.filesMetadata;

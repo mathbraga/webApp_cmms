@@ -28,6 +28,9 @@ begin transaction;
 -- alter default privileges
 \i privileges.sql
 
+-- create composite types
+\i types.sql
+
 -- create enums
 \i enums.sql
 
