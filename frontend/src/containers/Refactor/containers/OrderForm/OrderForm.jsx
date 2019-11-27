@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { qQuery, qConfig, mQuery, mConfig, getVariables } from "./graphql";
 import _Form from '../../components/Form';
 import getFiles from '../../utils/getFiles';
+import getMultipleSelect from '../../utils/getMultipleSelect';
 
 class OrderForm extends Component {
   constructor(props) {
@@ -16,9 +17,17 @@ class OrderForm extends Component {
   }
 
   handleChange(event) {
-    if (event.target.value.length === 0)
-      return this.setState({ [event.target.name]: null });
-    this.setState({ [event.target.name]: event.target.value });
+    event.persist();
+    const name = event.target.name;
+    const value = event.target.value;
+    const options = event.target.options;
+    if (value.length === 0)
+      return this.setState({ [name]: null });
+    if (name === 'assets'){
+      this.setState({ assets: getMultipleSelect(options) });
+    } else {
+      this.setState({ [name]: value });
+    }
   }
 
   handleSubmit(event) {

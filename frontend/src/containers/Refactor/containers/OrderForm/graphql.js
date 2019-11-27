@@ -2,19 +2,24 @@ import gql from 'graphql-tag';
 import paths from '../../../../paths';
 import config from './config';
 
+const iContract = config.inputs.findIndex(input => input.name === 'contractId');
+const iStatus = config.inputs.findIndex(input => input.name === 'status');
+const iAssets = config.inputs.findIndex(input => input.name === 'assets');
+
 export const qQuery = gql`
   query MyQuery {
     allContracts {
       nodes {
         contractId
         contractSf
+        title
       }
     }
-    allTests (orderBy: TEST_ID_ASC){
+    allAssets {
       nodes {
-        testId
-        testText
-        contractId
+        assetId
+        assetSf
+        name
       }
     }
   }
@@ -28,13 +33,29 @@ export const qConfig = {
     pollInterval: 0,
     notifyOnNetworkStatusChange: false,
   }),
-  props: props => ({
-    contracts: props.data.allContracts ? props.data.allContracts.nodes : [],
-    error: props.data.error,
-    loading: props.data.loading,
-    data: props.data,
-    form: props.data.allContracts ? config : config,
-  }),
+  props: props => {
+
+    const x = props.data.networkStatus;
+
+    if(x === 7){
+      config.inputs[iContract].options = props.data.allContracts.nodes.map(contract => ({
+        value: contract.contractId,
+        text: contract.contractSf + ' - ' + contract.title,
+      }));
+      config.inputs[iAssets].options = props.data.allAssets.nodes.map(asset => ({
+        value: asset.assetId,
+        text: asset.assetSf + ' - ' + asset.name,
+      }))
+    }
+
+
+    return {
+      error: props.data.error,
+      loading: props.data.loading,
+      data: props.data,
+      form: config,
+    }
+  },
   skip: false,
   // name: ,
   // withRef: ,
@@ -83,7 +104,7 @@ export const mConfig = {
     pollInterval: 0,
     ignoreResults: false,
     notifyOnNetworkStatusChange: false,
-    onCompleted: mData => { console.log(mData); props.history.push(paths.ORDER + '/' + mData.insertOrder.result)},
+    onCompleted: mData => {props.history.push(paths.ORDER + '/' + mData.insertOrder.result)},
     onError: error => {alert(error)},
   }),
 };
