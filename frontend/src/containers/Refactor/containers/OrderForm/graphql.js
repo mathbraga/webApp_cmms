@@ -88,3 +88,10 @@ export const mConfig = {
     onError: error => {alert(error)},
   }),
 };
+
+export function getVariables(state){
+  return {
+    contractId: Number(state.contractId),
+    testText: state.title,
+  }
+};

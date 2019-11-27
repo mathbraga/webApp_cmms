@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { graphql } from 'react-apollo';
 import { compose } from 'redux';
-import { qQuery, qConfig, mQuery, mConfig } from "./graphql";
+import { qQuery, qConfig, mQuery, mConfig, getVariables } from "./graphql";
 import _Form from '../../components/Form';
 import getFiles from '../../utils/getFiles';
-import getFilesMetadata from '../../utils/getFilesMetadata';
 
 class OrderForm extends Component {
   constructor(props) {
@@ -24,13 +23,10 @@ class OrderForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.innerRef.current.files)
     return this.props.mutate({
       variables: {
-        contractId: Number(this.state.contractId),
-        testText: this.state.text,
-        filesMetadata: getFilesMetadata(this.innerRef.current.files),
-        files: getFiles(this.innerRef.current.files)
+        ...getVariables(this.state),
+        ...getFiles(this.innerRef.current.files)
       }
     });
   }
