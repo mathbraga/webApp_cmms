@@ -76,11 +76,12 @@ class _Form extends Component {
                   <FormGroup row>
                     <Col>
                       <Button
+                        block
                         disabled={loading}
                         type="button"
                         color="primary"
                         onClick={onSubmit}
-                      >Enviar
+                      >{form.button}
                       </Button>
                     </Col>
                   </FormGroup>

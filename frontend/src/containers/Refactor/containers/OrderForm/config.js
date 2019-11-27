@@ -1,5 +1,6 @@
 export default {
   title: 'Nova Ordem de Serviço',
+  button: 'Criar Ordem de Serviço',
   inputs: [
     // OBJECT MANDATORY FORMAT:
     // {
