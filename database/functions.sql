@@ -122,7 +122,7 @@ end; $$;
 create or replace function insert_order (
   in attributes orders,
   in assets integer[],
-  in files_metadata files_metadata[],
+  in files_metadata file_metadata[],
   out result integer
 )
 language plpgsql

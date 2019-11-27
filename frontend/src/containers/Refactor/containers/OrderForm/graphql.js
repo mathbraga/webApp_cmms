@@ -45,7 +45,7 @@ export const mQuery = gql`
 mutation MutationWithUpload (
   $attributes: OrderInput!,
   $assets: [Int!]!,
-  $filesMetadata: [FilesMetadatumInput]
+  $filesMetadata: [FileMetadatumInput]
 ) {
   insertOrder(
     input: {

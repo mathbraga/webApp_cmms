@@ -1,4 +1,4 @@
-create type files_metadata as (
+create type file_metadata as (
   filename text,
   uuid text,
   size bigint
