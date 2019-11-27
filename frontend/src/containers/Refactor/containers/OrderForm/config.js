@@ -101,7 +101,7 @@ export default {
       ],
       placeholder: 'category',
       required: true,
-      type: 'type',
+      type: 'select',
     },
     {
       autoFocus: false,
@@ -136,7 +136,7 @@ export default {
         },  
       ],
       placeholder: 'contractId',
-      required: true,
+      required: false,
       type: 'select',
     },
     {

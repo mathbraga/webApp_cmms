@@ -35,7 +35,7 @@ export const qConfig = {
   }),
   props: props => ({
     one: props.data.loading ? null : props.data.allOrders.nodes[0],
-    files: props.data.loading ? null: props.data.allOrderFiles.nodes,
+    files: props.data.loading ? null : props.data.allOrderFiles.nodes,
     error: props.data.error,
     loading: props.data.loading,
   }),
