@@ -29,7 +29,7 @@ export const qConfig = {
       config.list = props.data.orders.nodes.map(order => {
         order.createdAt = order.createdAt.split('T')[0];
         return order;
-      })
+      });
     }
 
     return {
