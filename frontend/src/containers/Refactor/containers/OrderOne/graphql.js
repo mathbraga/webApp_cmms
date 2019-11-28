@@ -1,9 +1,10 @@
 import gql from 'graphql-tag';
 import getIdFromPath from '../../utils/getIdFromPath';
+import config from './config';
 
 export const qQuery = gql`
   query ($orderId: Int!) {
-    allOrders(condition: {orderId: $orderId}) {
+    one: allOrders(condition: {orderId: $orderId}) {
       nodes {
         orderId
         title
@@ -11,7 +12,7 @@ export const qQuery = gql`
         category
       }
     }
-    allOrderFiles(condition: {orderId: $orderId}) {
+    files: allOrderFiles(condition: {orderId: $orderId}) {
       nodes {
         orderId
         filename
@@ -34,12 +35,21 @@ export const qConfig = {
     pollInterval: 0,
     notifyOnNetworkStatusChange: false,
   }),
-  props: props => ({
-    one: props.data.loading ? null : props.data.allOrders.nodes[0],
-    files: props.data.loading ? null : props.data.allOrderFiles.nodes,
-    error: props.data.error,
-    loading: props.data.loading,
-  }),
+  props: props => {
+
+    if(props.data.networkStatus === 7){
+      config.lists.push({
+        listName: 'files',
+        items: props.data.files.nodes,
+      });
+      config.title = 'Ordem de Serviço #'+ props.data.one.nodes[0].orderId;
+    }
+    return {
+      one: config,
+      error: props.data.error,
+      loading: props.data.loading,
+    }
+  },
   skip: false,
   // name: ,
   // withRef: ,

@@ -102,5 +102,10 @@ export default {
       url: paths.ORDER,
       icon: "icon-wrench"
     },
+    {
+      name: "Um",
+      url: paths.ORDER + '/1',
+      icon: "icon-wrench"
+    },
   ]
 };
