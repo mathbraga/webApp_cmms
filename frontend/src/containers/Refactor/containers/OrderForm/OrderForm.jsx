@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import _Form from '../../components/Form';
+import _Spinner from '../../components/Spinner';
 import { graphql } from 'react-apollo';
 import { compose } from 'redux';
 import { qQuery, qConfig, mQuery, mConfig, getVariables } from "./graphql";
-import _Form from '../../components/Form';
 import getFiles from '../../utils/getFiles';
 import getMultipleSelect from '../../utils/getMultipleSelect';
 
@@ -46,7 +47,7 @@ class OrderForm extends Component {
 
     if(error) return <p>{JSON.stringify(error)}</p>;
 
-    if(loading) return <h1>Carregando...</h1>;
+    if(loading) return <_Spinner />;
     
     return (
       <_Form
