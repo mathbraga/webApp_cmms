@@ -52,9 +52,7 @@ export const qConfig = {
   }),
   props: props => {
 
-    const x = props.data.networkStatus;
-
-    if(x === 7){
+    if(props.data.networkStatus === 7){
       config.inputs[iContract].options = props.data.contracts.nodes.map(contract => ({
         value: contract.contractId,
         text: contract.contractSf + ' - ' + contract.title,

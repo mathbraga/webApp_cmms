@@ -97,5 +97,10 @@ export default {
       url: paths.ORDER + paths.NEW,
       icon: "icon-wrench"
     },
+    {
+      name: "Todas",
+      url: paths.ORDER,
+      icon: "icon-wrench"
+    },
   ]
 };
