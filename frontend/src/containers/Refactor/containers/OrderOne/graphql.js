@@ -8,6 +8,7 @@ export const qQuery = gql`
         orderId
         title
         description
+        category
       }
     }
     allOrderFiles(condition: {orderId: $orderId}) {

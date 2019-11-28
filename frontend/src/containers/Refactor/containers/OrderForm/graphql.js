@@ -62,7 +62,7 @@ export const qConfig = {
       config.inputs[iAssets].options = props.data.assets.nodes.map(asset => ({
         value: asset.assetId,
         text: asset.assetSf + ' - ' + asset.name,
-      }))
+      }));
       config.inputs[iCategory].options = props.data.categories.enumValues.map(category => ({
         value: category.name,
         text: category.name,

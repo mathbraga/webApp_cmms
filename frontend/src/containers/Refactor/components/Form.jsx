@@ -48,7 +48,7 @@ class _Form extends Component {
                         name={input.name}
                         placeholder={input.placeholder}
                         required={input.required}
-                        onChange={onChange}
+                        onBlur={onChange}
                         innerRef={input.type === 'file' ? innerRef : null}
                         multiple={input.multiple}
                       >
