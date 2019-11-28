@@ -2,6 +2,8 @@ import gql from 'graphql-tag';
 import getIdFromPath from '../../utils/getIdFromPath';
 import config from './config';
 
+const iFiles = config.tabs.findIndex(tab => tab.tabName === 'files');
+
 export const qQuery = gql`
   query ($orderId: Int!) {
     one: allOrders(condition: {orderId: $orderId}) {
@@ -38,10 +40,7 @@ export const qConfig = {
   props: props => {
 
     if(props.data.networkStatus === 7){
-      config.lists.push({
-        listName: 'files',
-        items: props.data.files.nodes,
-      });
+      config.tabs[iFiles].list = props.data.files.nodes
       config.title = 'Ordem de Serviço #'+ props.data.one.nodes[0].orderId;
     }
     return {
