@@ -50,22 +50,34 @@ class One extends Component {
                         <React.Fragment key={tab.tabName}>
                           {this.state.activeTab === tab.tabName ? (
                             <Table>
-                              <thead>
-                                <tr>
-                                  {tab.table.head.map(column => (
-                                    <th key={column.field}>
-                                      {column.label}
-                                    </th>
-                                  ))}
-                                </tr>
-                              </thead>
+                              {!tab.table.noHead ? (
+                                <thead>
+                                  <tr>
+                                    {tab.table.head.map(column => (
+                                      <th key={column.field}>
+                                        {column.label}
+                                      </th>
+                                    ))}
+                                  </tr>
+                                </thead>
+                              ) : (
+                                null
+                              )}  
                               <tbody>
                                 {tab.table.rows.map((row, i) => (
                                   <tr key={i}>
-                                    {tab.table.head.map(column => (
-                                      <td key={column.field}>
-                                        {row[column.field]}
-                                      </td>
+                                    {tab.table.head.map((column, j) => (
+                                      <React.Fragment>
+                                        {j === 0 && tab.tabName === 'details' ? (
+                                          <td key={j}>
+                                            <strong>{row[column.field]}</strong>
+                                        </td>
+                                        ) : (
+                                          <td key={j}>
+                                            {row[column.field]}
+                                          </td>
+                                        )}
+                                      </React.Fragment>
                                     ))}
                                   </tr>
                                 ))}

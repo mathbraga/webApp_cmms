@@ -4,6 +4,7 @@ export default {
       tabName: 'details',
       label: 'Detalhes',
       table: {
+        noHead: true,
         head: [
           {
             field: 'label'
@@ -35,6 +36,7 @@ export default {
       tabName: 'assets',
       label: 'Ativos',
       table: {
+        noHead: false,
         head: [
           {
             field: 'sf',
@@ -51,6 +53,7 @@ export default {
       tabName: 'supplies',
       label: 'Materiais e Serviços',
       table: {
+        noHead: false,
         head: [
           {
             field: 'sf',
@@ -71,6 +74,7 @@ export default {
       tabName: 'files',
       label: 'Arquivos',
       table: {
+        noHead: false,
         head: [
           {
             field: 'filename',

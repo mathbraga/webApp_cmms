@@ -9,7 +9,7 @@ const iFiles = config.tabs.findIndex(tab => tab.tabName === 'files');
 
 export const qQuery = gql`
   query ($orderId: Int!) {
-    one: allVOrders(condition: {orderId: $orderId}) {
+    one: allOrderData(condition: {orderId: $orderId}) {
       nodes {
         orderId
         title
