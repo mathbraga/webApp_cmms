@@ -1,9 +1,17 @@
 import React, { Component } from "react";
-import { Nav, Navbar, NavItem, NavbarBrand, NavLink, Container, Row, Col, Card, CardHeader, CardBody, Table } from 'reactstrap';
+import { ButtonToolbar, ButtonGroup, UncontrolledCollapse, Button, Nav, Navbar, NavItem, NavbarBrand, NavLink, Container, Row, Col, Card, CardHeader, CardBody, Table } from 'reactstrap';
 
 class One extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      activeTab: 'details',
+    };
+    this.changeTab = this.changeTab.bind(this);
+  }
+
+  changeTab(event){
+    this.setState({ activeTab: event.target.name });
   }
 
   render() {
@@ -18,12 +26,17 @@ class One extends Component {
               <CardHeader>
                 <Navbar color="light" light expand="xs">
                   <NavbarBrand >{one.title}</NavbarBrand>
-                  <Nav navbar>
+                  <Nav>
                     {one.tabs.map(tab => (
-                      <NavItem>
-                        <NavLink href="#">
-                          <strong>{tab.label}</strong>
-                        </NavLink>
+                      <NavItem key={tab.tabName}>
+                        <Button
+                          outline={!(this.state.activeTab === tab.tabName)}
+                          color={this.state.activeTab === tab.tabName ? 'dark' : 'link'}
+                          name={tab.tabName}
+                          onClick={this.changeTab}
+                          disabled={this.state.activeTab === tab.tabName}
+                        >{tab.label}
+                        </Button>
                       </NavItem>
                     ))}
                   </Nav>
@@ -33,7 +46,36 @@ class One extends Component {
                 <Container>
                   <Row>
                     <Col>
-                      <p>Conteúdo da página</p>
+                      {one.tabs.map(tab => (
+                        <React.Fragment key={tab.tabName}>
+                          {this.state.activeTab === tab.tabName ? (
+                            <Table>
+                              <thead>
+                                <tr>
+                                  {tab.table.head.map(column => (
+                                    <th key={column.field}>
+                                      {column.label}
+                                    </th>
+                                  ))}
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {tab.table.rows.map((row, i) => (
+                                  <tr key={i}>
+                                    {tab.table.head.map(column => (
+                                      <td key={column.field}>
+                                        {row[column.field]}
+                                      </td>
+                                    ))}
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </Table>
+                          ) : (
+                            null
+                          )}
+                        </React.Fragment>
+                      ))}
                     </Col>
                   </Row>
                 </Container>

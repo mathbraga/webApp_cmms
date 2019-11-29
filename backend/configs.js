@@ -51,7 +51,7 @@ const postgraphileConfig = {
     exportGqlSchemaPath: '../frontend/src/schema.graphql',
     sortExport: true,
     pgSettings: async req => {
-      const [person_id, role] = req.session.passport ? req.session.passport.user.split('-') : ['0', 'visitor'];
+      const [person_id, role] = req.session.passport ? req.session.passport.user.split('-') : ['1', 'visitor'];
       return {
         'role': role,
         'auth.data.person_id': person_id,

@@ -23,15 +23,17 @@ class All extends Component {
                   <thead>
                     <tr>
                       {columns.map(column => (
-                        <th>{column.label}</th>
+                        <th
+                          key={column.field}
+                        >{column.label}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {list.map(item => (
-                      <tr>
+                    {list.map((item, i) => (
+                      <tr key={i}>
                         {columns.map(column => (
-                          <td>
+                          <td key={column.field}>
                             {item[column.field]}
                           </td>
                         ))}
