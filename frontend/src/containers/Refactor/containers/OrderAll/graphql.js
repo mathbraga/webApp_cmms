@@ -1,5 +1,8 @@
 import gql from 'graphql-tag';
 import config from './config';
+import paths from '../../../../paths';
+import getLocaleDate from '../../utils/getLocaleDate';
+import getHrefPath from '../../utils/getHrefPath';
 
 export const qQuery = gql`
   query MyQuery {
@@ -27,7 +30,8 @@ export const qConfig = {
 
     if(props.data.networkStatus === 7){
       config.list = props.data.orders.nodes.map(order => {
-        order.createdAt = order.createdAt.split('T')[0];
+        order.createdAt = getLocaleDate(order.createdAt);
+        order.href = getHrefPath(paths.ORDER, order.orderId);
         return order;
       });
     }

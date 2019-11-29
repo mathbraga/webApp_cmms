@@ -27,7 +27,9 @@ class All extends Component {
                           key={column.field}
                         >{column.label}</th>
                       ))}
+                      <th>{' '}</th>
                     </tr>
+                    
                   </thead>
                   <tbody>
                     {list.map((item, i) => (
@@ -37,6 +39,7 @@ class All extends Component {
                             {item[column.field]}
                           </td>
                         ))}
+                        <td><a href={item.href}><i className="fa fa-search"></i></a></td>
                       </tr>
                     ))}
                   </tbody>
