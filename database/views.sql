@@ -147,7 +147,7 @@ select o.order_id,
       inner join persons as p using (person_id)
     group by order_id;
 
-create view v_orders as
+create view order_data as
   select o.*,
          a.assets,
          s.supplies,
