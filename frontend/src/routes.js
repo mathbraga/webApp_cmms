@@ -26,6 +26,7 @@ const Login = React.lazy(() => import("./containers/Authentication/Login"));
 const OrderAll = React.lazy(() => import("./containers/Refactor/containers/OrderAll"));
 const OrderOne = React.lazy(() => import("./containers/Refactor/containers/OrderOne"));
 const OrderForm = React.lazy(() => import("./containers/Refactor/containers/OrderForm"));
+const SupplySelector = React.lazy(() => import("./containers/Refactor/components/SupplySelector"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [

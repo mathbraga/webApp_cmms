@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Row, Col, Card, CardBody, CardHeader } from 'reactstrap';
 import _Form from '../../components/Form';
 import _Spinner from '../../components/Spinner';
 import { graphql } from 'react-apollo';
@@ -6,11 +7,16 @@ import { compose } from 'redux';
 import { qQuery, qConfig, mQuery, mConfig, getVariables } from "./graphql";
 import getFiles from '../../utils/getFiles';
 import getMultipleSelect from '../../utils/getMultipleSelect';
+import getSupplyList from '../../utils/getSupplyList';
+import getSuppliesQty from '../../utils/getSuppliesQty';
+import SupplySelector from "../../components/SupplySelector";
 
 class OrderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      supplies: null,
+      qty: null,
     }
     this.innerRef = React.createRef();
     this.handleChange = this.handleChange.bind(this);
@@ -25,9 +31,28 @@ class OrderForm extends Component {
     if (value.length === 0)
       return this.setState({ [name]: null });
     if (name === 'assets'){
-      this.setState({ assets: getMultipleSelect(options) });
+      this.setState({ assets: getMultipleSelect(options), });
+    // else if (name === 'supplies'){
+    //   this.setState({ supplies: getMultipleSelect(options), });
+    // } else if (name === 'supply-qty'){
+    //   // this.setState(prevState => ({ qty: getSuppliesQty(options), }));
     } else {
+      if(name === 'contractId'){
+        console.log('here')
+        this.setState({ supplies: null})
+      }
       this.setState({ [name]: value });
+    }
+  }
+
+  handleSupplies(event){
+    event.persist();
+    const name = event.target.name;
+    const options = event.target.options;
+    if (name === 'supplies'){
+    this.setState({ supplies: getMultipleSelect(options), });
+    } else if (name === 'supply-qty'){
+      this.setState(prevState => ({ qty: getSuppliesQty(event), }));
     }
   }
 
@@ -50,13 +75,36 @@ class OrderForm extends Component {
     if(loading) return <_Spinner />;
     
     return (
-      <_Form
-        form={form}
-        innerRef={this.innerRef}
-        onChange={this.handleChange}
-        onSubmit={this.handleSubmit}
-        loading={loading}
-      />
+      <div className="animated fadeIn">
+      
+            <Card>
+              <CardHeader>
+                  <strong>{form.title}</strong>
+                </CardHeader>
+                <CardBody>
+              <Row>
+                <Col xs="6">
+                <_Form
+                  form={form}
+                  innerRef={this.innerRef}
+                  onChange={this.handleChange}
+                  onSubmit={this.handleSubmit}
+                  loading={loading}
+                />
+                </Col>
+                <Col>
+                  <SupplySelector
+                    contractId={this.state.contractId}
+                    selected={this.state.supplies ? this.state.supplies : null}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Row>
+              </CardBody>
+
+            </Card>
+
+      </div>
     );
   }
 }

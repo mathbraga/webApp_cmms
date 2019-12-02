@@ -24,14 +24,9 @@ class _Form extends Component {
     const { form, innerRef, onChange, onSubmit, loading } = this.props;
 
     return (
-      <div className="animated fadeIn">
-        <Row>
-          <Col xs="12" md="6">
-            <Card>
-              <CardHeader>
-                <strong>{form.title}</strong>
-              </CardHeader>
-              <CardBody>
+      
+            
+              
                 <Form>
                   {form.inputs.map(input => (
                     <FormGroup row key={input.name}>
@@ -49,8 +44,10 @@ class _Form extends Component {
                         placeholder={input.placeholder}
                         required={input.required}
                         onBlur={onChange}
+                        onChange={input.onChange ? onChange : () =>{}}
                         innerRef={input.type === 'file' ? innerRef : null}
                         multiple={input.multiple}
+                        style={input.multiple && input.name !== 'files' ? {height: '15rem'} : {}}
                       >
                         {input.type === 'select' ? (
                           <React.Fragment>
@@ -86,11 +83,6 @@ class _Form extends Component {
                     </Col>
                   </FormGroup>
                 </Form>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      </div>
     );
   }
 }

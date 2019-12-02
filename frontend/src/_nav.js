@@ -107,5 +107,10 @@ export default {
       url: paths.ORDER + '/1',
       icon: "icon-wrench"
     },
+    // {
+    //   name: "Supplies",
+    //   url: '/supplies',
+    //   icon: "icon-wrench"
+    // },
   ]
 };
