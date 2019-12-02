@@ -29,7 +29,7 @@ export const qConfig = {
   props: props => {
 
     if(props.data.networkStatus === 7){
-      config.list = props.data.orders.nodes.map(order => {
+      config.table.body = props.data.orders.nodes.map(order => {
         order.createdAt = getLocaleDate(order.createdAt);
         order.href = getHrefPath(paths.ORDER, order.orderId);
         return order;
@@ -39,8 +39,7 @@ export const qConfig = {
     return {
       error: props.data.error,
       loading: props.data.loading,
-      columns: config.columns,
-      list: config.list,
+      table: config.table,
       title: config.title,
     }
   },

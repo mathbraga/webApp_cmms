@@ -64,7 +64,7 @@ class One extends Component {
                                 null
                               )}  
                               <tbody>
-                                {tab.table.rows.map((row, i) => (
+                                {tab.table.body.map((row, i) => (
                                   <tr key={i}>
                                     {tab.table.head.map((column, j) => (
                                       <React.Fragment>

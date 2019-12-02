@@ -13,7 +13,7 @@ export default {
             field: 'value'
           }
         ],
-        rows: [
+        body: [
           {
             name: 'title',
             label: 'Título',

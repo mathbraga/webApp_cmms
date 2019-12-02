@@ -11,7 +11,7 @@ class OrderOne extends Component {
 
   render() {
 
-    const { error, loading, one, files } = this.props;
+    const { error, loading, one } = this.props;
 
     if(error) return <p>{JSON.stringify(error)}</p>;
 

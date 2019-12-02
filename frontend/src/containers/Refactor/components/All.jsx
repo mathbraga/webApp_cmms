@@ -8,7 +8,7 @@ class All extends Component {
 
   render() {
 
-    const { columns, list, title } = this.props;
+    const { table, title } = this.props;
 
     return (
       <div className="animated fadeIn">
@@ -22,7 +22,7 @@ class All extends Component {
                 <Table hover>
                   <thead>
                     <tr>
-                      {columns.map(column => (
+                      {table.head.map(column => (
                         <th
                           key={column.field}
                         >{column.label}</th>
@@ -32,14 +32,14 @@ class All extends Component {
                     
                   </thead>
                   <tbody>
-                    {list.map((item, i) => (
+                    {table.body.map((row, i) => (
                       <tr key={i}>
-                        {columns.map(column => (
+                        {table.head.map(column => (
                           <td key={column.field}>
-                            {item[column.field]}
+                            {row[column.field]}
                           </td>
                         ))}
-                        <td><a href={item.href}><i className="fa fa-search"></i></a></td>
+                        <td><a href={row.href}><i className="fa fa-search"></i></a></td>
                       </tr>
                     ))}
                   </tbody>

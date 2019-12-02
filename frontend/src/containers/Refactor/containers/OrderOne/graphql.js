@@ -38,12 +38,12 @@ export const qConfig = {
     if(props.data.networkStatus === 7){
       const one = props.data.one.nodes[0];
       const { assets, supplies, files } = one;
-      config.tabs[iDetails].table.rows.forEach(row => {
+      config.tabs[iDetails].table.body.forEach(row => {
         row.value = one[row.field]
       });
-      config.tabs[iAssets].table.rows = assets ? assets : [];
-      config.tabs[iSupplies].table.rows = supplies ? supplies : [];
-      config.tabs[iFiles].table.rows = files ? files : [];
+      config.tabs[iAssets].table.body = assets ? assets : [];
+      config.tabs[iSupplies].table.body = supplies ? supplies : [];
+      config.tabs[iFiles].table.body = files ? files : [];
       config.title = 'Ordem de Serviço #'+ one.orderId;
     }
     return {

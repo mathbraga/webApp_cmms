@@ -11,7 +11,7 @@ class OrderAll extends Component {
 
   render() {
 
-    const { error, loading, columns, list, title } = this.props;
+    const { error, loading, table, title } = this.props;
 
     if(error) return <p>{JSON.stringify(error)}</p>;
 
@@ -20,8 +20,7 @@ class OrderAll extends Component {
     return (
       <All
         title={title}
-        columns={columns}
-        list={list}
+        table={table}
       />
     );
   }
