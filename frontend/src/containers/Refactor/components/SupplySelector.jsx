@@ -161,7 +161,7 @@ export const qQuery = gql`
 
 export const qConfig = {
   options: props => ({
-    variables: {contractId: 1},
+    variables: {contractId: Number(props.contractId)},
     fetchPolicy: 'no-cache',
     errorPolicy: 'ignore',
     pollInterval: 0,
