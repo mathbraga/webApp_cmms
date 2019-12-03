@@ -47,7 +47,7 @@ class _Form extends Component {
                         onChange={input.onChange ? onChange : () =>{}}
                         innerRef={input.type === 'file' ? innerRef : null}
                         multiple={input.multiple}
-                        style={input.multiple && input.name !== 'files' ? {height: '15rem'} : {}}
+                        style={input.multiple && input.name !== 'files' ? {height: '10rem'} : {}}
                       >
                         {input.type === 'select' ? (
                           <React.Fragment>
