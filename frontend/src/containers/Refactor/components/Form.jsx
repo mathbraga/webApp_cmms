@@ -70,7 +70,7 @@ class _Form extends Component {
                     </Col>
                   </FormGroup>
                   ))}
-                  <FormGroup row>
+                  {/* <FormGroup row>
                     <Col>
                       <Button
                         block
@@ -81,7 +81,7 @@ class _Form extends Component {
                       >{form.button}
                       </Button>
                     </Col>
-                  </FormGroup>
+                  </FormGroup> */}
                 </Form>
     );
   }

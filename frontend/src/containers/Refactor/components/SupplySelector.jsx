@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { 
+import {
+  Badge,
+  Table,
   Button,
   Card,
   CardBody,
@@ -21,12 +23,42 @@ class SupplySelector extends Component {
     this.state = {
       selected: [],
     }
-    this.handleSelect = this.handleSelect.bind(this);
+    this.addSupply = this.addSupply.bind(this);
+    this.removeSupply = this.removeSupply.bind(this);
+    this.handleQty = this.handleQty.bind(this);
   }
 
-  handleSelect(event){
-    this.setState({ selected: getSupplyList(event.target.options, this.props.options)})
+  addSupply(event){
+    event.persist();
+    event.preventDefault();
+    const name = event.target.name;
+    const value = event.target.value;
+    console.log(event)
+    this.setState(prevState => {
+      if(prevState.selected.includes(name)){
+        return {
+          selected: prevState.selected,
+        };
+      } else {
+        return {
+          selected: [...prevState.selected, Number(name)]
+        };
+      }
+    });
   }
+
+  removeSupply(event){
+    event.persist();
+    event.preventDefault();
+    // console.log(event.target.name) 
+  }
+
+  handleQty(event){
+    event.persist();
+    const i = event.target.name;
+    const value = event.target.value;
+  }
+  
 
   render() {
 
@@ -34,95 +66,92 @@ class SupplySelector extends Component {
 
     return (
       <Card>
-              <CardHeader>
-                <strong>{"Materiais e Serviços"}</strong>
-              </CardHeader>
-              <CardBody>
-                <Form>
-                    <FormGroup row>
-                      <Col>Materiais e Serviços</Col>
-                    <Col xs="12">
-                      <Input
-                        style={{height:'15rem'}}
-                        type="select"
-                        id="supplies"
-                        name="supplies"
-                        onChange={this.handleSelect}
-                        multiple={true}
-                      >
-                        {options ? (
-                        <React.Fragment>
-                          {options.map(supply => 
-                          <option
-                            key={supply.supplyId}
-                            value={supply.supplyId}
-                          >{supply.supplySf + ' - ' + supply.name}</option>
-                        )}
-                        </React.Fragment>
-                      ) : (
-                        <option disabled>Selecione um contrato antes de definir os materiais e serviços</option>
-                      )}
-                      </Input>
-                    </Col>
-                  </FormGroup>
+        <CardHeader>{"Materiais e Serviços"}</CardHeader>
+        <CardBody>
+          <Table hover borderless size='sm' style={{display: 'block', height: '10rem', overflow: 'scroll'}}>
+            <tbody>
+              {options.map((supply, i) => (
+                <tr key={i}>
+                  <td>
+                    <Badge
+                      size='sm'
+                      name={supply.supplyId}
+                      // value={supply}
+                      href={"#"}
+                      color='success'
+                      onClick={this.addSupply}
+                    >+</Badge>
+                    &nbsp;&nbsp;
+                    {supply.supplySf + ' - ' + supply.name}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <hr/>
+
+
+          <p style={{textAlign: 'right'}}><em>Nenhum item selecionado</em></p>
+          <p style={{textAlign: 'right'}}><em>Defina as quantidades</em></p>
 
 
 
-
-                  {this.state.selected ? (
-                  <React.Fragment>
-                    <Row className="mb-4">
-                      <Col xs="10"><strong>Selecionados</strong></Col>
-                      <Col xs="2"><strong>Qtd.</strong></Col>
-                    </Row>
-                    {this.state.selected.map((item, i) => (
-                      <FormGroup row>
-                        <Col xs="10">
-                          <Label>{item.supplySf + ' - ' + item.name}</Label>
-                        </Col>
-                        <Col xs="2">
-                          <Input
-                            type="text"
-                            id={i}
-                            name={'supply-qty'}
-                            onChange={onChange}
-                          >
-                          </Input>
-                        </Col>
-                      </FormGroup>
-                    ))}
-                  </React.Fragment>
-                  ) : (
-                    <p>Nenhum item selecionado.</p>
-                  )}
-
-
-
-
-                </Form>
-              </CardBody>
-            </Card>
+          <Table hover borderless size='sm'>
+            <tbody>
+              {options.map((supply, i) => {
+                if(this.state.selected.includes(supply.supplyId)){
+                  return (
+                    <tr key={supply.supplyId}>
+                  <td>
+                    <Badge
+                      name={supply}
+                      value={supply}
+                      href={"#"}
+                      color='danger'
+                      onClick={this.removeSupply}
+                    >X
+                    </Badge>
+                    &nbsp;&nbsp;
+                    {supply.supplySf + ' - ' + supply.name}
+                  </td>
+                  <td style={{width: '5rem'}}>
+                  <Input
+                    name={i}
+                    bsSize='sm'
+                    placeholder={supply.unit}
+                    onChange={this.handleQty}
+                  ></Input>
+                  </td>
+                </tr>
+                  )
+                } else {
+                  return null;
+                }
+              })}
+            </tbody>
+          </Table>
+        </CardBody>
+      </Card>
     );
   }
 }
 
-
-
-export const QQuery = gql`
+export const qQuery = gql`
   query ($contractId: Int) {
     supplies: allSuppliesLists(condition: {contractId: $contractId}) {
       nodes {
         supplyId
         supplySf
         name
+        unit
       }
     }
   }
 `;
 
-export const QConfig = {
+export const qConfig = {
   options: props => ({
-    variables: {contractId: Number(props.contractId)},
+    variables: {contractId: 1},
     fetchPolicy: 'no-cache',
     errorPolicy: 'ignore',
     pollInterval: 0,
@@ -142,11 +171,11 @@ export const QConfig = {
       options: options ? options : [],
     }
   },
-  skip: props => !props.contractId,
+  skip: false,//props => !props.contractId,
   // name: ,
   // withRef: ,
   // alias: ,
 };
 
 
-export default graphql(QQuery, QConfig)(SupplySelector);
+export default graphql(qQuery, qConfig)(SupplySelector);

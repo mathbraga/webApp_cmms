@@ -30,7 +30,7 @@ export const qConfig = {
 
     if(props.data.networkStatus === 7){
       config.table.body = props.data.orders.nodes.map(order => {
-        order.createdAt = getLocaleDate(order.createdAt);
+        // order.createdAt = getLocaleDate(order.createdAt);
         order.href = getHrefPath(paths.ORDER, order.orderId);
         return order;
       });

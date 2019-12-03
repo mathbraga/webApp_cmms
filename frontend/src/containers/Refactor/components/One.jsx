@@ -25,7 +25,7 @@ class One extends Component {
             <Card>
               <CardHeader>
                 <Navbar color="light" light expand="xs">
-                  <NavbarBrand >{one.title}</NavbarBrand>
+                  <NavbarBrand ><h3>{one.title}</h3></NavbarBrand>
                   <Nav>
                     {one.tabs.map(tab => (
                       <NavItem key={tab.tabName}>
@@ -49,7 +49,7 @@ class One extends Component {
                       {one.tabs.map(tab => (
                         <React.Fragment key={tab.tabName}>
                           {this.state.activeTab === tab.tabName ? (
-                            <Table>
+                            <Table size='sm'>
                               {!tab.table.noHead ? (
                                 <thead>
                                   <tr>

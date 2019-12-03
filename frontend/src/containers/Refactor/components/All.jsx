@@ -16,10 +16,10 @@ class All extends Component {
           <Col xs="9">
             <Card>
               <CardHeader>
-                <strong>{title}</strong>
+                <h3>{title}</h3>
               </CardHeader>
               <CardBody>
-                <Table hover>
+                <Table hover size='sm'>
                   <thead>
                     <tr>
                       {table.head.map(column => (

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Card, CardBody, CardHeader } from 'reactstrap';
+import { Row, Col, Card, CardBody, CardHeader,   CardFooter, Button, } from 'reactstrap';
 import _Form from '../../components/Form';
 import _Spinner from '../../components/Spinner';
 import { graphql } from 'react-apollo';
@@ -25,6 +25,7 @@ class OrderForm extends Component {
 
   handleChange(event) {
     event.persist();
+    // console.log(event.target.options);
     const name = event.target.name;
     const value = event.target.value;
     const options = event.target.options;
@@ -76,34 +77,47 @@ class OrderForm extends Component {
     
     return (
       <div className="animated fadeIn">
-      
-            <Card>
-              <CardHeader>
-                  <strong>{form.title}</strong>
-                </CardHeader>
-                <CardBody>
-              <Row>
-                <Col xs="6">
-                <_Form
-                  form={form}
-                  innerRef={this.innerRef}
+        <Card>
+          <CardHeader>
+            <Row>
+              <Col><h3>{form.title}</h3></Col>
+              <Col>
+                <div style={{textAlign: 'right'}}>
+                  <Button>X</Button>
+                </div></Col>
+            </Row>
+          </CardHeader>
+          <CardBody>
+            <Row>
+              <Col sm="12" md="6">
+              <_Form
+                form={form}
+                innerRef={this.innerRef}
+                onChange={this.handleChange}
+                onSubmit={this.handleSubmit}
+                loading={loading}
+              />
+              </Col>
+              <Col sm="12" md="6">
+                <SupplySelector
+                  contractId={this.state.contractId}
+                  selected={this.state.supplies ? this.state.supplies : null}
                   onChange={this.handleChange}
-                  onSubmit={this.handleSubmit}
-                  loading={loading}
                 />
-                </Col>
-                <Col>
-                  <SupplySelector
-                    contractId={this.state.contractId}
-                    selected={this.state.supplies ? this.state.supplies : null}
-                    onChange={this.handleChange}
-                  />
-                </Col>
-              </Row>
-              </CardBody>
-
-            </Card>
-
+              </Col>
+            </Row>
+          </CardBody>
+          <CardFooter>
+                  <Button
+                    block
+                    disabled={loading}
+                    type="button"
+                    color="primary"
+                    onClick={this.handleSubmit}
+                  >{form.button}
+                  </Button>
+          </CardFooter>
+        </Card>
       </div>
     );
   }
