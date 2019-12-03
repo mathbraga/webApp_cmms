@@ -73,8 +73,10 @@ class SupplySelector extends Component {
 
     return (
       <Card>
-        <CardHeader>{"Materiais e Serviços"}</CardHeader>
+        {/* <CardHeader>{"Materiais e Serviços"}</CardHeader> */}
+
         <CardBody>
+        <p><strong>Materiais e Serviços</strong></p>
           <Table hover borderless size='sm' style={{display: 'block', height: '10rem', overflow: 'scroll'}}>
             <tbody>
               {options.map((supply, i) => (

@@ -31,7 +31,10 @@ class _Form extends Component {
                   {form.inputs.map(input => (
                     <FormGroup row key={input.name}>
                       <Col md="3">
-                        <Label>{input.label} {input.required ? ' *' : ''}
+                        <Label>
+                          <strong>
+                            {input.label} {input.required ? ' *' : ''}
+                          </strong>
                         </Label>
                       </Col>
                     <Col xs="12" md="9">
