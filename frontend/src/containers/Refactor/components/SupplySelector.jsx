@@ -96,45 +96,48 @@ class SupplySelector extends Component {
           </Table>
           <hr/>
 
-
-          <p style={{textAlign: 'right'}}><em>Nenhum item selecionado</em></p>
-          <p style={{textAlign: 'right'}}><em>Defina as quantidades</em></p>
-
-
-
-          <Table hover borderless size='sm'>
-            <tbody>
-              {this.state.selected.map((supplyId, i) => {
-                const sup = options.find(supply => supplyId === supply.supplyId)
-                  idx++;
-                  return (
-                    <tr key={sup.supplyId}>
-                  <td>
-                    <Badge
-                      name={sup.supplyId}
-                      href={"#"}
-                      color='danger'
-                      onClick={this.removeSupply}
-                    >X
-                    </Badge>
-                    &nbsp;&nbsp;
-                    {sup.supplySf + ' - ' + sup.name}
-                  </td>
-                  <td style={{width: '5rem'}}>
-                  <Input
-                    style={{textAlign: 'right'}}
-                    type='text'
-                    name={idx}
-                    bsSize='sm'
-                    placeholder={sup.unit}
-                    onBlur={this.handleQty}
-                  ></Input>
-                  </td>
-                </tr>
-                  )
-              })}
-            </tbody>
-          </Table>
+          {this.state.selected.length === 0 ? (
+            <p style={{textAlign: 'right'}}><em>Nenhum item selecionado</em></p>
+          ) : (
+            <React.Fragment>
+              <p style={{textAlign: 'right'}}><em>Defina as quantidades</em></p>
+              <Table hover borderless size='sm'>
+                <tbody>
+                  {this.state.selected.map((supplyId, i) => {
+                    const sup = options.find(supply => supplyId === supply.supplyId)
+                      idx++;
+                      return (
+                        <tr key={sup.supplyId}>
+                      <td>
+                        <Badge
+                          name={sup.supplyId}
+                          href={"#"}
+                          color='danger'
+                          onClick={this.removeSupply}
+                        >X
+                        </Badge>
+                        &nbsp;&nbsp;
+                        {sup.supplySf + ' - ' + sup.name}
+                      </td>
+                      <td style={{width: '5rem'}}>
+                      <Input
+                        style={{textAlign: 'right'}}
+                        type='text'
+                        name={idx}
+                        bsSize='sm'
+                        placeholder={sup.unit}
+                        onBlur={this.handleQty}
+                      ></Input>
+                      </td>
+                    </tr>
+                      )
+                  })}
+                </tbody>
+              </Table>
+            </React.Fragment>
+          )}
+          
+          
         </CardBody>
       </Card>
     );
