@@ -61,7 +61,7 @@ class SupplySelector extends Component {
     const name = event.target.name;
     const value = event.target.value;
     const newQty = [...this.state.qty];
-    newQty[name] = Number(value);
+    newQty[name] = value ===  '' ? null : Number(value);
     this.setState({ qty: newQty });
   }
   
