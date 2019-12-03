@@ -33,9 +33,9 @@ class SupplySelector extends Component {
     event.preventDefault();
     const name = event.target.name;
     const value = event.target.value;
-    console.log(event)
+    // console.log(event)
     this.setState(prevState => {
-      if(prevState.selected.includes(name)){
+      if(prevState.selected.includes(Number(name))){
         return {
           selected: prevState.selected,
         };
@@ -50,7 +50,12 @@ class SupplySelector extends Component {
   removeSupply(event){
     event.persist();
     event.preventDefault();
-    // console.log(event.target.name) 
+    console.log(event.target.name);
+    const newSelected = [...this.state.selected];
+    const name = event.target.name;
+    const i = this.state.selected.findIndex(el => el === Number(name));
+    newSelected.splice(i,1);
+    this.setState({ selected: newSelected });
   }
 
   handleQty(event){
@@ -104,7 +109,7 @@ class SupplySelector extends Component {
                     <tr key={supply.supplyId}>
                   <td>
                     <Badge
-                      name={supply}
+                      name={supply.supplyId}
                       value={supply}
                       href={"#"}
                       color='danger'
@@ -116,6 +121,8 @@ class SupplySelector extends Component {
                   </td>
                   <td style={{width: '5rem'}}>
                   <Input
+                    style={{textAlign: 'right'}}
+                    type='text'
                     name={i}
                     bsSize='sm'
                     placeholder={supply.unit}
