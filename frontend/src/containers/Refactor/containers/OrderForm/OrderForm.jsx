@@ -21,6 +21,7 @@ class OrderForm extends Component {
     this.innerRef = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   handleChange(event) {
@@ -57,6 +58,10 @@ class OrderForm extends Component {
     }
   }
 
+  handleCancel(){
+    this.props.history.goBack();
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     return this.props.mutate({
@@ -83,7 +88,9 @@ class OrderForm extends Component {
               <Col><h3>{form.title}</h3></Col>
               <Col>
                 <div style={{textAlign: 'right'}}>
-                  <Button>X</Button>
+                  <Button
+                    onClick={this.handleCancel}
+                  >X</Button>
                 </div></Col>
             </Row>
           </CardHeader>
@@ -95,6 +102,7 @@ class OrderForm extends Component {
                 innerRef={this.innerRef}
                 onChange={this.handleChange}
                 onSubmit={this.handleSubmit}
+                onCancel={this.handleCancel}
                 loading={loading}
               />
               </Col>
