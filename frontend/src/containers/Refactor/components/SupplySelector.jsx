@@ -36,7 +36,7 @@ class SupplySelector extends Component {
     this.setState(prevState => {
       if(!prevState.selected.includes(Number(name))){
         return {
-          selected: [...prevState.selected, Number(name)].sort((a, b) => (a - b)),
+          selected: [...prevState.selected, Number(name)],//.sort((a, b) => (a - b)),
           qty: [...prevState.qty, null],
         };
       }
