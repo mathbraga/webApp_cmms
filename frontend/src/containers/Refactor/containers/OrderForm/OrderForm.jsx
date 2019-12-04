@@ -29,6 +29,19 @@ class OrderForm extends Component {
     this.handleQty = this.handleQty.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState){
+    if(
+      nextProps.loading !== this.props.loading ||
+      nextState.assets !== this.state.assets ||
+      nextState.supplies !== this.state.supplies ||
+      nextState.contractId !== this.state.contractId
+    ){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   handleChange(event) {
     event.persist();
     // console.log(event.target.options);
