@@ -1,7 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const pgClient = require('../pg');
-const config = require('./config');
 
 passport.use(new LocalStrategy(
   {

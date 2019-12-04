@@ -1,5 +1,3 @@
-const config = require('./config');
-
 function logger(req, res, next){
 
   const date = new Date();
