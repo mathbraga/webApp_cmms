@@ -15,8 +15,8 @@ class OrderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      supplies: null,
-      qty: null,
+      selected: [],
+      qty: [],
     }
     this.innerRef = React.createRef();
     this.handleChange = this.handleChange.bind(this);
