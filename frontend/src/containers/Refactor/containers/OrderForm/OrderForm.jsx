@@ -7,7 +7,7 @@ import { compose } from 'redux';
 import { qQuery, qConfig, mQuery, mConfig, getVariables } from "./graphql";
 import getFiles from '../../utils/getFiles';
 import getMultipleSelect from '../../utils/getMultipleSelect';
-import SupplySelector from "../../components/SupplySelector";
+import MultipleSelect from "../MultipleSelect";
 
 class OrderForm extends Component {
   constructor(props) {
@@ -132,7 +132,7 @@ class OrderForm extends Component {
               />
               </Col>
               <Col sm="12" md="6">
-                <SupplySelector
+                <MultipleSelect
                   queryCondition={this.state.contractId}
                   selected={this.state.supplies}
                   addItem={this.addSupply}

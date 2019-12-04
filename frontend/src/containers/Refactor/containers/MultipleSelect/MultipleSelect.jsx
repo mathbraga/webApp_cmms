@@ -2,21 +2,14 @@ import React, { Component } from "react";
 import {
   Badge,
   Table,
-  Button,
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Form,
-  FormGroup,
   Input,
-  Label,
-  Row,
 } from 'reactstrap';
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import { qQuery, qConfig } from './graphql';
 
-class SupplySelector extends Component {
+class MultipleSelect extends Component {
   constructor(props) {
     super(props);
   }
@@ -97,46 +90,4 @@ class SupplySelector extends Component {
   }
 }
 
-export const qQuery = gql`
-  query ($contractId: Int) {
-    supplies: allSuppliesLists(condition: {contractId: $contractId}) {
-      nodes {
-        supplyId
-        supplySf
-        name
-        unit
-      }
-    }
-  }
-`;
-
-export const qConfig = {
-  options: props => ({
-    variables: {contractId: Number(props.queryCondition)},
-    fetchPolicy: 'no-cache',
-    errorPolicy: 'ignore',
-    pollInterval: 0,
-    notifyOnNetworkStatusChange: false,
-  }),
-  props: props => {
-    
-    let options;
-
-    if(props.data.networkStatus === 7){
-      options = props.data.supplies.nodes;
-    }
-
-    return {
-      error: props.data.error,
-      loading: props.data.loading,
-      options: options ? options : [],
-    }
-  },
-  skip: false,//props => !props.contractId,
-  // name: ,
-  // withRef: ,
-  // alias: ,
-};
-
-
-export default graphql(qQuery, qConfig)(SupplySelector);
+export default graphql(qQuery, qConfig)(MultipleSelect);
