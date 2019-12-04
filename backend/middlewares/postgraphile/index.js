@@ -1,4 +1,5 @@
 const { postgraphile } = require('postgraphile');
+const paths = require('../../paths');
 
 module.exports = postgraphile(
   {
