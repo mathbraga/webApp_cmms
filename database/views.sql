@@ -149,6 +149,7 @@ select o.order_id,
 
 create view order_data as
   select o.*,
+         c.contract_sf || ' - ' || c.title as contract,
          a.assets,
          s.supplies,
          f.files
@@ -156,6 +157,7 @@ create view order_data as
     inner join assets_of_order as a using (order_id)
     left join supplies_of_order as s using (order_id)
     left join files_of_order as f using (order_id)
+    left join contracts as c using (contract_id)
 ;
 
 create view supplies_list as

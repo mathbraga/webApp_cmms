@@ -17,7 +17,7 @@ export const qQuery = gql`
         status
         priority
         category
-        contractId
+        contract
         departmentId
         createdBy
         contactName

@@ -40,9 +40,9 @@ export default {
             field: 'category'
           },
           {
-            name: 'contractId',
+            name: 'contract',
             label: 'Contrato',
-            field: 'contractId'
+            field: 'contract'
           },
           {
             name: 'departmentId',
