@@ -25,9 +25,74 @@ export default {
             field: 'description'
           },
           {
+            name: 'status',
+            label: 'Status',
+            field: 'status'
+          },
+          {
+            name: 'priority',
+            label: 'Prioridade',
+            field: 'priority'
+          },
+          {
             name: 'category',
             label: 'Categoria',
             field: 'category'
+          },
+          {
+            name: 'contractId',
+            label: 'Contrato',
+            field: 'contractId'
+          },
+          {
+            name: 'departmentId',
+            label: 'Departamento',
+            field: 'departmentId'
+          },
+          {
+            name: 'Criado por',
+            label: 'createdBy',
+            field: 'createdBy'
+          },
+          {
+            name: 'contactName',
+            label: 'Contato (nome)',
+            field: 'contactName'
+          },
+          {
+            name: 'contactPhone',
+            label: 'Contato (telefone)',
+            field: 'contactPhone'
+          },
+          {
+            name: 'contactEmail',
+            label: 'Contato (email)',
+            field: 'contactEmail'
+          },
+          {
+            name: 'place',
+            label: 'Local (referência)',
+            field: 'place'
+          },
+          {
+            name: 'progresso',
+            label: 'Progresso (%)',
+            field: 'dateLimit'
+          },
+          {
+            name: 'dateLimit',
+            label: 'Prazo de conclusão',
+            field: ''
+          },
+          {
+            name: 'dateStart',
+            label: 'Início da execução',
+            field: 'dateStart'
+          },
+          {
+            name: 'dateEnd',
+            label: 'Data de conclusão',
+            field: 'dateEnd'
           },
         ]
       }

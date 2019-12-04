@@ -14,7 +14,20 @@ export const qQuery = gql`
         orderId
         title
         description
+        status
+        priority
         category
+        contractId
+        departmentId
+        createdBy
+        contactName
+        contactPhone
+        contactEmail
+        place
+        progress
+        dateLimit
+        dateStart
+        dateEnd
         assets
         supplies
         files
