@@ -1,4 +1,6 @@
-function middleware(req, res, next){
+const config = require('./config');
+
+function logger(req, res, next){
 
   const date = new Date();
 
@@ -22,4 +24,4 @@ function middleware(req, res, next){
   next();
 }
 
-module.exports = middleware;
+module.exports = logger;

@@ -31,7 +31,7 @@ const OrderForm = React.lazy(() => import("./containers/Refactor/containers/Orde
 const routes = [
   { path: paths.HOME, exact: true, component: MainPage },
   { path: paths.DASHBOARD, name: "Painel", component: Dashboard },
-  // { path: "/login", name: "Login", component: Login },
+  { path: "/login", name: "Login", component: Login },
   // { path: "/cadastro", name: "Cadastro", component: RegisterUser },
   // { path: "/perfil", name: "Perfil", component: Profile },
   // { path: "/energia", name: "Energia elétrica", component: ConsumptionMonitor },
