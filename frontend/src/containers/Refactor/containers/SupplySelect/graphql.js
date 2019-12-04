@@ -23,17 +23,22 @@ export const qConfig = {
     notifyOnNetworkStatusChange: false,
   }),
   props: props => {
-    
-    let options;
 
     if(props.data.networkStatus === 7){
-      options = props.data.supplies.nodes;
+      config.options = props.data.supplies.nodes.map(supply => {
+        return {
+          id: supply.supplyId,
+          sf: supply.supplySf,
+          name: supply.name,
+          placeholder: supply.unit,
+        }
+      });
     }
 
     return {
       error: props.data.error,
       loading: props.data.loading,
-      options: options ? options : [],
+      config: config,
     }
   },
   skip: false,//props => !props.contractId,

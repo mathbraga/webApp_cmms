@@ -17,13 +17,6 @@ export const qQuery = gql`
         title
       }
     }
-    assets: allAssets {
-      nodes {
-        assetId
-        assetSf
-        name
-      }
-    }
     statuses: __type (name: "OrderStatusType") {
       enumValues {
         name
@@ -57,10 +50,10 @@ export const qConfig = {
         value: contract.contractId,
         text: contract.contractSf + ' - ' + contract.title,
       }));
-      config.inputs[iAssets].options = props.data.assets.nodes.map(asset => ({
-        value: asset.assetId,
-        text: asset.assetSf + ' - ' + asset.name,
-      }));
+      // config.inputs[iAssets].options = props.data.assets.nodes.map(asset => ({
+      //   value: asset.assetId,
+      //   text: asset.assetSf + ' - ' + asset.name,
+      // }));
       config.inputs[iCategory].options = props.data.categories.enumValues.map(category => ({
         value: category.name,
         text: category.name,
@@ -161,7 +154,7 @@ export function getVariables(state){
       dateStart: state.dateStart ? state.dateStart : null,
       dateEnd: state.dateEnd ? state.dateEnd : null,
     },
-    assets: state.assets ? state.assets : [1],
+    assets: state.assets.length !== 0 ? state.assets : null,
     supplies: state.supplies.length !== 0 ? state.supplies : null,
     qty: state.qty.length !== 0 ? state.qty : null,
   }

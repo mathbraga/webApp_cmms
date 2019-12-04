@@ -7,12 +7,14 @@ import { compose } from 'redux';
 import { qQuery, qConfig, mQuery, mConfig, getVariables } from "./graphql";
 import getFiles from '../../utils/getFiles';
 import getMultipleSelect from '../../utils/getMultipleSelect';
-import MultipleSelect from "../MultipleSelect";
+import AssetSelect from "../AssetSelect";
+import SupplySelect from "../SupplySelect";
 
 class OrderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      assets: [],
       supplies: [],
       qty: [],
     }
@@ -20,6 +22,8 @@ class OrderForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.addAsset = this.addAsset.bind(this);
+    this.removeAsset = this.removeAsset.bind(this);
     this.addSupply = this.addSupply.bind(this);
     this.removeSupply = this.removeSupply.bind(this);
     this.handleQty = this.handleQty.bind(this);
@@ -47,6 +51,30 @@ class OrderForm extends Component {
     }
   }
 
+  addAsset(event){
+    event.persist();
+    event.preventDefault();
+    const name = event.target.name;
+    this.setState(prevState => {
+      if(!prevState.assets.includes(Number(name))){
+        return {
+          assets: [...prevState.assets, Number(name)],
+        };
+      }
+    });
+  }
+
+  removeAsset(event){
+    event.persist();
+    event.preventDefault();
+    console.log(event.target.name);
+    const newAssets = [...this.state.assets];
+    const name = event.target.name;
+    const i = this.state.assets.findIndex(el => el === Number(name));
+    newAssets.splice(i,1);
+    this.setState({ assets: newAssets, });
+  }
+
   addSupply(event){
     event.persist();
     event.preventDefault();
@@ -54,7 +82,7 @@ class OrderForm extends Component {
     this.setState(prevState => {
       if(!prevState.supplies.includes(Number(name))){
         return {
-          supplies: [...prevState.supplies, Number(name)],//.sort((a, b) => (a - b)),
+          supplies: [...prevState.supplies, Number(name)],
           qty: [...prevState.qty, null],
         };
       }
@@ -132,7 +160,14 @@ class OrderForm extends Component {
               />
               </Col>
               <Col sm="12" md="6">
-                <MultipleSelect
+                <AssetSelect
+                  queryCondition={null}
+                  selected={this.state.assets}
+                  addItem={this.addAsset}
+                  removeItem={this.removeAsset}
+                  handleQty={() => {}}
+                />
+                <SupplySelect
                   queryCondition={this.state.contractId}
                   selected={this.state.supplies}
                   addItem={this.addSupply}

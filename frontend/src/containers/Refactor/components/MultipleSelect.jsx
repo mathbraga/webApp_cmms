@@ -6,8 +6,6 @@ import {
   CardBody,
   Input,
 } from 'reactstrap';
-import { graphql } from 'react-apollo';
-import { qQuery, qConfig } from './graphql';
 
 class MultipleSelect extends Component {
   constructor(props) {
@@ -16,27 +14,27 @@ class MultipleSelect extends Component {
 
   render() {
 
-    const { queryCondition, options, selected, addItem, removeItem, handleQty } = this.props;
+    const { config, selected, addItem, removeItem, handleQty } = this.props;
     let idx = -1;
 
     return (
       <Card>
         <CardBody>
-          <p><strong>Materiais e Serviços</strong></p>
+          <p><strong>{config.label}</strong></p>
           <Table hover borderless size='sm' style={{display: 'block', height: '10rem', overflow: 'scroll'}}>
             <tbody>
-              {options.map((option, i) => (
+              {config.options.map((option, i) => (
                 <tr key={i}>
                   <td>
                     <Badge
                       size='sm'
-                      name={option.supplyId}
+                      name={option.id}
                       href={"#"}
                       color='success'
                       onClick={addItem}
                     >+</Badge>
                     &nbsp;&nbsp;
-                    {option.supplySf + ' - ' + option.name}
+                    {option.sf + ' - ' + option.name}
                   </td>
                 </tr>
               ))}
@@ -52,20 +50,20 @@ class MultipleSelect extends Component {
               <Table hover borderless size='sm'>
                 <tbody>
                   {selected.map((selectedId, i) => {
-                    const selectedItem = options.find(option => selectedId === option.supplyId)
+                    const selectedItem = config.options.find(option => selectedId === option.id)
                       idx++;
                       return (
-                        <tr key={selectedItem.supplyId}>
+                        <tr key={selectedItem.id}>
                       <td>
                         <Badge
-                          name={selectedItem.supplyId}
+                          name={selectedItem.id}
                           href={"#"}
                           color='danger'
                           onClick={removeItem}
                         >X
                         </Badge>
                         &nbsp;&nbsp;
-                        {selectedItem.supplySf + ' - ' + selectedItem.name}
+                        {selectedItem.sf + ' - ' + selectedItem.name}
                       </td>
                       <td style={{width: '5rem'}}>
                       <Input
@@ -73,7 +71,7 @@ class MultipleSelect extends Component {
                         type='text'
                         name={idx}
                         bsSize='sm'
-                        placeholder={selectedItem.unit}
+                        placeholder={selectedItem.placeholder}
                         onBlur={handleQty}
                       ></Input>
                       </td>
@@ -90,4 +88,4 @@ class MultipleSelect extends Component {
   }
 }
 
-export default graphql(qQuery, qConfig)(MultipleSelect);
+export default MultipleSelect;
