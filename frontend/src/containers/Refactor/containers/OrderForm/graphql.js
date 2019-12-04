@@ -93,12 +93,16 @@ export const mQuery = gql`
 mutation MutationWithUpload (
   $attributes: OrderInput!,
   $assets: [Int!]!,
+  $supplies: [Int],
+  $qty: [Float],
   $filesMetadata: [FileMetadatumInput]
 ) {
   insertOrder(
     input: {
       attributes: $attributes
       assets: $assets
+      supplies: $supplies
+      qty: $qty
       filesMetadata: $filesMetadata
     }
   ) {
@@ -158,5 +162,7 @@ export function getVariables(state){
       dateEnd: state.dateEnd ? state.dateEnd : null,
     },
     assets: state.assets ? state.assets : [1],
+    supplies: state.supplies.length !== 0 ? state.supplies : null,
+    qty: state.qty.length !== 0 ? state.qty : null,
   }
 };

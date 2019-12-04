@@ -15,40 +15,35 @@ import {
 } from 'reactstrap';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import getSupplyList from '../utils/getSupplyList';
 
 class SupplySelector extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    }
   }
 
   render() {
 
-    const { contractId, options, selected, addSupply, removeSupply, handleQty } = this.props;
+    const { queryCondition, options, selected, addItem, removeItem, handleQty } = this.props;
     let idx = -1;
 
     return (
       <Card>
-        {/* <CardHeader>{"Materiais e Serviços"}</CardHeader> */}
-
         <CardBody>
-        <p><strong>Materiais e Serviços</strong></p>
+          <p><strong>Materiais e Serviços</strong></p>
           <Table hover borderless size='sm' style={{display: 'block', height: '10rem', overflow: 'scroll'}}>
             <tbody>
-              {options.map((supply, i) => (
+              {options.map((option, i) => (
                 <tr key={i}>
                   <td>
                     <Badge
                       size='sm'
-                      name={supply.supplyId}
+                      name={option.supplyId}
                       href={"#"}
                       color='success'
-                      onClick={addSupply}
+                      onClick={addItem}
                     >+</Badge>
                     &nbsp;&nbsp;
-                    {supply.supplySf + ' - ' + supply.name}
+                    {option.supplySf + ' - ' + option.name}
                   </td>
                 </tr>
               ))}
@@ -63,21 +58,21 @@ class SupplySelector extends Component {
               <p style={{textAlign: 'right'}}><em>Defina as quantidades</em></p>
               <Table hover borderless size='sm'>
                 <tbody>
-                  {selected.map((supplyId, i) => {
-                    const sup = options.find(supply => supplyId === supply.supplyId)
+                  {selected.map((selectedId, i) => {
+                    const selectedItem = options.find(option => selectedId === option.supplyId)
                       idx++;
                       return (
-                        <tr key={sup.supplyId}>
+                        <tr key={selectedItem.supplyId}>
                       <td>
                         <Badge
-                          name={sup.supplyId}
+                          name={selectedItem.supplyId}
                           href={"#"}
                           color='danger'
-                          onClick={removeSupply}
+                          onClick={removeItem}
                         >X
                         </Badge>
                         &nbsp;&nbsp;
-                        {sup.supplySf + ' - ' + sup.name}
+                        {selectedItem.supplySf + ' - ' + selectedItem.name}
                       </td>
                       <td style={{width: '5rem'}}>
                       <Input
@@ -85,7 +80,7 @@ class SupplySelector extends Component {
                         type='text'
                         name={idx}
                         bsSize='sm'
-                        placeholder={sup.unit}
+                        placeholder={selectedItem.unit}
                         onBlur={handleQty}
                       ></Input>
                       </td>
@@ -96,8 +91,6 @@ class SupplySelector extends Component {
               </Table>
             </React.Fragment>
           )}
-          
-          
         </CardBody>
       </Card>
     );
@@ -119,7 +112,7 @@ export const qQuery = gql`
 
 export const qConfig = {
   options: props => ({
-    variables: {contractId: Number(props.contractId)},
+    variables: {contractId: Number(props.queryCondition)},
     fetchPolicy: 'no-cache',
     errorPolicy: 'ignore',
     pollInterval: 0,

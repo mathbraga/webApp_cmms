@@ -122,6 +122,8 @@ end; $$;
 create or replace function insert_order (
   in attributes orders,
   in assets integer[],
+  in supplies integer[],
+  in qty real[],
   in files_metadata file_metadata[],
   out result integer
 )
@@ -152,6 +154,10 @@ begin
   ) returning order_id into result;
 
   insert into order_assets select result, unnest(assets);
+
+  if supplies is not null then
+    insert into order_supplies select result, unnest(supplies), unnest(qty);
+  end if;
 
   insert into order_files
     select result,

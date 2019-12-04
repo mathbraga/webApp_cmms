@@ -7,15 +7,13 @@ import { compose } from 'redux';
 import { qQuery, qConfig, mQuery, mConfig, getVariables } from "./graphql";
 import getFiles from '../../utils/getFiles';
 import getMultipleSelect from '../../utils/getMultipleSelect';
-import getSupplyList from '../../utils/getSupplyList';
-import getSuppliesQty from '../../utils/getSuppliesQty';
 import SupplySelector from "../../components/SupplySelector";
 
 class OrderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: [],
+      supplies: [],
       qty: [],
     }
     this.innerRef = React.createRef();
@@ -43,7 +41,7 @@ class OrderForm extends Component {
     //   // this.setState(prevState => ({ qty: getSuppliesQty(options), }));
     } else {
       if(name === 'contractId'){
-        this.setState({ selected: [], qty: [] })
+        this.setState({ supplies: [], qty: [] })
       }
       this.setState({ [name]: value });
     }
@@ -54,9 +52,9 @@ class OrderForm extends Component {
     event.preventDefault();
     const name = event.target.name;
     this.setState(prevState => {
-      if(!prevState.selected.includes(Number(name))){
+      if(!prevState.supplies.includes(Number(name))){
         return {
-          selected: [...prevState.selected, Number(name)],//.sort((a, b) => (a - b)),
+          supplies: [...prevState.supplies, Number(name)],//.sort((a, b) => (a - b)),
           qty: [...prevState.qty, null],
         };
       }
@@ -67,13 +65,13 @@ class OrderForm extends Component {
     event.persist();
     event.preventDefault();
     console.log(event.target.name);
-    const newSelected = [...this.state.selected];
+    const newSupplies = [...this.state.supplies];
     const newQty = [...this.state.qty];
     const name = event.target.name;
-    const i = this.state.selected.findIndex(el => el === Number(name));
-    newSelected.splice(i,1);
+    const i = this.state.supplies.findIndex(el => el === Number(name));
+    newSupplies.splice(i,1);
     newQty.splice(i,1);
-    this.setState({ selected: newSelected, qty: newQty });
+    this.setState({ supplies: newSupplies, qty: newQty });
   }
 
   handleQty(event){
@@ -81,7 +79,7 @@ class OrderForm extends Component {
     const name = event.target.name;
     const value = event.target.value;
     const newQty = [...this.state.qty];
-    newQty[name] = value ===  '' ? null : Number(value);
+    newQty[name] = value ===  '' ? null : Number(value.replace(',', '.'));
     this.setState({ qty: newQty });
   }
 
@@ -135,10 +133,10 @@ class OrderForm extends Component {
               </Col>
               <Col sm="12" md="6">
                 <SupplySelector
-                  contractId={this.state.contractId}
-                  selected={this.state.selected}
-                  addSupply={this.addSupply}
-                  removeSupply={this.removeSupply}
+                  queryCondition={this.state.contractId}
+                  selected={this.state.supplies}
+                  addItem={this.addSupply}
+                  removeItem={this.removeSupply}
                   handleQty={this.handleQty}
                 />
               </Col>
