@@ -21,54 +21,12 @@ class SupplySelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: [],
-      qty: [],
     }
-    this.addSupply = this.addSupply.bind(this);
-    this.removeSupply = this.removeSupply.bind(this);
-    this.handleQty = this.handleQty.bind(this);
   }
-
-  addSupply(event){
-    event.persist();
-    event.preventDefault();
-    const name = event.target.name;
-    this.setState(prevState => {
-      if(!prevState.selected.includes(Number(name))){
-        return {
-          selected: [...prevState.selected, Number(name)],//.sort((a, b) => (a - b)),
-          qty: [...prevState.qty, null],
-        };
-      }
-    });
-  }
-
-  removeSupply(event){
-    event.persist();
-    event.preventDefault();
-    console.log(event.target.name);
-    const newSelected = [...this.state.selected];
-    const newQty = [...this.state.qty];
-    const name = event.target.name;
-    const i = this.state.selected.findIndex(el => el === Number(name));
-    newSelected.splice(i,1);
-    newQty.splice(i,1);
-    this.setState({ selected: newSelected, qty: newQty });
-  }
-
-  handleQty(event){
-    event.persist();
-    const name = event.target.name;
-    const value = event.target.value;
-    const newQty = [...this.state.qty];
-    newQty[name] = value ===  '' ? null : Number(value);
-    this.setState({ qty: newQty });
-  }
-  
 
   render() {
 
-    const { contractId, options, selected, onChange } = this.props;
+    const { contractId, options, selected, addSupply, removeSupply, handleQty } = this.props;
     let idx = -1;
 
     return (
@@ -87,7 +45,7 @@ class SupplySelector extends Component {
                       name={supply.supplyId}
                       href={"#"}
                       color='success'
-                      onClick={this.addSupply}
+                      onClick={addSupply}
                     >+</Badge>
                     &nbsp;&nbsp;
                     {supply.supplySf + ' - ' + supply.name}
@@ -98,14 +56,14 @@ class SupplySelector extends Component {
           </Table>
           <hr/>
 
-          {this.state.selected.length === 0 ? (
+          {selected.length === 0 ? (
             <p style={{textAlign: 'right'}}><em>Nenhum item selecionado</em></p>
           ) : (
             <React.Fragment>
               <p style={{textAlign: 'right'}}><em>Defina as quantidades</em></p>
               <Table hover borderless size='sm'>
                 <tbody>
-                  {this.state.selected.map((supplyId, i) => {
+                  {selected.map((supplyId, i) => {
                     const sup = options.find(supply => supplyId === supply.supplyId)
                       idx++;
                       return (
@@ -115,7 +73,7 @@ class SupplySelector extends Component {
                           name={sup.supplyId}
                           href={"#"}
                           color='danger'
-                          onClick={this.removeSupply}
+                          onClick={removeSupply}
                         >X
                         </Badge>
                         &nbsp;&nbsp;
@@ -128,7 +86,7 @@ class SupplySelector extends Component {
                         name={idx}
                         bsSize='sm'
                         placeholder={sup.unit}
-                        onBlur={this.handleQty}
+                        onBlur={handleQty}
                       ></Input>
                       </td>
                     </tr>

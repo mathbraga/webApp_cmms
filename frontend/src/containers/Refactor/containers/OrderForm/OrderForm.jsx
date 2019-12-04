@@ -22,6 +22,9 @@ class OrderForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.addSupply = this.addSupply.bind(this);
+    this.removeSupply = this.removeSupply.bind(this);
+    this.handleQty = this.handleQty.bind(this);
   }
 
   handleChange(event) {
@@ -40,22 +43,46 @@ class OrderForm extends Component {
     //   // this.setState(prevState => ({ qty: getSuppliesQty(options), }));
     } else {
       if(name === 'contractId'){
-        console.log('here')
-        this.setState({ supplies: null})
+        this.setState({ selected: [], qty: [] })
       }
       this.setState({ [name]: value });
     }
   }
 
-  handleSupplies(event){
+  addSupply(event){
+    event.persist();
+    event.preventDefault();
+    const name = event.target.name;
+    this.setState(prevState => {
+      if(!prevState.selected.includes(Number(name))){
+        return {
+          selected: [...prevState.selected, Number(name)],//.sort((a, b) => (a - b)),
+          qty: [...prevState.qty, null],
+        };
+      }
+    });
+  }
+
+  removeSupply(event){
+    event.persist();
+    event.preventDefault();
+    console.log(event.target.name);
+    const newSelected = [...this.state.selected];
+    const newQty = [...this.state.qty];
+    const name = event.target.name;
+    const i = this.state.selected.findIndex(el => el === Number(name));
+    newSelected.splice(i,1);
+    newQty.splice(i,1);
+    this.setState({ selected: newSelected, qty: newQty });
+  }
+
+  handleQty(event){
     event.persist();
     const name = event.target.name;
-    const options = event.target.options;
-    if (name === 'supplies'){
-    this.setState({ supplies: getMultipleSelect(options), });
-    } else if (name === 'supply-qty'){
-      this.setState(prevState => ({ qty: getSuppliesQty(event), }));
-    }
+    const value = event.target.value;
+    const newQty = [...this.state.qty];
+    newQty[name] = value ===  '' ? null : Number(value);
+    this.setState({ qty: newQty });
   }
 
   handleCancel(){
@@ -109,8 +136,10 @@ class OrderForm extends Component {
               <Col sm="12" md="6">
                 <SupplySelector
                   contractId={this.state.contractId}
-                  selected={this.state.supplies ? this.state.supplies : null}
-                  onChange={this.handleChange}
+                  selected={this.state.selected}
+                  addSupply={this.addSupply}
+                  removeSupply={this.removeSupply}
+                  handleQty={this.handleQty}
                 />
               </Col>
             </Row>
