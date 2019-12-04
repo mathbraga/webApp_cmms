@@ -85,36 +85,6 @@ const cronConfig = {
   timezone: 'America/Sao_Paulo',
 };
 
-const multerConfig = {
-  diskStorage: {
-    destination: function (req, file, cb) {
-      
-      /* Example of file:
-        {
-          fieldname: 'avatar',
-          originalname: 'originalnamefromfrontend.jpeg',
-          encoding: '7bit',
-          mimetype: 'image/jpeg'
-        }
-      */
-  
-    // console.log(file);
-    let folder = 'files/'
-      if(file.fieldname === 'image'){
-        folder = 'public/images/';
-      }
-      cb(null, folder);
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    }
-  },
-  fields: [
-    { name: 'image', maxCount: 1 },
-    { name: 'files', maxCount: 10 },
-  ],
-};
-
 module.exports = {
   corsConfig,
   staticConfig,
@@ -123,5 +93,4 @@ module.exports = {
   pgClient,
   postgraphileConfig,
   cronConfig,
-  multerConfig
 };
