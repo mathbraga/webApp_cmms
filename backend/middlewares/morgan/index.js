@@ -7,6 +7,8 @@ morgan.token('user', req => (
   '    Session: ' + JSON.stringify(req.session)
 ));
 
+morgan.token('body', req => (JSON.stringify(req.body)));
+
 module.exports = morgan(`
 :separator
 :date[iso]    :remote-addr    :method    :url    :status    :response-time
