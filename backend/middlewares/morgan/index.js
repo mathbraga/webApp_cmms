@@ -11,5 +11,4 @@ morgan.token('user', req => (
 module.exports = morgan(`
 :separator
 :date[iso]    :remote-addr    :method    :url    :status    :response-time
-:user
-`);
+:user`);
