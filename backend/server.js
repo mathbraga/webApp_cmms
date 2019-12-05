@@ -18,7 +18,7 @@ const json = require('./middlewares/express-json');
 const static = require('./middlewares/express-static');
 const cookieSession = require('./middlewares/cookie-session');
 const passport = require('./middlewares/passport');
-const logger = require('./middlewares/logger');
+const morgan = require('./middlewares/morgan');
 const postgraphile = require('./middlewares/postgraphile');
 // const cron = require('./middlewares/cron');
 
@@ -29,7 +29,7 @@ app.use(static);
 app.use(cookieSession);
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(logger);
+app.use(morgan);
 
 // Routes
 app.use(paths.auth, authRoute);

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Card, CardBody, CardHeader,   CardFooter, Button, } from 'reactstrap';
+import { Row, Col, Card, CardBody, CardHeader, CardFooter, Button, } from 'reactstrap';
 import _Form from '../../components/Form';
 import _Spinner from '../../components/Spinner';
 import { graphql } from 'react-apollo';
