@@ -49,7 +49,7 @@ class One extends Component {
                       {one.tabs.map(tab => (
                         <React.Fragment key={tab.tabName}>
                           {this.state.activeTab === tab.tabName ? (
-                            <Table size='sm'>
+                            <Table hover size='sm'>
                               {!tab.table.noHead ? (
                                 <thead>
                                   <tr>
@@ -58,6 +58,11 @@ class One extends Component {
                                         {column.label}
                                       </th>
                                     ))}
+                                    {tab.tabName !== 'details' ? (
+                                      <th></th>
+                                    ) : (
+                                      null
+                                    )}
                                   </tr>
                                 </thead>
                               ) : (
@@ -79,6 +84,17 @@ class One extends Component {
                                         )}
                                       </React.Fragment>
                                     ))}
+                                    {tab.tabName !== 'details' ? (
+                                      <td>
+                                        <a href={row.href}>
+                                          <i
+                                            className={tab.tabName === 'files' ? 'fa fa-download' : 'fa fa-search'}
+                                          ></i>
+                                        </a>
+                                      </td>
+                                    ) : (
+                                      null
+                                    )}
                                   </tr>
                                 ))}
                               </tbody>
