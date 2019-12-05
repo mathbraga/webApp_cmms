@@ -4,7 +4,6 @@ morgan.token('separator', () => ('----------------------------------------------
 
 morgan.token('user', req => (
   'User: ' + JSON.stringify(req.user) +
-  '    New session? ' + req.session.isNew +
   '    Session: ' + JSON.stringify(req.session)
 ));
 
