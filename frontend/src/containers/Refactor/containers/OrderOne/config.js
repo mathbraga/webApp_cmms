@@ -77,12 +77,12 @@ export default {
           {
             name: 'progresso',
             label: 'Progresso (%)',
-            field: 'dateLimit'
+            field: 'progress'
           },
           {
             name: 'dateLimit',
             label: 'Prazo de conclusão',
-            field: ''
+            field: 'dateLimit'
           },
           {
             name: 'dateStart',

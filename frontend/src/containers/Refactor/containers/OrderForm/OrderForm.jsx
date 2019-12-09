@@ -7,7 +7,6 @@ import { graphql } from 'react-apollo';
 import { compose } from 'redux';
 import { qQuery, qConfig, mQuery, mConfig, getVariables } from "./graphql";
 import getFiles from '../../utils/getFiles';
-import getMultipleSelect from '../../utils/getMultipleSelect';
 import AssetSelect from "../AssetSelect";
 import SupplySelect from "../SupplySelect";
 
@@ -44,22 +43,13 @@ class OrderForm extends Component {
 
   handleChange(event) {
     event.persist();
-    // console.log(event.target.options);
     const name = event.target.name;
     const value = event.target.value;
-    const options = event.target.options;
-    if (value.length === 0)
-      return this.setState({ [name]: null });
-    if (name === 'assets'){
-      this.setState({ assets: getMultipleSelect(options), });
-    // else if (name === 'supplies'){
-    //   this.setState({ supplies: getMultipleSelect(options), });
-    // } else if (name === 'supply-qty'){
-    //   // this.setState(prevState => ({ qty: getSuppliesQty(options), }));
+    if(value.length === 0){
+      this.setState({ [name]: null });
+    } else if(name === 'contractId'){
+      this.setState({ supplies: [], qty: [], [name]: value });
     } else {
-      if(name === 'contractId'){
-        this.setState({ supplies: [], qty: [] })
-      }
       this.setState({ [name]: value });
     }
   }
@@ -80,7 +70,6 @@ class OrderForm extends Component {
   removeAsset(event){
     event.persist();
     event.preventDefault();
-    console.log(event.target.name);
     const newAssets = [...this.state.assets];
     const name = event.target.name;
     const i = this.state.assets.findIndex(el => el === Number(name));
@@ -105,7 +94,6 @@ class OrderForm extends Component {
   removeSupply(event){
     event.persist();
     event.preventDefault();
-    console.log(event.target.name);
     const newSupplies = [...this.state.supplies];
     const newQty = [...this.state.qty];
     const name = event.target.name;
@@ -161,7 +149,6 @@ class OrderForm extends Component {
                 form={form}
                 innerRef={this.innerRef}
                 onChange={this.handleChange}
-                onSubmit={this.handleSubmit}
                 onCancel={this.handleCancel}
                 loading={loading}
               />
