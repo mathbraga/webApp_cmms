@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Row, Col, Card, CardBody, CardHeader, CardFooter, Button, } from 'reactstrap';
 import _Form from '../../components/Form';
 import _Spinner from '../../components/Spinner';
+import BackButton from '../../components/BackButton';
 import { graphql } from 'react-apollo';
 import { compose } from 'redux';
 import { qQuery, qConfig, mQuery, mConfig, getVariables } from "./graphql";
@@ -21,7 +22,6 @@ class OrderForm extends Component {
     this.innerRef = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
     this.addAsset = this.addAsset.bind(this);
     this.removeAsset = this.removeAsset.bind(this);
     this.addSupply = this.addSupply.bind(this);
@@ -124,10 +124,6 @@ class OrderForm extends Component {
     this.setState({ qty: newQty });
   }
 
-  handleCancel(){
-    this.props.history.goBack();
-  }
-
   handleSubmit(event) {
     event.preventDefault();
     return this.props.mutate({
@@ -154,9 +150,7 @@ class OrderForm extends Component {
               <Col><h3>{form.title}</h3></Col>
               <Col>
                 <div style={{textAlign: 'right'}}>
-                  <Button
-                    onClick={this.handleCancel}
-                  >X</Button>
+                  <BackButton />
                 </div></Col>
             </Row>
           </CardHeader>
