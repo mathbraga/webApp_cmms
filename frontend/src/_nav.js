@@ -103,7 +103,7 @@ export default {
       icon: "icon-wrench"
     },
     {
-      name: "Um",
+      name: "Uma",
       url: paths.ORDER + '/1',
       icon: "icon-wrench"
     },
