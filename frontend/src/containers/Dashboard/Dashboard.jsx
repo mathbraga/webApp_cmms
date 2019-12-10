@@ -1,55 +1,10 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Card, CardBody, CardHeader, FormGroup, CustomInput, Form, Button } from "reactstrap";
-const uuidv4 = require('uuid/v4');
+import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.fileInputRef = React.createRef();
-    this.state = {
-    }
   }
-
-  // componentWillMount = () => {
-  //   console.clear();
-  //   // fetch('http://172.30.49.152:3001/email', {
-  //   fetch('http://172.30.49.152:3001/redmine', {
-  //     method: 'GET',
-  //   })
-  //   .then(r => r.json())
-  //   .then(rjson => console.log(rjson))
-  //   .catch(err => console.log(err));
-  // }
-
-  // handleUploadFile = event => {
-  //   event.preventDefault();
-  //   console.clear();
-  //   let files = this.fileInputRef.current.files;
-  //   let l = files.length;
-  //   console.log(files);
-  //   let formData = new FormData();
-  //   for (let i = 0; i < l; i++) { // forEach() and map() are not defined for an array of files
-  //     let field = ''
-  //     if(i === 0) {
-  //       field = 'image';
-  //     } else {
-  //       field = 'files';
-  //     }
-  //     formData.append(
-  //       field,
-  //       files[i],
-  //       uuidv4() + '.' + files[i].type.split('/')[1]
-  //     );
-  //   }
-  //   // console.log(formData.get('image'))
-  //   fetch('http://172.30.49.152:3001/db', {
-  //     method: 'POST',
-  //     body: formData,
-  //   })
-  //     .then(r => r.json())
-  //     .then(rjson => console.log(rjson))
-  //     .catch(() => console.log('erro upload.'));
-  // }
 
   render() {
     return (
@@ -91,77 +46,13 @@ class Dashboard extends Component {
             </Row>
           </Container>
         </div>
-
-        {/* <Card>
-          <CardHeader>
-            <Row>
-              <Col md="12">
-                <div className="calc-title">Upload de arquivo</div>
-                <div className="calc-subtitle">
-                  <em>Utilizar faturas em formato csv</em>
-                </div>
-              </Col>
-            </Row>
-          </CardHeader>
-          <CardBody>
-            <Form>
-              <Row>
-                <Col xs="4">
-                  <FormGroup>
-                    <CustomInput
-                      multiple={true}
-                      label="Clique ou arraste para selecionar"
-                      type="file"
-                      id="csv-file"
-                      name="csv-file"
-                      innerRef={this.fileInputRef}
-                    // onChange={this.handleSelection}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col xs="4">
-                  {this.state.isSelected
-                    ? <p className="my-2">Arquivo selecionado:
-                        <strong>
-                        {" " + this.fileInputRef.current.files[0].name}
-                      </strong>
-                    </p>
-                    : <p className="text-muted my-2">Nenhum arquivo selecionado</p>
-                  }
-                </Col>
-                <Col xs="4">
-                  <Button
-                    className=""
-                    type="submit"
-                    size="md"
-                    color="primary"
-                    onClick={this.
-                    }
-                  >Enviar arquivo
-                  </Button>
-                </Col>
-              </Row>
-            </Form>
-          </CardBody>
-                </Card>
-
-        <div>
+        {/* <div>
           <img
             src="http://localhost:3001/images/newfilename-1.jpeg"
             alt="foto"
             height="140"
             width="190"
           />
-        </div>
-
-        <div>
-          <a
-            download
-            href="http://localhost:3001/files/touch.txt"
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-          >Aqui o link
-          </a>
         </div> */}
       </React.Fragment>
     );
