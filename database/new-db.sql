@@ -55,6 +55,9 @@ begin transaction;
 -- populate tables
 \i inserts1252.sql -- CAUTION: inserts.sql must have win1252 encoding
 
+-- create materialized views
+-- \i materialized.sql
+
 -- create rls policies
 -- \i policies.sql
 
