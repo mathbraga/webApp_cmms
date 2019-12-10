@@ -83,7 +83,7 @@ export const qConfig = {
 };
 
 export const mQuery = gql`
-mutation MutationWithUpload (
+mutation (
   $attributes: OrderInput!,
   $assets: [Int!]!,
   $supplies: [Int],

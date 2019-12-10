@@ -28,11 +28,9 @@ function saveLocal({ stream, uuid }) {
 }
 
 async function callback(req, res, next){
-  if(req.body.operationName === 'MutationWithUpload' && req.body.variables.files !== null){
-    // console.log(req.body.variables.files)
+  if(req.body.variables && req.body.variables.files){
     const files = req.body.variables.files;
     const filesMetadata = req.body.variables.filesMetadata;
-    // console.log(upload);
     Promise.all(files.map((file, i) => {
       return file.then(async resolvedFile => {
         return await resolveUpload(resolvedFile, filesMetadata[i].uuid)
