@@ -1,9 +1,10 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
-const cron = require('cron').CronJob;
+const CronJob = require('cron').CronJob;
+const pgClient = require('../pg');
 
-module.exports = cron({
-  cronTime: '0 * * * * *',
+module.exports = new CronJob({
+  cronTime: '* * * * * *',
   onTick: async function() {
     
     // Scheduled query to be sent to database:

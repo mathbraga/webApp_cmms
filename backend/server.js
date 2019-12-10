@@ -20,7 +20,7 @@ const cookieSession = require('./middlewares/cookie-session');
 const passport = require('./middlewares/passport');
 const morgan = require('./middlewares/morgan');
 const postgraphile = require('./middlewares/postgraphile');
-// const cron = require('./middlewares/cron');
+// const cronJob = require('./middlewares/cron');
 
 // Middlewares
 app.use(cors);
