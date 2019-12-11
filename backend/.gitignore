@@ -4,6 +4,8 @@
 # Files inside folder
 files/*
 !files/.gitkeep
+dumps/*
+!dumps/.gitkeep
 
 # dependencies
 /node_modules
