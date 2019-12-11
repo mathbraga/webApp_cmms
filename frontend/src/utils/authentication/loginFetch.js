@@ -13,13 +13,15 @@ export default function loginFetch(email, password){
         'Accept': 'application/json',
       },
     })
-      .then(r => r.json())
-      .then(rjson => {
-        console.log(rjson);
-        resolve();
+      .then(r => {
+        if(r.status === 200){
+          resolve();
+        } else {
+          reject();
+        }
       })
       .catch(error => {
-        console.log(error);
+        alert(error);
         reject("Erro no login.")
       });
   });

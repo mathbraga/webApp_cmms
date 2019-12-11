@@ -2,13 +2,13 @@
 \c hzl
 
 -- drop database
-drop database if exists cmms7;
+drop database if exists cmms9;
 
 -- create new database
-create database cmms7 with owner postgres template template0 encoding 'win1252';
+create database cmms9 with owner postgres template template0 encoding 'win1252';
 
 -- connect to the new database
-\c cmms7
+\c cmms9
 
 -- create extensions
 create extension if not exists pgcrypto;
@@ -27,6 +27,9 @@ begin transaction;
 
 -- alter default privileges
 \i privileges.sql
+
+-- create composite types
+\i types.sql
 
 -- create enums
 \i enums.sql
@@ -51,6 +54,9 @@ begin transaction;
 
 -- populate tables
 \i inserts1252.sql -- CAUTION: inserts.sql must have win1252 encoding
+
+-- create materialized views
+-- \i materialized.sql
 
 -- create rls policies
 -- \i policies.sql

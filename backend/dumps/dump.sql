@@ -1,1 +1,0 @@
--- This file will be overwritten when scheduled pg_dump is executed (see cron/index.js).

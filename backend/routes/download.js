@@ -1,9 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const paths = require('../paths');
+const path = require('path');
 
-router.get(paths.filename, (req, res) => {
-  res.sendFile(process.env.PWD + '/files/touch.txt');
+router.get(paths.fileuuid, (req, res, next) => {
+  
+  const [emptyString, uuid, filename] = req.path.split('/');
+
+  // console.log(req.path)
+
+  res.download(
+    path.join(
+      process.cwd(),
+      paths.download,
+      uuid
+    ),
+    filename
+  )
 });
 
 module.exports = router;

@@ -1,6 +1,12 @@
 # Environment variables
 .env
 
+# Files inside folder
+files/*
+!files/.gitkeep
+dumps/*
+!dumps/.gitkeep
+
 # dependencies
 /node_modules
 package-lock.json
