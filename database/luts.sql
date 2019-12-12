@@ -5,8 +5,8 @@ create table asset_categories (
 );
 
 insert into asset_categories values
-  (1, 'Equipamentos'),
-  (2, 'Edifícios');
+  (1, 'Equipamento'),
+  (2, 'Edifício');
 
 -- contract statuses
 create table contract_statuses (
@@ -71,7 +71,7 @@ insert into order_categories values
 
 -- person roles
 create table person_roles (
- person_role_id text primary key,
+ person_role text primary key,
 );
 
 insert into person_roles values

@@ -2,13 +2,13 @@
 \c hzl
 
 -- drop database
-drop database if exists cmms9;
+drop database if exists cmms10;
 
 -- create new database
 create database cmms9 with owner postgres template template0 encoding 'win1252';
 
 -- connect to the new database
-\c cmms9
+\c cmms10
 
 -- create extensions
 create extension if not exists pgcrypto;
@@ -35,7 +35,7 @@ begin transaction;
 \i enums.sql
 
 -- create lookup tables
--- \i luts.sql
+\i luts.sql
 
 -- create tables
 \i tables.sql
@@ -50,13 +50,13 @@ begin transaction;
 -- \i triggers.sql
 
 -- fake logged user for initial inserts
--- set local auth.data.person_id to 1;
+set local auth.data.person_id to 1;
 
 -- populate tables
 \i inserts1252.sql -- CAUTION: inserts.sql must have win1252 encoding
 
 -- create materialized views
--- \i materialized.sql
+\i materialized.sql
 
 -- create rls policies
 -- \i policies.sql

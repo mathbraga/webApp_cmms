@@ -10,7 +10,7 @@ create table assets (
   manufacturer text,
   serialnum text,
   model text,
-  price money
+  price numeric(12,2)
 );
 
 create table asset_relations (
@@ -164,8 +164,8 @@ create table supplies (
   contract_id integer not null references contracts (contract_id),
   spec_id integer not null references specs (spec_id),
   qty real not null,
-  bid_price money not null,
-  full_price money,
+  bid_price numeric(12,2) not null,
+  full_price numeric(12,2),
   unique (contract_id, supply_sf)
 );
 
