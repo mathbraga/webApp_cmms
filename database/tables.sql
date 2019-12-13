@@ -15,9 +15,8 @@ create table assets (
 
 create table asset_relations (
   top_id integer not null references assets (asset_id), -- enum or reference to a table
-  parent_id integer not null references assets (asset_id),
-  asset_id integer not null references assets (asset_id),
-  primary key (top_id, parent_id, asset_id)
+  parent_id integer references assets (asset_id),
+  asset_id integer not null references assets (asset_id)
 );
 
 create table contracts (
