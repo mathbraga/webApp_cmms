@@ -1,3 +1,6 @@
+-- set ON_ERROR_STOP to off
+\set ON_ERROR_STOP off
+
 -- connect to other database
 \c hzl
 

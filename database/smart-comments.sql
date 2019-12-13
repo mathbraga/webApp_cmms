@@ -41,7 +41,7 @@ comment on function authenticate is E'@omit execute';
 -- constraints
 comment on constraint assets_pkey on assets is null;
 comment on constraint assets_asset_sf_key on assets is null;
-comment on constraint asset_relations_pkey on asset_relations is E'@omit';
+-- comment on constraint asset_relations_pkey on asset_relations is E'@omit';
 comment on constraint asset_rules_pkey on asset_rules is E'@omit';
 comment on constraint contracts_pkey on contracts is null;
 -- comment on constraint contracts_contract_sf on contracts is null;
