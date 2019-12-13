@@ -7,6 +7,16 @@ module.exports = new CronJob({
   cronTime: '* * * * * *',
   onTick: async function() {
     
+    // Refresh materialized view:
+    // let data;
+    //   try {
+    //     data = await db.query('refresh materialized view dashboard_data');
+    //   }
+    //   catch (error) {
+    //     console.log(error);
+    //   }
+    // console.log('\n\nMaterialized view was refreshed.\n\n');
+
     // Scheduled query to be sent to database:
     // let data;
     //   try {
