@@ -170,3 +170,16 @@ create view supplies_list as
          from supplies as s
          inner join specs as z using (spec_id)
          inner join balances as b using (supply_id);
+
+create view assets_trees as
+  with recursive asset_tree (top_id, parent_id, asset_id) as (
+    select top_id, parent_id, asset_id
+      from asset_relations
+    union
+    select ar.top_id, ar.parent_id, ar.asset_id
+      from asset_tree as atree
+        cross join asset_relations as ar
+      where atree.asset_id = ar.parent_id
+  )
+    select top_id, parent_id, asset_id
+      from asset_tree;
