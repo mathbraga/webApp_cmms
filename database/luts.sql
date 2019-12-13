@@ -71,7 +71,7 @@ insert into order_categories values
 
 -- person roles
 create table person_roles (
- person_role text primary key,
+ person_role text primary key
 );
 
 insert into person_roles values

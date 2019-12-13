@@ -2,13 +2,13 @@
 \c hzl
 
 -- drop database
-drop database if exists cmms10;
+drop database if exists cmms;
 
 -- create new database
-create database cmms9 with owner postgres template template0 encoding 'win1252';
+create database cmms with owner postgres;
 
 -- connect to the new database
-\c cmms10
+\c cmms
 
 -- create extensions
 create extension if not exists pgcrypto;
@@ -17,10 +17,13 @@ create extension if not exists pgcrypto;
 create schema private;
 
 -- create roles
--- \i roles.sql
+\i roles.sql
 
 -- set ON_ERROR_STOP to on
 \set ON_ERROR_STOP on
+
+-- set client encoding to utf8
+\encoding utf8
 
 -- begin transaction
 begin transaction;
@@ -53,7 +56,7 @@ begin transaction;
 set local auth.data.person_id to 1;
 
 -- populate tables
-\i inserts1252.sql -- CAUTION: inserts.sql must have win1252 encoding
+\i inserts.sql
 
 -- create materialized views
 \i materialized.sql
@@ -62,7 +65,7 @@ set local auth.data.person_id to 1;
 -- \i policies.sql
 
 -- create comments
-\i comments1252.sql -- CAUTION: comments.sql must have win1252 encoding
+\i comments.sql
 
 -- create smart comments
 \i smart-comments.sql
