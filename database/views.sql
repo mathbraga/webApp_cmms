@@ -165,6 +165,8 @@ create view supplies_list as
          s.supply_sf,
          s.contract_id,
          z.name,
-         z.unit
+         z.unit,
+         b.available
          from supplies as s
-         inner join specs as z using (spec_id);
+         inner join specs as z using (spec_id)
+         inner join balances as b using (supply_id);

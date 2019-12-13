@@ -9,6 +9,7 @@ export const qQuery = gql`
         supplySf
         name
         unit
+        available
       }
     }
   }
