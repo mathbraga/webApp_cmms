@@ -642,19 +642,19 @@ end; $$;
 --   end if;
 -- end; $$;
 
--- create or replace function check_supply_qty()
--- returns trigger
--- language plpgsql
--- as $$
--- declare
---   qty_ok boolean;
--- begin
---   select (b.available + coalesce(old.qty, 0) - new.qty) >= 0 into qty_ok
---     from balances as b
---     where (b.contract_id = new.contract_id and b.supply_id = new.supply_id);
---   if qty_ok then
---     return new;
---   else
---     raise exception '% is larger than available', new.qty;
---   end if;
--- end; $$;
+create or replace function check_supply_qty()
+returns trigger
+language plpgsql
+as $$
+declare
+  qty_ok boolean;
+begin
+  select (b.available + coalesce(old.qty, 0) - new.qty) >= 0 into qty_ok
+    from balances as b
+    where b.supply_id = new.supply_id;
+  if qty_ok then
+    return new;
+  else
+    raise exception '% is larger than available', new.qty;
+  end if;
+end; $$;
