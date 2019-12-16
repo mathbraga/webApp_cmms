@@ -9,7 +9,7 @@ create type contract_status_type as enum (
   'ENC'
 );
 
-create type order_status_type as enum (
+create type task_status_type as enum (
   'CAN',
   'NEG',
   'PEN',
@@ -19,14 +19,14 @@ create type order_status_type as enum (
   'CON'
 );
 
-create type order_priority_type as enum (
+create type task_priority_type as enum (
   'BAI',
   'NOR',
   'ALT',
   'URG'
 );
 
-create type order_category_type as enum (
+create type task_category_type as enum (
   'ARC',
   'ELE',
   'ELV',

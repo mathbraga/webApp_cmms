@@ -19,13 +19,13 @@ insert into contract_statuses values
   (2, 'Vigente'),
   (3, 'Encerrado');
 
--- order statuses
-create table order_statuses (
-  order_status_id integer primary key,
-  order_status_text text not null
+-- task statuses
+create table task_statuses (
+  task_status_id integer primary key,
+  task_status_text text not null
 );
 
-insert into order_statuses values
+insert into task_statuses values
   (1, 'Cancelada'),
   (2, 'Negada'),
   (3, 'Pendente'),
@@ -34,25 +34,25 @@ insert into order_statuses values
   (6, 'Em execução'),
   (7, 'Concluída');
 
--- order priorities
-create table order_priorities (
-  order_priority_id integer primary key,
-  order_priority_text text not null
+-- task priorities
+create table task_priorities (
+  task_priority_id integer primary key,
+  task_priority_text text not null
 );
 
-insert into order_priorities values
+insert into task_priorities values
   (1, 'Baixa'),
   (2, 'Normal'),
   (3, 'Alta'),
   (4, 'Urgente');
 
--- order categories
-create table order_categories (
-  order_category_id integer primary key,
-  order_category_text text not null
+-- task categories
+create table task_categories (
+  task_category_id integer primary key,
+  task_category_text text not null
 );
 
-insert into order_categories values
+insert into task_categories values
   (1, 'Ar-condicionado'),
   (2, 'Elétrica'),
   (3, 'Elevador'),

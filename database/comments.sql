@@ -1,5 +1,5 @@
-comment on type order_status_type is E'
-Significados dos possíveis valores do enum order_status_type:\n
+comment on type task_status_type is E'
+Significados dos possíveis valores do enum task_status_type:\n
 CAN: Cancelada;\n 
 NEG: Negada;\n
 PEN: Pendente;\n
@@ -9,8 +9,8 @@ EXE: Execução;\n
 CON: Concluída.\n
 ';
 
-comment on type order_category_type is E'
-Significados dos possíveis valores do enum order_category_type:\n
+comment on type task_category_type is E'
+Significados dos possíveis valores do enum task_category_type:\n
 ARC: Ar-condicionado;\n
 ELE: Instalações elétricas;\n
 ELV: Elevadores;\n
@@ -28,8 +28,8 @@ VED: Vedação espacial;\n
 VID: Vidraçaria / Esquadria.\n
 ';
 
-comment on type order_priority_type is E'
-Significados dos possíveis valores do enum order_priority_type:\n
+comment on type task_priority_type is E'
+Significados dos possíveis valores do enum task_priority_type:\n
 BAI: Baixa;\n
 NOR: Normal;\n
 ALT: Alta;\n

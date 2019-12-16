@@ -119,8 +119,8 @@ begin
   -- end if;
 end; $$;
 
-create or replace function insert_order (
-  in attributes orders,
+create or replace function insert_task (
+  in attributes tasks,
   in assets integer[],
   in supplies integer[],
   in qty real[],
@@ -130,7 +130,7 @@ create or replace function insert_order (
 language plpgsql
 as $$
 begin
-  insert into orders values (
+  insert into tasks values (
     default,
     attributes.status,
     attributes.priority,
@@ -151,15 +151,15 @@ begin
     attributes.date_end,
     default,
     default
-  ) returning order_id into result;
+  ) returning task_id into result;
 
-  insert into order_assets select result, unnest(assets);
+  insert into task_assets select result, unnest(assets);
 
   if supplies is not null then
-    insert into order_supplies select result, unnest(supplies), unnest(qty);
+    insert into task_supplies select result, unnest(supplies), unnest(qty);
   end if;
 
-  insert into order_files
+  insert into task_files
     select result,
            f.filename,
            f.uuid,
@@ -362,16 +362,16 @@ end; $$;
 
 -- end; $$;
 
--- create or replace function modify_order (
---   in order_attributes orders,
+-- create or replace function modify_task (
+--   in task_attributes tasks,
 --   in assets_array text[],
---   out modified_order_id integer
+--   out modified_task_id integer
 -- )
 -- language plpgsql
 -- strict
 -- as $$
 -- begin
---   update orders as o
+--   update tasks as o
 --     set (
 --       status,
 --       priority,
@@ -391,47 +391,47 @@ end; $$;
 --       date_start,
 --       updated_at
 --     ) = (
---       order_attributes.status,
---       order_attributes.priority,
---       order_attributes.category,
---       order_attributes.parent,
---       order_attributes.team_id,
---       order_attributes.progress,
---       order_attributes.title,
---       order_attributes.description,
---       order_attributes.origin_department,
---       order_attributes.origin_person,
---       order_attributes.contact_name,
---       order_attributes.contact_phone,
---       order_attributes.contact_email,
---       order_attributes.place,
---       order_attributes.date_limit,
---       order_attributes.date_start,
+--       task_attributes.status,
+--       task_attributes.priority,
+--       task_attributes.category,
+--       task_attributes.parent,
+--       task_attributes.team_id,
+--       task_attributes.progress,
+--       task_attributes.title,
+--       task_attributes.description,
+--       task_attributes.origin_department,
+--       task_attributes.origin_person,
+--       task_attributes.contact_name,
+--       task_attributes.contact_phone,
+--       task_attributes.contact_email,
+--       task_attributes.place,
+--       task_attributes.date_limit,
+--       task_attributes.date_start,
 --       default
---     ) where o.order_id = order_attributes.order_id;
+--     ) where o.task_id = task_attributes.task_id;
 
 --   with added_assets as (
 --     select unnest(assets_array) as asset_id
 --     except
 --     select asset_id
---       from order_assets
---       where order_id = order_attributes.order_id
+--       from task_assets
+--       where task_id = task_attributes.task_id
 --   )
---   insert into order_assets
---     select order_attributes.order_id, asset_id from added_assets;
+--   insert into task_assets
+--     select task_attributes.task_id, asset_id from added_assets;
   
 --   with recursive removed_assets as (
 --     select asset_id
---       from order_assets
---     where order_id = order_attributes.order_id
+--       from task_assets
+--     where task_id = task_attributes.task_id
 --     except
 --     select unnest(assets_array) as asset_id
 --   )
---   delete from order_assets
---     where order_id = order_attributes.order_id
+--   delete from task_assets
+--     where task_id = task_attributes.task_id
 --           and asset_id in (select asset_id from removed_assets);
 
---   modified_order_id = order_attributes.order_id;
+--   modified_task_id = task_attributes.task_id;
 
 -- end; $$;
 
@@ -580,7 +580,7 @@ end; $$;
 --          l.new_row
 --     from private.logs as l
 --     inner join persons as p using (person_id)
---   where (l.tablename = 'assets' or l.tablename = 'asset_departments' or l.tablename = 'order_assets')
+--   where (l.tablename = 'assets' or l.tablename = 'asset_departments' or l.tablename = 'task_assets')
 --         and
 --         (
 --           l.new_row @> ('{"asset_id": "' || asset_id || '"}')::jsonb
@@ -589,8 +589,8 @@ end; $$;
 --         );
 -- $$;
 
--- create or replace function get_order_history (
---   in order_id integer,
+-- create or replace function get_task_history (
+--   in task_id integer,
 --   out full_name text,
 --   out created_at timestamptz,
 --   out operation text,
@@ -611,12 +611,12 @@ end; $$;
 --          l.new_row
 --     from private.logs as l
 --     inner join persons as p using (person_id)
---   where (l.tablename = 'orders' or l.tablename = 'order_assets' or l.tablename = 'order_supplies')
+--   where (l.tablename = 'tasks' or l.tablename = 'task_assets' or l.tablename = 'task_supplies')
 --         and
 --         (
---           l.new_row @> ('{"order_id": ' || order_id || '}')::jsonb
+--           l.new_row @> ('{"task_id": ' || task_id || '}')::jsonb
 --           or
---           l.old_row @> ('{"order_id": ' || order_id || '}')::jsonb
+--           l.old_row @> ('{"task_id": ' || task_id || '}')::jsonb
 --         );
 -- $$;
 
@@ -629,13 +629,13 @@ end; $$;
 -- begin
 --   if (new.status = 'CON' and new.date_end is not null) then
 --     select every(coalesce(c.date_end, '9999-12-31'::date) >= new.date_end) into contract_ok
---         from order_supplies as os
+--         from task_supplies as os
 --         inner join contracts as c using (contract_id)
---         where os.order_id = new.order_id;
+--         where os.task_id = new.task_id;
 --     if (contract_ok) then
 --       return new;
 --     else
---       raise exception 'Order % has an expired contract in its used supplies', new.order_id;
+--       raise exception 'task % has an expired contract in its used supplies', new.task_id;
 --     end if;
 --   else
 --     return new;

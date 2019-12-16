@@ -1,17 +1,17 @@
 create trigger log_changes
-  after insert or update or delete on orders
+  after insert or update or delete on tasks
   for each row execute function create_log();
 
 create trigger log_changes
-  after insert or update or delete on order_messages
+  after insert or update or delete on task_messages
   for each row execute function create_log();
 
 create trigger log_changes
-  after insert or update or delete on order_assets
+  after insert or update or delete on task_assets
   for each row execute function create_log();
 
 create trigger log_changes
-  after insert or update or delete on order_supplies
+  after insert or update or delete on task_supplies
   for each row execute function create_log();
 
 create trigger log_changes
@@ -35,9 +35,9 @@ create trigger log_changes
   for each row execute function create_log();
 
 create trigger check_conclusion
-  before insert or update on orders
+  before insert or update on tasks
   for each row execute function check_conclusion();
 
 create trigger check_supply_qty
-  before insert or update on order_supplies
+  before insert or update on task_supplies
   for each row execute function check_supply_qty();
