@@ -5,13 +5,13 @@
 \c hzl
 
 -- drop database
-drop database if exists cmms;
+drop database if exists new_cmms;
 
 -- create new database
-create database cmms with owner postgres;
+create database new_cmms with owner postgres;
 
 -- connect to the new database
-\c cmms
+\c new_cmms
 
 -- create extensions
 create extension if not exists pgcrypto;
