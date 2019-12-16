@@ -29,21 +29,21 @@ create view balances as
   with
     unfinished as (
       select
-        os.supply_id,
-        sum(os.qty) as blocked
-          from tasks as o
-          inner join task_supplies as os using (task_id)
-      where o.status <> 'CON'
-      group by os.supply_id
+        ts.supply_id,
+        sum(ts.qty) as blocked
+          from tasks as t
+          inner join task_supplies as ts using (task_id)
+      where t.status <> 'CON'
+      group by ts.supply_id
     ),
     finished as (
       select
-        os.supply_id,
-        sum(os.qty) as consumed
-          from tasks as o
-          inner join task_supplies as os using (task_id)
-      where o.status = 'CON'
-      group by os.supply_id
+        ts.supply_id,
+        sum(ts.qty) as consumed
+          from tasks as t
+          inner join task_supplies as ts using (task_id)
+      where t.status = 'CON'
+      group by ts.supply_id
     ),
     both_cases as (
       select supply_id,
@@ -73,29 +73,6 @@ create view balances as
       inner join specs as z using (spec_id)
       inner join contracts as c using (contract_id);
 
-create view spec_tasks as
-  select sp.spec_id,
-         o.task_id,
-         o.status,
-         o.title
-    from specs as sp
-    inner join supplies as su using (spec_id)
-    inner join task_supplies as os using (supply_id)
-    inner join tasks as o using (task_id);
-
-create view task_supplies_details as
-  select o.task_id,
-         s.supply_sf,
-         z.name,
-         z.spec_id,
-         o.qty,
-         z.unit,
-         s.bid_price,
-         o.qty * s.bid_price as total
-    from task_supplies as o
-    inner join supplies as s using (supply_id)
-    inner join specs as z using (spec_id);
-
 create view active_teams as
   select t.team_id, 
          t.name,
@@ -108,47 +85,47 @@ create view active_teams as
 
 
 create view assets_of_task as
-select o.task_id,
+select t.task_id,
        jsonb_agg(jsonb_build_object(
            'id', a.asset_id,
            'sf', a.asset_sf,
            'name', a.name
          )) as assets
-      from tasks as o
-      inner join task_assets as oa using (task_id)
+      from tasks as t
+      inner join task_assets as ta using (task_id)
       inner join assets as a using (asset_id)
     group by task_id;
 
 create view supplies_of_task as
-select o.task_id,
+select t.task_id,
        jsonb_agg(jsonb_build_object(
            'id', s.supply_id,
            'sf', s.supply_sf,
            'qty', os.qty,
            'name', z.name
          )) as supplies
-      from tasks as o
-      inner join task_supplies as os using (task_id)
+      from tasks as t
+      inner join task_supplies as ts using (task_id)
       inner join supplies as s using (supply_id)
       inner join specs as z using (spec_id)
     group by task_id;
 
 create view files_of_task as
-select o.task_id,
+select t.task_id,
        jsonb_agg(jsonb_build_object(
-           'filename', of.filename,
-           'size', of.size,
-           'uuid', of.uuid,
-           'createdAt', of.created_at,
+           'filename', tf.filename,
+           'size', tf.size,
+           'uuid', tf.uuid,
+           'createdAt', tf.created_at,
            'person', p.name
          )) as files
-      from tasks as o
-      inner join task_files as of using (task_id)
-      inner join persons as p on (of.person_id = p.person_id)
+      from tasks as t
+      inner join task_files as tf using (task_id)
+      inner join persons as p on (tf.person_id = p.person_id)
     group by task_id;
 
 create view task_data as
-  select o.*,
+  select t.*,
          c.contract_sf || ' - ' || c.title as contract,
          a.assets,
          s.supplies,

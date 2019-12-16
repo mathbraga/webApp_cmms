@@ -78,12 +78,18 @@ create table contract_teams (
   primary key (contract_id, team_id)
 );
 
+create table projects (
+  project_id integer primary key generated always as identity,
+  name text not null,
+  description text
+);
+
 create table tasks (
   task_id integer primary key generated always as identity,
   status task_status_type not null,
   priority task_priority_type not null,
   category task_category_type not null,
-  -- project_id integer references projects (project_id),
+  project_id integer references projects (project_id),
   contract_id integer references contracts (contract_id),
   team_id integer references teams (team_id),
   title text not null,

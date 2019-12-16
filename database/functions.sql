@@ -371,7 +371,7 @@ end; $$;
 -- strict
 -- as $$
 -- begin
---   update tasks as o
+--   update tasks as t
 --     set (
 --       status,
 --       priority,
@@ -629,7 +629,7 @@ end; $$;
 -- begin
 --   if (new.status = 'CON' and new.date_end is not null) then
 --     select every(coalesce(c.date_end, '9999-12-31'::date) >= new.date_end) into contract_ok
---         from task_supplies as os
+--         from task_supplies as ts
 --         inner join contracts as c using (contract_id)
 --         where os.task_id = new.task_id;
 --     if (contract_ok) then
