@@ -211,6 +211,23 @@ as $$
   select top_id, parent_id, asset_id from rec;
 $$;
 
+create or replace function check_task_supply ()
+returns trigger
+language plpgsql
+as $$
+declare
+  qty_ok boolean;
+begin
+  select (b.available + coalesce(old.qty, 0) - new.qty) >= 0 into qty_ok
+    from balances as b
+    where b.supply_id = new.supply_id;
+  if qty_ok then
+    return new;
+  else
+    raise exception '% is larger than available', new.qty;
+  end if;
+end; $$;
+
 -- create or replace function insert_contract (
 --   in contract_attributes contracts,
 --   in supplies_array supplies[]
@@ -659,20 +676,3 @@ $$;
 --     return new;
 --   end if;
 -- end; $$;
-
-create or replace function check_supply_qty()
-returns trigger
-language plpgsql
-as $$
-declare
-  qty_ok boolean;
-begin
-  select (b.available + coalesce(old.qty, 0) - new.qty) >= 0 into qty_ok
-    from balances as b
-    where b.supply_id = new.supply_id;
-  if qty_ok then
-    return new;
-  else
-    raise exception '% is larger than available', new.qty;
-  end if;
-end; $$;

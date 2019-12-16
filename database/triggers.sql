@@ -38,6 +38,6 @@ create trigger check_conclusion
   before insert or update on tasks
   for each row execute function check_conclusion();
 
-create trigger check_supply_qty
+create trigger check_new_row
   before insert or update on task_supplies
-  for each row execute function check_supply_qty();
+  for each row execute function check_task_supply();
