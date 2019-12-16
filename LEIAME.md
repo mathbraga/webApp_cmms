@@ -26,12 +26,12 @@
   * contrato;
   * usuário;
   * equipe;
-  * ordem de serviço;
+  * tarefa;
   * especificação técnica;
   * suprimento (material ou serviço de um contrato);
   * regra (Leis, Decretos, normas técnicas, diretrizes do Senado Federal etc.)
 
-1. Uma ordem de serviço somente pode ser cadastrada se estiver vinculada a um ou mais ativos.
+1. Uma tarefa somente pode ser cadastrada se estiver vinculada a um ou mais ativos.
 
 
 # Arquitetura
@@ -72,13 +72,13 @@ Telas para visualização de:
   * lista de todos equipamentos
   * detalhes de um equipamento
   * lista de todas ordens de serviço
-  * detalhes de uma ordem de serviço
+  * detalhes de uma tarefa
 
 Formulários para cadastro de:
 
   * novo edifício
   * novo equipamento
-  * nova ordem de serviço
+  * nova tarefa
 
 --- 
 
