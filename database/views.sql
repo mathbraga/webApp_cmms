@@ -144,7 +144,7 @@ select o.task_id,
          )) as files
       from tasks as o
       inner join task_files as of using (task_id)
-      inner join persons as p using (person_id)
+      inner join persons as p on (of.person_id = p.person_id)
     group by task_id;
 
 create view task_data as

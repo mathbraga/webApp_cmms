@@ -80,7 +80,7 @@ create table contract_teams (
 
 create table tasks (
   task_id integer primary key generated always as identity,
-  status tasks_status_type not null,
+  status task_status_type not null,
   priority task_priority_type not null,
   category task_category_type not null,
   -- project_id integer references projects (project_id),
