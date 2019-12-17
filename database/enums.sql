@@ -66,7 +66,7 @@ create type spec_category_type as enum (
 
 create type spec_subcategory_type as enum (
   -- 'Geral'
-  'g-01', 'Equipe de Dedicação Exclusiva'
+  'g-01', -- 'Equipe de Dedicação Exclusiva'
 
   -- 'Serviços de Apoio'
   's-01', -- 'Serviços Técnicos'

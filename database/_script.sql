@@ -41,7 +41,7 @@ begin transaction;
 \i types.sql
 
 -- create enums
-\i enums.sql
+-- \i enums.sql
 
 -- create lookup tables
 \i luts.sql
