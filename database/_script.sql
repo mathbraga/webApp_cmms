@@ -1,3 +1,4 @@
+-- rollback transaction
 rollback;
 
 -- set ON_ERROR_STOP to off
