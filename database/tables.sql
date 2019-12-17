@@ -3,7 +3,7 @@ create table assets (
   asset_sf text not null unique,
   name text not null,
   description text,
-  category asset_category_type not null, -- enum or reference to a table
+  asset_category_id integer not null references asset_categories (asset_category_id),
   latitude numeric,
   longitude numeric,
   area numeric,
@@ -14,7 +14,7 @@ create table assets (
 );
 
 create table asset_relations (
-  top_id integer not null references assets (asset_id), -- enum or reference to a table
+  top_id integer not null references assets (asset_id),
   parent_id integer references assets (asset_id),
   asset_id integer not null references assets (asset_id)
 );
@@ -23,7 +23,7 @@ create table contracts (
   contract_id integer primary key generated always as identity,
   contract_sf text not null unique,
   parent integer references contracts (contract_id),
-  status contract_status_type not null, -- enum or reference to a table
+  contract_status_id integer not null references contract_statuses (contract_status_id),
   date_sign date,
   date_pub date,
   date_start date,
@@ -56,7 +56,7 @@ create table private.accounts (
   person_id integer not null references persons (person_id),
   password_hash text not null,
   is_active boolean not null default true,
-  person_role person_role_type not null
+  person_role text not null references person_roles (person_role)
 );
 
 create table teams (
@@ -89,9 +89,9 @@ create table projects (
 
 create table tasks (
   task_id integer primary key generated always as identity,
-  status task_status_type not null,
-  priority task_priority_type not null,
-  category task_category_type not null,
+  task_status_id integer not null references task_statuses (task_status_id),
+  task_priority_id integer not null references task_priorities (task_priority_id),
+  task_category_id integer not null references task_categories (task_category_id),
   project_id integer references projects (project_id),
   contract_id integer references contracts (contract_id),
   team_id integer references teams (team_id),
@@ -143,8 +143,8 @@ create table specs (
   spec_sf text not null, -- regex check
   version text not null, -- regex check
   name text not null,
-  category text not null, -- enum or reference to a table
-  subcategory text not null, -- enum or reference to a table
+  spec_category_id integer not null references spec_categories (spec_category_id),
+  spec_subcategory_id integer not null references spec_subcategories (spec_subcategory_id),
   unit text not null, -- enum or reference to a table??? --> no
   qty_decimals boolean not null, -- function of unit?
   description text,

@@ -73,8 +73,7 @@ end; $$;
 
 create or replace function insert_appliance (
   in appliance_attributes appliances,
-  -- in departments_array integer[],
-  out new_appliance_sf text
+  out result integer
 )
 language plpgsql
 as $$
@@ -84,22 +83,17 @@ begin
     appliance_attributes.asset_sf,
     appliance_attributes.name,
     appliance_attributes.description,
-    'A'::asset_category_type,
+    1,
     appliance_attributes.manufacturer,
     appliance_attributes.serialnum,
     appliance_attributes.model,
     appliance_attributes.price
-  ) returning asset_sf into new_appliance_sf;
-  -- if departments_array is not null then
-  --   insert into asset_departments select asset_id, unnest(departments_array);
-  -- end if;
+  ) returning asset_id into result;
 end; $$;
-
 
 create or replace function insert_facility (
   in facility_attributes facilities,
-  -- in departments_array integer[],
-  out new_facility_sf text
+  out result integer
 )
 language plpgsql
 as $$
@@ -109,14 +103,11 @@ begin
     facility_attributes.asset_sf,
     facility_attributes.name,
     facility_attributes.description,
-    'F'::asset_category_type,
+    2,
     facility_attributes.latitude,
     facility_attributes.longitude,
     facility_attributes.area
-  ) returning asset_sf into new_facility_sf;
-  -- if departments_array is not null then
-  --   insert into asset_departments select asset_id, unnest(departments_array);
-  -- end if;
+  ) returning asset_id into result;
 end; $$;
 
 create or replace function insert_task (
@@ -132,9 +123,9 @@ as $$
 begin
   insert into tasks values (
     default,
-    attributes.status,
-    attributes.priority,
-    attributes.category,
+    attributes.task_status_id,
+    attributes.task_priority_id,
+    attributes.task_category_id,
     attributes.project_id,
     attributes.contract_id,
     attributes.team_id,
@@ -174,13 +165,11 @@ end; $$;
 create or replace function insert_team (
   in team_attributes teams,
   in persons_array integer[],
-  out new_team_id integer
+  out result integer
 )
 language plpgsql
 strict
 as $$
-declare
-  new_team_id integer;
 begin
 
   insert into teams values (
@@ -188,7 +177,7 @@ begin
     team_attributes.name,
     team_attributes.description,
     true
-  ) returning team_id into new_team_id;
+  ) returning team_id into result;
 
   insert into team_persons select new_team_id, unnest(persons_array);
 

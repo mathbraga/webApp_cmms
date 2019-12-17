@@ -1,10 +1,10 @@
 create materialized view dashboard_data as
   with
     t_p as (
-      select count(*) as total_pen from tasks where status = 'PEN'
+      select count(*) as total_pen from tasks where task_status_id = 3
     ),
     t_c as (
-      select count(*) as total_con from tasks where status = 'CON'
+      select count(*) as total_con from tasks where task_status_id = 7
     ),
     t_d as (
       select count(*) as total_delayed from tasks where date_limit < now()
@@ -13,10 +13,10 @@ create materialized view dashboard_data as
       select count(*) as total_tasks from tasks where true
     ),
     t_a as (
-      select count(*) as total_appliances from assets where category = 'A'
+      select count(*) as total_appliances from assets where asset_category_id = 2
     ),
     t_f as (
-      select count(*) as total_facilities from assets where category = 'F'
+      select count(*) as total_facilities from assets where asset_category_id = 1
     )
     select total_con,
            total_pen,

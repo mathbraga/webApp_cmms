@@ -3,12 +3,11 @@ create view facilities as
          asset_sf,
          name,
          description,
-         category,
          latitude,
          longitude,
          area
     from assets
-  where category = 'F'
+  where asset_category_id = 1;
 ;
 
 create view appliances as
@@ -16,13 +15,12 @@ create view appliances as
          asset_sf,
          name,
          description,
-         category,
          manufacturer,
          serialnum,
          model,
          price
     from assets
-  where category = 'A'
+  where asset_category_id = 2
 ;
 
 create view balances as
@@ -32,7 +30,7 @@ create view balances as
              sum(ts.qty) as blocked
         from tasks as t
         inner join task_supplies as ts using (task_id)
-      where t.status <> 'CON'
+      where t.task_status_id <> 7
       group by ts.supply_id
     ),
     finished as (
@@ -40,7 +38,7 @@ create view balances as
              sum(ts.qty) as consumed
         from tasks as t
         inner join task_supplies as ts using (task_id)
-      where t.status = 'CON'
+      where t.task_status_id = 7
       group by ts.supply_id
     ),
     both_cases as (
