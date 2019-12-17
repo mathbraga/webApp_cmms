@@ -149,7 +149,7 @@ begin
     attributes.date_limit,
     attributes.date_start,
     attributes.date_end,
-    current_setting('auth.data.person_Id')::integer
+    current_setting('auth.data.person_Id')::integer,
     default,
     default
   ) returning task_id into result;

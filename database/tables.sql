@@ -83,7 +83,8 @@ create table projects (
   name text not null unique,
   description text,
   date_start timestamptz,
-  date_end timestamptz
+  date_end timestamptz,
+  is_active boolean not null default true
 );
 
 create table tasks (
