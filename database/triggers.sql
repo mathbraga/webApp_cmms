@@ -1,38 +1,38 @@
-create trigger log_changes
+create trigger log_change
   after insert or update or delete on tasks
-  for each row execute function create_log();
+  for each row execute function log_change();
 
-create trigger log_changes
+create trigger log_change
   after insert or update or delete on task_messages
-  for each row execute function create_log();
+  for each row execute function log_change();
 
-create trigger log_changes
+create trigger log_change
   after insert or update or delete on task_assets
-  for each row execute function create_log();
+  for each row execute function log_change();
 
-create trigger log_changes
+create trigger log_change
   after insert or update or delete on task_supplies
-  for each row execute function create_log();
+  for each row execute function log_change();
 
-create trigger log_changes
+create trigger log_change
   after insert or update or delete on assets
-  for each row execute function create_log();
+  for each row execute function log_change();
 
-create trigger log_changes
+create trigger log_change
   after insert or update or delete on asset_departments
-  for each row execute function create_log();
+  for each row execute function log_change();
 
-create trigger log_changes
+create trigger log_change
   after insert or update or delete on contracts
-  for each row execute function create_log();
+  for each row execute function log_change();
 
-create trigger log_changes
+create trigger log_change
   after insert or update or delete on supplies
-  for each row execute function create_log();
+  for each row execute function log_change();
 
-create trigger log_changes
+create trigger log_change
   after insert or update or delete on departments
-  for each row execute function create_log();
+  for each row execute function log_change();
 
 create trigger check_conclusion
   before insert or update on tasks

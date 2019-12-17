@@ -4,13 +4,13 @@ create table assets (
   name text not null,
   description text,
   category asset_category_type not null, -- enum or reference to a table
-  latitude real,
-  longitude real,
-  area real,
+  latitude numeric,
+  longitude numeric,
+  area numeric,
   manufacturer text,
   serialnum text,
   model text,
-  price numeric(12,2)
+  price numeric
 );
 
 create table asset_relations (
@@ -80,8 +80,10 @@ create table contract_teams (
 
 create table projects (
   project_id integer primary key generated always as identity,
-  name text not null,
-  description text
+  name text not null unique,
+  description text,
+  date_start timestamptz,
+  date_end timestamptz
 );
 
 create table tasks (
@@ -94,11 +96,11 @@ create table tasks (
   team_id integer references teams (team_id),
   title text not null,
   description text not null,
-  department_id text not null, -- references departments (department_id),
-  -- contact_name text not null,
-  -- contact_phone text not null,
-  -- contact_email text not null,
-  -- place text,
+  request_department text,
+  request_name text,
+  request_phone text,
+  request_email text,
+  place text,
   progress integer check (progress >= 0 and progress <= 100),
   date_limit timestamptz,
   date_start timestamptz,
@@ -168,16 +170,16 @@ create table supplies (
   supply_sf text not null,
   contract_id integer not null references contracts (contract_id),
   spec_id integer not null references specs (spec_id),
-  qty real not null,
-  bid_price numeric(12,2) not null,
-  full_price numeric(12,2),
+  qty numeric not null,
+  bid_price numeric not null,
+  full_price numeric,
   unique (contract_id, supply_sf)
 );
 
 create table task_supplies (
   task_id integer not null references tasks (task_id),
   supply_id integer not null references supplies (supply_id),
-  qty real not null,
+  qty numeric not null,
   primary key (task_id, supply_id)
 );
 
@@ -244,7 +246,7 @@ create table task_files (
 --   created_at timestamptz not null default now()
 -- );
 
-create table private.logs (
+create table private.changes (
   person_id integer not null references persons (person_id),
   created_at timestamptz not null,
   operation text not null,

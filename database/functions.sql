@@ -51,14 +51,14 @@ as $$
           a.is_active;
 $$;
 
-create or replace function create_log ()
+create or replace function log_change ()
 returns trigger
 language plpgsql
 security definer
 as $$
 begin
 
-  insert into private.logs values (
+  insert into private.changes values (
     current_setting('auth.data.person_id')::integer,
     now(),
     tg_op::text,
@@ -135,20 +135,21 @@ begin
     attributes.status,
     attributes.priority,
     attributes.category,
-    attributes.parent,
+    attributes.project_id,
     attributes.contract_id,
+    attribute.team_id,
     attributes.title,
     attributes.description,
-    attributes.department_id,
-    attributes.created_by,
-    attributes.contact_name,
-    attributes.contact_phone,
-    attributes.contact_email,
+    attributes.request_department,
+    attributes.request_name,
+    attributes.request_phone,
+    attributes.request_email,
     attributes.place,
     attributes.progress,
     attributes.date_limit,
     attributes.date_start,
     attributes.date_end,
+    current_setting('auth.data.person_Id')::integer
     default,
     default
   ) returning task_id into result;
