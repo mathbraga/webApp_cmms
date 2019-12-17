@@ -137,7 +137,7 @@ begin
     attributes.category,
     attributes.project_id,
     attributes.contract_id,
-    attribute.team_id,
+    attributes.team_id,
     attributes.title,
     attributes.description,
     attributes.request_department,
