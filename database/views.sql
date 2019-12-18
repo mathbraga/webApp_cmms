@@ -148,3 +148,46 @@ create view supplies_list as
     inner join specs as z using (spec_id)
     inner join balances as b using (supply_id)
 ;
+
+create view task_form_data as
+  with
+    status_options as (
+      select
+        jsonb_agg(jsonb_build_object(
+          'taskStatusId', task_status_id,
+          'taskStatusText', task_status_text
+        )) as status_options
+      from task_statuses
+    ),
+    category_options as (
+      select
+        jsonb_agg(jsonb_build_object(
+          'taskCategoryId', task_category_id,
+          'taskCategoryText', task_category_text
+        )) as category_options
+      from task_categories
+    ),
+    priority_options as (
+      select
+        jsonb_agg(jsonb_build_object(
+          'taskPriorityId', task_priority_id,
+          'taskPriorityText', task_priority_text
+        )) as priority_options
+      from task_priorities
+    ),
+    contract_options as (
+      select
+        jsonb_agg(jsonb_build_object(
+          'contractId', contract_id,
+          'contractSf', contract_sf,
+          'title', title,
+          'company', company
+        )) as contract_options
+      from contracts
+    )
+    select status_options,
+           category_options,
+           priority_options,
+           contract_options
+      from status_options, category_options, priority_options, contract_options
+;
