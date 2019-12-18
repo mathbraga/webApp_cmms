@@ -55,6 +55,12 @@ begin transaction;
 -- create functions
 \i functions.sql
 
+-- create queries
+\i queries.sql
+
+-- create trigger functions
+\i trigger-functions.sql
+
 -- create triggers
 -- \i triggers.sql
 
