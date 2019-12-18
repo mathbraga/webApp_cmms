@@ -4,9 +4,6 @@ require('dotenv').config();
 // Initialization and imports
 const express = require('express');
 const app = express();
-const port = process.env.EXPRESS_PORT;
-const http = require('http');
-const server = http.createServer(app);
 const authRoute = require('./routes/auth');
 const uploadRoute = require('./routes/upload');
 const downloadRoute = require('./routes/download');
@@ -41,5 +38,4 @@ app.use(paths.email, emailRoute);
 // PostGraphile route
 app.use(postgraphile);
 
-// Listen for connections on specified port
-server.listen(port, () => console.log(`Server listening on port ${port}!`));
+module.exports = app;
