@@ -1,4 +1,12 @@
 -- lookup tables
+comment on table asset_categories is E'@omit';
+comment on table contract_statuses is E'@omit';
+comment on table task_statuses is E'@omit';
+comment on table task_priorities is E'@omit';
+comment on table task_categories is E'@omit';
+comment on table person_roles is E'@omit';
+comment on table spec_categories is E'@omit';
+comment on table spec_subcategories is E'@omit';
 
 -- tables
 
