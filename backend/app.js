@@ -11,8 +11,8 @@ const redmineRoute = require('./routes/redmine');
 const emailRoute = require('./routes/email');
 const paths = require('./paths');
 const cors = require('./middlewares/cors');
-const json = require('./middlewares/express-json');
-const static = require('./middlewares/express-static');
+const expressJson = require('./middlewares/express-json');
+const expressStatic = require('./middlewares/express-static');
 const cookieSession = require('./middlewares/cookie-session');
 const passport = require('./middlewares/passport');
 const morgan = require('./middlewares/morgan');
@@ -21,8 +21,8 @@ const postgraphile = require('./middlewares/postgraphile');
 
 // Middlewares
 app.use(cors);
-app.use(json);
-app.use(static);
+app.use(expressJson);
+app.use(expressStatic);
 app.use(cookieSession);
 app.use(passport.initialize());
 app.use(passport.session());
