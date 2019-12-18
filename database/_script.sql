@@ -77,7 +77,7 @@ set local auth.data.person_id to 1;
 -- \i policies.sql
 
 -- create comments
-\i comments.sql
+-- \i comments.sql
 
 -- create smart comments
 \i smart-comments.sql
