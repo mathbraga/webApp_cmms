@@ -13,6 +13,35 @@ describe('Test all middlewares and routes', () => {
     .expect('Set-Cookie', /cmms:user/)
     .expect(200);
   });
+
+  // test('GraphQL-Upload (uploads)', async () => {
+  //   const response = await request(app)
+  //   .post('/db')
+  //   .field({
+  //     query: 'mutation MyMutation { __typename }',
+  //     variables: {
+  //       filesMetadata: {
+  //         uuid: 'uuid',
+  //         filename: 'filename',
+  //         size: 123456,
+  //       }
+  //     }
+  //   })
+  //   .attach('variables[files]', '../public/images/newfile-1.jpeg')
+  //   .set('Content-Type', 'multipart/form-data')
+  //   .send({
+  //     query: 'mutation MyMutation { __typename }',
+  //     variables: {
+  //       files: 'Buffer.alloc(10)',
+  //       filesMetadata: {
+  //         uuid: 'uuid',
+  //         filename: 'filename',
+  //         size: 123456,
+  //       }
+  //     }
+  //   })
+  //   .expect(200);
+  // });
   
   test('Postgraphile (introspection query)', async () => {
     const response = await request(app)
