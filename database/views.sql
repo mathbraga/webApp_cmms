@@ -25,49 +25,31 @@ create view appliances as
 
 create view balances as
   with
-    unfinished as (
-      select ts.supply_id,
-             sum(ts.qty) as blocked
-        from tasks as t
-        inner join task_supplies as ts using (task_id)
-      where t.task_status_id <> 7
-      group by ts.supply_id
-    ),
     finished as (
-      select ts.supply_id,
-             sum(ts.qty) as consumed
-        from tasks as t
-        inner join task_supplies as ts using (task_id)
-      where t.task_status_id = 7
-      group by ts.supply_id
+      select task_id, supply_id, qty, task_status_id
+        from tasks
+        inner join task_supplies using (task_id)
+      where task_status_id = 7
     ),
-    both_cases as (
-      select supply_id,
-             sum(coalesce(blocked, 0)) as blocked,
-             sum(coalesce(consumed, 0)) as consumed
-        from unfinished
-        full outer join finished using (supply_id)
-      group by supply_id
+    unfinished as (
+      select task_id, supply_id, qty, task_status_id
+        from tasks
+        inner join task_supplies using (task_id)
+      where task_status_id <> 7
+    ),
+    quantities as (
+      select s.supply_id,
+             s.qty as qty_initial,
+             sum(coalesce(f.qty, 0)) as qty_consumed,
+             sum(coalesce(u.qty, 0)) as qty_blocked
+        from finished as f
+        full outer join unfinished as u using (supply_id)
+        full outer join supplies as s using (supply_id)
+      group by s.supply_id, s.qty
     )
-    select c.contract_id,
-           c.contract_sf,
-           c.company,
-           c.title,
-           s.supply_id,
-           s.supply_sf,
-           s.qty,
-           s.spec_id,
-           s.bid_price,
-           s.full_price,
-           z.name,
-           z.unit,
-           bc.blocked,
-           bc.consumed,
-           s.qty - bc.blocked - bc.consumed as available
-      from both_cases as bc
-      inner join supplies as s using (supply_id)
-      inner join specs as z using (spec_id)
-      inner join contracts as c using (contract_id)
+    select *,
+           qty_initial - qty_blocked - qty_consumed as qty_available
+      from quantities
 ;
 
 create view active_teams as
