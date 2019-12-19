@@ -16670,6 +16670,9 @@ insert into supplies overriding system value values (70, 'M-64', 3, 7, 1000, 151
 insert into supplies overriding system value values (71, 'M-65', 3, 8, 1000, 152, 151);
 insert into supplies overriding system value values (72, 'M-66', 3, 9, 1000, 153, 152);
 insert into supplies overriding system value values (73, 'M-67', 3, 10, 1000, 154, 153);
+insert into supplies overriding system value values (74, 'M-98', 3, 846, 1000, 199, 198);
+insert into supplies overriding system value values (75, 'M-99', 3, 847, 1000, 99, 98);
+
 
 insert into task_supplies values (1, 1, 11);
 insert into task_supplies values (1, 2, 5);

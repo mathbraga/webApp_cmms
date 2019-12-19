@@ -1,35 +1,35 @@
-create or replace function insert_person (
-  person_attributes persons,
-  input_person_role person_role_type
-) returns integer
-language plpgsql
-strict
-security definer
-as $$
-declare
-  new_person_id integer;
-begin
+-- create or replace function insert_person (
+--   person_attributes persons,
+--   input_person_role person_role_type
+-- ) returns integer
+-- language plpgsql
+-- strict
+-- security definer
+-- as $$
+-- declare
+--   new_person_id integer;
+-- begin
 
-  insert into persons values (
-    default,
-    person_attributes.cpf,
-    person_attributes.email,
-    person_attributes.name,
-    person_attributes.phone,
-    person_attributes.cellphone,
-    person_attributes.contract_id
-  ) returning * into new_person_id;
+--   insert into persons values (
+--     default,
+--     person_attributes.cpf,
+--     person_attributes.email,
+--     person_attributes.name,
+--     person_attributes.phone,
+--     person_attributes.cellphone,
+--     person_attributes.contract_id
+--   ) returning * into new_person_id;
   
-  insert into private.accounts values (
-    new_person_id,
-    crypt('123456', gen_salt('bf', 10)),
-    true,
-    input_person_role
-  );
+--   insert into private.accounts values (
+--     new_person_id,
+--     crypt('123456', gen_salt('bf', 10)),
+--     true,
+--     input_person_role
+--   );
 
-  return new_person_id;
+--   return new_person_id;
 
-end; $$;
+-- end; $$;
 
 create or replace function authenticate (
   in input_email    text,
