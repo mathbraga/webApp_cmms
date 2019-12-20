@@ -1,9 +1,9 @@
 const { postgraphile } = require('postgraphile');
 const paths = require('../../paths');
-const { pgConfig } = require('../../db');
+const { pgPool } = require('../../db');
 
 module.exports = postgraphile(
-  pgConfig,
+  pgPool,
   ['public'],
   { 
     watchPg: true,

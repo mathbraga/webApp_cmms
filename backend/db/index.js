@@ -8,11 +8,12 @@ const pgConfig = {
   port: process.env.PGPORT || 5432,
 };
 
-const pool = new Pool(pgConfig);
+const pgPool = new Pool(pgConfig);
 
 module.exports = {
   pgConfig: pgConfig,
+  pgPool: pgPool,
   query: (queryText, params, callback) => {
-    return pool.query(queryText, params, callback);
+    return pgPool.query(queryText, params, callback);
   },
 }
