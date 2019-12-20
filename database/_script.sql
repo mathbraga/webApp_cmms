@@ -65,7 +65,7 @@ begin transaction;
 -- \i triggers.sql
 
 -- fake logged user for initial inserts
-set local auth.data.person_id to 1;
+set local auth.data.person_id to 0;
 
 -- populate tables
 \i inserts.sql
