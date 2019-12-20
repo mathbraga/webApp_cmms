@@ -47,7 +47,10 @@ create view balances as
         full outer join supplies as s using (supply_id)
       group by s.supply_id, s.qty
     )
-    select *,
+    select supply_id,
+           qty_initial,
+           qty_blocked,
+           qty_consumed,
            qty_initial - qty_blocked - qty_consumed as qty_available
       from quantities
 ;
