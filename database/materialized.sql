@@ -13,10 +13,10 @@ create materialized view dashboard_data as
       select count(*) as total_tasks from tasks where true
     ),
     t_a as (
-      select count(*) as total_appliances from assets where asset_category_id = 2
+      select count(*) as total_appliances from assets where category <> 1
     ),
     t_f as (
-      select count(*) as total_facilities from assets where asset_category_id = 1
+      select count(*) as total_facilities from assets where category = 1
     )
     select total_con,
            total_pen,

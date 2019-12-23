@@ -1,12 +1,12 @@
 -- asset categories
-create table asset_categories (
-  asset_category_id integer primary key,
-  asset_category_text text not null
-);
+-- create table asset_categories (
+--   asset_category_id integer primary key,
+--   asset_category_text text not null
+-- );
 
-insert into asset_categories values
-  (1, 'Edifício'),
-  (2, 'Equipamento');
+-- insert into asset_categories values
+--   (1, 'Edifício'),
+--   (2, 'Equipamento');
 
 -- contract statuses
 create table contract_statuses (

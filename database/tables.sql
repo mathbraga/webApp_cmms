@@ -3,7 +3,7 @@ create table assets (
   asset_sf text not null unique,
   name text not null,
   description text,
-  asset_category_id integer not null references asset_categories (asset_category_id),
+  category integer not null references assets (asset_id),
   latitude numeric,
   longitude numeric,
   area numeric,

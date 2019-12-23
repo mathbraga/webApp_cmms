@@ -7,7 +7,7 @@ create view facilities as
          longitude,
          area
     from assets
-  where asset_category_id = 1;
+  where category = 1;
 ;
 
 create view appliances as
@@ -20,7 +20,7 @@ create view appliances as
          model,
          price
     from assets
-  where asset_category_id = 2
+  where category <> 1
 ;
 
 create view balances as
