@@ -6,7 +6,7 @@ module.exports = postgraphile(
   pgPool,
   ['public'],
   { 
-    watchPg: true,
+    watchPg: process.env.NODE_ENV === 'development',
     enableCors: false,
     graphqlRoute: paths.db,
     graphiql: true,
@@ -15,7 +15,7 @@ module.exports = postgraphile(
     // subscriptions: true,
     enhanceGraphiql: true,
     disableDefaultMutations: true,
-    disableQueryLog: false,
+    disableQueryLog: process.env.NODE_ENV !== 'test',
     dynamicJson: true,
     showErrorStack: 'json',
     extendedErrors: ['hint', 'detail', 'errcode'],

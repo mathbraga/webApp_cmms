@@ -11,5 +11,7 @@ morgan.token('body', req => (JSON.stringify(req.body)));
 
 module.exports = morgan(`
 :separator
-:date[iso]    :remote-addr    :method    :url    :status    :response-time
-:user`);
+:date[iso]    :remote-addr    :method    :url    :status    :response-time ms
+:user`, {
+  skip: () => (process.env.NODE_ENV !== 'test'),
+});

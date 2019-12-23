@@ -1,8 +1,13 @@
 const request = require('supertest');
 const app = require('../app');
+const { pgPool } = require('../db');
 
 describe('Test all middlewares and routes', () => {
   
+  afterAll(() => {
+    return pgPool.end();
+  });
+
   test('Passport (authentication)', async () => {
     const response = await request(app)
     .post('/auth/login')
