@@ -24,14 +24,32 @@ language plpgsql
 as $$
 declare
   qty_ok boolean;
+  decimals_ok boolean;
+  contract_ok boolean;
 begin
-  select (b.available + coalesce(old.qty, 0) - new.qty) >= 0 into qty_ok
+
+  select (z.qty_decimals or not (scale(new.qty) > 0)) into decimals_ok
+    from supplies as s
+    inner join specs as z on s.spec_id = z.spec_id
+  where s.supply_id = new.supply_id;
+
+  select (b.qty_available + coalesce(old.qty, 0) - new.qty) >= 0 into qty_ok
     from balances as b
-    where b.supply_id = new.supply_id;
-  if qty_ok then
-    return new;
-  else
+  where b.supply_id = new.supply_id;
+
+  select t.contract_id = s.contract_id into contract_ok
+    from tasks as t
+    cross join supplies as s
+  where t.task_id = new.task_id and s.supply_id = new.supply_id;
+
+  if not decimals_ok then
+    raise exception 'Decimal input is not allowed.';
+  elsif not qty_ok then
     raise exception '% is larger than available', new.qty;
+  elsif not contract_ok then
+    raise exception 'Contracts do not match.';
+  else
+    return new;
   end if;
 end; $$;
 
