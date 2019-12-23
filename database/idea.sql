@@ -1,7 +1,7 @@
 begin;
 
 create function get_all_files_uuids ()
-returns table (uuid text)
+returns text[]
 language plpgsql
 as $$
 declare
@@ -18,7 +18,7 @@ begin
     execute format('select array_agg(uuid) from %I', quote_ident(files_tables.table_name)) into uuid_array_append;
     uuid_array = array_cat(uuid_array, uuid_array_append);
   end loop;
-  return query select unnest(uuid_array);
+  return uuid_array;
 end; $$;
 
 select * from get_all_files_uuids();
