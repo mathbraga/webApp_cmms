@@ -16,5 +16,6 @@
 
 A imagem abaixo mostra as principais relações entre as entidades existentes no banco de dados.
 Como trata-se de um banco de dados relacional (RDBMS), essas relações são registradas por meio de chaves estrangeiras e/ou tabelas de associação (a depender do tipo de relação --> 0 ou 1 para 1 ou muitos).
-
-![alttext](cmms.jpg)
+<div align="center">
+  <img src="cmms.jpg"/>
+</div>
