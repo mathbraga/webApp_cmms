@@ -13,5 +13,5 @@ module.exports = morgan(`
 :separator
 :date[iso]    :remote-addr    :method    :url    :status    :response-time ms
 :user`, {
-  skip: () => (process.env.NODE_ENV !== 'test'),
+  skip: () => (process.env.NODE_ENV === 'test'),
 });

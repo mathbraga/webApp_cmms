@@ -31,7 +31,7 @@ app.use(morgan);
 // Routes
 app.use(paths.auth, authRoute);
 app.use(paths.db, uploadRoute);
-app.use(paths.download, downloadRoute);
+app.use(paths.files, downloadRoute);
 app.use(paths.redmine, redmineRoute);
 app.use(paths.email, emailRoute);
 

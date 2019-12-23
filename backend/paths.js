@@ -5,9 +5,11 @@ const paths = {
   db: '/db',
   graphiql: '/graphiql',
   email: '/email',
-  download: '/files',
   redmine: '/redmine',
   fileuuid: '/:uuid/:filename',
+  public: '/public',
+  images: '/images',
+  files: '/files',
 };
 
 module.exports = paths;
