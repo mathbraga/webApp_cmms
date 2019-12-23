@@ -53,13 +53,11 @@ begin transaction;
 \i views.sql
 
 -- create functions
-\i functions.sql
-
--- create queries
-\i queries.sql
-
--- create trigger functions
-\i trigger-functions.sql
+\i functions-auth.sql
+\i functions-inserts.sql
+\i functions-modifies.sql
+\i functions-queries.sql
+\i functions-triggers.sql
 
 -- create triggers
 -- \i triggers.sql
