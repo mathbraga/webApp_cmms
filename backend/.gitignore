@@ -6,6 +6,8 @@ files/*
 !files/.gitkeep
 dumps/*
 !dumps/.gitkeep
+logs/*
+!logs/.gitkeep
 
 # dependencies
 /node_modules

@@ -33,6 +33,7 @@ comment on view files_of_task is E'@omit';
 
 -- functions
 comment on function authenticate is E'@omit execute';
+comment on function get_all_files_uuids is E'@omit execute';
 
 -- constraints
 comment on constraint assets_pkey on assets is E'@omit';
