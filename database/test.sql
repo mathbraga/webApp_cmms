@@ -39,6 +39,8 @@ insert into tasks (task_id, task_status_id, task_priority_id, task_category_id, 
 
 insert into task_supplies values (20001, 20001, 25);  -- raise exception '25 is larger than available.'
 
+
+select * from balances where supply_id = 20001;
 -- insert into task_supplies values (20001, 20001, 1.3); -- raise exception 'Decimal input is not allowed.'
 -- insert into task_supplies values (20001, 20001, 1);   -- no error, qty = 1, qty_decimals = false
 

@@ -28,24 +28,29 @@ declare
   contract_ok boolean;
 begin
 
-  select (b.qty_available + coalesce(old.qty, 0) - new.qty) >= 0 into qty_ok,
-         (z.qty_decimals or not (scale(new.qty) > 0)) into decimals_ok,
-         t.contract_id = s.contract_id into contract_ok
+  select ((b.qty_available + coalesce(old.qty, 0) - new.qty) >= 0),
+         (z.qty_decimals or not (scale(new.qty) > 0)),
+         (t.contract_id = s.contract_id)
+         into
+         qty_ok,
+         decimals_ok,
+         contract_ok
     from supplies as s
     inner join specs as z using (spec_id)
     inner join balances as b using (supply_id)
     inner join tasks as t on (t.task_id = new.task_id)
   where s.supply_id = new.supply_id;
 
-  if not decimals_ok then
-    raise exception 'Decimal input is not allowed.';
-  elsif not qty_ok then
+  if not qty_ok then
     raise exception '% is larger than available', new.qty;
+  elsif not decimals_ok then
+    raise exception 'Decimal input is not allowed.';
   elsif not contract_ok then
     raise exception 'Contracts do not match.';
   else
     return new;
   end if;
+
 end; $$;
 
 -- create or replace function check_asset_integrity()
