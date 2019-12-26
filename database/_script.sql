@@ -1,14 +1,17 @@
 -- rollback transaction
 rollback;
 
+-- define new database name
+\set new_db_name 'new_cmms'
+
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
 
--- connect to other database
-\c hzl
+-- create temporary database
+create database temp_db;
 
--- define new db name
-\set new_db_name 'new_cmms'
+-- connect to temporary database
+\c temp_db
 
 -- drop database
 drop database if exists :new_db_name;
