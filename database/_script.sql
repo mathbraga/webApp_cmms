@@ -7,14 +7,17 @@ rollback;
 -- connect to other database
 \c hzl
 
+-- define new db name
+\set new_db_name 'new_cmms'
+
 -- drop database
-drop database if exists new_cmms;
+drop database if exists :new_db_name;
 
 -- create new database
-create database new_cmms with owner postgres;
+create database :new_db_name with owner postgres;
 
 -- connect to the new database
-\c new_cmms
+\c :new_db_name
 
 -- create extensions
 create extension if not exists pgcrypto;
