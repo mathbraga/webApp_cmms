@@ -18,5 +18,5 @@ module.exports = morgan(`
 :date[iso]    :remote-addr    :method    :url    :status    :response-time ms
 :user`, {
   skip: () => (process.env.NODE_ENV === 'test'),
-  stream: logStream,
+  stream: process.env.NODE_ENV === 'development' ? process.stdout : logStream,
 });

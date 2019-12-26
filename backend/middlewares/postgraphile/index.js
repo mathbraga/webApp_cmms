@@ -15,7 +15,7 @@ module.exports = postgraphile(
     // subscriptions: true,
     enhanceGraphiql: process.env.NODE_ENV === 'development',
     disableDefaultMutations: true,
-    disableQueryLog: process.env.NODE_ENV === 'test',
+    disableQueryLog: process.env.NODE_ENV !== 'development',
     dynamicJson: true,
     showErrorStack: 'json',
     extendedErrors: ['hint', 'detail', 'errcode'],
