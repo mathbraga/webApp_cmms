@@ -18,6 +18,30 @@ begin
 
 end; $$;
 
+create or replace function check_asset_category ()
+returns trigger
+language plpgsql
+as $$
+begin
+    if (select parent_id from asset_relations where asset_id = new.category) is null then
+      return new;
+    else
+      raise exception  'Category of the new asset is not defined.';
+    end if;
+end; $$;
+
+create or replace function check_asset_relation ()
+returns trigger
+language plpgsql
+as $$
+begin
+    if (select parent_id from asset_relations where asset_id = new.top_id) is null then
+      return new;
+    else
+      raise exception  'Top_id is invalid.';
+    end if;
+end; $$;
+
 create or replace function check_task_supply ()
 returns trigger
 language plpgsql
@@ -52,44 +76,6 @@ begin
   end if;
 
 end; $$;
-
--- create or replace function check_asset_integrity()
--- returns trigger
--- language plpgsql
--- as $$
--- begin
---   -- facility case
---   if new.category = 'F' then
---     if (select category from assets where asset_id = new.parent) = 'F' then
---       return new;
---     else
---       raise exception  'Parent attribute of the new facility must be a facility';
---     end if;
-  
---     if (select category from assets where asset_id = new.place) = 'F' then
---       return new;
---     else
---       raise exception 'Place attribute of the new facility must be a facility';
---     end if;
---   end if;
-
---   -- appliance case
---   if new.category = 'A' then
---     if (select category from assets where asset_id = new.parent) = 'A' then
---       return new;
---     else
---       raise exception 'Parent attribute of the new appliance must be an appliance';
---     end if;
---     if (select category from assets where asset_id = new.place) = 'A' then
---       return new;
---     else
---       raise exception 'Place attribute of the new appliance must be a facility';
---     end if;
---     if (new.description = '' or new.description is null) then
---       raise exception 'New appliance must have a description';
---     end if;
---   end if;
--- end; $$;
 
 -- create or replace function check_conclusion()
 -- returns trigger
