@@ -28,19 +28,14 @@ declare
   contract_ok boolean;
 begin
 
-  select (z.qty_decimals or not (scale(new.qty) > 0)) into decimals_ok
+  select (b.qty_available + coalesce(old.qty, 0) - new.qty) >= 0 into qty_ok,
+         (z.qty_decimals or not (scale(new.qty) > 0)) into decimals_ok,
+         t.contract_id = s.contract_id into contract_ok
     from supplies as s
-    inner join specs as z on s.spec_id = z.spec_id
+    inner join specs as z using (spec_id)
+    inner join balances as b using (supply_id)
+    inner join tasks as t on (t.task_id = new.task_id)
   where s.supply_id = new.supply_id;
-
-  select (b.qty_available + coalesce(old.qty, 0) - new.qty) >= 0 into qty_ok
-    from balances as b
-  where b.supply_id = new.supply_id;
-
-  select t.contract_id = s.contract_id into contract_ok
-    from tasks as t
-    cross join supplies as s
-  where t.task_id = new.task_id and s.supply_id = new.supply_id;
 
   if not decimals_ok then
     raise exception 'Decimal input is not allowed.';
