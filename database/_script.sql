@@ -31,6 +31,9 @@ create schema private;
 -- create roles
 \i roles.sql
 
+-- set password for postgres role
+alter role postgres with encrypted password '123456';
+
 -- set ON_ERROR_STOP to on
 \set ON_ERROR_STOP on
 
