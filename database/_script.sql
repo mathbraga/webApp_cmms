@@ -64,6 +64,7 @@ begin transaction;
 
 -- fake logged user for initial inserts
 set local auth.data.person_id to 0;
+insert into persons overriding system value values (0, '00000000000', 'email@email.com', 'Visitor', '0000', null, null);
 
 -- populate tables
 \i inserts.sql
