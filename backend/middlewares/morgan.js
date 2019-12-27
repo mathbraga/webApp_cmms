@@ -1,6 +1,7 @@
 const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
+const paths = require('../paths');
 
 morgan.token('separator', () => ('-----------------------------------------------------------------------------------------------------'));
 
@@ -11,7 +12,7 @@ morgan.token('user', req => (
 
 morgan.token('body', req => (JSON.stringify(req.body)));
 
-const logStream = fs.createWriteStream(path.join(process.cwd(), 'logs/reqs'), { flags: 'a' });
+const logStream = fs.createWriteStream(path.join(process.cwd(), paths.reqsLog), { flags: 'a' });
 
 module.exports = morgan(`
 :separator

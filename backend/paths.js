@@ -10,6 +10,7 @@ const paths = {
   public: '/public',
   images: '/images',
   files: '/files',
+  reqsLog: '/logs/reqs',
 };
 
 module.exports = paths;
