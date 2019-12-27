@@ -33,34 +33,6 @@
 
 1. Uma tarefa somente pode ser cadastrada se estiver vinculada a um ou mais ativos.
 
-
-# Arquitetura
-
-O desenvolvimento do sistema deverá fazer uso de ferramentas e bibliotecas modernas,disponibilizadas em código aberto (open source) sempre que possível, permitindo a sua contínua evolução.
-
-## Back-end
-
-O back-end será formado por duas camadas básicas:
-
-  * servidor web; e
-  * sistema gerenciador de banco de dados relacional (RDBMS)
-
-As principais funcionalidades da camada de servidor web são: (1) expor a página web ao usuário do sistema (protocolo HTTP ou HTTPS); (2) realizar a lógica de autenticação e geração dos cookies de sessão de usuário; (3) executar rotinas periódicas (ex.: backups e atualizações via APIs); e (4) manter um sistema de diretórios e arquivos vinculados às entidades do banco de dados (ex.: manuais de equipamentos, fotos de edifícios, plantas arquitetônicas etc.).
-O framework Express constituirá a base dessa camada. Bibliotecas compatíveis poderão ser
-acrescentadas para agregar outras funcionalidades (ex.: Passport para autenticação, Postgraphile como API de acesso ao banco de dados etc.)
-
-As principais funcionalidades do RDBMS são: (1) garantir a atomicidade, consistência, isolamento e durabilidade dos dados inseridos no sistema; e (2) realizar as operações de criação, leitura, atualização e remoção (CRUD) nas tabelas, conforme as permissões definidas para cada usuário (ou grupo de usuários) do sistema.
-Será utilizado o banco de dados PostgreSQL.
-
-## Front-end
-
-A interface ao usuário disponibilizada pelo sistema terá a forma de uma página web, que deverá possuir um visual moderno e agradável, com navegação intuitiva e responsividade (ajuste automático à largura da tela do dispositivo utilizado pelo usuário).
-O front-end terá como base a estrutura do Create React App.
-Os componentes das páginas serão criados com a biblioteca React.
-O gerenciamento do histórico de navegação e o roteamento serão realizados com o React-Router.
-Outras bibliotecas compatíveis com esta arquitetura poderão ser incluídas.
-
-
 # Sprints
 
 ## Sprint 1: 01/09/2019 a 30/09/2019
