@@ -1,7 +1,7 @@
 const { graphqlUploadExpress } = require('graphql-upload');
 const fs = require('fs');
 const path = require('path');
-const paths = require('../../paths');
+const paths = require('../paths');
 
 async function resolveUpload(upload, uuid) {
   const { filename, mimetype, encoding, createReadStream } = upload;

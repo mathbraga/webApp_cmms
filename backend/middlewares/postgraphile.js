@@ -1,6 +1,6 @@
 const { postgraphile } = require('postgraphile');
-const paths = require('../../paths');
-const { pgPool } = require('../../db');
+const paths = require('../paths');
+const { pgPool } = require('../db');
 
 module.exports = postgraphile(
   pgPool,
