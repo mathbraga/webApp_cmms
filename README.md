@@ -1,16 +1,16 @@
 <h1>webSINFRA</h1>
 
 <p>
-  Esta aplicação web é o sistema de gestão de manutenção da Secretaria de Infraestrutura do Senado Federal.
+  webSINFRA é o sistema de gestão de manutenção da Secretaria de Infraestrutura do Senado Federal.
 </p>
 
 <h2>Arquitetura</h2>
 
 <p>
-  A aplicação é desenvolvida em três diretórios distintos (📁database, 📁backend e 📁frontend), que correspondem às<a href="https://en.wikipedia.org/wiki/Multitier_architecture"> três camadas de sua arquitetura.</a>
+  O webSINFRA é desenvolvido como uma <a href="https://en.wikipedia.org/wiki/Web_application">aplicação web</a>, e os diretórios deste repositório (📁database, 📁backend e 📁frontend) correspondem às<a href="https://en.wikipedia.org/wiki/Multitier_architecture"> três camadas</a> de sua arquitetura.
 </p>
 
-<h3>Banco de Dados</h3>
+<h3>Banco de Dados (📁database)</h3>
 
 <p>
   O sistema gerenciador de banco de dados relacional (RDBMS) é o <a href="https://www.postgresql.org/">PostgreSQL</a>.
@@ -68,10 +68,10 @@
 </div>
 
 <p>
-  As entidades, bem como as relações entre elas, são registradas em suas respectivas tabelas no banco de dados, conforme definições dadas em: <a href="./database/tables.sql">/database/tables.sql</a> 
+  Essas entidades, bem como as relações existentes entre elas, são registradas em suas respectivas tabelas no banco de dados, conforme definições dadas em: <a href="./database/tables.sql">/database/tables.sql</a> 
 </p>
 
-<h3>Back-end</h3>
+<h3>Back-end (📁backend)</h3>
 
 <p>
   O servidor web, desenvolvido em <a href="https://nodejs.org/en/">Node.js</a>, é uma camada intermediária entre o banco de dados e a interface do usuário.
@@ -121,15 +121,22 @@
   </li>
 </ul>
 
-<h3>Front-end</h3>
+
+<h3>Front-end (📁frontend)</h3>
 
 <p>
-  A interface ao usuário é uma página web, desenvolvida para possuir um visual moderno e agradável, com navegação intuitiva e responsividade (ajuste automático à largura da tela do dispositivo utilizado pelo usuário).
+  A interface ao usuário é uma página web, desenvolvida com um visual moderno e agradável, navegação intuitiva e responsividade (ajuste automático à largura da tela do dispositivo utilizado pelo usuário).
 </p>
 <p>
-  A estrutura desta parte do projeto é baseada na single page application (SPA) gerada com a ferramenta <a href="https://create-react-app.dev/">Create React App</a>.
-  Os componentes das páginas são criados em <a href="https://reactjs.org/">React</a> e outras.
+  A base inicial do código-fonte deste diretório corresponde à single page application (SPA) gerada por meio do <a href="https://create-react-app.dev/">Create React App</a>.
+</p>
+<p>
+  Os componentes das páginas são criados em <a href="https://reactjs.org/">React</a> e outras bibliotecas compatíveis.
+</p>
+<p>
   O gerenciamento do histórico de navegação e roteamento são realizados com o <a href="https://reacttraining.com/react-router/web/guides/quick-start">React-Router</a>.
+</p>
+<p>
   <em>Queries</em> e <em>mutations</em> em GraphQL, via APIs da biblioteca <a href="https://www.apollographql.com/docs/react/">Apollo-Client</a>, são usadas para <em>data fetching</em> e criação/atualização de entidades do banco de dados (tarefas, ativos, contratos, especificações técnicas etc.).
 </p>
 
