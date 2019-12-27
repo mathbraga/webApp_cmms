@@ -7,7 +7,7 @@
 <h2>Arquitetura</h2>
 
 <p>
-  O desenvolvimento do sistema deverá fazer uso de ferramentas e bibliotecas modernas,disponibilizadas em código aberto (open source) sempre que possível, permitindo a sua contínua evolução.
+  A aplicação é desenvolvida em três diretórios distintos (📁database, 📁backend e 📁frontend), que correspondem às<a href="https://en.wikipedia.org/wiki/Multitier_architecture"> três camadas de sua arquitetura.</a>
 </p>
 
 <h3>Banco de Dados</h3>
@@ -67,10 +67,14 @@
   <img src="cmms.jpg"/>
 </div>
 
+<p>
+  As entidades, bem como as relações entre elas, são registradas em suas respectivas tabelas no banco de dados, conforme definições dadas em: <a href="./database/tables.sql">/database/tables.sql</a> 
+</p>
+
 <h3>Back-end</h3>
 
 <p>
-  O servidor web, desenvolvido em <a href="https://nodejs.org/en/">Node.js</a>, é uma camada intermediária entre o bando de dados e a interface do usuário.
+  O servidor web, desenvolvido em <a href="https://nodejs.org/en/">Node.js</a>, é uma camada intermediária entre o banco de dados e a interface do usuário.
   Suas principais funcionalidades são:
 </p>
 <ul>
@@ -124,8 +128,9 @@
 </p>
 <p>
   A estrutura desta parte do projeto é baseada na single page application (SPA) gerada com a ferramenta <a href="https://create-react-app.dev/">Create React App</a>.
-  Os componentes das páginas são criados com a biblioteca <a href="https://reactjs.org/">React</a> e outras.
+  Os componentes das páginas são criados em <a href="https://reactjs.org/">React</a> e outras.
   O gerenciamento do histórico de navegação e roteamento são realizados com o <a href="https://reacttraining.com/react-router/web/guides/quick-start">React-Router</a>.
+  <em>Queries</em> e <em>mutations</em> em GraphQL, via APIs da biblioteca <a href="https://www.apollographql.com/docs/react/">Apollo-Client</a>, são usadas para <em>data fetching</em> e criação/atualização de entidades do banco de dados (tarefas, ativos, contratos, especificações técnicas etc.).
 </p>
 
 <h2>Desenvolvedores</h2>
