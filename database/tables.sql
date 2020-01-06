@@ -214,7 +214,7 @@ create table task_supplies (
 -- create table asset_files (
 --   asset_id integer not null references assets (asset_id),
 --   name text not null,
---   uuid text not null,
+--   uuid uuid not null,
 --   size bigint not null,
 --   person_id integer not null references persons (person_id),
 --   created_at timestamptz not null default now()
@@ -223,7 +223,7 @@ create table task_supplies (
 create table task_files (
   task_id integer not null references tasks (task_id),
   filename text not null,
-  uuid text not null,
+  uuid uuid not null,
   size bigint not null,
   person_id integer not null references persons (person_id),
   created_at timestamptz not null default now()
@@ -232,7 +232,7 @@ create table task_files (
 -- create table rule_files (
 --   rule_id integer not null references rules (rule_id),
 --   name text not null,
---   uuid text not null,
+--   uuid uuid not null,
 --   size bigint not null,
 --   person_id integer not null references persons (person_id),
 --   created_at timestamptz not null default now()
@@ -241,7 +241,7 @@ create table task_files (
 -- create table template_files (
 --   template_id integer not null references templates (template_id),
 --   name text not null,
---   uuid text not null,
+--   uuid uuid not null,
 --   size bigint not null,
 --   person_id integer not null references persons (person_id),
 --   created_at timestamptz not null default now()
