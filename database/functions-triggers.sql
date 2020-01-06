@@ -53,7 +53,7 @@ declare
 begin
 
   select ((b.qty_available + coalesce(old.qty, 0) - new.qty) >= 0),
-         (z.qty_decimals or not (scale(new.qty) > 0)),
+         (z.qty_decimals or scale(new.qty) = 0),
          (t.contract_id = s.contract_id)
          into
          qty_ok,
@@ -65,14 +65,10 @@ begin
     inner join tasks as t on (t.task_id = new.task_id)
   where s.supply_id = new.supply_id;
 
-  if not qty_ok then
-    raise exception '% is larger than available', new.qty;
-  elsif not decimals_ok then
-    raise exception 'Decimal input is not allowed.';
-  elsif not contract_ok then
-    raise exception 'Contracts do not match.';
-  else
-    return new;
+  if qty_ok and decimals_ok and contract_ok then return new;
+  elsif not qty_ok then raise exception '% is larger than available', new.qty;
+  elsif not decimals_ok then raise exception 'Decimal input is not allowed.';
+  else raise exception 'Contracts do not match.';
   end if;
 
 end; $$;
