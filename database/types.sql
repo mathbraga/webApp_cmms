@@ -1,5 +1,5 @@
 create type file_metadata as (
   filename text,
-  uuid text,
+  uuid uuid,
   size bigint
 );

@@ -1,4 +1,5 @@
 const { pgPool } = require('../db');
+const inputs = require('./inputs');
 
 describe('Test all db functions', () => {
   
@@ -8,6 +9,7 @@ describe('Test all db functions', () => {
 
   beforeEach(async () => {
     await pgPool.query('begin');
+    await pgPool.query('set local auth.data.person_id to 0');
   });
 
   afterEach(async () => {
@@ -15,12 +17,12 @@ describe('Test all db functions', () => {
   });
 
   test('Execute db function successfully', async () => {
-    const result = await pgPool.query('select now()');
+    const result = await pgPool.query('select * from insert_task($1, $2, $3, $4, $5)', inputs.insertTaskSuccess);
     expect(result.rows.length).not.toBe(0);
   });
 
   test('Execute db function unsuccessfully', async () => {
-    await expect(pgPool.query('select non_existent_function()')).rejects.toThrow();
+    await expect(pgPool.query('select * from insert_task($1, $2, $3, $4, $5)', inputs.insertTaskFailure)).rejects.toThrow(/must be/);
   });
 
 });

@@ -84,7 +84,11 @@ begin
     default
   ) returning task_id into result;
 
-  insert into task_assets select result, unnest(assets);
+  if assets is not null then
+    insert into task_assets select result, unnest(assets);
+  else
+    raise exception 'There must be at least one asset in a task!';
+  end if;
 
   if supplies is not null then
     insert into task_supplies select result, unnest(supplies), unnest(qty);
