@@ -4,8 +4,8 @@ const { pgPool } = require('../db');
 
 describe('Test all middlewares and routes', () => {
   
-  afterAll(() => {
-    return pgPool.end();
+  afterAll(async () => {
+    await pgPool.end();
   });
 
   test('Passport (authentication)', async () => {
