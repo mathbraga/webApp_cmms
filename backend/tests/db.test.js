@@ -1,4 +1,5 @@
 const { pgPool } = require('../db');
+const { INSERT_TASK_QUERY } = require('./queries');
 const inputs = require('./inputs');
 
 describe('Test all db functions', () => {
@@ -17,20 +18,20 @@ describe('Test all db functions', () => {
   });
 
   test('Execute db function successfully', async () => {
-    const result = await pgPool.query('select * from insert_task($1, $2, $3, $4, $5)', inputs.insertTaskSuccess);
+    const result = await pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskSuccess);
     expect(result.rows.length).not.toBe(0);
   });
 
   test('Execute db function unsuccessfully', async () => {
-    await expect(pgPool.query('select * from insert_task($1, $2, $3, $4, $5)', inputs.insertTaskFailure)).rejects.toThrow(/must be/);
+    await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskFailure)).rejects.toThrow(/must be/);
   });
 
   test('Execute db function unsuccessfully', async () => {
-    await expect(pgPool.query('select * from insert_task($1, $2, $3, $4, $5)', inputs.insertTaskQtyFailure)).rejects.toThrow(/larger than/);
+    await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskQtyFailure)).rejects.toThrow(/larger than/);
   });
 
   test('Execute db function unsuccessfully', async () => {
-    await expect(pgPool.query('select * from insert_task($1, $2, $3, $4, $5)', inputs.insertTaskContractFailure)).rejects.toThrow(/Contract/);
+    await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskContractFailure)).rejects.toThrow(/Contract/);
   });
 
 });
