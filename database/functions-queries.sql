@@ -32,7 +32,7 @@ begin
     where table_schema = 'public' and table_name ~ '^.+_files$'
   loop
     raise notice E'\n\nCurrent table: % \n\n', files_tables.table_name;
-    execute format('select array_agg(uuid) from %I', quote_ident(files_tables.table_name)) into uuid_array_append;
+    execute format('select array_agg(uuid) from %I', files_tables.table_name) into uuid_array_append;
     uuid_array = array_cat(uuid_array, uuid_array_append);
   end loop;
   return uuid_array;
