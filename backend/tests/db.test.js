@@ -25,4 +25,12 @@ describe('Test all db functions', () => {
     await expect(pgPool.query('select * from insert_task($1, $2, $3, $4, $5)', inputs.insertTaskFailure)).rejects.toThrow(/must be/);
   });
 
+  test('Execute db function unsuccessfully', async () => {
+    await expect(pgPool.query('select * from insert_task($1, $2, $3, $4, $5)', inputs.insertTaskQtyFailure)).rejects.toThrow(/larger than/);
+  });
+
+  test('Execute db function unsuccessfully', async () => {
+    await expect(pgPool.query('select * from insert_task($1, $2, $3, $4, $5)', inputs.insertTaskContractFailure)).rejects.toThrow(/Contract/);
+  });
+
 });
