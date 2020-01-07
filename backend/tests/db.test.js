@@ -17,19 +17,19 @@ describe('Test all db functions', () => {
     await pgPool.query('rollback');
   });
 
-  test('Execute db function successfully', async () => {
+  test('insert_task OK', async () => {
     await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskSuccess)).resolves.toMatchObject({ rows: [{ result: expect.any(Number) }]});
   });
 
-  test('Execute db function unsuccessfully', async () => {
+  test('insert_task fails (no asset selected)', async () => {
     await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskFailure)).rejects.toThrow(/must be/);
   });
 
-  test('Execute db function unsuccessfully', async () => {
+  test('insert_task fails (supply qty larger than available)', async () => {
     await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskQtyFailure)).rejects.toThrow(/larger than/);
   });
 
-  test('Execute db function unsuccessfully', async () => {
+  test('insert_task fails (contracts do not match)', async () => {
     await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskContractFailure)).rejects.toThrow(/Contract/);
   });
 
