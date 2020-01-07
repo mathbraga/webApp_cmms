@@ -18,8 +18,7 @@ describe('Test all db functions', () => {
   });
 
   test('Execute db function successfully', async () => {
-    const result = await pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskSuccess);
-    expect(result.rows.length).not.toBe(0);
+    await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskSuccess)).resolves.toMatchObject({ rows: [{ result: expect.any(Number) }]});
   });
 
   test('Execute db function unsuccessfully', async () => {
