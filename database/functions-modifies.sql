@@ -2,36 +2,37 @@ create or replace function modify_asset (
   in attributes assets,
   out result integer
 )
-language plpgsql
-as $$
-begin
-  update assets as a
-    set (
-      title,
-      description,
-      category,
-      latitude,
-      longitude,
-      area,
-      manufacturer,
-      serialnum,
-      model,
-      price,
-      warranty
-    ) = (
-      attributes.title,
-      attributes.description,
-      attributes.category,
-      attributes.latitude,
-      attributes.longitude,
-      attributes.area,
-      attributes.manufacturer,
-      attributes.serialnum,
-      attributes.model,
-      attributes.price
-    ) where a.asset_id = asset_attributes.asset_id
-    returning a.asset_id into result;
-end; $$;
+  language plpgsql
+  as $$
+    begin
+      update assets as a
+        set (
+          title,
+          description,
+          category,
+          latitude,
+          longitude,
+          area,
+          manufacturer,
+          serialnum,
+          model,
+          price
+        ) = (
+          attributes.title,
+          attributes.description,
+          attributes.category,
+          attributes.latitude,
+          attributes.longitude,
+          attributes.area,
+          attributes.manufacturer,
+          attributes.serialnum,
+          attributes.model,
+          attributes.price
+        ) where a.asset_id = asset_attributes.asset_id
+      returning a.asset_id into result;
+    end;
+  $$
+;
 
 -- create or replace function modify_task (
 --   in attributes tasks,

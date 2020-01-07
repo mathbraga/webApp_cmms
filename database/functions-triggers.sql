@@ -1,77 +1,86 @@
 create or replace function log_change ()
-returns trigger
-language plpgsql
-security definer
-as $$
-begin
-
-  insert into private.changes values (
-    current_setting('auth.data.person_id')::integer,
-    now(),
-    tg_op::text,
-    tg_table_name::text,
-    to_jsonb(old),
-    to_jsonb(new)
-  );
-
-  return null; -- result is ignored since this is an after trigger
-
-end; $$;
+  returns trigger
+  language plpgsql
+  security definer
+  as $$
+    begin
+      insert into private.changes values (
+        current_setting('auth.data.person_id')::integer,
+        now(),
+        tg_op::text,
+        tg_table_name::text,
+        to_jsonb(old),
+        to_jsonb(new)
+      );
+      return null; -- result is ignored since this is an after trigger
+    end;
+  $$
+;
 
 create or replace function check_asset_category ()
-returns trigger
-language plpgsql
-as $$
-begin
-    if (select parent_id from asset_relations where asset_id = new.category) is null then
-      return new;
-    else
-      raise exception  'Category of the new asset is not defined.';
-    end if;
-end; $$;
+  returns trigger
+  language plpgsql
+  as $$
+    begin
+      if (select parent_id from asset_relations where asset_id = new.category) is null then
+        return new;
+      else
+        raise exception  'Category of the new asset is not defined.';
+      end if;
+    end;
+  $$
+;
 
 create or replace function check_asset_relation ()
-returns trigger
-language plpgsql
-as $$
-begin
-    if (select parent_id from asset_relations where asset_id = new.top_id) is null then
-      return new;
-    else
-      raise exception  'Top_id is invalid.';
-    end if;
-end; $$;
+  returns trigger
+  language plpgsql
+  as $$
+    begin
+      if (select parent_id from asset_relations where asset_id = new.top_id) is null then
+        return new;
+      else
+        raise exception  'Top_id is invalid.';
+      end if;
+    end;
+  $$
+;
 
 create or replace function check_task_supply ()
-returns trigger
-language plpgsql
-as $$
-declare
-  qty_ok boolean;
-  decimals_ok boolean;
-  contract_ok boolean;
-begin
+  returns trigger
+  language plpgsql
+  as $$
+    declare
+      qty_ok boolean;
+      decimals_ok boolean;
+      contract_ok boolean;
+    begin
 
-  select ((b.qty_available + coalesce(old.qty, 0) - new.qty) >= 0),
-         (z.qty_decimals or scale(new.qty) = 0),
-         (t.contract_id = s.contract_id)
-         into
-         qty_ok,
-         decimals_ok,
-         contract_ok
-    from supplies as s
-    inner join specs as z using (spec_id)
-    inner join balances as b using (supply_id)
-    inner join tasks as t on (t.task_id = new.task_id)
-  where s.supply_id = new.supply_id;
+      select ((b.qty_available + coalesce(old.qty, 0) - new.qty) >= 0),
+            (z.qty_decimals or scale(new.qty) = 0),
+            (t.contract_id = s.contract_id)
+            into
+            qty_ok,
+            decimals_ok,
+            contract_ok
+        from supplies as s
+        inner join specs as z using (spec_id)
+        inner join balances as b using (supply_id)
+        inner join tasks as t on (t.task_id = new.task_id)
+      where s.supply_id = new.supply_id;
 
-  if qty_ok and decimals_ok and contract_ok then return new;
-  elsif not qty_ok then raise exception '% is larger than available', new.qty;
-  elsif not decimals_ok then raise exception 'Decimal input is not allowed.';
-  else raise exception 'Contracts do not match.';
-  end if;
+      if qty_ok and decimals_ok and contract_ok then
+        return new;
+      elsif not qty_ok then
+        raise exception '% is larger than available', new.qty;
+      elsif not decimals_ok then
+        raise exception 'Decimal input is not allowed.';
+      else
+        raise exception 'Contracts do not match.';
+      end if;
 
-end; $$;
+    end;
+  $$
+;
 
 -- create or replace function check_conclusion()
 -- returns trigger

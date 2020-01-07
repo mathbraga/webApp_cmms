@@ -170,9 +170,9 @@ create view task_form_data as
         )) as contract_options
       from contracts
     )
-    select status_options,
+  select status_options,
            category_options,
            priority_options,
            contract_options
-      from status_options, category_options, priority_options, contract_options
+    from status_options, category_options, priority_options, contract_options
 ;
