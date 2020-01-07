@@ -26,6 +26,7 @@ module.exports = postgraphile(
       const [person_id, role] = req.session.passport ? req.session.passport.user.split('-') : ['1', 'visitor'];
       return {
         'role': role,
+        'statement_timeout': 5000,
         'auth.data.person_id': person_id,
       }
     }
