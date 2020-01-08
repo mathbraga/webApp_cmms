@@ -46,7 +46,7 @@ const diffUploads = async () => {
       'List of uploaded files not registered in the database\n' +
       '(diff script executed at ' + new Date + ')\n' +
       '-------------------------------------------------------------------------\n' +
-      diffUUIDs.join('\n').replace(/\.gitkeep\s/, '') +
+      diffUUIDs.join('\n').replace(/\.gitkeep\n/, '') +
       '\n'
     );
 
