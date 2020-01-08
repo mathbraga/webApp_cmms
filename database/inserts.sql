@@ -16846,3 +16846,5 @@ insert into task_supplies values (30, 49, 1);
 insert into task_supplies values (29, 50, 1);
 insert into task_supplies values (28, 51, 1);
 insert into task_supplies values (27, 52, 1);
+
+insert into task_files values (1, 'filename', 'c6235813-3ba4-3801-ae84-e0a6ebb7d138', 234234, 1, now());
