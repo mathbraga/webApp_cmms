@@ -11,6 +11,7 @@ const paths = {
   images: '/images',
   files: '/files',
   reqsLog: '/logs/reqs',
+  filesDiffLog: '/logs/filesdiff',
 };
 
 module.exports = paths;
