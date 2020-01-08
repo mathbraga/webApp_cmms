@@ -32,27 +32,22 @@ const diffUploads = async () => {
 
   try {
     const { rows: [ { dbUUIDs } ]} = await db.query('select get_all_files_uuids() as "dbUUIDs"');
-    // console.log(dbUUIDs);
-    
-    const UUIDs = fs.readdirSync(path.join(process.cwd(), paths.files));
-    // console.log(UUIDs);
 
-    const diffFile = fs.createWriteStream(path.join(process.cwd(), paths.filesDiffLog), { flags: 'w' });
+    const UUIDs = fs.readdirSync(path.join(process.cwd(), paths.files));
 
     const diffUUIDs = UUIDs.filter(uuid => (!dbUUIDs.includes(uuid)));
-    // console.log(diffUUIDs);
 
-    const diffFileContent = (
+    const diffFileContent =
       'List of uploaded files not registered in the database\n' +
       '(diff script executed at ' + new Date + ')\n' +
       '-------------------------------------------------------------------------\n' +
       diffUUIDs.join('\n').replace(/\.gitkeep\n/, '') +
       '\n'
-    );
+    ;
 
-    diffFile.write(diffFileContent, (err) => {
-      if(err){
-        console.log(err.message);
+    fs.writeFile(path.join(process.cwd(), paths.filesDiffLog), diffFileContent, error => {
+      if(error){
+        console.log(error);
       }
     });
 
