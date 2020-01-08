@@ -9,7 +9,7 @@ const onTickFunction4 = diffUploads;
 
 module.exports = new CronJob({
   cronTime: '* * * * * *',
-  onTick: onTickFunction4,
+  onTick: onTickFunction0,
   onComplete: null,
   start: true,
   timezone: 'America/Sao_Paulo',
