@@ -1,11 +1,14 @@
 create or replace function insert_asset (
   in attributes assets,
+  in relations_tops integer[],
+  in relations_parents integer[],
   out result integer
 )
   language plpgsql
   as $$
     begin
-      insert into appliances values (
+
+      insert into assets values (
         default,
         attributes.asset_sf,
         attributes.name,
@@ -19,6 +22,13 @@ create or replace function insert_asset (
         attributes.model,
         attributes.price
       ) returning asset_id into result;
+
+      insert into asset_relations values (
+        unnest(relations_tops),
+        unnest(relations_parents),
+        result
+      );
+
     end;
   $$
 ;
