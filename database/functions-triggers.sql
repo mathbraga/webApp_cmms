@@ -25,7 +25,7 @@ create or replace function check_asset_category ()
       if (select parent_id from asset_relations where asset_id = new.category) is null then
         return new;
       else
-        raise exception  'Category of the new asset is not defined.';
+        raise exception '%', get_exception_message(5);
       end if;
     end;
   $$
@@ -39,7 +39,7 @@ create or replace function check_asset_relation ()
       if (select parent_id from asset_relations where asset_id = new.top_id) is null then
         return new;
       else
-        raise exception  'Top_id is invalid.';
+        raise exception '%', get_exception_message(6);
       end if;
     end;
   $$
@@ -71,11 +71,11 @@ create or replace function check_task_supply ()
       if qty_ok and decimals_ok and contract_ok then
         return new;
       elsif not qty_ok then
-        raise exception '% is larger than available', new.qty;
+        raise exception '%', get_exception_message(1);
       elsif not decimals_ok then
-        raise exception 'Decimal input is not allowed.';
+        raise exception '%', get_exception_message(2);
       else
-        raise exception 'Contracts do not match.';
+        raise exception '%', get_exception_message(3);
       end if;
 
     end;
