@@ -29,7 +29,7 @@ const inputs = {
   insertTaskDecimalsFailure: [
     taskAttributes,
     [1],
-    [1],
+    [76],
     [1.5], // decimals not allowed for supply_id = 
     null,
   ],

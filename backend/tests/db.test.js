@@ -29,9 +29,9 @@ describe('Test all db functions', () => {
     await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskQtyFailure)).rejects.toThrow(/CMMS: ERRO 2/);
   });
 
-  // test('insert_task fails (decimals not allowed)', async () => {
-  //   await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskDecimalsFailure)).rejects.toThrow(/CMMS: ERRO 2/);
-  // });
+  test('insert_task fails (decimals not allowed)', async () => {
+    await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskDecimalsFailure)).rejects.toThrow(/CMMS: ERRO 3/);
+  });
 
   test('insert_task fails (contracts do not match)', async () => {
     await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskContractFailure)).rejects.toThrow(/CMMS: ERRO 4/);

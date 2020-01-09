@@ -9048,13 +9048,13 @@ insert into specs overriding system value values (75, $$SF-00075$$, $$v02$$, $$F
 3) Instalar da máquina na posição a ser furada. 
 4) Executar furo e remoção do corpo de concreto. 
 5) Limpar a área.$$, $$n/a$$, $$n/a$$, $$n/a$$, $$Unidade de Medição: unid (furo executado).$$, $$n/a$$, $$n/a$$, $$n/a$$, $$Não$$, $$CATSER: 1627$$, $$CATSER: 1627$$);
-insert into specs overriding system value values (76, $$SF-00076$$, $$v02$$, $$Furo em concreto para diâmetros maiores que 75mm$$, 3, 34, $$un$$, true, $$Furo em concreto com coroas diamantadas, profundidade até 40 cm, utilizando perfuratriz elétrica Ø 3"" a a 6 1/4"" ou martelete ou rompedor pneumático manual 28 kg.$$, $$No caso de uso de martelete ou rompedor, a Contratada deverá utilizar martelete ou rompedor pneumático manual 28 kg, frequência de impacto 1230/minuto.$$, $$Conforme definição em projeto ou solicitação da Fiscalização deverá ser feito furo com perfuratriz elétrica ou com martelete ou rompedor pneumático, incluindo os seguintes serviços:
+insert into specs overriding system value values (76, $$SF-00076$$, $$v02$$, $$Furo em concreto para diâmetros maiores que 75mm$$, 3, 34, $$un$$, false, $$Furo em concreto com coroas diamantadas, profundidade até 40 cm, utilizando perfuratriz elétrica Ø 3"" a a 6 1/4"" ou martelete ou rompedor pneumático manual 28 kg.$$, $$No caso de uso de martelete ou rompedor, a Contratada deverá utilizar martelete ou rompedor pneumático manual 28 kg, frequência de impacto 1230/minuto.$$, $$Conforme definição em projeto ou solicitação da Fiscalização deverá ser feito furo com perfuratriz elétrica ou com martelete ou rompedor pneumático, incluindo os seguintes serviços:
 1) Executar furos na laje ou parede de concreto, nos locais indicados em projeto ou pela Fiscalização, a fim de possibilitar a passagem de tubulações das diversas instalações.
 2) Conectar os equipamentos na rede elétrica (quando o equipamento for elétrico) e na rede de água. Prever isolação e sinalização da área.
 3) Instalar a máquina na posição a ser furada.
 4) Executar o furo e remoção do corpo de concreto.
 5) Limpar a área.$$, $$n/a$$, $$n/a$$, $$n/a$$, $$Unidade de Medição: unid (furo executado).$$, $$n/a$$, $$n/a$$, $$n/a$$, $$Não$$, $$CATSER.1627$$, $$CATSER.1627$$);
-insert into specs overriding system value values (77, $$SF-00077$$, $$v01$$, $$Concreto virado em betoneira, fck = 15 MPa$$, 3, 7, $$m³$$, true, $$Concreto estrutural virado em obra, consistência para vibração, brita 1, inclusive lançamento e adensamento.$$, $$Cimento Portland composto CP II-32.
+insert into specs overriding system value values (77, $$SF-00077$$, $$v01$$, $$Concreto virado em betoneira, fck = 15 MPa$$, 3, 7, $$m³$$, false, $$Concreto estrutural virado em obra, consistência para vibração, brita 1, inclusive lançamento e adensamento.$$, $$Cimento Portland composto CP II-32.
 Areia média – areia média úmida, com coeficiente de inchamento de 1,35, pronta para o uso.
 Brita 1 - agregado graúdo com dimensão granulométrica entre 9,5 e 19 mm e que atenda à norma ABNT NBR 7211:2009 - Agregados para Concreto - Especificação$$, $$Mistura: a sequência da colocação dos materiais na betoneira deve ser 3 seguinte: brita, água com eventuais aditivos líquidos, cimento e, por último a areia, que devem ser colocados com a betoneira girando e o amassamento deve durar o tempo necessário para permitir a homogeneização da mistura de todos os elementos. 
 Procedimento:
@@ -16669,6 +16669,8 @@ insert into supplies overriding system value values (72, 'M-66', 4, 9, 1000, 153
 insert into supplies overriding system value values (73, 'M-67', 4, 10, 1000, 154, 153);
 insert into supplies overriding system value values (74, 'M-98', 4, 846, 1000, 199, 198);
 insert into supplies overriding system value values (75, 'M-99', 4, 847, 1000, 99, 98);
+insert into supplies overriding system value values (76, 'M-100', 4, 76, 1000, 10, 11);
+insert into supplies overriding system value values (77, 'M-101', 4, 77, 1000, 9, 10);
 
 insert into task_supplies values (1, 1, 11);
 insert into task_supplies values (1, 2, 5);
