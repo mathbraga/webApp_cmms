@@ -7,7 +7,7 @@ const paths = require('../paths');
 
 const testCron = () => {
   console.log('... Testing Cron ...');
-};
+}
 
 const refreshAllMaterializedViews = async () => {
   try {
@@ -17,21 +17,21 @@ const refreshAllMaterializedViews = async () => {
   catch (error) {
     console.log(error);
   }
-};
+}
 
 const dumpDatabase = async () => {
   try {
     const output = await exec('pg_dump -f dumps/dump.sql -d ' + process.env.PGDATABASE);
-    console.log('pg_dump executed successfully at: ' + new Date);
+    console.log('pg_dump executed successfully at: ' + new Date());
   } catch(error){
     console.log(error);
   }
-};
+}
 
 const diffUploads = async () => {
 
   try {
-    const { rows: [ { dbUUIDs } ]} = await db.query('select get_all_files_uuids() as "dbUUIDs"');
+    const { rows: [ { dbUUIDs } ] } = await db.query('select get_all_files_uuids() as "dbUUIDs"');
 
     const UUIDs = fs.readdirSync(path.join(process.cwd(), paths.files));
 
@@ -39,8 +39,8 @@ const diffUploads = async () => {
 
     const diffFileContent =
       'List of uploaded files not registered in the database\n' +
-      '(diff script executed at ' + new Date + ')\n' +
-      '-------------------------------------------------------------------------\n' +
+      '(diff script executed at ' + new Date() + ')\n' +
+      '-----------------------------------------------------------------------\n' +
       diffUUIDs.join('\n').replace(/\.gitkeep\n/, '') +
       '\n'
     ;
@@ -54,11 +54,11 @@ const diffUploads = async () => {
   } catch(error){
     console.log(error);
   }
-};
+}
 
 module.exports = {
   testCron,
   refreshAllMaterializedViews,
   dumpDatabase,
   diffUploads,
-};
+}
