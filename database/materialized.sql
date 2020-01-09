@@ -51,7 +51,9 @@ create or replace function refresh_all_materialized_views (
       loop
         execute format('refresh materialized view %I.%I', mviews.mv_schema, mviews.mv_name);
       end loop;
-      return now();
+
+      refreshed_at = now();
+
     end;
   $$
 ;

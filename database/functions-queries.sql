@@ -20,7 +20,7 @@ create or replace function get_asset_tree (
 ;
 
 create or replace function get_all_files_uuids (
-  out text[]
+  out uuids_result text[]
 )
   language plpgsql
   stable
@@ -39,7 +39,6 @@ create or replace function get_all_files_uuids (
         execute format('select array_agg(uuid) from %I', files_tables.table_name) into uuids_to_append;
         uuids_result = array_cat(uuids_result, uuids_to_append);
       end loop;
-      return uuids_result;
     end;
   $$
 ;
