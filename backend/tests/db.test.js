@@ -22,15 +22,19 @@ describe('Test all db functions', () => {
   });
 
   test('insert_task fails (no asset selected)', async () => {
-    await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskFailure)).rejects.toThrow(/must be/);
+    await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskFailure)).rejects.toThrow(/CMMS: ERRO 1/);
   });
 
   test('insert_task fails (supply qty larger than available)', async () => {
-    await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskQtyFailure)).rejects.toThrow(/larger than/);
+    await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskQtyFailure)).rejects.toThrow(/CMMS: ERRO 2/);
   });
 
+  // test('insert_task fails (decimals not allowed)', async () => {
+  //   await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskDecimalsFailure)).rejects.toThrow(/CMMS: ERRO 2/);
+  // });
+
   test('insert_task fails (contracts do not match)', async () => {
-    await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskContractFailure)).rejects.toThrow(/Contract/);
+    await expect(pgPool.query(INSERT_TASK_QUERY, inputs.insertTaskContractFailure)).rejects.toThrow(/CMMS: ERRO 4/);
   });
 
 });

@@ -101,7 +101,7 @@ create or replace function insert_task (
       if assets is not null then
         insert into task_assets select result, unnest(assets);
       else
-        raise exception 'There must be at least one asset in a task!';
+        raise exception '%', get_exception_message(1);
       end if;
 
       if supplies is not null then

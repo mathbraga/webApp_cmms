@@ -71,11 +71,11 @@ create or replace function check_task_supply ()
       if qty_ok and decimals_ok and contract_ok then
         return new;
       elsif not qty_ok then
-        raise exception '%', get_exception_message(1);
-      elsif not decimals_ok then
         raise exception '%', get_exception_message(2);
-      else
+      elsif not decimals_ok then
         raise exception '%', get_exception_message(3);
+      else
+        raise exception '%', get_exception_message(4);
       end if;
 
     end;

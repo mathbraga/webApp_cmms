@@ -66,7 +66,7 @@ begin transaction;
 
 -- create functions
 \i functions-auth.sql
--- \i functions-exception.sql
+\i functions-exception.sql
 \i functions-inserts.sql
 \i functions-modifies.sql
 \i functions-queries.sql
