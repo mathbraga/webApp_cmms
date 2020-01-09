@@ -61,11 +61,16 @@ begin transaction;
 -- create views
 \i views.sql
 
+-- create materialized views
+\i materialized-views.sql
+
 -- create functions
 \i functions-auth.sql
+-- \i functions-exception.sql
 \i functions-inserts.sql
 \i functions-modifies.sql
 \i functions-queries.sql
+\i functions-refresh.sql
 \i functions-triggers.sql
 
 -- create triggers
@@ -77,9 +82,6 @@ insert into persons overriding system value values (0, '00000000000', 'email@ema
 
 -- populate tables
 \i inserts.sql
-
--- create materialized views
-\i materialized.sql
 
 -- create rls policies
 -- \i policies.sql
