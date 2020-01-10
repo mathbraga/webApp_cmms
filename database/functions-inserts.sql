@@ -93,7 +93,7 @@ create or replace function insert_task (
         attributes.date_limit,
         attributes.date_start,
         attributes.date_end,
-        current_setting('auth.data.person_Id')::integer,
+        current_setting('auth.data.person_id')::integer,
         default,
         default
       ) returning task_id into result;

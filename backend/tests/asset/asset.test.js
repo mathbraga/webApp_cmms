@@ -11,7 +11,7 @@ describe('Test asset related functions', () => {
       await pgPool.query('begin');
       await pgPool.query('set local auth.data.person_id to 0');
   });
-  afterAll(async () => {
+  afterEach(async () => {
       await pgPool.query('rollback');
   });
 
