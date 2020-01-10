@@ -71,6 +71,15 @@
   Essas entidades, bem como as relações existentes entre elas, são registradas em suas respectivas tabelas no banco de dados, conforme definições dadas em: <a href="./database/tables.sql">/database/tables.sql</a> 
 </p>
 
+<p>
+  // TODO: CONVENÇÕES UTILIZADAS NOS NOMES DAS FUNÇÕES ETC. //
+</p>
+
+<p>
+  Os testes das rotinas que permitem os usuários realizarem alterações no banco de dados 
+  (por exemplo, criação ou atualização de uma tarefa) e seus respectivos triggers de checagem são encontrados em <a href="./backend/tests">/backend/tests.</a>
+</p>
+
 <h3>Back-end (📁backend)</h3>
 
 <p>
@@ -121,6 +130,17 @@
   </li>
 </ul>
 
+<p>
+  No diretório <a href="./backend/tests">/backend/tests</a> são testadas as funções que modificam uma (ou mais) tabela(s) do banco de dados (isto é, que contenham os comandos INSERT, UPDATE ou DELETE), e que são expostas aos usuários do sistema (isto é, as mutations que no front-end serão usadas pelo Apollo-Client). Em alguns casos, a execução de tais funções ativam a execução de alguns triggers de checagem (por exemplo, um trigger que verifica se a quantidade de determinado material que está sendo vinculado a uma tarefa é superior à disponível). Nos casos em que tais triggers impedem a operação, uma exceção é lançada (‘raise exception’), retornando uma mensagem de erro. Os testes elaborados verificam:
+  <ul>
+    <li>
+      (1)	os casos normais (a modificação no banco de dados e o envio da respectiva resposta ao usuário são realizados com sucesso); e
+    </li>
+    <li>
+      (2)	os casos em que um trigger de checagem impede a modificação no banco de dados (uma mensagem de erro adequada é retornada para o usuário).
+    </li>
+  </ul>
+</p>
 
 <h3>Front-end (📁frontend)</h3>
 
