@@ -7,6 +7,7 @@ module.exports = postgraphile(
   ['public'],
   { 
     watchPg: process.env.NODE_ENV === 'development',
+    retryOnInitFail: false,
     enableCors: false,
     graphqlRoute: paths.db,
     graphiql: process.env.NODE_ENV === 'development',
@@ -19,8 +20,8 @@ module.exports = postgraphile(
     dynamicJson: true,
     showErrorStack: 'json',
     extendedErrors: ['hint', 'detail', 'errcode'],
-    exportJsonSchemaPath: process.env.NODE_ENV === 'development' ? '../frontend/src/schema.json' : false,
-    exportGqlSchemaPath: process.env.NODE_ENV === 'development' ? '../frontend/src/schema.graphql' : false,
+    // exportJsonSchemaPath: process.env.NODE_ENV === 'development' ? '../frontend/src/schema.json' : false,
+    // exportGqlSchemaPath: process.env.NODE_ENV === 'development' ? '../frontend/src/schema.graphql' : false,
     sortExport: true,
     pgSettings: async req => {
       const [person_id, role] = req.session.passport ? req.session.passport.user.split('-') : ['1', 'visitor'];
