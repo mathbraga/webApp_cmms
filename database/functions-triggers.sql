@@ -36,11 +36,17 @@ create or replace function check_asset_relation ()
   language plpgsql
   as $$
     begin
-      if (select parent_id from asset_relations where asset_id = new.top_id) is null then
-        return new;
+
+      if new.parent_id is not null then
+        if (select parent_id from asset_relations where asset_id = new.top_id) is null then
+          return new;
+        else
+          raise exception '%', get_exception_message(6);
+        end if;
       else
-        raise exception '%', get_exception_message(6);
+        raise exception '%', get_exception_message(7);
       end if;
+
     end;
   $$
 ;

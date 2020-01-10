@@ -28,4 +28,15 @@ describe('Test asset related functions', () => {
         await expect(pgPool.query(INSERT_ASSET_QUERY, inputs.insertAssetTopIdFailure)).rejects.toThrow(/6/);
     });
 
+    // MODIFY
+    test.skip('Modify asset OK', async () => {
+        await expect(pgPool.query(MODIFY_ASSET_QUERY, inputs.insertAssetSuccess)).resolves.toMatchObject({ rows: [{ result: expect.any(Number) }]});
+    });
+    test.skip('Modify asset ERROR: Invalid category type.', async () => {
+        await expect(pgPool.query(MODIFY_ASSET_QUERY, inputs.insertAssetCategoryFailure)).rejects.toThrow(/5/);
+    });
+    test.skip('Modify asset ERROR: Invalid Top Id.', async () => {
+        await expect(pgPool.query(MODIFY_ASSET_QUERY, inputs.insertAssetTopIdFailure)).rejects.toThrow(/6/);
+    });
+
 });

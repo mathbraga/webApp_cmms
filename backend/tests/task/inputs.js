@@ -1,4 +1,4 @@
-const taskAttributes = '(,1,1,1,,1,,"title","description",,,,,,,,,,,,)';
+const taskAttributes = '(1,1,1,1,,1,,"title","description",,,,,,,,,,,,)';
 
 const inputs = {
 

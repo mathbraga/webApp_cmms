@@ -15,6 +15,7 @@ create or replace function get_exception_message (
         when 4 then message = format('%s %s - Contrato da tarefa não corresponde ao contrato dos suprimentos selecionados.', header, exception_code);
         when 5 then message = format('%s %s - Categoria de ativo inválida.', header, exception_code);
         when 6 then message = format('%s %s - Árvore de relações de ativos inválida.', header, exception_code);
+        when 7 then message = format('%s %s - Ativo deve possuir um pai.', header, exception_code);
         else message = header;
       end case;
     end;
