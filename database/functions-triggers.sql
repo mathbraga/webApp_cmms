@@ -38,7 +38,7 @@ create or replace function check_asset_relation ()
     begin
 
       if new.parent_id is not null then
-        if (select parent_id from asset_relations where asset_id = new.top_id) is null then
+        if (select bool_and(parent_id is null) from asset_relations where asset_id = new.top_id) then
           return new;
         else
           raise exception '%', get_exception_message(6);
