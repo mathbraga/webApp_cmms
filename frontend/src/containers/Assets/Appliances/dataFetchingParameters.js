@@ -17,4 +17,8 @@ query assetsQuery($category: AssetCategoryType!) {
   }
 }`;
 
-export default fetchAppliancesGQL;
+const fetchAppliancesVariables = {
+  category: "A"
+};
+
+export { fetchAppliancesGQL, fetchAppliancesVariables };

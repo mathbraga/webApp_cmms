@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import withDataFetching from '../../DataFetchingContainer';
 import withAccessToSession from '../../Authentication';
-import fetchAppliancesGQL from './dataFetchingParameters';
+import { fetchAppliancesGQL, fetchAppliancesVariables } from './dataFetchingParameters';
 
 const AppliancesWithData = withDataFetching(AppliancesUI, fetchAppliancesGQL);
 
