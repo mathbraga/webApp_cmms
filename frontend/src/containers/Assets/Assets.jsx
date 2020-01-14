@@ -36,7 +36,8 @@ class Assets extends Component {
               </React.Fragment>
             )
           }
-        }</Query>
+        }
+      </Query>
     )
   }
 }
