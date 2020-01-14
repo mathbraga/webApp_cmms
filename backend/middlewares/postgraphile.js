@@ -24,7 +24,7 @@ module.exports = postgraphile(
     // exportGqlSchemaPath: process.env.NODE_ENV === 'development' ? '../frontend/src/schema.graphql' : false,
     sortExport: true,
     pgSettings: async req => {
-      const [person_id, role] = req.session.passport ? req.session.passport.user.split('-') : ['0', 'visitor'];
+      const [person_id, role] = req.session.isNew ? ['0', 'visitor'] : req.session.passport.user.split('-');
       return {
         'role': role,
         'statement_timeout': 5000,
