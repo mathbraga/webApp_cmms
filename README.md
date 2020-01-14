@@ -141,7 +141,7 @@
           Quando o usuário envia os dados inseridos no formulário de cadastro de uma nova tarefa.
         </td>
         <td>
-          Afeta as tabelas da entidade Task e outras a ela relacionadas (por exemplo, task_assets e task_supplies).
+          Cria novas linhas nas tabelas que são afetadas (tasks e outras a ela relacionadas, por exemplo, task_assets e task_supplies).
         </td>
       </tr>
       <tr>
@@ -155,7 +155,7 @@
           Quando o usuário envia os dados inseridos no formulário de edição de uma tarefa previamente criada.
         </td>
         <td>
-          Afeta as tabelas da entidade Task e outras a ela relacionadas (por exemplo, task_assets e task_supplies).
+          Atualiza linhas das tabelas que são afetadas (tasks e outras a ela relacionadas, por exemplo, task_assets e task_supplies).
         </td>
       </tr>
       <tr>
@@ -170,6 +170,20 @@
         </td>
         <td>
           Somente permite a inserção (ou atualização) da tabela task_supplies caso as três verificações sejam realizadas com sucesso: (1) existe saldo suficiente para o suprimento; (2) os valores decimais da quantidade selecionada para o suprimento não estão em desacordo com a sua especificação técnica (há suprimentos que somente permitem valores inteiros); e (3) o contrato vinculado à tarefa é o mesmo que contém o suprimento em questão.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          log_change
+        </td>
+        <td>
+          Trigger que registra uma modificação no banco de dados.
+        </td>
+        <td>
+          Após a inserção (ou atualização) de qualquer linha de qualquer tabela do banco de dados.
+        </td>
+        <td>
+          Registra: (1) a id do usuário que realizou a modificação; (2) data e hora da modificação; (3) operação realizada (INSERT, UPDATE ou DELETE); (4) nome da tabela modificada; (5) valores antigos da linha modificada, caso exista, em formato JSON; e (6) valores novos da linha modificada, caso exista, em formato JSON.
         </td>
       </tr>
     </tbody>
