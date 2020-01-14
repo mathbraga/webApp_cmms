@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-export function withAccessToSession(WrappedComponent) {
+export default function withAccessToSession(WrappedComponent) {
 
   // Get state from react-redux.
   const mapStateToProps = (storeState) => {
