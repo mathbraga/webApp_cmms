@@ -5,7 +5,7 @@
 drop database if exists cmms9;
 
 -- create new database
-create database cmms9 with owner postgres template template0 encoding 'win1252';
+create database cmms9 with owner postgres template template0 encoding 'win1252' lc_ctype "C" lc_collate "C";
 
 -- connect to the new database
 \c cmms9
@@ -53,7 +53,7 @@ begin transaction;
 -- set local auth.data.person_id to 1;
 
 -- populate tables
-\i inserts1252.sql -- CAUTION: inserts.sql must have win1252 encoding
+\i inserts.sql -- CAUTION: inserts.sql must have win1252 encoding
 
 -- create materialized views
 -- \i materialized.sql
@@ -62,7 +62,7 @@ begin transaction;
 -- \i policies.sql
 
 -- create comments
-\i comments1252.sql -- CAUTION: comments.sql must have win1252 encoding
+\i comments.sql -- CAUTION: comments.sql must have win1252 encoding
 
 -- create smart comments
 \i smart-comments.sql
