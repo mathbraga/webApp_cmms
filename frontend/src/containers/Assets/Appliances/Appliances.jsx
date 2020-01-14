@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
-import withDataFetching from '../../DataFetchingContainer';
+import withDataFetching from '../../DataFetchContainer';
 import withAccessToSession from '../../Authentication';
-import { fetchAppliancesGQL, fetchAppliancesVariables } from './dataFetchingParameters';
+import { fetchAppliancesGQL, fetchAppliancesVariables } from './dataFetchParameters';
+import { Component } from 'react';
 
-const AppliancesWithData = withDataFetching(AppliancesUI, fetchAppliancesGQL);
+const AppliancesWithData = withDataFetching(AppliancesUI, fetchAppliancesGQL, fetchAppliancesVariables);
+const AppliancesWithDataAndSession = withAccessToSession(AppliancesWithData);
 
 class Appliances extends Component {
+
+  // TO DO: Put all the extra logic here.
+
   render() {
     return (
-      <AppliancesUI />
+      <AppliancesWithDataAndSession />
     );
   }
 }

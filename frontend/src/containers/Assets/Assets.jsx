@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import FacilitiesList from "./FacilitiesList";
 import EquipmentsList from "./EquipmentsList";
 import { connect } from "react-redux";
-import { fetchAssetsString } from './dataFetchingStrings';
+import fetchAssetsString from './dataFetchingStrings';
 
 import { Query } from 'react-apollo';
 
