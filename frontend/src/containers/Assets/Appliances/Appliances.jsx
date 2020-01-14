@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import withDataFetching from '../../DataFetchingContainer';
 import withAccessToSession from '../../Authentication';
+import fetchAppliancesGQL from './dataFetchingParameters';
 
-const AppliancesWithData = withDataFetching(AppliancesUI)
+const AppliancesWithData = withDataFetching(AppliancesUI, fetchAppliancesGQL);
 
 class Appliances extends Component {
   render() {

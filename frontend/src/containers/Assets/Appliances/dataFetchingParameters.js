@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const fetchAssetsString = gql`
+const fetchAppliancesGQL = gql`
 query assetsQuery($category: AssetCategoryType!) {
   allAssets(condition: {category: $category}, orderBy: ASSET_SF_ASC) {
     edges {
@@ -17,4 +17,4 @@ query assetsQuery($category: AssetCategoryType!) {
   }
 }`;
 
-export default fetchAssetsString;
+export default fetchAppliancesGQL;
