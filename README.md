@@ -68,12 +68,114 @@
 </div>
 
 <p>
-  Essas entidades, bem como as relações existentes entre elas, são registradas em suas respectivas tabelas no banco de dados, conforme definições dadas em: <a href="./database/tables.sql">/database/tables.sql</a> 
+  Essas entidades, bem como as relações existentes entre elas, são registradas no banco de dados, conforme definições dadas em: <a href="./database/tables.sql">/database/tables.sql</a>. As relações que somente podem assumir os valores de 1:0 ou 1:1 são mapeadas como atributos de uma entidade (colunas de uma tabela, por exemplo, a coluna project_id da tabela tasks, que indica se uma tarefa pertence a um projeto). As relações que podem assumir os valores 1:N são mapeadas como linhas de uma tabela de associação (por exemplo, a tabela task_assets, que contém os ativos vinculados a cada tarefa).
 </p>
 
 <p>
-  // TODO: CONVENÇÕES UTILIZADAS NOS NOMES DAS FUNÇÕES ETC. //
+  Relações entre as entidades registradas em tabelas de associação:
 </p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Entidade</th>
+      <th>Entidade</th>
+      <th>Relação</th>
+      <th>Detalhes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Asset</td>
+      <td>Asset</td>
+      <td>1:(1 a N)</td>
+      <td>Define uma relação hierárquica entre os ativos.</td>
+    </tr>
+    <tr>
+      <td>Task</td>
+      <td>Asset</td>
+      <td>1:(1 a N)</td>
+      <td>Define os ativos que estão vinculados a uma determinada tarefa.</td>
+    </tr>
+    <tr>
+      <td>Task</td>
+      <td>Supplies</td>
+      <td>1:(0 a N)</td>
+      <td>Define os suprimentos que serão utilizados na execuçao de determinada tarefa.</td>
+    </tr>
+    <tr>
+      <td>Team</td>
+      <td>Persons</td>
+      <td>1:(1 a N)</td>
+      <td>Define as pessoas que pertencem a uma determinada equipe.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Convenções e estratégias utilizadas:
+  <ol>
+    <li>Nomes das funções: padronizar e diferenciar em relação </li>
+    <li>Operações realizadas pelas funções: correspondem às operações disponibilizadas na interface ao usuário</li>
+    <li>Business rules e checagens necessárias para integridade dos dados triggers</li>
+  </ol>
+  Algumas das funções:
+  <table>
+    <thead>
+      <tr>
+        <th>Nome da função</th>
+        <th>Descrição</th>
+        <th>Momento da execução</th>
+        <th>Operações realizadas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          insert_task
+        </td>
+        <td>
+          Função que cria uma tarefa.
+        </td>
+        <td>
+          Quando o usuário envia os dados inseridos no formulário de cadastro de uma nova tarefa.
+        </td>
+        <td>
+          Afeta as tabelas da entidade Task e outras a ela relacionadas (por exemplo, task_assets e task_supplies).
+        </td>
+      </tr>
+      <tr>
+        <td>
+          modify_task
+        </td>
+        <td>
+          Função que altera uma tarefa.
+        </td>
+        <td>
+          Quando o usuário envia os dados inseridos no formulário de edição de uma tarefa previamente criada.
+        </td>
+        <td>
+          Afeta as tabelas da entidade Task e outras a ela relacionadas (por exemplo, task_assets e task_supplies).
+        </td>
+      </tr>
+      <tr>
+        <td>
+          check_task_supply
+        </td>
+        <td>
+          Trigger que verifica se o suprimento pode ser vinculado a uma tarefa.
+        </td>
+        <td>
+          Antes da inserção (ou atualização) de uma linha na tabela task_supplies.
+        </td>
+        <td>
+          Somente permite a inserção (ou atualização) da tabela task_supplies caso as três verificações sejam realizadas com sucesso: (1) existe saldo suficiente para o suprimento; (2) os valores decimais da quantidade selecionada para o suprimento não estão em desacordo com a sua especificação técnica (há suprimentos que somente permitem valores inteiros); e (3) o contrato vinculado à tarefa é o mesmo que contém o suprimento em questão.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</p>
+
 
 <p>
   Os testes das rotinas que permitem os usuários realizarem alterações no banco de dados 
