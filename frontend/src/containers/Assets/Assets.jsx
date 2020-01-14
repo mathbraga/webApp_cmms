@@ -1,50 +1,17 @@
 import React, { Component } from "react";
 import FacilitiesList from "./FacilitiesList";
 import EquipmentsList from "./EquipmentsList";
-import AssetInfo from "./AssetInfo";
 import { connect } from "react-redux";
-import getAllAssets from "../../utils/assets/getAllAssets";
-import { remove } from "lodash";
-import { dbTables } from "../../aws";
-import fetchDB from "../../utils/fetch/fetchDB";
+import { fetchAssetsString } from './dataFetchingStrings';
 
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
-
-import { locationItems, equipmentItems } from "./AssetsFakeData";
-import { Switch, Route } from "react-router-dom";
 
 class Assets extends Component {
   render() {
     const category = this.props.location.pathname.slice(8) === "edificios" ? "F" : "A";
-    const fetchAssets = gql`
-      query assetsQuery($category: AssetCategoryType!) {
-        allAssets(condition: {category: $category}, orderBy: ASSET_SF_ASC) {
-          edges {
-            node {
-              # parent
-              name
-              model
-              manufacturer
-              assetSf
-              category
-              serialnum
-              area
-              # assetByPlace {
-              #  assetId
-              #  name
-              # }
-              # assetByParent {
-              #  name
-              #  assetId
-              # }
-            }
-          }
-        }
-      }`;
     return (
       <Query
-        query={fetchAssets}
+        query={fetchAssetsString}
         variables={{ category: category }}
       >{
           ({ loading, error, data }) => {
