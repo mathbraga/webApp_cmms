@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Query } from 'react-apollo';
 
-export function withDataFetching(WrappedComponent, graphQLString, graphQLVariables) {
+export default function withDataFetching(WrappedComponent, graphQLString, graphQLVariables) {
   class WithDataFetching extends Component {
     render() {
       <Query
