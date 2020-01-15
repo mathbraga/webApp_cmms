@@ -21,6 +21,8 @@ class Appliances extends Component {
 
     this.setGoToPage = this.setGoToPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
+    this.updateCurrentFilter = this.updateCurrentFilter.bind(this);
+    this.handleChangeSearchTerm = this.handleChangeSearchTerm.bind(this);
   }
 
   setGoToPage(page) {
@@ -33,6 +35,20 @@ class Appliances extends Component {
     });
   }
 
+  updateCurrentFilter(filterLogic, filterName, filterId = null) {
+    this.setState({
+      filterLogic,
+      filterName,
+      filterSavedId: filterId,
+      pageCurrent: 1,
+      goToPage: 1,
+    });
+  }
+
+  handleChangeSearchTerm(event) {
+    this.setState({ searchTerm: event.target.value, pageCurrent: 1, goToPage: 1 });
+  }
+
   // TO DO: Put all the extra logic here.
 
   render() {
@@ -43,13 +59,13 @@ class Appliances extends Component {
         pageCurrent={this.state.pageCurrent}
         setGoToPage={this.setGoToPage}
         setCurrentPage={this.setCurrentPage}
-        updateCurrentFilter={}
+        updateCurrentFilter={this.updateCurrentFilter}
         filterSavedId={this.state.filterSavedId}
         searchTerm={this.state.searchTerm}
-        handleChangeSearchTerm={}
+        handleChangeSearchTerm={this.handleChangeSearchTerm}
         filterLogic={this.state.filterLogic}
         filterName={this.state.filterName}
-        numberOfItens={}
+        numberOfItens={"1122"}
       />
     );
   }

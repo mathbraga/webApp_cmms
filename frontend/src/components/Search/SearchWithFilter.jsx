@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Search from './Search';
+import ModalCreateFilter from '../Modals/ModalCreateFilter'
+import ApplyFilter from '../Modals/ApplyFilter';
 
 const filterAttributes = {
   assetSf: { name: 'Código', type: 'text' },
@@ -74,11 +76,20 @@ export default class SearchWithFilter extends Component {
       modalApplyFilter: false
     }
 
-    this.toggleFilter = this.toggleFilter.bind(this);
+    this.toggleCreateFilter = this.toggleCreateFilter.bind(this);
+    this.toggleApplyFilter = this.toggleApplyFilter.bind(this);
   }
 
-  toggleFilter(e) {
-    console.log(e);
+  toggleCreateFilter() {
+    this.setState((prevState) => ({
+      modalFilter: !prevState.modalFilter
+    }));
+  }
+
+  toggleApplyFilter() {
+    this.setState((prevState) => ({
+      modalApplyFilter: !prevState.modalApplyFilter
+    }));
   }
 
   render() {
@@ -99,17 +110,17 @@ export default class SearchWithFilter extends Component {
           filterLogic={filterLogic}
           filterName={filterName}
           numberOfItens={numberOfItens}
-          toggleApply={this.toggleFilter}
-          toggleCreate={this.toggleFilter}
+          toggleApply={this.toggleApplyFilter}
+          toggleCreate={this.toggleCreateFilter}
         />
         <ModalCreateFilter
-          toggle={this.toggleFilter}
+          toggle={this.toggleCreateFilter}
           modal={this.state.modalFilter}
           attributes={filterAttributes}
           updateCurrentFilter={updateCurrentFilter}
         />
         <ApplyFilter
-          toggle={this.toggleFilter}
+          toggle={this.toggleApplyFilter}
           modal={this.state.modalApplyFilter}
           attributes={filterAttributes}
           updateCurrentFilter={updateCurrentFilter}

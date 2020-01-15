@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import "./Search.css";
+import {
+  InputGroup,
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+  Button
+} from 'reactstrap';
 
 const searchImage = require("../../assets/icons/search_icon.png");
 
@@ -38,8 +45,8 @@ export default class Search extends Component {
           </ol>
         </div>
         <div className="search-buttons" style={{ width: "30%" }}>
-          <Button className="search-filter-button" color="success" onClick={toggleApply}>Aplicar Filtro</Button>
-          <Button className="search-filter-button" color="primary" onClick={toggleCreate}>Criar Filtro</Button>
+          <Button name="modalApplyFilter" className="search-filter-button" color="success" onClick={toggleApply}>Aplicar Filtro</Button>
+          <Button name="modalFilter" className="search-filter-button" color="primary" onClick={toggleCreate}>Criar Filtro</Button>
         </div>
       </div>
     );
