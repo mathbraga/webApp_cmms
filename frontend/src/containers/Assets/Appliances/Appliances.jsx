@@ -1,21 +1,12 @@
+import React, { Component } from 'react';
 import withDataFetching from '../../DataFetchContainer';
 import withAccessToSession from '../../Authentication';
-import { fetchAppliancesGQL, fetchAppliancesVariables } from './dataFetchParameters';
-import React, { Component } from 'react';
 import AppliancesUI from './AppliancesUI';
+import { fetchAppliancesGQL, fetchAppliancesVariables } from './dataFetchParameters';
+import tableConfig from './appliancesTableConfig';
 
 const AppliancesUIWithData = withDataFetching(AppliancesUI, fetchAppliancesGQL, fetchAppliancesVariables);
 const AppliancesUIWithDataAndSession = withAccessToSession(AppliancesUIWithData);
-
-const tableConfig = {
-  numberOfColumns: 3,
-  checkbox: true,
-  columnObjects: [
-    { name: 'name', description: 'Equipamento', style: { width: "30%" }, className: "", data: ['name', 'assetSf'] },
-    { name: 'model', description: 'Modelo', style: { width: "10%" }, className: "text-center", data: ['model'] },
-    { name: 'manufacturer', description: 'Fabricante', style: { width: "10%" }, className: "text-center", data: ['manufacturer'] },
-  ],
-};
 
 class Appliances extends Component {
   constructor(props) {
