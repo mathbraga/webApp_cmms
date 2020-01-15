@@ -3,7 +3,7 @@ import "./Search.css";
 
 const searchImage = require("../../assets/icons/search_icon.png");
 
-export default class Search extends Component {
+export default class SearchUI extends Component {
   render() {
     const {
       searchTerm,
