@@ -1,20 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 import FinalTable from "../../components/Tables/FinalTable";
-
-const tableConfig = {
-  numberOfColumns: 2,
-  checkbox: true,
-  columnObjects: [
-    { name: 'name', description: 'Nome', className: '', style: '', data: ['name'] },
-    { name: 'value', description: 'Valor', className: '', style: '', data: ['value'] },
-  ],
-};
-
-const data = [
-  { name: "Pedro", value: "10" },
-  { name: "Zaidan", value: "20" }
-];
+import Appliances from "../Assets/Appliances/Appliances";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -67,6 +54,9 @@ class Dashboard extends Component {
             width="190"
           />
         </div> */}
+        <div>
+          <Appliances />
+        </div>
       </div>
     );
   }

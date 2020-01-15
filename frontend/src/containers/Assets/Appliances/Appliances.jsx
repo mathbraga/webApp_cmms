@@ -1,7 +1,7 @@
 import withDataFetching from '../../DataFetchContainer';
 import withAccessToSession from '../../Authentication';
 import { fetchAppliancesGQL, fetchAppliancesVariables } from './dataFetchParameters';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import AssetCard from '../../../components/Cards/AssetCard';
 import AppliancesUI from './AppliancesUI';
 
