@@ -18,7 +18,7 @@ function TableHeader({ tableConfig }) {
         <CustomInput type="checkbox" />
       </th>
       {tableConfig.columnObjects.map((column) => (
-        <th style={column.style} className={column.className}>column.description</th>
+        <th style={column.style} className={column.className}>{column.description}</th>
       ))}
     </tr>
   );
