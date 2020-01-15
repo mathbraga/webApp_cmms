@@ -66,6 +66,8 @@ class Appliances extends Component {
     const dataWithSearchAndFilter = searchList(dataWithFilter, attributes, this.state.searchTerm);
     const totalOfPages = Math.floor(dataWithSearchAndFilter.length / ENTRIES_PER_PAGE) + 1;
 
+    console.log("Data: ", dataWithSearchAndFilter);
+
     return (
       <AppliancesUI
         tableConfig={tableConfig}
