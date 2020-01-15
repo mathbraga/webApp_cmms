@@ -14,6 +14,9 @@ class Appliances extends Component {
     this.state = {
       goToPage: 1,
       pageCurrent: 1,
+      filterSavedId: null,
+      searchTerm: "",
+      filterLogic: [],
     }
 
     this.setGoToPage = this.setGoToPage.bind(this);
@@ -40,6 +43,13 @@ class Appliances extends Component {
         pageCurrent={this.state.pageCurrent}
         setGoToPage={this.setGoToPage}
         setCurrentPage={this.setCurrentPage}
+        updateCurrentFilter={}
+        filterSavedId={this.state.filterSavedId}
+        searchTerm={this.state.searchTerm}
+        handleChangeSearchTerm={}
+        filterLogic={this.state.filterLogic}
+        filterName={this.state.filterName}
+        numberOfItens={}
       />
     );
   }

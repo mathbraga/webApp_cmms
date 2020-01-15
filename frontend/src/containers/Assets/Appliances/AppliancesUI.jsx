@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AssetCard from '../../../components/Cards/AssetCard';
 import FinalTable from '../../../components/Tables/FinalTable';
+import SearchWithFilter from '../../../components/Search/SearchWithFilter';
 
 export default class AppliancesUI extends Component {
   render() {
@@ -9,7 +10,14 @@ export default class AppliancesUI extends Component {
       goToPage,
       pageCurrent,
       setGoToPage,
-      setCurrentPage
+      setCurrentPage,
+      updateCurrentFilter,
+      filterSavedId,
+      searchTerm,
+      handleChangeSearchTerm,
+      filterLogic,
+      filterName,
+      numberOfItens
     } = this.props;
     const data = this.props.data.allAssets.nodes;
     console.log("Data: ", data);
@@ -21,6 +29,15 @@ export default class AppliancesUI extends Component {
         handleCardButton={() => { console.log('OK!') }}
         buttonName={'Novo Equipamento'}
       >
+        <SearchWithFilter
+          updateCurrentFilter={updateCurrentFilter}
+          filterSavedId={filterSavedId}
+          searchTerm={searchTerm}
+          handleChangeSearchTerm={handleChangeSearchTerm}
+          filterLogic={filterLogic}
+          filterName={filterName}
+          numberOfItens={numberOfItens}
+        />
         <FinalTable
           tableConfig={tableConfig}
           data={data}
