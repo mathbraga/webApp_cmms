@@ -4,6 +4,17 @@ import withAccessToSession from '../../Authentication';
 import AppliancesUI from './AppliancesUI';
 import { fetchAppliancesGQL, fetchAppliancesVariables } from './dataFetchParameters';
 import tableConfig from './appliancesTableConfig';
+import searchList from '../../../utils/search/searchList';
+import filterList from '../../../utils/filter/filter';
+
+const ENTRIES_PER_PAGE = 15;
+
+const attributes = [
+  'assetSf',
+  'name',
+  'manufacturer',
+  'model',
+];
 
 class Appliances extends Component {
   constructor(props) {
@@ -50,7 +61,10 @@ class Appliances extends Component {
 
   render() {
     const data = this.props.data.allAssets.nodes;
-    console.log("Data: ", data);
+
+    const dataWithFilter = this.state.filterLogic.length > 0 ? filterList(data, this.state.filterLogic) : data;
+    const dataWithSearchAndFilter = searchList(dataWithFilter, attributes, this.state.searchTerm);
+    const totalOfPages = Math.floor(dataWithSearchAndFilter.length / ENTRIES_PER_PAGE) + 1;
 
     return (
       <AppliancesUI
@@ -65,8 +79,8 @@ class Appliances extends Component {
         handleChangeSearchTerm={this.handleChangeSearchTerm}
         filterLogic={this.state.filterLogic}
         filterName={this.state.filterName}
-        numberOfItens={"1122"}
-        data={data}
+        numberOfItens={totalOfPages}
+        data={dataWithSearchAndFilter}
       />
     );
   }
