@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { CustomInput } from 'reactstrap';
+import TableWithPages from './TableWithPages';
 
-const testTableConfig = {
-  numberOfColumns: 10,
-  checkbox: true,
-  columnObjects: [
-    { name: '1', description: 'a', className: 'b', style: 'c', data: ['id1', 'id2']},
-    { name: '2', description: 'd', className: 'b', style: 'c', data: ['id3']},
-  ],
-};
+// const testTableConfig = {
+//   numberOfColumns: 10,
+//   checkbox: true,
+//   columnObjects: [
+//     { name: '1', description: 'a', className: 'b', style: 'c', data: ['id1', 'id2']},
+//     { name: '2', description: 'd', className: 'b', style: 'c', data: ['id3']},
+//   ],
+// };
 
 function TableHeader({ tableConfig }) {
   return (
@@ -43,8 +44,11 @@ function TableBody({ tableConfig, data }) {
   );
 }
 
-function createTableWithPages({ tableConfig, data }) {
+export default function FinalTableUI ({ tableConfig, data }) {
   return (
-
+    <TableWithPages
+      thead={<TableHeader tableConfig={tableConfig} />}
+      tbody={<TableBody data={data} tableConfig={tableConfig} />}
+    />
   );
 }
