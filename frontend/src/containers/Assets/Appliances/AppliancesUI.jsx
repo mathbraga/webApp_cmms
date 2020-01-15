@@ -17,10 +17,9 @@ export default class AppliancesUI extends Component {
       handleChangeSearchTerm,
       filterLogic,
       filterName,
-      numberOfItens
+      numberOfItens,
+      data
     } = this.props;
-    const data = this.props.data.allAssets.nodes;
-    console.log("Data: ", data);
 
     return (
       <AssetCard

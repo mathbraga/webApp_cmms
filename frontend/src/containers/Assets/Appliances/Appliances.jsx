@@ -5,9 +5,6 @@ import AppliancesUI from './AppliancesUI';
 import { fetchAppliancesGQL, fetchAppliancesVariables } from './dataFetchParameters';
 import tableConfig from './appliancesTableConfig';
 
-const AppliancesUIWithData = withDataFetching(AppliancesUI, fetchAppliancesGQL, fetchAppliancesVariables);
-const AppliancesUIWithDataAndSession = withAccessToSession(AppliancesUIWithData);
-
 class Appliances extends Component {
   constructor(props) {
     super(props);
@@ -52,8 +49,11 @@ class Appliances extends Component {
   // TO DO: Put all the extra logic here.
 
   render() {
+    const data = this.props.data.allAssets.nodes;
+    console.log("Data: ", data);
+
     return (
-      <AppliancesUIWithDataAndSession
+      <AppliancesUI
         tableConfig={tableConfig}
         goToPage={this.state.goToPage}
         pageCurrent={this.state.pageCurrent}
@@ -66,9 +66,13 @@ class Appliances extends Component {
         filterLogic={this.state.filterLogic}
         filterName={this.state.filterName}
         numberOfItens={"1122"}
+        data={data}
       />
     );
   }
 }
 
-export default Appliances;
+const AppliancesWithData = withDataFetching(Appliances, fetchAppliancesGQL, fetchAppliancesVariables);
+const AppliancesWithDataAndSession = withAccessToSession(AppliancesWithData);
+
+export default AppliancesWithDataAndSession;
