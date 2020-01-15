@@ -1,0 +1,2919 @@
+{
+  "config": {
+    "title": "Sf Sinfra Cmms",
+    "description": "CMMS SINFRA - Senado Federal",
+    "menu": [],
+    "version": "0.1.0",
+    "repository": "https://github.com/Serafabr/cmms-web-app",
+    "native": false,
+    "themeConfig": {},
+    "separator": "-"
+  },
+  "entries": [
+    {
+      "key": "README.md",
+      "value": {
+        "id": "04c6e90faac2675aa89e2176d2eec7d8",
+        "filepath": "README.md",
+        "fullpath": "D:\\Users\\pedrohs\\Desktop\\Pedro\\Computer Science\\senado_federal\\cmms-web-app\\frontend\\README.md",
+        "link": "https://github.com/Serafabr/cmms-web-app\\edit\\master\\frontend\\README.md",
+        "slug": "readme",
+        "route": "/readme",
+        "name": "Readme",
+        "menu": "",
+        "headings": []
+      }
+    },
+    {
+      "key": "src/components/Tables/docz/FinalTable.mdx",
+      "value": {
+        "name": "Hello World!",
+        "route": "/",
+        "id": "1fc14da150e83f33d2fc55280cb93c51",
+        "filepath": "src/components/Tables/docz/FinalTable.mdx",
+        "fullpath": "D:\\Users\\pedrohs\\Desktop\\Pedro\\Computer Science\\senado_federal\\cmms-web-app\\frontend\\src\\components\\Tables\\docz\\FinalTable.mdx",
+        "link": "https://github.com/Serafabr/cmms-web-app\\edit\\master\\frontend\\src/components/Tables/docz/FinalTable.mdx",
+        "slug": "src-components-tables-docz-final-table",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "hello-world",
+            "depth": 1,
+            "value": "Hello World"
+          }
+        ]
+      }
+    }
+  ],
+  "props": [
+    {
+      "key": "src/components/Badges/BadgeWithTooltips.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "BadgeWithTooltips",
+          "methods": [
+            {
+              "name": "toggle",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "BadgeWithTooltips"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Buttons/Dropdown.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Dropdown",
+          "methods": [
+            {
+              "name": "toggle",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "Dropdown"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Cards/AssetCard.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "AssetCard",
+          "methods": [],
+          "actualName": "AssetCard"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Cards/ReportCard.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ReportCard",
+          "methods": [
+            {
+              "name": "toggle",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "ReportCard"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Cards/ResultCard.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ResultCard",
+          "methods": [],
+          "actualName": "ResultCard"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Charts/ChartReport.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ChartReport",
+          "methods": [
+            {
+              "name": "onChangeYAxis",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "type",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ChartReport"
+        }
+      ]
+    },
+    {
+      "key": "src/components/FileInputs/FileInput.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FileInput",
+          "methods": [
+            {
+              "name": "handleSelection",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleUploadFile",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "closeAlert",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "FileInput"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/FormDates.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FormDates",
+          "methods": [],
+          "actualName": "FormDates"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/FormDatesWithCalendar.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FormDates",
+          "methods": [
+            {
+              "name": "selectInitialDate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "month",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "FormDates"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/InputWithDropdown.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "InputWithDropdown",
+          "methods": [
+            {
+              "name": "onChangeInput",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "toggleDropdown",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "isDropdownOpen",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onHoverItem",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "index",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onKeyDownInput",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filteredList",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onRemoveItemFromList",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "id",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onClickItem",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filteredList",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "updateChosenValue",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filteredList",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleClickOutsideDrop",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleSelectOutsideDrop",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "InputWithDropdown"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/SingleInputWithDropdown.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SingleInputWithDropDown",
+          "methods": [
+            {
+              "name": "onChangeInput",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "toggleDropdown",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "isDropdownOpen",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onHoverItem",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "index",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onKeyDownInput",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filteredList",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onRemoveItemFromList",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "id",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onClickItem",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filteredList",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "updateChosenValue",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filteredList",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleClickOutsideDrop",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleSelectOutsideDrop",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "resetScroll",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "SingleInputWithDropDown"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Modals/ApplyFilter.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ApplyFilter",
+          "methods": [
+            {
+              "name": "cleanState",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "cleanFilter",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateFilter",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "updateFunction",
+                  "type": null
+                },
+                {
+                  "name": "toggleFunction",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "changeCurrentFilter",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "id",
+                  "type": null
+                },
+                {
+                  "name": "name",
+                  "type": null
+                },
+                {
+                  "name": "logic",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ApplyFilter"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Modals/ModalCreateFilter.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ModalCreateFilter",
+          "methods": [
+            {
+              "name": "handleChangeOption",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSelectOptions",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleAttributeSelectClick",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleInputSelectClick",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "type",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "cleanState",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "cleanFilter",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "buildFilter",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "attributes",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "fixFilterAndUpdate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "updateFunction",
+                  "type": null
+                },
+                {
+                  "name": "toggleFunction",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChangeOnName",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ModalCreateFilter"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Modals/ModalForgottenPassword.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ModalForgottenPassword",
+          "methods": [],
+          "actualName": "ModalForgottenPassword"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Modals/ModalSignUpConfirmation.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ModalSignUpConfirmation",
+          "methods": [
+            {
+              "name": "handleCodeInput",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleCodeSubmit",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "goToLoginPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "closeAlert",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ModalSignUpConfirmation"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Reports/ReportCalculations.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ReportCalculations",
+          "methods": [
+            {
+              "name": "showCalcResult",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "type",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ReportCalculations"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Reports/ReportInfo.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ReportInfo",
+          "methods": [],
+          "actualName": "ReportInfo"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Reports/ReportListMeters.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ReportListMeters",
+          "methods": [],
+          "actualName": "ReportListMeters"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Reports/ReportOneUnit.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ReportOneUnit",
+          "methods": [
+            {
+              "name": "returnChangeComparisonObject",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleChangeComparison",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "type",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ReportOneUnit"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Reports/ReportProblems.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ReportProblems",
+          "methods": [],
+          "actualName": "ReportProblems"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Tables/FinalTable.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FinalTable",
+          "methods": [],
+          "actualName": "FinalTable"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Tables/FinalTableUI.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FinalTableUI",
+          "methods": [],
+          "actualName": "FinalTableUI"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Tables/PaginationForTable.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PaginationForTable",
+          "methods": [
+            {
+              "name": "handleClickPagination",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageClicked",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "PaginationForTable"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Tables/Table.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TableItems",
+          "methods": [],
+          "actualName": "TableItems"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Tables/TableWithPages.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TableWithPages",
+          "methods": [
+            {
+              "name": "handleChangeGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleFocusOutGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleEnterGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "TableWithPages"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Widgets/WidgetOneColumn.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "WidgetOneColumn",
+          "methods": [],
+          "actualName": "WidgetOneColumn"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Widgets/WidgetThreeColumns.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "WidgetThreeColumns",
+          "methods": [],
+          "actualName": "WidgetThreeColumns"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Widgets/WidgetWithModal.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "WidgetWithModal",
+          "methods": [
+            {
+              "name": "toggleModal",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "WidgetWithModal"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Assets/AssetForm.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "AssetForm",
+          "methods": [],
+          "actualName": "AssetForm"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Assets/AssetInfo.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "AssetInfo",
+          "methods": [],
+          "actualName": "AssetInfo"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Assets/Assets.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Assets",
+          "methods": [],
+          "actualName": "Assets"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Assets/EquipmentInfo.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "EquipmentInfo",
+          "methods": [
+            {
+              "name": "handleClickOnNav",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "tabSelected",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "EquipmentInfo"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Assets/EquipmentsForm.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "EquipmentsForm",
+          "methods": [
+            {
+              "name": "handleInputChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "EquipmentsForm"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Assets/EquipmentsList.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "EquipmentsList",
+          "methods": [
+            {
+              "name": "toggleCreate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "toggleApply",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleURLChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateCurrentFilter",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filterLogic",
+                  "type": null
+                },
+                {
+                  "name": "filterName",
+                  "type": null
+                },
+                {
+                  "name": "filterId",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "EquipmentsList"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Assets/FacilitiesForm.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FacilitiesForm",
+          "methods": [
+            {
+              "name": "handleInputChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "FacilitiesForm"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Assets/FacilitiesInfo.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FacilitiesInfo",
+          "methods": [
+            {
+              "name": "handleClickOnNav",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "tabSelected",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "FacilitiesInfo"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Assets/FacilitiesList.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FacilitiesList",
+          "methods": [
+            {
+              "name": "toggleCreate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "toggleApply",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleURLChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateCurrentFilter",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filterLogic",
+                  "type": null
+                },
+                {
+                  "name": "filterName",
+                  "type": null
+                },
+                {
+                  "name": "filterId",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "FacilitiesList"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Authentication/Login.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Login",
+          "methods": [
+            {
+              "name": "componentWillMount",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleEnterKeyDown",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleInputs",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleSubmit",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "closeAlert",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "openModal",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "closeModal",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "Login"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Authentication/PersonForm.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PersonForm",
+          "methods": [
+            {
+              "name": "handleInputs",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "closeAlert",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "PersonForm"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Authentication/Profile.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Profile",
+          "methods": [
+            {
+              "name": "componentWillMount",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleInputs",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleSubmit",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "closeAlert",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "Profile"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Authentication/TeamForm.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TeamForm",
+          "methods": [
+            {
+              "name": "handleInputs",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "closeAlert",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "TeamForm"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ConsumptionMonitor/ConsumptionMonitor.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ConsumptionMonitor",
+          "methods": [
+            {
+              "name": "componentDidMount",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleOneMonth",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleMeterChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleQuery",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "showFormDates",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "closeAlert",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "ConsumptionMonitor"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ConsumptionMonitor/ResultAM.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ResultAM",
+          "methods": [],
+          "actualName": "ResultAM"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ConsumptionMonitor/ResultAMwater.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ResultAMwater",
+          "methods": [],
+          "actualName": "ResultAMwater"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ConsumptionMonitor/ResultAP.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ResultAP",
+          "methods": [],
+          "actualName": "ResultAP"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ConsumptionMonitor/ResultAPwater.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ResultAPwater",
+          "methods": [],
+          "actualName": "ResultAPwater"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ConsumptionMonitor/ResultOM.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ResultOM",
+          "methods": [],
+          "actualName": "ResultOM"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ConsumptionMonitor/ResultOMwater.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ResultOMwater",
+          "methods": [],
+          "actualName": "ResultOMwater"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ConsumptionMonitor/ResultOP.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ResultOP",
+          "methods": [],
+          "actualName": "ResultOP"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ConsumptionMonitor/ResultOPwater.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ResultOPwater",
+          "methods": [],
+          "actualName": "ResultOPwater"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Contracts/Contracts.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Contracts",
+          "methods": [],
+          "actualName": "Contracts"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Contracts/ContractsList.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ContractsList",
+          "methods": [
+            {
+              "name": "toggleCreate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "toggleApply",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleURLChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateCurrentFilter",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filterLogic",
+                  "type": null
+                },
+                {
+                  "name": "filterName",
+                  "type": null
+                },
+                {
+                  "name": "filterId",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ContractsList"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Contracts/ContractView.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ContractView",
+          "methods": [
+            {
+              "name": "handleClickOnNav",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "tabSelected",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ContractView"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Contracts/Specs.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Specs",
+          "methods": [],
+          "actualName": "Specs"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Contracts/SpecsList.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SpecsList",
+          "methods": [
+            {
+              "name": "toggleCreate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "toggleApply",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleURLChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateCurrentFilter",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filterLogic",
+                  "type": null
+                },
+                {
+                  "name": "filterName",
+                  "type": null
+                },
+                {
+                  "name": "filterId",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "SpecsList"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Contracts/SpecView.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SpecView",
+          "methods": [
+            {
+              "name": "handleClickOnNav",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "tabSelected",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "SpecView"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Dashboard/Dashboard.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Dashboard",
+          "methods": [],
+          "actualName": "Dashboard"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/MainPage/Error404.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Error404",
+          "methods": [],
+          "actualName": "Error404"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/MainPage/MainHeader.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "MainHeader",
+          "methods": [
+            {
+              "name": "componentDidUpdate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "prevProps",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleSession",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleProfile",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleLogout",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleDropdownClick",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "MainHeader"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Maintenance/OrderForm.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OrderForm",
+          "methods": [
+            {
+              "name": "toggle",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "tab",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleStatusDropDownChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "status",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handlePriorityDropDownChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "priority",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleCategoryDropDownChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "category",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleParentDropDownChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "parent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleAssetsDropDownChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "assetsArray",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleInputChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "OrderForm"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Maintenance/WorkOrders.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "WorkOrders",
+          "methods": [],
+          "actualName": "WorkOrders"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Maintenance/WorkOrdersList.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "WorkOrdersList",
+          "methods": [
+            {
+              "name": "toggleCreate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "toggleApply",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleURLChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateCurrentFilter",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filterLogic",
+                  "type": null
+                },
+                {
+                  "name": "filterName",
+                  "type": null
+                },
+                {
+                  "name": "filterId",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "WorkOrdersList"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Maintenance/WorkOrdersTable.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "WorkOrdersTable",
+          "methods": [],
+          "actualName": "WorkOrdersTable"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Maintenance/WorkOrderView.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "WorkOrderView",
+          "methods": [
+            {
+              "name": "handleClickOnNav",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "tabSelected",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "resetOnTabSwitch",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "WorkOrderView"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Teams/GroupView.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ContractView",
+          "methods": [
+            {
+              "name": "handleClickOnNav",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "tabSelected",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ContractView"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Teams/Persons.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Persons",
+          "methods": [],
+          "actualName": "Persons"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Teams/PersonsList.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PersonsList",
+          "methods": [
+            {
+              "name": "toggleCreate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "toggleApply",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleURLChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateCurrentFilter",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filterLogic",
+                  "type": null
+                },
+                {
+                  "name": "filterName",
+                  "type": null
+                },
+                {
+                  "name": "filterId",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "PersonsList"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Teams/PersonView.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ContractView",
+          "methods": [
+            {
+              "name": "handleClickOnNav",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "tabSelected",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ContractView"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Teams/Teams.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Teams",
+          "methods": [],
+          "actualName": "Teams"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Teams/TeamsList.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TeamsList",
+          "methods": [
+            {
+              "name": "toggleCreate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "toggleApply",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleChangeSearchTerm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setGoToPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setCurrentPage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "pageCurrent",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleURLChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateCurrentFilter",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "filterLogic",
+                  "type": null
+                },
+                {
+                  "name": "filterName",
+                  "type": null
+                },
+                {
+                  "name": "filterId",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "TeamsList"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Assets/Appliances/Appliances.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Appliances",
+          "methods": [],
+          "actualName": "Appliances"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Refactor/components/All.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "All",
+          "methods": [],
+          "actualName": "All"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Refactor/components/BackButton.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "BackButton",
+          "methods": [
+            {
+              "name": "handleCancel",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "BackButton"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Refactor/components/Form.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "_Form",
+          "methods": [],
+          "actualName": "_Form"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Refactor/components/MultipleSelect.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "MultipleSelect",
+          "methods": [],
+          "actualName": "MultipleSelect"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Refactor/components/One.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "One",
+          "methods": [
+            {
+              "name": "changeTab",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "One"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Refactor/components/Spinner.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "_Spinner",
+          "methods": [],
+          "actualName": "_Spinner"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Refactor/containers/AssetSelect/AssetSelect.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "AssetSelect",
+          "methods": [],
+          "actualName": "AssetSelect"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Refactor/containers/OrderAll/OrderAll.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OrderAll",
+          "methods": [],
+          "actualName": "OrderAll"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Refactor/containers/OrderForm/OrderForm.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OrderForm",
+          "methods": [
+            {
+              "name": "handleChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "addAsset",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "removeAsset",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "addSupply",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "removeSupply",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleQty",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleSubmit",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "OrderForm"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Refactor/containers/OrderOne/OrderOne.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OrderOne",
+          "methods": [],
+          "actualName": "OrderOne"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Refactor/containers/SupplySelect/SupplySelect.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SupplySelect",
+          "methods": [],
+          "actualName": "SupplySelect"
+        }
+      ]
+    }
+  ]
+}
