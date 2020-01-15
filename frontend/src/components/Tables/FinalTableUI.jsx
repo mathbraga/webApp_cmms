@@ -44,11 +44,12 @@ function TableBody({ tableConfig, data }) {
   );
 }
 
-export default function FinalTableUI ({ tableConfig, data }) {
+export default function FinalTableUI ({ tableConfig, data, ...rest }) {
   return (
     <TableWithPages
       thead={<TableHeader tableConfig={tableConfig} />}
       tbody={<TableBody data={data} tableConfig={tableConfig} />}
+      {...rest}
     />
   );
 }
