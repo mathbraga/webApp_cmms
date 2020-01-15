@@ -3,7 +3,8 @@ import AssetCard from '../../../components/Cards/AssetCard';
 
 export default class AppliancesUI extends Component {
   render() {
-    console.log("Props: ", this.props);
+    const data = this.props.data.allAssets.nodes;
+
     return (
       <AssetCard
         sectionName={'Equipamentos'}
