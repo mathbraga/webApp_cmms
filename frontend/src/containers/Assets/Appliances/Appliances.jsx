@@ -6,6 +6,8 @@ import { fetchAppliancesGQL, fetchAppliancesVariables } from './dataFetchParamet
 import tableConfig from './appliancesTableConfig';
 import searchList from '../../../utils/search/searchList';
 import filterList from '../../../utils/filter/filter';
+import { customFilters, filterAttributes } from './filterParameters';
+import searchableAttributes from './searchParameters';
 
 const ENTRIES_PER_PAGE = 15;
 
