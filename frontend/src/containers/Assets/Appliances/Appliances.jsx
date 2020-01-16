@@ -8,6 +8,7 @@ import searchList from '../../../utils/search/searchList';
 import filterList from '../../../utils/filter/filter';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
+import { compose } from 'redux';
 
 const ENTRIES_PER_PAGE = 15;
 
@@ -85,7 +86,7 @@ class Appliances extends Component {
   }
 }
 
-const AppliancesWithData = withDataFetching(Appliances, fetchAppliancesGQL, fetchAppliancesVariables);
-const AppliancesWithDataAndSession = withAccessToSession(AppliancesWithData);
-
-export default AppliancesWithDataAndSession;
+export default compose(
+  withAccessToSession,
+  withDataFetching(fetchAppliancesGQL, fetchAppliancesVariables)
+)(Appliances);
