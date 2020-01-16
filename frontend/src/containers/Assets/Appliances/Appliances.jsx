@@ -11,13 +11,6 @@ import searchableAttributes from './searchParameters';
 
 const ENTRIES_PER_PAGE = 15;
 
-const attributes = [
-  'assetSf',
-  'name',
-  'manufacturer',
-  'model',
-];
-
 class Appliances extends Component {
   constructor(props) {
     super(props);
@@ -65,7 +58,7 @@ class Appliances extends Component {
     const data = this.props.data.allAssets.nodes;
 
     const dataWithFilter = this.state.filterLogic.length > 0 ? filterList(data, this.state.filterLogic) : data;
-    const dataWithSearchAndFilter = searchList(dataWithFilter, attributes, this.state.searchTerm);
+    const dataWithSearchAndFilter = searchList(dataWithFilter, searchableAttributes, this.state.searchTerm);
     const totalOfPages = Math.floor(dataWithSearchAndFilter.length / ENTRIES_PER_PAGE) + 1;
 
     console.log("Data: ", dataWithSearchAndFilter);
@@ -85,6 +78,8 @@ class Appliances extends Component {
         filterName={this.state.filterName}
         numberOfItens={totalOfPages}
         data={dataWithSearchAndFilter}
+        customFilters={customFilters}
+        filterAttributes={filterAttributes}
       />
     );
   }

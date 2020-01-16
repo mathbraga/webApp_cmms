@@ -18,6 +18,8 @@ export default class AppliancesUI extends Component {
       filterLogic,
       filterName,
       numberOfItens,
+      customFilters,
+      filterAttributes,
       data
     } = this.props;
 
@@ -36,6 +38,8 @@ export default class AppliancesUI extends Component {
           filterLogic={filterLogic}
           filterName={filterName}
           numberOfItens={numberOfItens}
+          customFilters={customFilters}
+          filterAttributes={filterAttributes}
         />
         <FinalTable
           tableConfig={tableConfig}
