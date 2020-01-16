@@ -27,9 +27,9 @@ create materialized view dashboard_data as
            total_appliances + total_facilities as total_assets,
            now() as updated_at
       from t_p
-      inner join t_c on true
-      inner join t_d on true
-      inner join t_o on true
-      inner join t_a on true
-      inner join t_f on true
+      cross join t_c
+      cross join t_d
+      cross join t_o
+      cross join t_a
+      cross join t_f
 ;
