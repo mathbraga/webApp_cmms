@@ -1,15 +1,7 @@
 import React from 'react';
 import { CustomInput } from 'reactstrap';
 import TableWithPages from './TableWithPages';
-
-// const testTableConfig = {
-//   numberOfColumns: 10,
-//   checkbox: true,
-//   columnObjects: [
-//     { name: '1', description: 'a', className: 'b', style: 'c', data: ['id1', 'id2']},
-//     { name: '2', description: 'd', className: 'b', style: 'c', data: ['id3']},
-//   ],
-// };
+import { withRouter } from "react-router-dom";
 
 function TableHeader({ tableConfig }) {
   return (
@@ -24,10 +16,12 @@ function TableHeader({ tableConfig }) {
   );
 };
 
-function TableBody({ tableConfig, data }) {
+function TableBody({ tableConfig, data, history }) {
   return (
     data.map((item) => (
-      <tr>
+      <tr
+        onClick={() => { history.push(tableConfig.itemPath + item[tableConfig.idAttributeForData]) }}
+      >
         <td className="text-center checkbox-cell">
           <CustomInput type="checkbox" />
         </td>
@@ -44,12 +38,14 @@ function TableBody({ tableConfig, data }) {
   );
 }
 
-export default function FinalTableUI({ tableConfig, data, ...rest }) {
+function FinalTableUI({ tableConfig, data, history, ...rest }) {
   return (
     <TableWithPages
       thead={<TableHeader tableConfig={tableConfig} />}
-      tbody={<TableBody data={data} tableConfig={tableConfig} />}
+      tbody={<TableBody data={data} tableConfig={tableConfig} history={history} />}
       {...rest}
     />
   );
 }
+
+export default withRouter(FinalTableUI);
