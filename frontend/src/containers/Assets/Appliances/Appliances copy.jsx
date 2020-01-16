@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import withDataFetching from '../../DataFetchContainer';
 import withAccessToSession from '../../Authentication';
 import withPaginationLogic from '../../PageLogicContainer';
-import CardWithTableUI from './CardWithTableUI';
+import AppliancesUI from './AppliancesUI';
+import { fetchAppliancesGQL, fetchAppliancesVariables } from './utils/dataFetchParameters';
+import tableConfig from './utils/tableConfig';
 import searchList from '../../../utils/search/searchList';
 import filterList from '../../../utils/filter/filter';
+import { customFilters, filterAttributes } from './utils/filterParameters';
+import searchableAttributes from './utils/searchParameters';
 import { compose } from 'redux';
 
 const ENTRIES_PER_PAGE = 15;
 
-class CardWithTable extends Component {
+class Appliances extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,14 +43,8 @@ class CardWithTable extends Component {
   // Put all the extra logic here.
 
   render() {
-    const {
-      paginationLogic,
-      tableConfig,
-      customFilters,
-      filterAttributes,
-      searchableAttributes,
-      data
-    } = this.props;
+    const data = this.props.data.allAssets.nodes;
+    const { paginationLogic } = this.props;
 
     const dataWithFilter = this.state.filterLogic.length > 0 ? filterList(data, this.state.filterLogic) : data;
     const dataWithSearchAndFilter = searchList(dataWithFilter, searchableAttributes, this.state.searchTerm);
@@ -53,7 +52,7 @@ class CardWithTable extends Component {
 
 
     return (
-      <CardWithTableUI
+      <AppliancesUI
         tableConfig={tableConfig}
         goToPage={paginationLogic.goToPage}
         pageCurrent={paginationLogic.pageCurrent}
@@ -76,5 +75,6 @@ class CardWithTable extends Component {
 
 export default compose(
   withPaginationLogic,
-  withAccessToSession
-)(CardWithTable);
+  withAccessToSession,
+  withDataFetching(fetchAppliancesGQL, fetchAppliancesVariables)
+)(Appliances);

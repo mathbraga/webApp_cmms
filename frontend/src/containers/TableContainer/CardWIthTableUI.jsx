@@ -3,7 +3,7 @@ import AssetCard from '../../../components/Cards/AssetCard';
 import FinalTable from '../../../components/Tables/FinalTable';
 import SearchWithFilter from '../../../components/Search/SearchWithFilter';
 
-export default class AppliancesUI extends Component {
+export default class CardWithTableUI extends Component {
   render() {
     const {
       tableConfig,
