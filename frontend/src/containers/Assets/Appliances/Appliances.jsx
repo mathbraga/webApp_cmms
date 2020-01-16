@@ -3,7 +3,7 @@ import withDataFetching from '../../DataFetchContainer';
 import withAccessToSession from '../../Authentication';
 import AppliancesUI from './AppliancesUI';
 import { fetchAppliancesGQL, fetchAppliancesVariables } from './dataFetchParameters';
-import tableConfig from './appliancesTableConfig';
+import tableConfig from './tableConfig';
 import searchList from '../../../utils/search/searchList';
 import filterList from '../../../utils/filter/filter';
 import { customFilters, filterAttributes } from './filterParameters';
