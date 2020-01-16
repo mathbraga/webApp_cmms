@@ -1,3 +1,3 @@
-import withPaginationLogic from './withDataFetching';
+import withPaginationLogic from './withPaginationLogic';
 
 export default withPaginationLogic;
