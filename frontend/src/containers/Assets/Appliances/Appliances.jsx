@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import withDataFetching from '../../DataFetchContainer';
 import withAccessToSession from '../../Authentication';
 import AppliancesUI from './AppliancesUI';
-import { fetchAppliancesGQL, fetchAppliancesVariables } from './dataFetchParameters';
-import tableConfig from './tableConfig';
+import { fetchAppliancesGQL, fetchAppliancesVariables } from './utils/dataFetchParameters';
+import tableConfig from './utils/tableConfig';
 import searchList from '../../../utils/search/searchList';
 import filterList from '../../../utils/filter/filter';
-import { customFilters, filterAttributes } from './filterParameters';
-import searchableAttributes from './searchParameters';
+import { customFilters, filterAttributes } from './utils/filterParameters';
+import searchableAttributes from './utils/searchParameters';
 
 const ENTRIES_PER_PAGE = 15;
 
