@@ -33,6 +33,7 @@ export default function withPaginationLogic(WrappedComponent) {
       return (
         <WrappedComponent
           paginationLogic={paginationLogic}
+          {...this.props}
         />
       );
     }

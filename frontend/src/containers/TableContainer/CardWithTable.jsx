@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import withAccessToSession from '../../Authentication';
-import withPaginationLogic from '../../PageLogicContainer';
+import withPaginationLogic from '../PageLogicContainer';
 import CardWithTableUI from './CardWithTableUI';
-import searchList from '../../../utils/search/searchList';
-import filterList from '../../../utils/filter/filter';
+import searchList from '../../utils/search/searchList';
+import filterList from '../../utils/filter/filter';
 import { compose } from 'redux';
 
 const ENTRIES_PER_PAGE = 15;
@@ -75,6 +74,5 @@ class CardWithTable extends Component {
 }
 
 export default compose(
-  withPaginationLogic,
-  withAccessToSession
+  withPaginationLogic
 )(CardWithTable);

@@ -35,7 +35,7 @@ const ORDER_PRIORITY_TYPE = {
   'URG': 'Urgente',
 };
 
-export default function searchList(itemsList, attributes, searchTerm){  
+export default function searchList(itemsList, attributes, searchTerm) {
   let filteredItems = itemsList;
   searchTerm = searchTerm.trim().split(" ");
   const searchTermLower = searchTerm.map((item) => item.toLowerCase());
@@ -47,16 +47,16 @@ export default function searchList(itemsList, attributes, searchTerm){
   return filteredItems;
 }
 
-function findItem(items, attributes, term){
+function findItem(items, attributes, term) {
   const result = items.filter((item) => {
-    for(let i = 0; i < attributes.length; i++){
+    for (let i = 0; i < attributes.length; i++) {
       const relevantName = attributes[i].split('.').pop();
       //const attributeRoot = attributes[i].split('.')[0];
       let value = [];
-      if(item.node)
-        value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item.node);
+      if (item.node)
+        value = attributes[i].split('.').reduce(function (p, prop) { return p[prop] }, item.node);
       else
-        value = attributes[i].split('.').reduce(function(p,prop) { return p[prop] }, item);
+        value = attributes[i].split('.').reduce(function (p, prop) { return p[prop] }, item);
 
       switch (relevantName) {
         case 'orderId':
@@ -72,7 +72,7 @@ function findItem(items, attributes, term){
           value = ORDER_PRIORITY_TYPE[value];
           break;
       }
-      if(String(value).toLowerCase().includes(term)){
+      if (String(value).toLowerCase().includes(term)) {
         return String(value).toLowerCase().includes(term);
       }
     }
