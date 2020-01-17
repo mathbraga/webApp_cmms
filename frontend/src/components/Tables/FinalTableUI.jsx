@@ -20,7 +20,10 @@ function TableBody({ tableConfig, data, history }) {
   return (
     data.map((item) => (
       <tr
-        onClick={() => { history.push(tableConfig.itemPath + item[tableConfig.idAttributeForData]) }}
+        onClick={tableConfig.itemClickable && (
+          () => {
+            history.push(tableConfig.itemPath + item[tableConfig.idAttributeForData])
+          })}
       >
         <td className="text-center checkbox-cell">
           <CustomInput type="checkbox" />

@@ -1,12 +1,13 @@
 const tableConfig = {
   numberOfColumns: 3,
   checkbox: true,
-  itemPath: '/ativos/view/',
-  idAttributeForData: 'assetSf',
+  itemPath: '',
+  itemClickable: false,
+  idAttributeForData: 'cpf',
   columnObjects: [
-    { name: 'name', description: 'Equipamento', style: { width: "30%" }, className: "", data: ['name', 'assetSf'] },
-    { name: 'model', description: 'Modelo', style: { width: "10%" }, className: "text-center", data: ['model'] },
-    { name: 'manufacturer', description: 'Fabricante', style: { width: "10%" }, className: "text-center", data: ['manufacturer'] },
+    { name: 'name', description: 'Nome', style: { width: "300px" }, className: "", data: ['name'] },
+    { name: 'phone', description: 'Telefone', style: { width: "150px" }, className: "text-center", data: ['phone'] },
+    { name: 'email', description: 'E-mail', style: { width: "200px" }, className: "text-center", data: ['email'] },
   ],
 };
 
