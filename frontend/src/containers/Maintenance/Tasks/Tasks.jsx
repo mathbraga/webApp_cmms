@@ -10,7 +10,7 @@ import CardWithTable from '../../TableContainer/CardWithTable';
 
 class Tasks extends Component {
   render() {
-    const data = this.props.data.allAssets.nodes;
+    const data = this.props.data.allOrders.nodes;
 
     return (
       <CardWithTable
