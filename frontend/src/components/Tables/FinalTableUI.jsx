@@ -25,25 +25,32 @@ function TableBody({ tableConfig, data, history }) {
         <td className="text-center checkbox-cell">
           <CustomInput type="checkbox" />
         </td>
-        
-        {tableConfig.columnObjects.map((column) => {
-            if (column.createElement) {
-              return (
-              <td className={column.className}>{column.createElement}</td>
-              );
-            }
 
-            if (column.data.length >= 2) {
-              return (
-                <td className={column.className}>
-                  <div>{item[column.data[0]]}</div>
-                  <div className="small text-muted" >{item[column.data[1]]}</div>
-                </td>
-              );
-            }
-            
-            return (<td className={column.className}>{item[column.name]}</td>);
-          })
+        {tableConfig.columnObjects.map((column) => {
+          let dataWrapper = function (item) { return column.data.map((ID) => (item[ID])); };
+          if (column.dataGenerator) {
+            dataWrapper = column.dataGenerator;
+          }
+
+          if (column.createElement) {
+            return (
+              <td className={column.className}>{column.createElement}</td>
+            );
+          }
+
+          const itemToDisplay = dataWrapper(item);
+
+          if (column.data.length >= 2) {
+            return (
+              <td className={column.className}>
+                <div>{itemToDisplay[0]}</div>
+                <div className="small text-muted" >{itemToDisplay[1]}</div>
+              </td>
+            );
+          }
+
+          return (<td className={column.className}>{itemToDisplay[0]}</td>);
+        })
         }
       </tr>
     ))
