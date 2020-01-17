@@ -1,12 +1,14 @@
+const mapIcon = require("../../../../assets/icons/map.png");
+
 const tableConfig = {
   numberOfColumns: 3,
   checkbox: true,
   itemPath: '/ativos/view/',
   idAttributeForData: 'assetSf',
   columnObjects: [
-    { name: 'name', description: 'Equipamento', style: { width: "30%" }, className: "", data: ['name', 'assetSf'] },
-    { name: 'model', description: 'Modelo', style: { width: "10%" }, className: "text-center", data: ['model'] },
-    { name: 'manufacturer', description: 'Fabricante', style: { width: "10%" }, className: "text-center", data: ['manufacturer'] },
+    { name: 'name', description: 'Ativo', style: { width: "40%" }, className: "", data: ['name', 'assetSf'] },
+    { name: 'area', description: 'Área', style: { width: "15%" }, className: "text-center", data: ['area'] },
+    { name: 'map', description: 'Planta', style: { width: "10%" }, className: "text-center", createData: (<img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />) },
   ],
 };
 
