@@ -1,12 +1,13 @@
 const tableConfig = {
-  numberOfColumns: 3,
+  numberOfColumns: 4,
   checkbox: true,
-  itemPath: '/ativos/view/',
-  idAttributeForData: 'assetSf',
+  itemPath: '/gestao/servicos/view/',
+  itemClickable: true,
+  idAttributeForData: 'specId',
   columnObjects: [
-    { name: 'name', description: 'Equipamento', style: { width: "30%" }, className: "", data: ['name', 'assetSf'] },
-    { name: 'model', description: 'Modelo', style: { width: "10%" }, className: "text-center", data: ['model'] },
-    { name: 'manufacturer', description: 'Fabricante', style: { width: "10%" }, className: "text-center", data: ['manufacturer'] },
+    { name: 'name', description: 'Material / Serviço', style: { width: "300px" }, className: "text-justify", data: ['name', 'specSf'] },
+    { name: 'category', description: 'Categoria', style: { width: "200px" }, className: "text-center", data: ['category'] },
+    { name: 'subcategory', description: 'Subcategoria', style: { width: "200px" }, className: "text-center", data: ['subcategory'] },
   ],
 };
 
