@@ -68,11 +68,7 @@ create view active_teams as
 
 create view assets_of_task as
   select t.task_id,
-         jsonb_agg(jsonb_build_object(
-           'assetId', a.asset_id,
-           'assetSf', a.asset_sf,
-           'name', a.name
-         )) as assets
+         jsonb_agg(build_asset_json(a.asset_id)) as assets
     from tasks as t
     inner join task_assets as ta using (task_id)
     inner join assets as a using (asset_id)

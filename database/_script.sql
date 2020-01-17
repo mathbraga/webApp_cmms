@@ -58,6 +58,9 @@ begin transaction;
 -- create tables
 \i tables.sql
 
+-- NEW
+\i functions-build-json.sql
+
 -- create views
 \i views.sql
 
