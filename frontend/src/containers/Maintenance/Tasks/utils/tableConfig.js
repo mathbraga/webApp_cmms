@@ -1,8 +1,16 @@
 import { ORDER_CATEGORY_TYPE, ORDER_STATUS_TYPE } from './dataDescription';
 
-function changeDataDescription(item, dataDescription, dataID) {
-  const result = dataID.map((ID) => ([dataDescription[item[ID]]]))
-  return result;
+function changeStatusDescription(item, dataDescription) {
+  return [dataDescription[item.status]];
+}
+
+function changeCategoryDescription(item, dataDescription) {
+  return [item.title, dataDescription[item.category]];
+}
+
+function formatDateLimit(item) {
+  console.log("Item: ", item.dateLimit && item.dateLimit.split('T')[0]);
+  return [item.dateLimit && item.dateLimit.split('T')[0]];
 }
 
 const tableConfig = {
@@ -12,9 +20,9 @@ const tableConfig = {
   idAttributeForData: 'orderId',
   columnObjects: [
     { name: 'orderId', description: 'OS', style: { width: "80px" }, className: "text-center", data: ['orderId'] },
-    { name: 'title', description: 'Título', style: { width: "400px" }, className: "text-justify", data: ['title', 'category'] },
-    { name: 'status', description: 'Status', style: { width: "100px" }, className: "text-center", data: ['status'], dataGenerator: (item) => changeDataDescription(item, ORDER_STATUS_TYPE, ["status"]) },
-    { name: 'dateLimit', description: 'Prazo Final', style: { width: "100px" }, className: "text-center", data: ['dateLimit'] },
+    { name: 'title', description: 'Título', style: { width: "400px" }, className: "text-justify", data: ['title', 'category'], dataGenerator: (item) => changeCategoryDescription(item, ORDER_CATEGORY_TYPE) },
+    { name: 'status', description: 'Status', style: { width: "100px" }, className: "text-center", data: ['status'], dataGenerator: (item) => changeStatusDescription(item, ORDER_STATUS_TYPE) },
+    { name: 'dateLimit', description: 'Prazo Final', style: { width: "100px" }, className: "text-center", data: ['dateLimit'], dataGenerator: (item) => formatDateLimit(item) },
     { name: 'place', description: 'Localização', style: { width: "250px" }, className: "text-center", data: ['place'] },
   ],
 };
