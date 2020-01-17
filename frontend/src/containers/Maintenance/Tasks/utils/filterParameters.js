@@ -1,9 +1,10 @@
-export const filterAttributes = {
-  assetSf: { name: 'Código', type: 'text' },
-  manufacturer: { name: 'Fabricante', type: 'text' },
-  model: { name: 'Modelo', type: 'text' },
-  name: { name: 'Nome', type: 'text' },
-  serialnum: { name: 'Número serial', type: 'text' },
+const filterAttributes = {
+  category: { name: 'Categoria', type: 'option', options: ORDER_CATEGORY_TYPE },
+  description: { name: 'Descrição', type: 'text' },
+  place: { name: 'Localização', type: 'text' },
+  priority: { name: 'Prioridade', type: 'option', options: ORDER_PRIORITY_TYPE },
+  status: { name: 'Status', type: 'option', options: ORDER_STATUS_TYPE },
+  title: { name: 'Título', type: 'text' },
 };
 
 export const customFilters = [
@@ -15,50 +16,178 @@ export const customFilters = [
   },
   {
     id: "002",
-    name: "Ativos - Elétrica",
+    name: "OS - Reparo em forro",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["ELET"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["FOR"] },
     ],
   },
   {
     id: "003",
-    name: "Ativos - Civil",
+    name: "OS - Avaliação estrutural",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["CIVL"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
     ],
   },
   {
     id: "004",
-    name: "Ativos - Mecânica",
+    name: "OS - Infiltração",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["MECN"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["INF"] },
     ],
   },
   {
     id: "005",
-    name: "Elétrica - Quadros",
+    name: "OS - Instalações elétricas",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["Quadro"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["ELE"] },
     ],
   },
   {
     id: "006",
-    name: "Elétrica - Estações Transformadoras",
+    name: "OS - Instalações hidrossanitárias",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["Estação"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["HID"] },
     ],
   },
   {
     id: "007",
-    name: "Elétrica - No breaks",
+    name: "OS - Marcenaria",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["No break"] },
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["MAR"] },
+    ],
+  },
+  {
+    id: "008",
+    name: "OS - Reparo em piso",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["PIS"] },
+    ],
+  },
+  {
+    id: "009",
+    name: "OS - Avaliação estrutural",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+    ],
+  },
+  {
+    id: "010",
+    name: "OS - Revestimento",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["REV"] },
+    ],
+  },
+  {
+    id: "011",
+    name: "OS - Vedação espacial",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["VED"] },
+    ],
+  },
+  {
+    id: "012",
+    name: "OS - Vidraçaria / Esquadria",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["VID"] },
+    ],
+  },
+  {
+    id: "013",
+    name: "OS - Serralheria",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["SER"] },
+    ],
+  },
+  {
+    id: "014",
+    name: "OS - Ar-condicionado",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["ARC"] },
+    ],
+  },
+  {
+    id: "015",
+    name: "OS - Elevadores",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["ELV"] },
+    ],
+  },
+  {
+    id: "016",
+    name: "OS - Exaustores",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EXA"] },
+    ],
+  },
+  {
+    id: "017",
+    name: "OS - Revestimento",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["REV"] },
+    ],
+  },
+  {
+    id: "018",
+    name: "OS - Serviços Gerais",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["GRL"] },
+    ],
+  },
+  {
+    id: "019",
+    name: "OS - Canceladas",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["CAN"] },
+    ],
+  },
+  {
+    id: "020",
+    name: "OS - Suspensas",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["SUS"] },
+    ],
+  },
+  {
+    id: "021",
+    name: "OS - Execução",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["EXE"] },
+    ],
+  },
+  {
+    id: "022",
+    name: "OS - Concluídas",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["CON"] },
+    ],
+  },
+  {
+    id: "023",
+    name: "OS - Execução ou Fila de Espera",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["EXE", "FIL"] },
     ],
   },
 ];
