@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
-import Teams from "../HumanResources/Teams/Teams";
+import Contracts from "../ContractManagement/Contracts/Contracts";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -54,7 +54,7 @@ class Dashboard extends Component {
           />
         </div> */}
         <div>
-          <Teams />
+          <Contracts />
         </div>
       </div>
     );

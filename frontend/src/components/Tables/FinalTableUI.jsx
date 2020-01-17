@@ -41,7 +41,6 @@ function TableBody({ tableConfig, data, history }) {
             );
           }
 
-          console.log("FinalTableUI: ", item);
           const itemToDisplay = dataWrapper(item);
 
           if (column.data.length >= 2) {

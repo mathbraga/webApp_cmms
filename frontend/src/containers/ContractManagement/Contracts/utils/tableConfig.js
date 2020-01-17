@@ -1,12 +1,39 @@
+import { CONTRACT_STATUS } from './dataDescription';
+import React from 'react';
+
+function changeStatusDescription(item, dataDescription) {
+  return [dataDescription[item.status]];
+}
+
+function calculateTimeSpan(item) {
+  return [`${item.dateStart} a ${item.dateEnd}`];
+}
+
+function addLink(item) {
+  return [
+    <a
+      href={item.url}
+      target="_blank"
+      rel="noopener noreferrer nofollow"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {"CT " + parseInt(item.contractSf.slice(2, 6), 10) + "/" + item.contractSf.slice(6)}
+    </a>
+  ];
+}
+
 const tableConfig = {
-  numberOfColumns: 3,
+  numberOfColumns: 6,
   checkbox: true,
-  itemPath: '/ativos/view/',
-  idAttributeForData: 'assetSf',
+  itemPath: '/gestao/contratos/view/',
+  itemClickable: true,
+  idAttributeForData: 'contractSf',
   columnObjects: [
-    { name: 'name', description: 'Equipamento', style: { width: "30%" }, className: "", data: ['name', 'assetSf'] },
-    { name: 'model', description: 'Modelo', style: { width: "10%" }, className: "text-center", data: ['model'] },
-    { name: 'manufacturer', description: 'Fabricante', style: { width: "10%" }, className: "text-center", data: ['manufacturer'] },
+    { name: 'contractSf', description: 'Número', style: { width: "100px" }, className: "text-center", data: ['contractSf'] },
+    { name: 'title', description: 'Objeto', style: { width: "300px" }, className: "text-justify", data: ['title', 'company'] },
+    { name: 'status', description: 'Status', style: { width: "150px" }, className: "text-center", data: ['status'], dataGenerator: (item) => changeStatusDescription(item, CONTRACT_STATUS) },
+    { name: 'dateEnd', description: 'Vigência', style: { width: "150px" }, className: "text-center", data: ['dateEnd'], dataGenerator: calculateTimeSpan },
+    { name: 'url', description: 'Link', style: { width: "100px" }, className: "text-center", data: ['url'], dataGenerator: addLink },
   ],
 };
 

@@ -8,9 +8,9 @@ import searchableAttributes from './utils/searchParameters';
 import { compose } from 'redux';
 import CardWithTable from '../../TableContainer/CardWithTable';
 
-class Appliances extends Component {
+class Contracts extends Component {
   render() {
-    const data = this.props.data.allAssets.nodes;
+    const data = this.props.data.allContracts.nodes;
 
     return (
       <CardWithTable
@@ -27,4 +27,4 @@ class Appliances extends Component {
 export default compose(
   withAccessToSession,
   withDataFetching(fetchAppliancesGQL, fetchAppliancesVariables)
-)(Appliances);
+)(Contracts);

@@ -1,22 +1,22 @@
 import gql from 'graphql-tag';
 
 const fetchAppliancesGQL = gql`
-query assetsQuery($category: AssetCategoryType!) {
-  allAssets(condition: {category: $category}, orderBy: ASSET_SF_ASC) {
-    nodes {
-      name
-      model
-      manufacturer
-      assetSf
-      category
-      serialnum
-      area
+  query ContractsQuery {
+    allContracts(orderBy: CONTRACT_SF_ASC) {
+      nodes {
+        company
+        contractSf
+        dateStart
+        dateEnd
+        status
+        title
+        url
+      }
     }
   }
-}`;
+`;
 
 const fetchAppliancesVariables = {
-  category: "A"
 };
 
 export { fetchAppliancesGQL, fetchAppliancesVariables };
