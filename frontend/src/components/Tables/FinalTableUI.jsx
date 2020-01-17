@@ -25,14 +25,26 @@ function TableBody({ tableConfig, data, history }) {
         <td className="text-center checkbox-cell">
           <CustomInput type="checkbox" />
         </td>
-        {tableConfig.columnObjects.map((column) => (
-          column.data.length >= 2
-            ? <td>
-              <div>{item[column.data[0]]}</div>
-              <div className="small text-muted" >{item[column.data[1]]}</div>
-            </td>
-            : <td className="text-center">{item[column.name]}</td>
-        ))}
+        
+        {tableConfig.columnObjects.map((column) => {
+            if (column.createElement) {
+              return (
+              <td className={column.className}>{column.createElement}</td>
+              );
+            }
+
+            if (column.data.length >= 2) {
+              return (
+                <td className={column.className}>
+                  <div>{item[column.data[0]]}</div>
+                  <div className="small text-muted" >{item[column.data[1]]}</div>
+                </td>
+              );
+            }
+            
+            return (<td className={column.className}>{item[column.name]}</td>);
+          })
+        }
       </tr>
     ))
   );

@@ -8,7 +8,7 @@ const tableConfig = {
   columnObjects: [
     { name: 'name', description: 'Ativo', style: { width: "40%" }, className: "", data: ['name', 'assetSf'] },
     { name: 'area', description: 'Área', style: { width: "15%" }, className: "text-center", data: ['area'] },
-    { name: 'map', description: 'Planta', style: { width: "10%" }, className: "text-center", createData: (<img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />) },
+    { name: 'map', description: 'Planta', style: { width: "10%" }, className: "text-center", createElement: (<img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />) },
   ],
 };
 
