@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const osQuery = gql`
+const fetchAppliancesGQL = gql`
       query WorkOrderQuery {
         allOrders(orderBy: ORDER_ID_ASC) {
           nodes {

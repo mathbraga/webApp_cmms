@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
-import Facilities from "../Assets/Facilities/Facilities";
+import Tasks from "../Maintenance/Tasks/Tasks";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -54,7 +54,7 @@ class Dashboard extends Component {
           />
         </div> */}
         <div>
-          <Facilities />
+          <Tasks />
         </div>
       </div>
     );
