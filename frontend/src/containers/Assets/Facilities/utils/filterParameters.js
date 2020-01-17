@@ -1,9 +1,8 @@
 export const filterAttributes = {
   assetSf: { name: 'Código', type: 'text' },
-  manufacturer: { name: 'Fabricante', type: 'text' },
-  model: { name: 'Modelo', type: 'text' },
   name: { name: 'Nome', type: 'text' },
-  serialnum: { name: 'Número serial', type: 'text' },
+  description: { name: 'Descrição', type: 'text' },
+  area: { name: 'Área', type: 'number' }
 };
 
 export const customFilters = [
@@ -15,50 +14,100 @@ export const customFilters = [
   },
   {
     id: "002",
-    name: "Ativos - Elétrica",
+    name: "Edifícios - Blocos de Apoio",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["ELET"] },
+      { attribute: 'name', type: 'att', verb: 'include', term: ["Bloco"] },
     ],
   },
   {
     id: "003",
-    name: "Ativos - Civil",
+    name: "Edifícios -  Áreas Técnicas",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["CIVL"] },
+      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["AT"] },
     ],
   },
   {
     id: "004",
-    name: "Ativos - Mecânica",
+    name: "Apartamentos Funcionais - SQS 309",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["MECN"] },
+      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["309"] },
     ],
   },
   {
     id: "005",
-    name: "Elétrica - Quadros",
+    name: "SQS 309 - Bloco C",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["Quadro"] },
+      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["309C"] },
     ],
   },
   {
     id: "006",
-    name: "Elétrica - Estações Transformadoras",
+    name: "SQS 309 - Bloco D",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["Estação"] },
+      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["309D"] },
     ],
   },
   {
     id: "007",
-    name: "Elétrica - No breaks",
+    name: "SQS 309 - Bloco G",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["No break"] },
+      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["309G"] },
+    ],
+  },
+  {
+    id: "008",
+    name: "Residência Oficial",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["SHIS"] },
+    ],
+  },
+  {
+    id: "009",
+    name: "Edifícios- Anexo I",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["AX01"] },
+    ],
+  },
+  {
+    id: "010",
+    name: "Edifícios- Anexo II",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["AX02"] },
+    ],
+  },
+  {
+    id: "011",
+    name: "Vias do CASF",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'name', type: 'att', verb: 'include', term: ["Via"] },
+    ],
+  },
+  {
+    id: "012",
+    name: "Edifícios - Alas do CASF",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'name', type: 'att', verb: 'include', term: ["Ala"] },
+    ],
+  },
+  {
+    id: "013",
+    name: "Blocos - Com área maior que 1000 m²",
+    author: "webSINFRA Software",
+    logic: [
+      { attribute: 'name', type: 'att', verb: 'include', term: ["Bloco"] },
+      { attribute: 'and', type: 'opr', verb: null, term: [] },
+      { attribute: 'area', type: 'att', verb: 'greaterThan', term: ["1000"] },
     ],
   },
 ];
