@@ -6,6 +6,7 @@ const tableConfig = {
   numberOfColumns: 3,
   checkbox: true,
   itemPath: '/ativos/view/',
+  itemClickable: true,
   idAttributeForData: 'assetSf',
   columnObjects: [
     { name: 'name', description: 'Ativo', style: { width: "40%" }, className: "", data: ['name', 'assetSf'] },

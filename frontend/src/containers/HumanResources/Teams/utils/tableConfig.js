@@ -1,12 +1,12 @@
 const tableConfig = {
-  numberOfColumns: 3,
+  numberOfColumns: 2,
   checkbox: true,
-  itemPath: '/ativos/view/',
-  idAttributeForData: 'assetSf',
+  itemPath: '',
+  itemClickable: false,
+  idAttributeForData: 'teamId',
   columnObjects: [
-    { name: 'name', description: 'Equipamento', style: { width: "30%" }, className: "", data: ['name', 'assetSf'] },
-    { name: 'model', description: 'Modelo', style: { width: "10%" }, className: "text-center", data: ['model'] },
-    { name: 'manufacturer', description: 'Fabricante', style: { width: "10%" }, className: "text-center", data: ['manufacturer'] },
+    { name: 'name', description: 'Nome da equipe', style: {}, className: "", data: ['name', 'description'] },
+    { name: 'memberCount', description: 'Número de membros', style: {}, className: "text-center", data: ['memberCount'] },
   ],
 };
 

@@ -10,7 +10,7 @@ import CardWithTable from '../../TableContainer/CardWithTable';
 
 class Appliances extends Component {
   render() {
-    const data = this.props.data.allAssets.nodes;
+    const data = this.props.data.allActiveTeams.nodes;
 
     return (
       <CardWithTable

@@ -1,9 +1,7 @@
 export const filterAttributes = {
-  assetSf: { name: 'Código', type: 'text' },
-  manufacturer: { name: 'Fabricante', type: 'text' },
-  model: { name: 'Modelo', type: 'text' },
-  name: { name: 'Nome', type: 'text' },
-  serialnum: { name: 'Número serial', type: 'text' },
+  name: { name: 'Nome da Equipe', type: 'text' },
+  description: { name: 'Descrição', type: 'text' },
+  memberCount: { name: 'Número de Integrantes', type: 'number' }
 };
 
 export const customFilters = [
@@ -15,50 +13,18 @@ export const customFilters = [
   },
   {
     id: "002",
-    name: "Ativos - Elétrica",
+    name: "Equipe - Mínimo 02 pessoas",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["ELET"] },
+      { attribute: 'memberCount', type: 'att', verb: 'greaterThan', term: ["2"] },
     ],
   },
   {
     id: "003",
-    name: "Ativos - Civil",
+    name: "Individual - 01 pessoa",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["CIVL"] },
-    ],
-  },
-  {
-    id: "004",
-    name: "Ativos - Mecânica",
-    author: "webSINFRA Software",
-    logic: [
-      { attribute: 'assetSf', type: 'att', verb: 'include', term: ["MECN"] },
-    ],
-  },
-  {
-    id: "005",
-    name: "Elétrica - Quadros",
-    author: "webSINFRA Software",
-    logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["Quadro"] },
-    ],
-  },
-  {
-    id: "006",
-    name: "Elétrica - Estações Transformadoras",
-    author: "webSINFRA Software",
-    logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["Estação"] },
-    ],
-  },
-  {
-    id: "007",
-    name: "Elétrica - No breaks",
-    author: "webSINFRA Software",
-    logic: [
-      { attribute: 'name', type: 'att', verb: 'include', term: ["No break"] },
+      { attribute: 'memberCount', type: 'att', verb: 'equalTo', term: ["1"] },
     ],
   },
 ];

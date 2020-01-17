@@ -17,6 +17,7 @@ const tableConfig = {
   numberOfColumns: 6,
   checkbox: true,
   itemPath: '/manutencao/os/view/',
+  itemClickable: true,
   idAttributeForData: 'orderId',
   columnObjects: [
     { name: 'orderId', description: 'OS', style: { width: "80px" }, className: "text-center", data: ['orderId'] },
