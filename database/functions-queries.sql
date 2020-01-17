@@ -18,33 +18,27 @@ create or replace function get_asset_tree (
           from rec as r
           cross join asset_relations as a
         where r.asset_id = a.parent_id
-      ),
-      x as (
-        select  jsonb_build_object(
-                  'assetId', r.top_id,
-                  'assetSf', a.asset_sf,
-                  'name', a.name
-                ) as top_asset,
-                jsonb_build_object(
-                  'assetId', r.parent_id,
-                  'assetSf', b.asset_sf,
-                  'name', b.name
-                ) as parent_asset,
-                jsonb_build_object(
-                  'assetId', r.asset_id,
-                  'assetSf', c.asset_sf,
-                  'name', c.name
-                ) as asset_asset
-          from rec as r
-          inner join assets as a on (r.top_id = a.asset_id)
-          inner join assets as b on (r.parent_id = b.asset_id)
-          inner join assets as c on (r.asset_id = c.asset_id)
       )
-      select top_asset,
-             parent_asset,
-             jsonb_agg(asset_asset) as asset_asset
-        from x
-        group by top_asset, parent_asset
+      select  jsonb_build_object(
+                'assetId', r.top_id,
+                'assetSf', a.asset_sf,
+                'name', a.name
+              ) as top_asset,
+              jsonb_build_object(
+                'assetId', r.parent_id,
+                'assetSf', b.asset_sf,
+                'name', b.name
+              ) as parent_asset,
+              jsonb_agg(jsonb_build_object(
+                'assetId', r.asset_id,
+                'assetSf', c.asset_sf,
+                'name', c.name
+              )) as asset_asset
+        from rec as r
+        inner join assets as a on (r.top_id = a.asset_id)
+        inner join assets as b on (r.parent_id = b.asset_id)
+        inner join assets as c on (r.asset_id = c.asset_id)
+      group by r.top_id, r.parent_id, a.asset_sf, a.name, b.asset_sf, b.name
   $$
 ;
 
