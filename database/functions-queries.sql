@@ -1,28 +1,50 @@
 create or replace function get_asset_tree (
   in top_asset_id integer,
-  out top_id integer,
-  out parent_id integer,
-  out assets integer[]
+  out top_asset jsonb,
+  out parent_asset jsonb,
+  out asset_asset jsonb
 )
   returns setof record
   language sql
   stable
   as $$
-    with recursive rec (top_id, parent_id, asset_id) as (
-      select top_id, parent_id, asset_id
-        from asset_relations
-        where parent_id = top_asset_id
-      union
-      select a.top_id, a.parent_id, a.asset_id
-        from rec as r
-        cross join asset_relations as a
-      where r.asset_id = a.parent_id
-    )
-    select top_id,
-           parent_id,
-           array_agg(asset_id)
-      from rec
-      group by top_id, parent_id;
+    with
+      recursive rec (top_id, parent_id, asset_id) as (
+        select top_id, parent_id, asset_id
+          from asset_relations
+          where parent_id = top_asset_id
+        union
+        select a.top_id, a.parent_id, a.asset_id
+          from rec as r
+          cross join asset_relations as a
+        where r.asset_id = a.parent_id
+      ),
+      x as (
+        select  jsonb_build_object(
+                  'assetId', r.top_id,
+                  'assetSf', a.asset_sf,
+                  'name', a.name
+                ) as top_asset,
+                jsonb_build_object(
+                  'assetId', r.parent_id,
+                  'assetSf', b.asset_sf,
+                  'name', b.name
+                ) as parent_asset,
+                jsonb_build_object(
+                  'assetId', r.asset_id,
+                  'assetSf', c.asset_sf,
+                  'name', c.name
+                ) as asset_asset
+          from rec as r
+          inner join assets as a on (r.top_id = a.asset_id)
+          inner join assets as b on (r.parent_id = b.asset_id)
+          inner join assets as c on (r.asset_id = c.asset_id)
+      )
+      select top_asset,
+             parent_asset,
+             jsonb_agg(asset_asset) as asset_asset
+        from x
+        group by top_asset, parent_asset
   $$
 ;
 
