@@ -13,3 +13,5 @@ const tableConfig = {
 };
 
 export default tableConfig;
+
+// TODO => Create dataGenerator => Function to be applied on a data before using the data. Also used to access nested data.
