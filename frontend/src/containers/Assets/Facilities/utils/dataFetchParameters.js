@@ -5,18 +5,15 @@ query assetsQuery($category: AssetCategoryType!) {
   allAssets(condition: {category: $category}, orderBy: ASSET_SF_ASC) {
     nodes {
       name
-      model
-      manufacturer
       assetSf
       category
-      serialnum
       area
     }
   }
 }`;
 
 const fetchAppliancesVariables = {
-  category: "A"
+  category: "F"
 };
 
 export { fetchAppliancesGQL, fetchAppliancesVariables };
