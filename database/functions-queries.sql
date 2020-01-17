@@ -16,8 +16,7 @@ create or replace function get_asset_tree (
         union
         select a.top_id, a.parent_id, a.asset_id
           from rec as r
-          cross join asset_relations as a
-        where r.asset_id = a.parent_id
+          inner join asset_relations as a on (r.asset_id = a.parent_id)
       )
       select  jsonb_build_object(
                 'assetId', r.top_id,
