@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
-import Specifications from "../ContractManagement/Specifications/Specifications";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -53,9 +52,6 @@ class Dashboard extends Component {
             width="190"
           />
         </div> */}
-        <div>
-          <Specifications />
-        </div>
       </div>
     );
   }

@@ -5,23 +5,28 @@ import paths from "./paths";
 const ConsumptionMonitor = React.lazy(() => import("./containers/ConsumptionMonitor"));
 const Dashboard = React.lazy(() => import("./containers/Dashboard"));
 const Login = React.lazy(() => import("./containers/Authentication/Login"));
+const Error404 = React.lazy(() => import("./containers/MainPage/Error404"));
+const Facilities = React.lazy(() => import("./containers/Assets/Facilities/Facilities"));
+const Appliances = React.lazy(() => import("./containers/Assets/Appliances/Appliances"));
+const Tasks = React.lazy(() => import("./containers/Maintenance/Tasks/Tasks"));
+const Contracts = React.lazy(() => import("./containers/ContractManagement/Contracts/Contracts"));
+const Specs = React.lazy(() => import("./containers/ContractManagement/Specifications/Specifications"));
+const Teams = React.lazy(() => import("./containers/HumanResources/Teams/Teams"));
+const Persons = React.lazy(() => import("./containers/HumanResources/Persons/Persons"));
+
+// OLD ROUTES
 // const RegisterUser = React.lazy(() => import("./containers/Authentication/RegisterUser"));
 const Profile = React.lazy(() => import("./containers/Authentication/Profile"));
 const Assets = React.lazy(() => import("./containers/Assets"));
 const WorkOrders = React.lazy(() => import("./containers/Maintenance/WorkOrders"));
 const WorkOrderView = React.lazy(() => import("./containers/Maintenance/WorkOrderView"));
-const Contracts = React.lazy(() => import("./containers/Contracts/Contracts"));
 const ContractView = React.lazy(() => import("./containers/Contracts/ContractView"));
-const Specs = React.lazy(() => import("./containers/Contracts/Specs"));
 const SpecView = React.lazy(() => import("./containers/Contracts/SpecView"));
 const AssetInfo = React.lazy(() => import("./containers/Assets/AssetInfo"));
 const FacilitiesForm = React.lazy(() => import("./containers/Assets/FacilitiesForm"));
 const EquipmentsForm = React.lazy(() => import("./containers/Assets/EquipmentsForm"));
 const OrderForm = React.lazy(() => import("./containers/Maintenance/OrderForm"));
-const Error404 = React.lazy(() => import("./containers/MainPage/Error404"));
-const Teams = React.lazy(() => import("./containers/Teams/Teams"));
 const GroupView = React.lazy(() => import("./containers/Teams/GroupView"));
-const Persons = React.lazy(() => import("./containers/Teams/Persons"));
 const PersonView = React.lazy(() => import("./containers/Teams/PersonView"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -34,11 +39,11 @@ const routes = [
   { path: "/energia", name: "Energia elétrica", component: ConsumptionMonitor },
   { path: "/agua", name: "Água", component: ConsumptionMonitor },
   { path: "/ativos/view/:id", exact: false, name: "Ativo", component: AssetInfo },
-  { path: "/ativos/edificios", exact: true, name: "Ativos", component: Assets },
-  { path: "/ativos/equipamentos", exact: true, name: "Ativos", component: Assets },
+  { path: "/ativos/edificios", exact: true, name: "Ativos", component: Facilities },
+  { path: "/ativos/equipamentos", exact: true, name: "Ativos", component: Appliances },
   { path: "/ativos/edificios/novo", exact: true, name: "Novo Edificio", component: FacilitiesForm },
   { path: "/ativos/equipamentos/novo", exact: true, name: "Novo Equipamento", component: EquipmentsForm },
-  { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: WorkOrders },
+  { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: Tasks },
   { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: OrderForm },
   { path: "/manutencao/os/view/:id", exact: false, name: "OS", component: WorkOrderView },
   { path: "/gestao/contratos", exact: true, name: "Contratos", component: Contracts },
