@@ -1,7 +1,10 @@
 create or replace function get_asset_tree (
-  in top_asset_id integer
+  in top_asset_id integer,
+  out top_id integer,
+  out parent_id integer,
+  out assets integer[]
 )
-  returns setof asset_relations
+  returns setof record
   language sql
   stable
   as $$
@@ -15,7 +18,11 @@ create or replace function get_asset_tree (
         cross join asset_relations as a
       where r.asset_id = a.parent_id
     )
-    select top_id, parent_id, asset_id from rec;
+    select top_id,
+           parent_id,
+           array_agg(asset_id)
+      from rec
+      group by top_id, parent_id;
   $$
 ;
 
