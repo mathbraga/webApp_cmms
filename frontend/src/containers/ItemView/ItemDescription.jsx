@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import HorizontalField from '../../components/Description/HorizontalField';
 
 class ItemDescription extends Component {
   render() {
@@ -16,30 +17,29 @@ class ItemDescription extends Component {
         </Col>
         <Col className="flex-column" md="10">
           <div style={{ flexGrow: "1" }}>
-            <Row>
-              <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">Edifício / Área</span></Col>
-              <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{assetsInfo.assetByAssetSf.name || "Não cadastrado"}</span></Col>
-            </Row>
+            <HorizontalField
+              boldTitle={true}
+              title={"Edifício / Área"}
+              description={}
+            />
           </div>
           <div>
-            <Row>
-              <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Código</span></Col>
-              <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{assetsInfo.assetByAssetSf.assetSf || "Não cadastrado"}</span></Col>
-            </Row>
+            <HorizontalField
+              title={"Código"}
+              description={}
+            />
           </div>
           <div>
-            <Row>
-              <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Departamento(s)</span></Col>
-              <Col md="9" style={{ display: "flex", alignItems: "center" }}>
-                <span>{/*departments.map(item => (item.node.departmentByDepartmentId.departmentId)).join(' / ')*/ false || "Não cadastrado"}</span>
-              </Col>
-            </Row>
+            <HorizontalField
+              title={"Departamento(s)"}
+              description={}
+            />
           </div>
           <div>
-            <Row>
-              <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">Área</span></Col>
-              <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{(assetsInfo.assetByAssetSf.area && assetsInfo.assetByAssetSf.area != 0) ? (assetsInfo.assetByAssetSf.area + " m²") : "Não cadastrado"}</span></Col>
-            </Row>
+            <HorizontalField
+              title={"Área"}
+              description={}
+            />
           </div>
         </Col>
       </Row>
