@@ -260,11 +260,14 @@ class FacilitiesInfo extends Component {
                           </div>
                         </Col>
                       </Row>
-                      <div className="asset-info-single-container">
-                        <div className="desc-sub">Descrição do Edifício</div>
-                        <div className="asset-info-content-data">{assetsInfo.assetByAssetSf.description || "Não cadastrado"}</div>
+                      <div className="asset-info-container">
+                        <div className="asset-info-single-container">
+                          <div className="desc-sub">Descrição do Edifício</div>
+                          <div className="asset-info-content-data">{assetsInfo.assetByAssetSf.description || "Não cadastrado"}</div>
+                        </div>
                       </div>
                     </div>
+                    <div className="asset-info-container"></div>
                     <h1 className="asset-info-title">Localização</h1>
                     <div className="asset-info-content">
                       <Row>
