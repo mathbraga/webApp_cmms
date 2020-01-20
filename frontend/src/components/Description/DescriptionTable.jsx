@@ -1,35 +1,37 @@
 import React, { Component } from 'react';
-import { DescriptionField } from './DescriptionField';
-import { Row, Col } from './reacstrap';
+import DescriptionField from './DescriptionField';
+import { Row, Col } from 'reactstrap';
 
 const testObj = {
   title: 'Dados Gerais',
   numColumns: 2,
-  data: [
+  itemsMatrix: [
     [{ id: 'facility', title: 'Edifício', description: 'SQS 309', span: 1 }, { id: 'facility', title: 'Edifício', description: 'SQS 309', line: 1, span: 1 },],
     [{ id: 'facility', title: 'Edifício', description: 'SQS 309', span: 1 }],
     [{ id: 'facility', title: 'Edifício', description: 'SQS 309', span: 2 }]
   ]
 }
 
-class DescriptionTable extends Component {
+export default class DescriptionTable extends Component {
   render() {
     const { title, data } = this.props;
-    const { numColumns } = data;
+    const { numColumns, itemsMatrix } = data;
+
+    console.log("Items: ", this.props);
 
     return (
       <div className="asset-info-container">
         <h1 className="asset-info-title">{title}</h1>
         <div className="asset-info-content">
           {
-            data.map((line) => (
+            itemsMatrix.map((line) => (
               <Row>
                 {
                   line.map((item) => (
                     <Col md={(12 / numColumns * item.span).toString()}>
                       <DescriptionField
-                        title={data.title}
-                        description={data.description}
+                        title={item.title}
+                        description={item.description}
                       />
                     </Col>
                   ))
@@ -42,5 +44,3 @@ class DescriptionTable extends Component {
     );
   }
 }
-
-export default DescriptionTable;

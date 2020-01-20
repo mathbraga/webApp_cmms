@@ -44,14 +44,18 @@ class Dashboard extends Component {
             </Col>
           </Row>
         </Container>
-        {/* <div>
-          <img
-            src="http://localhost:3001/images/newfilename-1.jpeg"
-            alt="foto"
-            height="140"
-            width="190"
-          />
-        </div> */}
+
+        <Container>
+          <Row className="justify-content-center">
+            <Col md="8">
+              <Card className="mx-4">
+                <CardBody className="p-4">
+                  Testing space
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
