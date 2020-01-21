@@ -9,7 +9,7 @@ function changeStatusDescription(item) {
 }
 
 function changeCategoryDescription(item) {
-  return [item.title, ORDER_CATEGORY_TYPE[item.category]];
+  return [item.description, ORDER_CATEGORY_TYPE[item.category]];
 }
 
 function changePriorityDescription(item) {
@@ -28,7 +28,7 @@ const tableConfig = {
   idAttributeForData: 'orderId',
   columnObjects: [
     { name: 'orderId', description: 'OS', style: { width: "50px" }, className: "text-center", data: ['orderId'] },
-    { name: 'title', description: 'Título', style: { width: "300px" }, className: "text-justify", data: ['title', 'category'], dataGenerator: changeCategoryDescription },
+    { name: 'description', description: 'Título', style: { width: "300px" }, className: "text-justify", data: ['description', 'category'], dataGenerator: changeCategoryDescription },
     { name: 'status', description: 'Status', style: { width: "100px" }, className: "text-center", data: ['status'], dataGenerator: changeStatusDescription },
     { name: 'priority', description: 'Prioridade', style: { width: "100px" }, className: "text-center", data: ['priority'], dataGenerator: changePriorityDescription },
     { name: 'dateLimit', description: 'Prazo Final', style: { width: "100px" }, className: "text-center", data: ['dateLimit'], dataGenerator: formatDateLimit },
