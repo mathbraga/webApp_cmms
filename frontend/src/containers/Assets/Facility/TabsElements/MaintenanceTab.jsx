@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import DescriptionTable from '../../../../components/Description/DescriptionTable';
 import { itemsMatrixReport, itemsMatrixMaintenance } from '../utils/descriptionMatrix';
+import { customFilters, filterAttributes } from '../utils/filterParameters';
+import searchableAttributes from '../utils/searchParameters';
+import tableConfig from '../utils/tableConfig';
+import CardWithTable from '../../../TableContainer/CardWithTable';
 
 class MaintenanceTab extends Component {
   render() {
-    const { data } = this.props;
+    const data = this.props.data.orderAssetsByAssetId.nodes.map((item) => (item.orderByOrderId));
     return (
       <>
         <DescriptionTable
@@ -17,13 +21,14 @@ class MaintenanceTab extends Component {
           numColumns={2}
           itemsMatrix={itemsMatrixMaintenance(data)}
         />
-        {/* <CardWithTable
+        <CardWithTable
           tableConfig={tableConfig}
           customFilters={customFilters}
           filterAttributes={filterAttributes}
           searchableAttributes={searchableAttributes}
+          hasAssetCard={false}
           data={data}
-        /> */}
+        />
       </>
     );
   }

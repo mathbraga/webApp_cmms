@@ -5,7 +5,7 @@ import { fetchGQL } from './utils/dataFetchParameters';
 import withGraphQLVariables from './withGraphQLVariables';
 import { compose } from 'redux';
 import ItemView from '../../ItemView/ItemView';
-import tabsGenerator from './utils/tabsGenerator';
+import tabsGenerator from './tabsGenerator';
 
 const image = require("../../../assets/img/test/facilities_picture.jpg");
 const imageStatus = 'Trânsito Livre';

@@ -43,6 +43,7 @@ class CardWithTable extends Component {
       customFilters,
       filterAttributes,
       searchableAttributes,
+      hasAssetCard,
       data
     } = this.props;
 
@@ -68,6 +69,7 @@ class CardWithTable extends Component {
         data={dataWithSearchAndFilter}
         customFilters={customFilters}
         filterAttributes={filterAttributes}
+        hasAssetCard={hasAssetCard}
       />
     );
   }

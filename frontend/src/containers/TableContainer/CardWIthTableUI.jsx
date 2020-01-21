@@ -20,16 +20,43 @@ export default class CardWithTableUI extends Component {
       numberOfItens,
       customFilters,
       filterAttributes,
+      hasAssetCard = true,
       data
     } = this.props;
 
+    if (hasAssetCard) {
+      return (
+        <AssetCard
+          sectionName={'Equipamentos'}
+          sectionDescription={'Lista de equipamentos'}
+          handleCardButton={() => { console.log('OK!') }}
+          buttonName={'Novo Equipamento'}
+        >
+          <SearchWithFilter
+            updateCurrentFilter={updateCurrentFilter}
+            filterSavedId={filterSavedId}
+            searchTerm={searchTerm}
+            handleChangeSearchTerm={handleChangeSearchTerm}
+            filterLogic={filterLogic}
+            filterName={filterName}
+            numberOfItens={numberOfItens}
+            customFilters={customFilters}
+            filterAttributes={filterAttributes}
+          />
+          <FinalTable
+            tableConfig={tableConfig}
+            data={data}
+            setGoToPage={setGoToPage}
+            goToPage={goToPage}
+            setCurrentPage={setCurrentPage}
+            pageCurrent={pageCurrent}
+          />
+        </AssetCard>
+      );
+    }
+
     return (
-      <AssetCard
-        sectionName={'Equipamentos'}
-        sectionDescription={'Lista de equipamentos'}
-        handleCardButton={() => { console.log('OK!') }}
-        buttonName={'Novo Equipamento'}
-      >
+      <div>
         <SearchWithFilter
           updateCurrentFilter={updateCurrentFilter}
           filterSavedId={filterSavedId}
@@ -49,7 +76,7 @@ export default class CardWithTableUI extends Component {
           setCurrentPage={setCurrentPage}
           pageCurrent={pageCurrent}
         />
-      </AssetCard>
+      </div>
     );
   }
 }
