@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
+import DescriptionTable from '../../../../../components/Description/DescriptionTable';
+import './Tabs.css';
 
 class LocationTab extends Component {
   state = {}
   render() {
-    return (<h1>Heyllo!</h1>);
+    return (
+      <>
+        <DescriptionTable
+          title={'Planta Arquitetônica'}
+        />
+        <div className="asset-info-content">
+          <div className="asset-info-map"></div>
+        </div>
+      </>
+    );
   }
 }
 

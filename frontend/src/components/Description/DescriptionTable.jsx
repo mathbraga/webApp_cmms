@@ -19,24 +19,26 @@ export default class DescriptionTable extends Component {
     return (
       <div className="asset-info-container">
         <h1 className="asset-info-title">{title}</h1>
-        <div className="asset-info-content">
-          {
-            itemsMatrix.map((line) => (
-              <Row>
-                {
-                  line.map((item) => (
-                    <Col md={(12 / numColumns * item.span).toString()}>
-                      <DescriptionField
-                        title={item.title}
-                        description={item.description}
-                      />
-                    </Col>
-                  ))
-                }
-              </Row>
-            ))
-          }
-        </div>
+        {itemsMatrix && (
+          <div className="asset-info-content">
+            {
+              itemsMatrix.map((line) => (
+                <Row>
+                  {
+                    line && line.map((item) => (
+                      <Col md={(12 / numColumns * item.span).toString()}>
+                        <DescriptionField
+                          title={item.title}
+                          description={item.description}
+                        />
+                      </Col>
+                    ))
+                  }
+                </Row>
+              ))
+            }
+          </div>
+        )}
       </div>
     );
   }
