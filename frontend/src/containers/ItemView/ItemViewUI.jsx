@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
+import AssetCard from '../../components/Cards/AssetCard';
+import ItemDescription from './ItemDescription';
+import TabContainer from '../TabContainer/TabContainer';
 
 export default class ItemViewUI extends Component {
   state = {}
   render() {
-    return ( 
+    const { data, descriptionItems, image, imageStatus, tabs } = this.props;
+    return (
       <div className="asset-container">
         <AssetCard
           sectionName={'Edifício / Área'}
           sectionDescription={'Ficha descritiva do imóvel'}
-          handleCardButton={() => {}}
+          handleCardButton={() => { }}
           buttonName={'Edifícios'}
         >
-          <h1>Hello!</h1>
+          <ItemDescription
+            image={image}
+            status={imageStatus}
+            descriptionItems={descriptionItems}
+          />
+          <TabContainer
+            name={'FacilityTabs'}
+            tabs={tabs}
+          />
         </AssetCard>
       </div>
     );

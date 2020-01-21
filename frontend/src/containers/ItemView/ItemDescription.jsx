@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ItemView.css';
+import { Row, Col, Badge } from 'reactstrap';
 
 const dataTest = {
   id: 'facility1',

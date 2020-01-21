@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import './TabContainer';
+import {
+  Nav,
+  NavItem,
+  NavLink,
+  TabContent,
+  TabPane
+} from 'reactstrap';
 
 const propsTest = {
   id: 'facility1',
   tabs: [
-    {id: 'info', title: 'Informação', element: <h1>Hi</h1> }
+    { id: 'info', title: 'Informação', element: <h1>Hi</h1> }
   ]
 }
 
@@ -38,7 +45,7 @@ export default class TabContainer extends Component {
         </Nav>
         <TabContent activeTab={tabSelected} style={{ width: "100%" }}>
           {
-            tab.map((tab) => (
+            tabs.map((tab) => (
               <TabPane tabId={tab.id} style={{ width: "100%" }}>
                 {tab.element}
               </TabPane>
