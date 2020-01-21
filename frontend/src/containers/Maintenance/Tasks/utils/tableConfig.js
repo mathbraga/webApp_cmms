@@ -9,7 +9,6 @@ function changeCategoryDescription(item, dataDescription) {
 }
 
 function formatDateLimit(item) {
-  console.log("Item: ", item.dateLimit && item.dateLimit.split('T')[0]);
   return [item.dateLimit && item.dateLimit.split('T')[0]];
 }
 

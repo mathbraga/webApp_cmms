@@ -6,7 +6,6 @@ export default function withDataFetching(graphQLString, graphQLVariables) {
     function (WrappedComponent) {
       class WithDataFetching extends Component {
         render() {
-          console.log("Props: ", this.props);
           return (
             <Query
               query={graphQLString}

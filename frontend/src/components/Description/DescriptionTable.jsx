@@ -14,10 +14,7 @@ const testObj = {
 
 export default class DescriptionTable extends Component {
   render() {
-    const { title, data } = this.props;
-    const { numColumns, itemsMatrix } = data;
-
-    console.log("Items: ", this.props);
+    const { title, numColumns, itemsMatrix } = this.props;
 
     return (
       <div className="asset-info-container">
