@@ -5,7 +5,7 @@ export default function withGraphQLVariables(WrappedComponent) {
     render() {
       const { match } = this.props;
       const customGraphQLVariables = {
-        assetSf: match.params.id
+        assetSf: '309C-COB-000'
       }
       return (
         <WrappedComponent

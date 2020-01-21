@@ -32,11 +32,6 @@ const fetchGQL = gql`
   }
 `;
 
-function fetchVariables() {
-  const assetSf = 
-  return ({
-    assetSf
-  });
-}
+const fetchVariables = {};
 
 export { fetchGQL, fetchVariables };
