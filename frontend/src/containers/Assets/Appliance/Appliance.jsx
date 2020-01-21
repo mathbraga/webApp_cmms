@@ -7,18 +7,19 @@ import { compose } from 'redux';
 import ItemView from '../../ItemView/ItemView';
 import tabsGenerator from './tabsGenerator';
 
-const image = require("../../../assets/img/test/facilities_picture.jpg");
-const imageStatus = 'Trânsito Livre';
+const image = require("../../../assets/img/test/equipment_picture.jpg");
+const imageStatus = 'Funcionando';
 
-class Facility extends Component {
+class Appliance extends Component {
   render() {
+    console.log("Props: ", this.props);
     const { data, ...rest } = this.props;
     const treatedData = data.assetByAssetSf;
     const descriptionItems = [
-      { title: 'Edifício / Área', description: treatedData.name, boldTitle: true },
+      { title: 'Equipamento / Sistema', description: treatedData.name, boldTitle: true },
       { title: 'Código', description: treatedData.assetSf, boldTitle: false },
-      { title: 'Departamento(s)', description: treatedData.department, boldTitle: true },
-      { title: 'Área', description: treatedData.area, boldTitle: true },
+      { title: 'Modelo', description: treatedData.model, boldTitle: false },
+      { title: 'Fabricante', description: treatedData.manufacturer, boldTitle: false },
     ];
     return (
       <ItemView
@@ -37,4 +38,4 @@ export default compose(
   withGraphQLVariables,
   withAccessToSession,
   withDataFetching(fetchGQL, false)
-)(Facility);
+)(Appliance);
