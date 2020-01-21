@@ -26,11 +26,14 @@ export default class DescriptionTable extends Component {
                 <Row>
                   {
                     line && line.map((item) => (
-                      <Col md={(12 / numColumns * item.span).toString()}>
-                        <DescriptionField
-                          title={item.title}
-                          description={item.description}
-                        />
+                      <Col md={(12 / numColumns * item.span).toString()} style={item.style}>
+                        {item.elementGenerator ?
+                          item.elementGenerator() :
+                          <DescriptionField
+                            title={item.title}
+                            description={item.description}
+                          />
+                        }
                       </Col>
                     ))
                   }

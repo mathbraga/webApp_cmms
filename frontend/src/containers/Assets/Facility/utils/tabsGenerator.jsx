@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import InfoTab from './TabsElements/InfoTab';
-import LocationTab from './TabsElements/LocationTab';
-import MaintenanceTab from './TabsElements/MaintenanceTab';
-import AssetTab from './TabsElements/AssetTab';
-import FilesTab from './TabsElements/FilesTab';
-import LogTab from './TabsElements/LogTab';
+import InfoTab from '../TabsElements/InfoTab';
+import LocationTab from '../TabsElements/LocationTab';
+import MaintenanceTab from '../TabsElements/MaintenanceTab';
+import AssetTab from '../TabsElements/AssetTab';
+import FilesTab from '../TabsElements/FilesTab';
+import LogTab from '../TabsElements/LogTab';
 
 export default function tabsGenerator(data) {
   return (
