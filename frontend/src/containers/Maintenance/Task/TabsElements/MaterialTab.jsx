@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import DescriptionTable from '../../../../components/Description/DescriptionTable';
 import { itemsMatrixMaterial } from '../utils/descriptionMatrix';
+import tableConfig from '../utils/tableConfig';
+import { customFilters, filterAttributes } from '../utils/filterParameters';
+import searchableAttributes from '../utils/searchParameters';
+import CardWithTable from '../../../TableContainer/CardWithTable';
 import './Tabs.css';
 
 class MaterialTab extends Component {
@@ -15,14 +19,14 @@ class MaterialTab extends Component {
           numColumns={2}
           itemsMatrix={itemsMatrixMaterial(data)}
         />
-        {/* <CardWithTable
+        <CardWithTable
           tableConfig={tableConfig}
           customFilters={customFilters}
           filterAttributes={filterAttributes}
           searchableAttributes={searchableAttributes}
           hasAssetCard={false}
           data={data}
-        /> */}
+        />
       </>
     );
   }
