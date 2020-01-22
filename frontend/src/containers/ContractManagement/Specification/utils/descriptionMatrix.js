@@ -25,7 +25,7 @@ export function itemsMatrixBalance(array) {
     [
       [{
         id: 'balance',
-        title: 'Saldo',
+        title: 'Total Disponível',
         description: array.reduce((acc, item) => (Number(item.available) + Number(acc)), 0),
         span: 1
       }],
