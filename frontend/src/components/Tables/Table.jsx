@@ -4,7 +4,6 @@ import "./Table.css";
 class TableItems extends Component {
   render() {
     const { thead, tbody } = this.props;
-    console.log("tbody: ", tbody);
     return (
       <div className="table-container">
         {tbody.props.data.length !== 0 ?

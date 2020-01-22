@@ -65,7 +65,7 @@ class CardWithTable extends Component {
         handleChangeSearchTerm={this.handleChangeSearchTerm}
         filterLogic={this.state.filterLogic}
         filterName={this.state.filterName}
-        numberOfItens={totalOfPages}
+        numberOfItens={dataWithSearchAndFilter.length}
         data={dataWithSearchAndFilter}
         customFilters={customFilters}
         filterAttributes={filterAttributes}
