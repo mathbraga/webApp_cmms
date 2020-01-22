@@ -4,10 +4,10 @@ import "./Table.css";
 class TableItems extends Component {
   render() {
     const { thead, tbody } = this.props;
-
+    console.log("tbody: ", tbody);
     return (
       <div className="table-container">
-        {tbody.length !== 0 ?
+        {tbody.props.data.length !== 0 ?
           <table className="content-table">
             <thead className="thead-light">
               {thead}
