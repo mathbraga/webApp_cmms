@@ -1,53 +1,54 @@
 import gql from 'graphql-tag';
 
 const fetchGQL = gql`
-  query ($orderId: Int!) {
-    orderByOrderId(orderId: $orderId) {
-      category
-      status
-      priority
-      orderId
-      place
-      departmentId
-      progress
-      contractId
-      dateEnd
-      dateLimit
-      dateStart
-      parent
-      contactEmail
-      contactPhone
-      createdBy
-      description
-      title
-      orderByParent {
+  query ($specId: Int!) {
+    allBalances(condition: {specId: $specId}) {
+      nodes {
         title
-        orderId
-        priority
-        status
-        dateStart
-        dateLimit
-      }
-      createdAt
-      orderAssetsByOrderId {
-        nodes {
-          assetByAssetId {
-            assetSf
-            name
-            category
-          }
-        }
+        supplySf
+        supplyId
+        specId
+        qty
+        fullPrice
+        contractSf
+        contractId
+        consumed
+        company
+        blocked
+        bidPrice
+        available
       }
     }
-    allOrderSuppliesDetails(condition: {orderId: $orderId}) {
+    specBySpecId(specId: $specId) {
+      version
+      unit
+      updatedAt
+      subcategory
+      spreadsheets
+      specSf
+      specId
+      services
+      qualification
+      notes
+      nodeId
+      name
+      materials
+      lifespan
+      isSubcont
+      description
+      criteria
+      createdAt
+      catser
+      catmat
+      category
+      activities
+    }
+    allSpecOrders(condition: {specId: $specId}) {
       nodes {
-        supplySf
-        name
-        qty
-        unit
-        bidPrice
-        total
+        orderId
+        status
         specId
+        title
       }
     }
   }

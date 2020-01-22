@@ -1,32 +1,32 @@
 import React, { Component } from 'react';
 import DescriptionTable from '../../../../components/Description/DescriptionTable';
-import { itemsMatrixAssets } from '../utils/descriptionMatrix';
-import tableConfig from '../utils/assetTab/tableConfig';
-import { customFilters, filterAttributes } from '../utils/assetTab/filterParameters';
-import searchableAttributes from '../utils/assetTab/searchParameters';
-import CardWithTable from '../../../TableContainer/CardWithTable';
+import { itemsMatrixTasks } from '../utils/descriptionMatrix';
+// import tableConfig from '../utils/materialTab/tableConfig';
+// import { customFilters, filterAttributes } from '../utils/materialTab/filterParameters';
+// import searchableAttributes from '../utils/materialTab/searchParameters';
+// import CardWithTable from '../../../TableContainer/CardWithTable';
 import './Tabs.css';
 
 class MaterialTab extends Component {
   state = {}
   render() {
-    const data = this.props.data.orderByOrderId.orderAssetsByOrderId.nodes.map((item) => item.assetByAssetId);
+    const data = this.props.data.allSpecOrders.nodes;
     console.log("Material: ", data);
     return (
       <>
         <DescriptionTable
-          title={'Lista de Ativos'}
+          title={'Lista de Ordens de Serviço'}
           numColumns={2}
-          itemsMatrix={itemsMatrixAssets(data)}
+          itemsMatrix={itemsMatrixTasks(data)}
         />
-        <CardWithTable
+        {/* <CardWithTable
           tableConfig={tableConfig}
           customFilters={customFilters}
           filterAttributes={filterAttributes}
           searchableAttributes={searchableAttributes}
           hasAssetCard={false}
           data={data}
-        />
+        /> */}
       </>
     );
   }

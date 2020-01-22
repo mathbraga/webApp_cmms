@@ -10,16 +10,16 @@ import tabsGenerator from './tabsGenerator';
 const image = require("../../../assets/img/test/equipment_picture.jpg");
 const imageStatus = 'Em andamento';
 
-class Task extends Component {
+class Specification extends Component {
   render() {
     console.log("Props: ", this.props);
     const { data, ...rest } = this.props;
     const treatedData = data;
     const descriptionItems = [
-      { title: 'Serviço', description: treatedData.orderByOrderId.title, boldTitle: true },
-      { title: 'Ordem de Serviço nº', description: treatedData.orderByOrderId.orderId.toString().padStart(4, "0"), boldTitle: false },
-      { title: 'Local', description: treatedData.orderByOrderId.place, boldTitle: false },
-      { title: 'Categoria', description: treatedData.orderByOrderId.category, boldTitle: false },
+      { title: 'Serviço / Material', description: treatedData.specBySpecId.name, boldTitle: true },
+      { title: 'Código', description: treatedData.specBySpecId.specSf, boldTitle: false },
+      { title: 'Versão', description: treatedData.specBySpecId.version, boldTitle: false },
+      { title: 'Disponibilidade', description: treatedData.allBalances.nodes.reduce((item, acc) => (item.available + acc)), boldTitle: false },
     ];
     return (
       <ItemView
@@ -38,4 +38,4 @@ export default compose(
   withGraphQLVariables,
   withAccessToSession,
   withDataFetching(fetchGQL, false)
-)(Task);
+)(Specification);
