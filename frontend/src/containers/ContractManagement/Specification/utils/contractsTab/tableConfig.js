@@ -1,5 +1,9 @@
 const formatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format;
 
+function addUnit(item, key) {
+  return [`${item[key]} ${item.unit}`];
+}
+
 const tableConfig = {
   numberOfColumns: 6,
   checkbox: true,
@@ -8,10 +12,11 @@ const tableConfig = {
   idAttributeForData: 'specId',
   columnObjects: [
     { name: 'supplySf', description: 'Código', style: { width: "40px" }, className: "text-center", data: ['supplySf'] },
-    { name: 'name', description: 'Descrição', style: { width: "200px" }, className: "text-justify", data: ['name'] },
-    { name: 'qty', description: 'Quantidade', style: { width: "50px" }, className: "text-center", data: ['qty'] },
-    { name: 'bidPrice', description: 'Preço Unitário', style: { width: "70px" }, className: "text-center", data: ['bidPrice'], dataGenerator: (item) => ([formatter(item.bidPrice)]) },
-    { name: 'total', description: 'Total', style: { width: "70px" }, className: "text-center", data: ['total'], dataGenerator: (item) => ([formatter(item.total)]) },
+    { name: 'company', description: 'Empresa', style: { width: "100px" }, className: "text-justify", data: ['company', 'contractSf'] },
+    { name: 'qty', description: 'Contratado', style: { width: "70px" }, className: "text-center", data: ['qty'] },
+    { name: 'available', description: 'Disponível', style: { width: "70px" }, className: "text-center", data: ['available'] },
+    { name: 'fullPrice', description: 'Preço', style: { width: "70px" }, className: "text-center", data: ['fullPrice'], dataGenerator: (item) => ([formatter(item.fullPrice)]) },
+    { name: 'bidPrice', description: 'Pesquisa', style: { width: "70px" }, className: "text-center", data: ['bidPrice'], dataGenerator: (item) => ([formatter(item.bidPrice)]) },
   ],
 };
 

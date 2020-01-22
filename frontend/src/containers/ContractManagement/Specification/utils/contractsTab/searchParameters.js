@@ -1,6 +1,7 @@
 const searchableAttributes = [
   'supplySf',
-  'name',
+  'contractSf',
+  'company',
   'qty',
   'bidPrice',
   'total'
