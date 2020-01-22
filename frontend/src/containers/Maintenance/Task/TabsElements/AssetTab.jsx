@@ -1,11 +1,35 @@
 import React, { Component } from 'react';
+import DescriptionTable from '../../../../components/Description/DescriptionTable';
+import { itemsMatrixAssets } from '../utils/descriptionMatrix';
+import tableConfig from '../utils/assetTab/tableConfig';
+import { customFilters, filterAttributes } from '../utils/assetTab/filterParameters';
+import searchableAttributes from '../utils/assetTab/searchParameters';
+import CardWithTable from '../../../TableContainer/CardWithTable';
+import './Tabs.css';
 
-class AssetTab extends Component {
+class MaterialTab extends Component {
+  state = {}
   render() {
+    const data = this.props.data.orderByOrderId.orderAssetsByOrderId.nodes.map((item) => item.assetByAssetId);
+    console.log("Material: ", data);
     return (
-      <h1>Assets!</h1>
+      <>
+        <DescriptionTable
+          title={'Lista de Ativos'}
+          numColumns={2}
+          itemsMatrix={itemsMatrixAssets(data)}
+        />
+        <CardWithTable
+          tableConfig={tableConfig}
+          customFilters={customFilters}
+          filterAttributes={filterAttributes}
+          searchableAttributes={searchableAttributes}
+          hasAssetCard={false}
+          data={data}
+        />
+      </>
     );
   }
 }
 
-export default AssetTab;
+export default MaterialTab;
