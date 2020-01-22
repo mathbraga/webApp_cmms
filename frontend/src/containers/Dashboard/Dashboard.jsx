@@ -45,7 +45,7 @@ class Dashboard extends Component {
           </Row>
         </Container>
 
-        <Container>
+        {/* <Container>
           <Row className="justify-content-center">
             <Col md="8">
               <Card className="mx-4">
@@ -55,7 +55,7 @@ class Dashboard extends Component {
               </Card>
             </Col>
           </Row>
-        </Container>
+        </Container> */}
       </div>
     );
   }
