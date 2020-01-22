@@ -8,18 +8,18 @@ import ItemView from '../../ItemView/ItemView';
 import tabsGenerator from './tabsGenerator';
 
 const image = require("../../../assets/img/test/equipment_picture.jpg");
-const imageStatus = 'Funcionando';
+const imageStatus = 'Em andamento';
 
-class Appliance extends Component {
+class Task extends Component {
   render() {
     console.log("Props: ", this.props);
     const { data, ...rest } = this.props;
-    const treatedData = data.orderByOrderId;
+    const treatedData = data;
     const descriptionItems = [
-      { title: 'Equipamento / Sistema', description: treatedData.name, boldTitle: true },
-      { title: 'Código', description: treatedData.assetSf, boldTitle: false },
-      { title: 'Modelo', description: treatedData.model, boldTitle: false },
-      { title: 'Fabricante', description: treatedData.manufacturer, boldTitle: false },
+      { title: 'Serviço', description: treatedData.orderByOrderId.title, boldTitle: true },
+      { title: 'Ordem de Serviço nº', description: treatedData.orderByOrderId.orderId.toString().padStart(4, "0"), boldTitle: false },
+      { title: 'Local', description: treatedData.orderByOrderId.place, boldTitle: false },
+      { title: 'Categoria', description: treatedData.orderByOrderId.category, boldTitle: false },
     ];
     return (
       <ItemView
@@ -38,4 +38,4 @@ export default compose(
   withGraphQLVariables,
   withAccessToSession,
   withDataFetching(fetchGQL, false)
-)(Appliance);
+)(Task);

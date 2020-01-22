@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class WarrantyTab extends Component {
+class AssignTab extends Component {
   state = {}
   render() {
     return (
@@ -9,4 +9,4 @@ class WarrantyTab extends Component {
   }
 }
 
-export default WarrantyTab;
+export default AssignTab;
