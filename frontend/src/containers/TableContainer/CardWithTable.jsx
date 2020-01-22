@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import withPaginationLogic from '../PageLogicContainer';
-import CardWithTableUI from './CardWithTableUI';
+import CardTableUI from './CardTableUI';
 import searchList from '../../utils/search/searchList';
 import filterList from '../../utils/filter/filter';
 import { compose } from 'redux';
@@ -53,7 +53,7 @@ class CardWithTable extends Component {
 
 
     return (
-      <CardWithTableUI
+      <CardTableUI
         tableConfig={tableConfig}
         goToPage={paginationLogic.goToPage}
         pageCurrent={paginationLogic.pageCurrent}
