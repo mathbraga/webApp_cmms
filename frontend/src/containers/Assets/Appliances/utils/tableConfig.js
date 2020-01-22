@@ -1,7 +1,7 @@
 const tableConfig = {
   numberOfColumns: 3,
   checkbox: true,
-  itemPath: '/ativos/view/',
+  itemPath: '/ativos/equipamento/view/',
   itemClickable: true,
   idAttributeForData: 'assetSf',
   columnObjects: [

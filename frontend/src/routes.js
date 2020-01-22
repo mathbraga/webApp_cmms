@@ -7,7 +7,9 @@ const Dashboard = React.lazy(() => import("./containers/Dashboard"));
 const Login = React.lazy(() => import("./containers/Authentication/Login"));
 const Error404 = React.lazy(() => import("./containers/MainPage/Error404"));
 const Facilities = React.lazy(() => import("./containers/Assets/Facilities/Facilities"));
+const Facility = React.lazy(() => import("./containers/Assets/Facility/Facility"));
 const Appliances = React.lazy(() => import("./containers/Assets/Appliances/Appliances"));
+const Appliance = React.lazy(() => import("./containers/Assets/Appliance/Appliance"));
 const Tasks = React.lazy(() => import("./containers/Maintenance/Tasks/Tasks"));
 const Contracts = React.lazy(() => import("./containers/ContractManagement/Contracts/Contracts"));
 const Specs = React.lazy(() => import("./containers/ContractManagement/Specifications/Specifications"));
@@ -38,7 +40,8 @@ const routes = [
   { path: "/perfil", name: "Perfil", component: Profile },
   { path: "/energia", name: "Energia elétrica", component: ConsumptionMonitor },
   { path: "/agua", name: "Água", component: ConsumptionMonitor },
-  { path: "/ativos/view/:id", exact: false, name: "Ativo", component: AssetInfo },
+  { path: "/ativos/edificio/view/:id", exact: false, name: "Edifício", component: Facility },
+  { path: "/ativos/equipamento/view/:id", exact: false, name: "Equipamento", component: Appliance },
   { path: "/ativos/edificios", exact: true, name: "Ativos", component: Facilities },
   { path: "/ativos/equipamentos", exact: true, name: "Ativos", component: Appliances },
   { path: "/ativos/edificios/novo", exact: true, name: "Novo Edificio", component: FacilitiesForm },

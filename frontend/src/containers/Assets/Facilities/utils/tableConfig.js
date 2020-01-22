@@ -5,7 +5,7 @@ const mapIcon = require("../../../../assets/icons/map.png");
 const tableConfig = {
   numberOfColumns: 3,
   checkbox: true,
-  itemPath: '/ativos/view/',
+  itemPath: '/ativos/edificio/view/',
   itemClickable: true,
   idAttributeForData: 'assetSf',
   columnObjects: [
