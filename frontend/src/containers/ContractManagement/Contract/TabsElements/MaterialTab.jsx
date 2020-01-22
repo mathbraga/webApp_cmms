@@ -10,7 +10,7 @@ import './Tabs.css';
 class MaterialTab extends Component {
   state = {}
   render() {
-    const data = this.props.data.allOrderSuppliesDetails.nodes;
+    const data = this.props.data.allBalances.nodes;
     console.log("Material: ", data);
     return (
       <>

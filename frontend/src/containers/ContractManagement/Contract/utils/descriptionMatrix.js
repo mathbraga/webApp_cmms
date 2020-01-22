@@ -1,22 +1,17 @@
-import { ORDER_CATEGORY_TYPE, ORDER_STATUS_TYPE, ORDER_PRIORITY_TYPE } from '../../Tasks/utils/dataDescription';
-
 export function itemsMatrixGeneral(data) {
   return (
     [
       [
-        { id: 'title', title: 'Título do Serviço', description: data.orderByOrderId.title, span: 1 },
-        { id: 'status', title: 'Status', description: ORDER_STATUS_TYPE[data.orderByOrderId.status], span: 1 },
+        { id: 'title', title: 'Objeto', description: data.contractByContractSf.title, span: 1 },
+        { id: 'manager', title: 'Fiscal', description: data.contractByContractSf.manager, span: 1 },
       ],
       [
-        { id: 'orderId', title: 'Ordem de Serviço nº', description: data.orderByOrderId.orderId.toString().padStart(4, "0"), span: 1 },
-        { id: 'progress', title: 'Executado (%)', description: data.orderByOrderId.progress, span: 1 },
+        { id: 'contractSf', title: 'Contrato nº', description: data.contractByContractSf.contractSf, span: 1 },
+        { id: 'company', title: 'Empresa', description: data.contractByContractSf.company, span: 1 },
       ],
       [
-        { id: 'category', title: 'Categoria', description: ORDER_CATEGORY_TYPE[data.orderByOrderId.category], span: 1 },
-        { id: 'priority', title: 'Prioridade', description: ORDER_PRIORITY_TYPE[data.orderByOrderId.priority], span: 1 },
+        { id: 'description', title: 'Descrição', description: data.contractByContractSf.description, span: 2 }
       ],
-      [{ id: 'place', title: 'Local', description: data.orderByOrderId.place, span: 1 }],
-      [{ id: 'description', title: 'Descrição Técnica', description: data.orderByOrderId.description, span: 2 }],
     ]
   );
 }
@@ -25,14 +20,23 @@ export function itemsMatrixDate(data) {
   return (
     [
       [
-        { id: 'createdAt', title: 'Criação da OS', description: data.orderByOrderId.createdAt, span: 1 },
-        { id: 'dateLimit', title: 'Prazo Final', description: data.orderByOrderId.dateLimit, span: 1 },
+        { id: 'dateStart', title: 'Início da Vigência', description: data.contractByContractSf.dateStart, span: 1 },
+        { id: 'dateSign', title: 'Data da Assinatura', description: data.contractByContractSf.dateSign, span: 1 },
       ],
       [
-        { id: 'dateStart', title: 'Início da Execução', description: data.orderByOrderId.dateStart, span: 1 },
-        { id: 'delay', title: 'Dias de Atraso', description: data.orderByOrderId.dateLimit, span: 1 },
+        { id: 'dateEnd', title: 'Final da Vigência', description: data.contractByContractSf.dateEnd, span: 1 },
+        { id: 'datePub', title: 'Data da Publicação', description: data.contractByContractSf.datePub, span: 1 },
       ],
-      [{ id: 'dateEnd', title: 'Término da Execução', description: data.orderByOrderId.dateEnd, span: 1 }],
+    ]
+  );
+}
+
+export function itemsMatrixDocs(data) {
+  return (
+    [
+      [
+        { id: 'url', title: 'Link para Contrato', description: data.contractByContractSf.url, span: 1 },
+      ],
     ]
   );
 }
@@ -40,15 +44,14 @@ export function itemsMatrixDate(data) {
 export function itemsMatrixMaterial(data) {
   return (
     [
-      [{ id: 'quantity', title: 'Quantidade', description: data.length.toString().padStart(3, "0"), span: 1 }],
-    ]
-  );
-}
-
-export function itemsMatrixAssets(data) {
-  return (
-    [
-      [{ id: 'quantity', title: 'Quantidade', description: data.length.toString().padStart(3, "0"), span: 1 }],
+      [
+        { id: 'material', title: 'Materiais', description: "R$ 10.000,00", span: 1 },
+        { id: 'service', title: 'Serviços', description: "R$ 10.000,00", span: 1 },
+      ],
+      [
+        { id: 'material', title: 'Materiais', description: "R$ 10.000,00", span: 1 },
+        { id: 'service', title: 'Serviços', description: "R$ 10.000,00", span: 1 },
+      ],
     ]
   );
 }

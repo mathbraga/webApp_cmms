@@ -13,7 +13,9 @@ const Appliance = React.lazy(() => import("./containers/Assets/Appliance/Applian
 const Tasks = React.lazy(() => import("./containers/Maintenance/Tasks/Tasks"));
 const Task = React.lazy(() => import("./containers/Maintenance/Task/Task"));
 const Contracts = React.lazy(() => import("./containers/ContractManagement/Contracts/Contracts"));
+const Contract = React.lazy(() => import("./containers/ContractManagement/Contract/Contract"));
 const Specs = React.lazy(() => import("./containers/ContractManagement/Specifications/Specifications"));
+const Spec = React.lazy(() => import("./containers/ContractManagement/Specification/Specification"));
 const Teams = React.lazy(() => import("./containers/HumanResources/Teams/Teams"));
 const Persons = React.lazy(() => import("./containers/HumanResources/Persons/Persons"));
 
@@ -51,9 +53,9 @@ const routes = [
   { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: OrderForm },
   { path: "/manutencao/os/view/:id", exact: false, name: "OS", component: Task },
   { path: "/gestao/contratos", exact: true, name: "Contratos", component: Contracts },
-  { path: "/gestao/contratos/view/:id", exact: false, name: "Contrato", component: ContractView },
+  { path: "/gestao/contratos/view/:id", exact: false, name: "Contrato", component: Contract },
   { path: "/gestao/servicos", exact: true, name: "Servicos", component: Specs },
-  { path: "/gestao/servicos/view/:id", exact: false, name: "Servico", component: SpecView },
+  { path: "/gestao/servicos/view/:id", exact: false, name: "Servico", component: Spec },
   { path: "/equipes/grupos", exact: true, name: "Servicos", component: Teams },
   { path: "/equipes/grupo/view/:id", exact: false, name: "Servico", component: GroupView },
   { path: "/equipes/pessoas", exact: true, name: "Servicos", component: Persons },

@@ -12,7 +12,6 @@ const imageStatus = 'Em andamento';
 
 class Task extends Component {
   render() {
-    console.log("Props: ", this.props);
     const { data, ...rest } = this.props;
     const treatedData = data;
     const descriptionItems = [

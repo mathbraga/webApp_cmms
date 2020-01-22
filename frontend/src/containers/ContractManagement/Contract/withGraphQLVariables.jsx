@@ -5,7 +5,7 @@ export default function withGraphQLVariables(WrappedComponent) {
     render() {
       const { match } = this.props;
       const customGraphQLVariables = {
-        orderId: Number(match.params.id)
+        contractSf: match.params.id
       }
       return (
         <WrappedComponent

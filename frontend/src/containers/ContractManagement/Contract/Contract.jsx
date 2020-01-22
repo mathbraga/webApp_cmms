@@ -8,26 +8,26 @@ import ItemView from '../../ItemView/ItemView';
 import tabsGenerator from './tabsGenerator';
 
 const image = require("../../../assets/img/test/equipment_picture.jpg");
-const imageStatus = 'Em andamento';
+const imageStatus = 'Vigente';
 
-class Task extends Component {
+class Contract extends Component {
   render() {
     console.log("Props: ", this.props);
     const { data, ...rest } = this.props;
-    const treatedData = data;
+    const treatedData = data.contractByContractSf;
     const descriptionItems = [
-      { title: 'Serviço', description: treatedData.orderByOrderId.title, boldTitle: true },
-      { title: 'Ordem de Serviço nº', description: treatedData.orderByOrderId.orderId.toString().padStart(4, "0"), boldTitle: false },
-      { title: 'Local', description: treatedData.orderByOrderId.place, boldTitle: false },
-      { title: 'Categoria', description: treatedData.orderByOrderId.category, boldTitle: false },
+      { title: 'Objeto', description: treatedData.title, boldTitle: true },
+      { title: 'Contrato nº', description: treatedData.contractSf, boldTitle: false },
+      { title: 'Data Final', description: treatedData.dateEnd, boldTitle: false },
+      { title: 'Empresa', description: treatedData.company, boldTitle: false },
     ];
     return (
       <ItemView
-        data={treatedData}
+        data={data}
         image={image}
         imageStatus={imageStatus}
         descriptionItems={descriptionItems}
-        tabs={tabsGenerator(treatedData)}
+        tabs={tabsGenerator(data)}
         {...rest}
       />
     );
@@ -38,4 +38,4 @@ export default compose(
   withGraphQLVariables,
   withAccessToSession,
   withDataFetching(fetchGQL, false)
-)(Task);
+)(Contract);
