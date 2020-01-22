@@ -1,4 +1,8 @@
-import { ORDER_CATEGORY_TYPE, ORDER_PRIORITY_TYPE, ORDER_STATUS_TYPE } from '../../../Maintenance/Tasks/utils/dataDescription';
+import { 
+  ORDER_CATEGORY_TYPE, 
+  ORDER_PRIORITY_TYPE, 
+  ORDER_STATUS_TYPE 
+} from '../../../containers/Maintenance/Tasks/utils/dataDescription';
 
 export const filterAttributes = {
   category: { name: 'Categoria', type: 'option', options: ORDER_CATEGORY_TYPE },
