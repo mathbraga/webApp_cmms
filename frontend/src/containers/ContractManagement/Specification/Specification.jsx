@@ -19,7 +19,7 @@ class Specification extends Component {
       { title: 'Serviço / Material', description: treatedData.specBySpecId.name, boldTitle: true },
       { title: 'Código', description: treatedData.specBySpecId.specSf, boldTitle: false },
       { title: 'Versão', description: treatedData.specBySpecId.version, boldTitle: false },
-      { title: 'Disponibilidade', description: treatedData.allBalances.nodes.reduce((item, acc) => (item.available + acc)), boldTitle: false },
+      { title: 'Disponibilidade', description: treatedData.allBalances.nodes.reduce((acc, item) => (Number(item.available) + Number(acc)), 0), boldTitle: false },
     ];
     return (
       <ItemView
