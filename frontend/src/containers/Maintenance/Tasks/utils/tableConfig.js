@@ -1,11 +1,11 @@
 import { ORDER_CATEGORY_TYPE, ORDER_STATUS_TYPE } from './dataDescription';
 
-function changeStatusDescription(item, dataDescription) {
-  return [dataDescription[item.status]];
+function changeStatusDescription(item) {
+  return [ORDER_STATUS_TYPE[item.status]];
 }
 
-function changeCategoryDescription(item, dataDescription) {
-  return [item.title, dataDescription[item.category]];
+function changeCategoryDescription(item) {
+  return [item.title, ORDER_CATEGORY_TYPE[item.category]];
 }
 
 function formatDateLimit(item) {
@@ -20,9 +20,9 @@ const tableConfig = {
   idAttributeForData: 'orderId',
   columnObjects: [
     { name: 'orderId', description: 'OS', style: { width: "80px" }, className: "text-center", data: ['orderId'] },
-    { name: 'title', description: 'Título', style: { width: "400px" }, className: "text-justify", data: ['title', 'category'], dataGenerator: (item) => changeCategoryDescription(item, ORDER_CATEGORY_TYPE) },
-    { name: 'status', description: 'Status', style: { width: "100px" }, className: "text-center", data: ['status'] },
-    { name: 'dateLimit', description: 'Prazo Final', style: { width: "100px" }, className: "text-center", data: ['dateLimit'], dataGenerator: (item) => formatDateLimit(item) },
+    { name: 'title', description: 'Título', style: { width: "400px" }, className: "text-justify", data: ['title', 'category'], dataGenerator: changeCategoryDescription },
+    { name: 'status', description: 'Status', style: { width: "100px" }, className: "text-center", data: ['status'], dataGenerator: changeStatusDescription },
+    { name: 'dateLimit', description: 'Prazo Final', style: { width: "100px" }, className: "text-center", data: ['dateLimit'], dataGenerator: formatDateLimit },
     { name: 'place', description: 'Localização', style: { width: "250px" }, className: "text-center", data: ['place'] },
   ],
 };
