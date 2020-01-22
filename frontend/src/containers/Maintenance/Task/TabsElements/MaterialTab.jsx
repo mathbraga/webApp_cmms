@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import DescriptionTable from '../../../../components/Description/DescriptionTable';
 import { itemsMatrixMaterial } from '../utils/descriptionMatrix';
-import tableConfig from '../utils/tableConfig';
-import { customFilters, filterAttributes } from '../utils/filterParameters';
-import searchableAttributes from '../utils/searchParameters';
+import tableConfig from '../utils/materialTab/tableConfig';
+import { customFilters, filterAttributes } from '../utils/materialTab/filterParameters';
+import searchableAttributes from '../utils/materialTab/searchParameters';
 import CardWithTable from '../../../TableContainer/CardWithTable';
 import './Tabs.css';
 
