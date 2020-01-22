@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import DescriptionTable from '../../../../components/Description/DescriptionTable';
 import { itemsMatrixTasks } from '../utils/descriptionMatrix';
-// import tableConfig from '../utils/materialTab/tableConfig';
-// import { customFilters, filterAttributes } from '../utils/materialTab/filterParameters';
-// import searchableAttributes from '../utils/materialTab/searchParameters';
-// import CardWithTable from '../../../TableContainer/CardWithTable';
+import tableConfig from '../utils/tasksTab/tableConfig';
+import { customFilters, filterAttributes } from '../utils/tasksTab/filterParameters';
+import searchableAttributes from '../utils/tasksTab/searchParameters';
+import CardWithTable from '../../../TableContainer/CardWithTable';
 import './Tabs.css';
 
 class MaterialTab extends Component {
@@ -19,14 +19,14 @@ class MaterialTab extends Component {
           numColumns={2}
           itemsMatrix={itemsMatrixTasks(data)}
         />
-        {/* <CardWithTable
+        <CardWithTable
           tableConfig={tableConfig}
           customFilters={customFilters}
           filterAttributes={filterAttributes}
           searchableAttributes={searchableAttributes}
           hasAssetCard={false}
           data={data}
-        /> */}
+        />
       </>
     );
   }

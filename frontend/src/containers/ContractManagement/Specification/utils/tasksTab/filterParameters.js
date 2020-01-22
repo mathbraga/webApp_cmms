@@ -1,6 +1,6 @@
 export const filterAttributes = {
-  name: { name: 'Ativo', type: 'text' },
-  assetSf: { name: 'Código', type: 'text' }
+  title: { name: 'Descrição', type: 'text' },
+  orderId: { name: 'OS', type: 'text' }
 };
 
 export const customFilters = [
