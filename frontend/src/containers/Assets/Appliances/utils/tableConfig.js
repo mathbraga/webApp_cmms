@@ -5,7 +5,7 @@ const tableConfig = {
   itemClickable: true,
   idAttributeForData: 'assetSf',
   columnObjects: [
-    { name: 'name', description: 'Equipamento', style: { width: "30%" }, className: "", data: ['name', 'assetSf'] },
+    { name: 'name', description: 'Equipamento', style: { width: "30%" }, className: "text-justify", data: ['name', 'assetSf'] },
     { name: 'model', description: 'Modelo', style: { width: "10%" }, className: "text-center", data: ['model'] },
     { name: 'manufacturer', description: 'Fabricante', style: { width: "10%" }, className: "text-center", data: ['manufacturer'] },
   ],
