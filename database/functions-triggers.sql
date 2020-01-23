@@ -1,10 +1,10 @@
-create or replace function log_change ()
+create or replace function insert_audit_trail ()
   returns trigger
   language plpgsql
   security definer
   as $$
     begin
-      insert into private.changes values (
+      insert into private.audit_trails values (
         current_setting('auth.data.person_id')::integer,
         now(),
         tg_op::text,

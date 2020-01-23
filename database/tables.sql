@@ -247,7 +247,7 @@ create table task_files (
 --   created_at timestamptz not null default now()
 -- );
 
-create table private.changes (
+create table private.audit_trails (
   person_id integer not null references persons (person_id),
   created_at timestamptz not null,
   operation text not null,
