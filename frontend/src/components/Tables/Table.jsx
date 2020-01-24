@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
-import "./Table.css";
+import FinalTableUI from './TableUI';
 
-class TableItems extends Component {
+const ENTRIES_PER_PAGE = 15;
+
+class FinalTable extends Component {
   render() {
-    const { thead, tbody } = this.props;
+    const {
+      tableConfig,
+      data,
+      setGoToPage,
+      goToPage,
+      setCurrentPage,
+      pageCurrent
+    } = this.props;
+
+    const pagesTotal = Math.floor(data.length / ENTRIES_PER_PAGE) + 1;
+    const visibleData = data.slice((pageCurrent - 1) * ENTRIES_PER_PAGE, pageCurrent * ENTRIES_PER_PAGE);
+
     return (
-      <div className="table-container">
-        {tbody.props.data.length !== 0 ?
-          <table className="content-table">
-            <thead className="thead-light">
-              {thead}
-            </thead>
-            <tbody>
-              {tbody}
-            </tbody>
-          </table>
-          :
-          <div className="no-items-table">
-            <span className="no-items-description">Não há itens para serem visualizados.</span>
-          </div>
-        }
-      </div>);
+      <FinalTableUI
+        tableConfig={tableConfig}
+        data={visibleData}
+        pagesTotal={pagesTotal}
+        pageCurrent={pageCurrent}
+        goToPage={goToPage}
+        setCurrentPage={setCurrentPage}
+        setGoToPage={setGoToPage}
+      />
+    );
   }
 }
 
-export default TableItems;
+export default FinalTable;
