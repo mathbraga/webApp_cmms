@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 
 class ModalSignUpConfirmation extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       code: "",
@@ -58,7 +58,7 @@ class ModalSignUpConfirmation extends Component {
       alertVisible: false
     });
   }
-  
+
   render() {
 
     let {
@@ -95,44 +95,44 @@ class ModalSignUpConfirmation extends Component {
                           Para finalizar seu cadastro, insira no campo abaixo o código de verificação que foi enviado para o email
                         </p>
                         <p><strong>{email}</strong>.</p>
-                          <InputGroup className="mb-4">
-                            <InputGroupAddon addonType="prepend">
-                              <InputGroupText>
-                                <i className="fa fa-exclamation-triangle"></i>
-                              </InputGroupText>
-                            </InputGroupAddon>
-                            <Input
-                              type="text"
-                              id="code"
-                              name="code"
-                              placeholder="Código de verificação (XXXXXX)"
-                              onChange={this.handleCodeInput}  
-                            />
-                          </InputGroup>    
-                          <Button
-                            block
-                            type="submit"
-                            size="md"
-                            color="primary"
-                            onClick={this.handleCodeSubmit}
-                          >Confirmar cadastro
+                        <InputGroup className="mb-4">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="fa fa-exclamation-triangle"></i>
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          <Input
+                            type="text"
+                            id="code"
+                            name="code"
+                            placeholder="Código de verificação (XXXXXX)"
+                            onChange={this.handleCodeInput}
+                          />
+                        </InputGroup>
+                        <Button
+                          block
+                          type="submit"
+                          size="md"
+                          color="primary"
+                          onClick={this.handleCodeSubmit}
+                        >Confirmar cadastro
                           </Button>
-                        </Form>
-                      }
+                      </Form>
+                    }
 
-                      {this.state.signUpOK &&
-                        <React.Fragment>
-                          <Alert className="mt-4 mx-4" color="success" isOpen={this.state.signUpOK}>
+                    {this.state.signUpOK &&
+                      <React.Fragment>
+                        <Alert className="mt-4 mx-4" color="success" isOpen={this.state.signUpOK}>
                           Novo usuário cadastrado com sucesso.
                           </Alert>
-                          <Button color="link" onClick={this.goToLoginPage}>
-                            Ir para a página de login.
+                        <Button color="link" onClick={this.goToLoginPage}>
+                          Ir para a página de login.
                           </Button>
-                        </React.Fragment>
-                      }
+                      </React.Fragment>
+                    }
 
-                      <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
-                        Não foi possível cadastrar o novo usuário. Verifique se o código inserido está correto e tente novamente.
+                    <Alert className="mt-4 mx-4" color="danger" isOpen={this.state.alertVisible} toggle={this.closeAlert}>
+                      Não foi possível cadastrar o novo usuário. Verifique se o código inserido está correto e tente novamente.
                       </Alert>
 
                   </div>

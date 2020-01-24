@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Alert, Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import ModalForgottenPassword from "../../components/Modals/ModalForgottenPassword";
+import ModalForgottenPassword from "../../components/Authentication/ModalForgottenPassword";
 import { connect } from "react-redux";
 import { login, loginSuccess } from "../../redux/actions";
 import loginFetch from "../../utils/authentication/loginFetch";
 
 class Login extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.emailRef = React.createRef();
     this.passwordRef = React.createRef();
@@ -21,26 +21,26 @@ class Login extends Component {
   }
 
   componentWillMount = () => {
-    if(window.localStorage.getItem('session') !== null){
+    if (window.localStorage.getItem('session') !== null) {
       this.props.history.push("/painel");
     }
   }
 
   // componentDidUpdate = prevProps => {
-    // if(this.props.loginError !== prevProps.loginError){
-    //   if(this.props.loginError){
-    //     this.setState({
-    //       alertVisible: true,
-    //       password: ""
-    //     });
-    //     this.passwordRef.current.value = "";
-    //   }
-    // }
+  // if(this.props.loginError !== prevProps.loginError){
+  //   if(this.props.loginError){
+  //     this.setState({
+  //       alertVisible: true,
+  //       password: ""
+  //     });
+  //     this.passwordRef.current.value = "";
+  //   }
+  // }
   // }
 
   handleEnterKeyDown = event => {
     event.persist();
-    if(event.key === "Enter"){
+    if (event.key === "Enter") {
       this.handleSubmit(event);
     }
   }
@@ -59,7 +59,7 @@ class Login extends Component {
       isFetching: true,
       alertVisible: true,
     });
-    
+
     loginFetch(this.state.email, this.state.password)
       .then(() => {
         this.setState({
@@ -157,7 +157,7 @@ class Login extends Component {
                             block
                             color="primary"
                             className="px-4"
-                            onClick={this.handleSubmit}  
+                            onClick={this.handleSubmit}
                             disabled={this.state.isFetching}
                           >Login</Button>
                         </Col>
@@ -179,7 +179,7 @@ class Login extends Component {
 
                 <Alert
                   className="mt-4 mx-4"
-                  color={this.state.loginError ? "danger": "warning"}
+                  color={this.state.loginError ? "danger" : "warning"}
                   isOpen={this.state.alertVisible}
                   toggle={this.closeAlert}
                 >{this.state.isFetching ? "Realizando login..." : "Login falhou. Tente novamente."}
