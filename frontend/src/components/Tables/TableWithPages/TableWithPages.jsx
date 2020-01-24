@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
-import PaginationForTable from '../Paginations/PaginationForTable';
-import TableItems from './RawTable/HTMLTable';
+import PaginationForTable from '../../Paginations/PaginationForTable';
+import TableItems from '../RawTable/HTMLTable';
 import "./TableWithPages.css";
 
 class TableWithPages extends Component {
