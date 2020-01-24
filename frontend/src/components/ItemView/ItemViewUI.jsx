@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AssetCard from '../Cards/AssetCard';
 import ItemDescription from './ItemDescription';
-import TabContainer from '../../views/TabContainer/TabContainer';
+import TabContainer from '../../components/Tabs/TabContainer';
 
 export default class ItemViewUI extends Component {
   state = {}

@@ -10,10 +10,10 @@ const Appliances = React.lazy(() => import("./views/Assets/Appliances/Appliances
 const Appliance = React.lazy(() => import("./views/Assets/Appliance/Appliance"));
 const Tasks = React.lazy(() => import("./views/Maintenance/Tasks/Tasks"));
 const Task = React.lazy(() => import("./views/Maintenance/Task/Task"));
-const Contracts = React.lazy(() => import("./views/ContractManagement/Contracts/Contracts"));
-const Contract = React.lazy(() => import("./views/ContractManagement/Contract/Contract"));
-const Specs = React.lazy(() => import("./views/ContractManagement/Specifications/Specifications"));
-const Spec = React.lazy(() => import("./views/ContractManagement/Specification/Specification"));
+const Contracts = React.lazy(() => import("./views/Contracts/Contracts/Contracts"));
+const Contract = React.lazy(() => import("./views/Contracts/Contract/Contract"));
+const Specs = React.lazy(() => import("./views/Contracts/Specifications/Specifications"));
+const Spec = React.lazy(() => import("./views/Contracts/Specification/Specification"));
 const Teams = React.lazy(() => import("./views/HumanResources/Teams/Teams"));
 const Persons = React.lazy(() => import("./views/HumanResources/Persons/Persons"));
 
