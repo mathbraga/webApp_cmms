@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import withPaginationLogic from '../TableWithPages/withPaginationLogic';
-import CardTableUI from './CardTableUI';
+import CardTableUI from './TableFilterUI';
 import searchList from '../../../utils/search/searchList';
 import filterList from '../../../utils/filter/filter';
 import { compose } from 'redux';
 
 const ENTRIES_PER_PAGE = 15;
 
-class CardWithTable extends Component {
+class TableFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -77,4 +77,4 @@ class CardWithTable extends Component {
 
 export default compose(
   withPaginationLogic
-)(CardWithTable);
+)(TableFilter);

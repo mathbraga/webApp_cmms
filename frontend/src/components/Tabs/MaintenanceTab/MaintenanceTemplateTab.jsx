@@ -4,7 +4,7 @@ import { itemsMatrixReport, itemsMatrixMaintenance } from './utils/descriptionMa
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import tableConfig from './utils/tableConfig';
-import CardWithTable from '../../Tables/CustomTable/CardWithTable';
+import TableFilter from '../../Tables/CustomTable/TableFilter';
 
 class MaintenanceTemplateTab extends Component {
   render() {
@@ -21,7 +21,7 @@ class MaintenanceTemplateTab extends Component {
           numColumns={2}
           itemsMatrix={itemsMatrixMaintenance(data)}
         />
-        <CardWithTable
+        <TableFilter
           tableConfig={this.props.tableConfig || tableConfig}
           customFilters={this.props.customFilters || customFilters}
           filterAttributes={this.props.filterAttributes || filterAttributes}

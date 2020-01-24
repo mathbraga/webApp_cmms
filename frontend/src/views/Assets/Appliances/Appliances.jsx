@@ -6,14 +6,14 @@ import tableConfig from './utils/tableConfig';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import { compose } from 'redux';
-import CardWithTable from '../../../components/Tables/CustomTable/CardWithTable';
+import TableFilter from '../../../components/Tables/CustomTable/TableFilter';
 
 class Appliances extends Component {
   render() {
     const data = this.props.data.allAssets.nodes;
 
     return (
-      <CardWithTable
+      <TableFilter
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}

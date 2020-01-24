@@ -4,7 +4,7 @@ import { itemsMatrixAssets } from '../utils/descriptionMatrix';
 import tableConfig from '../utils/assetTab/tableConfig';
 import { customFilters, filterAttributes } from '../utils/assetTab/filterParameters';
 import searchableAttributes from '../utils/assetTab/searchParameters';
-import CardWithTable from '../../../../components/Tables/CustomTable/CardWithTable';
+import TableFilter from '../../../../components/Tables/CustomTable/TableFilter';
 import './Tabs.css';
 
 class MaterialTab extends Component {
@@ -19,7 +19,7 @@ class MaterialTab extends Component {
           numColumns={2}
           itemsMatrix={itemsMatrixAssets(data)}
         />
-        <CardWithTable
+        <TableFilter
           tableConfig={tableConfig}
           customFilters={customFilters}
           filterAttributes={filterAttributes}

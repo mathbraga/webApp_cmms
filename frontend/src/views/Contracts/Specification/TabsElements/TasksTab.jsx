@@ -4,7 +4,7 @@ import { itemsMatrixTasks } from '../utils/descriptionMatrix';
 import tableConfig from '../utils/tasksTab/tableConfig';
 import { customFilters, filterAttributes } from '../utils/tasksTab/filterParameters';
 import searchableAttributes from '../utils/tasksTab/searchParameters';
-import CardWithTable from '../../../../components/Tables/CustomTable/CardWithTable';
+import TableFilter from '../../../../components/Tables/CustomTable/TableFilter';
 import './Tabs.css';
 
 class MaterialTab extends Component {
@@ -19,7 +19,7 @@ class MaterialTab extends Component {
           numColumns={2}
           itemsMatrix={itemsMatrixTasks(data)}
         />
-        <CardWithTable
+        <TableFilter
           tableConfig={tableConfig}
           customFilters={customFilters}
           filterAttributes={filterAttributes}
