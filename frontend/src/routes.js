@@ -14,8 +14,8 @@ const Contracts = React.lazy(() => import("./views/Contracts/Contracts/Contracts
 const Contract = React.lazy(() => import("./views/Contracts/Contract/Contract"));
 const Specs = React.lazy(() => import("./views/Contracts/Specifications/Specifications"));
 const Spec = React.lazy(() => import("./views/Contracts/Specification/Specification"));
-const Teams = React.lazy(() => import("./views/HumanResources/Teams/Teams"));
-const Persons = React.lazy(() => import("./views/HumanResources/Persons/Persons"));
+const Teams = React.lazy(() => import("./views/Teams/Teams/Teams"));
+const Persons = React.lazy(() => import("./views/Teams/Persons/Persons"));
 
 const NoView = <h1>NoView!</h1>
 
