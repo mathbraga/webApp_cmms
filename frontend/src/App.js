@@ -9,7 +9,7 @@ const loading = () => (
 
 // Containers
 const MainPage = Loadable({
-  loader: () => import("./containers/MainPage"),
+  loader: () => import("./views/MainPage"),
   loading
 });
 

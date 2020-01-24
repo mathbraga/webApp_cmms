@@ -4,7 +4,7 @@ import { itemsMatrixReport, itemsMatrixMaintenance } from './utils/descriptionMa
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import tableConfig from './utils/tableConfig';
-import CardWithTable from '../../containers/TableContainer/CardWithTable';
+import CardWithTable from '../../views/TableContainer/CardWithTable';
 
 class MaintenanceTemplateTab extends Component {
   render() {

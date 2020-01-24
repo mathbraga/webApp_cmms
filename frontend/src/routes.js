@@ -1,21 +1,21 @@
 import React from "react";
-import MainPage from "./containers/MainPage";
+import MainPage from "./views/MainPage";
 
-const Dashboard = React.lazy(() => import("./containers/Dashboard"));
-const Login = React.lazy(() => import("./containers/Authentication/Login"));
-const Profile = React.lazy(() => import("./containers/Authentication/Profile"));
-const Facilities = React.lazy(() => import("./containers/Assets/Facilities/Facilities"));
-const Facility = React.lazy(() => import("./containers/Assets/Facility/Facility"));
-const Appliances = React.lazy(() => import("./containers/Assets/Appliances/Appliances"));
-const Appliance = React.lazy(() => import("./containers/Assets/Appliance/Appliance"));
-const Tasks = React.lazy(() => import("./containers/Maintenance/Tasks/Tasks"));
-const Task = React.lazy(() => import("./containers/Maintenance/Task/Task"));
-const Contracts = React.lazy(() => import("./containers/ContractManagement/Contracts/Contracts"));
-const Contract = React.lazy(() => import("./containers/ContractManagement/Contract/Contract"));
-const Specs = React.lazy(() => import("./containers/ContractManagement/Specifications/Specifications"));
-const Spec = React.lazy(() => import("./containers/ContractManagement/Specification/Specification"));
-const Teams = React.lazy(() => import("./containers/HumanResources/Teams/Teams"));
-const Persons = React.lazy(() => import("./containers/HumanResources/Persons/Persons"));
+const Dashboard = React.lazy(() => import("./views/Dashboard"));
+const Login = React.lazy(() => import("./views/Authentication/Login"));
+const Profile = React.lazy(() => import("./views/Authentication/Profile"));
+const Facilities = React.lazy(() => import("./views/Assets/Facilities/Facilities"));
+const Facility = React.lazy(() => import("./views/Assets/Facility/Facility"));
+const Appliances = React.lazy(() => import("./views/Assets/Appliances/Appliances"));
+const Appliance = React.lazy(() => import("./views/Assets/Appliance/Appliance"));
+const Tasks = React.lazy(() => import("./views/Maintenance/Tasks/Tasks"));
+const Task = React.lazy(() => import("./views/Maintenance/Task/Task"));
+const Contracts = React.lazy(() => import("./views/ContractManagement/Contracts/Contracts"));
+const Contract = React.lazy(() => import("./views/ContractManagement/Contract/Contract"));
+const Specs = React.lazy(() => import("./views/ContractManagement/Specifications/Specifications"));
+const Spec = React.lazy(() => import("./views/ContractManagement/Specification/Specification"));
+const Teams = React.lazy(() => import("./views/HumanResources/Teams/Teams"));
+const Persons = React.lazy(() => import("./views/HumanResources/Persons/Persons"));
 
 const NoView = <h1>NoView!</h1>
 
