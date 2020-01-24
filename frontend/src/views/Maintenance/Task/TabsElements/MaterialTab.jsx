@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DescriptionTable from '../../../../components/Description/DescriptionTable';
+import DescriptionTable from '../../../../components/Descriptions/DescriptionTable';
 import { itemsMatrixMaterial } from '../utils/descriptionMatrix';
 import tableConfig from '../utils/materialTab/tableConfig';
 import { customFilters, filterAttributes } from '../utils/materialTab/filterParameters';

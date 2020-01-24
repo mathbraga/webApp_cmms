@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DescriptionTable from '../../../../components/Description/DescriptionTable';
+import DescriptionTable from '../../../../components/Descriptions/DescriptionTable';
 import { itemsMatrixGeneral, itemsMatrixManufacturer, itemsMatrixParent } from '../utils/descriptionMatrix';
 class InfoTab extends Component {
   render() {
