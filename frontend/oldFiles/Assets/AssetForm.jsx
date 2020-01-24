@@ -8,7 +8,7 @@ import {
   Row,
   CustomInput
 } from 'reactstrap';
-import AssetCard from '../../components/Cards/AssetCard';
+import AssetCard from '../../src/components/Cards/AssetCard';
 
 import "./AssetForm.css";
 
