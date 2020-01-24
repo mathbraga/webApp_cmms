@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import withDataFetching from '../../DataFetchContainer';
+import withDataFetching from '../../../components/DataFetch';
 import withAccessToSession from '../../Authentication';
 import { fetchAppliancesGQL, fetchAppliancesVariables } from './utils/dataFetchParameters';
 import tableConfig from './utils/tableConfig';

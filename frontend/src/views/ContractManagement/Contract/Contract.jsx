@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import withDataFetching from '../../DataFetchContainer';
+import withDataFetching from '../../../components/DataFetch';
 import withAccessToSession from '../../Authentication';
 import { fetchGQL } from './utils/dataFetchParameters';
 import withGraphQLVariables from './withGraphQLVariables';
