@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Search from './Search';
-import ModalCreateFilter from '../Modals/ModalCreateFilter'
-import ApplyFilter from '../Modals/ApplyFilter';
+import ModalCreateFilter from '../Filters/ModalCreateFilter'
+import ApplyFilter from '../Filters/ApplyFilter';
 
 export default class SearchWithFilter extends Component {
   constructor(props) {
