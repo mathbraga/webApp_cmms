@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import withPaginationLogic from '../../components/Tables/TableWithPages/withPaginationLogic';
+import withPaginationLogic from '../TableWithPages/withPaginationLogic';
 import CardTableUI from './CardTableUI';
-import searchList from '../../utils/search/searchList';
-import filterList from '../../utils/filter/filter';
+import searchList from '../../../utils/search/searchList';
+import filterList from '../../../utils/filter/filter';
 import { compose } from 'redux';
 
 const ENTRIES_PER_PAGE = 15;

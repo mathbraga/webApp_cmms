@@ -6,7 +6,7 @@ import tableConfig from './utils/tableConfig';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import { compose } from 'redux';
-import CardWithTable from '../../TableContainer/CardWithTable';
+import CardWithTable from '../../../components/Tables/CustomTable/CardWithTable';
 
 class Facilities extends Component {
   render() {
