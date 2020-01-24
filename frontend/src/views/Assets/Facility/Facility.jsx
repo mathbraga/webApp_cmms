@@ -4,7 +4,7 @@ import withAccessToSession from '../../Authentication';
 import { fetchGQL } from './utils/dataFetchParameters';
 import withGraphQLVariables from './withGraphQLVariables';
 import { compose } from 'redux';
-import ItemView from '../../ItemView/ItemView';
+import ItemView from '../../../components/ItemView/ItemView';
 import tabsGenerator from './tabsGenerator';
 
 const image = require("../../../assets/img/test/facilities_picture.jpg");

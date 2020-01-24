@@ -5,7 +5,7 @@ import withDataFetching from '../../../components/DataFetch';
 import withAccessToSession from '../../Authentication';
 import withGraphQLVariables from './withGraphQLVariables';
 import { fetchGQL } from './utils/dataFetchParameters';
-import ItemView from '../../ItemView/ItemView';
+import ItemView from '../../../components/ItemView/ItemView';
 import tabsGenerator from './tabsGenerator';
 
 // TO DO - These values will be passed as props
