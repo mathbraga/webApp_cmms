@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import withPaginationLogic from './withPaginationLogic';
+import withPaginationLogic from '../../components/Tables/TableWithPages/withPaginationLogic';
 import CardTableUI from './CardTableUI';
 import searchList from '../../utils/search/searchList';
 import filterList from '../../utils/filter/filter';
