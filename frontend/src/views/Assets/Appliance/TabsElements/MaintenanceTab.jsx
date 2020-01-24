@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MaintenanceTemplateTab from '../../../../components/MaintenanceTab/MaintenanceTemplateTab';
+import MaintenanceTemplateTab from '../../../../components/Tabs/MaintenanceTab/MaintenanceTemplateTab';
 
 class MaintenanceTab extends Component {
   render() {

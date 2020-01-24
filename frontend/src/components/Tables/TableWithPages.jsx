@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
-import PaginationForTable from './PaginationForTable';
+import PaginationForTable from '../Paginations/PaginationForTable';
 import TableItems from './Table';
 import "./TableWithPages.css";
 

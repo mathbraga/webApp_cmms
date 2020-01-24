@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import DescriptionTable from '../Descriptions/DescriptionTable';
+import DescriptionTable from '../../Descriptions/DescriptionTable';
 import { itemsMatrixReport, itemsMatrixMaintenance } from './utils/descriptionMatrix';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import tableConfig from './utils/tableConfig';
-import CardWithTable from '../../views/TableContainer/CardWithTable';
+import CardWithTable from '../../../views/TableContainer/CardWithTable';
 
 class MaintenanceTemplateTab extends Component {
   render() {
