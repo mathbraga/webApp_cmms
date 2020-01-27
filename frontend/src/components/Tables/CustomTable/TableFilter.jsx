@@ -38,6 +38,9 @@ class TableFilter extends Component {
 
   render() {
     const {
+      title,
+      subtitle,
+      buttonName,
       paginationLogic,
       tableConfig,
       customFilters,
@@ -54,6 +57,9 @@ class TableFilter extends Component {
 
     return (
       <CardTableUI
+        title={title}
+        subtitle={subtitle}
+        buttonName={buttonName}
         tableConfig={tableConfig}
         goToPage={paginationLogic.goToPage}
         pageCurrent={paginationLogic.pageCurrent}

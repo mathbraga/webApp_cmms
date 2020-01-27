@@ -14,6 +14,9 @@ class Facilities extends Component {
 
     return (
       <TableFilter
+        title={"Edifícios / Áreas"}
+        subtitle={"Lista de áreas do CASF"}
+        buttonName={"Nova área"}
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}

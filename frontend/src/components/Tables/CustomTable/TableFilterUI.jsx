@@ -6,6 +6,9 @@ import SearchWithFilter from '../../Search/SearchWithFilter';
 export default class CardTableUI extends Component {
   render() {
     const {
+      title,
+      subtitle,
+      buttonName,
       tableConfig,
       goToPage,
       pageCurrent,
@@ -27,10 +30,10 @@ export default class CardTableUI extends Component {
     if (hasAssetCard) {
       return (
         <AssetCard
-          sectionName={'Equipamentos'}
-          sectionDescription={'Lista de equipamentos'}
+          sectionName={title || 'Nome'}
+          sectionDescription={subtitle || 'Descrição dos itens'}
           handleCardButton={() => { console.log('OK!') }}
-          buttonName={'Novo Equipamento'}
+          buttonName={buttonName || 'Botão'}
         >
           <SearchWithFilter
             updateCurrentFilter={updateCurrentFilter}

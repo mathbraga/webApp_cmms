@@ -14,6 +14,9 @@ class Persons extends Component {
 
     return (
       <TableFilter
+        title={"Integrantes"}
+        subtitle={"Lista de funcionários do CASF"}
+        buttonName={"Novo integrante"}
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}

@@ -14,6 +14,9 @@ class Contracts extends Component {
 
     return (
       <TableFilter
+        title={"Contratos"}
+        subtitle={"Lista de contratos de engenharia"}
+        buttonName={"Novo Contrato"}
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}

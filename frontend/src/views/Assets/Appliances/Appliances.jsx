@@ -14,6 +14,9 @@ class Appliances extends Component {
 
     return (
       <TableFilter
+        title={"Equipamentos"}
+        subtitle={"Lista de equipamentos do CASF"}
+        buttonName={"Novo equipamento"}
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}

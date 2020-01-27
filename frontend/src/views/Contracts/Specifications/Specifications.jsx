@@ -14,6 +14,9 @@ class Appliances extends Component {
 
     return (
       <TableFilter
+        title={"Especificações Técnicas"}
+        subtitle={"Lista de especificações técnicas"}
+        buttonName={"Novo Item"}
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}

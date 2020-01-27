@@ -14,6 +14,9 @@ class Tasks extends Component {
 
     return (
       <TableFilter
+        title={"Ordens de Serviço"}
+        subtitle={"Lista de ordens de serviço de engenharia"}
+        buttonName={"Nova OS"}
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}
