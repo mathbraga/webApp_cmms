@@ -1,35 +1,23 @@
 import gql from 'graphql-tag';
 
 const fetchGQL = gql`
-  query contract ($contractSf: String!){
-    contractByContractSf(contractSf: $contractSf) {
-      company
-      contractSf
-      dateEnd
-      datePub
-      dateSign
-      dateStart
-      description
-      title
-      url
-    }
-    allBalances(condition: {contractSf: $contractSf}) {
+  query MyQuery($contractId: Int!) {
+    queryResponse: allContractData(condition: {contractId: $contractId}) {
       nodes {
-        available
-        supplyId
-        supplySf
-        specId
-        qty
-        consumed
-        title
-        bidPrice
-        blocked
-        company
-        contractId
         contractSf
-        fullPrice
-        name
-        unit
+        contractId
+        company
+        contractStatusId
+        contractStatusText
+        dateEnd
+        datePub
+        dateSign
+        dateStart
+        description
+        parent
+        supplies
+        title
+        url
       }
     }
   }

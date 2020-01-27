@@ -14,20 +14,20 @@ class Contract extends Component {
   render() {
     console.log("Props: ", this.props);
     const { data, ...rest } = this.props;
-    const treatedData = data.contractByContractSf;
+    const finalData = data.queryResponse.nodes[0];
     const descriptionItems = [
-      { title: 'Objeto', description: treatedData.title, boldTitle: true },
-      { title: 'Contrato nº', description: treatedData.contractSf, boldTitle: false },
-      { title: 'Data Final', description: treatedData.dateEnd, boldTitle: false },
-      { title: 'Empresa', description: treatedData.company, boldTitle: false },
+      { title: 'Objeto', description: finalData.title, boldTitle: true },
+      { title: 'Contrato nº', description: finalData.contractSf, boldTitle: false },
+      { title: 'Data Final', description: finalData.dateEnd, boldTitle: false },
+      { title: 'Empresa', description: finalData.company, boldTitle: false },
     ];
     return (
       <ItemView
-        data={data}
+        data={finalData}
         image={image}
         imageStatus={imageStatus}
         descriptionItems={descriptionItems}
-        tabs={tabsGenerator(data)}
+        tabs={tabsGenerator(finalData)}
         {...rest}
       />
     );

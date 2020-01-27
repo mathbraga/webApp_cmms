@@ -11,7 +11,7 @@ const tableConfig = {
     { name: 'name', description: 'Descrição', style: { width: "200px" }, className: "text-justify", data: ['name'] },
     { name: 'qty', description: 'Quantidade', style: { width: "50px" }, className: "text-center", data: ['qty'] },
     { name: 'bidPrice', description: 'Preço Unitário', style: { width: "70px" }, className: "text-center", data: ['bidPrice'], dataGenerator: (item) => ([formatter(item.bidPrice)]) },
-    { name: 'totalPrice', description: 'Total', style: { width: "70px" }, className: "text-center", data: ['total'], dataGenerator: (item) => ([formatter(item.total)]) },
+    { name: 'totalPrice', description: 'Total', style: { width: "70px" }, className: "text-center", data: ['total'], dataGenerator: (item) => ([formatter(item.totalPrice)]) },
   ],
 };
 

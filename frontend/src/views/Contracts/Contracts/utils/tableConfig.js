@@ -27,7 +27,7 @@ const tableConfig = {
   checkbox: true,
   itemPath: '/gestao/contratos/view/',
   itemClickable: true,
-  idAttributeForData: 'contractSf',
+  idAttributeForData: 'contractId',
   columnObjects: [
     { name: 'contractSf', description: 'Número', style: { width: "100px" }, className: "text-center", data: ['contractSf'] },
     { name: 'title', description: 'Objeto', style: { width: "300px" }, className: "text-justify", data: ['title', 'company'] },
