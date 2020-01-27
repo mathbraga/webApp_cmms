@@ -1,43 +1,80 @@
-create trigger log_changes
-  after insert or update or delete on orders
-  for each row execute function create_log();
-
-create trigger log_changes
-  after insert or update or delete on order_messages
-  for each row execute function create_log();
-
-create trigger log_changes
-  after insert or update or delete on order_assets
-  for each row execute function create_log();
-
-create trigger log_changes
-  after insert or update or delete on order_supplies
-  for each row execute function create_log();
-
-create trigger log_changes
+-- audit trails
+create trigger insert_audit_trail
   after insert or update or delete on assets
-  for each row execute function create_log();
+  for each row execute function insert_audit_trail();
 
-create trigger log_changes
-  after insert or update or delete on asset_departments
-  for each row execute function create_log();
+create trigger insert_audit_trail
+  after insert or update or delete on asset_relations
+  for each row execute function insert_audit_trail();
 
-create trigger log_changes
+create trigger insert_audit_trail
   after insert or update or delete on contracts
-  for each row execute function create_log();
+  for each row execute function insert_audit_trail();
 
-create trigger log_changes
+create trigger insert_audit_trail
+  after insert or update or delete on persons
+  for each row execute function insert_audit_trail();
+
+create trigger insert_audit_trail
+  after insert or update or delete on private.accounts
+  for each row execute function insert_audit_trail();
+
+create trigger insert_audit_trail
+  after insert or update or delete on teams
+  for each row execute function insert_audit_trail();
+
+create trigger insert_audit_trail
+  after insert or update or delete on team_persons
+  for each row execute function insert_audit_trail();
+
+create trigger insert_audit_trail
+  after insert or update or delete on contract_teams
+  for each row execute function insert_audit_trail();
+
+create trigger insert_audit_trail
+  after insert or update or delete on projects
+  for each row execute function insert_audit_trail();
+
+create trigger insert_audit_trail
+  after insert or update or delete on tasks
+  for each row execute function insert_audit_trail();
+
+create trigger insert_audit_trail
+  after insert or update or delete on task_messages
+  for each row execute function insert_audit_trail();
+
+create trigger insert_audit_trail
+  after insert or update or delete on task_assets
+  for each row execute function insert_audit_trail();
+
+create trigger insert_audit_trail
+  after insert or update or delete on specs
+  for each row execute function insert_audit_trail();
+
+create trigger insert_audit_trail
   after insert or update or delete on supplies
-  for each row execute function create_log();
+  for each row execute function insert_audit_trail();
 
-create trigger log_changes
-  after insert or update or delete on departments
-  for each row execute function create_log();
+create trigger insert_audit_trail
+  after insert or update or delete on task_files
+  for each row execute function insert_audit_trail();
 
-create trigger check_conclusion
-  before insert or update on orders
-  for each row execute function check_conclusion();
+-- check asset category
+create trigger check_asset_category
+  before insert or update on assets
+  for each row execute function check_asset_category();
 
-create trigger check_supply_qty
-  before insert or update on order_supplies
-  for each row execute function check_supply_qty();
+-- check asset relation
+create trigger check_asset_relation
+  before insert or update on asset_relations
+  for each row execute function check_asset_relation();
+
+-- check task supply
+create trigger check_task_supply
+  before insert or update on task_supplies
+  for each row execute function check_task_supply();
+
+-- check task conclusion
+-- create trigger check_conclusion
+--   before insert or update on tasks
+--   for each row execute function check_conclusion();

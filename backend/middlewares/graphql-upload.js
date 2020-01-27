@@ -1,6 +1,7 @@
 const { graphqlUploadExpress } = require('graphql-upload');
 const fs = require('fs');
 const path = require('path');
+const paths = require('../paths');
 
 async function resolveUpload(upload, uuid) {
   const { filename, mimetype, encoding, createReadStream } = upload;
@@ -12,7 +13,7 @@ async function resolveUpload(upload, uuid) {
 }
  
 function saveLocal({ stream, uuid }) {
-  const filepath = '/files/' + uuid;
+  const filepath = paths.files + uuid;
   const fsPath = path.join(process.cwd(), filepath);
   return new Promise((resolve, reject) =>
     stream
@@ -27,8 +28,12 @@ function saveLocal({ stream, uuid }) {
   );
 }
 
+function reqHasFiles(req){
+  return req.body.variables && req.body.variables.files;
+}
+
 async function callback(req, res, next){
-  if(req.body.variables && req.body.variables.files){
+  if(reqHasFiles(req)){
     const files = req.body.variables.files;
     const filesMetadata = req.body.variables.filesMetadata;
     Promise.all(files.map((file, i) => {
@@ -40,7 +45,8 @@ async function callback(req, res, next){
         next();
       })
       .catch(error => {
-        console.log(error)
+        console.log(error);
+        res.status(500).end();
       })
   } else {
     next();

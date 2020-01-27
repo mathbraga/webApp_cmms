@@ -1,12 +1,12 @@
 -- asset categories
-create table asset_categories (
-  asset_category_id integer primary key,
-  asset_category_text text not null
-);
+-- create table asset_categories (
+--   asset_category_id integer primary key,
+--   asset_category_text text not null
+-- );
 
-insert into asset_categories values
-  (1, 'Equipamentos'),
-  (2, 'Edifícios');
+-- insert into asset_categories values
+--   (1, 'Edifício'),
+--   (2, 'Equipamento');
 
 -- contract statuses
 create table contract_statuses (
@@ -19,13 +19,13 @@ insert into contract_statuses values
   (2, 'Vigente'),
   (3, 'Encerrado');
 
--- order statuses
-create table order_statuses (
-  order_status_id integer primary key,
-  order_status_text text not null
+-- task statuses
+create table task_statuses (
+  task_status_id integer primary key,
+  task_status_text text not null
 );
 
-insert into order_statuses values
+insert into task_statuses values
   (1, 'Cancelada'),
   (2, 'Negada'),
   (3, 'Pendente'),
@@ -34,25 +34,25 @@ insert into order_statuses values
   (6, 'Em execução'),
   (7, 'Concluída');
 
--- order priorities
-create table order_priorities (
-  order_priority_id integer primary key,
-  order_priority_text text not null
+-- task priorities
+create table task_priorities (
+  task_priority_id integer primary key,
+  task_priority_text text not null
 );
 
-insert into order_priorities values
+insert into task_priorities values
   (1, 'Baixa'),
   (2, 'Normal'),
   (3, 'Alta'),
   (4, 'Urgente');
 
--- order categories
-create table order_categories (
-  order_category_id integer primary key,
-  order_category_text text not null
+-- task categories
+create table task_categories (
+  task_category_id integer primary key,
+  task_category_text text not null
 );
 
-insert into order_categories values
+insert into task_categories values
   (1, 'Ar-condicionado'),
   (2, 'Elétrica'),
   (3, 'Elevador'),
@@ -71,7 +71,7 @@ insert into order_categories values
 
 -- person roles
 create table person_roles (
- person_role_id text primary key,
+ person_role text primary key
 );
 
 insert into person_roles values
@@ -116,78 +116,83 @@ insert into spec_subcategories values
   (2, 8, 'Impermeabilização'),
   (2, 9, 'Vedações'),
   (2, 10, 'Revestimentos'),
-  (2, 12, 'Pinturas'),
-  (2, 13, 'Pisos'),
-  (2, 14, 'Marmores e Granitos'),
-  (2, 15, 'Divisórias'),
-  (2, 16, 'Forros'),
-  (2, 17, 'Carpete'),
-  (2, 18, 'Vidro Comum'),
-  (2, 19, 'Espelho'),
-  (2, 20, 'Vidro Temperado'),
-  (2, 21, 'Persianas'),
-  (2, 22, 'Película'),
-  (2, 23, 'Estruturas'),
-  (2, 24, 'Aditivos'),
-  (2, 25, 'Acessibilidade'),
-  (2, 26, 'Equipe de Dedicação Exclusiva'),
-  (2, 27, 'Vidro - Outros'),
-  (3, 28, 'Tubos'),
-  (3, 29, 'Registros e Válvulas'),
-  (3, 30, 'Ralos e caixas'),
-  (3, 31, 'Louças'),
-  (3, 32, 'Metais'),
-  (3, 33, 'Acessibilidade'),
-  (3, 34, 'Acessórios'),
-  (4, 35, 'Infraestrutura'),
-  (4, 36, 'Interruptores e Tomadas'),
-  (4, 37, 'Iluminação'),
-  (4, 38, 'Condutores'),
-  (4, 39, 'Quadros'),
-  (5, 40, 'Equipamentos Terminais e Unitários'),
-  (5, 41, 'Exaustores'),
-  (5, 42, 'Dutos'),
-  (5, 43, 'Difusores E Grelhas'),
-  (5, 44, 'Acessórios Para Equipamentos Unitários'),
-  (5, 45, 'Válvulas'),
-  (5, 46, 'Tubos e isolamento térmico'),
-  (6, 47, 'Armários'),
-  (6, 48, 'Portas'),
-  (6, 49, 'Ferragens'),
-  (6, 50, 'Materiais Para Lustração'),
-  (6, 51, 'Acabamento'),
-  (6, 52, 'Rodízios'),
-  (6, 53, 'Persianas'),
-  (6, 54, 'Cortinas'),
-  (6, 55, 'Colas e Espuma Expansiva'),
-  (6, 56, 'Laminados'),
-  (6, 57, 'Compensados'),
-  (6, 58, 'Madeira Bruta'),
-  (6, 59, 'Painéis MDF'),
-  (6, 60, 'Perfis e Chapas em Aço e Ferro'),
-  (6, 61, 'Tubos'),
-  (6, 62, 'Telas e Arames em Aço'),
-  (6, 63, 'Consumível'),
-  (6, 64, 'Equipe de Dedicação Exclusiva'),
-  (7, 65, 'Rede'),
-  (7, 66, 'Telefonia'),
-  (8, 67, 'Uso Geral'),
-  (8, 68, 'Marcenaria'),
-  (8, 69, 'Serralheria'),
-  (8, 70, 'Civil'),
-  (8, 71, 'Uniformes'),
-  (8, 72, 'Equipamentos de Proteção Individual');
+  (2, 11, 'Pinturas'),
+  (2, 12, 'Pisos'),
+  (2, 13, 'Mármores e Granitos'),
+  (2, 14, 'Divisórias'),
+  (2, 15, 'Forros'),
+  (2, 16, 'Carpete'),
+  (2, 17, 'Vidro Comum'),
+  (2, 18, 'Espelho'),
+  (2, 19, 'Vidro Temperado'),
+  (2, 20, 'Persianas'),
+  (2, 21, 'Película'),
+  (2, 22, 'Estruturas'),
+  (2, 23, 'Aditivos'),
+  (2, 24, 'Acessibilidade'),
+  (2, 25, 'Equipe de Dedicação Exclusiva'),
+  (2, 26, 'Vidro - Outros'),
+  (3, 27, 'Tubos'),
+  (3, 28, 'Registros e Válvulas'),
+  (3, 29, 'Ralos e caixas'),
+  (3, 30, 'Louças'),
+  (3, 31, 'Metais'),
+  (3, 32, 'Acessibilidade'),
+  (3, 33, 'Acessórios'),
+  (3, 34, 'Furos, Rasgos e Escariação'),
+  (3, 35, 'Pisos, Revestimentos e Pavimentação'),
+  (3, 36, 'Serviços Preliminares de Implantação e Apoio'),
+  (3, 37, 'Serviços de Escavação e Reaterro'),
+  (3, 38, 'Paisagismo'),
+  (4, 39, 'Infraestrutura'),
+  (4, 40, 'Interruptores e Tomadas'),
+  (4, 41, 'Iluminação'),
+  (4, 42, 'Condutores'),
+  (4, 43, 'Quadros'),
+  (5, 44, 'Equipamentos Terminais e Unitários'),
+  (5, 45, 'Exaustores'),
+  (5, 46, 'Dutos'),
+  (5, 47, 'Difusores E Grelhas'),
+  (5, 48, 'Acessórios Para Equipamentos Unitários'),
+  (5, 49, 'Válvulas'),
+  (5, 50, 'Tubos e isolamento térmico'),
+  (6, 51, 'Armários'),
+  (6, 52, 'Portas'),
+  (6, 53, 'Ferragens'),
+  (6, 54, 'Materiais Para Lustração'),
+  (6, 55, 'Acabamento'),
+  (6, 56, 'Rodízios'),
+  (6, 57, 'Persianas'),
+  (6, 58, 'Cortinas'),
+  (6, 59, 'Colas e Espuma Expansiva'),
+  (6, 60, 'Laminados'),
+  (6, 61, 'Compensados'),
+  (6, 62, 'Madeira Bruta'),
+  (6, 63, 'Painéis MDF'),
+  (6, 64, 'Perfis e Chapas em Aço e Ferro'),
+  (6, 65, 'Tubos'),
+  (6, 66, 'Telas e Arames em Aço'),
+  (6, 67, 'Consumível'),
+  (6, 68, 'Equipe de Dedicação Exclusiva'),
+  (7, 69, 'Rede'),
+  (7, 70, 'Telefonia'),
+  (8, 71, 'Uso Geral'),
+  (8, 72, 'Marcenaria'),
+  (8, 73, 'Serralheria'),
+  (8, 74, 'Civil'),
+  (8, 75, 'Uniformes'),
+  (8, 76, 'Equipamentos de Proteção Individual');
 
-create table rule_categories (
-  rule_category_id integer primary key,
-  rule_category_text text not null
-);
+-- create table rule_categories (
+--   rule_category_id integer primary key,
+--   rule_category_text text not null
+-- );
 
-insert into rule_categories values
-  (1, 'Leis e Decretos'),
-  (2, 'Normas do Ministério do Trabalho'),
-  (3, 'Acórdãos do TCU'),
-  (4, 'Referências Nacionais'),
-  (5, 'Referências Internacionais'),
-  (6, 'Normas ABNT'),
-  (7, 'Diretrizes do Senado Federal');
+-- insert into rule_categories values
+--   (1, 'Leis e Decretos'),
+--   (2, 'Normas do Ministério do Trabalho'),
+--   (3, 'Acórdãos do TCU'),
+--   (4, 'Referências Nacionais'),
+--   (5, 'Referências Internacionais'),
+--   (6, 'Normas ABNT'),
+--   (7, 'Diretrizes do Senado Federal');

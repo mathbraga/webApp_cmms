@@ -3,28 +3,27 @@ create table assets (
   asset_sf text not null unique,
   name text not null,
   description text,
-  category asset_category_type not null, -- enum or reference to a table
-  latitude real,
-  longitude real,
-  area real,
+  category integer not null references assets (asset_id),
+  latitude numeric,
+  longitude numeric,
+  area numeric,
   manufacturer text,
   serialnum text,
   model text,
-  price money
+  price numeric
 );
 
 create table asset_relations (
-  top_id integer not null references assets (asset_id), -- enum or reference to a table
-  parent_id integer not null references assets (asset_id),
-  asset_id integer not null references assets (asset_id),
-  primary key (top_id, parent_id, asset_id)
+  top_id integer not null references assets (asset_id),
+  parent_id integer references assets (asset_id),
+  asset_id integer not null references assets (asset_id)
 );
 
 create table contracts (
   contract_id integer primary key generated always as identity,
   contract_sf text not null unique,
   parent integer references contracts (contract_id),
-  status contract_status_type not null, -- enum or reference to a table
+  contract_status_id integer not null references contract_statuses (contract_status_id),
   date_sign date,
   date_pub date,
   date_start date,
@@ -32,7 +31,7 @@ create table contracts (
   company text not null,
   title text not null,
   description text not null,
-  url text not null -- just one? many?
+  url text -- just one? many?
 );
 
 -- create table departments (
@@ -57,7 +56,7 @@ create table private.accounts (
   person_id integer not null references persons (person_id),
   password_hash text not null,
   is_active boolean not null default true,
-  person_role person_role_type not null
+  person_role text not null references person_roles (person_role)
 );
 
 create table teams (
@@ -79,49 +78,59 @@ create table contract_teams (
   primary key (contract_id, team_id)
 );
 
-create table orders (
-  order_id integer primary key generated always as identity,
-  status order_status_type not null,
-  priority order_priority_type not null,
-  category order_category_type not null,
-  parent integer references orders (order_id),
+create table projects (
+  project_id integer primary key generated always as identity,
+  name text not null unique,
+  description text,
+  date_start timestamptz,
+  date_end timestamptz,
+  is_active boolean not null default true
+);
+
+create table tasks (
+  task_id integer primary key generated always as identity,
+  task_status_id integer not null references task_statuses (task_status_id),
+  task_priority_id integer not null references task_priorities (task_priority_id),
+  task_category_id integer not null references task_categories (task_category_id),
+  project_id integer references projects (project_id),
   contract_id integer references contracts (contract_id),
+  team_id integer references teams (team_id),
   title text not null,
   description text not null,
-  department_id text not null, -- references departments (department_id),
-  created_by text not null,
-  contact_name text not null,
-  contact_phone text not null,
-  contact_email text not null,
+  request_department text,
+  request_name text,
+  request_phone text,
+  request_email text,
   place text,
   progress integer check (progress >= 0 and progress <= 100),
   date_limit timestamptz,
   date_start timestamptz,
   date_end timestamptz,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
-
-create table order_messages (
-  message_id integer primary key generated always as identity,
-  order_id integer not null references orders (order_id),
   person_id integer not null references persons (person_id),
-  message text not null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
-create table order_assets (
-  order_id integer not null references orders (order_id),
-  asset_id integer not null references assets (asset_id),
-  primary key (order_id, asset_id)
+create table task_messages (
+  message_id integer primary key generated always as identity,
+  task_id integer not null references tasks (task_id),
+  message text not null,
+  person_id integer not null references persons (person_id),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
 );
 
-create table order_teams (
-  order_id integer not null references orders (order_id),
-  team_id integer not null references teams (team_id),
-  primary key (order_id, team_id)
+create table task_assets (
+  task_id integer not null references tasks (task_id),
+  asset_id integer not null references assets (asset_id),
+  primary key (task_id, asset_id)
 );
+
+-- create table task_teams (
+--   task_id integer not null references tasks (task_id),
+--   team_id integer not null references teams (team_id),
+--   primary key (task_id, team_id)
+-- );
 
 -- create table asset_departments (
 --   asset_id integer not null references assets (asset_id),
@@ -134,8 +143,8 @@ create table specs (
   spec_sf text not null, -- regex check
   version text not null, -- regex check
   name text not null,
-  category text not null, -- enum or reference to a table
-  subcategory text not null, -- enum or reference to a table
+  spec_category_id integer not null references spec_categories (spec_category_id),
+  spec_subcategory_id integer not null references spec_subcategories (spec_subcategory_id),
   unit text not null, -- enum or reference to a table??? --> no
   qty_decimals boolean not null, -- function of unit?
   description text,
@@ -155,7 +164,6 @@ create table specs (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   unique (spec_sf, version)--,
-  -- check ((catmat is null and catser is not null) or (catmat is not null and catser is null))
 );
 
 create table supplies (
@@ -163,83 +171,83 @@ create table supplies (
   supply_sf text not null,
   contract_id integer not null references contracts (contract_id),
   spec_id integer not null references specs (spec_id),
-  qty real not null,
-  bid_price money not null,
-  full_price money,
+  qty numeric not null,
+  bid_price numeric not null,
+  full_price numeric,
   unique (contract_id, supply_sf)
 );
 
-create table order_supplies (
-  order_id integer not null references orders (order_id),
+create table task_supplies (
+  task_id integer not null references tasks (task_id),
   supply_id integer not null references supplies (supply_id),
-  qty real not null,
-  primary key (order_id, supply_id)
+  qty numeric not null,
+  primary key (task_id, supply_id)
 );
 
-create table rules (
-  rule_id integer primary key generated always as identity,
-  rule_sf text not null unique, -- regex
-  category rule_category_type, -- enum or reference to a table
-  title text,
-  description text,
-  url text
-);
+-- create table rules (
+--   rule_id integer primary key generated always as identity,
+--   rule_sf text not null unique, -- regex
+--   category rule_category_type, -- enum or reference to a table
+--   title text,
+--   description text,
+--   url text
+-- );
 
-create table asset_rules (
-  asset_id integer not null references assets (asset_id),
-  rule_id integer not null references rules (rule_id),
-  primary key (asset_id, rule_id)
-);
+-- create table asset_rules (
+--   asset_id integer not null references assets (asset_id),
+--   rule_id integer not null references rules (rule_id),
+--   primary key (asset_id, rule_id)
+-- );
 
-create table spec_rules (
-  spec_id integer not null references specs (spec_id),
-  rule_id integer not null references rules (rule_id),
-  primary key (spec_id, rule_id)
-);
+-- create table spec_rules (
+--   spec_id integer not null references specs (spec_id),
+--   rule_id integer not null references rules (rule_id),
+--   primary key (spec_id, rule_id)
+-- );
 
-create table templates (
-  template_id integer primary key generated always as identity,
-  name text not null unique,
-  description text not null
-);
+-- create table templates (
+--   template_id integer primary key generated always as identity,
+--   name text not null unique,
+--   description text not null
+-- );
 
-create table asset_files (
-  asset_id integer not null references assets (asset_id),
-  name text not null,
-  uuid text not null,
-  size bigint not null,
-  person_id integer not null references persons (person_id),
-  created_at timestamptz not null default now()
-);
+-- create table asset_files (
+--   asset_id integer not null references assets (asset_id),
+--   name text not null,
+--   uuid uuid not null,
+--   size bigint not null,
+--   person_id integer not null references persons (person_id),
+--   created_at timestamptz not null default now()
+-- );
 
-create table order_files (
-  order_id integer not null references orders (order_id),
+create table task_files (
+  task_id integer not null references tasks (task_id),
   filename text not null,
-  uuid text not null,
-  size bigint not null,
-  person_id integer not null,-- references persons (person_id),
-  created_at timestamptz not null default now()
-);
-
-create table rule_files (
-  rule_id integer not null references rules (rule_id),
-  name text not null,
-  uuid text not null,
+  uuid uuid not null,
   size bigint not null,
   person_id integer not null references persons (person_id),
   created_at timestamptz not null default now()
 );
 
-create table template_files (
-  template_id integer not null references templates (template_id),
-  name text not null,
-  uuid text not null,
-  size bigint not null,
-  person_id integer not null references persons (person_id),
-  created_at timestamptz not null default now()
-);
+-- create table rule_files (
+--   rule_id integer not null references rules (rule_id),
+--   name text not null,
+--   uuid uuid not null,
+--   size bigint not null,
+--   person_id integer not null references persons (person_id),
+--   created_at timestamptz not null default now()
+-- );
 
-create table private.logs (
+-- create table template_files (
+--   template_id integer not null references templates (template_id),
+--   name text not null,
+--   uuid uuid not null,
+--   size bigint not null,
+--   person_id integer not null references persons (person_id),
+--   created_at timestamptz not null default now()
+-- );
+
+create table private.audit_trails (
   person_id integer not null references persons (person_id),
   created_at timestamptz not null,
   operation text not null,

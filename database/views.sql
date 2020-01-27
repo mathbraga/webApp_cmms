@@ -1,100 +1,59 @@
 create view facilities as
-  select
-    asset_id,
-    asset_sf,
-    name,
-    description,
-    category,
-    latitude,
-    longitude,
-    area
-  from assets
-  where category = 'F';
+  select asset_id,
+         asset_sf,
+         name,
+         description,
+         latitude,
+         longitude,
+         area
+    from assets
+  where category = 1;
+;
 
 create view appliances as
-  select
-    asset_id,
-    asset_sf,
-    name,
-    description,
-    category,
-    manufacturer,
-    serialnum,
-    model,
-    price
-  from assets
-  where category = 'A';
+  select asset_id,
+         asset_sf,
+         name,
+         description,
+         manufacturer,
+         serialnum,
+         model,
+         price
+    from assets
+  where category <> 1
+;
 
 create view balances as
   with
-    unfinished as (
-      select
-        os.supply_id,
-        sum(os.qty) as blocked
-          from orders as o
-          inner join order_supplies as os using (order_id)
-      where o.status <> 'CON'
-      group by os.supply_id
-    ),
     finished as (
-      select
-        os.supply_id,
-        sum(os.qty) as consumed
-          from orders as o
-          inner join order_supplies as os using (order_id)
-      where o.status = 'CON'
-      group by os.supply_id
+      select task_id, supply_id, qty, task_status_id
+        from tasks
+        inner join task_supplies using (task_id)
+      where task_status_id = 7
     ),
-    both_cases as (
-      select supply_id,
-             sum(coalesce(blocked, 0)) as blocked,
-             sum(coalesce(consumed, 0)) as consumed
-        from unfinished
-        full outer join finished using (supply_id)
-      group by supply_id
+    unfinished as (
+      select task_id, supply_id, qty, task_status_id
+        from tasks
+        inner join task_supplies using (task_id)
+      where task_status_id <> 7
+    ),
+    quantities as (
+      select s.supply_id,
+             s.qty as qty_initial,
+             sum(coalesce(f.qty, 0)) as qty_consumed,
+             sum(coalesce(u.qty, 0)) as qty_blocked
+        from finished as f
+        full outer join unfinished as u using (supply_id)
+        full outer join supplies as s using (supply_id)
+      group by s.supply_id, s.qty
     )
-    select c.contract_id,
-           c.contract_sf,
-           c.company,
-           c.title,
-           s.supply_id,
-           s.supply_sf,
-           s.qty,
-           s.spec_id,
-           s.bid_price,
-           s.full_price,
-           z.name,
-           z.unit,
-           bc.blocked,
-           bc.consumed,
-           s.qty - bc.blocked - bc.consumed as available
-      from both_cases as bc
-      inner join supplies as s using (supply_id)
-      inner join specs as z using (spec_id)
-      inner join contracts as c using (contract_id);
-
-create view spec_orders as
-  select sp.spec_id,
-         o.order_id,
-         o.status,
-         o.title
-    from specs as sp
-    inner join supplies as su using (spec_id)
-    inner join order_supplies as os using (supply_id)
-    inner join orders as o using (order_id);
-
-create view order_supplies_details as
-  select o.order_id,
-         s.supply_sf,
-         z.name,
-         z.spec_id,
-         o.qty,
-         z.unit,
-         s.bid_price,
-         o.qty * s.bid_price as total
-    from order_supplies as o
-    inner join supplies as s using (supply_id)
-    inner join specs as z using (spec_id);
+    select supply_id,
+           qty_initial,
+           qty_blocked,
+           qty_consumed,
+           qty_initial - qty_blocked - qty_consumed as qty_available
+      from quantities
+;
 
 create view active_teams as
   select t.team_id, 
@@ -104,59 +63,58 @@ create view active_teams as
     from teams as t
     inner join team_persons as p using (team_id)
   where t.is_active
-  group by t.team_id;
+  group by t.team_id
+;
 
+create view assets_of_task as
+  select t.task_id,
+         jsonb_agg(build_asset_json(a.asset_id)) as assets
+    from tasks as t
+    inner join task_assets as ta using (task_id)
+    inner join assets as a using (asset_id)
+  group by task_id
+;
 
-create view assets_of_order as
-select o.order_id,
-       jsonb_agg(jsonb_build_object(
-           'id', a.asset_id,
-           'sf', a.asset_sf,
-           'name', a.name
-         )) as assets
-      from orders as o
-      inner join order_assets as oa using (order_id)
-      inner join assets as a using (asset_id)
-    group by order_id;
-
-create view supplies_of_order as
-select o.order_id,
-       jsonb_agg(jsonb_build_object(
-           'id', s.supply_id,
-           'sf', s.supply_sf,
-           'qty', os.qty,
+create view supplies_of_task as
+  select t.task_id,
+         jsonb_agg(jsonb_build_object(
+           'supplyId', s.supply_id,
+           'supplySf', s.supply_sf,
+           'qty', ts.qty,
            'name', z.name
          )) as supplies
-      from orders as o
-      inner join order_supplies as os using (order_id)
-      inner join supplies as s using (supply_id)
-      inner join specs as z using (spec_id)
-    group by order_id;
+    from tasks as t
+    inner join task_supplies as ts using (task_id)
+    inner join supplies as s using (supply_id)
+    inner join specs as z using (spec_id)
+  group by task_id
+;
 
-create view files_of_order as
-select o.order_id,
-       jsonb_agg(jsonb_build_object(
-           'filename', of.filename,
-           'size', of.size,
-           'uuid', of.uuid,
-           'createdAt', of.created_at,
+create view files_of_task as
+  select t.task_id,
+         jsonb_agg(jsonb_build_object(
+           'filename', tf.filename,
+           'size', tf.size,
+           'uuid', tf.uuid,
+           'createdAt', tf.created_at,
            'person', p.name
          )) as files
-      from orders as o
-      inner join order_files as of using (order_id)
-      inner join persons as p using (person_id)
-    group by order_id;
+    from tasks as t
+    inner join task_files as tf using (task_id)
+    inner join persons as p on (tf.person_id = p.person_id)
+  group by task_id
+;
 
-create view order_data as
-  select o.*,
+create view task_data as
+  select t.*,
          c.contract_sf || ' - ' || c.title as contract,
          a.assets,
          s.supplies,
          f.files
-    from orders as o
-    inner join assets_of_order as a using (order_id)
-    left join supplies_of_order as s using (order_id)
-    left join files_of_order as f using (order_id)
+    from tasks as t
+    inner join assets_of_task as a using (task_id)
+    left join supplies_of_task as s using (task_id)
+    left join files_of_task as f using (task_id)
     left join contracts as c using (contract_id)
 ;
 
@@ -165,6 +123,52 @@ create view supplies_list as
          s.supply_sf,
          s.contract_id,
          z.name,
-         z.unit
-         from supplies as s
-         inner join specs as z using (spec_id);
+         z.unit,
+         b.qty_available
+    from supplies as s
+    inner join specs as z using (spec_id)
+    inner join balances as b using (supply_id)
+;
+
+create view task_form_data as
+  with
+    status_options as (
+      select
+        jsonb_agg(jsonb_build_object(
+          'taskStatusId', task_status_id,
+          'taskStatusText', task_status_text
+        )) as status_options
+      from task_statuses
+    ),
+    category_options as (
+      select
+        jsonb_agg(jsonb_build_object(
+          'taskCategoryId', task_category_id,
+          'taskCategoryText', task_category_text
+        )) as category_options
+      from task_categories
+    ),
+    priority_options as (
+      select
+        jsonb_agg(jsonb_build_object(
+          'taskPriorityId', task_priority_id,
+          'taskPriorityText', task_priority_text
+        )) as priority_options
+      from task_priorities
+    ),
+    contract_options as (
+      select
+        jsonb_agg(jsonb_build_object(
+          'contractId', contract_id,
+          'contractSf', contract_sf,
+          'title', title,
+          'company', company
+        )) as contract_options
+      from contracts
+    )
+  select status_options,
+           category_options,
+           priority_options,
+           contract_options
+    from status_options, category_options, priority_options, contract_options
+;
