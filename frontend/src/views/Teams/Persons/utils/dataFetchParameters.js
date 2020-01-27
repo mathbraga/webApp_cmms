@@ -1,16 +1,22 @@
 import gql from 'graphql-tag';
 
 const fetchAppliancesGQL = gql`
-query PersonsQuery {
-  allPeople(orderBy: NAME_ASC) {
-    nodes {
-      cpf
-      email
-      name
-      phone
+  query MyQuery {
+    queryResponse: allPersonData {
+      nodes {
+        personId
+        cellphone
+        contractId
+        cpf
+        email
+        isActive
+        name
+        personRole
+        phone
+        teams
+      }
     }
   }
-}
 `;
 
 const fetchAppliancesVariables = {

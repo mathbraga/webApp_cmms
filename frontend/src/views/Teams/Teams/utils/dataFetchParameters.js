@@ -1,13 +1,14 @@
 import gql from 'graphql-tag';
 
 const fetchAppliancesGQL = gql`
-  query ActiveTeamsQuery {
-    allActiveTeams(orderBy: NAME_ASC) {
+  query MyQuery {
+    queryResponse: allTeamData {
       nodes {
         teamId
-        name
         description
         memberCount
+        members
+        name
       }
     }
   }

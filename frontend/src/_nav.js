@@ -59,14 +59,14 @@ export default {
       icon: "fa fa-group",
       children: [
         {
-          name: "Equipes",
-          url: "/equipes/grupos",
-          icon: "icon-people"
-        },
-        {
           name: "Pessoas",
           url: "/equipes/pessoas",
           icon: "icon-user"
+        },
+        {
+          name: "Equipes",
+          url: "/equipes/grupos",
+          icon: "icon-people"
         },
       ]
     },

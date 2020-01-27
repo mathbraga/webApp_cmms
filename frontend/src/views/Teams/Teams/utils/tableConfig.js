@@ -5,8 +5,8 @@ const tableConfig = {
   itemClickable: false,
   idAttributeForData: 'teamId',
   columnObjects: [
-    { name: 'name', description: 'Nome da equipe', style: {}, className: "", data: ['name', 'description'] },
-    { name: 'memberCount', description: 'Número de membros', style: {}, className: "text-center", data: ['memberCount'] },
+    { name: 'name', description: 'Nome da equipe', style: { width: "300px" }, className: "", data: ['name', 'description'] },
+    { name: 'memberCount', description: 'Número de membros', style: { width: "100px" }, className: "text-center", data: ['memberCount'] },
   ],
 };
 
