@@ -10,7 +10,7 @@ import TableFilter from '../../../components/Tables/CustomTable/TableFilter';
 
 class Contracts extends Component {
   render() {
-    const data = this.props.data.allContracts.nodes;
+    const data = this.props.data.queryResponse.nodes;
 
     return (
       <TableFilter

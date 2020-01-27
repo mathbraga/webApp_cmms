@@ -1,46 +1,38 @@
 import gql from 'graphql-tag';
 
 const fetchAppliancesGQL = gql`
-      query WorkOrderQuery {
-        allOrders(orderBy: ORDER_ID_ASC) {
-          nodes {
-            category
-            createdBy
-            status
-            title
-            description
-            orderId
-            createdAt
-            dateLimit
-            place
-            priority
-            contractId
-            contractByContractId {
-              contractSf
-              contractId
-              company
-            }
-            orderTeamsByOrderId {
-              nodes {
-                teamByTeamId {
-                  teamId
-                  name
-                  isActive
-                  description
-                }
-              }
-            }
-            orderAssetsByOrderId {
-              nodes {
-                assetByAssetId {
-                  assetSf
-                  name
-                }
-              }
-            }
-          }
-        }
-      }`;
+  query MyQuery {
+    queryResponse: allTaskData(orderBy: TASK_ID_ASC) {
+      nodes {
+        taskId
+        assets
+        contract
+        contractId
+        createdAt
+        dateEnd
+        dateLimit
+        dateStart
+        description
+        files
+        place
+        personId
+        progress
+        projectId
+        requestDepartment
+        requestEmail
+        requestName
+        requestPhone
+        supplies
+        taskCategoryId
+        taskPriorityId
+        taskStatusId
+        teamId
+        title
+        updatedAt
+      }
+    }
+  }
+`;
 
 const fetchAppliancesVariables = {};
 

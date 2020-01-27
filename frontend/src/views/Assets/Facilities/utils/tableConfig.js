@@ -7,7 +7,7 @@ const tableConfig = {
   checkbox: true,
   itemPath: '/ativos/edificio/view/',
   itemClickable: true,
-  idAttributeForData: 'assetSf',
+  idAttributeForData: 'assetId',
   columnObjects: [
     { name: 'name', description: 'Ativo', style: { width: "40%" }, className: "", data: ['name', 'assetSf'] },
     { name: 'area', description: 'Área', style: { width: "15%" }, className: "text-center", data: ['area'] },

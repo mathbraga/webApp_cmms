@@ -12,16 +12,20 @@ function formatDateLimit(item) {
   return [item.dateLimit && item.dateLimit.split('T')[0]];
 }
 
+function fakeData() {
+  return ['Fake'];
+}
+
 const tableConfig = {
   numberOfColumns: 6,
   checkbox: true,
   itemPath: '/manutencao/os/view/',
   itemClickable: true,
-  idAttributeForData: 'orderId',
+  idAttributeForData: 'taskId',
   columnObjects: [
-    { name: 'orderId', description: 'OS', style: { width: "80px" }, className: "text-center", data: ['orderId'] },
+    { name: 'orderId', description: 'OS', style: { width: "80px" }, className: "text-center", data: ['taskId'] },
     { name: 'title', description: 'Título', style: { width: "400px" }, className: "text-justify", data: ['title', 'category'], dataGenerator: changeCategoryDescription },
-    { name: 'status', description: 'Status', style: { width: "100px" }, className: "text-center", data: ['status'], dataGenerator: changeStatusDescription },
+    { name: 'status', description: 'Status', style: { width: "100px" }, className: "text-center", data: ['status'], dataGenerator: fakeData },
     { name: 'dateLimit', description: 'Prazo Final', style: { width: "100px" }, className: "text-center", data: ['dateLimit'], dataGenerator: formatDateLimit },
     { name: 'place', description: 'Localização', style: { width: "250px" }, className: "text-center", data: ['place'] },
   ],
