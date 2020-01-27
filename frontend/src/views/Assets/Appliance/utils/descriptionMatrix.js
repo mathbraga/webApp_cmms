@@ -6,7 +6,7 @@ export function itemsMatrixGeneral(data) {
     [
       [
         { id: 'appliance', title: 'Equipamento', description: data.name, span: 1 },
-        { id: 'serial', title: 'Número Serial', description: data.serial, span: 1 },
+        { id: 'serial', title: 'Número Serial', description: data.serialnum, span: 1 },
       ],
       [
         { id: 'id', title: 'Código', description: data.assetSf, span: 1 },

@@ -3,7 +3,7 @@ import MaintenanceTemplateTab from '../../../../components/Tabs/MaintenanceTab/M
 
 class MaintenanceTab extends Component {
   render() {
-    const data = this.props.data.orderAssetsByAssetId.nodes.map((item) => (item.orderByOrderId));
+    const data = this.props.data.tasks;
     return (
       <>
         <MaintenanceTemplateTab

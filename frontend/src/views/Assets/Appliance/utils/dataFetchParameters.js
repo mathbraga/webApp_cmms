@@ -1,32 +1,19 @@
 import gql from 'graphql-tag';
 
 const fetchGQL = gql`
-  query ($assetSf: String!) {
-    assetByAssetSf(assetSf: $assetSf) {
-      area
-      assetSf
-      category
-      description
-      latitude
-      longitude
-      manufacturer
-      model
-      name
-      nodeId
-      orderAssetsByAssetId {
-        nodes {
-          orderByOrderId {
-            category
-            description
-            dateLimit
-            createdBy
-            createdAt
-            priority
-            orderId
-            status
-            title
-          }
-        }
+  query ($assetId: Int!) {
+    queryResponse: allApplianceData(condition: {assetId: $assetId}) {
+      nodes {
+        assetId
+        assetSf
+        categoryName
+        description
+        manufacturer
+        model
+        name
+        price
+        serialnum
+        tasks
       }
     }
   }

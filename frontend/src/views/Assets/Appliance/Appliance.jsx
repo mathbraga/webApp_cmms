@@ -16,20 +16,20 @@ class Appliance extends Component {
   render() {
     console.log("Props: ", this.props);
     const { data, ...rest } = this.props;
-    const treatedData = data.assetByAssetSf;
+    const finalData = data.queryResponse.nodes[0];
     const descriptionItems = [
-      { title: 'Equipamento / Sistema', description: treatedData.name, boldTitle: true },
-      { title: 'Código', description: treatedData.assetSf, boldTitle: false },
-      { title: 'Modelo', description: treatedData.model, boldTitle: false },
-      { title: 'Fabricante', description: treatedData.manufacturer, boldTitle: false },
+      { title: 'Equipamento / Sistema', description: finalData.name, boldTitle: true },
+      { title: 'Código', description: finalData.assetSf, boldTitle: false },
+      { title: 'Modelo', description: finalData.model, boldTitle: false },
+      { title: 'Fabricante', description: finalData.manufacturer, boldTitle: false },
     ];
     return (
       <ItemView
-        data={treatedData}
+        data={finalData}
         image={image}
         imageStatus={imageStatus}
         descriptionItems={descriptionItems}
-        tabs={tabsGenerator(treatedData)}
+        tabs={tabsGenerator(finalData)}
         {...rest}
       />
     );
