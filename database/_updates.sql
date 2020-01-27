@@ -31,8 +31,8 @@ create view task_data as
     inner join task_priorities as tp using (task_priority_id)
     inner join task_categories as tc using (task_category_id)
     inner join assets_of_task as a using (task_id)
-    inner join supplies_of_task as s using (task_id)
-    inner join files_of_task as f using (task_id)
+    left join supplies_of_task as s using (task_id)
+    left join files_of_task as f using (task_id)
 ;
 
 create view tasks_of_asset as
@@ -63,7 +63,7 @@ create view facility_data as
          t.tasks
     from assets as a
     inner join assets as aa on (a.category = aa.asset_id)
-    inner join tasks_of_asset as t on (a.asset_id = t.asset_id)
+    left join tasks_of_asset as t on (a.asset_id = t.asset_id)
 ;
 
 create view appliance_data as 
