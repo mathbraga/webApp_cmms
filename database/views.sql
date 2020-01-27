@@ -55,17 +55,6 @@ create view balances as
       from quantities
 ;
 
-create view active_teams as
-  select t.team_id, 
-         t.name,
-         t.description,
-         count(*) as member_count
-    from teams as t
-    inner join team_persons as p using (team_id)
-  where t.is_active
-  group by t.team_id
-;
-
 create view assets_of_task as
   select t.task_id,
          jsonb_agg(build_asset_json(a.asset_id)) as assets
@@ -81,6 +70,8 @@ create view supplies_of_task as
            'supplyId', s.supply_id,
            'supplySf', s.supply_sf,
            'qty', ts.qty,
+           'bidPrice', s.bid_price,
+           'totalPrice', ts.qty * s.bid_price,
            'name', z.name
          )) as supplies
     from tasks as t
