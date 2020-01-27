@@ -31,7 +31,7 @@ const tableConfig = {
   columnObjects: [
     { name: 'contractSf', description: 'Número', style: { width: "100px" }, className: "text-center", data: ['contractSf'] },
     { name: 'title', description: 'Objeto', style: { width: "300px" }, className: "text-justify", data: ['title', 'company'] },
-    { name: 'status', description: 'Status', style: { width: "150px" }, className: "text-center", data: ['status'], dataGenerator: changeStatusDescription },
+    { name: 'status', description: 'Status', style: { width: "150px" }, className: "text-center", data: ['contractStatusText'] },
     { name: 'dateEnd', description: 'Vigência', style: { width: "150px" }, className: "text-center", data: ['dateEnd'], dataGenerator: calculateTimeSpan },
     { name: 'url', description: 'Link', style: { width: "100px" }, className: "text-center", data: ['url'], dataGenerator: addLink },
   ],

@@ -1,14 +1,20 @@
 import gql from 'graphql-tag';
 
 const fetchAppliancesGQL = gql`
-  query ContractsQuery {
-    allContracts(orderBy: CONTRACT_SF_ASC) {
+  query MyQuery {
+    queryResponse: allContractData {
       nodes {
-        company
         contractSf
-        dateStart
+        contractId
+        company
+        contractStatusId
+        contractStatusText
         dateEnd
-        status
+        datePub
+        dateSign
+        dateStart
+        description
+        parent
         title
         url
       }

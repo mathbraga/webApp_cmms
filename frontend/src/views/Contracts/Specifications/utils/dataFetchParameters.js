@@ -1,15 +1,14 @@
 import gql from 'graphql-tag';
 
 const fetchAppliancesGQL = gql`
-  query SpecsQuery {
-    allSpecs(orderBy: SPEC_SF_ASC) {
+  query MyQuery {
+    queryResponse: allSpecData {
       nodes {
-        specSf
         specId
-        version
+        specSf
         name
-        category
-        subcategory
+        specCategoryText
+        specSubcategoryText
       }
     }
   }
