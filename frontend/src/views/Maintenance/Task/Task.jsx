@@ -13,20 +13,20 @@ const imageStatus = 'Em andamento';
 class Task extends Component {
   render() {
     const { data, ...rest } = this.props;
-    const treatedData = data;
+    const finalData = data.queryResponse.nodes[0];
     const descriptionItems = [
-      { title: 'Serviço', description: treatedData.orderByOrderId.title, boldTitle: true },
-      { title: 'Ordem de Serviço nº', description: treatedData.orderByOrderId.orderId.toString().padStart(4, "0"), boldTitle: false },
-      { title: 'Local', description: treatedData.orderByOrderId.place, boldTitle: false },
-      { title: 'Categoria', description: treatedData.orderByOrderId.category, boldTitle: false },
+      { title: 'Serviço', description: finalData.title, boldTitle: true },
+      { title: 'Ordem de Serviço nº', description: finalData.taskId.toString().padStart(4, "0"), boldTitle: false },
+      { title: 'Local', description: finalData.place, boldTitle: false },
+      { title: 'Categoria', description: finalData.taskCategoryText, boldTitle: false },
     ];
     return (
       <ItemView
-        data={treatedData}
+        data={finalData}
         image={image}
         imageStatus={imageStatus}
         descriptionItems={descriptionItems}
-        tabs={tabsGenerator(treatedData)}
+        tabs={tabsGenerator(finalData)}
         {...rest}
       />
     );

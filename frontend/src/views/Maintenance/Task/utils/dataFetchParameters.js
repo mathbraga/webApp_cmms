@@ -1,53 +1,37 @@
 import gql from 'graphql-tag';
 
 const fetchGQL = gql`
-  query ($orderId: Int!) {
-    orderByOrderId(orderId: $orderId) {
-      category
-      status
-      priority
-      orderId
-      place
-      departmentId
-      progress
-      contractId
-      dateEnd
-      dateLimit
-      dateStart
-      parent
-      contactEmail
-      contactPhone
-      createdBy
-      description
-      title
-      orderByParent {
-        title
-        orderId
-        priority
-        status
-        dateStart
-        dateLimit
-      }
-      createdAt
-      orderAssetsByOrderId {
-        nodes {
-          assetByAssetId {
-            assetSf
-            name
-            category
-          }
-        }
-      }
-    }
-    allOrderSuppliesDetails(condition: {orderId: $orderId}) {
+  query ($taskId: Int!) {
+    queryResponse: allTaskData(condition: {taskId: $taskId}) {
       nodes {
-        supplySf
-        name
-        qty
-        unit
-        bidPrice
-        total
-        specId
+        taskId
+        assets
+        contract
+        contractId
+        createdAt
+        dateEnd
+        dateLimit
+        dateStart
+        files
+        description
+        personId
+        place
+        progress
+        projectId
+        requestDepartment
+        requestName
+        requestPhone
+        requestEmail
+        supplies
+        taskCategoryId
+        taskCategoryText
+        taskPriorityId
+        taskPriorityText
+        taskStatusId
+        taskStatusText
+        teamId
+        title
+        updatedAt
       }
     }
   }

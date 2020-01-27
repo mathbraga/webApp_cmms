@@ -7,10 +7,10 @@ import searchableAttributes from '../utils/assetTab/searchParameters';
 import TableFilter from '../../../../components/Tables/CustomTable/TableFilter';
 import './Tabs.css';
 
-class MaterialTab extends Component {
+class AssetTab extends Component {
   state = {}
   render() {
-    const data = this.props.data.orderByOrderId.orderAssetsByOrderId.nodes.map((item) => item.assetByAssetId);
+    const data = this.props.data.assets;
     console.log("Material: ", data);
     return (
       <>
@@ -32,4 +32,4 @@ class MaterialTab extends Component {
   }
 }
 
-export default MaterialTab;
+export default AssetTab;
