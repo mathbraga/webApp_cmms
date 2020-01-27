@@ -1,54 +1,36 @@
 import gql from 'graphql-tag';
 
 const fetchGQL = gql`
-  query ($specId: Int!) {
-    allBalances(condition: {specId: $specId}) {
+  query MyQuery($specId: Int!) {
+    queryResponse: allSpecData(condition: {specId: $specId}) {
       nodes {
-        title
-        supplySf
-        supplyId
         specId
-        qty
-        fullPrice
-        contractSf
-        contractId
-        consumed
-        company
-        blocked
-        bidPrice
-        available
-      }
-    }
-    specBySpecId(specId: $specId) {
-      version
-      unit
-      updatedAt
-      subcategory
-      spreadsheets
-      specSf
-      specId
-      services
-      qualification
-      notes
-      nodeId
-      name
-      materials
-      lifespan
-      isSubcont
-      description
-      criteria
-      createdAt
-      catser
-      catmat
-      category
-      activities
-    }
-    allSpecOrders(condition: {specId: $specId}) {
-      nodes {
-        orderId
-        status
-        specId
-        title
+        specSf
+        activities
+        catmat
+        catser
+        comRef
+        createdAt
+        criteria
+        description
+        extRer
+        isSubcont
+        lifespan
+        materials
+        name
+        notes
+        qtyDecimals
+        qualification
+        services
+        specCategoryId
+        specCategoryText
+        specSubcategoryId
+        specSubcategoryText
+        spreadsheets
+        supplies
+        unit
+        updatedAt
+        version
       }
     }
   }

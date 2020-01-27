@@ -13,8 +13,8 @@ const tableConfig = {
   columnObjects: [
     { name: 'supplySf', description: 'Código', style: { width: "40px" }, className: "text-center", data: ['supplySf'] },
     { name: 'company', description: 'Empresa', style: { width: "100px" }, className: "text-justify", data: ['company', 'contractSf'] },
-    { name: 'qty', description: 'Contratado', style: { width: "70px" }, className: "text-center", data: ['qty'] },
-    { name: 'available', description: 'Disponível', style: { width: "70px" }, className: "text-center", data: ['available'] },
+    { name: 'qty', description: 'Contratado', style: { width: "70px" }, className: "text-center", data: ['qtyInitial'] },
+    { name: 'available', description: 'Disponível', style: { width: "70px" }, className: "text-center", data: ['qtyAvailable'] },
     { name: 'fullPrice', description: 'Preço', style: { width: "70px" }, className: "text-center", data: ['fullPrice'], dataGenerator: (item) => ([formatter(item.fullPrice)]) },
     { name: 'bidPrice', description: 'Pesquisa', style: { width: "70px" }, className: "text-center", data: ['bidPrice'], dataGenerator: (item) => ([formatter(item.bidPrice)]) },
   ],
