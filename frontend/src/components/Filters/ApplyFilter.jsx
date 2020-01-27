@@ -53,6 +53,8 @@ const filterResultUI = (filterLogic, attributes, operators) => {
     text: 'e',
     twoNumbers: 'e',
   };
+  console.log("FilterLogic: ", filterLogic);
+  console.log("Attributes: ", attributes);
   filterLogic.forEach(logic => {
     const { type, attribute, verb, term } = logic;
     console.log("Attributes: ", attributes);

@@ -50,6 +50,9 @@ class TableFilter extends Component {
       data
     } = this.props;
 
+    console.log("Data: ", data);
+    console.log("Filter: ", this.state.filterLogic);
+
     const dataWithFilter = this.state.filterLogic.length > 0 ? filterList(data, this.state.filterLogic) : data;
     const dataWithSearchAndFilter = searchList(dataWithFilter, searchableAttributes, this.state.searchTerm);
     const totalOfPages = Math.floor(dataWithSearchAndFilter.length / ENTRIES_PER_PAGE) + 1;

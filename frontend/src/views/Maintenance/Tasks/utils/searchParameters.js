@@ -1,8 +1,8 @@
 const searchableAttributes = [
-  'category',
-  'orderId',
+  'taskId',
   'dateLimit',
-  'status',
+  'taskCategoryText',
+  'taskStatusText',
   'title',
   'place'
 ];

@@ -2,7 +2,7 @@ const searchableAttributes = [
   "contractSf",
   "title",
   "company",
-  "status",
+  "contractStatusText",
   "dateStart",
   "finalDate"
 ];

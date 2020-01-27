@@ -1,8 +1,8 @@
 const searchableAttributes = [
   "specSf",
-  "subcategory",
+  "specSubcategoryText",
   "name",
-  "category"
+  "specCategoryText"
 ];
 
 export default searchableAttributes;

@@ -1,11 +1,11 @@
 import { ORDER_CATEGORY_TYPE, ORDER_PRIORITY_TYPE, ORDER_STATUS_TYPE } from './dataDescription';
 
 export const filterAttributes = {
-  category: { name: 'Categoria', type: 'option', options: ORDER_CATEGORY_TYPE },
   description: { name: 'Descrição', type: 'text' },
   place: { name: 'Localização', type: 'text' },
-  priority: { name: 'Prioridade', type: 'option', options: ORDER_PRIORITY_TYPE },
-  status: { name: 'Status', type: 'option', options: ORDER_STATUS_TYPE },
+  taskCategoryText: { name: 'Categoria', type: 'option', options: ORDER_CATEGORY_TYPE },
+  taskPriorityText: { name: 'Prioridade', type: 'option', options: ORDER_PRIORITY_TYPE },
+  taskStatusText: { name: 'Status', type: 'option', options: ORDER_STATUS_TYPE },
   title: { name: 'Título', type: 'text' },
 };
 
@@ -21,7 +21,7 @@ export const customFilters = [
     name: "OS - Reparo em forro",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["FOR"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["FOR"] },
     ],
   },
   {
@@ -29,7 +29,7 @@ export const customFilters = [
     name: "OS - Avaliação estrutural",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["EST"] },
     ],
   },
   {
@@ -37,7 +37,7 @@ export const customFilters = [
     name: "OS - Infiltração",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["INF"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["INF"] },
     ],
   },
   {
@@ -45,7 +45,7 @@ export const customFilters = [
     name: "OS - Instalações elétricas",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["ELE"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["ELE"] },
     ],
   },
   {
@@ -53,7 +53,7 @@ export const customFilters = [
     name: "OS - Instalações hidrossanitárias",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["HID"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["HID"] },
     ],
   },
   {
@@ -61,7 +61,7 @@ export const customFilters = [
     name: "OS - Marcenaria",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["MAR"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["MAR"] },
     ],
   },
   {
@@ -69,7 +69,7 @@ export const customFilters = [
     name: "OS - Reparo em piso",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["PIS"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["PIS"] },
     ],
   },
   {
@@ -77,7 +77,7 @@ export const customFilters = [
     name: "OS - Avaliação estrutural",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EST"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["EST"] },
     ],
   },
   {
@@ -85,7 +85,7 @@ export const customFilters = [
     name: "OS - Revestimento",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["REV"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["REV"] },
     ],
   },
   {
@@ -93,7 +93,7 @@ export const customFilters = [
     name: "OS - Vedação espacial",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["VED"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["VED"] },
     ],
   },
   {
@@ -101,7 +101,7 @@ export const customFilters = [
     name: "OS - Vidraçaria / Esquadria",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["VID"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["VID"] },
     ],
   },
   {
@@ -109,7 +109,7 @@ export const customFilters = [
     name: "OS - Serralheria",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["SER"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["SER"] },
     ],
   },
   {
@@ -117,7 +117,7 @@ export const customFilters = [
     name: "OS - Ar-condicionado",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["ARC"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["ARC"] },
     ],
   },
   {
@@ -125,7 +125,7 @@ export const customFilters = [
     name: "OS - Elevadores",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["ELV"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["ELV"] },
     ],
   },
   {
@@ -133,7 +133,7 @@ export const customFilters = [
     name: "OS - Exaustores",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["EXA"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["EXA"] },
     ],
   },
   {
@@ -141,7 +141,7 @@ export const customFilters = [
     name: "OS - Revestimento",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["REV"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["REV"] },
     ],
   },
   {
@@ -149,7 +149,7 @@ export const customFilters = [
     name: "OS - Serviços Gerais",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'category', type: 'att', verb: 'sameChoice', term: ["GRL"] },
+      { attribute: 'taskCategoryText', type: 'att', verb: 'sameChoice', term: ["GRL"] },
     ],
   },
   {
@@ -157,7 +157,7 @@ export const customFilters = [
     name: "OS - Canceladas",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["CAN"] },
+      { attribute: 'taskStatusText', type: 'att', verb: 'sameChoice', term: ["CAN"] },
     ],
   },
   {
@@ -165,7 +165,7 @@ export const customFilters = [
     name: "OS - Suspensas",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["SUS"] },
+      { attribute: 'taskStatusText', type: 'att', verb: 'sameChoice', term: ["SUS"] },
     ],
   },
   {
@@ -173,7 +173,7 @@ export const customFilters = [
     name: "OS - Execução",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["EXE"] },
+      { attribute: 'taskStatusText', type: 'att', verb: 'sameChoice', term: ["EXE"] },
     ],
   },
   {
@@ -181,7 +181,7 @@ export const customFilters = [
     name: "OS - Concluídas",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["CON"] },
+      { attribute: 'taskStatusText', type: 'att', verb: 'sameChoice', term: ["CON"] },
     ],
   },
   {
@@ -189,7 +189,7 @@ export const customFilters = [
     name: "OS - Execução ou Fila de Espera",
     author: "webSINFRA Software",
     logic: [
-      { attribute: 'status', type: 'att', verb: 'sameChoice', term: ["EXE", "FIL"] },
+      { attribute: 'taskStatusText', type: 'att', verb: 'sameChoice', term: ["EXE", "FIL"] },
     ],
   },
 ];
