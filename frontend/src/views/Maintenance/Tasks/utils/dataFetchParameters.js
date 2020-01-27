@@ -24,8 +24,11 @@ const fetchAppliancesGQL = gql`
         requestPhone
         supplies
         taskCategoryId
+        taskCategoryText
         taskPriorityId
+        taskPriorityText
         taskStatusId
+        taskStatusText
         teamId
         title
         updatedAt

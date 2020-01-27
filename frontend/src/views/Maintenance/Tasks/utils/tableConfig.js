@@ -24,8 +24,8 @@ const tableConfig = {
   idAttributeForData: 'taskId',
   columnObjects: [
     { name: 'orderId', description: 'OS', style: { width: "80px" }, className: "text-center", data: ['taskId'] },
-    { name: 'title', description: 'Título', style: { width: "400px" }, className: "text-justify", data: ['title', 'category'], dataGenerator: changeCategoryDescription },
-    { name: 'status', description: 'Status', style: { width: "100px" }, className: "text-center", data: ['status'], dataGenerator: fakeData },
+    { name: 'title', description: 'Título', style: { width: "400px" }, className: "text-justify", data: ['title', 'taskCategoryText'] },
+    { name: 'status', description: 'Status', style: { width: "100px" }, className: "text-center", data: ['taskStatusText'] },
     { name: 'dateLimit', description: 'Prazo Final', style: { width: "100px" }, className: "text-center", data: ['dateLimit'], dataGenerator: formatDateLimit },
     { name: 'place', description: 'Localização', style: { width: "250px" }, className: "text-center", data: ['place'] },
   ],
