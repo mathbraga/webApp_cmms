@@ -1,5 +1,5 @@
 insert into assets overriding system value values (1, 'CASF-000-000', 'Complexo Arquitetônico - Todos', null, 1, null, null, null);
-insert into assets overriding system value values (2, 'EDPR-000-000', 'Edifício Principal - Todos', null, 1, -15,79925, -47,864063, 14942,27);
+insert into assets overriding system value values (2, 'EDPR-000-000', 'Edifício Principal - Todos', null, 1, -15.79925, -47.864063, 14942.27);
 insert into assets overriding system value values (3, 'EDPR-SS1-000', 'Edifício Principal - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (4, 'EDPR-SS1-051', 'Edifício Principal - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (5, 'EDPR-SS1-052', 'Edifício Principal - 1º Subsolo', null, 1, null, null, null);
@@ -157,7 +157,7 @@ insert into assets overriding system value values (156, 'EDPR-COB-032', 'Edifíc
 insert into assets overriding system value values (157, 'EDPR-COB-041', 'Edifício Principal - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (158, 'EDPR-COB-042', 'Edifício Principal - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (159, 'EDPR-COB-044', 'Edifício Principal - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (160, 'AX01-000-000', 'Anexo 1 - Todos', null, 1, -15,799637, -47,863349, 14891,06);
+insert into assets overriding system value values (160, 'AX01-000-000', 'Anexo 1 - Todos', null, 1, -15.799637, -47.863349, 14891.06);
 insert into assets overriding system value values (161, 'AX01-SS2-000', 'Anexo 1 - 2º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (162, 'AX01-SS2-015', 'Anexo 1 - 2º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (163, 'AX01-SS2-016', 'Anexo 1 - 2º Subsolo', null, 1, null, null, null);
@@ -778,7 +778,7 @@ insert into assets overriding system value values (777, 'AX01-COB-018', 'Anexo 1
 insert into assets overriding system value values (778, 'AX01-COB-019', 'Anexo 1 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (779, 'AX01-COB-020', 'Anexo 1 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (780, 'AX01-COB-036', 'Anexo 1 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (781, 'AX02-000-000', 'Anexo 2 - Todos', null, 1, -15,798156, -47,864237, 43788,02);
+insert into assets overriding system value values (781, 'AX02-000-000', 'Anexo 2 - Todos', null, 1, -15.798156, -47.864237, 43788.02);
 insert into assets overriding system value values (782, 'AX02-SS2-000', 'Anexo 2 - 2º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (783, 'AX02-SS2-051', 'Anexo 2 - 2º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (784, 'AX02-SS2-052', 'Anexo 2 - 2º Subsolo', null, 1, null, null, null);
@@ -1343,7 +1343,7 @@ insert into assets overriding system value values (1342, 'AX02-COB-093', 'Anexo 
 insert into assets overriding system value values (1343, 'AX02-COB-095', 'Anexo 2 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1344, 'AX02-COB-097', 'Anexo 2 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1345, 'AX02-COB-099', 'Anexo 2 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (1346, 'BL01-000-000', 'Bloco 01 - Todos', null, 1, -15,797074, -47,86433, 5896,55);
+insert into assets overriding system value values (1346, 'BL01-000-000', 'Bloco 01 - Todos', null, 1, -15.797074, -47.86433, 5896.55);
 insert into assets overriding system value values (1347, 'BL01-ALA-000', 'Bloco 01 - Ala A', null, 1, null, null, null);
 insert into assets overriding system value values (1348, 'BL01-ALA-001', 'Bloco 01 - Ala A', null, 1, null, null, null);
 insert into assets overriding system value values (1349, 'BL01-ALA-002', 'Bloco 01 - Ala A', null, 1, null, null, null);
@@ -1446,7 +1446,7 @@ insert into assets overriding system value values (1445, 'BL01-TER-053', 'Bloco 
 insert into assets overriding system value values (1446, 'BL01-TER-061', 'Bloco 01 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (1447, 'BL01-TER-062', 'Bloco 01 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (1448, 'BL01-TER-063', 'Bloco 01 - Pavimento Térreo', null, 1, null, null, null);
-insert into assets overriding system value values (1449, 'BL02-000-000', 'Bloco 02 - Todos', null, 1, -15,796191, -47,864551, 4448,31);
+insert into assets overriding system value values (1449, 'BL02-000-000', 'Bloco 02 - Todos', null, 1, -15.796191, -47.864551, 4448.31);
 insert into assets overriding system value values (1450, 'BL02-SS1-000', 'Bloco 02 - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (1451, 'BL02-SS1-001', 'Bloco 02 - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (1452, 'BL02-SS1-002', 'Bloco 02 - 1º Subsolo', null, 1, null, null, null);
@@ -1534,7 +1534,7 @@ insert into assets overriding system value values (1533, 'BL02-COB-017', 'Bloco 
 insert into assets overriding system value values (1534, 'BL02-COB-033', 'Bloco 02 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1535, 'BL02-COB-034', 'Bloco 02 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1536, 'BL02-COB-036', 'Bloco 02 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (1537, 'BL03-000-000', 'Bloco 03 - Todos', null, 1, null, null, 160,73);
+insert into assets overriding system value values (1537, 'BL03-000-000', 'Bloco 03 - Todos', null, 1, null, null, 160.73);
 insert into assets overriding system value values (1538, 'BL03-TER-000', 'Bloco 03 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (1539, 'BL03-TER-001', 'Bloco 03 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (1540, 'BL03-TER-002', 'Bloco 03 - Pavimento Térreo', null, 1, null, null, null);
@@ -1547,7 +1547,7 @@ insert into assets overriding system value values (1546, 'BL03-COB-001', 'Bloco 
 insert into assets overriding system value values (1547, 'BL03-COB-002', 'Bloco 03 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1548, 'BL03-COB-004', 'Bloco 03 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1549, 'BL03-COB-012', 'Bloco 03 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (1550, 'BL04-000-000', 'Bloco 04 - Todos', null, 1, null, null, 1465,52);
+insert into assets overriding system value values (1550, 'BL04-000-000', 'Bloco 04 - Todos', null, 1, null, null, 1465.52);
 insert into assets overriding system value values (1551, 'BL04-SEM-000', 'Bloco 04 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (1552, 'BL04-SEM-008', 'Bloco 04 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (1553, 'BL04-SEM-009', 'Bloco 04 - Pavimento Semienterrado', null, 1, null, null, null);
@@ -1586,7 +1586,7 @@ insert into assets overriding system value values (1585, 'BL04-COB-022', 'Bloco 
 insert into assets overriding system value values (1586, 'BL04-COB-024', 'Bloco 04 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1587, 'BL04-COB-026', 'Bloco 04 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1588, 'BL04-COB-028', 'Bloco 04 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (1589, 'BL05-000-000', 'Bloco 05 - Todos', null, 1, null, null, 777,29);
+insert into assets overriding system value values (1589, 'BL05-000-000', 'Bloco 05 - Todos', null, 1, null, null, 777.29);
 insert into assets overriding system value values (1590, 'BL05-TER-000', 'Bloco 05 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (1591, 'BL05-TER-001', 'Bloco 05 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (1592, 'BL05-TER-002', 'Bloco 05 - Pavimento Térreo', null, 1, null, null, null);
@@ -1607,7 +1607,7 @@ insert into assets overriding system value values (1606, 'BL05-COB-001', 'Bloco 
 insert into assets overriding system value values (1607, 'BL05-COB-002', 'Bloco 05 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1608, 'BL05-COB-003', 'Bloco 05 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1609, 'BL05-COB-004', 'Bloco 05 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (1610, 'BL06-000-000', 'Bloco 06 - Todos', null, 1, null, null, 3357,96);
+insert into assets overriding system value values (1610, 'BL06-000-000', 'Bloco 06 - Todos', null, 1, null, null, 3357.96);
 insert into assets overriding system value values (1611, 'BL06-SS1-000', 'Bloco 06 - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (1612, 'BL06-SS1-002', 'Bloco 06 - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (1613, 'BL06-SS1-003', 'Bloco 06 - 1º Subsolo', null, 1, null, null, null);
@@ -1660,7 +1660,7 @@ insert into assets overriding system value values (1659, 'BL06-P01-022', 'Bloco 
 insert into assets overriding system value values (1660, 'BL06-P01-023', 'Bloco 06 - Primeiro Pavimento', null, 1, null, null, null);
 insert into assets overriding system value values (1661, 'BL06-P01-024', 'Bloco 06 - Primeiro Pavimento', null, 1, null, null, null);
 insert into assets overriding system value values (1662, 'BL06-COB-000', 'Bloco 06 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (1663, 'BL07-000-000', 'Bloco 07 - Todos', null, 1, null, null, 3114,8);
+insert into assets overriding system value values (1663, 'BL07-000-000', 'Bloco 07 - Todos', null, 1, null, null, 3114.8);
 insert into assets overriding system value values (1664, 'BL07-SEM-000', 'Bloco 07 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (1665, 'BL07-SEM-003', 'Bloco 07 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (1666, 'BL07-SEM-004', 'Bloco 07 - Pavimento Semienterrado', null, 1, null, null, null);
@@ -1725,7 +1725,7 @@ insert into assets overriding system value values (1724, 'BL07-COB-015', 'Bloco 
 insert into assets overriding system value values (1725, 'BL07-COB-016', 'Bloco 07 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1726, 'BL07-COB-017', 'Bloco 07 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1727, 'BL07-COB-018', 'Bloco 07 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (1728, 'BL08-000-000', 'Bloco 08 - Todos', null, 1, null, null, 3357,96);
+insert into assets overriding system value values (1728, 'BL08-000-000', 'Bloco 08 - Todos', null, 1, null, null, 3357.96);
 insert into assets overriding system value values (1729, 'BL08-SEM-000', 'Bloco 08 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (1730, 'BL08-SEM-001', 'Bloco 08 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (1731, 'BL08-SEM-002', 'Bloco 08 - Pavimento Semienterrado', null, 1, null, null, null);
@@ -1773,7 +1773,7 @@ insert into assets overriding system value values (1772, 'BL08-COB-021', 'Bloco 
 insert into assets overriding system value values (1773, 'BL08-COB-022', 'Bloco 08 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1774, 'BL08-COB-023', 'Bloco 08 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1775, 'BL08-COB-024', 'Bloco 08 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (1776, 'BL09-000-000', 'Bloco 09 - Todos', null, 1, null, null, 2935,87);
+insert into assets overriding system value values (1776, 'BL09-000-000', 'Bloco 09 - Todos', null, 1, null, null, 2935.87);
 insert into assets overriding system value values (1777, 'BL09-SEM-000', 'Bloco 09 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (1778, 'BL09-SEM-001', 'Bloco 09 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (1779, 'BL09-SEM-002', 'Bloco 09 - Pavimento Semienterrado', null, 1, null, null, null);
@@ -1837,7 +1837,7 @@ insert into assets overriding system value values (1836, 'BL09-COB-022', 'Bloco 
 insert into assets overriding system value values (1837, 'BL09-COB-023', 'Bloco 09 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1838, 'BL09-COB-024', 'Bloco 09 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1839, 'BL09-COB-025', 'Bloco 09 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (1840, 'BL10-000-000', 'Bloco 10 - Todos', null, 1, null, null, 3981,59);
+insert into assets overriding system value values (1840, 'BL10-000-000', 'Bloco 10 - Todos', null, 1, null, null, 3981.59);
 insert into assets overriding system value values (1841, 'BL10-SEM-000', 'Bloco 10 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (1842, 'BL10-SEM-007', 'Bloco 10 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (1843, 'BL10-SEM-008', 'Bloco 10 - Pavimento Semienterrado', null, 1, null, null, null);
@@ -1995,7 +1995,7 @@ insert into assets overriding system value values (1994, 'BL10-COB-027', 'Bloco 
 insert into assets overriding system value values (1995, 'BL10-COB-090', 'Bloco 10 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1996, 'BL10-COB-093', 'Bloco 10 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (1997, 'BL10-COB-095', 'Bloco 10 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (1998, 'BL11-000-000', 'Bloco 11 - Todos', null, 1, null, null, 991,03);
+insert into assets overriding system value values (1998, 'BL11-000-000', 'Bloco 11 - Todos', null, 1, null, null, 991.03);
 insert into assets overriding system value values (1999, 'BL11-TER-000', 'Bloco 11 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2000, 'BL11-TER-001', 'Bloco 11 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2001, 'BL11-TER-002', 'Bloco 11 - Pavimento Térreo', null, 1, null, null, null);
@@ -2036,7 +2036,7 @@ insert into assets overriding system value values (2035, 'BL11-COB-027', 'Bloco 
 insert into assets overriding system value values (2036, 'BL11-COB-028', 'Bloco 11 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2037, 'BL11-COB-029', 'Bloco 11 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2038, 'BL11-COB-036', 'Bloco 11 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2039, 'BL12-000-000', 'Bloco 12 - Todos', null, 1, null, null, 997,93);
+insert into assets overriding system value values (2039, 'BL12-000-000', 'Bloco 12 - Todos', null, 1, null, null, 997.93);
 insert into assets overriding system value values (2040, 'BL12-TER-000', 'Bloco 12 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2041, 'BL12-TER-001', 'Bloco 12 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2042, 'BL12-TER-002', 'Bloco 12 - Pavimento Térreo', null, 1, null, null, null);
@@ -2079,7 +2079,7 @@ insert into assets overriding system value values (2078, 'BL12-COB-027', 'Bloco 
 insert into assets overriding system value values (2079, 'BL12-COB-028', 'Bloco 12 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2080, 'BL12-COB-029', 'Bloco 12 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2081, 'BL12-COB-036', 'Bloco 12 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2082, 'BL13-000-000', 'Bloco 13 - Todos', null, 1, null, null, 1575,77);
+insert into assets overriding system value values (2082, 'BL13-000-000', 'Bloco 13 - Todos', null, 1, null, null, 1575.77);
 insert into assets overriding system value values (2083, 'BL13-SS1-000', 'Bloco 13 - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (2084, 'BL13-SS1-001', 'Bloco 13 - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (2085, 'BL13-SS1-002', 'Bloco 13 - 1º Subsolo', null, 1, null, null, null);
@@ -2122,7 +2122,7 @@ insert into assets overriding system value values (2121, 'BL13-COB-004', 'Bloco 
 insert into assets overriding system value values (2122, 'BL13-COB-005', 'Bloco 13 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2123, 'BL13-COB-007', 'Bloco 13 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2124, 'BL13-COB-009', 'Bloco 13 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2125, 'BL14-000-000', 'Bloco 14 - Todos', null, 1, null, null, 10719,12);
+insert into assets overriding system value values (2125, 'BL14-000-000', 'Bloco 14 - Todos', null, 1, null, null, 10719.12);
 insert into assets overriding system value values (2126, 'BL14-SEM-000', 'Bloco 14 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (2127, 'BL14-SEM-027', 'Bloco 14 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (2128, 'BL14-SEM-028', 'Bloco 14 - Pavimento Semienterrado', null, 1, null, null, null);
@@ -2316,7 +2316,7 @@ insert into assets overriding system value values (2315, 'BL14-COB-048', 'Bloco 
 insert into assets overriding system value values (2316, 'BL14-COB-049', 'Bloco 14 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2317, 'BL14-COB-051', 'Bloco 14 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2318, 'BL14-COB-052', 'Bloco 14 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2319, 'BL15-000-000', 'Bloco 15 - Todos', null, 1, null, null, 1357,01);
+insert into assets overriding system value values (2319, 'BL15-000-000', 'Bloco 15 - Todos', null, 1, null, null, 1357.01);
 insert into assets overriding system value values (2320, 'BL15-TER-000', 'Bloco 15 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2321, 'BL15-TER-002', 'Bloco 15 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2322, 'BL15-TER-011', 'Bloco 15 - Pavimento Térreo', null, 1, null, null, null);
@@ -2340,7 +2340,7 @@ insert into assets overriding system value values (2339, 'BL15-COB-003', 'Bloco 
 insert into assets overriding system value values (2340, 'BL15-COB-031', 'Bloco 15 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2341, 'BL15-COB-032', 'Bloco 15 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2342, 'BL15-COB-033', 'Bloco 15 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2343, 'BL16-000-000', 'Bloco 16 - Todos', null, 1, null, null, 7198,68);
+insert into assets overriding system value values (2343, 'BL16-000-000', 'Bloco 16 - Todos', null, 1, null, null, 7198.68);
 insert into assets overriding system value values (2344, 'BL16-TER-000', 'Bloco 16 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2345, 'BL16-TER-001', 'Bloco 16 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2346, 'BL16-TER-002', 'Bloco 16 - Pavimento Térreo', null, 1, null, null, null);
@@ -2396,7 +2396,7 @@ insert into assets overriding system value values (2395, 'BL16-MEZ-045', 'Bloco 
 insert into assets overriding system value values (2396, 'BL16-MEZ-047', 'Bloco 16 - Mezanino', null, 1, null, null, null);
 insert into assets overriding system value values (2397, 'BL16-MEZ-048', 'Bloco 16 - Mezanino', null, 1, null, null, null);
 insert into assets overriding system value values (2398, 'BL16-COB-000', 'Bloco 16 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2399, 'BL17-000-000', 'Bloco 17 - Todos', null, 1, null, null, 2920,93);
+insert into assets overriding system value values (2399, 'BL17-000-000', 'Bloco 17 - Todos', null, 1, null, null, 2920.93);
 insert into assets overriding system value values (2400, 'BL17-ALS-000', 'Bloco 17 - Ala Superior', null, 1, null, null, null);
 insert into assets overriding system value values (2401, 'BL17-ALS-001', 'Bloco 17 - Ala Superior', null, 1, null, null, null);
 insert into assets overriding system value values (2402, 'BL17-ALS-002', 'Bloco 17 - Ala Superior', null, 1, null, null, null);
@@ -2544,7 +2544,7 @@ insert into assets overriding system value values (2543, 'BL17-COB-094', 'Bloco 
 insert into assets overriding system value values (2544, 'BL17-COB-095', 'Bloco 17 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2545, 'BL17-COB-096', 'Bloco 17 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2546, 'BL17-COB-097', 'Bloco 17 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2547, 'BL18-000-000', 'Bloco 18 - Todos', null, 1, null, null, 842,08);
+insert into assets overriding system value values (2547, 'BL18-000-000', 'Bloco 18 - Todos', null, 1, null, null, 842.08);
 insert into assets overriding system value values (2548, 'BL18-TER-000', 'Bloco 18 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2549, 'BL18-TER-001', 'Bloco 18 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2550, 'BL18-TER-002', 'Bloco 18 - Pavimento Térreo', null, 1, null, null, null);
@@ -2587,7 +2587,7 @@ insert into assets overriding system value values (2586, 'BL18-COB-021', 'Bloco 
 insert into assets overriding system value values (2587, 'BL18-COB-023', 'Bloco 18 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2588, 'BL18-COB-027', 'Bloco 18 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2589, 'BL18-COB-029', 'Bloco 18 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2590, 'BL19-000-000', 'Bloco 19 - Todos', null, 1, null, null, 3713,23);
+insert into assets overriding system value values (2590, 'BL19-000-000', 'Bloco 19 - Todos', null, 1, null, null, 3713.23);
 insert into assets overriding system value values (2591, 'BL19-TER-000', 'Bloco 19 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2592, 'BL19-TER-001', 'Bloco 19 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2593, 'BL19-TER-002', 'Bloco 19 - Pavimento Térreo', null, 1, null, null, null);
@@ -2643,7 +2643,7 @@ insert into assets overriding system value values (2642, 'BL19-COB-044', 'Bloco 
 insert into assets overriding system value values (2643, 'BL19-COB-046', 'Bloco 19 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2644, 'BL19-COB-048', 'Bloco 19 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2645, 'BL19-COB-049', 'Bloco 19 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2646, 'BL20-000-000', 'Bloco 20 - Todos', null, 1, null, null, 274,2);
+insert into assets overriding system value values (2646, 'BL20-000-000', 'Bloco 20 - Todos', null, 1, null, null, 274.2);
 insert into assets overriding system value values (2647, 'BL20-TER-000', 'Bloco 20 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2648, 'BL20-TER-001', 'Bloco 20 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2649, 'BL20-TER-004', 'Bloco 20 - Pavimento Térreo', null, 1, null, null, null);
@@ -2660,7 +2660,7 @@ insert into assets overriding system value values (2659, 'BL20-TER-028', 'Bloco 
 insert into assets overriding system value values (2660, 'BL20-MEZ-000', 'Bloco 20 - Mezanino', null, 1, null, null, null);
 insert into assets overriding system value values (2661, 'BL20-MEZ-016', 'Bloco 20 - Mezanino', null, 1, null, null, null);
 insert into assets overriding system value values (2662, 'BL20-COB-000', 'Bloco 20 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2663, 'BL21-000-000', 'Bloco 21 - Todos', null, 1, null, null, 447,28);
+insert into assets overriding system value values (2663, 'BL21-000-000', 'Bloco 21 - Todos', null, 1, null, null, 447.28);
 insert into assets overriding system value values (2664, 'BL21-TER-000', 'Bloco 21 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2665, 'BL21-TER-001', 'Bloco 21 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2666, 'BL21-TER-002', 'Bloco 21 - Pavimento Térreo', null, 1, null, null, null);
@@ -2680,7 +2680,7 @@ insert into assets overriding system value values (2679, 'BL21-COB-001', 'Bloco 
 insert into assets overriding system value values (2680, 'BL21-COB-003', 'Bloco 21 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2681, 'BL21-COB-012', 'Bloco 21 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2682, 'BL21-COB-014', 'Bloco 21 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2683, 'SHIS-000-000', 'SHIS QL12 CJ11 Casa 01 - Todos', null, 1, -15,829342, -47,861281, 979,67);
+insert into assets overriding system value values (2683, 'SHIS-000-000', 'SHIS QL12 CJ11 Casa 01 - Todos', null, 1, -15.829342, -47.861281, 979.67);
 insert into assets overriding system value values (2684, 'SHIS-TER-000', 'SHIS QL12 CJ11 Casa 01 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2685, 'SHIS-TER-001', 'SHIS QL12 CJ11 Casa 01 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (2686, 'SHIS-TER-002', 'SHIS QL12 CJ11 Casa 01 - Pavimento Térreo', null, 1, null, null, null);
@@ -2738,7 +2738,7 @@ insert into assets overriding system value values (2737, 'SHIS-COB-020', 'SHIS Q
 insert into assets overriding system value values (2738, 'SHIS-COB-024', 'SHIS QL12 CJ11 Casa 01 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2739, 'SHIS-COB-030', 'SHIS QL12 CJ11 Casa 01 - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2740, 'SHIS-COB-038', 'SHIS QL12 CJ11 Casa 01 - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2741, '309C-000-000', 'SQS 309 BL C - Todos', null, 1, -15,816814, -47,909043, 8260,33);
+insert into assets overriding system value values (2741, '309C-000-000', 'SQS 309 BL C - Todos', null, 1, -15.816814, -47.909043, 8260.33);
 insert into assets overriding system value values (2742, '309C-SS1-000', 'SQS 309 BL C - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (2743, '309C-SS1-001', 'SQS 309 BL C - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (2744, '309C-SS1-002', 'SQS 309 BL C - 1º Subsolo', null, 1, null, null, null);
@@ -2893,7 +2893,7 @@ insert into assets overriding system value values (2892, '309C-COB-021', 'SQS 30
 insert into assets overriding system value values (2893, '309C-COB-022', 'SQS 309 BL C - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2894, '309C-COB-023', 'SQS 309 BL C - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (2895, '309C-COB-024', 'SQS 309 BL C - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (2896, '309D-000-000', 'SQS 309 BL D - Todos', null, 1, -15,816553, -47,907293, 8282,38);
+insert into assets overriding system value values (2896, '309D-000-000', 'SQS 309 BL D - Todos', null, 1, -15.816553, -47.907293, 8282.38);
 insert into assets overriding system value values (2897, '309D-SS1-000', 'SQS 309 BL D - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (2898, '309D-SS1-001', 'SQS 309 BL D - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (2899, '309D-SS1-002', 'SQS 309 BL D - 1º Subsolo', null, 1, null, null, null);
@@ -3055,7 +3055,7 @@ insert into assets overriding system value values (3054, '309D-COB-021', 'SQS 30
 insert into assets overriding system value values (3055, '309D-COB-022', 'SQS 309 BL D - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (3056, '309D-COB-023', 'SQS 309 BL D - Cobertura', null, 1, null, null, null);
 insert into assets overriding system value values (3057, '309D-COB-024', 'SQS 309 BL D - Cobertura', null, 1, null, null, null);
-insert into assets overriding system value values (3058, '309G-000-000', 'SQS 309 BL G - Todos', null, 1, null, null, 8260,33);
+insert into assets overriding system value values (3058, '309G-000-000', 'SQS 309 BL G - Todos', null, 1, null, null, 8260.33);
 insert into assets overriding system value values (3059, '309G-SS1-000', 'SQS 309 BL G - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (3060, '309G-SS1-001', 'SQS 309 BL G - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (3061, '309G-SS1-002', 'SQS 309 BL G - 1º Subsolo', null, 1, null, null, null);
@@ -3248,7 +3248,7 @@ insert into assets overriding system value values (3247, 'AT03-000-000', 'Área 
 insert into assets overriding system value values (3248, 'AT03-SS1-000', 'Área técnica 03 - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (3249, 'AT03-TER-000', 'Área técnica 03 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (3250, 'AT03-TER-001', 'Área técnica 03 - Pavimento Térreo', null, 1, null, null, null);
-insert into assets overriding system value values (3251, 'AT10-000-000', 'Área técnica 10 - Todos', null, 1, null, null, 1325,42);
+insert into assets overriding system value values (3251, 'AT10-000-000', 'Área técnica 10 - Todos', null, 1, null, null, 1325.42);
 insert into assets overriding system value values (3252, 'AT10-SEM-000', 'Área técnica 10 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (3253, 'AT10-SEM-002', 'Área técnica 10 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (3254, 'AT10-SEM-003', 'Área técnica 10 - Pavimento Semienterrado', null, 1, null, null, null);
@@ -3270,7 +3270,7 @@ insert into assets overriding system value values (3269, 'AT12-SS1-000', 'Área 
 insert into assets overriding system value values (3270, 'AT12-TER-000', 'Área técnica 12 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (3271, 'AT12-TER-001', 'Área técnica 12 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (3272, 'AT12-TER-002', 'Área técnica 12 - Pavimento Térreo', null, 1, null, null, null);
-insert into assets overriding system value values (3273, 'AT13-000-000', 'Área técnica 13 - Todos', null, 1, null, null, 623,29);
+insert into assets overriding system value values (3273, 'AT13-000-000', 'Área técnica 13 - Todos', null, 1, null, null, 623.29);
 insert into assets overriding system value values (3274, 'AT13-SS1-000', 'Área técnica 13 - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (3275, 'AT13-SS1-001', 'Área técnica 13 - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (3276, 'AT13-SS1-005', 'Área técnica 13 - 1º Subsolo', null, 1, null, null, null);
@@ -3332,7 +3332,7 @@ insert into assets overriding system value values (3331, 'AT20-SS1-004', 'Área 
 insert into assets overriding system value values (3332, 'AT20-TER-000', 'Área técnica 20 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (3333, 'AT20-TER-001', 'Área técnica 20 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (3334, 'AT20-TER-002', 'Área técnica 20 - Pavimento Térreo', null, 1, null, null, null);
-insert into assets overriding system value values (3335, 'AT21-000-000', 'Área técnica 21 - Todos', null, 1, null, null, 1855,91);
+insert into assets overriding system value values (3335, 'AT21-000-000', 'Área técnica 21 - Todos', null, 1, null, null, 1855.91);
 insert into assets overriding system value values (3336, 'AT21-SEM-000', 'Área técnica 21 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (3337, 'AT21-SEM-001', 'Área técnica 21 - Pavimento Semienterrado', null, 1, null, null, null);
 insert into assets overriding system value values (3338, 'AT21-SEM-002', 'Área técnica 21 - Pavimento Semienterrado', null, 1, null, null, null);
@@ -3534,7 +3534,7 @@ insert into assets overriding system value values (3533, 'AT63-TER-005', 'Área 
 insert into assets overriding system value values (3534, 'AT64-000-000', 'Área técnica 64 - Todos', null, 1, null, null, null);
 insert into assets overriding system value values (3535, 'AT64-TER-000', 'Área técnica 64 - Pavimento Térreo', null, 1, null, null, null);
 insert into assets overriding system value values (3536, 'AT64-TER-001', 'Área técnica 64 - Pavimento Térreo', null, 1, null, null, null);
-insert into assets overriding system value values (3537, 'AT65-000-000', 'Área técnica 65 - Todos', null, 1, null, null, 199,06);
+insert into assets overriding system value values (3537, 'AT65-000-000', 'Área técnica 65 - Todos', null, 1, null, null, 199.06);
 insert into assets overriding system value values (3538, 'AT65-P11-000', 'Área técnica 65 - 11º Pavimento', null, 1, null, null, null);
 insert into assets overriding system value values (3539, 'AT65-P11-008', 'Área técnica 65 - 11º Pavimento', null, 1, null, null, null);
 insert into assets overriding system value values (3540, 'AT65-P11-009', 'Área técnica 65 - 11º Pavimento', null, 1, null, null, null);
