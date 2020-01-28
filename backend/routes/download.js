@@ -12,7 +12,7 @@ router.get(paths.fileuuid, (req, res, next) => {
   res.download(
     path.join(
       process.cwd(),
-      paths.download,
+      paths.files,
       uuid
     ),
     filename
