@@ -147,6 +147,7 @@ create view person_data as
 
 create view supplies_of_spec as
   select z.spec_id,
+         sum(b.qty_available) as total_available,
          jsonb_agg(jsonb_build_object(
            'supplyId', s.supply_id,
            'supplySf', s.supply_sf,
@@ -169,6 +170,7 @@ create view spec_data as
   select z.*,
          zc.spec_category_text,
          zs.spec_subcategory_text,
+         s.total_available,
          s.supplies
     from specs as z
     inner join spec_categories as zc using (spec_category_id)
