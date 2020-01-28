@@ -19,7 +19,7 @@ class Specification extends Component {
       { title: 'Serviço / Material', description: finalData.name, boldTitle: true },
       { title: 'Código', description: finalData.specSf, boldTitle: false },
       { title: 'Versão', description: finalData.version, boldTitle: false },
-      { title: 'Disponibilidade', description: finalData.supplies.reduce((acc, item) => (Number(item.qtyAvailable) + Number(acc)), 0), boldTitle: false },
+      { title: 'Disponibilidade', description: finalData.totalAvailable, boldTitle: false },
     ];
     return (
       <ItemView

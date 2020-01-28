@@ -19,7 +19,7 @@ const fetchGQL = gql`
         materials
         name
         notes
-        qtyDecimals
+        allowDecimals
         qualification
         services
         specCategoryId
@@ -28,6 +28,8 @@ const fetchGQL = gql`
         specSubcategoryText
         spreadsheets
         supplies
+        tasks
+        totalAvailable
         unit
         updatedAt
         version

@@ -62,7 +62,7 @@ create or replace function check_task_supply ()
     begin
 
       select ((b.qty_available + coalesce(old.qty, 0) - new.qty) >= 0),
-            (z.qty_decimals or scale(new.qty) = 0),
+            (z.allow_decimals or scale(new.qty) = 0),
             (t.contract_id = s.contract_id)
             into
             qty_ok,
