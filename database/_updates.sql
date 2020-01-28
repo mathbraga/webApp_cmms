@@ -163,9 +163,9 @@ create view supplies_of_spec as
            'qtyAvailable', b.qty_available
          )) as supplies
     from specs as z
-    left join supplies as s using (spec_id)
-    left join contracts as c using (contract_id)
-    left join balances as b using (supply_id)
+    inner join supplies as s using (spec_id)
+    inner join contracts as c using (contract_id)
+    inner join balances as b using (supply_id)
   group by z.spec_id
 ;
 
