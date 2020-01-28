@@ -9,6 +9,7 @@ const fetchAppliancesGQL = gql`
         name
         specCategoryText
         specSubcategoryText
+        totalAvailable
       }
     }
   }
