@@ -151,8 +151,11 @@ create view supplies_of_spec as
          jsonb_agg(jsonb_build_object(
            'supplyId', s.supply_id,
            'supplySf', s.supply_sf,
+           'bidPrice', s.bid_price,
+           'fullPrice', s.full_price,
            'contractId', c.contract_id,
            'contractSf', c.contract_sf,
+           'company', c.company,
            'title', c.title,
            'qtyInitial', b.qty_initial,
            'qtyBlocked', b.qty_blocked,
