@@ -3,7 +3,7 @@ const searchableAttributes = [
   'name',
   'qty',
   'bidPrice',
-  'total'
+  'totalPrice'
 ];
 
 export default searchableAttributes;
