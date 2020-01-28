@@ -66,6 +66,7 @@ create view facility_data as
     from assets as a
     inner join assets as aa on (a.category = aa.asset_id)
     left join tasks_of_asset as t on (a.asset_id = t.asset_id)
+  where a.category = 1
 ;
 
 create view appliance_data as 
@@ -82,6 +83,7 @@ create view appliance_data as
     from assets as a
     inner join assets as aa on (a.category = aa.asset_id)
     inner join tasks_of_asset as t on (a.asset_id = t.asset_id)
+  where a.category <> 1
 ;
 
 create view supplies_of_contract as
