@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 
+import FormUI from '../../components/Forms/FormUI';
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -29,15 +31,6 @@ class Dashboard extends Component {
                       Para reportar erros, sanar dúvidas ou sugerir melhorias,
                       entre em contato com o SEPLAG no ramal 2339 ou envie um email para ls_seplag@senado.leg.br.
                     </p>
-                    {/* <p>Para contribuir ao código-fonte, acesse o{" "}
-                      <a
-                        href="https://github.com/Serafabr/cmms-web-app"
-                        target="_blank"
-                        rel="noopener noreferrer nofollow"
-                      >repositório no GitHub
-                        {" "}<i className="fa fa-github"></i>
-                      </a>
-                    </p> */}
                   </div>
                 </CardBody>
               </Card>
@@ -56,6 +49,8 @@ class Dashboard extends Component {
             </Col>
           </Row>
         </Container> */}
+
+        <FormUI />
       </div>
     );
   }

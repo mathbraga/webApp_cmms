@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  FormGroup,
+  FormGroup as div,
   Label,
   Input,
 } from 'reactstrap';
@@ -174,8 +174,7 @@ class InputWithDropdown extends Component {
     const itemHeight = hasSubtext === true ? 52 : 25;
 
     return (
-      <FormGroup className={'dropdown-container'}>
-        <Label htmlFor="department">{label}</Label>
+      <div className={'dropdown-container'}>
         {chosenValue.map(item => (
           <div className='container-selected-items'>
             <Input
@@ -240,7 +239,7 @@ class InputWithDropdown extends Component {
             )}
           </AutoSizer>
         )}
-      </FormGroup>
+      </div>
     );
   }
 }
