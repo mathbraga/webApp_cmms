@@ -28,7 +28,6 @@ comment on table teams is E'@omit';
 -- views
 comment on view facilities is E'@omit';
 comment on view appliances is E'@omit';
-comment on view supplies_list is E'@omit';
 comment on view assets_of_task is E'@omit';
 comment on view supplies_of_task is E'@omit';
 comment on view supplies_of_spec is E'@omit';
