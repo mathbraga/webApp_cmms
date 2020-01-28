@@ -146,7 +146,7 @@ create table specs (
   spec_category_id integer not null references spec_categories (spec_category_id),
   spec_subcategory_id integer not null references spec_subcategories (spec_subcategory_id),
   unit text not null, -- enum or reference to a table??? --> no
-  qty_decimals boolean not null, -- function of unit?
+  allow_decimals boolean not null, -- function of unit?
   description text,
   materials text,
   services text,
