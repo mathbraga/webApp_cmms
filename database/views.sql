@@ -72,7 +72,8 @@ create view supplies_of_task as
            'qty', ts.qty,
            'bidPrice', s.bid_price,
            'totalPrice', ts.qty * s.bid_price,
-           'name', z.name
+           'name', z.name,
+           'unit', z.unit
          )) as supplies
     from tasks as t
     inner join task_supplies as ts using (task_id)
