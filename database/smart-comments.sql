@@ -26,6 +26,8 @@ comment on table team_persons is E'@omit';
 comment on table teams is E'@omit';
 
 -- views
+comment on view facilities is E'@omit';
+comment on view appliances is E'@omit';
 comment on view supplies_list is E'@omit';
 comment on view assets_of_task is E'@omit';
 comment on view supplies_of_task is E'@omit';
@@ -34,6 +36,7 @@ comment on view supplies_of_contract is E'@omit';
 comment on view files_of_task is E'@omit';
 comment on view tasks_of_spec is E'@omit';
 comment on view tasks_of_asset is E'@omit';
+comment on view balances is E'@omit';
 
 -- functions
 comment on function authenticate is E'@omit execute';

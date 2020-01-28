@@ -62,7 +62,8 @@ begin transaction;
 \i functions-build-json.sql
 
 -- create views
-\i views.sql
+\i views-helpers.sql
+\i views-ui.sql
 
 -- create materialized views
 \i materialized-views.sql
@@ -100,9 +101,6 @@ insert into persons overriding system value values (0, '00000000000', 'email@ema
 
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
-
--- UPDATES
-\i _updates.sql
 
 -- commit transaction
 commit transaction;

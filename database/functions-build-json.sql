@@ -15,3 +15,20 @@ create or replace function build_asset_json (
     where a.asset_id = input_asset_id
   $$
 ;
+
+create or replace function build_contract_json (
+  in input_contract_id integer,
+  out contract_json jsonb
+)
+  language sql
+  as $$
+    select jsonb_build_object(
+              'contractId', c.contract_id,
+              'contractSf', c.contract_sf,
+              'title', c.title,
+              'description', c.description
+            ) as contract_json
+      from contracts as c
+    where c.contract_id = input_contract_id
+  $$
+;
