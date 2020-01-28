@@ -15,8 +15,6 @@ create or replace function build_contract_json (
   $$
 ;
 
-drop view if exists task_data;
-
 create view task_data as
   select t.*,
          ts.task_status_text,
@@ -82,7 +80,7 @@ create view appliance_data as
          t.tasks
     from assets as a
     inner join assets as aa on (a.category = aa.asset_id)
-    inner join tasks_of_asset as t on (a.asset_id = t.asset_id)
+    left join tasks_of_asset as t on (a.asset_id = t.asset_id)
   where a.category <> 1
 ;
 

@@ -96,19 +96,6 @@ create view files_of_task as
   group by task_id
 ;
 
-create view task_data as
-  select t.*,
-         c.contract_sf || ' - ' || c.title as contract,
-         a.assets,
-         s.supplies,
-         f.files
-    from tasks as t
-    inner join assets_of_task as a using (task_id)
-    left join supplies_of_task as s using (task_id)
-    left join files_of_task as f using (task_id)
-    left join contracts as c using (contract_id)
-;
-
 create view supplies_list as
   select s.supply_id,
          s.supply_sf,
