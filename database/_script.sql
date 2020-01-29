@@ -4,6 +4,16 @@ rollback;
 -- define new database name
 \set new_db_name 'new_cmms'
 
+-- terminate existing connections
+select pg_terminate_backend(pid)
+  from pg_stat_activity
+where
+  -- don't kill my own connection!
+  pid <> pg_backend_pid()
+  -- don't kill the connections to other databases
+  and datname = 'new_cmms'
+;
+
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
 
