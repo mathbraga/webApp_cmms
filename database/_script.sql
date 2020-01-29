@@ -4,6 +4,15 @@ rollback;
 -- define new database name
 \set new_db_name 'new_cmms'
 
+-- set ON_ERROR_STOP to off
+\set ON_ERROR_STOP off
+
+-- create temporary database
+create database temp_db;
+
+-- connect to temporary database
+\c temp_db
+
 -- terminate existing connections
 select pg_terminate_backend(pid)
   from pg_stat_activity
@@ -13,15 +22,6 @@ where
   -- don't kill the connections to other databases
   and datname = :'new_db_name'
 ;
-
--- set ON_ERROR_STOP to off
-\set ON_ERROR_STOP off
-
--- create temporary database
-create database temp_db;
-
--- connect to temporary database
-\c temp_db
 
 -- drop database
 drop database if exists :new_db_name;
@@ -118,3 +118,6 @@ insert into persons overriding system value values (0, '00000000000', 'email@ema
 
 -- commit transaction
 commit transaction;
+
+-- cleanup variable(s)
+\unset new_db_name
