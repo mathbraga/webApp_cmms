@@ -85,11 +85,11 @@ insert into persons overriding system value values (0, '00000000000', 'email@ema
 \i inserts.sql
 
 -- create triggers
-select setting ~ '^1[^0]' as postgresql_version_ok from pg_settings where name = 'server_version_num' \gset
-\if :postgresql_version_ok
-  \i triggers.sql
-\endif
-\unset postgresql_version_ok
+-- select setting ~ '^1[^0]' as postgresql_version_ok from pg_settings where name = 'server_version_num' \gset
+-- \if :postgresql_version_ok
+\i triggers.sql
+-- \endif
+-- \unset postgresql_version_ok
 
 -- create rls policies
 -- \i policies.sql
