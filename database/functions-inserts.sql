@@ -67,7 +67,7 @@ create or replace function insert_task (
   in attributes tasks,
   in assets integer[],
   in supplies integer[],
-  in qty real[],
+  in qty numeric[],
   in files_metadata file_metadata[],
   out result integer
 )

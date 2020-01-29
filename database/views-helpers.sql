@@ -39,13 +39,13 @@ create view balances as
     ),
     quantities as (
       select s.supply_id,
-             s.qty as qty_initial,
+             s.qty_initial,
              sum(coalesce(f.qty, 0)) as qty_consumed,
              sum(coalesce(u.qty, 0)) as qty_blocked
         from finished as f
         full outer join unfinished as u using (supply_id)
         full outer join supplies as s using (supply_id)
-      group by s.supply_id, s.qty
+      group by s.supply_id, s.qty_initial
     )
     select supply_id,
            qty_initial,
