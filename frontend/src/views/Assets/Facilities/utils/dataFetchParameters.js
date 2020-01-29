@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 const fetchAppliancesGQL = gql`
   query MyQuery {
-    queryResponse: allFacilities {
+    queryResponse: allFacilityData {
       nodes {
         assetId
         assetSf
