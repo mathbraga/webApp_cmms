@@ -11,7 +11,7 @@ where
   -- don't kill my own connection!
   pid <> pg_backend_pid()
   -- don't kill the connections to other databases
-  and datname = 'new_cmms'
+  and datname = :'new_db_name'
 ;
 
 -- set ON_ERROR_STOP to off
