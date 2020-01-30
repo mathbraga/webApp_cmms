@@ -2,7 +2,7 @@
 rollback;
 
 -- define new database name
-\set new_db_name 'new_cmms'
+\set new_db_name 'cmms'
 
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off

@@ -41,6 +41,24 @@ create view task_form_data as
          team_options
 ;
 
+create view supply_options as
+  select s.supply_id,
+         s.supply_sf,
+         s.contract_id,
+         s.spec_id,
+         s.qty_initial,
+         s.bid_price,
+         s.full_price,
+         z.spec_sf,
+         z.name,
+         z.unit,
+         z.allow_decimals,
+         b.qty_available
+    from supplies as s
+    inner join specs as z using (spec_id)
+    inner join balances as b using (supply_id)
+;
+
 create view task_data as
   select t.*,
          ts.task_status_text,
