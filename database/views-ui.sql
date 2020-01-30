@@ -1,44 +1,44 @@
 create view task_form_data as
   with
     status_options as (
-      select
-        jsonb_agg(jsonb_build_object(
-          'taskStatusId', task_status_id,
-          'taskStatusText', task_status_text
-        )) as status_options
+      select jsonb_agg(build_task_status_json(task_status_id)) as status_options
       from task_statuses
     ),
     category_options as (
-      select
-        jsonb_agg(jsonb_build_object(
-          'taskCategoryId', task_category_id,
-          'taskCategoryText', task_category_text
-        )) as category_options
+      select jsonb_agg(build_task_category_json(task_category_id)) as category_options
       from task_categories
     ),
     priority_options as (
-      select
-        jsonb_agg(jsonb_build_object(
-          'taskPriorityId', task_priority_id,
-          'taskPriorityText', task_priority_text
-        )) as priority_options
+      select jsonb_agg(build_task_priority_json(task_priority_id)) as priority_options
       from task_priorities
     ),
     contract_options as (
-      select
-        jsonb_agg(jsonb_build_object(
-          'contractId', contract_id,
-          'contractSf', contract_sf,
-          'title', title,
-          'company', company
-        )) as contract_options
-      from contracts
+      select jsonb_agg(build_contract_json(c.contract_id)) as contract_options
+        from contracts as c
+      where c.date_end >= current_date
+    ),
+    project_options as (
+      select jsonb_agg(build_project_json(p.project_id)) as project_options
+        from projects as p
+      where p.is_active
+    ),
+    team_options as (
+      select jsonb_agg(build_team_json(t.team_id)) as team_options
+        from teams as t
+      where t.is_active
     )
   select status_options,
-           category_options,
-           priority_options,
-           contract_options
-    from status_options, category_options, priority_options, contract_options
+         category_options,
+         priority_options,
+         contract_options,
+         project_options,
+         team_options
+    from status_options,
+         category_options,
+         priority_options,
+         contract_options,
+         project_options,
+         team_options
 ;
 
 create view task_data as
