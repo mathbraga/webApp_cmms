@@ -5,6 +5,7 @@ import withDataFetching from '../../../components/DataFetch';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextareaAutosize, MenuItem } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import './TaskForm.css';
@@ -20,6 +21,7 @@ import {
 import { fetchGQL, fetchVariables } from './utils/dataFetchParameters';
 import DescriptionForm from './formParts/DescriptionForm';
 import ExecutionForm from './formParts/ExecutionForm';
+import AssetForm from './formParts/AssetForm';
 
 class TaskForm extends Component {
   constructor(props) {
@@ -82,6 +84,22 @@ class TaskForm extends Component {
                 {...this.state}
               />
               <div style={{ marginTop: "60px" }} />
+              <AssetForm
+                assetOptions={data.teamOptions}
+                {...this.state}
+              />
+              <div style={{ marginTop: "60px" }} />
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button variant="contained" color="primary" style={{ marginRight: "10px" }}>
+                  Cadastrar
+                </Button>
+                <Button variant="contained" style={{ marginRight: "10px" }}>
+                  Limpar
+                </Button>
+                <Button variant="contained" color="secondary">
+                  Cancelar
+                </Button>
+              </div>
             </form>
           </div>
         </AssetCard>

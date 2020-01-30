@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import {
   MenuItem,
   TextField,
-  FormLabel,
-  FormControl,
-  FormGroup,
-  FormControlLabel,
-  FormHelperText,
-  Switch
 } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -165,10 +159,10 @@ class ExecutionForm extends Component {
                 renderInput={params => (
                   <TextField
                     {...params}
-                    label="Reforma da Biblioteca"
                     variant="outlined"
                     fullWidth
                     className="text-input"
+                    placeholder="Ordem de Serviço SEM projeto (padrão)"
                     label="Projeto Pai"
                     InputLabelProps={{
                       shrink: true,
