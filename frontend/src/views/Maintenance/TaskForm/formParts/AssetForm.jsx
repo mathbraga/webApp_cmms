@@ -10,7 +10,7 @@ import {
 
 class AssetForm extends Component {
   render() {
-    const { assetOptions } = this.props;
+    const { assetOptions, handleAssetChange } = this.props;
     return (
       <>
         <h1 className="input-container-title" style={{ marginBottom: "30px" }}>Cadastro de Ativos</h1>
@@ -22,6 +22,8 @@ class AssetForm extends Component {
               options={assetOptions}
               getOptionLabel={option => option.name}
               filterSelectedOptions
+              onChange={handleAssetChange}
+              value={this.props.assets}
               renderInput={params => (
                 <TextField
                   {...params}

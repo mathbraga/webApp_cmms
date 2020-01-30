@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   MenuItem,
   TextField,
+  Chip
 } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -20,20 +21,23 @@ class ExecutionForm extends Component {
     this.state = {
       hasProject: false,
     }
-
-    this.handleProjectSwitchChange = this.handleProjectSwitchChange.bind(this);
   }
 
-  handleProjectSwitchChange() {
-    this.setState((prevState) => ({
-      hasProject: !prevState.hasProject,
-    }));
+  onChangeTest(e, newValue) {
+    console.log("Change: ", newValue);
   }
+
+
 
   render() {
     const {
       handleInitialDateInputChange,
+      handleLimitDateInputChange,
       handleInputChange,
+      handleContractChange,
+      handleTeamChange,
+      handleProjectChange,
+      handleAssetChange,
       projectOptions,
       statusOptions,
       teamOptions,
@@ -71,8 +75,8 @@ class ExecutionForm extends Component {
                 placeholder="DD/MM/AAAA"
                 margin="normal"
                 id="date-picker-inline"
-                onChange={handleInitialDateInputChange}
-                value={this.props.initialDate}
+                onChange={handleLimitDateInputChange}
+                value={this.props.limitDate}
                 label="Data Limite"
                 InputLabelProps={{
                   shrink: true,
@@ -111,13 +115,17 @@ class ExecutionForm extends Component {
             <Col md="6">
               <Autocomplete
                 id="combo-box-demo"
+                name="contract"
                 options={contractOptions}
+                value={this.props.contract}
                 getOptionLabel={option => (`${option.contractSf} - ${option.title}`)}
+                onChange={handleContractChange}
                 renderInput={params => (
                   <TextField
                     {...params}
                     variant="outlined"
                     fullWidth
+                    name="contract"
                     className="text-input"
                     label="Contratos"
                     InputLabelProps={{
@@ -130,8 +138,11 @@ class ExecutionForm extends Component {
             <Col md="6">
               <Autocomplete
                 id="combo-box-demo"
+                name="team"
                 options={teamOptions}
                 getOptionLabel={option => option.name}
+                value={this.props.team}
+                onChange={handleTeamChange}
                 renderInput={params => (
                   <TextField
                     {...params}
@@ -153,6 +164,8 @@ class ExecutionForm extends Component {
                 id="combo-box-demo"
                 options={projectOptions}
                 getOptionLabel={option => option.name}
+                value={this.props.project}
+                onChange={handleProjectChange}
                 style={{
                   "-webkit-font-smoothing": "antialiased",
                 }}
