@@ -18,6 +18,7 @@ export default class CardTableUI extends Component {
       filterSavedId,
       searchTerm,
       handleChangeSearchTerm,
+      handleCardButton,
       filterLogic,
       filterName,
       numberOfItens,
@@ -32,7 +33,7 @@ export default class CardTableUI extends Component {
         <AssetCard
           sectionName={title || 'Nome'}
           sectionDescription={subtitle || 'Descrição dos itens'}
-          handleCardButton={() => { console.log('OK!') }}
+          handleCardButton={handleCardButton}
           buttonName={buttonName || 'Botão'}
         >
           <SearchWithFilter

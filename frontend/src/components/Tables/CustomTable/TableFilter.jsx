@@ -4,6 +4,7 @@ import CardTableUI from './TableFilterUI';
 import searchList from '../../../utils/search/searchList';
 import filterList from '../../../utils/filter/filter';
 import { compose } from 'redux';
+import { withRouter } from "react-router-dom";
 
 const ENTRIES_PER_PAGE = 15;
 
@@ -41,13 +42,15 @@ class TableFilter extends Component {
       title,
       subtitle,
       buttonName,
+      buttonPath,
       paginationLogic,
       tableConfig,
       customFilters,
       filterAttributes,
       searchableAttributes,
       hasAssetCard,
-      data
+      data,
+      history
     } = this.props;
 
     console.log("Data: ", data);
@@ -72,6 +75,9 @@ class TableFilter extends Component {
         filterSavedId={this.state.filterSavedId}
         searchTerm={this.state.searchTerm}
         handleChangeSearchTerm={this.handleChangeSearchTerm}
+        handleCardButton={buttonPath
+          ? (() => { history.push(buttonPath) })
+          : (() => { })}
         filterLogic={this.state.filterLogic}
         filterName={this.state.filterName}
         numberOfItens={dataWithSearchAndFilter.length}
@@ -85,5 +91,6 @@ class TableFilter extends Component {
 }
 
 export default compose(
+  withRouter,
   withPaginationLogic
 )(TableFilter);
