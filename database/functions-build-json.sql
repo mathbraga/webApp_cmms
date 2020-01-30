@@ -66,22 +66,6 @@ create or replace function build_project_json (
   $$
 ;
 
-create or replace function build_project_json (
-  in input_project_id integer,
-  out project_json jsonb
-)
-  language sql
-  as $$
-    select jsonb_build_object(
-              'projectId', p.project_id,
-              'name', p.name,
-              'description', p.description
-            ) as project_json
-      from projects as p
-    where p.project_id = input_project_id
-  $$
-;
-
 create or replace function build_task_status_json (
   in input_task_status_id integer,
   out task_status_json jsonb
