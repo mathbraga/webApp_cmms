@@ -19,6 +19,10 @@
   font-weight: 600;
 }
 
+.text-input {
+  -webkit-font-smoothing: antialiased;
+}
+
 .text-input legend {
   width: auto;
 }

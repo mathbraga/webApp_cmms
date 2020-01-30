@@ -19,6 +19,7 @@ import {
 
 import { fetchGQL, fetchVariables } from './utils/dataFetchParameters';
 import DescriptionForm from './formParts/DescriptionForm';
+import ExecutionForm from './formParts/ExecutionForm';
 
 class TaskForm extends Component {
   constructor(props) {
@@ -29,15 +30,25 @@ class TaskForm extends Component {
       description: "",
       priority: 2,
       category: null,
+      initialDate: null,
+      limitDate: null,
+      status: 3,
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInitialDateInputChange = this.handleInitialDateInputChange.bind(this);
   }
 
   handleInputChange(event) {
     const { value, name } = event.target;
     this.setState({
       [name]: value
+    });
+  }
+
+  handleInitialDateInputChange(date) {
+    this.setState({
+      initialDate: date,
     });
   }
 
@@ -53,12 +64,25 @@ class TaskForm extends Component {
           buttonName={'Ordens de Serviço'}
         >
           <div className="input-container">
-            <DescriptionForm
-              handleInputChange={this.handleInputChange}
-              priorityOptions={data.priorityOptions}
-              categoryOptions={data.categoryOptions}
-              {...this.state}
-            />
+            <form noValidate autoComplete="off">
+              <DescriptionForm
+                handleInputChange={this.handleInputChange}
+                priorityOptions={data.priorityOptions}
+                categoryOptions={data.categoryOptions}
+                {...this.state}
+              />
+              <div style={{ marginTop: "60px" }} />
+              <ExecutionForm
+                handleInitialDateInputChange={this.handleInitialDateInputChange}
+                handleInputChange={this.handleInputChange}
+                statusOptions={data.statusOptions}
+                projectOptions={data.projectOptions}
+                teamOptions={data.teamOptions}
+                contractOptions={data.contractOptions}
+                {...this.state}
+              />
+              <div style={{ marginTop: "60px" }} />
+            </form>
           </div>
         </AssetCard>
       </CssBaseline>
