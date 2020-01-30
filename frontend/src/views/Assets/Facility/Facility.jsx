@@ -14,6 +14,8 @@ class Facility extends Component {
   render() {
     const { data, ...rest } = this.props;
     const finalData = data.queryResponse.nodes[0];
+    const assetsTabData = data.assetChildren.nodes[0];
+
     const descriptionItems = [
       { title: 'Edifício / Área', description: finalData.name, boldTitle: true },
       { title: 'Código', description: finalData.assetSf, boldTitle: false },
@@ -26,7 +28,7 @@ class Facility extends Component {
         image={image}
         imageStatus={imageStatus}
         descriptionItems={descriptionItems}
-        tabs={tabsGenerator(finalData)}
+        tabs={tabsGenerator(data)}
         {...rest}
       />
     );

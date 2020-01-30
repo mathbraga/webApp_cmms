@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import AssetTemplateTab from '../../../../components/Tabs/AssetsTab/AssetsTemplateTab';
 
 class AssetTab extends Component {
   render() {
+    const data = this.props.data || [];
+
     return (
-      <h1>Hi!</h1>
+      <>
+        <AssetTemplateTab
+          data={data}
+        />
+      </>
     );
   }
 }
