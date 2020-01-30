@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   MenuItem,
   TextField,
-  Chip
 } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -26,8 +25,6 @@ class ExecutionForm extends Component {
   onChangeTest(e, newValue) {
     console.log("Change: ", newValue);
   }
-
-
 
   render() {
     const {

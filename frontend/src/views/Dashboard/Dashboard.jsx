@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 
-import FormUI from '../../components/Forms/FormUI';
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -49,8 +47,6 @@ class Dashboard extends Component {
             </Col>
           </Row>
         </Container> */}
-
-        <FormUI />
       </div>
     );
   }
