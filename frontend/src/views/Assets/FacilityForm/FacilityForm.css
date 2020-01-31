@@ -26,3 +26,10 @@
 .text-input legend {
   width: auto;
 }
+
+.table-container {
+  margin-top: 20px;
+  padding: 20px;
+  background: #dddfe4;
+  border-radius: 5px;
+}
