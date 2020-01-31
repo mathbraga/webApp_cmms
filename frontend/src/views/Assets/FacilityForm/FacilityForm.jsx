@@ -9,8 +9,8 @@ import './FacilityForm.css';
 
 import { fetchGQL, fetchVariables } from './utils/dataFetchParameters';
 import DescriptionForm from './formParts/DescriptionForm';
-import ExecutionForm from './formParts/ExecutionForm';
-import AssetForm from './formParts/AssetForm';
+import LocationForm from './formParts/LocationForm';
+import ParentForm from './formParts/ParentForm';
 import WithFormLogic from './withFormLogic';
 
 class FacilityForm extends Component {
@@ -32,25 +32,16 @@ class FacilityForm extends Component {
                 {...state}
               />
               <div style={{ marginTop: "60px" }} />
-              {/* <ExecutionForm
-                handleInitialDateInputChange={handleFunctions.handleInitialDateInputChange}
-                handleLimitDateInputChange={handleFunctions.handleLimitDateInputChange}
+              <LocationForm
                 handleInputChange={handleFunctions.handleInputChange}
-                handleContractChange={handleFunctions.handleContractChange}
-                handleTeamChange={handleFunctions.handleTeamChange}
-                handleProjectChange={handleFunctions.handleProjectChange}
-                statusOptions={data.statusOptions}
-                projectOptions={data.projectOptions}
-                teamOptions={data.teamOptions}
-                contractOptions={data.contractOptions}
                 {...state}
               />
               <div style={{ marginTop: "60px" }} />
-              <AssetForm
-                assetOptions={data.teamOptions}
-                handleAssetChange={handleFunctions.handleAssetChange}
+              <ParentForm
+                handleParentChange={handleFunctions.handleParentChange}
+                data={data}
                 {...state}
-              /> */}
+              />
               <div style={{ marginTop: "60px" }} />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Button variant="contained" color="primary" style={{ marginRight: "10px" }}>

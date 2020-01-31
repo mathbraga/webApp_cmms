@@ -11,7 +11,9 @@ export default function WithFormLogic(WrappedComponent) {
         latitude: "",
         longitude: "",
         area: "",
-        parent: [],
+        parents: [
+          { id: "", name: "" }
+        ],
       }
 
       this.handleInputChange = this.handleInputChange.bind(this);
@@ -27,7 +29,7 @@ export default function WithFormLogic(WrappedComponent) {
 
     handleParentChange(value) {
       this.setState({
-        parent: value,
+        parents: value,
       });
     }
 
