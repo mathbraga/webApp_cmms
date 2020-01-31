@@ -39,6 +39,9 @@ class FacilityForm extends Component {
               <div style={{ marginTop: "60px" }} />
               <ParentForm
                 handleParentChange={handleFunctions.handleParentChange}
+                handleContextChange={handleFunctions.handleContextChange}
+                addNewParent={handleFunctions.addNewParent}
+                removeParent={handleFunctions.removeParent}
                 data={data}
                 {...state}
               />
