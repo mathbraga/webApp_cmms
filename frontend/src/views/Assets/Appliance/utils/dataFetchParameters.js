@@ -16,6 +16,13 @@ const fetchGQL = gql`
         tasks
       }
     }
+    assetChildren: getAssetTree(inputAssetId: $assetId){
+      nodes{
+        assets
+        parentId
+        topAsset
+      }
+    }
   }
 `;
 

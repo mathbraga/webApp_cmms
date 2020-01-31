@@ -14,7 +14,6 @@ class Facility extends Component {
   render() {
     const { data, ...rest } = this.props;
     const finalData = data.queryResponse.nodes[0];
-    const assetsTabData = data.assetChildren.nodes[0];
 
     const descriptionItems = [
       { title: 'Edifício / Área', description: finalData.name, boldTitle: true },

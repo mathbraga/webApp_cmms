@@ -12,7 +12,7 @@ class AssetTemplateTab extends Component {
     return (
       <>
         <DescriptionTable
-          title={'Relatório de Manutenções'}
+          title={'Lista de Ativos'}
         //   numColumns={2}
         //   itemsMatrix={itemsMatrixReport(data)}
         />

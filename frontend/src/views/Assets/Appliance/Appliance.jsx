@@ -29,7 +29,7 @@ class Appliance extends Component {
         image={image}
         imageStatus={imageStatus}
         descriptionItems={descriptionItems}
-        tabs={tabsGenerator(finalData)}
+        tabs={tabsGenerator(data)}
         {...rest}
       />
     );
