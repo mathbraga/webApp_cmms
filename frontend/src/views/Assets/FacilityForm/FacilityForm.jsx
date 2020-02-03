@@ -66,7 +66,7 @@ class FacilityForm extends Component {
 }
 
 export default compose(
-  withRouter,
   WithFormLogic,
-  withDataFetching(fetchGQL, fetchVariables)
+  withDataFetching(fetchGQL, fetchVariables),
+  withRouter,
 )(FacilityForm);
