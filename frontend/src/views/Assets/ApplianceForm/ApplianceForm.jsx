@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import './FacilityForm.css';
+import './ApplianceForm.css';
 
 import { fetchGQL, fetchVariables } from './utils/dataFetchParameters';
 import DescriptionForm from './formParts/DescriptionForm';

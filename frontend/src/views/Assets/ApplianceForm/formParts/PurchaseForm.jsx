@@ -12,57 +12,70 @@ class LocationForm extends Component {
     } = this.props;
     return (
       <>
-        <h1 className="input-container-title">Localização e Área</h1>
+        <h1 className="input-container-title">Detalhes da Aquisição</h1>
         <Row>
           <Col md={6}>
             <TextField
               id="outlined-full-width"
-              value={this.props.area}
+              value={this.props.manufacturer}
               className="text-input"
-              name="area"
+              name="manufacturer"
               fullWidth
-              label="Área"
-              placeholder="1.201"
+              label="Fabricante"
+              placeholder="Cummins TURBO"
               onChange={handleInputChange}
               margin="normal"
               InputLabelProps={{
                 shrink: true,
               }}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">m²</InputAdornment>,
-              }}
               variant="outlined"
+            />
+          </Col>
+          <Col md={6}>
+            <TextField
+              id="outlined-full-width"
+              value={this.props.serialnum}
+              className="text-input"
+              name="serialnum"
+              label="Número de Série"
+              placeholder="MG85465"
+              margin="normal"
+              fullWidth
+              onChange={handleInputChange}
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
           </Col>
         </Row>
-        <Row style={{ marginTop: "15px" }}>
-          <Col me={6}>
+        <Row>
+          <Col md={6}>
             <TextField
               id="outlined-multiline-static"
-              value={this.props.latitude}
+              value={this.props.model}
               className="text-input"
-              name="latitude"
-              label="Latitude"
-              placeholder="125.0546516"
+              name="model"
+              label="Modelo"
+              margin="normal"
+              placeholder="AVX-FJ908"
               fullWidth
               onChange={handleInputChange}
               variant="outlined"
               InputLabelProps={{
                 shrink: true,
-              }}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">graus</InputAdornment>,
               }}
             />
           </Col>
-          <Col me={6}>
+          <Col md={6}>
             <TextField
               id="outlined-multiline-static"
-              value={this.props.longitude}
+              value={this.props.price}
               className="text-input"
-              name="longitude"
-              label="Longitude"
-              placeholder="58.3513536"
+              name="price"
+              label="Preço"
+              placeholder="75.000,00"
+              margin="normal"
               fullWidth
               onChange={handleInputChange}
               variant="outlined"
@@ -70,7 +83,7 @@ class LocationForm extends Component {
                 shrink: true,
               }}
               InputProps={{
-                endAdornment: <InputAdornment position="end">graus</InputAdornment>,
+                startAdornment: <InputAdornment position="start">R$</InputAdornment>,
               }}
             />
           </Col>
