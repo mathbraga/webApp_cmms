@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  FormGroup,
+  FormGroup as div,
   Label,
   Input,
 } from 'reactstrap';
@@ -173,7 +173,7 @@ class SingleInputWithDropDown extends Component {
   }
 
   render() {
-    const { label, placeholder, listDropdown, withLabel = true } = this.props;
+    const { label, placeholder, listDropdown } = this.props;
     const { inputValue, isDropdownOpen, hoveredItem } = this.state;
     const inputId = 'input-list-' + this.props.id;
     const containerId = 'list-container-' + this.props.id;
@@ -187,8 +187,7 @@ class SingleInputWithDropDown extends Component {
     const itemHeight = hasSubtext === true ? 52 : 25;
 
     return (
-      <FormGroup className={'dropdown-container'}>
-        {withLabel && <Label htmlFor="input">{label}</Label>}
+      <div className={'dropdown-container'}>
         <Input
           type="text"
           autoComplete="off"
@@ -235,7 +234,7 @@ class SingleInputWithDropDown extends Component {
             )}
           </AutoSizer>
         )}
-      </FormGroup>
+      </div>
     );
   }
 }
