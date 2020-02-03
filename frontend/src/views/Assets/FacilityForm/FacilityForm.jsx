@@ -16,7 +16,7 @@ import WithFormLogic from './withFormLogic';
 class FacilityForm extends Component {
   render() {
     const { history, handleFunctions, state } = this.props;
-    const data = this.props.data.allTaskFormData.nodes[0];
+    const data = this.props.data.allAssetFormData.nodes[0];
     return (
       <CssBaseline>
         <AssetCard
