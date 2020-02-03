@@ -12,7 +12,7 @@ class DescriptionForm extends Component {
     } = this.props;
     return (
       <>
-        <h1 className="input-container-title">Descrição do Edifício / Área</h1>
+        <h1 className="input-container-title">Descrição do Equipamento</h1>
         <Row>
           <Col md={8}>
             <TextField
@@ -21,8 +21,8 @@ class DescriptionForm extends Component {
               className="text-input"
               name="name"
               fullWidth
-              label="Nome"
-              placeholder="Complexo Arquitetônico do Senado Federal"
+              label="Equipamento"
+              placeholder="Grupo motor gerador"
               onChange={handleInputChange}
               margin="normal"
               InputLabelProps={{
@@ -36,7 +36,7 @@ class DescriptionForm extends Component {
               id="outlined-full-width"
               value={this.props.assetSf}
               className="text-input"
-              placeholder="CASF-000-000"
+              placeholder="SEL-000-000"
               name="assetSf"
               fullWidth
               label="Código"
@@ -57,7 +57,7 @@ class DescriptionForm extends Component {
               className="text-input"
               name="description"
               label="Descrição"
-              placeholder="Engloba todas as edificações do Senado Federal."
+              placeholder="Sistema de geração de energia elétrica."
               fullWidth
               multiline
               onChange={handleInputChange}
