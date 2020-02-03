@@ -1,6 +1,6 @@
-create or replace function get_asset_tree (
+create or replace function get_asset_trees (
   in input_asset_id integer,
-  out top_id integer,
+  out top_asset jsonb,
   out parent_id integer,
   out assets jsonb
 )
@@ -17,7 +17,7 @@ create or replace function get_asset_tree (
         from rec as r
         inner join asset_relations as a on (r.asset_id = a.parent_id)
     )
-    select top_id,
+    select build_asset_json(top_id),
            parent_id,
            jsonb_agg(build_asset_json(r.asset_id)) as assets
       from rec as r

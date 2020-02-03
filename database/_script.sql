@@ -2,7 +2,7 @@
 rollback;
 
 -- define new database name
-\set new_db_name 'new_cmms'
+\set new_db_name 'cmms'
 
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
@@ -12,6 +12,9 @@ create database temp_db;
 
 -- connect to temporary database
 \c temp_db
+
+-- terminate existing connections
+\i terminate.sql
 
 -- drop database
 drop database if exists :new_db_name;
@@ -62,7 +65,8 @@ begin transaction;
 \i functions-build-json.sql
 
 -- create views
-\i views.sql
+\i views-helpers.sql
+\i views-ui.sql
 
 -- create materialized views
 \i materialized-views.sql
@@ -84,7 +88,11 @@ insert into persons overriding system value values (0, '00000000000', 'email@ema
 \i inserts.sql
 
 -- create triggers
+-- select setting ~ '^1[^0]' as postgresql_version_ok from pg_settings where name = 'server_version_num' \gset
+-- \if :postgresql_version_ok
 \i triggers.sql
+-- \endif
+-- \unset postgresql_version_ok
 
 -- create rls policies
 -- \i policies.sql
@@ -101,8 +109,8 @@ insert into persons overriding system value values (0, '00000000000', 'email@ema
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
 
--- UPDATES
-\i _updates.sql
-
 -- commit transaction
 commit transaction;
+
+-- cleanup variable(s)
+\unset new_db_name

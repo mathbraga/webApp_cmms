@@ -171,7 +171,7 @@ create table supplies (
   supply_sf text not null,
   contract_id integer not null references contracts (contract_id),
   spec_id integer not null references specs (spec_id),
-  qty numeric not null,
+  qty_initial numeric not null,
   bid_price numeric not null,
   full_price numeric,
   unique (contract_id, supply_sf)
@@ -211,14 +211,14 @@ create table task_supplies (
 --   description text not null
 -- );
 
--- create table asset_files (
---   asset_id integer not null references assets (asset_id),
---   name text not null,
---   uuid uuid not null,
---   size bigint not null,
---   person_id integer not null references persons (person_id),
---   created_at timestamptz not null default now()
--- );
+create table asset_files (
+  asset_id integer not null references assets (asset_id),
+  filename text not null,
+  uuid uuid not null,
+  size bigint not null,
+  person_id integer not null references persons (person_id),
+  created_at timestamptz not null default now()
+);
 
 create table task_files (
   task_id integer not null references tasks (task_id),

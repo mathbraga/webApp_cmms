@@ -1,5 +1,0 @@
-begin;
-
--- todo
-
-rollback;
