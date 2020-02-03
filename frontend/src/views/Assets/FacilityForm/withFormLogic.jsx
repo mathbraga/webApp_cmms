@@ -10,6 +10,7 @@ export default function WithFormLogic(WrappedComponent) {
         name: "",
         latitude: "",
         longitude: "",
+        description: "",
         area: "",
         parent: null,
         context: null,
