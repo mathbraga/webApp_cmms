@@ -17,6 +17,7 @@ class Tasks extends Component {
         title={"Ordens de Serviço"}
         subtitle={"Lista de ordens de serviço de engenharia"}
         buttonName={"Nova OS"}
+        buttonPath={"/manutencao/os/nova"}
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}

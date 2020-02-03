@@ -42,6 +42,13 @@ comment on function authenticate is E'@omit execute';
 comment on function get_all_files_uuids is E'@omit execute';
 comment on function refresh_all_materialized_views is E'@omit execute';
 comment on function get_exception_message is E'@omit execute';
+comment on function build_asset_json is E'@omit execute';
+comment on function build_contract_json is E'@omit execute';
+comment on function build_team_json is E'@omit execute';
+comment on function build_project_json is E'@omit execute';
+comment on function build_task_status_json is E'@omit execute';
+comment on function build_task_category_json is E'@omit execute';
+comment on function build_task_priority_json is E'@omit execute';
 
 -- constraints
 comment on constraint assets_pkey on assets is E'@omit';

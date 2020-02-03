@@ -17,6 +17,7 @@ class Facilities extends Component {
         title={"Edifícios / Áreas"}
         subtitle={"Lista de áreas do CASF"}
         buttonName={"Nova área"}
+        buttonPath={"/ativos/edificios/novo"}
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}

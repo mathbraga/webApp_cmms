@@ -1,4 +1,4 @@
-create or replace function get_asset_tree (
+create or replace function get_asset_trees (
   in input_asset_id integer,
   out top_asset jsonb,
   out parent_id integer,
