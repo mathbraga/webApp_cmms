@@ -19,7 +19,7 @@ export default function searchList(itemsList, attributes, searchTerm) {
 }
 
 function findItem(items, attributes, term) {
-  const result = items.filter((item) => {
+  const result = items ? items.filter((item) => {
     for (let i = 0; i < attributes.length; i++) {
       // const relevantName = attributes[i].split('.').pop();
       // const attributeRoot = attributes[i].split('.')[0];
@@ -48,6 +48,6 @@ function findItem(items, attributes, term) {
         return String(value).toLowerCase().includes(term);
       }
     }
-  })
+  }) : [];
   return result;
 }
