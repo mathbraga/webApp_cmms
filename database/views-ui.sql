@@ -26,19 +26,25 @@ create view task_form_data as
       select jsonb_agg(build_team_json(t.team_id)) as team_options
         from teams as t
       where t.is_active
+    ),
+    asset_options as (
+      select jsonb_agg(build_asset_json(a.asset_id)) as asset_options
+        from assets as a
     )
   select status_options,
          category_options,
          priority_options,
          contract_options,
          project_options,
-         team_options
+         team_options,
+         asset_options
     from status_options,
          category_options,
          priority_options,
          contract_options,
          project_options,
-         team_options
+         team_options,
+         asset_options
 ;
 
 create view supply_options as
@@ -162,4 +168,23 @@ create view person_data as
     left join team_persons as tp using (person_id)
     left join teams as t using (team_id)
   group by p.person_id, a.is_active, a.person_role
+;
+
+create view asset_form_data as
+  with
+    top_options as (
+      select jsonb_agg(build_asset_json(ar.top_id)) as top_options
+        from asset_relations as ar
+      where parent_id is null
+    ),
+    parent_options as (
+      select jsonb_agg(build_asset_json(a.asset_id)) as parent_options
+        from assets as a
+        inner join asset_relations as ar using (asset_id)
+      where ar.parent_id is not null
+    )
+  select top_options,
+         parent_options
+    from top_options,
+         parent_options
 ;
