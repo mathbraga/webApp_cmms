@@ -4,11 +4,12 @@ const fetchGQL = gql`
   query MyQuery {
     allTaskFormData {
       nodes {
+        assetOptions
         categoryOptions
         contractOptions
         priorityOptions
-        statusOptions
         projectOptions
+        statusOptions
         teamOptions
       }
     }

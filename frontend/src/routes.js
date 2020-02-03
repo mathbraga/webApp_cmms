@@ -9,6 +9,7 @@ const Facility = React.lazy(() => import("./views/Assets/Facility/Facility"));
 const FacilityForm = React.lazy(() => import("./views/Assets/FacilityForm/FacilityForm"));
 const Appliances = React.lazy(() => import("./views/Assets/Appliances/Appliances"));
 const Appliance = React.lazy(() => import("./views/Assets/Appliance/Appliance"));
+const ApplianceForm = React.lazy(() => import("./views/Assets/ApplianceForm/ApplianceForm"));
 const Tasks = React.lazy(() => import("./views/Maintenance/Tasks/Tasks"));
 const Task = React.lazy(() => import("./views/Maintenance/Task/Task"));
 const TaskForm = React.lazy(() => import("./views/Maintenance/TaskForm/TaskForm"));
@@ -32,7 +33,7 @@ const routes = [
   { path: "/ativos/edificios/novo", exact: true, name: "Novo Edificio", component: FacilityForm },
   { path: "/ativos/equipamentos", exact: true, name: "Equipamentos", component: Appliances },
   { path: "/ativos/equipamento/view/:id", exact: false, name: "Equipamento", component: Appliance },
-  { path: "/ativos/equipamentos/novo", exact: true, name: "Novo Equipamento", component: NoView },
+  { path: "/ativos/equipamentos/novo", exact: true, name: "Novo Equipamento", component: ApplianceForm },
   { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: Tasks },
   { path: "/manutencao/os/view/:id", exact: false, name: "Ordem de Serviço", component: Task },
   { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: TaskForm },

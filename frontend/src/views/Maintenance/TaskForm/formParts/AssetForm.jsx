@@ -20,8 +20,9 @@ class AssetForm extends Component {
               id="combo-box-demo"
               multiple
               options={assetOptions}
-              getOptionLabel={option => option.name}
+              getOptionLabel={option => (`${option.assetSf}: ${option.name}`)}
               filterSelectedOptions
+              margin="normal"
               onChange={handleAssetChange}
               value={this.props.assets}
               renderInput={params => (
@@ -29,6 +30,7 @@ class AssetForm extends Component {
                   {...params}
                   variant="outlined"
                   fullWidth
+                  margin="normal"
                   className="text-input"
                   label="Equipamentos / Edifícios"
                   placeholder="O cadastro de ativo é obrigatório"
