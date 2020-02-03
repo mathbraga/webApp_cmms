@@ -182,8 +182,6 @@ create view asset_form_data as
     parent_options as (
       select jsonb_agg(build_asset_json(a.asset_id)) as parent_options
         from assets as a
-        inner join asset_relations as ar using (asset_id)
-      where ar.parent_id is not null
     )
   select top_options,
          parent_options
