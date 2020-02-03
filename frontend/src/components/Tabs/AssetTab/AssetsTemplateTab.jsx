@@ -9,6 +9,7 @@ import TableFilter from '../../Tables/CustomTable/TableFilter';
 class AssetTemplateTab extends Component {
   render() {
     const { data } = this.props;
+    
     return (
       <>
         <DescriptionTable
