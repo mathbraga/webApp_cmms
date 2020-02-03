@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 
-export default function WithFormLogic(WrappedComponent) {
 
+export default function WithFormLogic(WrappedComponent) {
   class WithFormLogic extends Component {
     constructor(props) {
       super(props);
+      const itemData = this.props.data.allFacilityData && this.props.data.allFacilityData.nodes[0];
       this.state = {
-        assetSf: "",
-        name: "",
-        latitude: "",
-        longitude: "",
-        description: "",
-        area: "",
-        parent: null,
-        context: null,
+        assetSf: itemData ? itemData.assetSf : "",
+        name: itemData ? itemData.name : "",
+        latitude: itemData ? itemData.latitude : "",
+        longitude: itemData ? itemData.longitude : "",
+        description: itemData ? itemData.description : "",
+        area: itemData ? itemData.area : "",
+        parent: itemData ? itemData.parent : null,
+        context: itemData ? itemData.context : null,
         parents: [],
       }
 
@@ -75,6 +76,7 @@ export default function WithFormLogic(WrappedComponent) {
         <WrappedComponent
           handleFunctions={handleFunctions}
           state={this.state}
+          {...this.props}
         />
       );
     }

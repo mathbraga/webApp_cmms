@@ -30,7 +30,7 @@ const routes = [
   { path: "/perfil", name: "Perfil", component: Profile },
   { path: "/ativos/edificios", exact: true, name: "Edifícios", component: Facilities },
   { path: "/ativos/edificio/view/:id", exact: false, name: "Edifício", component: Facility },
-  { path: "/ativos/edificio/edit/:id", exact: false, name: "Edifício", component: NoView },
+  { path: "/ativos/edificio/edit/:id", exact: false, name: "Edifício", component: FacilityForm, options: { editMode: true } },
   { path: "/ativos/edificios/novo", exact: true, name: "Novo Edificio", component: FacilityForm },
   { path: "/ativos/equipamentos", exact: true, name: "Equipamentos", component: Appliances },
   { path: "/ativos/equipamento/view/:id", exact: false, name: "Equipamento", component: Appliance },
