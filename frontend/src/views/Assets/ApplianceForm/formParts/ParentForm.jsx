@@ -21,7 +21,7 @@ const mapIcon = require("../../../../assets/icons/delete.png");
 class ParentForm extends Component {
   render() {
     const { handleParentChange, handleContextChange, addNewParent, removeParent } = this.props;
-    const { categoryOptions } = this.props.data;
+    const { topOptions, parentOptions } = this.props.data;
     return (
       <>
         <h1 className="input-container-title" style={{ marginBottom: "30px" }}>Relação entre Ativos</h1>
@@ -29,8 +29,8 @@ class ParentForm extends Component {
           <Col md={8}>
             <Autocomplete
               id="combo-box-demo"
-              options={categoryOptions}
-              getOptionLabel={option => option.taskCategoryText}
+              options={parentOptions}
+              getOptionLabel={option => (`${option.assetSf}: ${option.name}`)}
               filterSelectedOptions
               onChange={handleParentChange}
               value={this.props.parent}
@@ -52,8 +52,8 @@ class ParentForm extends Component {
           <Col md={4}>
             <Autocomplete
               id="combo-box-demo"
-              options={categoryOptions}
-              getOptionLabel={option => option.taskCategoryText}
+              options={topOptions}
+              getOptionLabel={option => option.name}
               filterSelectedOptions
               onChange={handleContextChange}
               value={this.props.context}
@@ -113,10 +113,10 @@ class ParentForm extends Component {
                         />
                       </TableCell>
                       <TableCell align="left" component="th" scope="row">
-                        {row.parent.taskCategoryText}
+                        {`${row.parent.assetSf}: ${row.parent.name}`}
                       </TableCell>
                       <TableCell align="center" component="th" scope="row">
-                        {row.context.taskCategoryText}
+                        {row.context.name}
                       </TableCell>
                     </TableRow>
                   ))

@@ -2,9 +2,10 @@ import gql from 'graphql-tag';
 
 const fetchGQL = gql`
   query MyQuery {
-    allTaskFormData {
+    allAssetFormData {
       nodes {
-        categoryOptions
+        topOptions
+        parentOptions
       }
     }
   }
