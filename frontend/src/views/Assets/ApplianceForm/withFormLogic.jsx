@@ -76,6 +76,7 @@ export default function WithFormLogic(WrappedComponent) {
         <WrappedComponent
           handleFunctions={handleFunctions}
           state={this.state}
+          {...this.props}
         />
       );
     }

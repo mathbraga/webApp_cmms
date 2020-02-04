@@ -16,6 +16,7 @@ import withGraphQLVariables from './withGraphQLVariables';
 class FacilityForm extends Component {
   render() {
     const { history, handleFunctions, state } = this.props;
+    console.log("Dataa: ", this.props.data);
     const data = this.props.data.allAssetFormData.nodes[0];
     return (
       <CssBaseline>
