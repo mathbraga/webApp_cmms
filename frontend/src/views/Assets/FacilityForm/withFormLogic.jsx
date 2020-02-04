@@ -37,7 +37,7 @@ export default function WithFormLogic(WrappedComponent) {
     addNewParent() {
       this.setState((prevState) => {
         const { parent, context } = prevState;
-        const id = `${parent.taskCategoryId}-${context.taskCategoryId}`;
+        const id = `${parent.assetId}-${context.assetId}`;
         if (parent && context) {
           return ({
             parents: [
