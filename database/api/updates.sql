@@ -1,4 +1,4 @@
-create or replace function modify_asset (
+create or replace function api.modify_asset (
   in attributes assets,
   out result integer
 )

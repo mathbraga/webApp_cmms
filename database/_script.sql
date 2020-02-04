@@ -30,6 +30,7 @@ create extension if not exists pgcrypto;
 
 -- create additional schemas
 create schema private;
+create schema api;
 
 -- create roles
 \i roles.sql
@@ -52,21 +53,17 @@ begin transaction;
 -- create composite types
 \i types.sql
 
--- create enums
--- \i enums.sql
-
 -- create lookup tables
 \i luts.sql
 
 -- create tables
 \i tables.sql
 
--- NEW
+-- create build json helpers
 \i functions-build-json.sql
 
 -- create views
-\i views-helpers.sql
-\i views-ui.sql
+\i views.sql
 
 -- create materialized views
 \i materialized-views.sql
@@ -74,8 +71,6 @@ begin transaction;
 -- create functions
 \i functions-auth.sql
 \i functions-exception.sql
-\i functions-inserts.sql
-\i functions-modifies.sql
 \i functions-queries.sql
 \i functions-refresh.sql
 \i functions-triggers.sql
@@ -97,14 +92,17 @@ insert into persons overriding system value values (0, '00000000000', 'email@ema
 -- create rls policies
 -- \i policies.sql
 
--- create comments
--- \i comments.sql
-
 -- create smart comments
-\i smart-comments.sql
+-- \i smart-comments.sql
 
 -- restart sequences
 \i sequences.sql
+
+-- create api
+\i api/creates.sql
+\i api/gets.sql
+\i api/updates.sql
+\i api/views.sql
 
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off

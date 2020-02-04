@@ -1,4 +1,4 @@
-create view task_form_data as
+create view api.task_form_data as
   with
     status_options as (
       select jsonb_agg(build_task_status_json(task_status_id)) as status_options
@@ -47,7 +47,7 @@ create view task_form_data as
          asset_options
 ;
 
-create view supply_options as
+create view api.supply_options as
   select s.supply_id,
          s.supply_sf,
          s.contract_id,
@@ -65,7 +65,7 @@ create view supply_options as
     inner join balances as b using (supply_id)
 ;
 
-create view task_data as
+create view api.task_data as
   select t.*,
          ts.task_status_text,
          tp.task_priority_text,
@@ -83,7 +83,7 @@ create view task_data as
     left join files_of_task as f using (task_id)
 ;
 
-create view spec_data as
+create view api.spec_data as
   select z.*,
          zc.spec_category_text,
          zs.spec_subcategory_text,
@@ -97,7 +97,7 @@ create view spec_data as
     left join tasks_of_spec as t using (spec_id)
 ;
 
-create view facility_data as 
+create view api.facility_data as 
   select a.asset_id,
          a.asset_sf,
          a.name,
@@ -114,7 +114,7 @@ create view facility_data as
   where a.category = 1
 ;
 
-create view appliance_data as 
+create view api.appliance_data as 
   select a.asset_id,
          a.asset_sf,
          a.name,
@@ -132,7 +132,7 @@ create view appliance_data as
   where a.category <> 1
 ;
 
-create view contract_data as
+create view api.contract_data as
   select c.*,
          cs.contract_status_text,
          s.supplies
@@ -141,7 +141,7 @@ create view contract_data as
     inner join supplies_of_contract as s using (contract_id)
 ;
 
-create view team_data as
+create view api.team_data as
   select t.team_id, 
          t.name,
          t.description,
@@ -157,7 +157,7 @@ create view team_data as
   group by t.team_id
 ;
 
-create view person_data as
+create view api.person_data as
   select p.*,
          a.is_active,
          a.person_role,
@@ -172,7 +172,7 @@ create view person_data as
   group by p.person_id, a.is_active, a.person_role
 ;
 
-create view asset_form_data as
+create view api.asset_form_data as
   with
     top_options as (
       select jsonb_agg(build_asset_json(ar.top_id)) as top_options
