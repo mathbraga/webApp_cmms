@@ -183,3 +183,14 @@ create view parents_of_asset as
     from asset_relations as ar
   group by ar.asset_id
 ;
+
+create view children_of_asset as
+  select a.asset_id,
+         jsonb_object_agg(
+            g.top_id::text || '-' || g.parent_id::text,
+            g.child_assets
+         ) as relations
+    from assets as a
+    inner join get_asset_trees(a.asset_id) as g on (a.asset_id = g.input_asset_id)
+  group by a.asset_id
+;

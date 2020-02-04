@@ -61,6 +61,7 @@ begin transaction;
 
 -- create build json helpers
 \i functions-build-json.sql
+\i functions-queries.sql
 
 -- create views
 \i views.sql
@@ -71,7 +72,6 @@ begin transaction;
 -- create functions
 \i functions-auth.sql
 \i functions-exception.sql
-\i functions-queries.sql
 \i functions-refresh.sql
 \i functions-triggers.sql
 
@@ -99,7 +99,6 @@ insert into persons overriding system value values (0, '00000000000', 'email@ema
 \i sequences.sql
 
 -- create api
-\i api/gets.sql
 \i api/inserts.sql
 \i api/modifies.sql
 \i api/views.sql
