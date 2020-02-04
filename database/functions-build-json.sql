@@ -8,7 +8,8 @@ create or replace function build_asset_json (
               'assetId', a.asset_id,
               'assetSf', a.asset_sf,
               'name', a.name,
-              'category', aa.name
+              'categoryId', a.category,
+              'categoryName', aa.name
             ) as asset_json
       from assets as a
       inner join assets as aa on (a.category = aa.asset_id)
