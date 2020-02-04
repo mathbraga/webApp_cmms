@@ -53,7 +53,6 @@ const filterResultUI = (filterLogic, attributes, operators) => {
   };
   filterLogic.forEach(logic => {
     const { type, attribute, verb, term } = logic;
-    console.log("Logic: ", logic);
     if (type === 'att') {
       const attUI = attributes[attribute].name;
       const attType = attributes[attribute].type;
@@ -236,8 +235,6 @@ class ModalCreateFilter extends Component {
       }
     }
 
-    console.log("Term: ", term);
-
     const newLogic = {
       type: (attribute === 'and' || attribute === 'or' ? 'opr' : 'att'),
       attribute,
@@ -252,7 +249,6 @@ class ModalCreateFilter extends Component {
 
   fixFilterAndUpdate = (updateFunction, toggleFunction) => () => {
     const { currentFilterLogic, filterName } = this.state;
-    console.log("Filter Name: ", filterName);
     let finalFilter = null;
     const lastLogic = currentFilterLogic.slice(-1)[0];
     if (lastLogic && lastLogic.type === 'opr') {

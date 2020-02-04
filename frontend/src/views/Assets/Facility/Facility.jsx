@@ -13,7 +13,6 @@ const imageStatus = 'Trânsito Livre';
 class Facility extends Component {
   render() {
     const { data, customGraphQLVariables, ...rest } = this.props;
-    console.log("DAtaaaa: ", data);
     const finalData = data.queryResponse.nodes[0];
     const descriptionItems = [
       { title: 'Edifício / Área', description: finalData.name, boldTitle: true },

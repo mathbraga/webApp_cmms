@@ -11,7 +11,6 @@ class MaterialTab extends Component {
   state = {}
   render() {
     const data = this.props.data.supplies;
-    console.log("Material: ", data);
     return (
       <>
         <DescriptionTable

@@ -11,7 +11,6 @@ class AssetTab extends Component {
   state = {}
   render() {
     const data = this.props.data.assets;
-    console.log("Material: ", data);
     return (
       <>
         <DescriptionTable
