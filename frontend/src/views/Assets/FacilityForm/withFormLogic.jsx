@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import populateStateEditForm from '../../../components/EditForm/populateStateEditForm';
+import { baseState, addNewCustomStates } from './utils/stateEditMode';
 
 
 export default function WithFormLogic(WrappedComponent) {
@@ -6,22 +8,9 @@ export default function WithFormLogic(WrappedComponent) {
     constructor(props) {
       super(props);
       const itemData = this.props.data.allFacilityData && this.props.data.allFacilityData.nodes[0];
-      this.state = {
-        assetSf: itemData ? itemData.assetSf : "",
-        name: itemData ? itemData.name : "",
-        latitude: itemData ? itemData.latitude : "",
-        longitude: itemData ? itemData.longitude : "",
-        description: itemData ? itemData.description : "",
-        area: itemData ? itemData.area : "",
-        parent: itemData ? itemData.parent : null,
-        context: itemData ? itemData.context : null,
-        parents: itemData ? itemData.parents.map((parent, index) => (parent &&
-        {
-          context: itemData.contexts[index],
-          parent,
-        }
-        )).filter(item => (item !== null)) : [],
-      }
+      const { editMode } = this.props;
+
+      this.state = populateStateEditForm(baseState, itemData, editMode, addNewCustomStates);
 
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleParentChange = this.handleParentChange.bind(this);

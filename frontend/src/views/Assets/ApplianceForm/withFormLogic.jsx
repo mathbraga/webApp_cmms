@@ -7,7 +7,7 @@ export default function WithFormLogic(WrappedComponent) {
   class WithFormLogic extends Component {
     constructor(props) {
       super(props);
-      const itemData = this.props.data.allApplianceData.nodes[0];
+      const itemData = this.props.data.allApplianceData && this.props.data.allApplianceData.nodes[0];
       const { editMode } = this.props;
 
       this.state = populateStateEditForm(baseState, itemData, editMode, addNewCustomStates);
