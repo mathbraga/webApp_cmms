@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const fetchGQL = gql`
+const fetchGQLEdit = gql`
   query MyQuery($assetId: Int!) {
     allAssetFormData {
       nodes {
@@ -26,6 +26,17 @@ const fetchGQL = gql`
   }
 `;
 
+const fetchGQLNew = gql`
+  query MyQuery($assetId: Int!) {
+    allAssetFormData {
+      nodes {
+        topOptions
+        parentOptions
+      }
+    }
+  }
+`;
+
 const fetchVariables = {};
 
-export { fetchGQL, fetchVariables };
+export { fetchGQLEdit, fetchGQLNew, fetchVariables };
