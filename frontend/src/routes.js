@@ -34,7 +34,7 @@ const routes = [
   { path: "/ativos/edificios/novo", exact: true, name: "Novo Edificio", component: FacilityForm },
   { path: "/ativos/equipamentos", exact: true, name: "Equipamentos", component: Appliances },
   { path: "/ativos/equipamento/view/:id", exact: false, name: "Equipamento", component: Appliance },
-  { path: "/ativos/equipamento/edit/:id", exact: false, name: "Equipamento", component: NoView },
+  { path: "/ativos/equipamento/edit/:id", exact: false, name: "Equipamento", component: ApplianceForm, options: { editMode: true } },
   { path: "/ativos/equipamentos/novo", exact: true, name: "Novo Equipamento", component: ApplianceForm },
   { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: Tasks },
   { path: "/manutencao/os/view/:id", exact: false, name: "Ordem de Serviço", component: Task },
