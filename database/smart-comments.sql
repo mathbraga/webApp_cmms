@@ -1,5 +1,4 @@
 -- lookup tables
--- comment on table asset_categories is E'@omit';
 comment on table contract_statuses is E'@omit';
 comment on table task_statuses is E'@omit';
 comment on table task_priorities is E'@omit';
@@ -21,6 +20,7 @@ comment on table tasks is E'@omit';
 comment on table task_assets is E'@omit';
 comment on table task_messages is E'@omit';
 comment on table task_supplies is E'@omit';
+comment on table asset_files is E'@omit';
 comment on table task_files is E'@omit';
 comment on table team_persons is E'@omit';
 comment on table teams is E'@omit';

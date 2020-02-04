@@ -49,7 +49,7 @@ class TaskForm extends Component {
               />
               <div style={{ marginTop: "60px" }} />
               <AssetForm
-                assetOptions={data.teamOptions}
+                assetOptions={data.assetOptions}
                 handleAssetChange={handleFunctions.handleAssetChange}
                 {...state}
               />

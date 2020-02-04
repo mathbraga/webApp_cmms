@@ -17,6 +17,7 @@ class Appliances extends Component {
         title={"Equipamentos"}
         subtitle={"Lista de equipamentos do CASF"}
         buttonName={"Novo equipamento"}
+        buttonPath={"/ativos/equipamentos/novo"}
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}

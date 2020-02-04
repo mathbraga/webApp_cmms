@@ -1,7 +1,7 @@
 create or replace function insert_asset (
   in attributes assets,
-  in relations_tops integer[],
-  in relations_parents integer[],
+  in tops integer[],
+  in parents integer[],
   out result integer
 )
   language plpgsql
@@ -24,10 +24,19 @@ create or replace function insert_asset (
       ) returning asset_id into result;
 
       insert into asset_relations values (
-        unnest(relations_tops),
-        unnest(relations_parents),
+        unnest(tops),
+        unnest(parents),
         result
       );
+
+      insert into asset_files
+        select result,
+               f.filename,
+               f.uuid,
+               f.size,
+               current_setting('auth.data.person_id')::integer,
+               now()
+          from unnest(files_metadata) as f;
 
     end;
   $$

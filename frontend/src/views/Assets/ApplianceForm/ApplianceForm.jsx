@@ -5,11 +5,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import './FacilityForm.css';
+import './ApplianceForm.css';
 
 import { fetchGQL, fetchVariables } from './utils/dataFetchParameters';
 import DescriptionForm from './formParts/DescriptionForm';
-import LocationForm from './formParts/LocationForm';
+import PurchaseForm from './formParts/PurchaseForm';
 import ParentForm from './formParts/ParentForm';
 import WithFormLogic from './withFormLogic';
 
@@ -20,10 +20,10 @@ class FacilityForm extends Component {
     return (
       <CssBaseline>
         <AssetCard
-          sectionName={'Cadastro de Edifício'}
-          sectionDescription={'Formulário para cadastro de uma nova área'}
-          handleCardButton={() => { history.push("/ativos/edificios") }}
-          buttonName={'Edifícios'}
+          sectionName={'Cadastro de Equipamentos'}
+          sectionDescription={'Formulário para cadastro de novos equipamentos'}
+          handleCardButton={() => { history.push("/ativos/equipamentos") }}
+          buttonName={'Equipamentos'}
         >
           <div className="input-container">
             <form noValidate autoComplete="off">
@@ -32,7 +32,7 @@ class FacilityForm extends Component {
                 {...state}
               />
               <div style={{ marginTop: "60px" }} />
-              <LocationForm
+              <PurchaseForm
                 handleInputChange={handleFunctions.handleInputChange}
                 {...state}
               />
