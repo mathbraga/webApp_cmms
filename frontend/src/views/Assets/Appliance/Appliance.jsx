@@ -14,8 +14,7 @@ const imageStatus = 'Funcionando';
 
 class Appliance extends Component {
   render() {
-    console.log("Props: ", this.props);
-    const { data, ...rest } = this.props;
+    const { data, customGraphQLVariables, ...rest } = this.props;
     const finalData = data.queryResponse.nodes[0];
     const descriptionItems = [
       { title: 'Equipamento / Sistema', description: finalData.name, boldTitle: true },
@@ -28,6 +27,8 @@ class Appliance extends Component {
         data={finalData}
         image={image}
         imageStatus={imageStatus}
+        buttonName={"Editar"}
+        buttonPath={"/ativos/equipamento/edit/" + customGraphQLVariables.assetId}
         descriptionItems={descriptionItems}
         tabs={tabsGenerator(finalData)}
         {...rest}

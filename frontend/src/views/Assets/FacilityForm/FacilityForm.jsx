@@ -7,21 +7,21 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import './FacilityForm.css';
 
-import { fetchGQL, fetchVariables } from './utils/dataFetchParameters';
 import DescriptionForm from './formParts/DescriptionForm';
 import LocationForm from './formParts/LocationForm';
 import ParentForm from './formParts/ParentForm';
 import WithFormLogic from './withFormLogic';
+import withGraphQLVariables from './withGraphQLVariables';
 
 class FacilityForm extends Component {
   render() {
-    const { history, handleFunctions, state } = this.props;
-    const data = this.props.data.allAssetFormData.nodes[0];
+    const { history, handleFunctions, state, editMode } = this.props;
+    const formData = this.props.data.allAssetFormData.nodes[0];
     return (
       <CssBaseline>
         <AssetCard
-          sectionName={'Cadastro de Edifício'}
-          sectionDescription={'Formulário para cadastro de uma nova área'}
+          sectionName={editMode ? 'Editar Edifício' : 'Cadastro de Edifício'}
+          sectionDescription={editMode ? 'Formulário para modificar dados de um edifício' : 'Formulário para cadastro de uma nova área'}
           handleCardButton={() => { history.push("/ativos/edificios") }}
           buttonName={'Edifícios'}
         >
@@ -42,13 +42,13 @@ class FacilityForm extends Component {
                 handleContextChange={handleFunctions.handleContextChange}
                 addNewParent={handleFunctions.addNewParent}
                 removeParent={handleFunctions.removeParent}
-                data={data}
+                formData={formData}
                 {...state}
               />
               <div style={{ marginTop: "60px" }} />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Button variant="contained" color="primary" style={{ marginRight: "10px" }}>
-                  Cadastrar
+                  {editMode ? "Atualizar" : "Cadastrar"}
                 </Button>
                 <Button variant="contained" style={{ marginRight: "10px" }}>
                   Limpar
@@ -66,7 +66,8 @@ class FacilityForm extends Component {
 }
 
 export default compose(
+  withGraphQLVariables,
+  withDataFetching(),
   withRouter,
-  WithFormLogic,
-  withDataFetching(fetchGQL, fetchVariables)
+  WithFormLogic
 )(FacilityForm);

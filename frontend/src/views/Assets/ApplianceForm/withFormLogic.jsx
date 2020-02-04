@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
+import populateStateEditForm from '../../../components/EditForm/populateStateEditForm';
+import { baseState, addNewCustomStates } from './utils/stateEditMode';
+
 
 export default function WithFormLogic(WrappedComponent) {
-
   class WithFormLogic extends Component {
     constructor(props) {
       super(props);
-      this.state = {
-        assetSf: "",
-        name: "",
-        description: "",
-        manufacturer: "",
-        serialnum: "",
-        model: "",
-        price: "",
-        parent: null,
-        context: null,
-        parents: [],
-      }
+      const itemData = this.props.data.allApplianceData && this.props.data.allApplianceData.nodes[0];
+      const { editMode } = this.props;
+
+      this.state = populateStateEditForm(baseState, itemData, editMode, addNewCustomStates);
 
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleParentChange = this.handleParentChange.bind(this);
@@ -43,7 +37,7 @@ export default function WithFormLogic(WrappedComponent) {
     addNewParent() {
       this.setState((prevState) => {
         const { parent, context } = prevState;
-        const id = `${parent.taskCategoryId}-${context.taskCategoryId}`;
+        const id = `${parent.assetId}-${context.assetId}`;
         if (parent && context) {
           return ({
             parents: [
@@ -76,6 +70,7 @@ export default function WithFormLogic(WrappedComponent) {
         <WrappedComponent
           handleFunctions={handleFunctions}
           state={this.state}
+          {...this.props}
         />
       );
     }

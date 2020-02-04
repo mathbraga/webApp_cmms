@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { Query } from 'react-apollo';
 
-export default function withDataFetching(graphQLString, graphQLVariables) {
+export default function withDataFetching(graphQLString = null, graphQLVariables = null) {
   return (
     function (WrappedComponent) {
       class WithDataFetching extends Component {
         render() {
           return (
             <Query
-              query={graphQLString}
-              variables={graphQLVariables || this.props.customGraphQLVariables}
+              query={this.props.customGraphQLString || graphQLString}
+              variables={this.props.customGraphQLVariables || graphQLVariables}
             >
               {
                 ({ loading, error, data }) => {

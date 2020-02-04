@@ -12,7 +12,6 @@ const imageStatus = 'Vigente';
 
 class Contract extends Component {
   render() {
-    console.log("Props: ", this.props);
     const { data, ...rest } = this.props;
     const finalData = data.queryResponse.nodes[0];
     const descriptionItems = [
