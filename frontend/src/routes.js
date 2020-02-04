@@ -38,7 +38,7 @@ const routes = [
   { path: "/ativos/equipamentos/novo", exact: true, name: "Novo Equipamento", component: ApplianceForm },
   { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: Tasks },
   { path: "/manutencao/os/view/:id", exact: false, name: "Ordem de Serviço", component: Task },
-  { path: "/manutencao/os/edit/:id", exact: false, name: "Ordem de Serviço", component: NoView },
+  { path: "/manutencao/os/edit/:id", exact: false, name: "Ordem de Serviço", component: TaskForm, options: { editMode: true } },
   { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: TaskForm },
   { path: "/gestao/contratos", exact: true, name: "Contratos", component: Contracts },
   { path: "/gestao/contratos/view/:id", exact: false, name: "Contrato", component: Contract },
