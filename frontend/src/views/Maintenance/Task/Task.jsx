@@ -12,7 +12,7 @@ const imageStatus = 'Em andamento';
 
 class Task extends Component {
   render() {
-    const { data, ...rest } = this.props;
+    const { data, customGraphQLVariables, ...rest } = this.props;
     const finalData = data.queryResponse.nodes[0];
     const descriptionItems = [
       { title: 'Serviço', description: finalData.title, boldTitle: true },
@@ -25,6 +25,8 @@ class Task extends Component {
         data={finalData}
         image={image}
         imageStatus={imageStatus}
+        buttonName={"Editar"}
+        buttonPath={"/manutencao/os/edit/" + customGraphQLVariables.taskId}
         descriptionItems={descriptionItems}
         tabs={tabsGenerator(finalData)}
         {...rest}
