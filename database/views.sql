@@ -175,3 +175,11 @@ create view tasks_of_spec as
     inner join task_categories as tc using (task_category_id)
   group by z.spec_id
 ;
+
+create view parents_of_asset as
+  select asset_id,
+         jsonb_agg(build_asset_json(ar.top_id)) as contexts,
+         jsonb_agg(build_asset_json(ar.parent_id)) as parents
+    from asset_relations as ar
+  group by asset_id
+;

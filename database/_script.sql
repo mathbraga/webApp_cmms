@@ -99,9 +99,9 @@ insert into persons overriding system value values (0, '00000000000', 'email@ema
 \i sequences.sql
 
 -- create api
-\i api/creates.sql
 \i api/gets.sql
-\i api/updates.sql
+\i api/inserts.sql
+\i api/modifies.sql
 \i api/views.sql
 
 -- set ON_ERROR_STOP to off
