@@ -19,6 +19,8 @@ const fetchGQLEdit = gql`
         longitude
         name
         tasks
+        contexts
+        parents
       }
     }
   }

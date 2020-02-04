@@ -15,7 +15,12 @@ export default function WithFormLogic(WrappedComponent) {
         area: itemData ? itemData.area : "",
         parent: itemData ? itemData.parent : null,
         context: itemData ? itemData.context : null,
-        parents: [],
+        parents: itemData ? itemData.parents.map((parent, index) => (parent &&
+        {
+          context: itemData.contexts[index],
+          parent,
+        }
+        )).filter(item => (item !== null)) : [],
       }
 
       this.handleInputChange = this.handleInputChange.bind(this);
