@@ -19,8 +19,8 @@ export function itemsMatrixLocation(data) {
         { id: 'latitude', title: 'Latitude do Local', description: data.latitude, line: 1, span: 1 },
       ],
       [
-        { id: 'longitude', title: 'Área', description: data.longitude, span: 1 },
-        { id: 'area', title: 'Longitude do Local', description: data.area, line: 1, span: 1 },
+        { id: 'area', title: 'Área', description: data.area, span: 1 },
+        { id: 'longitude', title: 'Longitude do Local', description: data.longitude, line: 1, span: 1 },
       ],
     ]
   );
