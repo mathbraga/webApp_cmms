@@ -1,26 +1,14 @@
 export const baseState = {
-  assetSf: "",
-  name: "",
+  title: "",
+  place: "",
   description: "",
-  manufacturer: "",
-  serialnum: "",
-  model: "",
-  price: "",
-}
-
-export function addNewCustomStates(itemData, currentState) {
-  const result = { ...currentState, parent: null, context: null };
-  result.parents = itemData
-    ? itemData.parents
-      .map((parent, index) =>
-        (parent &&
-        {
-          context: itemData.contexts[index],
-          parent,
-          id: `${parent.assetId}-${itemData.contexts[index].assetId}`
-        }
-        ))
-      .filter(item => (item !== null))
-    : [];
-  return result;
+  priority: 2,
+  category: null,
+  initialDate: null,
+  limitDate: null,
+  status: 3,
+  contract: null,
+  team: null,
+  project: null,
+  assets: [],
 }

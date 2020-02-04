@@ -7,7 +7,7 @@ export default function withGraphQLVariables(WrappedComponent) {
       const { match, editMode } = this.props;
       const customGraphQLVariables = {};
       if (match) {
-        customGraphQLVariables.assetId = Number(match.params.id);
+        customGraphQLVariables.taskId = Number(match.params.id);
       }
       return (
         <WrappedComponent
