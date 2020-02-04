@@ -1,34 +1,7 @@
 import React, { Component } from 'react';
+import populateStateEditForm from '../../../components/EditForm/populateStateEditForm';
+import { baseState, addNewCustomStates } from './utils/stateEditMode';
 
-function populateInitialStateEditMode(baseState, itemData, editMode, customState) {
-  if (!editMode) return baseState;
-  const result = {};
-  Object.keys(baseState).forEach((key) => result[key] = itemData ? itemData[key] : "");
-  if (customState) {
-    return customState(itemData, result);
-  }
-  return result;
-}
-
-const baseState = {
-  assetSf: "",
-  name: "",
-  description: "",
-  manufacturer: "",
-  serialnum: "",
-  model: "",
-  price: "",
-}
-
-function addNewCustomStates(itemData, currentState) {
-  const result = { ...currentState, parent: null, context: null };
-  result.parents = itemData
-    ? itemData.parents
-      .map((parent, index) => (parent && { context: itemData.contexts[index], parent, }))
-      .filter(item => (item !== null))
-    : [];
-  return result;
-}
 
 export default function WithFormLogic(WrappedComponent) {
   class WithFormLogic extends Component {
@@ -37,7 +10,7 @@ export default function WithFormLogic(WrappedComponent) {
       const itemData = this.props.data.allApplianceData.nodes[0];
       const { editMode } = this.props;
 
-      this.state = populateInitialStateEditMode(baseState, itemData, editMode, addNewCustomStates)
+      this.state = populateStateEditForm(baseState, itemData, editMode, addNewCustomStates);
 
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleParentChange = this.handleParentChange.bind(this);
