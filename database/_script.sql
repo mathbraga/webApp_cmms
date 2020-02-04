@@ -60,17 +60,17 @@ begin transaction;
 \i helper-json-builders.sql
 \i helper-get-asset-trees.sql
 \i helper-views.sql
-
--- create functions
-\i fn-authenticate.sql
-\i fn-exception.sql
-\i fn-triggers.sql
-\i fn-uuid.sql
+\i helper-exception.sql
+\i helper-trigger-functions.sql
 
 -- create api
 \i api-inserts.sql
 \i api-modifies.sql
 \i api-views.sql
+
+-- others
+\i end-authenticate.sql
+\i end-uuid.sql
 
 -- create and login with fake user for initial inserts
 \i end-fake-user.sql
