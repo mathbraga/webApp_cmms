@@ -1,4 +1,4 @@
-insert into assets overriding system value values (1, 'CASF-000-000', 'Complexo Arquitetônico - Todos', null, 1, null, null, null);
+insert into assets overriding system value values (1, 'CASF-000-000', 'Endereçamento do CASF', null, 1, null, null, null);
 insert into assets overriding system value values (2, 'EDPR-000-000', 'Edifício Principal - Todos', null, 1, -15.79925, -47.864063, 14942.27);
 insert into assets overriding system value values (3, 'EDPR-SS1-000', 'Edifício Principal - 1º Subsolo', null, 1, null, null, null);
 insert into assets overriding system value values (4, 'EDPR-SS1-051', 'Edifício Principal - 1º Subsolo', null, 1, null, null, null);

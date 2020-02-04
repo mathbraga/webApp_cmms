@@ -4,7 +4,7 @@ const { pgPool } = require('../db');
 
 module.exports = postgraphile(
   pgPool,
-  ['public'],
+  ['api'],
   { 
     watchPg: process.env.NODE_ENV === 'development',
     retryOnInitFail: false,
