@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 
+import TestTable from '../../components/Tables/Test/TestTable';
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -36,17 +38,18 @@ class Dashboard extends Component {
           </Row>
         </Container>
 
-        {/* <Container>
+        <Container>
           <Row className="justify-content-center">
             <Col md="8">
               <Card className="mx-4">
                 <CardBody className="p-4">
-                  Testing space
+                  <TestTable />
                 </CardBody>
               </Card>
             </Col>
           </Row>
-        </Container> */}
+        </Container>
+
       </div>
     );
   }
