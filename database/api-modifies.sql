@@ -1,5 +1,7 @@
 create or replace function api.modify_asset (
   in attributes assets,
+  in tops integer[],
+  in parents integer[],
   out result integer
 )
   language plpgsql
