@@ -114,7 +114,7 @@ create view api.facility_data as
     from assets as a
     inner join assets as aa on (a.category = aa.asset_id)
     inner join parents_of_asset as pa on (a.asset_id = pa.asset_id)
-    inner join children_of_asset as c on (a.asset_id = c.asset_id)
+    left join children_of_asset as c on (a.asset_id = c.asset_id)
     left join tasks_of_asset as t on (a.asset_id = t.asset_id)
   where a.category = 1
 ;
@@ -137,7 +137,7 @@ create view api.appliance_data as
     from assets as a
     inner join assets as aa on (a.category = aa.asset_id)
     inner join parents_of_asset as pa on (a.asset_id = pa.asset_id)
-    inner join children_of_asset as c on (a.asset_id = c.asset_id)
+    left join children_of_asset as c on (a.asset_id = c.asset_id)
     left join tasks_of_asset as t on (a.asset_id = t.asset_id)
   where a.category <> 1
 ;
