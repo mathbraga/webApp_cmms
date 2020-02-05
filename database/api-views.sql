@@ -108,7 +108,7 @@ create view api.facility_data as
          a.longitude,
          a.area,
          t.tasks,
-         pa.parents,
+         nullif(pa.parents, null),
          pa.contexts,
          c.relations
     from assets as a
@@ -131,7 +131,7 @@ create view api.appliance_data as
          a.model,
          a.price,
          t.tasks,
-         pa.parents,
+         nullif(pa.parents, null),
          pa.contexts,
          c.relations
     from assets as a
