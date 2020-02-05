@@ -17,16 +17,15 @@ function TableHeader({ tableConfig }) {
 };
 
 function TableBody({ tableConfig, data, history }) {
-  const isTableMixed = tableConfig.isTableMixed === undefined ? false : tableConfig.isTableMixed;
 
   return (
-    data.map((item) => (
+    data.map((item) => {
+      let correctPath = item.categoryId === 1 ? '/ativos/edificio/view/' : '/ativos/equipamento/view/';
+      return(
       <tr
         onClick={tableConfig.itemClickable && (
           () => {
-            history.push(isTableMixed ? (
-              (item.categoryId === 1 ? '/ativos/edificio/view/' : '/ativos/equipamento/view/')
-              + item[tableConfig.idAttributeForData]) : 
+            history.push(tableConfig.isTableMixed ? (correctPath + item[tableConfig.idAttributeForData]) : 
               tableConfig.itemPath + item[tableConfig.idAttributeForData])
           })}
       >
@@ -61,7 +60,8 @@ function TableBody({ tableConfig, data, history }) {
         })
         }
       </tr>
-    ))
+      )
+    })
   );
 }
 
