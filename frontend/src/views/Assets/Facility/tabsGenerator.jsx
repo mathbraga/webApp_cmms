@@ -9,12 +9,12 @@ import LogTab from './TabsElements/LogTab';
 export default function tabsGenerator(data) {
   return (
     [
-      { id: 'info', title: 'Informações Gerais', element: <InfoTab data={data.queryResponse.nodes[0]} /> },
-      { id: 'location', title: 'Planta Arquitetônica', element: <LocationTab data={data.queryResponse.nodes[0]} /> },
-      { id: 'maintenance', title: 'Manutenções', element: <MaintenanceTab data={data.queryResponse.nodes[0]} /> },
-      { id: 'asset', title: 'Ativos', element: <AssetTab data={data.queryResponse.nodes[0] || []} /> },
-      { id: 'files', title: 'Arquivos', element: <FilesTab data={data.queryResponse.nodes[0]} /> },
-      { id: 'log', title: 'Histórico', element: <LogTab data={data.queryResponse.nodes[0]} /> },
+      { id: 'info', title: 'Informações Gerais', element: <InfoTab data={data || []} /> },
+      { id: 'location', title: 'Planta Arquitetônica', element: <LocationTab data={data || []} /> },
+      { id: 'maintenance', title: 'Manutenções', element: <MaintenanceTab data={data || []} /> },
+      { id: 'asset', title: 'Ativos', element: <AssetTab data={data || []} /> },
+      { id: 'files', title: 'Arquivos', element: <FilesTab data={data || []} /> },
+      { id: 'log', title: 'Histórico', element: <LogTab data={data || []} /> },
     ]
   );
 }
