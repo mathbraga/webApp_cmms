@@ -13,7 +13,7 @@ import ParentForm from './formParts/ParentForm';
 import WithFormLogic from './withFormLogic';
 import withGraphQLVariables from './withGraphQLVariables';
 import withMutation from '../../../components/Mutation';
-import { mutationGQL, mutationVariables } from './utils/mutationParameters';
+import { mutationGQLEdit, mutationGQLNew, mutationVariables } from './utils/mutationParameters';
 
 class FacilityForm extends Component {
   render() {
@@ -72,5 +72,5 @@ export default compose(
   withDataFetching(),
   withRouter,
   WithFormLogic,
-  withMutation
+  withMutation(mutationGQLEdit, mutationGQLNew, mutationVariables)
 )(FacilityForm);

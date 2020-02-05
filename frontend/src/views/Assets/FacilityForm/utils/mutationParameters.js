@@ -5,11 +5,13 @@ const mutationGQLEdit = gql`
     $attributes: AssetInput!,
     $tops: [Int!]!,
     $parents: [Int!]!
-  ) modifyAsset {
-    input: (
-      attributes: $attributes
-      tops: $tops
-      parents: $parents
+  ) {
+    modifyAsset (
+      input: {
+        attributes: $attributes
+        tops: $tops
+        parents: $parents
+      }
     ) {
       result
     }
@@ -21,11 +23,13 @@ const mutationGQLNew = gql`
     $attributes: AssetInput!,
     $tops: [Int!]!,
     $parents: [Int!]!
-  ) insertAsset {
-    input: (
-      attributes: $attributes
-      tops: $tops
-      parents: $parents
+  ) {
+    insertAsset (
+      input: {
+        attributes: $attributes
+        tops: $tops
+        parents: $parents
+      }
     ) {
       result
     }
