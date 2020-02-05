@@ -14,7 +14,7 @@ create database temp_db;
 \c temp_db
 
 -- terminate existing connections
-\i terminate.sql
+\i prep-terminate-connections.sql
 
 -- drop database
 drop database if exists :new_db_name;
@@ -26,13 +26,13 @@ create database :new_db_name with owner postgres;
 \c :new_db_name
 
 -- create extensions
-create extension if not exists pgcrypto;
+\i prep-extensions.sql
 
 -- create additional schemas
-create schema private;
+\i prep-schemas.sql
 
 -- create roles
-\i roles.sql
+\i prep-roles.sql
 
 -- set password for postgres role
 alter role postgres with encrypted password '123456';
@@ -47,60 +47,45 @@ alter role postgres with encrypted password '123456';
 begin transaction;
 
 -- alter default privileges
-\i privileges.sql
+\i prep-privileges.sql
 
 -- create composite types
-\i types.sql
-
--- create enums
--- \i enums.sql
-
--- create lookup tables
-\i luts.sql
+\i prep-types.sql
 
 -- create tables
-\i tables.sql
+\i prep-lookup-tables.sql
+\i prep-tables.sql
 
--- NEW
-\i functions-build-json.sql
+-- create helpers
+\i helper-json-builders.sql
+\i helper-get-asset-trees.sql
+\i helper-views.sql
+\i helper-exception.sql
+\i helper-trigger-functions.sql
 
--- create views
-\i views-helpers.sql
-\i views-ui.sql
+-- create api
+\i api-inserts.sql
+\i api-modifies.sql
+\i api-views.sql
 
--- create materialized views
-\i materialized-views.sql
+-- others
+\i end-authenticate.sql
+\i end-uuid.sql
 
--- create functions
-\i functions-auth.sql
-\i functions-exception.sql
-\i functions-inserts.sql
-\i functions-modifies.sql
-\i functions-queries.sql
-\i functions-refresh.sql
-\i functions-triggers.sql
-
--- fake logged user for initial inserts
-set local auth.data.person_id to 0;
-insert into persons overriding system value values (0, '00000000000', 'email@email.com', 'Visitor', '0000', null, null);
+-- create and login with fake user for initial inserts
+\i end-fake-user.sql
 
 -- populate tables
-\i inserts.sql
+\i end-populate-tables.sql
 
 -- create triggers
-\i triggers.sql
+\i end-triggers.sql
 
 -- create rls policies
--- \i policies.sql
-
--- create comments
--- \i comments.sql
-
--- create smart comments
-\i smart-comments.sql
+-- \i end-rls-policies.sql
 
 -- restart sequences
-\i sequences.sql
+\i end-restart-sequences.sql
 
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off

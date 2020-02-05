@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import ItemViewUI from './ItemViewUI';
+import { withRouter } from 'react-router-dom';
 
 class ItemView extends Component {
   render() {
+    const { history, buttonPath, ...rest } = this.props;
     return (
       <ItemViewUI
-        {...this.props}
+        {...rest}
+        handleCardButton={buttonPath
+          ? (() => { history.push(buttonPath) })
+          : (() => { })}
       />
     );
   }
 }
 
-export default ItemView;
+export default withRouter(ItemView);

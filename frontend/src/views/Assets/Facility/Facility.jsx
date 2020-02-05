@@ -12,7 +12,7 @@ const imageStatus = 'Trânsito Livre';
 
 class Facility extends Component {
   render() {
-    const { data, ...rest } = this.props;
+    const { data, customGraphQLVariables, ...rest } = this.props;
     const finalData = data.queryResponse.nodes[0];
 
     const descriptionItems = [
@@ -27,7 +27,9 @@ class Facility extends Component {
         image={image}
         imageStatus={imageStatus}
         descriptionItems={descriptionItems}
-        tabs={tabsGenerator(data)}
+        tabs={tabsGenerator(finalData)}
+        buttonName={'Editar'}
+        buttonPath={"/ativos/edificio/edit/" + customGraphQLVariables.assetId}
         {...rest}
       />
     );

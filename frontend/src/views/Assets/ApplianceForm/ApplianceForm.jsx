@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import AssetCard from '../../../components/Cards/AssetCard';
-import withDataFetching from '../../../components/DataFetch';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import './ApplianceForm.css';
 
-import { fetchGQL, fetchVariables } from './utils/dataFetchParameters';
 import DescriptionForm from './formParts/DescriptionForm';
 import PurchaseForm from './formParts/PurchaseForm';
 import ParentForm from './formParts/ParentForm';
 import WithFormLogic from './withFormLogic';
+import withDataFetching from '../../../components/DataFetch';
+import withGraphQLVariables from './withGraphQLVariables';
 
 class FacilityForm extends Component {
   render() {
     const { history, handleFunctions, state } = this.props;
+    console.log("Dataa: ", this.props.data);
     const data = this.props.data.allAssetFormData.nodes[0];
     return (
       <CssBaseline>
@@ -66,7 +67,8 @@ class FacilityForm extends Component {
 }
 
 export default compose(
+  withGraphQLVariables,
+  withDataFetching(),
   withRouter,
-  WithFormLogic,
-  withDataFetching(fetchGQL, fetchVariables)
+  WithFormLogic
 )(FacilityForm);

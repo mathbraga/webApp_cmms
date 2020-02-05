@@ -26,7 +26,7 @@ class FormUI extends Component {
       buttonName
     } = this.props;
     const { categoryOptions, contractOptions, priorityOptions, statusOptions } = data.allTaskFormData.nodes[0]
-    console.log("Priority: ", priorityOptions);
+
     return (
       <>
         <CssBaseline>

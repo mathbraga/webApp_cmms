@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import { Query } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 
-export default function withDataFetching(graphQLString = null, graphQLVariables = null) {
+export default function withMutation(graphQLString, graphQLVariables) {
   return (
     function (WrappedComponent) {
-      class WithDataFetching extends Component {
+      class WithMutation extends Component {
         render() {
           return (
-            <Query
-              query={this.props.customGraphQLString || graphQLString}
-              variables={this.props.customGraphQLVariables || graphQLVariables}
+            <Mutation
+              mutation={graphQLString}
+              variables={graphQLVariables || this.props.customGraphQLVariables}
             >
               {
                 ({ loading, error, data }) => {
@@ -23,17 +23,17 @@ export default function withDataFetching(graphQLString = null, graphQLVariables 
                   );
                 }
               }
-            </Query>
+            </Mutation>
           );
         }
       }
 
       // Add display name for debugging.
-      WithDataFetching.displayName = `WithDataFetching(${WrappedComponent.displayName ||
+      WithMutation.displayName = `WithMutation(${WrappedComponent.displayName ||
         WrappedComponent.name ||
         "Component"})`;
 
-      return WithDataFetching;
+      return WithMutation;
     }
   );
 }

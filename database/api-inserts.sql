@@ -1,4 +1,4 @@
-create or replace function insert_asset (
+create or replace function api.insert_asset (
   in attributes assets,
   in tops integer[],
   in parents integer[],
@@ -42,7 +42,7 @@ create or replace function insert_asset (
   $$
 ;
 
-create or replace function insert_person (
+create or replace function api.insert_person (
   in attributes persons,
   in input_person_role text,
   out result integer
@@ -72,7 +72,7 @@ create or replace function insert_person (
   $$
 ;
 
-create or replace function insert_task (
+create or replace function api.insert_task (
   in attributes tasks,
   in assets integer[],
   in supplies integer[],
@@ -130,7 +130,7 @@ create or replace function insert_task (
   $$
 ;
 
-create or replace function insert_team (
+create or replace function api.insert_team (
   in attributes teams,
   in persons_array integer[],
   out result integer
@@ -153,7 +153,7 @@ create or replace function insert_team (
   $$
 ;
 
--- create or replace function insert_contract (
+-- create or replace function api.insert_contract (
 --   in contract_attributes contracts,
 --   in supplies_array supplies[]
 -- )
