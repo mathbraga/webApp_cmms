@@ -12,10 +12,12 @@ import LocationForm from './formParts/LocationForm';
 import ParentForm from './formParts/ParentForm';
 import WithFormLogic from './withFormLogic';
 import withGraphQLVariables from './withGraphQLVariables';
+import withMutation from '../../../components/Mutation';
+import { mutationGQL, mutationVariables } from './utils/mutationParameters';
 
 class FacilityForm extends Component {
   render() {
-    const { history, handleFunctions, state, editMode } = this.props;
+    const { history, handleFunctions, state, editMode, mutation } = this.props;
     const formData = this.props.data.allAssetFormData.nodes[0];
     return (
       <CssBaseline>
@@ -69,5 +71,6 @@ export default compose(
   withGraphQLVariables,
   withDataFetching(),
   withRouter,
-  WithFormLogic
+  WithFormLogic,
+  withMutation
 )(FacilityForm);

@@ -30,6 +30,28 @@ create or replace function api.modify_asset (
           attributes.price
         ) where a.asset_id = asset_attributes.asset_id
       returning a.asset_id into result;
+    
+      with added_relations as (
+        select unnest(tops) as top_id, unnest(parents) as parent_id
+        except
+        select ar.top_id, ar.parent_id
+          from asset_relations as ar
+          where ar.asset_id = attributes.asset_id
+      )
+      insert into asset_relations as ar
+        select top_id, parent_id, attributes.asset_id from added_relations;
+  
+      with recursive removed_relations as (
+        select ar.top_id, ar.parent_id
+          from asset_relations as ar
+        where ar.asset_id = attributes.asset_id
+        except
+        select unnest(tops) as top_id, unnest(parents) as parent_id
+      )
+      delete from asset_relations as ar
+        where ar.asset_id = attributes.asset_id
+              and ar.asset_id in (select asset_id from removed_assets);
+
     end;
   $$
 ;
