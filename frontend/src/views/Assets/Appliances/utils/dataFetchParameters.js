@@ -6,6 +6,7 @@ const fetchAppliancesGQL = gql`
       nodes {
         assetId
         assetSf
+        categoryId
         description
         name
         manufacturer

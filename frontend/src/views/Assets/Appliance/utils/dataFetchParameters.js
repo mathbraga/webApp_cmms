@@ -6,6 +6,7 @@ const fetchGQL = gql`
       nodes {
         assetId
         assetSf
+        categoryId
         categoryName
         description
         manufacturer
@@ -14,13 +15,7 @@ const fetchGQL = gql`
         price
         serialnum
         tasks
-      }
-    }
-    assetChildren: getAssetTree(inputAssetId: $assetId){
-      nodes{
-        assets
-        parentId
-        topAsset
+        relations
       }
     }
   }

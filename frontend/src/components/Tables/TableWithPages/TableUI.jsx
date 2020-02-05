@@ -17,12 +17,17 @@ function TableHeader({ tableConfig }) {
 };
 
 function TableBody({ tableConfig, data, history }) {
+  const isTableMixed = tableConfig.isTableMixed === undefined ? false : tableConfig.isTableMixed;
+
   return (
     data.map((item) => (
       <tr
         onClick={tableConfig.itemClickable && (
           () => {
-            history.push(tableConfig.itemPath + item[tableConfig.idAttributeForData])
+            history.push(isTableMixed ? (
+              (item.categoryId === 1 ? '/ativos/edificio/view/' : '/ativos/equipamento/view/')
+              + item[tableConfig.idAttributeForData]) : 
+              tableConfig.itemPath + item[tableConfig.idAttributeForData])
           })}
       >
         <td className="text-center checkbox-cell">

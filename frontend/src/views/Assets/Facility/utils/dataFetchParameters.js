@@ -7,19 +7,14 @@ const fetchGQL = gql`
         assetId
         assetSf
         area
+        categoryId
         categoryName
         description
         latitude
         longitude
         name
         tasks
-      }
-    }
-    assetChildren: getAssetTree(inputAssetId: $assetId){
-      nodes{
-        assets
-        parentId
-        topAsset
+        relations
       }
     }
   }

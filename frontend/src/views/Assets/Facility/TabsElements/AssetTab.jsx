@@ -3,7 +3,7 @@ import AssetTemplateTab from '../../../../components/Tabs/AssetTab/AssetsTemplat
 
 class AssetTab extends Component {
   render() {
-    const data = this.props.data.map((item) => item.assets) || [];
+    const data = Object.values(this.props.data.relations) || [];
     const final_data = [].concat(...data);
 
     return (

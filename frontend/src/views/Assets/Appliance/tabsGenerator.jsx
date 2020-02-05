@@ -14,7 +14,7 @@ export default function tabsGenerator(data) {
       { id: 'location', title: 'Localização', element: <LocationTab data={data.queryResponse.nodes[0]} /> },
       { id: 'maintenance', title: 'Manutenção', element: <MaintenanceTab data={data.queryResponse.nodes[0]} /> },
       { id: 'warranty', title: 'Garantia', element: <WarrantyTab data={data.queryResponse.nodes[0]} /> },
-      { id: 'asset', title: 'Ativos', element: <AssetTab data={data.assetChildren.nodes || []} /> },
+      { id: 'asset', title: 'Ativos', element: <AssetTab data={data.queryResponse.nodes[0] || []} /> },
       { id: 'files', title: 'Arquivos', element: <FilesTab data={data.queryResponse.nodes[0]} /> },
       { id: 'log', title: 'Histórico', element: <LogTab data={data.queryResponse.nodes[0]} /> },
     ]
