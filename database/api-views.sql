@@ -87,7 +87,7 @@ create view api.spec_data as
   select z.*,
          zc.spec_category_text,
          zs.spec_subcategory_text,
-         s.total_available,
+         coalesce(s.total_available, 0) as total_available,
          s.supplies,
          t.tasks
     from specs as z
