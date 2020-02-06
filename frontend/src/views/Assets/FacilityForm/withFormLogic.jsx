@@ -60,7 +60,7 @@ export default function WithFormLogic(WrappedComponent) {
     }
 
     handleSubmit(mutateFunction) {
-      mutateFunction({ variables: this.state});
+      mutateFunction();
     }
 
     render() {
