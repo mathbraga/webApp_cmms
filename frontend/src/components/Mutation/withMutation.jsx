@@ -1,23 +1,24 @@
 import React, { Component } from "react";
 import { Mutation } from 'react-apollo';
 
-export default function withMutation(graphQLString, graphQLVariables) {
+export default function withMutation(GQL = null, variables = null) {
   return (
     function (WrappedComponent) {
       class WithMutation extends Component {
         render() {
           return (
             <Mutation
-              mutation={graphQLString}
-              variables={graphQLVariables || this.props.customGraphQLVariables}
+              mutation={this.props.mutationGQL || GQL}
+              variables={this.props.mutationVariables || variables}
+              onCompleted={ data => { console.log(data); this.props.history.push('/painel'); }}
             >
               {
-                ({ loading, error, data }) => {
+                ({ loading, error, data, mutation }) => {
                   if (loading) return (<div>Carregando...</div>);
                   if (error) return (<div>Algo deu errado!</div>);
                   return (
                     <WrappedComponent
-                      data={data}
+                      mutation={mutation}
                       {...this.props}
                     />
                   );

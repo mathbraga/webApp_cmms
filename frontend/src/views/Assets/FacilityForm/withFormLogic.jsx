@@ -70,6 +70,7 @@ export default function WithFormLogic(WrappedComponent) {
         <WrappedComponent
           handleFunctions={handleFunctions}
           state={this.state}
+          mutationVariables={this.state}
           {...this.props}
         />
       );

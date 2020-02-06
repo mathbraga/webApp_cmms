@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { fetchGQLEdit, fetchGQLNew } from './utils/dataFetchParameters';
+import { mutationGQLEdit, mutationGQLNew } from './utils/mutationParameters';
 
 export default function withGraphQLVariables(WrappedComponent) {
   class WithGraphQLVariables extends Component {
@@ -15,6 +16,10 @@ export default function withGraphQLVariables(WrappedComponent) {
           customGraphQLString={editMode
             ? fetchGQLEdit
             : fetchGQLNew
+          }
+          mutationGQL={editMode
+            ? mutationGQLEdit
+            : mutationGQLNew
           }
           {...this.props}
         />
