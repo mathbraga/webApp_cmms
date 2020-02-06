@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './HTMLTable.css';
 
+import { tableConfig, data } from '../fakeData';
+
 class HTMLTable extends Component {
   render() {
     return (
