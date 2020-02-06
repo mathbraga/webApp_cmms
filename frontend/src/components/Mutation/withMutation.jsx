@@ -9,8 +9,10 @@ export default function withMutation(GQL = null, variables = null) {
           return (
             <Mutation
               mutation={this.props.mutationGQL || GQL}
+              mutate={this.props.handleFunctions.handleSubmit}
               variables={this.props.mutationVariables || variables}
               onCompleted={ data => { console.log(data); this.props.history.push('/painel'); }}
+
             >
               {
                 ( mutate, { loading, error, data } ) => {
@@ -18,7 +20,7 @@ export default function withMutation(GQL = null, variables = null) {
                   if (error) return (<div>Algo deu errado!</div>);
                   return (
                     <WrappedComponent
-                      mutate={this.props.handleFunctions.handleSubmit}
+                      mutate={mutate}
                       {...this.props}
                     />
                   );

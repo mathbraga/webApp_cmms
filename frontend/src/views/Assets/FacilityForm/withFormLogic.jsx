@@ -59,9 +59,8 @@ export default function WithFormLogic(WrappedComponent) {
       });
     }
 
-    handleSubmit(event) {
-      event.preventDefault();
-      console.log('Mutation was triggered.');
+    handleSubmit(mutateFunction) {
+      mutateFunction({ variables: this.state});
     }
 
     render() {
@@ -77,7 +76,16 @@ export default function WithFormLogic(WrappedComponent) {
         <WrappedComponent
           handleFunctions={handleFunctions}
           state={this.state}
-          mutationVariables={this.state}
+          mutationVariables={{
+            attributes: {
+              assetSf: 'assetSf' + Math.random().toString(),
+              name: 'name',
+              description: 'description',
+              category: 1,
+            },
+            tops: [1],
+            parents: [1],
+          }}
           {...this.props}
         />
       );

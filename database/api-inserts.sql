@@ -29,14 +29,14 @@ create or replace function api.insert_asset (
         result
       );
 
-      insert into asset_files
-        select result,
-               f.filename,
-               f.uuid,
-               f.size,
-               current_setting('auth.data.person_id')::integer,
-               now()
-          from unnest(files_metadata) as f;
+      -- insert into asset_files
+      --   select result,
+      --          f.filename,
+      --          f.uuid,
+      --          f.size,
+      --          current_setting('auth.data.person_id')::integer,
+      --          now()
+      --     from unnest(files_metadata) as f;
 
     end;
   $$
