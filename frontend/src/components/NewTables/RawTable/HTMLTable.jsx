@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './HTMLTable.css';
+import classNames from 'classnames';
+import { CustomInput } from 'reactstrap';
 
 import { tableConfig, data } from '../fakeData';
 
@@ -9,36 +11,86 @@ class HTMLTable extends Component {
       <div className="table-wrapper">
         <table className="main-table">
           <thead className="main-table__header">
-            <tr className="main-table__header__row">
-              <th className="main-table__head-value">Os</th>
-              <th className="main-table__head-value">Título</th>
-              <th className="main-table__head-value">Status</th>
-              <th className="main-table__head-value">Prazo Final</th>
-              <th className="main-table__head-value">Localização</th>
+            <tr
+              className="main-table__header__row"
+              key="header"
+            >
+              {tableConfig.checkbox && (
+                <th
+                  className={classNames({
+                    "main-table__head": true,
+                    "main-table__head--center": true,
+                  })}
+                  style={{ width: tableConfig.checkboxWidth || "5%" }}
+                  key={"checkbox"}
+                >
+                  <div className="main-table__checkbox">
+                    <CustomInput type="checkbox" />
+                  </div>
+                </th>
+              )}
+              {tableConfig.columns.map((column) => (
+                <th
+                  className={classNames({
+                    "main-table__head": true,
+                    [`main-table__head--${column.align}`]: column.align,
+                  })}
+                  style={{ width: column.width }}
+                  key={column.name}
+                >
+                  <div className="main-table__head-value">
+                    {column.description}
+                  </div>
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody className="main-table__body">
-            <tr className="main-table__body__row">
-              <td className="main-table__data">001</td>
-              <td className="main-table__data">Reparos de marcenaria</td>
-              <td className="main-table__data">Cancelada</td>
-              <td className="main-table__data">2019-01-20</td>
-              <td className="main-table__data">Sala do SEMAC</td>
-            </tr>
-            <tr className="main-table__body__row">
-              <td className="main-table__data">002</td>
-              <td className="main-table__data">Troca de vidro</td>
-              <td className="main-table__data">Negada</td>
-              <td className="main-table__data">2020-01-02</td>
-              <td className="main-table__data">Sala de reuniões</td>
-            </tr>
-            <tr className="main-table__body__row">
-              <td className="main-table__data">003</td>
-              <td className="main-table__data">Troca do piso</td>
-              <td className="main-table__data">Execução</td>
-              <td className="main-table__data">2019-12-12</td>
-              <td className="main-table__data">Sala da SADCON</td>
-            </tr>
+            {data.map((item) => (
+              <tr
+                className="main-table__body__row"
+                key={item[tableConfig.idAttributeForData]}
+              >
+                {tableConfig.checkbox && (
+                  <td
+                    className={classNames({
+                      "main-table__data": true,
+                      "main-table__data--center": true,
+                    })}
+                    style={{ width: "5%" }}
+                    key={"checkbox"}
+                  >
+                    <div className="main-table__checkbox">
+                      <CustomInput type="checkbox" />
+                    </div>
+                  </td>
+                )}
+                {tableConfig.columns.map((column) => (
+                  <td
+                    className={classNames({
+                      "main-table__data": true,
+                      [`main-table__data--${column.align}`]: column.align,
+                    })}
+                    key={column.name}
+                  >
+                    <div className={classNames({
+                      "main-table__data-value": true,
+                      "main-table__data--nowrap": !column.wrap,
+                    })}>
+                      {item[column.data[0]]}
+                    </div>
+                    {column.data[1] && (
+                      <div className={classNames({
+                        "main-table__data-sub-value": true,
+                      })}
+                      >
+                        {item[column.data[1]]}
+                      </div>
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

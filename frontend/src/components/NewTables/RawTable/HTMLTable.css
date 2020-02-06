@@ -1,26 +1,38 @@
 .table-wrapper {
   display: inline-block;
   width: 100%;
-  border-radius: 6px;
-  overflow: hidden;
+  overflow-x: scroll;
 }
 
 .main-table {
   table-layout: fixed;
   border-collapse: collapse;
   width: 100%;
+  min-width: 650px;
   background-color: #FAFAFA;
   vertical-align: center;
 }
 
 
-.main-table__head-value {
+.main-table__head {
   background-color: #14365E;
   color: white;
   padding: 6px 2px;
   font-weight: 700;
   height: 50px;
   font-size: 0.9rem;
+}
+
+.main-table__head-value {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 0 5px;
+}
+
+.main-table__checkbox {
+  padding: 0 3px;
 }
 
 .main-table__header__row {
@@ -34,6 +46,36 @@
   border-bottom: 1px solid #d4d4d4;
 }
 
+.main-table__data-value {
+  display: block;
+  padding: 0 4px;
+}
+
+.main-table__data-sub-value {
+  color: #73818f;
+  font-size: 0.74rem;
+  font-weight: 400;
+  padding: 1px 4px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .main-table__body__row:last-of-type {
-  border-bottom: 3px solid #14365E;
+  border-bottom: 3px solid #bfbfbf;
+}
+
+.main-table__head--center,
+.main-table__data--center {
+  text-align: center;
+}
+
+.main-table__head--justify,
+.main-table__data--justify {
+  text-align: justify;
+}
+
+.main-table__data--nowrap {
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
