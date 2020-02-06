@@ -16,7 +16,7 @@ import withMutation from '../../../components/Mutation';
 
 class FacilityForm extends Component {
   render() {
-    const { history, handleFunctions, state, editMode, mutation } = this.props;
+    const { history, handleFunctions, state, editMode, mutate } = this.props;
     const formData = this.props.data.allAssetFormData.nodes[0];
     return (
       <CssBaseline>
@@ -48,7 +48,12 @@ class FacilityForm extends Component {
               />
               <div style={{ marginTop: "60px" }} />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button variant="contained" color="primary" style={{ marginRight: "10px" }}>
+                <Button 
+                  variant="contained"
+                  color="primary"
+                  style={{ marginRight: "10px" }}
+                  onClick={mutate}
+                >
                   {editMode ? "Atualizar" : "Cadastrar"}
                 </Button>
                 <Button variant="contained" style={{ marginRight: "10px" }}>

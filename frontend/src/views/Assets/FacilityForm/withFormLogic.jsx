@@ -17,6 +17,7 @@ export default function WithFormLogic(WrappedComponent) {
       this.handleContextChange = this.handleContextChange.bind(this);
       this.addNewParent = this.addNewParent.bind(this);
       this.removeParent = this.removeParent.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleInputChange(event) {
@@ -58,6 +59,11 @@ export default function WithFormLogic(WrappedComponent) {
       });
     }
 
+    handleSubmit(event) {
+      event.preventDefault();
+      console.log('Mutation was triggered.');
+    }
+
     render() {
       const handleFunctions = {
         handleInputChange: this.handleInputChange,
@@ -65,6 +71,7 @@ export default function WithFormLogic(WrappedComponent) {
         handleContextChange: this.handleContextChange,
         addNewParent: this.addNewParent,
         removeParent: this.removeParent,
+        handleSubmit: this.handleSubmit,
       }
       return (
         <WrappedComponent

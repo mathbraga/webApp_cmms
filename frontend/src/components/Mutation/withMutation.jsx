@@ -13,12 +13,12 @@ export default function withMutation(GQL = null, variables = null) {
               onCompleted={ data => { console.log(data); this.props.history.push('/painel'); }}
             >
               {
-                ({ loading, error, data, mutation }) => {
+                ( mutate, { loading, error, data } ) => {
                   if (loading) return (<div>Carregando...</div>);
                   if (error) return (<div>Algo deu errado!</div>);
                   return (
                     <WrappedComponent
-                      mutation={mutation}
+                      mutate={this.props.handleFunctions.handleSubmit}
                       {...this.props}
                     />
                   );
