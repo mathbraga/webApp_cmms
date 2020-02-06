@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 
-import TestTable from '../../components/Tables/Test/TestTable';
+import HTMLTable from '../../components/NewTables/RawTable/HTMLTable';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -40,10 +40,10 @@ class Dashboard extends Component {
 
         <Container>
           <Row className="justify-content-center">
-            <Col md="8">
-              <Card className="mx-4">
-                <CardBody className="p-4">
-                  <TestTable />
+            <Col md="12">
+              <Card className="mx-8">
+                <CardBody className="p-8">
+                  <HTMLTable />
                 </CardBody>
               </Card>
             </Col>

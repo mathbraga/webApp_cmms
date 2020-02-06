@@ -1,0 +1,39 @@
+.table-wrapper {
+  display: inline-block;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.main-table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #FAFAFA;
+  vertical-align: center;
+}
+
+
+.main-table__head-value {
+  background-color: #14365E;
+  color: white;
+  padding: 6px 2px;
+  font-weight: 700;
+  height: 50px;
+  font-size: 0.9rem;
+}
+
+.main-table__header__row {
+  border-bottom: 2px solid #cecece;
+}
+
+.main-table__data {
+  padding: 6px 2px;
+  height: 55px;
+  overflow: hidden;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.main-table__body__row:last-of-type {
+  border-bottom: 3px solid #14365E;
+}
