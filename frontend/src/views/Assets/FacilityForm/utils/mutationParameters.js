@@ -36,6 +36,4 @@ const mutationGQLNew = gql`
   }
 `;
 
-const mutationVariables = {};
-
-export { mutationGQLEdit, mutationGQLNew, mutationVariables };
+export { mutationGQLEdit, mutationGQLNew };
