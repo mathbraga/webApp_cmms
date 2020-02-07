@@ -23,9 +23,9 @@ export const selectedData = {
 }
 
 export const data = [
-  { taskId: "001", category: "Reparo em Forro", title: "Troca de vidros quebradosTroca de vidros quebradosTroca de vidros quebradosTroca de vidros quebradosTroca de vidros quebradosTroca de vidros quebradosTroca de vidros quebradosTroca de vidros quebrados", status: "Canceladasssssssssssss", dateLimit: "12-10-2020", place: "Sala do SEMAC" },
+  { taskId: "001", category: "Reparo em Forro", title: "Troca de vidros quebradosTroca de vidros quebradosTroca de vidros quebradosTroca de vidros quebradosTroca de vidros quebradosTroca de vidros quebradosTroca de vidros quebradosTroca de vidros quebrados", status: "Cancelada", dateLimit: "12-10-2020", place: "Sala do SEMAC" },
   { taskId: "002", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "Cancelada", dateLimit: "12-10-2020", place: "Sala do SEMAC" },
-  { taskId: "003", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "Canceladassssssssssssssssss", dateLimit: "12-10-2020", place: "Sala do SEMAC" },
+  { taskId: "003", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "Cancelada", dateLimit: "12-10-2020", place: "Sala do SEMAC" },
   { taskId: "004", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "Cancelada", dateLimit: "12-10-2020", place: "Sala do SEMAC" },
   { taskId: "005", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "Cancelada", dateLimit: "12-10-2020", place: "Sala do SEMAC" },
   { taskId: "006", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "Cancelada", dateLimit: "12-10-2020", place: "Sala do SEMAC" },

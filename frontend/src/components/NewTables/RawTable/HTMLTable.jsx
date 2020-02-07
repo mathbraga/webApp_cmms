@@ -50,7 +50,10 @@ class HTMLTable extends Component {
           <tbody className="main-table__body">
             {data.map((item) => (
               <tr
-                className="main-table__body__row"
+                className={classNames({
+                  "main-table__body__row": true,
+                  "main-table__body__row--selected": selectedData[item[tableConfig.idAttributeForData]],
+                })}
                 key={item[tableConfig.idAttributeForData]}
               >
                 {tableConfig.checkbox && (
