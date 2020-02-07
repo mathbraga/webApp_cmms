@@ -39,6 +39,15 @@
   border-bottom: 2px solid #cecece;
 }
 
+.main-table__body__row:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.main-table__body__row--selected {
+  background-color: rgba(0, 0, 0, 0.075);
+  font-weight: 600;
+}
+
 .main-table__data {
   padding: 6px 2px;
   height: 55px;
