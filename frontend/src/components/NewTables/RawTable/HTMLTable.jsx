@@ -3,7 +3,7 @@ import './HTMLTable.css';
 import classNames from 'classnames';
 import { CustomInput } from 'reactstrap';
 
-import { tableConfig, data } from '../fakeData';
+import { tableConfig, data, selectedData } from '../fakeData';
 
 class HTMLTable extends Component {
   render() {
@@ -25,7 +25,9 @@ class HTMLTable extends Component {
                   key={"checkbox"}
                 >
                   <div className="main-table__checkbox">
-                    <CustomInput type="checkbox" />
+                    <CustomInput
+                      type="checkbox"
+                    />
                   </div>
                 </th>
               )}
@@ -61,7 +63,10 @@ class HTMLTable extends Component {
                     key={"checkbox"}
                   >
                     <div className="main-table__checkbox">
-                      <CustomInput type="checkbox" />
+                      <CustomInput
+                        type="checkbox"
+                        checked={selectedData[item[tableConfig.idAttributeForData]]}
+                      />
                     </div>
                   </td>
                 )}
