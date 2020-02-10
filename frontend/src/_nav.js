@@ -14,7 +14,7 @@ export default {
       children: [
         {
           name: "Edifícios",
-          url: "/ativos/edificios",
+          url: "/edificios",
           icon: "icon-home"
         },
         {

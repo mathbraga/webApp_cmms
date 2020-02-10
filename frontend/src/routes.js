@@ -1,5 +1,6 @@
 import React from "react";
 import MainPage from "./views/MainPage";
+import facilityDetails from './graphql/facility';
 
 const Dashboard = React.lazy(() => import("./views/Dashboard"));
 const Login = React.lazy(() => import("./views/Authentication/Login"));
@@ -28,10 +29,16 @@ const routes = [
   { path: '/painel', name: "Painel", component: Dashboard },
   { path: "/login", name: "Login", component: Login },
   { path: "/perfil", name: "Perfil", component: Profile },
-  { path: "/ativos/edificios", exact: true, name: "Edifícios", component: Facilities },
-  { path: "/ativos/edificio/view/:id", exact: false, name: "Edifício", component: Facility },
-  { path: "/ativos/edificio/edit/:id", exact: false, name: "Edifício", component: FacilityForm, options: { editMode: true } },
-  { path: "/ativos/edificios/novo", exact: true, name: "Novo Edificio", component: FacilityForm },
+
+
+
+  { path: facilityDetails.paths.all, exact: true, name: "Edifícios", component: Facilities },
+  { path: facilityDetails.paths.one, exact: false, name: "Edifício", component: Facility },
+  { path: facilityDetails.paths.update, exact: false, name: "Edifício", component: FacilityForm, options: { mode: 'update', entityDetails: facilityDetails } },
+  { path: facilityDetails.paths.create, exact: true, name: "Novo Edificio", component: FacilityForm, options: { mode: 'create', entityDetails: facilityDetails } },
+
+
+  
   { path: "/ativos/equipamentos", exact: true, name: "Equipamentos", component: Appliances },
   { path: "/ativos/equipamento/view/:id", exact: false, name: "Equipamento", component: Appliance },
   { path: "/ativos/equipamento/edit/:id", exact: false, name: "Equipamento", component: ApplianceForm, options: { editMode: true } },

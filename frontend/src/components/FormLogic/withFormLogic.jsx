@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
-import populateStateEditForm from '../EditForm/populateStateEditForm';
-import { baseState, addNewCustomStates } from './utils/stateEditMode';
-
 
 export default function withFormLogic(WrappedComponent) {
   class WithFormLogic extends Component {
     constructor(props) {
       super(props);
-      const itemData = this.props.data.allFacilityData && this.props.data.allFacilityData.nodes[0];
-      const { editMode } = this.props;
-
-      this.state = populateStateEditForm(baseState, itemData, editMode, addNewCustomStates);
-
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleParentChange = this.handleParentChange.bind(this);
       this.handleContextChange = this.handleContextChange.bind(this);

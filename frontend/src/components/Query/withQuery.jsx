@@ -6,7 +6,7 @@ export default function withQuery(WrappedComponent) {
     render() {
       return (
         <Query
-          query={this.props.customGraphQLString}
+          query={this.props.queryGQL}
           variables={this.props.customGraphQLVariables}
         >
           {
