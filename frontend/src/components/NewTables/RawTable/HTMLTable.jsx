@@ -6,6 +6,14 @@ import { sortBy } from 'lodash';
 
 import { tableConfig, data, selectedData } from '../fakeData';
 
+function HeaderButton({ onClick, children, className }) {
+  return (
+    <div onClick={onClick} className={classNames("main-table__head-button", className)}>
+      {children}
+    </div>
+  );
+}
+
 class HTMLTable extends Component {
   render() {
     const { sortKey, onSort, isSortReverse } = this.props;

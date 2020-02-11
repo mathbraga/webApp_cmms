@@ -23,12 +23,17 @@
   font-size: 0.9rem;
 }
 
-.main-table__head-value {
+.main-table__head-value,
+.main-table__head-button {
   display: block;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   padding: 0 5px;
+}
+
+.main-table__head-button {
+  cursor: pointer;
 }
 
 .main-table__checkbox {
