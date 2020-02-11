@@ -18,9 +18,11 @@ function HeaderSort({ sortKey, onSort, children, activeSortKey }) {
   return (
     <HeaderButton onClick={() => onSort(sortKey)}>
       {children}
-      <div className="main-table__head-arrow">
-        <img src={sortingArrow} />
-      </div>
+      {activeSortKey === sortKey && (
+        <div className="main-table__head-arrow">
+          <img src={sortingArrow} />
+        </div>
+      )}
     </HeaderButton>
   );
 }
