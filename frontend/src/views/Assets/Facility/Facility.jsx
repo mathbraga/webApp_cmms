@@ -28,7 +28,7 @@ class Facility extends Component {
         descriptionItems={descriptionItems}
         tabs={tabsGenerator(finalData)}
         buttonName={'Editar'}
-        buttonPath={"/ativos/edificio/edit/" + customGraphQLVariables.assetId}
+        buttonPath={"/edificios/editar/" + customGraphQLVariables.assetId.toString()}
         {...rest}
       />
     );

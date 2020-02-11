@@ -11,9 +11,9 @@ export default function withFormLogic(WrappedComponent) {
       this.addNewParent = this.addNewParent.bind(this);
       this.removeParent = this.removeParent.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-      const itemData = this.props.data.entityData && this.props.data.entityData.nodes[0];
+      const itemData = this.props.data.itemData && this.props.data.itemData.nodes[0];
       const { mode } = this.props;
-      const { baseState, addNewCustomStates } = this.props.entityDetails
+      const { baseState, addNewCustomStates } = this.props.entityDetails;
       this.state = populateStateEditForm(baseState, itemData, mode, addNewCustomStates);
       // this.getMutationVariables = this.getMutationVariables.bind(this);
     }
@@ -74,6 +74,7 @@ export default function withFormLogic(WrappedComponent) {
         <WrappedComponent
           handleFunctions={handleFunctions}
           formInputs={this.state}
+          mutationVariables={this.props.entityDetails.getMutationVariables(this.state, this.props.mode)}
           {...this.props}
         />
       );

@@ -81,6 +81,6 @@ export default compose(
   withSwitch,
   withQuery,
   withFormLogic,
-  withFacilityFormVariables,
+  // withFacilityFormVariables,
   withMutation
 )(FacilityForm);

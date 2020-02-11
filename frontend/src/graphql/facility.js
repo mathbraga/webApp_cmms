@@ -1,11 +1,12 @@
 import gql from 'graphql-tag';
+import validateInput from '../utils/validateInput';
 
 export default {
   name: 'facility',
   idField: 'assetId',
   paths: {
     all: '/edificios',
-    one: '/edificios/visualizar/:id',
+    one: '/edificios/ver/:id',
     create: '/edificios/criar',
     update: '/edificios/editar/:id',
   },
@@ -16,8 +17,6 @@ export default {
     longitude: "",
     description: "",
     area: "",
-    parents: [],
-    contexts: [],
   },
   addNewCustomStates: (itemData, currentState) => {
     const result = { ...currentState, parent: null, context: null };
@@ -45,7 +44,7 @@ export default {
               parentOptions
             }
           }
-          entityData: allFacilityData(condition: {assetId: $assetId}) {
+          itemData: allFacilityData(condition: {assetId: $assetId}) {
             nodes {
               assetId
               assetSf
@@ -108,6 +107,38 @@ export default {
           }
         }
       `
+    }
+  },
+  getMutationVariables: (state, mode) => {
+    if (mode === 'create'){
+      return {
+        attributes: {
+          // assetId: mode === 'update' ? Number(customGraphQLVariables.entityId) : null,
+          assetSf: validateInput(state.assetSf),
+          name: validateInput(state.name),
+          description: validateInput(state.description),
+          category: 1,
+          latitude: validateInput(state.latitude),
+          longitude: validateInput(state.longitude),
+        },
+        tops: state.parents.length > 0 ? state.parents.map(parent => parent.context.assetId) : null,
+        parents: state.parents.length > 0 ? state.parents.map(parent => parent.parent.assetId) :  null,
+      }
+    }
+    if (mode === 'update'){
+      return {
+        assetId: state.assetId,
+        attributes: {
+          assetSf: validateInput(state.assetSf),
+          name: validateInput(state.name),
+          description: validateInput(state.description),
+          category: 1,
+          latitude: validateInput(state.latitude),
+          longitude: validateInput(state.longitude),
+        },
+        tops: state.parents.length > 0 ? state.parents.map(parent => parent.context.assetId) : null,
+        parents: state.parents.length > 0 ? state.parents.map(parent => parent.parent.assetId) :  null,
+      }
     }
   },
 }

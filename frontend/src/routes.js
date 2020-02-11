@@ -33,8 +33,8 @@ const routes = [
 
 
   { path: facilityDetails.paths.all, exact: true, name: "Edifícios", component: Facilities },
-  { path: facilityDetails.paths.one, exact: false, name: "Edifício", component: Facility },
-  { path: facilityDetails.paths.update, exact: false, name: "Edifício", component: FacilityForm, options: { mode: 'update', entityDetails: facilityDetails } },
+  { path: facilityDetails.paths.one, exact: true, name: "Edifício", component: Facility },
+  { path: facilityDetails.paths.update, exact: true, name: "Edifício", component: FacilityForm, options: { mode: 'update', entityDetails: facilityDetails } },
   { path: facilityDetails.paths.create, exact: true, name: "Novo Edificio", component: FacilityForm, options: { mode: 'create', entityDetails: facilityDetails } },
 
 

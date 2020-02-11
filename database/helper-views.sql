@@ -181,6 +181,7 @@ create view parents_of_asset as
          jsonb_agg(build_asset_json(ar.top_id)) as contexts,
          jsonb_agg(build_asset_json(ar.parent_id)) as parents
     from asset_relations as ar
+    where ar.parent_id is not null
   group by ar.asset_id
 ;
 

@@ -108,12 +108,12 @@ create view api.facility_data as
          a.longitude,
          a.area,
          t.tasks,
-         nullif(pa.parents->0, null) as parents,
+         pa.parents,
          pa.contexts,
          c.relations
     from assets as a
     inner join assets as aa on (a.category = aa.asset_id)
-    inner join parents_of_asset as pa on (a.asset_id = pa.asset_id)
+    left join parents_of_asset as pa on (a.asset_id = pa.asset_id)
     left join children_of_asset as c on (a.asset_id = c.asset_id)
     left join tasks_of_asset as t on (a.asset_id = t.asset_id)
   where a.category = 1
@@ -131,12 +131,12 @@ create view api.appliance_data as
          a.model,
          a.price,
          t.tasks,
-         nullif(pa.parents->0, null) as parents,
+         pa.parents,
          pa.contexts,
          c.relations
     from assets as a
     inner join assets as aa on (a.category = aa.asset_id)
-    inner join parents_of_asset as pa on (a.asset_id = pa.asset_id)
+    left join parents_of_asset as pa on (a.asset_id = pa.asset_id)
     left join children_of_asset as c on (a.asset_id = c.asset_id)
     left join tasks_of_asset as t on (a.asset_id = t.asset_id)
   where a.category <> 1
