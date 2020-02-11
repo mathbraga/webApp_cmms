@@ -4,34 +4,22 @@ import validateInput from './utils/validateInput';
 export default function withFacilityFormVariables(WrappedComponent) {
   class WithFacilityFormVariables extends Component {
     render() {
-      const { mode, state, customGraphQLVariables } = this.props;
+      const { mode, formInputs, customGraphQLVariables } = this.props;
       return (
         <WrappedComponent
           mutationVariables={{
             attributes: {
-              assetId: mode === 'update' ? Number(customGraphQLVariables.entityId) : null,
-              assetSf: validateInput(state.assetSf),
-              name: validateInput(state.name),
-              description: validateInput(state.description),
+              // assetId: mode === 'update' ? Number(customGraphQLVariables.entityId) : null,
+              assetSf: validateInput(formInputs.assetSf),
+              name: validateInput(formInputs.name),
+              description: validateInput(formInputs.description),
               category: 1,
-              latitude: validateInput(state.latitude),
-              longitude: validateInput(state.longitude),
+              latitude: validateInput(formInputs.latitude),
+              longitude: validateInput(formInputs.longitude),
             },
-            tops: [1],
-            parents: [1],
-          }
-          // FOR TESTS (NO NEED TO FILL FORM):
-          //   {
-          //   attributes: {
-          //     assetSf: 'assetSf' + Math.random().toString(),
-          //     name: 'name',
-          //     description: 'description',
-          //     category: 1,
-          //   },
-          //   tops: [1],
-          //   parents: [1],
-          // }
-        }
+            tops: formInputs.parents.length > 0 ? formInputs.parents.map(parent => parent.context.assetId) : null,
+            parents: formInputs.parents.length > 0 ? formInputs.parents.map(parent => parent.parent.assetId) :  null,
+          }}
           {...this.props}
         />
       );

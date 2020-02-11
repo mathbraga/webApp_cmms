@@ -11,7 +11,7 @@ import ParentForm from './formParts/ParentForm';
 import { withRouter } from 'react-router-dom';
 import withSwitch from '../../../components/Switch';
 
-import withFilledForm from '../../../components/FilledForm';
+// import withFilledForm from '../../../components/FilledForm';
 import withFormLogic from '../../../components/FormLogic';
 
 
@@ -21,7 +21,7 @@ import withFacilityFormVariables from './withFacilityFormVariables';
 
 class FacilityForm extends Component {
   render() {
-    const { history, handleFunctions, state, editMode, mutate } = this.props;
+    const { history, handleFunctions, formInputs, editMode, mutate } = this.props;
     const formData = this.props.data.allAssetFormData.nodes[0];
     return (
       <CssBaseline>
@@ -35,12 +35,12 @@ class FacilityForm extends Component {
             <form noValidate autoComplete="off">
               <DescriptionForm
                 handleInputChange={handleFunctions.handleInputChange}
-                {...state}
+                {...formInputs}
               />
               <div style={{ marginTop: "60px" }} />
               <LocationForm
                 handleInputChange={handleFunctions.handleInputChange}
-                {...state}
+                {...formInputs}
               />
               <div style={{ marginTop: "60px" }} />
               <ParentForm
@@ -49,7 +49,7 @@ class FacilityForm extends Component {
                 addNewParent={handleFunctions.addNewParent}
                 removeParent={handleFunctions.removeParent}
                 formData={formData}
-                {...state}
+                {...formInputs}
               />
               <div style={{ marginTop: "60px" }} />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -80,7 +80,6 @@ export default compose(
   withRouter,
   withSwitch,
   withQuery,
-  // withFilledForm,
   withFormLogic,
   withFacilityFormVariables,
   withMutation
