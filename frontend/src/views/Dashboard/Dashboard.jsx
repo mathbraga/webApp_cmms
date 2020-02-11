@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
+import { tableConfig, selectedData, data } from './fakeData';
 
 import HTMLTable from '../../components/NewTables/RawTable/HTMLTable';
 
@@ -43,7 +44,11 @@ class Dashboard extends Component {
             <Col md="12">
               <Card className="mx-8">
                 <CardBody className="p-8">
-                  <HTMLTable />
+                  <HTMLTable
+                    tableConfig={tableConfig}
+                    selectedData={selectedData}
+                    data={data}
+                  />
                 </CardBody>
               </Card>
             </Col>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './HTMLTable.css';
 import classNames from 'classnames';
 import { CustomInput } from 'reactstrap';
-import { tableConfig, data, selectedData } from '../fakeData';
+import withSorting from '../TableWithSorting/withSorting';
 
 function HeaderButton({ onClick, children, className }) {
   return (
@@ -22,7 +22,7 @@ function HeaderSort({ sortKey, onSort, children, activeSortKey }) {
 
 class HTMLTable extends Component {
   render() {
-    const { onSort, activeSortKey } = this.props;
+    const { onSort, activeSortKey, data, tableConfig, selectedData } = this.props;
     return (
       <div className="table-wrapper">
         <table className="main-table">
@@ -56,19 +56,19 @@ class HTMLTable extends Component {
                   style={{ width: column.width }}
                   key={column.name}
                 >
-                  {
-                    onSort === false
-                      ? (
-                        <div className="main-table__head-value">
-                          {column.description}
-                        </div>
-                      )
-                      : (
-                        <HeaderSort sortKey={column.name} onSort={onSort} activeSortKey={activeSortKey}>
-                          {column.description}
-                        </HeaderSort>
-                      )
-                  }
+                  <div className="main-table__head-value">
+                    {
+                      onSort === false
+                        ? (
+                          column.description
+                        )
+                        : (
+                          <HeaderSort sortKey={column.name} onSort={onSort} activeSortKey={activeSortKey}>
+                            {column.description}
+                          </HeaderSort>
+                        )
+                    }
+                  </div>
                 </th>
               ))}
             </tr>
@@ -132,4 +132,4 @@ class HTMLTable extends Component {
   }
 }
 
-export default HTMLTable;
+export default withSorting(HTMLTable);

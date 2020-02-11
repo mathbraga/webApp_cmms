@@ -22,7 +22,7 @@ export default function withSorting(WrappedTable) {
 
     render() {
       const { data, ...rest } = this.props;
-      const { sortKey } = this.state;
+      const { sortKey, isSortReverse } = this.state;
       const sortedList = sortKey ? sortBy(data, sortKey) : data;
       const reverseSortedList = (isSortReverse && sortKey) ? sortedList.reverse() : sortedList;
       return (
