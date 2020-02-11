@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import './HTMLTable.css';
 import classNames from 'classnames';
 import { CustomInput } from 'reactstrap';
+import { sortBy } from 'lodash';
 
 import { tableConfig, data, selectedData } from '../fakeData';
 
 class HTMLTable extends Component {
   render() {
+    const { sortKey, onSort, isSortReverse } = this.props;
     return (
       <div className="table-wrapper">
         <table className="main-table">

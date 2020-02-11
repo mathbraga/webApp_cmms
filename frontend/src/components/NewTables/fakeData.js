@@ -15,7 +15,6 @@ export const tableConfig = {
 };
 
 export const selectedData = {
-  "004": true,
   "005": true,
   "008": true,
   "009": true,
