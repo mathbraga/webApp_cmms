@@ -83,7 +83,7 @@ class HTMLTable extends Component {
                   >
                     <div className={classNames({
                       "main-table__data-value": true,
-                      "main-table__data--nowrap": !column.wrap,
+                      "main-table__data--nowrap": !column.wrapText,
                     })}>
                       {item[column.data[0]]}
                     </div>

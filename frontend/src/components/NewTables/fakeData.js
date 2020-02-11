@@ -7,7 +7,7 @@ export const tableConfig = {
   idAttributeForData: 'taskId',
   columns: [
     { name: 'taskId', description: 'OS', width: "10%", align: "center", data: ['taskId'] },
-    { name: 'title', description: 'Título', width: "40%", align: "justify", wrap: true, data: ['title', 'category'] },
+    { name: 'title', description: 'Título', width: "40%", align: "justify", wrapText: true, data: ['title', 'category'] },
     { name: 'status', description: 'Status', width: "15%", align: "center", data: ['status'] },
     { name: 'dateLimit', description: 'Prazo Final', width: "15%", align: "center", data: ['dateLimit'] },
     { name: 'place', description: 'Localização', width: "15%", align: "center", data: ['place'] },
