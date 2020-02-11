@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import { CustomInput } from 'reactstrap';
 import withSorting from '../TableWithSorting/withSorting';
 
+const sortingArrow = require("../../../assets/icons/sorting_arrow.png");
+
 function HeaderButton({ onClick, children, className }) {
   return (
     <div onClick={onClick} className={classNames("main-table__head-button", className)}>
@@ -16,6 +18,9 @@ function HeaderSort({ sortKey, onSort, children, activeSortKey }) {
   return (
     <HeaderButton onClick={() => onSort(sortKey)}>
       {children}
+      <div className="main-table__head-arrow">
+        <img src={sortingArrow} />
+      </div>
     </HeaderButton>
   );
 }
