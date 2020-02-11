@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import './HTMLTable.css';
 import classNames from 'classnames';
 import { CustomInput } from 'reactstrap';
-import { sortBy } from 'lodash';
-
 import { tableConfig, data, selectedData } from '../fakeData';
 
 function HeaderButton({ onClick, children, className }) {
@@ -24,8 +22,7 @@ function HeaderSort({ sortKey, onSort, children, activeSortKey }) {
 
 class HTMLTable extends Component {
   render() {
-    const { sortKey, onSort, isSortReverse } = this.props;
-    const sortedList = sortBy(data, sortKey);
+    const { onSort, activeSortKey } = this.props;
     return (
       <div className="table-wrapper">
         <table className="main-table">
@@ -59,15 +56,25 @@ class HTMLTable extends Component {
                   style={{ width: column.width }}
                   key={column.name}
                 >
-                  <div className="main-table__head-value">
-                    {column.description}
-                  </div>
+                  {
+                    onSort === false
+                      ? (
+                        <div className="main-table__head-value">
+                          {column.description}
+                        </div>
+                      )
+                      : (
+                        <HeaderSort sortKey={column.name} onSort={onSort} activeSortKey={activeSortKey}>
+                          {column.description}
+                        </HeaderSort>
+                      )
+                  }
                 </th>
               ))}
             </tr>
           </thead>
           <tbody className="main-table__body">
-            {sortedList.map((item) => (
+            {data.map((item) => (
               <tr
                 className={classNames({
                   "main-table__body__row": true,
