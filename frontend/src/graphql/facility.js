@@ -16,6 +16,8 @@ export default {
     longitude: "",
     description: "",
     area: "",
+    parents: [],
+    contexts: [],
   },
   addNewCustomStates: (itemData, currentState) => {
     const result = { ...currentState, parent: null, context: null };

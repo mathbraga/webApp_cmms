@@ -5,9 +5,9 @@ export default function withSwitch(WrappedComponent) {
     render() {
       const { match, mode, entityDetails } = this.props;
       const customGraphQLVariables = {};
-      if (match) {
-        customGraphQLVariables[entityDetails.idField] = Number(match.params.id);
-      }
+      mode === 'update'
+        ? customGraphQLVariables[entityDetails.idField] = Number(match.params.id)
+        : customGraphQLVariables[entityDetails.idField] = null;
       const queryGQL = entityDetails.GQLs[mode].query;
       const mutationGQL = entityDetails.GQLs[mode].mutation;
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import populateStateEditForm from '../EditForm/populateStateEditForm';
 
 export default function withFormLogic(WrappedComponent) {
   class WithFormLogic extends Component {
@@ -10,6 +11,11 @@ export default function withFormLogic(WrappedComponent) {
       this.addNewParent = this.addNewParent.bind(this);
       this.removeParent = this.removeParent.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      const itemData = this.props.data.entityData && this.props.data.entityData.nodes[0];
+      const { mode } = this.props;
+      const { baseState, addNewCustomStates } = this.props.entityDetails
+      this.state = populateStateEditForm(baseState, itemData, mode, addNewCustomStates);
+      // this.getMutationVariables = this.getMutationVariables.bind(this);
     }
 
     handleInputChange(event) {
@@ -30,8 +36,8 @@ export default function withFormLogic(WrappedComponent) {
     addNewParent() {
       this.setState((prevState) => {
         const { parent, context } = prevState;
-        const id = `${parent.assetId}-${context.assetId}`;
         if (parent && context) {
+          const id = `${parent.assetId}-${context.assetId}`;
           return ({
             parents: [
               ...prevState.parents,
@@ -68,16 +74,6 @@ export default function withFormLogic(WrappedComponent) {
         <WrappedComponent
           handleFunctions={handleFunctions}
           state={this.state}
-          mutationVariables={{
-            attributes: {
-              assetSf: 'assetSf' + Math.random().toString(),
-              name: 'name',
-              description: 'description',
-              category: 1,
-            },
-            tops: [1],
-            parents: [1],
-          }}
           {...this.props}
         />
       );

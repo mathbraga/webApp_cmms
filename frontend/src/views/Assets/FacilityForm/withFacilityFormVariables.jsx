@@ -9,13 +9,13 @@ export default function withFacilityFormVariables(WrappedComponent) {
         <WrappedComponent
           mutationVariables={{
             attributes: {
-              assetId: mode ? Number(customGraphQLVariables.entityId) : null,
+              assetId: mode === 'update' ? Number(customGraphQLVariables.entityId) : null,
               assetSf: validateInput(state.assetSf),
               name: validateInput(state.name),
               description: validateInput(state.description),
               category: 1,
               latitude: validateInput(state.latitude),
-              longitude: Number(state.longitude),
+              longitude: validateInput(state.longitude),
             },
             tops: [1],
             parents: [1],
