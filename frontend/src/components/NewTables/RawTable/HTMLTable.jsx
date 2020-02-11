@@ -14,9 +14,18 @@ function HeaderButton({ onClick, children, className }) {
   );
 }
 
+function HeaderSort({ sortKey, onSort, children, activeSortKey }) {
+  return (
+    <HeaderButton onClick={() => onSort(sortKey)}>
+      {children}
+    </HeaderButton>
+  );
+}
+
 class HTMLTable extends Component {
   render() {
     const { sortKey, onSort, isSortReverse } = this.props;
+    const sortedList = sortBy(data, sortKey);
     return (
       <div className="table-wrapper">
         <table className="main-table">
@@ -58,7 +67,7 @@ class HTMLTable extends Component {
             </tr>
           </thead>
           <tbody className="main-table__body">
-            {data.map((item) => (
+            {sortedList.map((item) => (
               <tr
                 className={classNames({
                   "main-table__body__row": true,
