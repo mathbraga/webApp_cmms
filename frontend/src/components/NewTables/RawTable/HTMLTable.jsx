@@ -14,12 +14,15 @@ function HeaderButton({ onClick, children, className }) {
   );
 }
 
-function HeaderSort({ sortKey, onSort, children, activeSortKey }) {
+function HeaderSort({ sortKey, onSort, children, activeSortKey, isSortReverse }) {
   return (
     <HeaderButton onClick={() => onSort(sortKey)}>
       {children}
       {activeSortKey === sortKey && (
-        <div className="main-table__head-arrow">
+        <div className={classNames({
+          "main-table__head-arrow": true,
+          "main-table__head-arrow--rotated": isSortReverse
+        })}>
           <img src={sortingArrow} />
         </div>
       )}
@@ -29,7 +32,7 @@ function HeaderSort({ sortKey, onSort, children, activeSortKey }) {
 
 class HTMLTable extends Component {
   render() {
-    const { onSort, activeSortKey, data, tableConfig, selectedData } = this.props;
+    const { onSort, activeSortKey, data, tableConfig, selectedData, isSortReverse } = this.props;
     return (
       <div className="table-wrapper">
         <table className="main-table">
@@ -70,7 +73,7 @@ class HTMLTable extends Component {
                           column.description
                         )
                         : (
-                          <HeaderSort sortKey={column.name} onSort={onSort} activeSortKey={activeSortKey}>
+                          <HeaderSort sortKey={column.name} onSort={onSort} activeSortKey={activeSortKey} isSortReverse={isSortReverse}>
                             {column.description}
                           </HeaderSort>
                         )
