@@ -48,7 +48,7 @@ class Dashboard extends Component {
                     tableConfig={tableConfig}
                     selectedData={selectedData}
                     data={data}
-                    hasSearch={true}
+                    hasSearch={false}
                     searchableAttributes={searchableAttributes}
                   />
                 </CardBody>

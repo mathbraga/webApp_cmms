@@ -11,6 +11,8 @@
   min-width: 650px;
   background-color: #FAFAFA;
   vertical-align: middle;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 
