@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 import { tableConfig, selectedData, data } from './fakeData';
 
-import HTMLTable from '../../components/NewTables/RawTable/HTMLTable';
+import TableWithPages from "../../components/NewTables/TableWithPages/TableWithPages";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class Dashboard extends Component {
             <Col md="12">
               <Card className="mx-8">
                 <CardBody className="p-8">
-                  <HTMLTable
+                  <TableWithPages
                     tableConfig={tableConfig}
                     selectedData={selectedData}
                     data={data}
