@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
 import HTMLTable from '../RawTable/HTMLTable';
 import PaginationForTable from '../../Paginations/PaginationForTable';
+import withPaginationLogic from './withPaginationLogic';
 import { Label, Input } from 'reactstrap';
 
 import './TableWithPages.css'
 
 class TableWithPages extends Component {
   render() {
+    const {
+      pageOnInput,
+      currentPage,
+      itensPerPage,
+      handleChangePageOnInput,
+      handleFocusOutPageOnInput,
+      handleEnterPageOnInput,
+      setCurrentPage,
+    } = this.props.paginationLogic;
+    const { data, pagesTotal, visibleData, ...rest } = this.props
     return (
       <div className="table-container">
         <div className="table-container__pagination-container">
@@ -15,28 +26,29 @@ class TableWithPages extends Component {
             <input className="page-input-container__page-input"
               type="text"
               name="page"
-              value={1}
-            // onChange={this.handleChangeGoToPage}
-            // onBlur={this.handleFocusOutGoToPage}
-            // onKeyUp={this.handleEnterGoToPage}
+              value={pageOnInput}
+              onChange={handleChangePageOnInput}
+              onBlur={handleFocusOutPageOnInput}
+              onKeyUp={handleEnterPageOnInput}
             />
             <span
               className="page-input-container__display-pages"
               style={{ marginLeft: "10px" }}
             >
-              de <span style={{ fontWeight: "bold" }}>{200}</span>.
+              de <span style={{ fontWeight: "bold" }}>{pagesTotal}</span>.
               </span>
           </div>
           <div className="pagination-container__pagination-selector">
             <PaginationForTable
-              pagesTotal={10}
-              pageCurrent={1}
-              setCurrentPage={() => (console.log("Hi"))}
+              pagesTotal={pagesTotal}
+              pageCurrent={currentPage}
+              setCurrentPage={setCurrentPage}
             />
           </div>
         </div>
         <HTMLTable
-          {...this.props}
+          {...rest}
+          data={visibleData}
         />
         <div
           className="table-container__pagination-container"
@@ -60,9 +72,9 @@ class TableWithPages extends Component {
           </div>
           <div className="pagination-container__pagination-selector">
             <PaginationForTable
-              pagesTotal={10}
-              pageCurrent={1}
-              setCurrentPage={() => (console.log("Hi"))}
+              pagesTotal={pagesTotal}
+              pageCurrent={currentPage}
+              setCurrentPage={setCurrentPage}
             />
           </div>
         </div>
@@ -71,4 +83,4 @@ class TableWithPages extends Component {
   }
 }
 
-export default TableWithPages;
+export default withPaginationLogic(TableWithPages);
