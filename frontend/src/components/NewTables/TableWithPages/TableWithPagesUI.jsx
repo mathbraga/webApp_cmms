@@ -1,0 +1,101 @@
+import React, { Component } from 'react';
+import HTMLTable from '../RawTable/HTMLTable';
+import PaginationForTable from '../../Paginations/PaginationForTable';
+import PageInput from './PageInput';
+import SearchInput from '../../Search/SearchInput';
+import { Label, Input } from 'reactstrap';
+
+import './TableWithPages.css'
+
+const searchImage = require("../../../assets/icons/search_icon.png");
+
+class TableWithPagesUI extends Component {
+  render() {
+    const {
+      pageOnInput,
+      currentPage,
+      itensPerPage,
+      handleChangePageOnInput,
+      handleFocusOutPageOnInput,
+      handleEnterPageOnInput,
+      setCurrentPage,
+      handleItensPerPage
+    } = this.props.paginationLogic;
+
+    const {
+      hasSearch,
+      searchTerm,
+      handleChangeSearchTerm,
+      data
+    } = this.props;
+
+    const pagesTotal = Math.floor(data.length / itensPerPage) + 1;
+    const visibleData = data.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
+
+    return (
+      <div className="table-container">
+        <div className="table-container__pagination-container">
+          {hasSearch
+            ? (<SearchInput
+              searchTerm={searchTerm}
+              searchImage={searchImage}
+              handleChangeSearchTerm={handleChangeSearchTerm}
+            />
+            )
+            : (<PageInput
+              pageOnInput={pageOnInput}
+              handleChangePageOnInput={handleChangePageOnInput}
+              handleFocusOutPageOnInput={handleFocusOutPageOnInput}
+              handleEnterPageOnInput={handleEnterPageOnInput}
+              pagesTotal={pagesTotal}
+            />
+            )
+          }
+          <div className="pagination-container__pagination-selector">
+            <PaginationForTable
+              pagesTotal={pagesTotal}
+              pageCurrent={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        </div>
+        <HTMLTable
+          {...this.props}
+          visibleData={visibleData}
+        />
+        <div
+          className="table-container__pagination-container"
+          style={{ marginTop: "5px" }}
+        >
+          <div className="itens-per-page-container">
+            <Label className="itens-per-page__label" for="itens-per-page">Itens por página: </Label>
+            <Input
+              type="select"
+              name="itens-per-page"
+              id="itens-per-page"
+              className="itens-per-page__selector"
+              value={itensPerPage}
+              onChange={handleItensPerPage}
+            >
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={15}>15</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </Input>
+          </div>
+          <div className="pagination-container__pagination-selector">
+            <PaginationForTable
+              pagesTotal={pagesTotal}
+              pageCurrent={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default TableWithPagesUI;
