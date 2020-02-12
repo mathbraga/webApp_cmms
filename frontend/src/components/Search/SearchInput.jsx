@@ -15,8 +15,16 @@ class SearchInput extends Component {
       <div className="search" style={{ width: "30%" }}>
         <div className="card-search-form">
           <InputGroup>
-            <Input placeholder="Pesquisar ..." value={searchTerm} onChange={handleChangeSearchTerm} />
-            <InputGroupAddon addonType="append">
+            <Input
+              placeholder="Pesquisar ..."
+              value={searchTerm}
+              onChange={handleChangeSearchTerm}
+              className="search-form__input"
+            />
+            <InputGroupAddon
+              addonType="append"
+              className="search-form__search-image"
+            >
               <InputGroupText><img src={searchImage} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
             </InputGroupAddon>
           </InputGroup>

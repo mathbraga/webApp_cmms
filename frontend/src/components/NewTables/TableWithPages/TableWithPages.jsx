@@ -3,10 +3,14 @@ import HTMLTable from '../RawTable/HTMLTable';
 import PaginationForTable from '../../Paginations/PaginationForTable';
 import withPaginationLogic from './withPaginationLogic';
 import withSorting from '../TableWithSorting/withSorting';
+import PageInput from './PageInput';
+import SearchInput from '../../Search/SearchInput';
 import { Label, Input } from 'reactstrap';
 import { compose } from 'redux';
 
 import './TableWithPages.css'
+
+const searchImage = require("../../../assets/icons/search_icon.png");
 
 class TableWithPages extends Component {
   render() {
@@ -20,27 +24,31 @@ class TableWithPages extends Component {
       setCurrentPage,
       handleItensPerPage
     } = this.props.paginationLogic;
-    const { pagesTotal } = this.props
+    const {
+      hasSearch,
+      searchTerm,
+      handleChangeSearchTerm,
+      pagesTotal
+    } = this.props;
     return (
       <div className="table-container">
         <div className="table-container__pagination-container">
-          <div className="page-input-container">
-            <span className="page-input-container__page-input-label">Página:</span>
-            <input className="page-input-container__page-input"
-              type="text"
-              name="page"
-              value={pageOnInput}
-              onChange={handleChangePageOnInput}
-              onBlur={handleFocusOutPageOnInput(pagesTotal)}
-              onKeyUp={handleEnterPageOnInput}
+          {hasSearch
+            ? (<SearchInput
+              searchTerm={searchTerm}
+              searchImage={searchImage}
+              handleChangeSearchTerm={handleChangeSearchTerm}
             />
-            <span
-              className="page-input-container__display-pages"
-              style={{ marginLeft: "10px" }}
-            >
-              de <span style={{ fontWeight: "bold" }}>{pagesTotal}</span>.
-              </span>
-          </div>
+            )
+            : (<PageInput
+              pageOnInput={pageOnInput}
+              handleChangePageOnInput={handleChangePageOnInput}
+              handleFocusOutPageOnInput={handleFocusOutPageOnInput}
+              handleEnterPageOnInput={handleEnterPageOnInput}
+              pagesTotal={pagesTotal}
+            />
+            )
+          }
           <div className="pagination-container__pagination-selector">
             <PaginationForTable
               pagesTotal={pagesTotal}
