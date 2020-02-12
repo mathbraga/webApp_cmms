@@ -18,6 +18,7 @@ class TableWithPages extends Component {
       handleFocusOutPageOnInput,
       handleEnterPageOnInput,
       setCurrentPage,
+      handleItensPerPage
     } = this.props.paginationLogic;
     const { pagesTotal } = this.props
     return (
@@ -63,6 +64,7 @@ class TableWithPages extends Component {
               id="itens-per-page"
               className="itens-per-page__selector"
               value={itensPerPage}
+              onChange={handleItensPerPage}
             >
               <option value={5}>5</option>
               <option value={10}>10</option>

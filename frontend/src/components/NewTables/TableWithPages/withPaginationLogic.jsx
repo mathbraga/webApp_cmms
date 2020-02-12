@@ -15,6 +15,7 @@ export default function withPaginationLogic(WrappedComponent) {
       this.handleChangePageOnInput = this.handleChangePageOnInput.bind(this);
       this.handleFocusOutPageOnInput = this.handleFocusOutPageOnInput.bind(this);
       this.handleEnterPageOnInput = this.handleEnterPageOnInput.bind(this);
+      this.handleItensPerPage = this.handleItensPerPage.bind(this);
     }
 
     setPageOnInput(page) {
@@ -25,6 +26,12 @@ export default function withPaginationLogic(WrappedComponent) {
       this.setState({ currentPage: currentPage }, () => {
         this.setState({ pageOnInput: currentPage });
       });
+    }
+
+    handleItensPerPage(event) {
+      const itensPerPage = Number(event.target.value);
+      console.log("Event: ", event.target.value);
+      this.setState({ itensPerPage }, this.setCurrentPage(1));
     }
 
     handleChangePageOnInput(event) {
@@ -56,6 +63,7 @@ export default function withPaginationLogic(WrappedComponent) {
         handleFocusOutPageOnInput: this.handleFocusOutPageOnInput,
         handleEnterPageOnInput: this.handleEnterPageOnInput,
         setCurrentPage: this.setCurrentPage,
+        handleItensPerPage: this.handleItensPerPage
       }
 
       const { itensPerPage, currentPage } = this.state;
