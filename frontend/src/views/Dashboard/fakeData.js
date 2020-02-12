@@ -14,6 +14,13 @@ export const tableConfig = {
   ],
 };
 
+export const searchableAttributes = [
+  'taskId',
+  'title',
+  'status',
+  "place"
+];
+
 export const selectedData = {
   "005": true,
   "008": true,
@@ -44,6 +51,6 @@ export const data = [
   { taskId: "020", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "Cancelada", dateLimit: "12-10-2020", place: "Sala do SEMAC" },
   { taskId: "021", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "CCCancelada", dateLimit: "12-10-2020", place: "Sala do SEMAC" },
   { taskId: "022", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "DCancelada", dateLimit: "12-10-2020", place: "Sala do SEMAC" },
-  { taskId: "023", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "ECancelada", dateLimit: "12-10-2020", place: "Sala do SEMAC" },
-  { taskId: "024", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "Cancelada", dateLimit: "12-10-2020", place: "Sala do SEMAC" },
+  { taskId: "023", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "ECancelada", dateLimit: "12-10-2020", place: "Sala do cOproj" },
+  { taskId: "024", category: "Reparo em Forro", title: "Troca de vidros quebrados", status: "Cancelada", dateLimit: "12-10-2020", place: "Sala do Coemant" },
 ];

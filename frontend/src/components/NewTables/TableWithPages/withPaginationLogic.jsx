@@ -65,18 +65,9 @@ export default function withPaginationLogic(WrappedComponent) {
         setCurrentPage: this.setCurrentPage,
         handleItensPerPage: this.handleItensPerPage
       }
-
-      const { itensPerPage, currentPage } = this.state;
-      const { data } = this.props;
-
-      const pagesTotal = Math.floor(data.length / itensPerPage) + 1;
-      const visibleData = data.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
-
       return (
         <WrappedComponent
           paginationLogic={paginationLogic}
-          pagesTotal={pagesTotal}
-          visibleData={visibleData}
           {...this.props}
         />
       );

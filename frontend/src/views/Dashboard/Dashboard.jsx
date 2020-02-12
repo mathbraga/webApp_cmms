@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
-import { tableConfig, selectedData, data } from './fakeData';
+import { tableConfig, selectedData, data, searchableAttributes } from './fakeData';
 
 import TableWithPages from "../../components/NewTables/TableWithPages/TableWithPages";
 
@@ -49,6 +49,7 @@ class Dashboard extends Component {
                     selectedData={selectedData}
                     data={data}
                     hasSearch={true}
+                    searchableAttributes={searchableAttributes}
                   />
                 </CardBody>
               </Card>

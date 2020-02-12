@@ -9,6 +9,7 @@ import { Label, Input } from 'reactstrap';
 import { compose } from 'redux';
 
 import './TableWithPages.css'
+import withSearchLogic from '../../Search/withSearchLogic';
 
 const searchImage = require("../../../assets/icons/search_icon.png");
 
@@ -29,8 +30,11 @@ class TableWithPages extends Component {
       hasSearch,
       searchTerm,
       handleChangeSearchTerm,
-      pagesTotal
+      data
     } = this.props;
+
+    const pagesTotal = Math.floor(data.length / itensPerPage) + 1;
+    const visibleData = data.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
 
     return (
       <div className="table-container">
@@ -61,6 +65,7 @@ class TableWithPages extends Component {
         </div>
         <HTMLTable
           {...this.props}
+          visibleData={visibleData}
         />
         <div
           className="table-container__pagination-container"
@@ -99,5 +104,6 @@ class TableWithPages extends Component {
 
 export default compose(
   withSorting,
-  withPaginationLogic
+  withPaginationLogic,
+  withSearchLogic,
 )(TableWithPages);
