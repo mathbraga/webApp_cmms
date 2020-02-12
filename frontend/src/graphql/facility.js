@@ -30,7 +30,7 @@ export default {
             id: `${parent.assetId}-${itemData.contexts[index].assetId}`
           }
           ))
-        .filter(item => (item !== null))
+        // .filter(item => (item !== null))
       : [];
     return result;
   },
