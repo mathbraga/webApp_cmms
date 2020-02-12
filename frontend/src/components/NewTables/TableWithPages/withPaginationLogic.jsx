@@ -32,9 +32,8 @@ export default function withPaginationLogic(WrappedComponent) {
       this.setPageOnInput(value);
     }
 
-    handleFocusOutPageOnInput(event) {
+    handleFocusOutPageOnInput = (pagesTotal) => (event) => {
       const pageOnInput = Number(event.target.value);
-      const { pagesTotal } = this.props;
       if (pageOnInput >= 1 && pageOnInput <= pagesTotal) {
         this.setCurrentPage(pageOnInput);
       } else {

@@ -17,7 +17,7 @@ class TableWithPages extends Component {
       handleEnterPageOnInput,
       setCurrentPage,
     } = this.props.paginationLogic;
-    const { data, pagesTotal, visibleData, ...rest } = this.props
+    const { pagesTotal } = this.props
     return (
       <div className="table-container">
         <div className="table-container__pagination-container">
@@ -28,7 +28,7 @@ class TableWithPages extends Component {
               name="page"
               value={pageOnInput}
               onChange={handleChangePageOnInput}
-              onBlur={handleFocusOutPageOnInput}
+              onBlur={handleFocusOutPageOnInput(pagesTotal)}
               onKeyUp={handleEnterPageOnInput}
             />
             <span
@@ -47,8 +47,7 @@ class TableWithPages extends Component {
           </div>
         </div>
         <HTMLTable
-          {...rest}
-          data={visibleData}
+          {...this.props}
         />
         <div
           className="table-container__pagination-container"
@@ -61,13 +60,14 @@ class TableWithPages extends Component {
               name="itens-per-page"
               id="itens-per-page"
               className="itens-per-page__selector"
+              value={itensPerPage}
             >
-              <option>5</option>
-              <option>10</option>
-              <option>15</option>
-              <option>25</option>
-              <option>50</option>
-              <option>100</option>
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={15}>15</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
             </Input>
           </div>
           <div className="pagination-container__pagination-selector">

@@ -32,7 +32,7 @@ function HeaderSort({ sortKey, onSort, children, activeSortKey, isSortReverse })
 
 class HTMLTable extends Component {
   render() {
-    const { onSort, activeSortKey, data, tableConfig, selectedData, isSortReverse } = this.props;
+    const { onSort, activeSortKey, visibleData, tableConfig, selectedData, isSortReverse } = this.props;
     return (
       <div className="table-wrapper">
         <table className="main-table">
@@ -84,7 +84,7 @@ class HTMLTable extends Component {
             </tr>
           </thead>
           <tbody className="main-table__body">
-            {data.map((item) => (
+            {visibleData.map((item) => (
               <tr
                 className={classNames({
                   "main-table__body__row": true,
