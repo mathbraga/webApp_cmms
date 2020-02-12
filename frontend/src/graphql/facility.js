@@ -20,7 +20,7 @@ export default {
   },
   addNewCustomStates: (itemData, currentState) => {
     const result = { ...currentState, parent: null, context: null };
-    result.parents = itemData
+    result.parents = itemData && itemData.parents !== null
       ? itemData.parents
         .map((parent, index) =>
           (parent &&
