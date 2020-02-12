@@ -24,12 +24,14 @@ class TableWithPages extends Component {
       setCurrentPage,
       handleItensPerPage
     } = this.props.paginationLogic;
+
     const {
       hasSearch,
       searchTerm,
       handleChangeSearchTerm,
       pagesTotal
     } = this.props;
+
     return (
       <div className="table-container">
         <div className="table-container__pagination-container">
