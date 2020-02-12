@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Search from './Search';
+import SearchContainer from './SearchContainer';
 import ModalCreateFilter from '../Filters/ModalCreateFilter'
 import ApplyFilter from '../Filters/ApplyFilter';
 
@@ -41,7 +41,7 @@ export default class SearchWithFilter extends Component {
     } = this.props;
     return (
       <>
-        <Search
+        <SearchContainer
           searchTerm={searchTerm}
           handleChangeSearchTerm={handleChangeSearchTerm}
           filterLogic={filterLogic}
