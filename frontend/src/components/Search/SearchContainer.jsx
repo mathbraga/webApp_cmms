@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import "./Search.css";
+import SearchInput from './SearchInput';
 import {
-  InputGroup,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
   Button
 } from 'reactstrap';
 
@@ -24,16 +21,11 @@ export default class SearchContainer extends Component {
 
     return (
       <div className="card-search-container">
-        <div className="search" style={{ width: "30%" }}>
-          <div className="card-search-form">
-            <InputGroup>
-              <Input placeholder="Pesquisar ..." value={searchTerm} onChange={handleChangeSearchTerm} />
-              <InputGroupAddon addonType="append">
-                <InputGroupText><img src={searchImage} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
-              </InputGroupAddon>
-            </InputGroup>
-          </div>
-        </div>
+        <SearchInput
+          searchTerm={searchTerm}
+          searchImage={searchImage}
+          handleChangeSearchTerm={handleChangeSearchTerm}
+        />
         <div className="search-filter" style={{ width: "30%" }}>
           <ol>
             <li><span className="card-search-title">Filtro: </span></li>
