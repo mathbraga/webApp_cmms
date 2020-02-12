@@ -63,12 +63,14 @@ export default {
       `,
       mutation: gql`
         mutation (
+          $targetId: Int!,
           $attributes: AssetInput!,
           $tops: [Int!]!,
           $parents: [Int!]!
         ) {
           mutationResponse:  modifyAsset (
             input: {
+              targetId: $targetId
               attributes: $attributes
               tops: $tops
               parents: $parents
@@ -109,7 +111,7 @@ export default {
       `
     }
   },
-  getMutationVariables: (state, mode) => {
+  getMutationVariables: (targetId, state, mode) => {
     if (mode === 'create'){
       return {
         attributes: {
@@ -127,7 +129,7 @@ export default {
     }
     if (mode === 'update'){
       return {
-        assetId: state.assetId,
+        targetId: Number(targetId),
         attributes: {
           assetSf: validateInput(state.assetSf),
           name: validateInput(state.name),

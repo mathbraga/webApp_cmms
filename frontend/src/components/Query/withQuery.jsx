@@ -10,6 +10,7 @@ export default function withQuery(WrappedComponent) {
           variables={this.props.mode === 'update' ? {
             [this.props.entityDetails.idField]: Number(this.props.customGraphQLVariables[this.props.entityDetails.idField])
           } : null}
+          fetchPolicy="no-cache"
         >
           {
             ({ loading, error, data }) => {
