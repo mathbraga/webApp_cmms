@@ -142,4 +142,4 @@ class HTMLTable extends Component {
   }
 }
 
-export default withSorting(HTMLTable);
+export default HTMLTable;

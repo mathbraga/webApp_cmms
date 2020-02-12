@@ -25,6 +25,7 @@ export default function withSorting(WrappedTable) {
       const { sortKey, isSortReverse } = this.state;
       const sortedList = sortKey ? sortBy(data, sortKey) : data;
       const reverseSortedList = (isSortReverse && sortKey) ? sortedList.reverse() : sortedList;
+      console.log("List: ", reverseSortedList);
       return (
         <WrappedTable
           {...rest}

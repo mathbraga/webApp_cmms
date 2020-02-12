@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import HTMLTable from '../RawTable/HTMLTable';
 import PaginationForTable from '../../Paginations/PaginationForTable';
 import withPaginationLogic from './withPaginationLogic';
+import withSorting from '../TableWithSorting/withSorting';
 import { Label, Input } from 'reactstrap';
+import { compose } from 'redux';
 
 import './TableWithPages.css'
 
@@ -83,4 +85,7 @@ class TableWithPages extends Component {
   }
 }
 
-export default withPaginationLogic(TableWithPages);
+export default compose(
+  withSorting,
+  withPaginationLogic
+)(TableWithPages);
