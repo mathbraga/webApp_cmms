@@ -178,20 +178,14 @@ create view tasks_of_spec as
 
 create view parents_of_asset as
   select ar.asset_id,
-         jsonb_agg(build_asset_json(ar.top_id)) as contexts,
          jsonb_agg(build_asset_json(ar.parent_id)) as parents
     from asset_relations as ar
     where ar.parent_id is not null
   group by ar.asset_id
 ;
 
-create view children_of_asset as
-  select a.asset_id,
-         jsonb_object_agg(
-            g.top_id::text || '-' || g.parent_id::text,
-            g.child_assets
-         ) as relations
-    from assets as a
-    inner join get_asset_trees(a.asset_id) as g on (a.asset_id = g.input_asset_id)
-  group by a.asset_id
+create view contexts as
+  select jsonb_agg(build_asset_json(ar.asset_id)) as contexts
+    from asset_relations as ar
+  where ar.parent_id is null
 ;

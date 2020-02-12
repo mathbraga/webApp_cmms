@@ -10,14 +10,9 @@ import LocationForm from './formParts/LocationForm';
 import ParentForm from './formParts/ParentForm';
 import { withRouter } from 'react-router-dom';
 import withSwitch from '../../../components/Switch';
-
-// import withFilledForm from '../../../components/FilledForm';
 import withFormLogic from '../../../components/FormLogic';
-
-
 import withQuery from '../../../components/Query';
 import withMutation from '../../../components/Mutation';
-import withFacilityFormVariables from './withFacilityFormVariables';
 
 class FacilityForm extends Component {
   render() {
@@ -81,6 +76,5 @@ export default compose(
   withSwitch,
   withQuery,
   withFormLogic,
-  // withFacilityFormVariables,
   withMutation
 )(FacilityForm);

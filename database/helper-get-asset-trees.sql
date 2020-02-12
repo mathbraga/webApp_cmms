@@ -1,9 +1,7 @@
 create or replace function get_asset_trees (
   in input_asset_id integer,
-  out input_asset_id integer,
-  out top_id integer,
-  out parent_id integer,
-  out child_assets jsonb
+  out asset_id integer,
+  out trees jsonb
 )
   returns setof record
   language sql
@@ -17,13 +15,32 @@ create or replace function get_asset_trees (
       select a.top_id, a.parent_id, a.asset_id
         from rec as r
         inner join asset_relations as a on (r.asset_id = a.parent_id)
+    ),
+    agg_children as (
+      select r.top_id,
+             r.parent_id,
+             jsonb_agg(build_asset_json(r.asset_id)) as child_assets
+        from rec as r
+      group by r.top_id, r.parent_id
+    ),
+    agg_parents as (
+      select ac.top_id,
+             jsonb_object_agg(
+               ac.parent_id::text, ac.child_assets
+             ) as relations
+        from agg_children as ac
+      group by ac.top_id
+    ),
+    agg_tops as (
+      select jsonb_object_agg(
+               ap.top_id::text, ap.relations
+             ) as tree
+        from agg_parents as ap
+      group by ap.top_id
     )
-    select input_asset_id,
-           r.top_id,
-           r.parent_id,
-           jsonb_agg(build_asset_json(r.asset_id)) as child_assets
-      from rec as r
-    group by input_asset_id, r.top_id, r.parent_id
+    select input_asset_id as asset_id,
+           jsonb_agg(ax.tree) as trees
+      from agg_tops as ax
+    ;
   $$
 ;
-
