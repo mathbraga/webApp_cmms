@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
-import validateInput from '../../../utils/validateInput';
-import paths from '../../../paths';
+import validateInput from '../../utils/validateInput';
+import paths from '../../paths';
 
 export default {
-  paths: paths.facility,
+  paths: paths.appliance,
   GQLs: {
     update: {
       query: gql`
@@ -14,16 +14,17 @@ export default {
               parentOptions
             }
           }
-          idData: allFacilityData(condition: {assetId: $id}) {
+          idData: allApplianceData(condition: {assetId: $id}) {
             nodes {
               assetId
               assetSf
               area
               categoryName
               description
-              latitude
-              longitude
-              name
+              manufacturer
+              serialnum
+              model
+              price
               tasks
               contexts
               parents
@@ -86,10 +87,11 @@ export default {
     const baseState = {
       assetSf: "",
       name: "",
-      latitude: "",
-      longitude: "",
       description: "",
-      area: "",
+      manufacturer: "",
+      serialnum: "",
+      model: "",
+      price: "",
     };
 
     const result = {
@@ -120,7 +122,6 @@ export default {
       assetSf: validateInput(state.assetSf),
       name: validateInput(state.name),
       description: validateInput(state.description),
-      category: 1,
       latitude: validateInput(state.latitude),
       longitude: validateInput(state.longitude),
     },

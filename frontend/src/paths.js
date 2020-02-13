@@ -1,13 +1,17 @@
 const paths = {
   facility: {
-    all:    '/edificios',
-    one:    '/edificios/ver/:id',
-    create: '/edificios/criar',
-    update: '/edificios/editar/:id',
+    all:          '/edificios',
+    one:          '/edificios/ver/:id',
+    create:       '/edificios/criar',
+    update:       '/edificios/editar/:id',
     mutationDone: '/edificios/ver/',
   },
   appliance: {
-    // TODO
+    all:          '/equipamentos',
+    one:          '/equipamentos/ver/:id',
+    create:       '/equipamentos/criar',
+    update:       '/equipamentos/editar/:id',
+    mutationDone: '/equipamentos/ver/',
   }
 };
 

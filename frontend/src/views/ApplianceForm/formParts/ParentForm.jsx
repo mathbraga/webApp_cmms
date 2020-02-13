@@ -16,7 +16,7 @@ import {
   Col,
 } from 'reactstrap';
 
-const mapIcon = require("../../../../assets/icons/delete.png");
+const mapIcon = require("../../../assets/icons/delete.png");
 
 class ParentForm extends Component {
   render() {

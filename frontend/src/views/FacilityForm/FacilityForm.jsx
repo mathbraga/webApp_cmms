@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import AssetCard from '../../../components/Cards/AssetCard';
+import AssetCard from '../../components/Cards/AssetCard';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
 import './FacilityForm.css';
 import DescriptionForm from './formParts/DescriptionForm';
 import LocationForm from './formParts/LocationForm';
 import ParentForm from './formParts/ParentForm';
-import { withProps, withGraphQL, withQuery, withForm, withMutation } from '../../../hocs'
+import { withProps, withGraphQL, withQuery, withForm, withMutation } from '../../hocs'
 import { compose } from 'redux';
 import props from './props';
 

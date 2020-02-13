@@ -7,10 +7,10 @@ const Login = React.lazy(() => import("./views/Authentication/Login"));
 const Profile = React.lazy(() => import("./views/Authentication/Profile"));
 const Facilities = React.lazy(() => import("./views/Assets/Facilities/Facilities"));
 const Facility = React.lazy(() => import("./views/Assets/Facility/Facility"));
-const FacilityForm = React.lazy(() => import("./views/Assets/FacilityForm/FacilityForm"));
+const FacilityForm = React.lazy(() => import("./views/FacilityForm/FacilityForm"));
 const Appliances = React.lazy(() => import("./views/Assets/Appliances/Appliances"));
 const Appliance = React.lazy(() => import("./views/Assets/Appliance/Appliance"));
-const ApplianceForm = React.lazy(() => import("./views/Assets/ApplianceForm/ApplianceForm"));
+const ApplianceForm = React.lazy(() => import("./views/ApplianceForm/ApplianceForm"));
 const Tasks = React.lazy(() => import("./views/Maintenance/Tasks/Tasks"));
 const Task = React.lazy(() => import("./views/Maintenance/Task/Task"));
 const TaskForm = React.lazy(() => import("./views/Maintenance/TaskForm/TaskForm"));
@@ -33,10 +33,10 @@ const routes = [
   { path: paths.facility.update, exact: true, name: "Edifício", component: FacilityForm, props: { mode: 'update' } },
   { path: paths.facility.create, exact: true, name: "Novo Edificio", component: FacilityForm, props: { mode: 'create' } },
  
-  { path: "/ativos/equipamentos", exact: true, name: "Equipamentos", component: Appliances },
-  { path: "/ativos/equipamento/view/:id", exact: false, name: "Equipamento", component: Appliance },
-  { path: "/ativos/equipamento/edit/:id", exact: false, name: "Equipamento", component: ApplianceForm, props: { editMode: true } },
-  { path: "/ativos/equipamentos/novo", exact: true, name: "Novo Equipamento", component: ApplianceForm },
+  { path: paths.appliance.all, exact: true, name: "Equipamentos", component: Appliances },
+  { path: paths.appliance.one, exact: true, name: "Equipamento", component: Appliance },
+  // { path: paths.appliance.update, exact: true, name: "Equipamento", component: ApplianceForm, props: { mode: 'update' } },
+  // { path: paths.appliance.create, exact: true, name: "Novo Equipamento", component: ApplianceForm, , props: { mode: 'create' }  },
 
   { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: Tasks },
   { path: "/manutencao/os/view/:id", exact: false, name: "Ordem de Serviço", component: Task },
