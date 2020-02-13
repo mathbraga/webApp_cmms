@@ -67,7 +67,7 @@ export default function withForm(WrappedComponent) {
         removeParent: this.removeParent,
         handleSubmit: this.handleSubmit,
       }
-      const formVariables = this.props.getFormVariables(this.state, this.props.mode);
+      const formVariables = this.props.getFormVariables(this.state);
       const mutationVariables = Object.assign({}, this.props.graphQLVariables, formVariables);
       return (
         <WrappedComponent
