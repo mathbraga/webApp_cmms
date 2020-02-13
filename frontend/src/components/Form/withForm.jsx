@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import populateStateEditForm from '../EditForm/populateStateEditForm';
 
-export default function withFormLogic(WrappedComponent) {
-  class WithFormLogic extends Component {
+export default function withForm(WrappedComponent) {
+  class WithForm extends Component {
     constructor(props) {
       super(props);
       this.handleInputChange = this.handleInputChange.bind(this);
@@ -70,16 +70,18 @@ export default function withFormLogic(WrappedComponent) {
         removeParent: this.removeParent,
         handleSubmit: this.handleSubmit,
       }
+      const formVariables = this.props.entityDetails.getFormVariables(this.state, this.props.mode);
+      const mutationVariables = Object.assign({}, this.props.graphQLVariables, formVariables);
       return (
         <WrappedComponent
           handleFunctions={handleFunctions}
           formState={this.state}
-          formVariables={this.props.entityDetails.getMutationVariables(this.props.match.params.id, this.state, this.props.mode)}
+          mutationVariables={mutationVariables}
           {...this.props}
         />
       );
     }
   }
 
-  return WithFormLogic;
+  return WithForm;
 }

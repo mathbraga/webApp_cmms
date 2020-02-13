@@ -7,7 +7,7 @@ export default function withQuery(WrappedComponent) {
       return (
         <Query
           query={this.props.queryGQL}
-          variables={this.props.queryVariables}
+          variables={this.props.graphQLVariables}
           fetchPolicy="no-cache"
         >
           {

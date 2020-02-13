@@ -111,35 +111,16 @@ export default {
       `
     }
   },
-  getMutationVariables: (id, state, mode) => {
-    if (mode === 'create'){
-      return {
-        attributes: {
-          assetSf: validateInput(state.assetSf),
-          name: validateInput(state.name),
-          description: validateInput(state.description),
-          category: 1,
-          latitude: validateInput(state.latitude),
-          longitude: validateInput(state.longitude),
-        },
-        tops: state.parents.length > 0 ? state.parents.map(parent => parent.context.assetId) : null,
-        parents: state.parents.length > 0 ? state.parents.map(parent => parent.parent.assetId) :  null,
-      }
-    }
-    if (mode === 'update'){
-      return {
-        id: id,
-        attributes: {
-          assetSf: validateInput(state.assetSf),
-          name: validateInput(state.name),
-          description: validateInput(state.description),
-          category: 1,
-          latitude: validateInput(state.latitude),
-          longitude: validateInput(state.longitude),
-        },
-        tops: state.parents.length > 0 ? state.parents.map(parent => parent.context.assetId) : null,
-        parents: state.parents.length > 0 ? state.parents.map(parent => parent.parent.assetId) :  null,
-      }
-    }
-  },
+  getFormVariables: state => ({
+    attributes: {
+      assetSf: validateInput(state.assetSf),
+      name: validateInput(state.name),
+      description: validateInput(state.description),
+      category: 1,
+      latitude: validateInput(state.latitude),
+      longitude: validateInput(state.longitude),
+    },
+    tops: state.parents.length > 0 ? state.parents.map(parent => parent.context.assetId) : null,
+    parents: state.parents.length > 0 ? state.parents.map(parent => parent.parent.assetId) :  null,
+  }),
 }

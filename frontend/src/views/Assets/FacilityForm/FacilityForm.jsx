@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import AssetCard from '../../../components/Cards/AssetCard';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
-import { compose } from 'redux';
 import './FacilityForm.css';
-
 import DescriptionForm from './formParts/DescriptionForm';
 import LocationForm from './formParts/LocationForm';
 import ParentForm from './formParts/ParentForm';
 import { withRouter } from 'react-router-dom';
-import withParams from '../../../components/Params';
-import withFormLogic from '../../../components/FormLogic';
+import withGraphQL from '../../../components/GraphQL';
 import withQuery from '../../../components/Query';
+import withForm from '../../../components/Form';
 import withMutation from '../../../components/Mutation';
+import { compose } from 'redux';
 
 class FacilityForm extends Component {
   render() {
@@ -73,8 +72,8 @@ class FacilityForm extends Component {
 
 export default compose(
   withRouter,
-  withParams,
+  withGraphQL,
   withQuery,
-  withFormLogic,
+  withForm,
   withMutation
 )(FacilityForm);
