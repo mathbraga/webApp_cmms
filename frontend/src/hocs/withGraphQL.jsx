@@ -7,7 +7,7 @@ export default function withGraphQL(WrappedComponent) {
       const queryGQL = GQLs[mode].query;
       const mutationGQL = GQLs[mode].mutation;
       const graphQLVariables = {
-        id: match.params.id ? Number(match.params.id) : null,
+        id: mode === 'update' ? Number(match.params.id) : null,
       };
       return (
         <WrappedComponent

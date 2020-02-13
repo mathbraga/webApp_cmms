@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import validateInput from '../utils/validateInput';
-import paths from '../paths';
+import validateInput from '../../utils/validateInput';
+import paths from '../../paths';
 
 export default {
   paths: paths.facility,

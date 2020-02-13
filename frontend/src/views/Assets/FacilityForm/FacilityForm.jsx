@@ -6,11 +6,7 @@ import './FacilityForm.css';
 import DescriptionForm from './formParts/DescriptionForm';
 import LocationForm from './formParts/LocationForm';
 import ParentForm from './formParts/ParentForm';
-import { withRouter } from 'react-router-dom';
-import withGraphQL from '../../../components/GraphQL';
-import withQuery from '../../../components/Query';
-import withForm from '../../../components/Form';
-import withMutation from '../../../components/Mutation';
+import { withGraphQL, withQuery, withForm, withMutation } from '../../../hocs'
 import { compose } from 'redux';
 
 class FacilityForm extends Component {
@@ -71,7 +67,6 @@ class FacilityForm extends Component {
 }
 
 export default compose(
-  withRouter,
   withGraphQL,
   withQuery,
   withForm,
