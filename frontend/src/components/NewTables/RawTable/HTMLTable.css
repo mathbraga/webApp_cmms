@@ -4,6 +4,14 @@
   overflow-x: scroll;
 }
 
+.table-no-item {
+  border-bottom: 2px solid #bfbfbf;
+  margin: 20px 10px 10px 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-weight: 400;
+}
+
 .main-table {
   table-layout: fixed;
   border-collapse: collapse;
