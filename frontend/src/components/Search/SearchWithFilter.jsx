@@ -39,6 +39,7 @@ export default class SearchWithFilter extends Component {
       customFilters,
       filterAttributes
     } = this.props;
+    console.log("Props: ", this.props);
     return (
       <>
         <SearchContainer

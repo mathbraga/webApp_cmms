@@ -3,6 +3,12 @@ import TableWithPagesUI from '../TableWithPages/TableWithPagesUI';
 import SearchWithFilter from '../../Search/SearchWithFilter';
 import withFilterLogic from '../../Filters/withFilterLogic';
 
+import withSorting from '../TableWithSorting/withSorting';
+import withPaginationLogic from '../TableWithPages/withPaginationLogic';
+import withSearchLogic from '../../Search/withSearchLogic';
+
+import { compose } from 'redux';
+
 class FullTable extends Component {
   render() {
     const {
@@ -18,27 +24,30 @@ class FullTable extends Component {
       filterName,
       filterSavedId,
       filterAttributes,
+      updateCurrentFilter
     } = this.props;
     return (
-      <SearchWithFilter
-        updateCurrentFilter={updateCurrentFilter}
-        filterSavedId={filterSavedId}
-        searchTerm={searchTerm}
-        handleChangeSearchTerm={handleChangeSearchTerm}
-        filterLogic={filterLogic}
-        filterName={filterName}
-        numberOfItens={numberOfItens}
-        customFilters={customFilters}
-        filterAttributes={filterAttributes}
-      />
-      <TableWithPagesUI
-        tableConfig={tableConfig}
-        selectedData={selectedData}
-        data={data}
-        hasSearch={tableConfig.hasSearch}
-        searchableAttributes={searchableAttributes}
-        {...this.props}
-      />
+      <>
+        <SearchWithFilter
+          updateCurrentFilter={updateCurrentFilter}
+          filterSavedId={filterSavedId}
+          searchTerm={searchTerm}
+          handleChangeSearchTerm={handleChangeSearchTerm}
+          filterLogic={filterLogic}
+          filterName={filterName}
+          numberOfItens={data.length}
+          customFilters={customFilters}
+          filterAttributes={filterAttributes}
+        />
+        <TableWithPagesUI
+          tableConfig={tableConfig}
+          selectedData={selectedData}
+          data={data}
+          hasSearch={tableConfig.hasSearch}
+          searchableAttributes={searchableAttributes}
+          {...this.props}
+        />
+      </>
     );
   }
 }

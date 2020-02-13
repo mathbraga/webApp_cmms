@@ -4,6 +4,7 @@ export const tableConfig = {
   checkboxWidth: "5%",
   itemPath: '/manutencao/os/view/',
   itemClickable: true,
+  hasSearch: false,
   idAttributeForData: 'taskId',
   columns: [
     { name: 'taskId', description: 'OS', width: "10%", align: "center", data: ['taskId'] },
@@ -12,6 +13,21 @@ export const tableConfig = {
     { name: 'dateLimit', description: 'Prazo Final', width: "15%", align: "center", data: ['dateLimit'] },
     { name: 'place', description: 'Localização', width: "15%", align: "center", data: ['place'] },
   ],
+};
+
+export const customFilters = [
+  {
+    id: "001",
+    name: "Sem Filtro",
+    author: "webSINFRA Software",
+    logic: [],
+  },
+];
+
+export const filterAttributes = {
+  taskId: { name: 'ID', type: 'text' },
+  title: { name: 'Descrição', type: 'text' },
+  place: { name: 'Local', type: 'text' },
 };
 
 export const searchableAttributes = [

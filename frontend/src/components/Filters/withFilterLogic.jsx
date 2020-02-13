@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import filterList from '../../utils/filter/filter';
 
 export default function withFilterLogic(WrappedComponent) {
   class WithFilterLogic extends Component {
@@ -7,6 +8,7 @@ export default function withFilterLogic(WrappedComponent) {
       this.state = {
         filterSavedId: null,
         filterLogic: [],
+        filterName: "",
       };
 
       this.updateCurrentFilter = this.updateCurrentFilter.bind(this);

@@ -33,6 +33,7 @@ function withSearchLogic(WrappedComponent) {
       return (
         <WrappedComponent
           {...this.props}
+          searchTerm={this.state.searchTerm}
           data={dataWithSearch}
           handleChangeSearchTerm={this.handleChangeSearchTerm}
         />

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
-import { tableConfig, selectedData, data, searchableAttributes } from './fakeData';
+import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters } from './fakeData';
 
-import TableWithPages from "../../components/NewTables/TableWithPages/TableWithPages";
+import FullTable from "../../components/NewTables/FullTable/FullTable";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -44,12 +44,13 @@ class Dashboard extends Component {
             <Col md="12">
               <Card className="mx-8">
                 <CardBody className="p-8">
-                  <TableWithPages
+                  <FullTable
                     tableConfig={tableConfig}
                     selectedData={selectedData}
                     data={data}
-                    hasSearch={false}
                     searchableAttributes={searchableAttributes}
+                    filterAttributes={filterAttributes}
+                    customFilters={customFilters}
                   />
                 </CardBody>
               </Card>
