@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import populateStateEditForm from '../EditForm/populateStateEditForm';
 
 export default function withForm(WrappedComponent) {
   class WithForm extends Component {
@@ -13,7 +12,7 @@ export default function withForm(WrappedComponent) {
       this.handleSubmit = this.handleSubmit.bind(this);
       const idData = this.props.data.idData && this.props.data.idData.nodes[0];
       const { mode } = this.props;
-      this.state = this.props.entityDetails.getInitialFormState(idData, mode);
+      this.state = this.props.getInitialFormState(idData, mode);
     }
 
     handleInputChange(event) {
@@ -68,7 +67,7 @@ export default function withForm(WrappedComponent) {
         removeParent: this.removeParent,
         handleSubmit: this.handleSubmit,
       }
-      const formVariables = this.props.entityDetails.getFormVariables(this.state, this.props.mode);
+      const formVariables = this.props.getFormVariables(this.state, this.props.mode);
       const mutationVariables = Object.assign({}, this.props.graphQLVariables, formVariables);
       return (
         <WrappedComponent

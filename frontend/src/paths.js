@@ -1,11 +1,10 @@
 const paths = {
   facility: {
-    entity: 'facility',
-    all: '/edificios',
-    one: '/edificios/:id',
+    all:    '/edificios',
+    one:    '/edificios/ver/:id',
     create: '/edificios/criar',
     update: '/edificios/editar/:id',
-    idField: 'assetId',
+    mutationDone: '/edificios/ver/',
   },
   appliance: {
     // TODO

@@ -15,14 +15,14 @@ import { compose } from 'redux';
 
 class FacilityForm extends Component {
   render() {
-    const { history, handleFunctions, formState, mode, mutate } = this.props;
+    const { history, handleFunctions, formState, mode, mutate, paths } = this.props;
     const formData = this.props.data.formData.nodes[0];
     return (
       <CssBaseline>
         <AssetCard
           sectionName={mode === 'update' ? 'Editar Edifício' : 'Cadastro de Edifício'}
           sectionDescription={mode === 'update' ? 'Formulário para modificar dados de um edifício' : 'Formulário para cadastro de uma nova área'}
-          handleCardButton={() => { history.push("/ativos/edificios") }}
+          handleCardButton={() => { history.push(paths.all) }}
           buttonName={'Edifícios'}
         >
           <div className="input-container">

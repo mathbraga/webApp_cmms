@@ -3,14 +3,12 @@ import React, { Component } from 'react';
 export default function withGraphQL(WrappedComponent) {
   class WithGraphQL extends Component {
     render() {
-      const { match, mode, entityDetails } = this.props;
-      
-      const queryGQL = entityDetails.GQLs[mode].query;
-      const mutationGQL = entityDetails.GQLs[mode].mutation;
+      const { match, mode, GQLs } = this.props;
+      const queryGQL = GQLs[mode].query;
+      const mutationGQL = GQLs[mode].mutation;
       const graphQLVariables = {
-        id: Number(match.params.id),
+        id: match.params.id ? Number(match.params.id) : null,
       };
-
       return (
         <WrappedComponent
           queryGQL={queryGQL}

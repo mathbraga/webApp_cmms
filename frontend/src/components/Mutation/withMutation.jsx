@@ -9,7 +9,11 @@ export default function withMutation(WrappedComponent) {
           mutation={this.props.mutationGQL}
           mutate={this.props.handleFunctions.handleSubmit}
           variables={this.props.mutationVariables}
-          onCompleted={ data => { console.log(data); this.props.history.push('/painel'); }}
+          onCompleted={ data => {
+            const id = data.mutationResponse.result;
+            alert('Mutation OK.\n\nid: ' + id);
+            this.props.history.push(this.props.paths.mutationDone + id.toString());
+          }}
         >
           {
             ( mutate, { loading, error, data } ) => {

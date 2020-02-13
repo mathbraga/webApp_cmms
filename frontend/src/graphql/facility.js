@@ -1,15 +1,9 @@
 import gql from 'graphql-tag';
 import validateInput from '../utils/validateInput';
+import paths from '../paths';
 
 export default {
-  name: 'facility',
-  idField: 'assetId',
-  paths: {
-    all: '/edificios',
-    one: '/edificios/ver/:id',
-    create: '/edificios/criar',
-    update: '/edificios/editar/:id',
-  },
+  paths: paths.facility,
   GQLs: {
     update: {
       query: gql`
