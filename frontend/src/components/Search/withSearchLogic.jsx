@@ -29,7 +29,6 @@ function withSearchLogic(WrappedComponent) {
         data,
         searchableAttributes
       } = this.props;
-      console.log("Props: ", this.props);
       const dataWithSearch = searchList(data, searchableAttributes, this.state.searchTerm);
       return (
         <WrappedComponent
