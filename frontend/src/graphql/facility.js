@@ -10,41 +10,17 @@ export default {
     create: '/edificios/criar',
     update: '/edificios/editar/:id',
   },
-  baseState: {
-    assetSf: "",
-    name: "",
-    latitude: "",
-    longitude: "",
-    description: "",
-    area: "",
-  },
-  addNewCustomStates: (itemData, currentState) => {
-    const result = { ...currentState, parent: null, context: null };
-    result.parents = itemData && itemData.parents !== null
-      ? itemData.parents
-        .map((parent, index) =>
-          (parent &&
-          {
-            context: itemData.contexts[index],
-            parent,
-            id: `${parent.assetId}-${itemData.contexts[index].assetId}`
-          }
-          ))
-        // .filter(item => (item !== null))
-      : [];
-    return result;
-  },
   GQLs: {
     update: {
       query: gql`
         query MyQuery($id: Int!) {
-          allAssetFormData {
+          formData: allAssetFormData {
             nodes {
               topOptions
               parentOptions
             }
           }
-          itemData: allFacilityData(condition: {assetId: $id}) {
+          idData: allFacilityData(condition: {assetId: $id}) {
             nodes {
               assetId
               assetSf
@@ -84,7 +60,7 @@ export default {
     create: {
       query: gql`
       query MyQuery {
-        allAssetFormData {
+        formData: allAssetFormData {
           nodes {
             topOptions
             parentOptions
@@ -110,6 +86,40 @@ export default {
         }
       `
     }
+  },
+  getInitialFormState: (idData, mode) => {
+    
+    const baseState = {
+      assetSf: "",
+      name: "",
+      latitude: "",
+      longitude: "",
+      description: "",
+      area: "",
+    };
+
+    const result = {
+      ...baseState,
+      parent: null,
+      context: null
+    };
+
+    if (mode === 'update') {
+      Object.keys(baseState).forEach(key => result[key] = idData ? idData[key] : "");
+    }
+
+    result.parents = idData && idData.parents !== null
+      ? idData.parents
+        .map((parent, index) =>
+          (parent &&
+          {
+            context: idData.contexts[index],
+            parent,
+            id: `${parent.assetId}-${idData.contexts[index].assetId}`
+          }
+          ))
+      : [];
+    return result;
   },
   getFormVariables: state => ({
     attributes: {

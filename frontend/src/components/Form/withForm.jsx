@@ -11,11 +11,9 @@ export default function withForm(WrappedComponent) {
       this.addNewParent = this.addNewParent.bind(this);
       this.removeParent = this.removeParent.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-      const itemData = this.props.data.itemData && this.props.data.itemData.nodes[0];
+      const idData = this.props.data.idData && this.props.data.idData.nodes[0];
       const { mode } = this.props;
-      const { baseState, addNewCustomStates } = this.props.entityDetails;
-      this.state = populateStateEditForm(baseState, itemData, mode, addNewCustomStates);
-      // this.getMutationVariables = this.getMutationVariables.bind(this);
+      this.state = this.props.entityDetails.getInitialFormState(idData, mode);
     }
 
     handleInputChange(event) {

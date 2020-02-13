@@ -15,13 +15,13 @@ import { compose } from 'redux';
 
 class FacilityForm extends Component {
   render() {
-    const { history, handleFunctions, formState, editMode, mutate } = this.props;
-    const formData = this.props.data.allAssetFormData.nodes[0];
+    const { history, handleFunctions, formState, mode, mutate } = this.props;
+    const formData = this.props.data.formData.nodes[0];
     return (
       <CssBaseline>
         <AssetCard
-          sectionName={editMode ? 'Editar Edifício' : 'Cadastro de Edifício'}
-          sectionDescription={editMode ? 'Formulário para modificar dados de um edifício' : 'Formulário para cadastro de uma nova área'}
+          sectionName={mode === 'update' ? 'Editar Edifício' : 'Cadastro de Edifício'}
+          sectionDescription={mode === 'update' ? 'Formulário para modificar dados de um edifício' : 'Formulário para cadastro de uma nova área'}
           handleCardButton={() => { history.push("/ativos/edificios") }}
           buttonName={'Edifícios'}
         >
@@ -53,7 +53,7 @@ class FacilityForm extends Component {
                   style={{ marginRight: "10px" }}
                   onClick={mutate}
                 >
-                  {editMode ? "Atualizar" : "Cadastrar"}
+                  {mode === 'update' ? "Atualizar" : "Cadastrar"}
                 </Button>
                 <Button variant="contained" style={{ marginRight: "10px" }}>
                   Limpar
