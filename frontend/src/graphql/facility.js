@@ -37,14 +37,14 @@ export default {
   GQLs: {
     update: {
       query: gql`
-        query MyQuery($assetId: Int!) {
+        query MyQuery($id: Int!) {
           allAssetFormData {
             nodes {
               topOptions
               parentOptions
             }
           }
-          itemData: allFacilityData(condition: {assetId: $assetId}) {
+          itemData: allFacilityData(condition: {assetId: $id}) {
             nodes {
               assetId
               assetSf
@@ -63,14 +63,14 @@ export default {
       `,
       mutation: gql`
         mutation (
-          $targetId: Int!,
+          $id: Int!,
           $attributes: AssetInput!,
           $tops: [Int!]!,
           $parents: [Int!]!
         ) {
           mutationResponse:  modifyAsset (
             input: {
-              targetId: $targetId
+              id: $id
               attributes: $attributes
               tops: $tops
               parents: $parents
@@ -111,11 +111,10 @@ export default {
       `
     }
   },
-  getMutationVariables: (targetId, state, mode) => {
+  getMutationVariables: (id, state, mode) => {
     if (mode === 'create'){
       return {
         attributes: {
-          // assetId: mode === 'update' ? Number(customGraphQLVariables.entityId) : null,
           assetSf: validateInput(state.assetSf),
           name: validateInput(state.name),
           description: validateInput(state.description),
@@ -129,7 +128,7 @@ export default {
     }
     if (mode === 'update'){
       return {
-        targetId: Number(targetId),
+        id: id,
         attributes: {
           assetSf: validateInput(state.assetSf),
           name: validateInput(state.name),

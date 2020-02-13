@@ -7,9 +7,7 @@ export default function withQuery(WrappedComponent) {
       return (
         <Query
           query={this.props.queryGQL}
-          variables={this.props.mode === 'update' ? {
-            [this.props.entityDetails.idField]: Number(this.props.customGraphQLVariables[this.props.entityDetails.idField])
-          } : null}
+          variables={this.props.queryVariables}
           fetchPolicy="no-cache"
         >
           {

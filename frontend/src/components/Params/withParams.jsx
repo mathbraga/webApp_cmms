@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 
-export default function withSwitch(WrappedComponent) {
-  class WithSwitch extends Component {
+export default function withParams(WrappedComponent) {
+  class WithParams extends Component {
     render() {
       const { match, mode, entityDetails } = this.props;
-      const customGraphQLVariables = {};
-      mode === 'update'
-        ? customGraphQLVariables[entityDetails.idField] = Number(match.params.id)
-        : customGraphQLVariables[entityDetails.idField] = null;
+      
       const queryGQL = entityDetails.GQLs[mode].query;
+      const queryVariables = {
+        id: Number(match.params.id),
+      };
+
       const mutationGQL = entityDetails.GQLs[mode].mutation;
+      const mutationVariables = {
+        id: Number(match.params.id),
+      };
 
       return (
         <WrappedComponent
-          customGraphQLVariables={customGraphQLVariables}
           queryGQL={queryGQL}
+          queryVariables={queryVariables}
           mutationGQL={mutationGQL}
+          mutationVariables={mutationVariables}
           {...this.props}
         />
       );
     }
   }
-  return WithSwitch;
+  return WithParams;
 }

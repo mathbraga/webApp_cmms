@@ -8,7 +8,7 @@ export default function withMutation(WrappedComponent) {
         <Mutation
           mutation={this.props.mutationGQL}
           mutate={this.props.handleFunctions.handleSubmit}
-          variables={this.props.mutationVariables}
+          variables={this.props.formVariables}
           onCompleted={ data => { console.log(data); this.props.history.push('/painel'); }}
         >
           {

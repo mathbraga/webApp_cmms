@@ -73,8 +73,8 @@ export default function withFormLogic(WrappedComponent) {
       return (
         <WrappedComponent
           handleFunctions={handleFunctions}
-          formInputs={this.state}
-          mutationVariables={this.props.entityDetails.getMutationVariables(this.props.match.params.id, this.state, this.props.mode)}
+          formState={this.state}
+          formVariables={this.props.entityDetails.getMutationVariables(this.props.match.params.id, this.state, this.props.mode)}
           {...this.props}
         />
       );
