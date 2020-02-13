@@ -28,6 +28,7 @@ export const filterAttributes = {
   taskId: { name: 'ID', type: 'text' },
   title: { name: 'Descrição', type: 'text' },
   place: { name: 'Local', type: 'text' },
+  status: { name: 'Status', type: 'option', options: { Cancelada: "Cancelada", ACancelada: "ACancelada" } },
 };
 
 export const searchableAttributes = [
