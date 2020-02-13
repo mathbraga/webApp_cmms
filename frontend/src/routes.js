@@ -1,8 +1,7 @@
 import React from "react";
 import MainPage from "./views/MainPage";
-import { 
-  propsFacilityForm,
-} from './views/props';
+import paths from './paths';
+
 const Dashboard = React.lazy(() => import("./views/Dashboard"));
 const Login = React.lazy(() => import("./views/Authentication/Login"));
 const Profile = React.lazy(() => import("./views/Authentication/Profile"));
@@ -29,10 +28,10 @@ const routes = [
   { path: "/login", name: "Login", component: Login },
   { path: "/perfil", name: "Perfil", component: Profile },
 
-  { path: propsFacilityForm.paths.all, exact: true, name: "Edifícios", component: Facilities },
-  { path: propsFacilityForm.paths.one, exact: true, name: "Edifício", component: Facility },
-  { path: propsFacilityForm.paths.update, exact: true, name: "Edifício", component: FacilityForm, props: { mode: 'update', ...propsFacilityForm } },
-  { path: propsFacilityForm.paths.create, exact: true, name: "Novo Edificio", component: FacilityForm, props: { mode: 'create', ...propsFacilityForm } },
+  { path: paths.facility.all, exact: true, name: "Edifícios", component: Facilities },
+  { path: paths.facility.one, exact: true, name: "Edifício", component: Facility },
+  { path: paths.facility.update, exact: true, name: "Edifício", component: FacilityForm, props: { mode: 'update' } },
+  { path: paths.facility.create, exact: true, name: "Novo Edificio", component: FacilityForm, props: { mode: 'create' } },
  
   { path: "/ativos/equipamentos", exact: true, name: "Equipamentos", component: Appliances },
   { path: "/ativos/equipamento/view/:id", exact: false, name: "Equipamento", component: Appliance },

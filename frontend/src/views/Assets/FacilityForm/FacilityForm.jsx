@@ -6,8 +6,9 @@ import './FacilityForm.css';
 import DescriptionForm from './formParts/DescriptionForm';
 import LocationForm from './formParts/LocationForm';
 import ParentForm from './formParts/ParentForm';
-import { withGraphQL, withQuery, withForm, withMutation } from '../../../hocs'
+import { withProps, withGraphQL, withQuery, withForm, withMutation } from '../../../hocs'
 import { compose } from 'redux';
+import props from './props';
 
 class FacilityForm extends Component {
   render() {
@@ -67,6 +68,7 @@ class FacilityForm extends Component {
 }
 
 export default compose(
+  withProps(props),
   withGraphQL,
   withQuery,
   withForm,
