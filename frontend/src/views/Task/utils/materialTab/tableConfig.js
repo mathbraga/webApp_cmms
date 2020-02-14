@@ -1,3 +1,5 @@
+import paths from '../../../../paths';
+
 const formatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format;
 
 function addUnit(item, att) {
@@ -7,7 +9,7 @@ function addUnit(item, att) {
 const tableConfig = {
   numberOfColumns: 6,
   checkbox: true,
-  itemPath: '/manutencao/os/view/',
+  itemPath: paths.spec.toOne,
   itemClickable: false,
   idAttributeForData: 'supplyId',
   columnObjects: [

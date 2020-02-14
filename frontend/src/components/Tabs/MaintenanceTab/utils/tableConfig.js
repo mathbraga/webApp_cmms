@@ -2,7 +2,7 @@ import {
   ORDER_CATEGORY_TYPE,
   ORDER_STATUS_TYPE,
   ORDER_PRIORITY_TYPE
-} from '../../../../views/Maintenance/Tasks/utils/dataDescription';
+} from '../../../../views/Tasks/utils/dataDescription';
 
 function changeStatusDescription(item) {
   return [ORDER_STATUS_TYPE[item.status]];

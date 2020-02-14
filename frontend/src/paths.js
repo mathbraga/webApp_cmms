@@ -15,7 +15,14 @@ const paths = {
     toUpdate: '/equipamentos/editar/',
     update:   '/equipamentos/editar/:id',
   },
-  task: {},
+  task: {
+    all:      '/tarefas',
+    toOne:    '/tarefas/ver/',
+    one:      '/tarefas/ver/:id',
+    create:   '/tarefas/criar',
+    toUpdate: '/tarefas/editar/',
+    update:   '/tarefas/editar/:id',
+  },
   contract: {
     all:      '/contratos',
     toOne:    '/contratos/ver/',

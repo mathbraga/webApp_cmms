@@ -2,7 +2,7 @@ import {
   ORDER_CATEGORY_TYPE,
   ORDER_PRIORITY_TYPE,
   ORDER_STATUS_TYPE
-} from '../../../../views/Maintenance/Tasks/utils/dataDescription';
+} from '../../../../views/Tasks/utils/dataDescription';
 
 export const filterAttributes = {
   category: { name: 'Categoria', type: 'option', options: ORDER_CATEGORY_TYPE },

@@ -1,3 +1,4 @@
+import paths from '../../../paths';
 import { ORDER_CATEGORY_TYPE, ORDER_STATUS_TYPE } from './dataDescription';
 
 function changeStatusDescription(item) {
@@ -19,7 +20,7 @@ function fakeData() {
 const tableConfig = {
   numberOfColumns: 6,
   checkbox: true,
-  itemPath: '/manutencao/os/view/',
+  itemPath: paths.task.toOne,
   itemClickable: true,
   idAttributeForData: 'taskId',
   columnObjects: [

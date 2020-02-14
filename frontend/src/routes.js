@@ -14,9 +14,9 @@ const Appliances = React.lazy(() => import("./views/Appliances/Appliances"));
 const Appliance = React.lazy(() => import("./views/Appliance/Appliance"));
 const ApplianceForm = React.lazy(() => import("./views/ApplianceForm/ApplianceForm"));
 
-const Tasks = React.lazy(() => import("./views/Maintenance/Tasks/Tasks"));
-const Task = React.lazy(() => import("./views/Maintenance/Task/Task"));
-const TaskForm = React.lazy(() => import("./views/Maintenance/TaskForm/TaskForm"));
+const Tasks = React.lazy(() => import("./views/Tasks/Tasks"));
+const Task = React.lazy(() => import("./views/Task/Task"));
+const TaskForm = React.lazy(() => import("./views/TaskForm/TaskForm"));
 
 const Contracts = React.lazy(() => import("./views/Contracts/Contracts"));
 const Contract = React.lazy(() => import("./views/Contract/Contract"));
@@ -49,10 +49,10 @@ const routes = [
   { path: paths.appliance.create, exact: true, name: "Novo Equipamento", component: ApplianceForm, props: { mode: 'create' }  },
 
   // Task
-  { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: Tasks },
-  { path: "/manutencao/os/view/:id", exact: false, name: "Ordem de Serviço", component: Task },
-  { path: "/manutencao/os/edit/:id", exact: false, name: "Ordem de Serviço", component: NoView },
-  { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: TaskForm },
+  { path: paths.task.all, exact: true, name: "Ordens de serviços", component: Tasks, props: { mode: 'all' } },
+  { path: paths.task.one, exact: true, name: "Ordens de serviços", component: Task, props: { mode: 'one' } },
+  { path: paths.task.update, exact: true, name: "Ordens de serviços", component: TaskForm, props: { mode: 'update' } },
+  { path: paths.task.create, exact: true, name: "Ordens de serviços", component: TaskForm, props: { mode: 'create' } },
 
   // Contract
   { path: paths.contract.all, exact: true, name: "Contratos", component: Contracts, props: { mode: 'all' } },

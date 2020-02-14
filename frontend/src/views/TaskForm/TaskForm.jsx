@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import AssetCard from '../../../components/Cards/AssetCard';
-import withDataFetching from '../../../components/DataFetch';
+import AssetCard from '../../components/Cards/AssetCard';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Button } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import './TaskForm.css';
-
-import { fetchGQL, fetchVariables } from './utils/dataFetchParameters';
 import DescriptionForm from './formParts/DescriptionForm';
 import ExecutionForm from './formParts/ExecutionForm';
 import AssetForm from './formParts/AssetForm';
-import WithFormLogic from './withFormLogic';
+import props from './props';
+import { withProps, withGraphQL, withQuery, withForm, withMutation } from '../../hocs';
+import paths from '../../paths';
 
 class TaskForm extends Component {
   render() {
@@ -22,7 +20,7 @@ class TaskForm extends Component {
         <AssetCard
           sectionName={'Cadastro de OS'}
           sectionDescription={'Formulário para cadastro de novas ordens de serviço'}
-          handleCardButton={() => { history.push("/manutencao/os") }}
+          handleCardButton={() => { history.push(paths.task.all) }}
           buttonName={'Ordens de Serviço'}
         >
           <div className="input-container">
@@ -74,7 +72,9 @@ class TaskForm extends Component {
 }
 
 export default compose(
-  withRouter,
-  WithFormLogic,
-  withDataFetching(fetchGQL, fetchVariables)
+  withProps(props),
+  withGraphQL,
+  withQuery,
+  withForm,
+  withMutation
 )(TaskForm);

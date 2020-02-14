@@ -31,7 +31,7 @@ export default {
       children: [
         {
           name: "Ordens de serviço",
-          url: "/manutencao/os",
+          url: paths.task.all,
           icon: "icon-list"
         },
       ]

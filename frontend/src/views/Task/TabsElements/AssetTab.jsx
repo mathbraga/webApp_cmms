@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import DescriptionTable from '../../../../components/Descriptions/DescriptionTable';
+import DescriptionTable from '../../../components/Descriptions/DescriptionTable';
 import { itemsMatrixAssets } from '../utils/descriptionMatrix';
 import tableConfig from '../utils/assetTab/tableConfig';
 import { customFilters, filterAttributes } from '../utils/assetTab/filterParameters';
 import searchableAttributes from '../utils/assetTab/searchParameters';
-import TableFilter from '../../../../components/Tables/CustomTable/TableFilter';
+import TableFilter from '../../../components/Tables/CustomTable/TableFilter';
 import './Tabs.css';
 
 class AssetTab extends Component {

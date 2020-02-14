@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import withDataFetching from '../../../components/DataFetch';
-import withAccessToSession from '../../Authentication';
-import { fetchAppliancesGQL, fetchAppliancesVariables } from './utils/dataFetchParameters';
 import tableConfig from './utils/tableConfig';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import { compose } from 'redux';
-import TableFilter from '../../../components/Tables/CustomTable/TableFilter';
+import TableFilter from '../../components/Tables/CustomTable/TableFilter';
+import props from './props';
+import { withProps, withGraphQL, withQuery } from '../../hocs';
+import paths from '../../paths';
 
 class Tasks extends Component {
   render() {
@@ -17,7 +17,7 @@ class Tasks extends Component {
         title={"Ordens de Serviço"}
         subtitle={"Lista de ordens de serviço de engenharia"}
         buttonName={"Nova OS"}
-        buttonPath={"/manutencao/os/nova"}
+        buttonPath={paths.task.create}
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}
@@ -29,6 +29,7 @@ class Tasks extends Component {
 }
 
 export default compose(
-  withAccessToSession,
-  withDataFetching(fetchAppliancesGQL, fetchAppliancesVariables)
+  withProps(props),
+  withGraphQL,
+  withQuery
 )(Tasks);
