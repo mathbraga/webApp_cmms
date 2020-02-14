@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import withDataFetching from '../../../components/DataFetch';
-import withAccessToSession from '../../Authentication';
-import { fetchGQL } from './utils/dataFetchParameters';
-import withGraphQLVariables from './withGraphQLVariables';
 import { compose } from 'redux';
-import ItemView from '../../../components/ItemView/ItemView';
+import ItemView from '../../components/ItemView/ItemView';
 import tabsGenerator from './tabsGenerator';
+import paths from '../../paths';
+import { withProps, withGraphQL, withQuery } from '../../hocs';
+import props from './props';
 
-const image = require("../../../assets/img/test/facilities_picture.jpg");
+const image = require("../../assets/img/test/facilities_picture.jpg");
 const imageStatus = 'Trânsito Livre';
 
 class Facility extends Component {
   render() {
-    const { data, customGraphQLVariables, ...rest } = this.props;
+    const { data, graphQLVariables, ...rest } = this.props;
     const finalData = data.queryResponse.nodes[0];
     const descriptionItems = [
       { title: 'Edifício / Área', description: finalData.name, boldTitle: true },
@@ -28,7 +27,7 @@ class Facility extends Component {
         descriptionItems={descriptionItems}
         tabs={tabsGenerator(finalData)}
         buttonName={'Editar'}
-        buttonPath={"/edificios/editar/" + customGraphQLVariables.assetId.toString()}
+        buttonPath={paths.facility.toUpdate + graphQLVariables.id.toString()}
         {...rest}
       />
     );
@@ -36,7 +35,7 @@ class Facility extends Component {
 }
 
 export default compose(
-  withGraphQLVariables,
-  withAccessToSession,
-  withDataFetching(fetchGQL, false)
+  withProps(props),
+  withGraphQL,
+  withQuery
 )(Facility);

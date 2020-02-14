@@ -7,7 +7,7 @@ const Login = React.lazy(() => import("./views/Authentication/Login"));
 const Profile = React.lazy(() => import("./views/Authentication/Profile"));
 
 const Facilities = React.lazy(() => import("./views/Facilities/Facilities"));
-const Facility = React.lazy(() => import("./views/Assets/Facility/Facility"));
+const Facility = React.lazy(() => import("./views/Facility/Facility"));
 const FacilityForm = React.lazy(() => import("./views/FacilityForm/FacilityForm"));
 
 const Appliances = React.lazy(() => import("./views/Assets/Appliances/Appliances"));

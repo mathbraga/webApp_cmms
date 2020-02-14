@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DescriptionTable from '../../../../components/Descriptions/DescriptionTable';
+import DescriptionTable from '../../../components/Descriptions/DescriptionTable';
 import './Tabs.css';
 
 class LocationTab extends Component {

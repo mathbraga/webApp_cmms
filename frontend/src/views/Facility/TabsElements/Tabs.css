@@ -3,7 +3,7 @@
 }
 
 .asset-info-map {
-  background: url("../../../../assets/img/test/mapa.JPG");
+  background: url("../../../assets/img/test/mapa.JPG");
   border: 1px solid rgb(0, 0, 0) 50% 100px no-repeat center center;
   margin: 20px 0;
   background-size: 100% 100%;
