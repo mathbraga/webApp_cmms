@@ -39,7 +39,9 @@ create or replace function get_asset_trees (
       group by ap.top_id
     )
     select input_asset_id as asset_id,
-           jsonb_agg(ax.tree) as trees
+           jsonb_object_agg(
+             'trees', ax.tree
+           ) as trees
       from agg_tops as ax
     ;
   $$
