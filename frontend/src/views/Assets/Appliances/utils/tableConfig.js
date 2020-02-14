@@ -1,7 +1,9 @@
+import paths from '../../../../paths';
+
 const tableConfig = {
   numberOfColumns: 3,
   checkbox: true,
-  itemPath: '/ativos/equipamento/view/',
+  itemPath: paths.appliance.toOne,
   itemClickable: true,
   idAttributeForData: 'assetId',
   columnObjects: [

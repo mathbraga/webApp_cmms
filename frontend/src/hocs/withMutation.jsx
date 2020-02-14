@@ -12,7 +12,7 @@ export default function withMutation(WrappedComponent) {
           onCompleted={ data => {
             const id = data.mutationResponse.result;
             alert('Mutation OK.\n\nid: ' + id);
-            this.props.history.push(this.props.paths.mutationDone + id.toString());
+            this.props.history.push(this.props.paths.toOne + id.toString());
           }}
         >
           {

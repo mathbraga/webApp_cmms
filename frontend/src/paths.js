@@ -1,18 +1,25 @@
 const paths = {
   facility: {
-    all:          '/edificios',
-    one:          '/edificios/ver/:id',
-    create:       '/edificios/criar',
-    update:       '/edificios/editar/:id',
-    mutationDone: '/edificios/ver/',
+    all:      '/edificios',
+    toOne:    '/edificios/ver/',
+    one:      '/edificios/ver/:id',
+    create:   '/edificios/criar',
+    toUpdate: '/edificios/editar/',
+    update:   '/edificios/editar/:id',
   },
   appliance: {
-    all:          '/equipamentos',
-    one:          '/equipamentos/ver/:id',
-    create:       '/equipamentos/criar',
-    update:       '/equipamentos/editar/:id',
-    mutationDone: '/equipamentos/ver/',
-  }
+    all:      '/equipamentos',
+    toOne:    '/equipamentos/ver/',
+    one:      '/equipamentos/ver/:id',
+    create:   '/equipamentos/criar',
+    toUpdate: '/equipamentos/editar/',
+    update:   '/equipamentos/editar/:id',
+  },
+  task: {},
+  contract: {},
+  spec: {},
+  team: {},
+  person: {},
 };
 
 export default paths;

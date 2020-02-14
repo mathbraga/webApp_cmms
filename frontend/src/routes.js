@@ -28,30 +28,39 @@ const routes = [
   { path: "/login", name: "Login", component: Login },
   { path: "/perfil", name: "Perfil", component: Profile },
 
+  // Facility
   { path: paths.facility.all, exact: true, name: "Edifícios", component: Facilities },
   { path: paths.facility.one, exact: true, name: "Edifício", component: Facility },
   { path: paths.facility.update, exact: true, name: "Edifício", component: FacilityForm, props: { mode: 'update' } },
   { path: paths.facility.create, exact: true, name: "Novo Edificio", component: FacilityForm, props: { mode: 'create' } },
  
+  // Appliance
   { path: paths.appliance.all, exact: true, name: "Equipamentos", component: Appliances },
   { path: paths.appliance.one, exact: true, name: "Equipamento", component: Appliance },
-  // { path: paths.appliance.update, exact: true, name: "Equipamento", component: ApplianceForm, props: { mode: 'update' } },
-  // { path: paths.appliance.create, exact: true, name: "Novo Equipamento", component: ApplianceForm, , props: { mode: 'create' }  },
+  { path: paths.appliance.update, exact: true, name: "Equipamento", component: ApplianceForm, props: { mode: 'update' } },
+  { path: paths.appliance.create, exact: true, name: "Novo Equipamento", component: ApplianceForm, props: { mode: 'create' }  },
 
+  // Task
   { path: "/manutencao/os", exact: true, name: "Ordens de serviços", component: Tasks },
   { path: "/manutencao/os/view/:id", exact: false, name: "Ordem de Serviço", component: Task },
   { path: "/manutencao/os/edit/:id", exact: false, name: "Ordem de Serviço", component: NoView },
   { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: TaskForm },
 
+  // Contract
   { path: "/gestao/contratos", exact: true, name: "Contratos", component: Contracts },
   { path: "/gestao/contratos/view/:id", exact: false, name: "Contrato", component: Contract },
   { path: "/gestao/contratos/edit/:id", exact: false, name: "Contrato", component: NoView },
+
+  // Spec
   { path: "/gestao/servicos", exact: true, name: "Servicos", component: Specs },
   { path: "/gestao/servicos/view/:id", exact: false, name: "Servico", component: Spec },
-  
+
+  // Team
   { path: "/equipes/grupos", exact: true, name: "Grupos", component: Teams },
   { path: "/equipes/grupo/view/:id", exact: false, name: "Grupo", component: NoView },
   { path: "/equipes/grupo/edit/:id", exact: false, name: "Grupo", component: NoView },
+
+  // Person
   { path: "/equipes/pessoas", exact: true, name: "Pessoas", component: Persons },
   { path: "/equipes/pessoa/view/:id", exact: false, name: "Pessoa", component: NoView },
   { path: "/equipes/pessoa/edit/:id", exact: false, name: "Pessoa", component: NoView },

@@ -18,7 +18,7 @@ export default {
             nodes {
               assetId
               assetSf
-              area
+              name
               categoryName
               description
               manufacturer

@@ -14,12 +14,12 @@ export default {
       children: [
         {
           name: "Edifícios",
-          url: "/edificios",
+          url: paths.facility.all,
           icon: "icon-home"
         },
         {
           name: "Equipamentos",
-          url: "/ativos/equipamentos",
+          url: paths.appliance.all,
           icon: "icon-rocket"
         }
       ]

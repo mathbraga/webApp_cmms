@@ -7,6 +7,7 @@ import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import { compose } from 'redux';
 import TableFilter from '../../../components/Tables/CustomTable/TableFilter';
+import paths from '../../../paths';
 
 class Appliances extends Component {
   render() {
@@ -17,7 +18,7 @@ class Appliances extends Component {
         title={"Equipamentos"}
         subtitle={"Lista de equipamentos do CASF"}
         buttonName={"Novo equipamento"}
-        buttonPath={"/ativos/equipamentos/novo"}
+        buttonPath={paths.appliance.create}
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}

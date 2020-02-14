@@ -10,31 +10,32 @@ import PurchaseForm from './formParts/PurchaseForm';
 import ParentForm from './formParts/ParentForm';
 import { withProps, withGraphQL, withQuery, withForm, withMutation } from '../../hocs'
 import props from './props';
+import paths from '../../paths';
 
 
 class FacilityForm extends Component {
   render() {
-    const { history, handleFunctions, state } = this.props;
+    const { history, handleFunctions, formState } = this.props;
     console.log("Dataa: ", this.props.data);
-    const data = this.props.data.allAssetFormData.nodes[0];
+    const data = this.props.data.formData.nodes[0];
     return (
       <CssBaseline>
         <AssetCard
           sectionName={'Cadastro de Equipamentos'}
           sectionDescription={'Formulário para cadastro de novos equipamentos'}
-          handleCardButton={() => { history.push("/ativos/equipamentos") }}
+          handleCardButton={() => { history.push(paths.appliance.all) }}
           buttonName={'Equipamentos'}
         >
           <div className="input-container">
             <form noValidate autoComplete="off">
               <DescriptionForm
                 handleInputChange={handleFunctions.handleInputChange}
-                {...state}
+                {...formState}
               />
               <div style={{ marginTop: "60px" }} />
               <PurchaseForm
                 handleInputChange={handleFunctions.handleInputChange}
-                {...state}
+                {...formState}
               />
               <div style={{ marginTop: "60px" }} />
               <ParentForm
@@ -43,7 +44,7 @@ class FacilityForm extends Component {
                 addNewParent={handleFunctions.addNewParent}
                 removeParent={handleFunctions.removeParent}
                 data={data}
-                {...state}
+                {...formState}
               />
               <div style={{ marginTop: "60px" }} />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>

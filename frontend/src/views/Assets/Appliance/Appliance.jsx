@@ -28,7 +28,7 @@ class Appliance extends Component {
         image={image}
         imageStatus={imageStatus}
         buttonName={"Editar"}
-        buttonPath={"/ativos/equipamento/edit/" + customGraphQLVariables.assetId}
+        buttonPath={"/equipamentos/editar/" + customGraphQLVariables.assetId}
         descriptionItems={descriptionItems}
         tabs={tabsGenerator(finalData)}
         {...rest}
