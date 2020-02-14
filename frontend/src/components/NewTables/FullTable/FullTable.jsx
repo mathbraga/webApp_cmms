@@ -6,6 +6,7 @@ import withFilterLogic from '../../Filters/withFilterLogic';
 import withSorting from '../TableWithSorting/withSorting';
 import withPaginationLogic from '../TableWithPages/withPaginationLogic';
 import withSearchLogic from '../../Search/withSearchLogic';
+import withNestedData from '../NestedTable/withNestedData';
 
 import { compose } from 'redux';
 
@@ -54,6 +55,7 @@ class FullTable extends Component {
 
 export default compose(
   withSorting,
+  withNestedData,
   withPaginationLogic,
   withSearchLogic,
   withFilterLogic,

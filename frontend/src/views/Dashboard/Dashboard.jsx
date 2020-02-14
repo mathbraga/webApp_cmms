@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
-import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters } from './fakeData';
+import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters, dataTree } from './fakeData';
 
 import FullTable from "../../components/NewTables/FullTable/FullTable";
 
@@ -51,6 +51,8 @@ class Dashboard extends Component {
                     searchableAttributes={searchableAttributes}
                     filterAttributes={filterAttributes}
                     customFilters={customFilters}
+                    dataTree={dataTree}
+                    isDataTree
                   />
                 </CardBody>
               </Card>
