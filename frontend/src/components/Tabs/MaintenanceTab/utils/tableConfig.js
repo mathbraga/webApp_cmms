@@ -29,7 +29,7 @@ const tableConfig = {
   itemClickable: true,
   idAttributeForData: 'taskId',
   columnObjects: [
-    { name: 'orderId', description: 'OS', style: { width: "50px" }, className: "text-center", data: ['taskId'] },
+    { name: 'taskId', description: 'OS', style: { width: "50px" }, className: "text-center", data: ['taskId'] },
     { name: 'description', description: 'Título', style: { width: "300px" }, className: "text-justify", data: ['title', 'taskCategoryText'] },
     { name: 'status', description: 'Status', style: { width: "100px" }, className: "text-center", data: ['taskStatusText'] },
     { name: 'priority', description: 'Prioridade', style: { width: "100px" }, className: "text-center", data: ['taskPriorityText'] },
