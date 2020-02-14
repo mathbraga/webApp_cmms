@@ -41,7 +41,7 @@ create or replace function get_asset_trees (
     select input_asset_id as asset_id,
            jsonb_object_agg(
              'trees', ax.tree
-           ) as trees
+           )->'trees' as trees
       from agg_tops as ax
     ;
   $$
