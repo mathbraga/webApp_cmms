@@ -11,7 +11,7 @@ const Facility = React.lazy(() => import("./views/Facility/Facility"));
 const FacilityForm = React.lazy(() => import("./views/FacilityForm/FacilityForm"));
 
 const Appliances = React.lazy(() => import("./views/Appliances/Appliances"));
-const Appliance = React.lazy(() => import("./views/Assets/Appliance/Appliance"));
+const Appliance = React.lazy(() => import("./views/Appliance/Appliance"));
 const ApplianceForm = React.lazy(() => import("./views/ApplianceForm/ApplianceForm"));
 
 const Tasks = React.lazy(() => import("./views/Maintenance/Tasks/Tasks"));
