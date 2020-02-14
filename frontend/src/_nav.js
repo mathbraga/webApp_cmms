@@ -60,12 +60,12 @@ export default {
       children: [
         {
           name: "Pessoas",
-          url: "/equipes/pessoas",
+          url: paths.person.all,
           icon: "icon-user"
         },
         {
           name: "Equipes",
-          url: "/equipes/grupos",
+          url: paths.team.all,
           icon: "icon-people"
         },
       ]

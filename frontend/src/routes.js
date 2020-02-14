@@ -24,9 +24,9 @@ const Contract = React.lazy(() => import("./views/Contract/Contract"));
 const Specs = React.lazy(() => import("./views/Specs/Specs"));
 const Spec = React.lazy(() => import("./views/Spec/Spec"));
 
-const Teams = React.lazy(() => import("./views/Teams/Teams/Teams"));
+const Teams = React.lazy(() => import("./views/Teams/Teams"));
 
-const Persons = React.lazy(() => import("./views/Teams/Persons/Persons"));
+const Persons = React.lazy(() => import("./views/Persons/Persons"));
 
 const NoView = <h1>NoView!</h1>
 
@@ -67,14 +67,16 @@ const routes = [
   { path: paths.spec.create, exact: true, name: "Servico", component: Spec, props: { mode: 'create' } },
 
   // Team
-  { path: "/equipes/grupos", exact: true, name: "Grupos", component: Teams },
-  { path: "/equipes/grupo/view/:id", exact: false, name: "Grupo", component: NoView },
-  { path: "/equipes/grupo/edit/:id", exact: false, name: "Grupo", component: NoView },
+  { path: paths.team.all, exact: true, name: "Grupos", component: Teams, props: { mode: 'all' } },
+  { path: paths.team.one, exact: true, name: "Grupo", component: NoView, props: { mode: 'one' } },
+  { path: paths.team.update, exact: true, name: "Grupo", component: NoView, props: { mode: 'update' } },
+  { path: paths.team.create, exact: true, name: "Grupo", component: NoView, props: { mode: 'create' } },
 
   // Person
-  { path: "/equipes/pessoas", exact: true, name: "Pessoas", component: Persons },
-  { path: "/equipes/pessoa/view/:id", exact: false, name: "Pessoa", component: NoView },
-  { path: "/equipes/pessoa/edit/:id", exact: false, name: "Pessoa", component: NoView },
+  { path: paths.person.all, exact: true, name: "Pessoas", component: Persons, props: { mode: 'all' } },
+  { path: paths.person.one, exact: true, name: "Pessoas", component: NoView, props: { mode: 'one' } },
+  { path: paths.person.update, exact: true, name: "Pessoas", component: NoView, props: { mode: 'update' } },
+  { path: paths.person.create, exact: true, name: "Pessoas", component: NoView, props: { mode: 'create' } },
 ];
 
 export default routes;

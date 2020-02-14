@@ -32,8 +32,22 @@ const paths = {
     toUpdate: '/espectec/editar/',
     update:   '/espectec/editar/:id',
   },
-  team: {},
-  person: {},
+  team: {
+    all:      '/equipes',
+    toOne:    '/equipes/ver/',
+    one:      '/equipes/ver/:id',
+    create:   '/equipes/criar',
+    toUpdate: '/equipes/editar/',
+    update:   '/equipes/editar/:id',
+  },
+  person: {
+    all:      '/usuario',
+    toOne:    '/usuario/ver/',
+    one:      '/usuario/ver/:id',
+    create:   '/usuario/criar',
+    toUpdate: '/usuario/editar/',
+    update:   '/usuario/editar/:id',
+  },
 };
 
 export default paths;
