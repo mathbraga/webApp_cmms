@@ -1,7 +1,9 @@
+import paths from '../../../paths';
+
 const tableConfig = {
   numberOfColumns: 4,
   checkbox: true,
-  itemPath: '/gestao/servicos/view/',
+  itemPath: paths.spec.toOne,
   itemClickable: true,
   idAttributeForData: 'specId',
   columnObjects: [

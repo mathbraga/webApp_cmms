@@ -43,12 +43,12 @@ export default {
       children: [
         {
           name: "Contratos",
-          url: "/gestao/contratos",
+          url: paths.contract.all,
           icon: "fa fa-file-text-o"
         },
         {
           name: "Espec. Técnicas",
-          url: "/gestao/servicos",
+          url: paths.spec.all,
           icon: "icon-list"
         },
       ]

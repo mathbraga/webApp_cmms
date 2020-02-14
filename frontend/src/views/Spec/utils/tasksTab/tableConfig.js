@@ -1,7 +1,9 @@
+import paths from '../../../../paths';
+
 const tableConfig = {
   numberOfColumns: 3,
   checkbox: true,
-  itemPath: '/manutencao/os/view/',
+  itemPath: paths.task.toOne,
   itemClickable: false,
   idAttributeForData: 'orderId',
   columnObjects: [

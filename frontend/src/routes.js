@@ -18,11 +18,11 @@ const Tasks = React.lazy(() => import("./views/Maintenance/Tasks/Tasks"));
 const Task = React.lazy(() => import("./views/Maintenance/Task/Task"));
 const TaskForm = React.lazy(() => import("./views/Maintenance/TaskForm/TaskForm"));
 
-const Contracts = React.lazy(() => import("./views/Contracts/Contracts/Contracts"));
-const Contract = React.lazy(() => import("./views/Contracts/Contract/Contract"));
+const Contracts = React.lazy(() => import("./views/Contracts/Contracts"));
+const Contract = React.lazy(() => import("./views/Contract/Contract"));
 
-const Specs = React.lazy(() => import("./views/Contracts/Specifications/Specifications"));
-const Spec = React.lazy(() => import("./views/Contracts/Specification/Specification"));
+const Specs = React.lazy(() => import("./views/Specs/Specs"));
+const Spec = React.lazy(() => import("./views/Spec/Spec"));
 
 const Teams = React.lazy(() => import("./views/Teams/Teams/Teams"));
 
@@ -55,13 +55,16 @@ const routes = [
   { path: "/manutencao/os/nova", exact: true, name: "Nova OS", component: TaskForm },
 
   // Contract
-  { path: "/gestao/contratos", exact: true, name: "Contratos", component: Contracts },
-  { path: "/gestao/contratos/view/:id", exact: false, name: "Contrato", component: Contract },
-  { path: "/gestao/contratos/edit/:id", exact: false, name: "Contrato", component: NoView },
+  { path: paths.contract.all, exact: true, name: "Contratos", component: Contracts, props: { mode: 'all' } },
+  { path: paths.contract.one, exact: true, name: "Contrato", component: Contract, props: { mode: 'one' } },
+  { path: paths.contract.update, exact: true, name: "Contrato", component: Contract, props: { mode: 'update' } },
+  { path: paths.contract.create, exact: true, name: "Contrato", component: Contract, props: { mode: 'create' } },
 
   // Spec
-  { path: "/gestao/servicos", exact: true, name: "Servicos", component: Specs },
-  { path: "/gestao/servicos/view/:id", exact: false, name: "Servico", component: Spec },
+  { path: paths.spec.all, exact: true, name: "Servicos", component: Specs, props: { mode: 'all' } },
+  { path: paths.spec.one, exact: true, name: "Servico", component: Spec, props: { mode: 'one' } },
+  { path: paths.spec.update, exact: true, name: "Servico", component: Spec, props: { mode: 'update' } },
+  { path: paths.spec.create, exact: true, name: "Servico", component: Spec, props: { mode: 'create' } },
 
   // Team
   { path: "/equipes/grupos", exact: true, name: "Grupos", component: Teams },

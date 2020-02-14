@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import withDataFetching from '../../../components/DataFetch';
-import withAccessToSession from '../../Authentication';
-import { fetchGQL } from './utils/dataFetchParameters';
-import withGraphQLVariables from './withGraphQLVariables';
 import { compose } from 'redux';
-import ItemView from '../../../components/ItemView/ItemView';
+import ItemView from '../../components/ItemView/ItemView';
 import tabsGenerator from './tabsGenerator';
+import { withProps, withGraphQL, withQuery } from '../../hocs';
+import props from './props';
 
-const image = require("../../../assets/img/test/equipment_picture.jpg");
+const image = require("../../assets/img/test/equipment_picture.jpg");
 const imageStatus = 'Em andamento';
 
-class Specification extends Component {
+class Spec extends Component {
   render() {
     const { data, ...rest } = this.props;
     const finalData = data.queryResponse.nodes[0];
@@ -34,7 +32,7 @@ class Specification extends Component {
 }
 
 export default compose(
-  withGraphQLVariables,
-  withAccessToSession,
-  withDataFetching(fetchGQL, false)
-)(Specification);
+  withProps(props),
+  withGraphQL,
+  withQuery
+)(Spec);
