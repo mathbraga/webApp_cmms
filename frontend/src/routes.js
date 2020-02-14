@@ -5,21 +5,29 @@ import paths from './paths';
 const Dashboard = React.lazy(() => import("./views/Dashboard"));
 const Login = React.lazy(() => import("./views/Authentication/Login"));
 const Profile = React.lazy(() => import("./views/Authentication/Profile"));
-const Facilities = React.lazy(() => import("./views/Assets/Facilities/Facilities"));
+
+const Facilities = React.lazy(() => import("./views/Facilities/Facilities"));
 const Facility = React.lazy(() => import("./views/Assets/Facility/Facility"));
 const FacilityForm = React.lazy(() => import("./views/FacilityForm/FacilityForm"));
+
 const Appliances = React.lazy(() => import("./views/Assets/Appliances/Appliances"));
 const Appliance = React.lazy(() => import("./views/Assets/Appliance/Appliance"));
 const ApplianceForm = React.lazy(() => import("./views/ApplianceForm/ApplianceForm"));
+
 const Tasks = React.lazy(() => import("./views/Maintenance/Tasks/Tasks"));
 const Task = React.lazy(() => import("./views/Maintenance/Task/Task"));
 const TaskForm = React.lazy(() => import("./views/Maintenance/TaskForm/TaskForm"));
+
 const Contracts = React.lazy(() => import("./views/Contracts/Contracts/Contracts"));
 const Contract = React.lazy(() => import("./views/Contracts/Contract/Contract"));
+
 const Specs = React.lazy(() => import("./views/Contracts/Specifications/Specifications"));
 const Spec = React.lazy(() => import("./views/Contracts/Specification/Specification"));
+
 const Teams = React.lazy(() => import("./views/Teams/Teams/Teams"));
+
 const Persons = React.lazy(() => import("./views/Teams/Persons/Persons"));
+
 const NoView = <h1>NoView!</h1>
 
 const routes = [
@@ -29,8 +37,8 @@ const routes = [
   { path: "/perfil", name: "Perfil", component: Profile },
 
   // Facility
-  { path: paths.facility.all, exact: true, name: "Edifícios", component: Facilities },
-  { path: paths.facility.one, exact: true, name: "Edifício", component: Facility },
+  { path: paths.facility.all, exact: true, name: "Edifícios", component: Facilities, props: { mode: 'all' } },
+  { path: paths.facility.one, exact: true, name: "Edifício", component: Facility, props: { mode: 'one' } },
   { path: paths.facility.update, exact: true, name: "Edifício", component: FacilityForm, props: { mode: 'update' } },
   { path: paths.facility.create, exact: true, name: "Novo Edificio", component: FacilityForm, props: { mode: 'create' } },
  

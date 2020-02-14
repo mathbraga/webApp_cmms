@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import withDataFetching from '../../../components/DataFetch';
-import withAccessToSession from '../../Authentication';
-import { fetchAppliancesGQL, fetchAppliancesVariables } from './utils/dataFetchParameters';
 import tableConfig from './utils/tableConfig';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import { compose } from 'redux';
-import TableFilter from '../../../components/Tables/CustomTable/TableFilter';
+import TableFilter from '../../components/Tables/CustomTable/TableFilter';
+import props from './props';
+import paths from '../../paths';
+import { withProps, withQuery, withGraphQL } from '../../hocs';
 
 class Facilities extends Component {
   render() {
@@ -17,7 +17,7 @@ class Facilities extends Component {
         title={"Edifícios / Áreas"}
         subtitle={"Lista de áreas do CASF"}
         buttonName={"Nova área"}
-        buttonPath={"/edificios/criar"}
+        buttonPath={paths.facility.create}
         tableConfig={tableConfig}
         customFilters={customFilters}
         filterAttributes={filterAttributes}
@@ -29,6 +29,7 @@ class Facilities extends Component {
 }
 
 export default compose(
-  withAccessToSession,
-  withDataFetching(fetchAppliancesGQL, fetchAppliancesVariables)
+  withProps(props),
+  withGraphQL,
+  withQuery
 )(Facilities);

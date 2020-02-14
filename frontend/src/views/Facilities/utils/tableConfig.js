@@ -1,6 +1,6 @@
 import React from 'react';
 
-const mapIcon = require("../../../../assets/icons/map.png");
+const mapIcon = require("../../../assets/icons/map.png");
 
 const tableConfig = {
   numberOfColumns: 3,
