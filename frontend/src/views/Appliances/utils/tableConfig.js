@@ -1,4 +1,4 @@
-import paths from '../../../../paths';
+import paths from '../../../paths';
 
 const tableConfig = {
   numberOfColumns: 3,

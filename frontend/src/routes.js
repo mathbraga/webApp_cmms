@@ -10,7 +10,7 @@ const Facilities = React.lazy(() => import("./views/Facilities/Facilities"));
 const Facility = React.lazy(() => import("./views/Facility/Facility"));
 const FacilityForm = React.lazy(() => import("./views/FacilityForm/FacilityForm"));
 
-const Appliances = React.lazy(() => import("./views/Assets/Appliances/Appliances"));
+const Appliances = React.lazy(() => import("./views/Appliances/Appliances"));
 const Appliance = React.lazy(() => import("./views/Assets/Appliance/Appliance"));
 const ApplianceForm = React.lazy(() => import("./views/ApplianceForm/ApplianceForm"));
 
@@ -43,8 +43,8 @@ const routes = [
   { path: paths.facility.create, exact: true, name: "Novo Edificio", component: FacilityForm, props: { mode: 'create' } },
  
   // Appliance
-  { path: paths.appliance.all, exact: true, name: "Equipamentos", component: Appliances },
-  { path: paths.appliance.one, exact: true, name: "Equipamento", component: Appliance },
+  { path: paths.appliance.all, exact: true, name: "Equipamentos", component: Appliances, props: { mode: 'all' } },
+  { path: paths.appliance.one, exact: true, name: "Equipamento", component: Appliance, props: { mode: 'one' } },
   { path: paths.appliance.update, exact: true, name: "Equipamento", component: ApplianceForm, props: { mode: 'update' } },
   { path: paths.appliance.create, exact: true, name: "Novo Equipamento", component: ApplianceForm, props: { mode: 'create' }  },
 
