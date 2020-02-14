@@ -1,3 +1,5 @@
+import paths from '../../../paths';
+
 import { CONTRACT_STATUS } from './dataDescription';
 import React from 'react';
 
@@ -25,7 +27,7 @@ function addLink(item) {
 const tableConfig = {
   numberOfColumns: 6,
   checkbox: true,
-  itemPath: '/gestao/contratos/view/',
+  itemPath: paths.contract.toOne,
   itemClickable: true,
   idAttributeForData: 'contractId',
   columnObjects: [

@@ -2,6 +2,7 @@ import React from 'react';
 import { CustomInput } from 'reactstrap';
 import TableWithPages from './TableWithPages';
 import { withRouter } from "react-router-dom";
+import paths from '../../../paths';
 
 function TableHeader({ tableConfig }) {
   return (
@@ -22,7 +23,15 @@ function TableBody({ tableConfig, data, history }) {
       <tr
         onClick={tableConfig.itemClickable && (
           () => {
-            history.push(tableConfig.itemPath + item[tableConfig.idAttributeForData])
+            if(tableConfig.idAttributeForData === 'assetId'){
+              if(item[tableConfig.idAttributeForData] >= 5000){
+                history.push(paths.appliance.toOne + item[tableConfig.idAttributeForData].toString())
+              } else {
+                history.push(paths.facility.toOne + item[tableConfig.idAttributeForData].toString())
+              }
+            } else {
+              history.push(tableConfig.itemPath + item[tableConfig.idAttributeForData].toString())
+            }
           })}
       >
         <td className="text-center checkbox-cell">

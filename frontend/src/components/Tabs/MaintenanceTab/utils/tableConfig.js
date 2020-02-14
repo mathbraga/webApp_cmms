@@ -1,3 +1,5 @@
+import paths from '../../../../paths';
+
 import {
   ORDER_CATEGORY_TYPE,
   ORDER_STATUS_TYPE,
@@ -23,9 +25,9 @@ function formatDateLimit(item) {
 const tableConfig = {
   numberOfColumns: 6,
   checkbox: true,
-  itemPath: '/manutencao/os/view/',
+  itemPath: paths.task.toOne,
   itemClickable: true,
-  idAttributeForData: 'orderId',
+  idAttributeForData: 'taskId',
   columnObjects: [
     { name: 'orderId', description: 'OS', style: { width: "50px" }, className: "text-center", data: ['taskId'] },
     { name: 'description', description: 'Título', style: { width: "300px" }, className: "text-justify", data: ['title', 'taskCategoryText'] },
