@@ -1,9 +1,8 @@
 create or replace function api.modify_asset (
-  in id integer,
+  inout id integer,
   in attributes assets,
   in tops integer[],
-  in parents integer[],
-  out result integer
+  in parents integer[]
 )
   language plpgsql
   as $$
@@ -33,8 +32,7 @@ create or replace function api.modify_asset (
           attributes.serialnum,
           attributes.model,
           attributes.price
-        ) where a.asset_id = id
-      returning a.asset_id into result;
+        ) where a.asset_id = id;
     
       with added_relations as (
         select unnest(tops) as top_id, unnest(parents) as parent_id
@@ -62,10 +60,9 @@ create or replace function api.modify_asset (
 ;
 
 create or replace function api.modify_task (
-  in id integer,
+  inout id integer,
   in attributes tasks,
-  in assets integer[],
-  out result integer
+  in assets integer[]
 )
   language plpgsql
   strict
@@ -100,8 +97,7 @@ create or replace function api.modify_task (
           attributes.date_limit,
           attributes.date_start,
           default
-        ) where t.task_id = id
-        returning t.task_id into result;
+        ) where t.task_id = id;
 
       with added_assets as (
         select unnest(assets) as asset_id
@@ -128,10 +124,9 @@ create or replace function api.modify_task (
 ;
 
 -- create or replace function modify_team (
---   in id integer,
+--   inout id integer,
 --   in attributes teams,
---   in persons_array integer[],
---   out result integer
+--   in persons_array integer[]
 -- )
 -- language plpgsql
 -- strict
@@ -147,8 +142,7 @@ create or replace function api.modify_task (
 --       attributes.description,
 --       attributes.is_active
 --     )
---     where t.team_id = id
---     returning t.team_id into result;
+--     where t.team_id = id;
 
 --   with added_persons as (
 --     select unnest(persons_array) as person_id
@@ -175,7 +169,7 @@ create or replace function api.modify_task (
 -- create or replace function modify_self (
 --   in attributes persons,
 --   in new_password text,
---   out result integer
+--   out id integer
 -- )
 -- language plpgsql
 -- security definer
@@ -195,7 +189,7 @@ create or replace function api.modify_task (
 --     attributes.phone,
 --     attributes.cellphone
 --   ) where p.person_id = get_current_person_id()
---   returning ;
+--   returning p.person_id into id;
 
 --   update private.accounts set (
 --     password_hash
@@ -205,11 +199,10 @@ create or replace function api.modify_task (
 -- end; $$;
 
 -- create or replace function modify_person (
---   in id integer,
+--   inout id integer,
 --   in attributes persons,
 --   in new_is_active boolean,
---   in new_person_role text,
---   out result
+--   in new_person_role text
 -- )
 -- language plpgsql
 -- security definer
@@ -230,8 +223,7 @@ create or replace function api.modify_task (
 --     attributes.phone,
 --     attributes.cellphone,
 --     attributes.contract_id
---   ) where p.person_id = id
---   returning p.person_id into result;
+--   ) where p.person_id = id;
 
 --   update private.accounts set (
 --     password_hash,

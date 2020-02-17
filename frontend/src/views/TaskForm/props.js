@@ -53,7 +53,7 @@ export default {
               assets: $assets
             }
           ) {
-            result
+            id
           }
         }
       `
@@ -85,7 +85,7 @@ export default {
               assets: $assets
             }
           ) {
-            result
+            id
           }
         }
       `

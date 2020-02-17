@@ -46,7 +46,7 @@ export default {
               parents: $parents
             }
           ) {
-            result
+            id
           }
         }
       `
@@ -75,7 +75,7 @@ export default {
               parents: $parents
             }
           ) {
-            result
+            id
           }
         }
       `

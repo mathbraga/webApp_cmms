@@ -10,7 +10,7 @@ export default function withMutation(WrappedComponent) {
           mutate={this.props.handleFunctions.handleSubmit}
           variables={this.props.mutationVariables}
           onCompleted={ data => {
-            const id = data.mutationResponse.result;
+            const id = data.mutationResponse.id;
             alert('Mutation OK.\n\nid: ' + id);
             this.props.history.push(this.props.paths.toOne + id.toString());
           }}
