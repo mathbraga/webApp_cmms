@@ -66,6 +66,8 @@
 }
 
 .main-table__checkbox {
+  display: flex;
+  justify-content: center;
   padding: 0 3px;
 }
 
@@ -95,11 +97,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  padding: 2px;
 }
 
 .add-tree-container__icon {
   width: 100%;
+}
+
+.add-tree-container__icon:hover {
+  cursor: pointer;
 }
 
 .add-tree-container__icon--hidden {

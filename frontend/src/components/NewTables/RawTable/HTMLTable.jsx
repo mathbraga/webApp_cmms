@@ -30,7 +30,7 @@ function HeaderSort({ sortKey, onSort, children, activeSortKey, isSortReverse })
   );
 }
 
-function addNestingSpaces(childConfig, columnName, index) {
+function addNestingSpaces(childConfig, columnName, index, handleNestedChildrenClick) {
   if (columnName === "title") {
     console.log("Func child: ", childConfig[index].nestingValue);
     const result = [];
@@ -39,6 +39,7 @@ function addNestingSpaces(childConfig, columnName, index) {
         <div className="add-tree-container">
           <img
             src={addTree}
+            onClick={handleNestedChildrenClick(index)}
             className={classNames({
               "add-tree-container__icon": true,
               "add-tree-container__icon--hidden": (!childConfig[index].hasChildren || i != childConfig[index].nestingValue)
@@ -53,10 +54,62 @@ function addNestingSpaces(childConfig, columnName, index) {
   }
 }
 
+function createDataWithoutClosedItens(data, openItens, childConfig, tableConfig) {
+  const result = [];
+  let nextChild = false;
+  let childValue = 0;
+  let openChild = false;
+  let lastNestValue = 0;
+
+  data.forEach((item) => {
+    const id = item[tableConfig.idAttributeForData];
+    const { nestingValue, hasChildren } = childConfig[id];
+
+    if (nestingValue === 0 || openChild) {
+      result.push(item);
+    }
+
+    if (hasChildren && openItens[id]) {
+      openChild = true;
+      childValue = nestingValue + 1;
+    } else if (hasChildren || nestingValue < childValue) {
+      openChild = false;
+    }
+
+    lastNestValue = nestingValue;
+  })
+  return result;
+}
+
 class HTMLTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      openItens: {},
+    }
+  }
+
+  handleNestedChildrenClick = (id) => () => {
+    this.setState((prevState) => ({
+      openItens: { ...prevState.openItens, [id]: !prevState.openItens[id] }
+    }))
+  }
+
   render() {
-    const { onSort, activeSortKey, visibleData, tableConfig, selectedData, isSortReverse, childConfig } = this.props;
+    const {
+      onSort,
+      activeSortKey,
+      data,
+      tableConfig,
+      selectedData,
+      isSortReverse,
+      childConfig,
+      currentPage,
+      itensPerPage,
+    } = this.props;
     console.log("ChildConfig: ", childConfig);
+    const dataWithoutClosedItens = createDataWithoutClosedItens(data, this.state.openItens, childConfig, tableConfig);
+    const visibleData = dataWithoutClosedItens.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
     return (
       <div className="table-wrapper">
         {visibleData.length === 0
@@ -151,7 +204,7 @@ class HTMLTable extends Component {
                           })}
                           style={{ display: "flex", alignItems: "center" }}
                         >
-                          {addNestingSpaces(childConfig, column.name, item[tableConfig.idAttributeForData])}
+                          {addNestingSpaces(childConfig, column.name, item[tableConfig.idAttributeForData], this.handleNestedChildrenClick)}
                           <div style={{ display: "block" }}>
                             <div className={classNames({
                               "main-table__data-value": true,

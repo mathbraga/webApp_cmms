@@ -30,7 +30,6 @@ class TableWithPagesUI extends Component {
     } = this.props;
 
     const pagesTotal = Math.floor(data.length / itensPerPage) + 1;
-    const visibleData = data.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
 
     return (
       <div className="table-container">
@@ -61,7 +60,8 @@ class TableWithPagesUI extends Component {
         </div>
         <HTMLTable
           {...this.props}
-          visibleData={visibleData}
+          currentPage={currentPage}
+          itensPerPage={itensPerPage}
         />
         <div
           className="table-container__pagination-container"
