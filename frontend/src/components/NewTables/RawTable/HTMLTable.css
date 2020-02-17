@@ -89,6 +89,23 @@
   border-bottom: 1px solid #d4d4d4;
 }
 
+.add-tree-container {
+  min-width: 17px;
+  width: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.add-tree-container__icon {
+  width: 100%;
+}
+
+.add-tree-container__icon--hidden {
+  visibility: hidden;
+}
+
 .main-table__data-value {
   display: block;
   padding: 0 4px;
@@ -107,13 +124,19 @@
   border-bottom: 3px solid #bfbfbf;
 }
 
-.main-table__head--center,
 .main-table__data--center {
+  justify-content: center;
+}
+
+.main-table__head--center{
   text-align: center;
 }
 
-.main-table__head--justify,
 .main-table__data--justify {
+  justify-content: flex-start;
+}
+
+.main-table__head--justify {
   text-align: justify;
 }
 

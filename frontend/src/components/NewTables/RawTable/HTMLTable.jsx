@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { CustomInput } from 'reactstrap';
 
 const sortingArrow = require("../../../assets/icons/sorting_arrow.png");
+const addTree = require("../../../assets/icons/add.png");
 
 function HeaderButton({ onClick, children, className }) {
   return (
@@ -29,9 +30,33 @@ function HeaderSort({ sortKey, onSort, children, activeSortKey, isSortReverse })
   );
 }
 
+function addNestingSpaces(childConfig, columnName, index) {
+  if (columnName === "title") {
+    console.log("Func child: ", childConfig[index].nestingValue);
+    const result = [];
+    for (let i = 0; i <= childConfig[index].nestingValue; i++) {
+      const element = (
+        <div className="add-tree-container">
+          <img
+            src={addTree}
+            className={classNames({
+              "add-tree-container__icon": true,
+              "add-tree-container__icon--hidden": (!childConfig[index].hasChildren || i != childConfig[index].nestingValue)
+            })}
+          />
+        </div>
+      );
+      result.push(element);
+      console.log("Elements: ", result);
+    }
+    return result;
+  }
+}
+
 class HTMLTable extends Component {
   render() {
-    const { onSort, activeSortKey, visibleData, tableConfig, selectedData, isSortReverse } = this.props;
+    const { onSort, activeSortKey, visibleData, tableConfig, selectedData, isSortReverse, childConfig } = this.props;
+    console.log("ChildConfig: ", childConfig);
     return (
       <div className="table-wrapper">
         {visibleData.length === 0
@@ -117,24 +142,33 @@ class HTMLTable extends Component {
                       <td
                         className={classNames({
                           "main-table__data": true,
-                          [`main-table__data--${column.align}`]: column.align,
                         })}
                         key={column.name}
                       >
-                        <div className={classNames({
-                          "main-table__data-value": true,
-                          "main-table__data--nowrap": !column.wrapText,
-                        })}>
-                          {item[column.data[0]]}
-                        </div>
-                        {column.data[1] && (
-                          <div className={classNames({
-                            "main-table__data-sub-value": true,
+                        <div
+                          className={classNames({
+                            [`main-table__data--${column.align}`]: column.align,
                           })}
-                          >
-                            {item[column.data[1]]}
+                          style={{ display: "flex", alignItems: "center" }}
+                        >
+                          {addNestingSpaces(childConfig, column.name, item[tableConfig.idAttributeForData])}
+                          <div style={{ display: "block" }}>
+                            <div className={classNames({
+                              "main-table__data-value": true,
+                              "main-table__data--nowrap": !column.wrapText,
+                            })}>
+                              {item[column.data[0]]}
+                            </div>
+                            {column.data[1] && (
+                              <div className={classNames({
+                                "main-table__data-sub-value": true,
+                              })}
+                              >
+                                {item[column.data[1]]}
+                              </div>
+                            )}
                           </div>
-                        )}
+                        </div>
                       </td>
                     ))}
                   </tr>

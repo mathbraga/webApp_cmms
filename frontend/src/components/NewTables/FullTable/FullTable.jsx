@@ -27,6 +27,7 @@ class FullTable extends Component {
       filterAttributes,
       updateCurrentFilter
     } = this.props;
+    console.log("Data: ", data);
     return (
       <>
         <SearchWithFilter
