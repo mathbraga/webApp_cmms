@@ -20,10 +20,10 @@ alter table private.logs enable row level security;
 -- tasks
 create policy employee_policy on tasks for all to employee
   using (
-    team_id in (select tp.team_id from team_persons as tp where tp.person_id = current_setting('auth.data.person_id')::integer)
+    team_id in (select tp.team_id from team_persons as tp where tp.person_id = get_current_person_id()
   )
   with check (
-    team_id in (select tp.team_id from team_persons as tp where tp.person_id = current_setting('auth.data.person_id')::integer)
+    team_id in (select tp.team_id from team_persons as tp where tp.person_id = get_current_person_id()
   );
 
 create policy supervisor_policy on tasks for all to supervisor
@@ -114,10 +114,10 @@ create policy supervisor_policy on team_persons for all to supervisor
 -- persons
 create policy employee_policy on persons for all to employee
   using (
-    person_id = current_setting('auth.data.person_id')::integer
+    person_id = get_current_person_id()
   )
   with check (
-    person_id = current_setting('auth.data.person_id')::integer
+    person_id = get_current_person_id()
   );
 
 create policy supervisor_policy on persons for all to supervisor
@@ -136,10 +136,10 @@ create policy supervisor_policy on specs for all to supervisor
 -- private.accounts
 create policy employee_policy on private.accounts for all to employee
   using (
-    person_id = current_setting('auth.data.person_id')::integer
+    person_id = get_current_person_id()
   )
   with check (
-    person_id = current_setting('auth.data.person_id')::integer
+    person_id = get_current_person_id()
   );
 
 create policy supervisor_policy on private.accounts for all to supervisor

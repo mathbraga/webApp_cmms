@@ -200,14 +200,14 @@ create or replace function api.modify_asset (
 --     attributes.full_name,
 --     attributes.phone,
 --     attributes.cellphone
---   ) where p.person_id = current_setting('auth.data.person_id')::integer
+--   ) where p.person_id = get_current_person_id()
 --   returning ;
 
 --   update private.accounts set (
 --     password_hash
 --   ) = (
 --     crypt(new_password, gen_salt('bf', 10))
---   ) where person_id = current_setting('auth.data.person_id')::integer;
+--   ) where person_id = get_current_person_id();
 -- end; $$;
 
 -- create or replace function modify_person (

@@ -9,6 +9,12 @@ export default function withForm(WrappedComponent) {
       this.handleContextChange = this.handleContextChange.bind(this);
       this.addNewParent = this.addNewParent.bind(this);
       this.removeParent = this.removeParent.bind(this);
+      this.handleContractChange = this.handleContractChange.bind(this);
+      this.handleTeamChange = this.handleTeamChange.bind(this);
+      this.handleProjectChange = this.handleProjectChange.bind(this);
+      this.handleAssetChange = this.handleAssetChange.bind(this);
+      this.handleInitialDateInputChange = this.handleInitialDateInputChange.bind(this);
+      this.handleLimitDateInputChange = this.handleLimitDateInputChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       const idData = this.props.data.idData && this.props.data.idData.nodes[0];
       const { mode } = this.props;
@@ -54,6 +60,42 @@ export default function withForm(WrappedComponent) {
       });
     }
 
+    handleContractChange(event, newValue) {
+      this.setState({
+        contract: newValue
+      });
+    }
+
+    handleTeamChange(event, newValue) {
+      this.setState({
+        team: newValue
+      });
+    }
+
+    handleProjectChange(event, newValue) {
+      this.setState({
+        project: newValue
+      });
+    }
+
+    handleAssetChange(event, newValue) {
+      this.setState((prevState) => ({
+        assets: newValue,
+      }));
+    }
+
+    handleInitialDateInputChange(date) {
+      this.setState({
+        initialDate: date,
+      });
+    }
+
+    handleLimitDateInputChange(date) {
+      this.setState({
+        limitDate: date,
+      });
+    }
+
     handleSubmit(mutateFunction) {
       mutateFunction();
     }
@@ -65,6 +107,12 @@ export default function withForm(WrappedComponent) {
         handleContextChange: this.handleContextChange,
         addNewParent: this.addNewParent,
         removeParent: this.removeParent,
+        handleContractChange: this.handleContractChange,
+        handleTeamChange: this.handleTeamChange,
+        handleProjectChange: this.handleProjectChange,
+        handleAssetChange: this.handleAssetChange,
+        handleInitialDateInputChange: this.handleInitialDateInputChange,
+        handleLimitDateInputChange: this.handleLimitDateInputChange,
         handleSubmit: this.handleSubmit,
       }
       const formVariables = this.props.getFormVariables(this.state);

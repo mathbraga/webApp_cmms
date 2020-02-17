@@ -34,7 +34,7 @@ create or replace function api.insert_asset (
       --          f.filename,
       --          f.uuid,
       --          f.size,
-      --          current_setting('auth.data.person_id')::integer,
+      --          default,
       --          now()
       --     from unnest(files_metadata) as f;
 
@@ -102,7 +102,7 @@ create or replace function api.insert_task (
         attributes.date_limit,
         attributes.date_start,
         attributes.date_end,
-        current_setting('auth.data.person_id')::integer,
+        default,
         default,
         default
       ) returning task_id into result;
@@ -117,14 +117,14 @@ create or replace function api.insert_task (
         insert into task_supplies select result, unnest(supplies), unnest(qty);
       end if;
 
-      insert into task_files
-        select result,
-              f.filename,
-              f.uuid,
-              f.size,
-              current_setting('auth.data.person_id')::integer,
-              now()
-          from unnest(files_metadata) as f;
+      -- insert into task_files
+      --   select result,
+      --         f.filename,
+      --         f.uuid,
+      --         f.size,
+      --         default,
+      --         now()
+      --     from unnest(files_metadata) as f;
 
     end;
   $$

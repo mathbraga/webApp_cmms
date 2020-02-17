@@ -5,7 +5,7 @@ create or replace function insert_audit_trail ()
   as $$
     begin
       insert into private.audit_trails values (
-        current_setting('auth.data.person_id')::integer,
+        default,
         now(),
         tg_op::text,
         tg_table_name::text,
