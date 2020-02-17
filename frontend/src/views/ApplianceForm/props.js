@@ -117,15 +117,15 @@ export default {
       : [];
     return result;
   },
-  getFormVariables: state => ({
+  getFormVariables: formState => ({
     attributes: {
-      assetSf: validateInput(state.assetSf),
-      name: validateInput(state.name),
-      description: validateInput(state.description),
-      latitude: validateInput(state.latitude),
-      longitude: validateInput(state.longitude),
+      assetSf: validateInput(formState.assetSf),
+      name: validateInput(formState.name),
+      description: validateInput(formState.description),
+      latitude: validateInput(formState.latitude),
+      longitude: validateInput(formState.longitude),
     },
-    tops: state.parents.length > 0 ? state.parents.map(parent => parent.context.assetId) : null,
-    parents: state.parents.length > 0 ? state.parents.map(parent => parent.parent.assetId) :  null,
+    tops: formState.parents.length > 0 ? formState.parents.map(parent => parent.context.assetId) : null,
+    parents: formState.parents.length > 0 ? formState.parents.map(parent => parent.parent.assetId) :  null,
   }),
 }

@@ -113,9 +113,9 @@ create or replace function api.insert_task (
         raise exception '%', get_exception_message(1);
       end if;
 
-      if supplies is not null then
-        insert into task_supplies select result, unnest(supplies), unnest(qty);
-      end if;
+      -- if supplies is not null then
+      --   insert into task_supplies select result, unnest(supplies), unnest(qty);
+      -- end if;
 
       -- insert into task_files
       --   select result,

@@ -61,77 +61,71 @@ create or replace function api.modify_asset (
   $$
 ;
 
--- create or replace function modify_task (
---   in id integer,
---   in attributes tasks,
---   in assets_array text[],
---   out result integer
--- )
--- language plpgsql
--- strict
--- as $$
--- begin
---   update tasks as t
---     set (
---       status,
---       priority,
---       category,
---       parent,
---       team_id,
---       progress,
---       title,
---       description,
---       origin_department,
---       origin_person,
---       contact_name,
---       contact_phone,
---       contact_email,
---       place,
---       date_limit,
---       date_start,
---       updated_at
---     ) = (
---       attributes.status,
---       attributes.priority,
---       attributes.category,
---       attributes.parent,
---       attributes.team_id,
---       attributes.progress,
---       attributes.title,
---       attributes.description,
---       attributes.origin_department,
---       attributes.origin_person,
---       attributes.contact_name,
---       attributes.contact_phone,
---       attributes.contact_email,
---       attributes.place,
---       attributes.date_limit,
---       attributes.date_start,
---       default
---     ) where o.task_id = id
---     returning o.task_id into result;
+create or replace function api.modify_task (
+  in id integer,
+  in attributes tasks,
+  in assets integer[],
+  out result integer
+)
+  language plpgsql
+  strict
+  as $$
+    begin
+      update tasks as t
+        set (
+          task_status_id,
+          task_priority_id,
+          task_category_id,
+          project_id,
+          team_id,
+          title,
+          description,
+          -- todo: request fields
+          place,
+          progress,
+          date_limit,
+          date_start,
+          updated_at
+        ) = (
+          attributes.task_status_id,
+          attributes.task_priority_id,
+          attributes.task_category_id,
+          attributes.project_id,
+          attributes.team_id,
+          attributes.title,
+          attributes.description,
+          -- todo: request fields
+          attributes.place,
+          attributes.progress,
+          attributes.date_limit,
+          attributes.date_start,
+          default
+        ) where t.task_id = id
+        returning t.task_id into result;
 
---   with added_assets as (
---     select unnest(assets_array) as asset_id
---     except
---     select asset_id
---       from task_assets as ta
---       where ta.task_id = id
---   )
---   insert into task_assets
---     select id, asset_id from added_assets;
-  
---   with recursive removed_assets as (
---     select asset_id
---       from task_assets as ta
---     where ta.task_id = id
---     except
---     select unnest(assets_array) as asset_id
---   )
---   delete from task_assets as ta
---     where ta.task_id = id
---           and asset_id in (select asset_id from removed_assets);
--- end; $$;
+      with added_assets as (
+        select unnest(assets) as asset_id
+        except
+        select asset_id
+          from task_assets as ta
+        where ta.task_id = id
+      )
+      insert into task_assets
+        select id, asset_id from added_assets;
+
+      with recursive removed_assets as (
+        select asset_id
+          from task_assets as ta
+        where ta.task_id = id
+        except
+        select unnest(assets) as asset_id
+      )
+      delete from task_assets as ta
+        where ta.task_id = id
+              and asset_id in (select asset_id from removed_assets);
+    end;
+  $$
+;
 
 -- create or replace function modify_team (
 --   in id integer,

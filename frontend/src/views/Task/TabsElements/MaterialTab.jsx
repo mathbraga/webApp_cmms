@@ -10,7 +10,7 @@ import './Tabs.css';
 class MaterialTab extends Component {
   state = {}
   render() {
-    const data = this.props.data.supplies;
+    const data = this.props.data.supplies || [];
     return (
       <>
         <DescriptionTable

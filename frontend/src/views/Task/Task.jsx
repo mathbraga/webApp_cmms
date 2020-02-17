@@ -4,13 +4,14 @@ import ItemView from '../../components/ItemView/ItemView';
 import tabsGenerator from './tabsGenerator';
 import props from './props';
 import { withProps, withGraphQL, withQuery } from '../../hocs';
+import paths from '../../paths';
 
 const image = require("../../assets/img/test/equipment_picture.jpg");
 const imageStatus = 'Em andamento';
 
 class Task extends Component {
   render() {
-    const { data, ...rest } = this.props;
+    const { data, graphQLVariables, ...rest } = this.props;
     const finalData = data.queryResponse.nodes[0];
     const descriptionItems = [
       { title: 'Serviço', description: finalData.title, boldTitle: true },
@@ -25,6 +26,7 @@ class Task extends Component {
         imageStatus={imageStatus}
         descriptionItems={descriptionItems}
         tabs={tabsGenerator(finalData)}
+        buttonPath={paths.task.toUpdate + graphQLVariables.id.toString()}
         {...rest}
       />
     );

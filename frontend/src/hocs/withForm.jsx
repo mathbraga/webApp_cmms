@@ -115,12 +115,13 @@ export default function withForm(WrappedComponent) {
         handleLimitDateInputChange: this.handleLimitDateInputChange,
         handleSubmit: this.handleSubmit,
       }
-      const formVariables = this.props.getFormVariables(this.state);
+      const formState = this.state;
+      const formVariables = this.props.getFormVariables(formState);
       const mutationVariables = Object.assign({}, this.props.graphQLVariables, formVariables);
       return (
         <WrappedComponent
           handleFunctions={handleFunctions}
-          formState={this.state}
+          formState={formState}
           mutationVariables={mutationVariables}
           {...this.props}
         />

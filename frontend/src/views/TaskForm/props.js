@@ -5,10 +5,63 @@ import paths from '../../paths';
 export default {
   paths: paths.task,
   GQLs: {
+    update: {
+      query: gql`
+        query ($id: Int!) {
+          formData: allTaskFormData {
+            nodes {
+              assetOptions
+              categoryOptions
+              contractOptions
+              priorityOptions
+              projectOptions
+              statusOptions
+              teamOptions
+            }
+          }
+          idData: allTaskData (condition: {taskId: $id}) {
+            nodes {
+              taskId
+              title
+              description
+              taskStatusId
+              taskPriorityId
+              taskCategoryId
+              projectId
+              contractId
+              teamId
+              place
+              progress
+              dateLimit
+              dateEnd
+              dateStart
+              assets
+            }
+          }
+        }
+      `,
+      mutation: gql`
+        mutation (
+          $id: Int!,
+          $attributes: TaskInput!,
+          $assets: [Int!]!
+        ) {
+          mutationResponse: modifyTask (
+            input: {
+              id: $id
+              attributes: $attributes
+              assets: $assets
+            }
+          ) {
+            result
+          }
+        }
+      `
+    },
     create: {
       query: gql`
-        query MyQuery {
-          allTaskFormData {
+        query {
+          formData: allTaskFormData {
             nodes {
               assetOptions
               categoryOptions
@@ -20,60 +73,76 @@ export default {
             }
           }
         }
+      `,
+      mutation: gql`
+        mutation (
+          $attributes: TaskInput!,
+          $assets: [Int!]!
+        ) {
+          mutationResponse: insertTask (
+            input: {
+              attributes: $attributes
+              assets: $assets
+            }
+          ) {
+            result
+          }
+        }
       `
-    }
+    },
   },
   getInitialFormState: (idData, mode) => {
     
     const baseState = {
-      assetSf: "",
-      name: "",
-      latitude: "",
-      longitude: "",
-      description: "",
-      area: "",
+      taskStatusId: 1,
+      taskPriorityId: 1,
+      taskCategoryId: 1,
+      taskStatusId: 1,
+      projectId: null,
+      contractId: null,
+      teamId: null,
+      title: null,
+      description: null,
+      place: null,
+      progress: null,
+      dateLimit: null,
+      dateStart: null,
+      dateEnd: null,
     };
 
     const result = {
       ...baseState,
-      parent: null,
-      context: null
     };
 
     if (mode === 'update') {
       Object.keys(baseState).forEach(key => result[key] = idData ? idData[key] : "");
     }
 
-    result.parents = idData && idData.parents !== null
-      ? idData.parents
-        .map((parent, index) =>
-          (parent &&
-          {
-            context: idData.contexts[index],
-            parent,
-            id: `${parent.assetId}-${idData.contexts[index].assetId}`
-          }
-          ))
+    result.assets = idData && idData.assets
+      ? idData.assets
       : [];
+
     return result;
   },
-  getFormVariables: state => ({
+  getFormVariables: formState => ({
     attributes: {
-      taskStatusId: ,
-      taskPriorityId: ,
-      taskCategoryId: ,
-      projectId: ,
-      contractId: ,
-      teamId: ,
-      title: ,
-      description: ,
-      place: ,
-      progress: ,
-      dateLimit: ,
-      dateStart: ,
-      dateEnd: ,
+      taskStatusId: formState.taskStatusId,
+      taskPriorityId: formState.taskPriorityId,
+      taskCategoryId: formState.taskCategoryId,
+      projectId: formState.projectId,
+      contractId: formState.contractId,
+      teamId: formState.teamId,
+      title: formState.title,
+      description: formState.description,
+      place: formState.place,
+      progress: formState.progress,
+      dateLimit: formState.dateLimit,
+      dateStart: formState.dateStart,
+      dateEnd: formState.dateEnd,
     },
-    tops: state.parents.length > 0 ? state.parents.map(parent => parent.context.assetId) : null,
-    parents: state.parents.length > 0 ? state.parents.map(parent => parent.parent.assetId) :  null,
+    assets: formState.assets.length > 0 ? formState.assets.map(asset => asset.assetId) : null,
+    // supplies: // TODO
+    // qty: // TODO
+    // files: // TODO
   }),
 }

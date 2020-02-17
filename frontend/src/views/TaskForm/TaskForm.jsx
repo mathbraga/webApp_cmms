@@ -13,8 +13,8 @@ import paths from '../../paths';
 
 class TaskForm extends Component {
   render() {
-    const { history, handleFunctions, state } = this.props;
-    const data = this.props.data.allTaskFormData.nodes[0];
+    const { history, handleFunctions, formState, mutate } = this.props;
+    const data = this.props.data.formData.nodes[0];
     return (
       <CssBaseline>
         <AssetCard
@@ -29,7 +29,7 @@ class TaskForm extends Component {
                 handleInputChange={handleFunctions.handleInputChange}
                 priorityOptions={data.priorityOptions}
                 categoryOptions={data.categoryOptions}
-                {...state}
+                {...formState}
               />
               <div style={{ marginTop: "60px" }} />
               <ExecutionForm
@@ -43,17 +43,22 @@ class TaskForm extends Component {
                 projectOptions={data.projectOptions}
                 teamOptions={data.teamOptions}
                 contractOptions={data.contractOptions}
-                {...state}
+                {...formState}
               />
               <div style={{ marginTop: "60px" }} />
               <AssetForm
                 assetOptions={data.assetOptions}
                 handleAssetChange={handleFunctions.handleAssetChange}
-                {...state}
+                {...formState}
               />
               <div style={{ marginTop: "60px" }} />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button variant="contained" color="primary" style={{ marginRight: "10px" }}>
+                <Button 
+                  variant="contained"
+                  color="primary"
+                  style={{ marginRight: "10px" }}
+                  onClick={mutate}
+                >
                   Cadastrar
                 </Button>
                 <Button variant="contained" style={{ marginRight: "10px" }}>

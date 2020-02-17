@@ -15,7 +15,7 @@ import paths from '../../paths';
 
 class FacilityForm extends Component {
   render() {
-    const { history, handleFunctions, formState } = this.props;
+    const { history, handleFunctions, formState, mutate } = this.props;
     console.log("Dataa: ", this.props.data);
     const data = this.props.data.formData.nodes[0];
     return (
@@ -48,7 +48,12 @@ class FacilityForm extends Component {
               />
               <div style={{ marginTop: "60px" }} />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button variant="contained" color="primary" style={{ marginRight: "10px" }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ marginRight: "10px" }}
+                  onClick={mutate}
+                >
                   Cadastrar
                 </Button>
                 <Button variant="contained" style={{ marginRight: "10px" }}>
