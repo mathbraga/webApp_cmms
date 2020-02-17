@@ -3,11 +3,13 @@ import { sortBy } from "lodash";
 
 function sortList(data, sortKey, isSortReverse, isDataTree) {
   if (isDataTree) {
+    console.log("Datahe:", data);
+    console.log("SortKey:", sortKey);
     let sortedList = {};
     if (sortKey) {
-      Object.keys(data).forEach((context) => Object.keys(context).forEach((parent) => sortedList[context][parent] = sortBy(parent, sortKey)));
+      Object.keys(data).forEach((parent) => sortedList[parent] = sortBy(data[parent], sortKey));
       if (isSortReverse) {
-        Object.keys(data).forEach((context) => Object.keys(context).forEach((parent) => sortedList[context][parent].reverse()));
+        Object.keys(data).forEach((parent) => sortedList[parent].reverse());
       }
     } else {
       sortedList = data;
@@ -43,12 +45,10 @@ export default function withSorting(WrappedTable) {
     }
 
     render() {
-      const { data, dataTree, ...rest } = this.props;
+      const { data, isDataTree, ...rest } = this.props;
       const { sortKey, isSortReverse } = this.state;
 
-      const sortedList = sortList(dataTree, sortKey, isSortReverse, this.props.isDataTree);
-
-      console.log("List: ", sortedList);
+      const sortedList = sortList(data, sortKey, isSortReverse, isDataTree);
 
       return (
         <WrappedTable
@@ -57,6 +57,7 @@ export default function withSorting(WrappedTable) {
           activeSortKey={sortKey}
           isSortReverse={isSortReverse}
           data={sortedList}
+          isDataTree={isDataTree}
         />
       );
     }

@@ -47,11 +47,10 @@ class Dashboard extends Component {
                   <FullTable
                     tableConfig={tableConfig}
                     selectedData={selectedData}
-                    data={data}
+                    data={dataTree[1]}
                     searchableAttributes={searchableAttributes}
                     filterAttributes={filterAttributes}
                     customFilters={customFilters}
-                    dataTree={dataTree}
                     isDataTree
                   />
                 </CardBody>
