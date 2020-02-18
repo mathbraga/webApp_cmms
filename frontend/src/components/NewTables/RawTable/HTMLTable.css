@@ -92,8 +92,8 @@
 }
 
 .add-tree-container {
-  min-width: 17px;
-  width: 17px;
+  min-width: 15px;
+  width: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
