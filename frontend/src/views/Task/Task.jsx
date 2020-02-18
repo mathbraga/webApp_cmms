@@ -27,6 +27,7 @@ class Task extends Component {
         descriptionItems={descriptionItems}
         tabs={tabsGenerator(finalData)}
         buttonPath={paths.task.toUpdate + graphQLVariables.id.toString()}
+        buttonName={"Editar"}
         {...rest}
       />
     );
