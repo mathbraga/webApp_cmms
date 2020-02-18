@@ -4,7 +4,8 @@ import classNames from 'classnames';
 import { CustomInput } from 'reactstrap';
 
 const sortingArrow = require("../../../assets/icons/sorting_arrow.png");
-const addTree = require("../../../assets/icons/add.png");
+const addTree = require("../../../assets/icons/plus_green.png");
+const minusTree = require("../../../assets/icons/minus.png");
 
 function HeaderButton({ onClick, children, className }) {
   return (
@@ -30,14 +31,14 @@ function HeaderSort({ sortKey, onSort, children, activeSortKey, isSortReverse })
   );
 }
 
-function addNestingSpaces(childConfig, columnName, index, handleNestedChildrenClick) {
+function addNestingSpaces(childConfig, columnName, index, handleNestedChildrenClick, openItens) {
   if (columnName === "title") {
     const result = [];
     for (let i = 0; i <= childConfig[index].nestingValue; i++) {
       const element = (
         <div className="add-tree-container">
           <img
-            src={addTree}
+            src={!openItens[index] ? addTree : minusTree}
             onClick={handleNestedChildrenClick(index)}
             className={classNames({
               "add-tree-container__icon": true,
@@ -52,49 +53,7 @@ function addNestingSpaces(childConfig, columnName, index, handleNestedChildrenCl
   }
 }
 
-function assignParents(data, childConfig, tableConfig) {
-  const result = {};
-  let lastNestingValue = false;
-  let lastItemId = false;
-  let parents = [];
-  data.forEach((item) => {
-    const id = item[tableConfig.idAttributeForData];
-    const { nestingValue } = childConfig[id];
-    if (lastNestingValue !== false) {
-      if (nestingValue > lastNestingValue) {
-        parents.push(lastItemId);
-      } else if (nestingValue < lastNestingValue) {
-        parents = parents.slice(0, nestingValue);
-      }
-    }
-    result[id] = [...parents];
-    lastNestingValue = nestingValue;
-    lastItemId = id;
-  })
-  return result;
-}
-
-function createDataWithoutClosedItens(data, parents, openItens, tableConfig) {
-  return (data.filter((item) => {
-    const id = item[tableConfig.idAttributeForData];
-    return parents[id].every((parent) => openItens[parent]);
-  }));
-}
-
 class HTMLTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      openItens: {},
-    }
-  }
-
-  handleNestedChildrenClick = (id) => () => {
-    this.setState((prevState) => ({
-      openItens: { ...prevState.openItens, [id]: !prevState.openItens[id] }
-    }))
-  }
-
   render() {
     const {
       onSort,
@@ -106,12 +65,13 @@ class HTMLTable extends Component {
       childConfig,
       currentPage,
       itensPerPage,
+      parents,
+      handleNestedChildrenClick,
+      openItens,
     } = this.props;
-    console.log("ChildConfig: ", childConfig);
-    const parents = assignParents(data, childConfig, tableConfig);
+    console.log("Data: ", data);
     console.log("Parents: ", parents);
-    const dataWithoutClosedItens = createDataWithoutClosedItens(data, parents, this.state.openItens, tableConfig);
-    const visibleData = dataWithoutClosedItens.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
+    const visibleData = data.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
     return (
       <div className="table-wrapper">
         {visibleData.length === 0
@@ -206,7 +166,7 @@ class HTMLTable extends Component {
                           })}
                           style={{ display: "flex", alignItems: "center" }}
                         >
-                          {addNestingSpaces(childConfig, column.name, item[tableConfig.idAttributeForData], this.handleNestedChildrenClick)}
+                          {addNestingSpaces(childConfig, column.name, item[tableConfig.idAttributeForData], handleNestedChildrenClick, openItens)}
                           <div style={{ display: "block" }}>
                             <div className={classNames({
                               "main-table__data-value": true,

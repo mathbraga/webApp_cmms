@@ -1,5 +1,5 @@
 // Function used for search mechanics on search dependent components
-export default function searchList(itemsList, attributes, searchTerm) {
+export default function searchList(itemsList, attributes, searchTerm, parents = null) {
   let filteredItems = itemsList;
   searchTerm = searchTerm.trim().split(" ");
   const searchTermLowerCase = searchTerm.map((item) => item.toLowerCase());

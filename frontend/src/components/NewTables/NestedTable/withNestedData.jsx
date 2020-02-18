@@ -22,15 +22,39 @@ function prepareNestedData(dataTree, parentItems, idAtt) {
   return result;
 }
 
+function assignParents(data, childConfig, tableConfig) {
+  const result = {};
+  let lastNestingValue = false;
+  let lastItemId = false;
+  let parents = [];
+  data.forEach((item) => {
+    const id = item[tableConfig.idAttributeForData];
+    const { nestingValue } = childConfig[id];
+    if (lastNestingValue !== false) {
+      if (nestingValue > lastNestingValue) {
+        parents.push(lastItemId);
+      } else if (nestingValue < lastNestingValue) {
+        parents = parents.slice(0, nestingValue);
+      }
+    }
+    result[id] = [...parents];
+    lastNestingValue = nestingValue;
+    lastItemId = id;
+  })
+  return result;
+}
+
 export default function withNestedData(WrappedComponent) {
   class WithNestedData extends Component {
     render() {
       const { data, ...rest } = this.props;
       const nestedData = prepareNestedData(data, ["000"], "taskId")
+      const parents = assignParents(nestedData.data, nestedData.childConfig, this.props.tableConfig)
       return (
         <WrappedComponent
           {...rest}
           data={nestedData}
+          parents={parents}
         />
       );
     }

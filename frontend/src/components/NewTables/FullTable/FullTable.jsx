@@ -10,12 +10,33 @@ import withNestedData from '../NestedTable/withNestedData';
 
 import { compose } from 'redux';
 
+function createDataWithoutClosedItens(data, parents, openItens, tableConfig) {
+  return (data.filter((item) => {
+    const id = item[tableConfig.idAttributeForData];
+    return parents[id].every((parent) => openItens[parent]);
+  }));
+}
+
 class FullTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      openItens: {},
+    }
+  }
+
+  handleNestedChildrenClick = (id) => () => {
+    this.setState((prevState) => ({
+      openItens: { ...prevState.openItens, [id]: !prevState.openItens[id] }
+    }))
+  }
+
   render() {
     const {
       tableConfig,
       selectedData,
       data,
+      parents,
       searchableAttributes,
       searchTerm,
       handleChangeSearchTerm,
@@ -28,6 +49,8 @@ class FullTable extends Component {
       updateCurrentFilter
     } = this.props;
     console.log("Data: ", data);
+    const dataWithoutClosedItens = createDataWithoutClosedItens(data, parents, this.state.openItens, tableConfig);
+    console.log("Data: ", dataWithoutClosedItens);
     return (
       <>
         <SearchWithFilter
@@ -42,12 +65,14 @@ class FullTable extends Component {
           filterAttributes={filterAttributes}
         />
         <TableWithPagesUI
+          {...this.props}
           tableConfig={tableConfig}
           selectedData={selectedData}
-          data={data}
+          data={dataWithoutClosedItens}
           hasSearch={tableConfig.hasSearch}
           searchableAttributes={searchableAttributes}
-          {...this.props}
+          handleNestedChildrenClick={this.handleNestedChildrenClick}
+          openItens={this.state.openItens}
         />
       </>
     );
