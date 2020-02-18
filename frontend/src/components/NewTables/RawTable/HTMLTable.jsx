@@ -52,33 +52,6 @@ function addNestingSpaces(childConfig, columnName, index, handleNestedChildrenCl
   }
 }
 
-function createDataWithoutClosedItens(data, openItens, childConfig, tableConfig) {
-  const result = [];
-  let nextChild = false;
-  let childValue = 0;
-  let openChild = false;
-  let lastNestValue = 0;
-
-  data.forEach((item) => {
-    const id = item[tableConfig.idAttributeForData];
-    const { nestingValue, hasChildren } = childConfig[id];
-
-    if (nestingValue === 0 || openChild) {
-      result.push(item);
-    }
-
-    if (hasChildren && openItens[id]) {
-      openChild = true;
-      childValue = nestingValue + 1;
-    } else if (hasChildren || nestingValue < childValue) {
-      openChild = false;
-    }
-
-    lastNestValue = nestingValue;
-  })
-  return result;
-}
-
 function assignParents(data, childConfig, tableConfig) {
   const result = {};
   let lastNestingValue = false;
@@ -86,7 +59,7 @@ function assignParents(data, childConfig, tableConfig) {
   let parents = [];
   data.forEach((item) => {
     const id = item[tableConfig.idAttributeForData];
-    const { nestingValue, hasChildren } = childConfig[id];
+    const { nestingValue } = childConfig[id];
     if (lastNestingValue !== false) {
       if (nestingValue > lastNestingValue) {
         parents.push(lastItemId);
@@ -99,6 +72,13 @@ function assignParents(data, childConfig, tableConfig) {
     lastItemId = id;
   })
   return result;
+}
+
+function createDataWithoutClosedItens(data, parents, openItens, tableConfig) {
+  return (data.filter((item) => {
+    const id = item[tableConfig.idAttributeForData];
+    return parents[id].every((parent) => openItens[parent]);
+  }));
 }
 
 class HTMLTable extends Component {
@@ -130,7 +110,7 @@ class HTMLTable extends Component {
     console.log("ChildConfig: ", childConfig);
     const parents = assignParents(data, childConfig, tableConfig);
     console.log("Parents: ", parents);
-    const dataWithoutClosedItens = createDataWithoutClosedItens(data, this.state.openItens, childConfig, tableConfig);
+    const dataWithoutClosedItens = createDataWithoutClosedItens(data, parents, this.state.openItens, tableConfig);
     const visibleData = dataWithoutClosedItens.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
     return (
       <div className="table-wrapper">
