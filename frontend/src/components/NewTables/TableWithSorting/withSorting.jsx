@@ -3,8 +3,6 @@ import { sortBy } from "lodash";
 
 function sortList(data, sortKey, isSortReverse, isDataTree) {
   if (isDataTree) {
-    console.log("Datahe:", data);
-    console.log("SortKey:", sortKey);
     let sortedList = {};
     if (sortKey) {
       Object.keys(data).forEach((parent) => sortedList[parent] = sortBy(data[parent], sortKey));

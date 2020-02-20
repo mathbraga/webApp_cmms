@@ -30,7 +30,6 @@ export default function withPaginationLogic(WrappedComponent) {
 
     handleItensPerPage(event) {
       const itensPerPage = Number(event.target.value);
-      console.log("Event: ", event.target.value);
       this.setState({ itensPerPage }, this.setCurrentPage(1));
     }
 

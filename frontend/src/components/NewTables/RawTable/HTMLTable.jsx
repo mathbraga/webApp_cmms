@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './HTMLTable.css';
 import classNames from 'classnames';
 import { CustomInput } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 const sortingArrow = require("../../../assets/icons/sorting_arrow.png");
 const addTree = require("../../../assets/icons/plus_green.png");
@@ -13,6 +14,12 @@ function HeaderButton({ onClick, children, className }) {
       {children}
     </div>
   );
+}
+
+HeaderButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  children: PropTypes.any,
+  className: PropTypes.string,
 }
 
 function HeaderSort({ sortKey, onSort, children, activeSortKey, isSortReverse }) {
@@ -69,8 +76,6 @@ class HTMLTable extends Component {
       handleNestedChildrenClick,
       openItens,
     } = this.props;
-    console.log("Data: ", data);
-    console.log("Parents: ", parents);
     const visibleData = data.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
     return (
       <div className="table-wrapper">

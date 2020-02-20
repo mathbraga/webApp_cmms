@@ -48,9 +48,7 @@ class FullTable extends Component {
       filterAttributes,
       updateCurrentFilter
     } = this.props;
-    console.log("Data: ", data);
     const dataWithoutClosedItens = createDataWithoutClosedItens(data, parents, this.state.openItens, tableConfig);
-    console.log("Data: ", dataWithoutClosedItens);
     return (
       <>
         <SearchWithFilter
