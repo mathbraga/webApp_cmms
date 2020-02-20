@@ -45,7 +45,6 @@ class HTMLTable extends Component {
       childConfig,
       currentPage,
       itensPerPage,
-      parents,
       handleNestedChildrenClick,
       openItens,
     } = this.props;
