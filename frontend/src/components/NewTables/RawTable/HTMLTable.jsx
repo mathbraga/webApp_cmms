@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import HeaderWithSort from './HeaderWithSort/HeaderWithSort';
 import CustomHeader from './Header/CustomHeader';
+import CheckboxHeader from './Header/CheckboxHeader';
 
 const addTree = require("../../../assets/icons/plus_green.png");
 const minusTree = require("../../../assets/icons/minus.png");
@@ -63,20 +64,9 @@ class HTMLTable extends Component {
                   key="header"
                 >
                   {tableConfig.checkbox && (
-                    <th
-                      className={classNames({
-                        "main-table__head": true,
-                        "main-table__head--center": true,
-                      })}
-                      style={{ width: tableConfig.checkboxWidth || "5%" }}
-                      key={"checkbox"}
-                    >
-                      <div className="main-table__checkbox">
-                        <CustomInput
-                          type="checkbox"
-                        />
-                      </div>
-                    </th>
+                    <CheckboxHeader
+                      width={tableConfig.checkboxWidth}
+                    />
                   )}
                   {tableConfig.columns.map((column) => (
                     <CustomHeader
