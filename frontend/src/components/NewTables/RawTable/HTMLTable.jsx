@@ -4,39 +4,10 @@ import classNames from 'classnames';
 import { CustomInput } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-const sortingArrow = require("../../../assets/icons/sorting_arrow.png");
+import HeaderWithSort from './HeaderWithSort/HeaderWithSort';
+
 const addTree = require("../../../assets/icons/plus_green.png");
 const minusTree = require("../../../assets/icons/minus.png");
-
-function HeaderButton({ onClick, children, className }) {
-  return (
-    <div onClick={onClick} className={classNames("main-table__head-button", className)}>
-      {children}
-    </div>
-  );
-}
-
-HeaderButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  children: PropTypes.any,
-  className: PropTypes.string,
-}
-
-function HeaderSort({ sortKey, onSort, children, activeSortKey, isSortReverse }) {
-  return (
-    <HeaderButton onClick={() => onSort(sortKey)}>
-      {children}
-      {activeSortKey === sortKey && (
-        <div className={classNames({
-          "main-table__head-arrow": true,
-          "main-table__head-arrow--rotated": isSortReverse
-        })}>
-          <img src={sortingArrow} />
-        </div>
-      )}
-    </HeaderButton>
-  );
-}
 
 function addNestingSpaces(childConfig, columnName, index, handleNestedChildrenClick, openItens) {
   if (columnName === "title") {
@@ -122,9 +93,9 @@ class HTMLTable extends Component {
                               column.description
                             )
                             : (
-                              <HeaderSort sortKey={column.name} onSort={onSort} activeSortKey={activeSortKey} isSortReverse={isSortReverse}>
+                              <HeaderWithSort sortKey={column.name} onSort={onSort} activeSortKey={activeSortKey} isSortReverse={isSortReverse}>
                                 {column.description}
-                              </HeaderSort>
+                              </HeaderWithSort>
                             )
                         }
                       </div>

@@ -5,6 +5,7 @@ export const tableConfig = {
   itemPath: '/manutencao/os/view/',
   itemClickable: true,
   hasSearch: false,
+
   idAttributeForData: 'taskId',
   columns: [
     { name: 'taskId', description: 'OS', width: "5%", align: "center", data: ['taskId'] },
@@ -39,6 +40,7 @@ export const searchableAttributes = [
 ];
 
 export const selectedData = {
+  "001": false,
   "005": true,
   "008": true,
   "009": true,
