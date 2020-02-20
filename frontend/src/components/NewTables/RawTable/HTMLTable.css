@@ -23,23 +23,6 @@
   overflow: hidden;
 }
 
-
-.main-table__head {
-  background-color: #14365E;
-  color: white;
-  padding: 6px 2px;
-  font-weight: 700;
-  height: 50px;
-  font-size: 0.9rem;
-}
-
-.main-table__head-value {
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 0 5px;
-}
-
 .main-table__checkbox {
   display: flex;
   justify-content: center;
@@ -109,16 +92,8 @@
   justify-content: center;
 }
 
-.main-table__head--center{
-  text-align: center;
-}
-
 .main-table__data--justify {
   justify-content: flex-start;
-}
-
-.main-table__head--justify {
-  text-align: justify;
 }
 
 .main-table__data--nowrap {

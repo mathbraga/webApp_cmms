@@ -5,6 +5,7 @@ import { CustomInput } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import HeaderWithSort from './HeaderWithSort/HeaderWithSort';
+import CustomHeader from './Header/CustomHeader';
 
 const addTree = require("../../../assets/icons/plus_green.png");
 const minusTree = require("../../../assets/icons/minus.png");
@@ -78,28 +79,16 @@ class HTMLTable extends Component {
                     </th>
                   )}
                   {tableConfig.columns.map((column) => (
-                    <th
-                      className={classNames({
-                        "main-table__head": true,
-                        [`main-table__head--${column.align}`]: column.align,
-                      })}
-                      style={{ width: column.width }}
-                      key={column.name}
-                    >
-                      <div className="main-table__head-value">
-                        {
-                          onSort === false
-                            ? (
-                              column.description
-                            )
-                            : (
-                              <HeaderWithSort sortKey={column.name} onSort={onSort} activeSortKey={activeSortKey} isSortReverse={isSortReverse}>
-                                {column.description}
-                              </HeaderWithSort>
-                            )
-                        }
-                      </div>
-                    </th>
+                    <CustomHeader
+                      id={column.name}
+                      value={column.description}
+                      align={column.align}
+                      width={column.width}
+                      sortKey={column.name}
+                      activeSortKey={activeSortKey}
+                      isSortReverse={isSortReverse}
+                      onSort={onSort}
+                    />
                   ))}
                 </tr>
               </thead>

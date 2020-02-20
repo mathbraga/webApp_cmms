@@ -11,7 +11,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  children: "Título",
+  children: "Coluna",
   className: ""
 };
 
