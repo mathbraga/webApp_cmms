@@ -26,7 +26,8 @@ class TableWithPagesUI extends Component {
       hasSearch,
       searchTerm,
       handleChangeSearchTerm,
-      data
+      data,
+      tableConfig,
     } = this.props;
 
     const pagesTotal = Math.floor(data.length / itensPerPage) + 1;
@@ -60,6 +61,11 @@ class TableWithPagesUI extends Component {
         </div>
         <HTMLTable
           {...this.props}
+          attForDataId={tableConfig.idAttributeForData}
+          hasCheckbox={tableConfig.checkbox}
+          checkboxWidth={tableConfig.checkboxWidth}
+          columnsConfig={tableConfig.columns}
+          idForNestedTable={tableConfig.idForNestedTable}
           currentPage={currentPage}
           itensPerPage={itensPerPage}
         />

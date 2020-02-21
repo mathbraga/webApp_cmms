@@ -4,15 +4,14 @@ export const tableConfig = {
   checkboxWidth: "5%",
   itemPath: '/manutencao/os/view/',
   itemClickable: true,
-  hasSearch: false,
-
+  idForNestedTable: 'title',
   idAttributeForData: 'taskId',
   columns: [
-    { name: 'taskId', description: 'OS', width: "5%", align: "center", data: ['taskId'] },
-    { name: 'title', description: 'Título', width: "45%", align: "justify", wrapText: true, data: ['title', 'category'] },
-    { name: 'status', description: 'Status', width: "15%", align: "center", data: ['status'] },
-    { name: 'dateLimit', description: 'Prazo Final', width: "15%", align: "center", data: ['dateLimit'] },
-    { name: 'place', description: 'Localização', width: "15%", align: "center", data: ['place'] },
+    { columnId: 'taskId', columnName: 'OS', width: "5%", align: "center", idForValues: ['taskId'] },
+    { columnId: 'title', columnName: 'Título', width: "45%", align: "justify", isTextWrapped: true, idForValues: ['title', 'category'] },
+    { columnId: 'status', columnName: 'Status', width: "15%", align: "center", idForValues: ['status'] },
+    { columnId: 'dateLimit', columnName: 'Prazo Final', width: "15%", align: "center", idForValues: ['dateLimit'] },
+    { columnId: 'place', columnName: 'Localização', width: "15%", align: "center", idForValues: ['place'] },
   ],
 };
 

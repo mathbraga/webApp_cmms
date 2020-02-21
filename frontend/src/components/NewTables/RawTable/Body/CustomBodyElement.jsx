@@ -17,6 +17,7 @@ const propTypes = {
   hasDataSubValue: PropTypes.bool,
   dataSubValue: PropTypes.string,
   isDataTree: PropTypes.bool,
+  idForNestedTable: PropTypes.string,
   childConfig: childConfigShape,
   handleNestedChildrenClick: PropTypes.func,
   openItens: openItemsShape,
@@ -42,6 +43,7 @@ export default function CustomBodyElement({
   hasDataSubValue,
   dataSubValue,
   isDataTree,
+  idForNestedTable,
   childConfig,
   handleNestedChildrenClick,
   openItens,
@@ -61,7 +63,7 @@ export default function CustomBodyElement({
         })}
         style={{ display: "flex", alignItems: "center" }}
       >
-        {isDataTree && addNestingSpaces(childConfig, columnId, itemId, handleNestedChildrenClick, openItens)}
+        {isDataTree && addNestingSpaces(childConfig, columnId, itemId, handleNestedChildrenClick, openItens, idForNestedTable)}
         <div style={{ display: "block" }}>
           <div className={classNames({
             "table-body__cell__value": true,
