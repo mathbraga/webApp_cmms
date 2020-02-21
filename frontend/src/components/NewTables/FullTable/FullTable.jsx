@@ -40,7 +40,6 @@ class FullTable extends Component {
       searchableAttributes,
       searchTerm,
       handleChangeSearchTerm,
-      numberOfItens,
       customFilters,
       filterLogic,
       filterName,

@@ -1,37 +1,12 @@
 import React, { Component } from 'react';
 import './HTMLTable.css';
 import classNames from 'classnames';
-import { CustomInput } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import HeaderWithSort from './HeaderWithSort/HeaderWithSort';
 import CustomHeader from './Header/CustomHeader';
 import CheckboxHeader from './Header/CheckboxHeader';
-
-const addTree = require("../../../assets/icons/plus_green.png");
-const minusTree = require("../../../assets/icons/minus.png");
-
-function addNestingSpaces(childConfig, columnName, index, handleNestedChildrenClick, openItens) {
-  if (columnName === "title") {
-    const result = [];
-    for (let i = 0; i <= childConfig[index].nestingValue; i++) {
-      const element = (
-        <div className="add-tree-container">
-          <img
-            src={!openItens[index] ? addTree : minusTree}
-            onClick={handleNestedChildrenClick(index)}
-            className={classNames({
-              "add-tree-container__icon": true,
-              "add-tree-container__icon--hidden": (!childConfig[index].hasChildren || i != childConfig[index].nestingValue)
-            })}
-          />
-        </div>
-      );
-      result.push(element);
-    }
-    return result;
-  }
-}
+import CustomBodyElement from './Body/CustomBodyElement';
+import CheckboxBodyElement from './Body/CheckboxBodyElement';
 
 class HTMLTable extends Component {
   render() {
@@ -47,6 +22,7 @@ class HTMLTable extends Component {
       itensPerPage,
       handleNestedChildrenClick,
       openItens,
+      isDataTree
     } = this.props;
     const visibleData = data.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
     return (
@@ -91,54 +67,25 @@ class HTMLTable extends Component {
                     key={item[tableConfig.idAttributeForData]}
                   >
                     {tableConfig.checkbox && (
-                      <td
-                        className={classNames({
-                          "main-table__data": true,
-                          "main-table__data--center": true,
-                        })}
-                        style={{ width: "5%" }}
-                        key={"checkbox"}
-                      >
-                        <div className="main-table__checkbox">
-                          <CustomInput
-                            type="checkbox"
-                            checked={selectedData[item[tableConfig.idAttributeForData]]}
-                          />
-                        </div>
-                      </td>
+                      <CheckboxBodyElement
+                        selectedData={selectedData}
+                        itemId={item[tableConfig.idAttributeForData]}
+                      />
                     )}
                     {tableConfig.columns.map((column) => (
-                      <td
-                        className={classNames({
-                          "main-table__data": true,
-                        })}
-                        key={column.name}
-                      >
-                        <div
-                          className={classNames({
-                            [`main-table__data--${column.align}`]: column.align,
-                          })}
-                          style={{ display: "flex", alignItems: "center" }}
-                        >
-                          {addNestingSpaces(childConfig, column.name, item[tableConfig.idAttributeForData], handleNestedChildrenClick, openItens)}
-                          <div style={{ display: "block" }}>
-                            <div className={classNames({
-                              "main-table__data-value": true,
-                              "main-table__data--nowrap": !column.wrapText,
-                            })}>
-                              {item[column.data[0]]}
-                            </div>
-                            {column.data[1] && (
-                              <div className={classNames({
-                                "main-table__data-sub-value": true,
-                              })}
-                              >
-                                {item[column.data[1]]}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </td>
+                      <CustomBodyElement
+                        columnId={column.name}
+                        itemId={item[tableConfig.idAttributeForData]}
+                        dataValue={item[column.data[0]]}
+                        hasDataSubValue={Boolean(column.data[1])}
+                        dataSubValue={item[column.data[1]]}
+                        isDataTree={isDataTree}
+                        childConfig={childConfig}
+                        handleNestedChildrenClick={handleNestedChildrenClick}
+                        openItens={openItens}
+                        align={column.align}
+                        isTextWrapped={column.wrapText}
+                      />
                     ))}
                   </tr>
                 ))}
