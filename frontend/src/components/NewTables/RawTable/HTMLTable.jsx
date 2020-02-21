@@ -2,27 +2,60 @@ import React, { Component } from 'react';
 import './HTMLTable.css';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-
+// PropTypes
+import { selectedDataShape, columnsConfigShape } from '../__propTypes__/tableConfig';
+import { childConfigShape, openItemsShape } from '../__propTypes__/nestedTable';
+// Components
 import CustomHeader from './Header/CustomHeader';
 import CheckboxHeader from './Header/CheckboxHeader';
 import CustomBodyElement from './Body/CustomBodyElement';
 import CheckboxBodyElement from './Body/CheckboxBodyElement';
 
+const propTypes = {
+  data: PropTypes.array,
+  attForDataId: PropTypes.string.isRequired,
+  hasCheckbox: PropTypes.bool,
+  checkboxWidth: PropTypes.string,
+  columnsConfig: columnsConfigShape,
+  selectedData: selectedDataShape,
+  currentPage: PropTypes.number.isRequired,
+  itensPerPage: PropTypes.number.isRequired,
+  activeSortKey: PropTypes.string,
+  isSortReverse: PropTypes.bool,
+  onSort: PropTypes.func,
+  isDataTree: PropTypes.bool,
+  childConfig: childConfigShape,
+  handleNestedChildrenClick: PropTypes.func,
+  openItens: openItemsShape,
+};
+
+const defaultProps = {
+  data: [],
+  hasCheckbox: false,
+  checkboxWidth: "5%",
+  selectedData: {},
+  isSortReverse: false,
+  isDataTree: false,
+};
+
 class HTMLTable extends Component {
   render() {
     const {
-      onSort,
-      activeSortKey,
       data,
-      tableConfig,
+      attForDataId,
+      hasCheckbox,
+      checkboxWidth,
+      columnsConfig,
       selectedData,
-      isSortReverse,
-      childConfig,
       currentPage,
       itensPerPage,
+      activeSortKey,
+      isSortReverse,
+      onSort,
+      isDataTree,
+      childConfig,
       handleNestedChildrenClick,
       openItens,
-      isDataTree
     } = this.props;
     const visibleData = data.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
     return (
@@ -38,18 +71,18 @@ class HTMLTable extends Component {
                   className="main-table__header__row"
                   key="header"
                 >
-                  {tableConfig.checkbox && (
+                  {hasCheckbox && (
                     <CheckboxHeader
-                      width={tableConfig.checkboxWidth}
+                      width={checkboxWidth}
                     />
                   )}
-                  {tableConfig.columns.map((column) => (
+                  {columnsConfig.map((column) => (
                     <CustomHeader
-                      id={column.name}
-                      value={column.description}
+                      id={column.columnId}
+                      value={column.columnName}
                       align={column.align}
                       width={column.width}
-                      sortKey={column.name}
+                      sortKey={column.columnId}
                       activeSortKey={activeSortKey}
                       isSortReverse={isSortReverse}
                       onSort={onSort}
@@ -62,29 +95,29 @@ class HTMLTable extends Component {
                   <tr
                     className={classNames({
                       "main-table__body__row": true,
-                      "main-table__body__row--selected": selectedData[item[tableConfig.idAttributeForData]],
+                      "main-table__body__row--selected": selectedData[item[attForDataId]],
                     })}
-                    key={item[tableConfig.idAttributeForData]}
+                    key={item[attForDataId]}
                   >
-                    {tableConfig.checkbox && (
+                    {hasCheckbox && (
                       <CheckboxBodyElement
                         selectedData={selectedData}
-                        itemId={item[tableConfig.idAttributeForData]}
+                        itemId={item[attForDataId]}
                       />
                     )}
-                    {tableConfig.columns.map((column) => (
+                    {columnsConfig.map((column) => (
                       <CustomBodyElement
-                        columnId={column.name}
-                        itemId={item[tableConfig.idAttributeForData]}
-                        dataValue={item[column.data[0]]}
-                        hasDataSubValue={Boolean(column.data[1])}
-                        dataSubValue={item[column.data[1]]}
+                        columnId={column.columnId}
+                        itemId={item[attForDataId]}
+                        dataValue={item[column.idForValues[0]]}
+                        hasDataSubValue={Boolean(column.idForValues[1])}
+                        dataSubValue={item[column.idForValues[1]]}
                         isDataTree={isDataTree}
                         childConfig={childConfig}
                         handleNestedChildrenClick={handleNestedChildrenClick}
                         openItens={openItens}
                         align={column.align}
-                        isTextWrapped={column.wrapText}
+                        isTextWrapped={column.isTextWrapped}
                       />
                     ))}
                   </tr>
@@ -99,3 +132,6 @@ class HTMLTable extends Component {
 }
 
 export default HTMLTable;
+
+HTMLTable.propTypes = propTypes;
+HTMLTable.defaultProps = defaultProps;
