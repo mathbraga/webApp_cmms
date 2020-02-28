@@ -42,6 +42,9 @@ export default function CustomBodyElement({
   dataValue,
   hasDataSubValue,
   dataSubValue,
+  isItemClickable,
+  dataAttForClickable,
+  itemPathWithoutID,
   isDataTree,
   idForNestedTable,
   childConfig,
@@ -49,6 +52,7 @@ export default function CustomBodyElement({
   openItens,
   align,
   isTextWrapped,
+  history,
 }) {
   return (
     <td
@@ -64,7 +68,16 @@ export default function CustomBodyElement({
         style={{ display: "flex", alignItems: "center" }}
       >
         {isDataTree && addNestingSpaces(childConfig, columnId, itemId, handleNestedChildrenClick, openItens, idForNestedTable)}
-        <div style={{ display: "block" }}>
+        <div
+          style={{ display: "block" }}
+          className={classNames({
+            "table-body__cell--clickable": isItemClickable && (dataAttForClickable === columnId),
+          })}
+          onClick={isItemClickable && (dataAttForClickable === columnId) && (
+            () => {
+              history.push(itemPathWithoutID + itemId)
+            })}
+        >
           <div className={classNames({
             "table-body__cell__value": true,
             "table-body__cell--nowrap": !isTextWrapped,

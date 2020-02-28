@@ -5,6 +5,10 @@
   border-bottom: 1px solid #d4d4d4;
 }
 
+.table-body__cell--clickable {
+  cursor: pointer;
+}
+
 .table-body__cell--center {
   justify-content: center;
 }

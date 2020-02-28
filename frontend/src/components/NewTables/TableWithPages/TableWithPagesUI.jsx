@@ -71,6 +71,9 @@ class TableWithPagesUI extends Component {
           attForDataId={tableConfig.attForDataId}
           hasCheckbox={tableConfig.hasCheckbox}
           checkboxWidth={tableConfig.checkboxWidth}
+          isItemClickable={tableConfig.isItemClickable}
+          dataAttForClickable={tableConfig.dataAttForClickable}
+          itemPathWithoutID={tableConfig.itemPathWithoutID}
           columnsConfig={tableConfig.columnsConfig}
           selectedData={selectedData}
           currentPage={currentPage}

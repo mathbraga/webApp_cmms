@@ -5,6 +5,7 @@ export const tableConfig = {
   isDataTree: true,
   idForNestedTable: 'title',
   isItemClickable: true,
+  dataAttForClickable: 'title',
   itemPathWithoutID: '/manutencao/os/view/',
   columnsConfig: [
     { columnId: 'taskId', columnName: 'OS', width: "5%", align: "center", idForValues: ['taskId'] },

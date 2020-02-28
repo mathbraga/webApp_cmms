@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './HTMLTable.css';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { withRouter } from "react-router";
 // PropTypes
 import { selectedDataShape, columnsConfigShape } from '../__propTypes__/tableConfig';
 import { childConfigShape, openItemsShape } from '../__propTypes__/nestedTable';
@@ -16,6 +17,8 @@ const propTypes = {
   attForDataId: PropTypes.string.isRequired,
   hasCheckbox: PropTypes.bool,
   checkboxWidth: PropTypes.string,
+  isItemClickable: PropTypes.bool,
+  itemPathWithoutID: PropTypes.string,
   columnsConfig: columnsConfigShape,
   selectedData: selectedDataShape,
   currentPage: PropTypes.number.isRequired,
@@ -46,6 +49,9 @@ class HTMLTable extends Component {
       attForDataId,
       hasCheckbox,
       checkboxWidth,
+      isItemClickable,
+      dataAttForClickable,
+      itemPathWithoutID,
       columnsConfig,
       selectedData,
       currentPage,
@@ -114,6 +120,9 @@ class HTMLTable extends Component {
                         dataValue={item[column.idForValues[0]]}
                         hasDataSubValue={Boolean(column.idForValues[1])}
                         dataSubValue={item[column.idForValues[1]]}
+                        isItemClickable={isItemClickable}
+                        dataAttForClickable={dataAttForClickable}
+                        itemPathWithoutID={itemPathWithoutID}
                         isDataTree={isDataTree}
                         idForNestedTable={idForNestedTable}
                         childConfig={childConfig}
@@ -121,6 +130,7 @@ class HTMLTable extends Component {
                         openItens={openItens}
                         align={column.align}
                         isTextWrapped={column.isTextWrapped}
+                        history={this.props.history}
                       />
                     ))}
                   </tr>
@@ -134,7 +144,7 @@ class HTMLTable extends Component {
   }
 }
 
-export default HTMLTable;
+export default withRouter(HTMLTable);
 
 HTMLTable.propTypes = propTypes;
 HTMLTable.defaultProps = defaultProps;
