@@ -86,6 +86,8 @@ class TableWithPagesUI extends Component {
           childConfig={childConfig}
           handleNestedChildrenClick={handleNestedChildrenClick}
           openItens={openItens}
+          actionColumn={tableConfig.actionColumn}
+          actionColumnWidth={tableConfig.actionColumnWidth}
         />
         <div
           className="table-container__pagination-container"

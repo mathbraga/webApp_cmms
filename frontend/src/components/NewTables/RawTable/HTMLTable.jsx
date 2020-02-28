@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withRouter } from "react-router";
 // PropTypes
-import { selectedDataShape, columnsConfigShape } from '../__propTypes__/tableConfig';
+import { selectedDataShape, actionColumnShape, columnsConfigShape } from '../__propTypes__/tableConfig';
 import { childConfigShape, openItemsShape } from '../__propTypes__/nestedTable';
 // Components
 import CustomHeader from './Header/CustomHeader';
@@ -31,6 +31,8 @@ const propTypes = {
   childConfig: childConfigShape,
   handleNestedChildrenClick: PropTypes.func,
   openItens: openItemsShape,
+  actionColumn: actionColumnShape,
+  actionColumnWidth: PropTypes.string,
 };
 
 const defaultProps = {
@@ -64,6 +66,8 @@ class HTMLTable extends Component {
       childConfig,
       handleNestedChildrenClick,
       openItens,
+      actionColumn,
+      actionColumnWidth
     } = this.props;
     const visibleData = data.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
     return (
@@ -96,6 +100,14 @@ class HTMLTable extends Component {
                       onSort={onSort}
                     />
                   ))}
+                  {actionColumn && (
+                    <CustomHeader
+                      id={"action"}
+                      value={"Ações"}
+                      align={"center"}
+                      width={actionColumnWidth}
+                    />
+                  )}
                 </tr>
               </thead>
               <tbody className="main-table__body">

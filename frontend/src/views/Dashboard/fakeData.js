@@ -7,9 +7,11 @@ export const tableConfig = {
   isItemClickable: true,
   dataAttForClickable: 'title',
   itemPathWithoutID: '/manutencao/os/view/',
+  actionColumn: ['delete'],
+  actionColumnWidth: "10%",
   columnsConfig: [
     { columnId: 'taskId', columnName: 'OS', width: "5%", align: "center", idForValues: ['taskId'] },
-    { columnId: 'title', columnName: 'Título', width: "45%", align: "justify", isTextWrapped: true, idForValues: ['title', 'category'] },
+    { columnId: 'title', columnName: 'Título', width: "35%", align: "justify", isTextWrapped: true, idForValues: ['title', 'category'] },
     { columnId: 'status', columnName: 'Status', width: "15%", align: "center", idForValues: ['status'] },
     { columnId: 'dateLimit', columnName: 'Prazo Final', width: "15%", align: "center", idForValues: ['dateLimit'] },
     { columnId: 'place', columnName: 'Localização', width: "15%", align: "center", idForValues: ['place'] },
