@@ -51,7 +51,6 @@ class Dashboard extends Component {
                     searchableAttributes={searchableAttributes}
                     filterAttributes={filterAttributes}
                     customFilters={customFilters}
-                    isDataTree
                   />
                 </CardBody>
               </Card>

@@ -43,7 +43,8 @@ export default function withSorting(WrappedTable) {
     }
 
     render() {
-      const { data, isDataTree, ...rest } = this.props;
+      const { data, ...rest } = this.props;
+      const { isDataTree } = this.props.tableConfig;
       const { sortKey, isSortReverse } = this.state;
 
       const sortedList = sortList(data, sortKey, isSortReverse, isDataTree);
@@ -55,7 +56,6 @@ export default function withSorting(WrappedTable) {
           activeSortKey={sortKey}
           isSortReverse={isSortReverse}
           data={sortedList}
-          isDataTree={isDataTree}
         />
       );
     }

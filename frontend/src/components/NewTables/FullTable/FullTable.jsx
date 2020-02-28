@@ -12,7 +12,7 @@ import { compose } from 'redux';
 
 function createDataWithoutClosedItens(data, parents, openItens, tableConfig) {
   return (data.filter((item) => {
-    const id = item[tableConfig.idAttributeForData];
+    const id = item[tableConfig.attForDataId];
     return parents[id].every((parent) => openItens[parent]);
   }));
 }
@@ -66,7 +66,7 @@ class FullTable extends Component {
           tableConfig={tableConfig}
           selectedData={selectedData}
           data={dataWithoutClosedItens}
-          hasSearch={tableConfig.hasSearch}
+          hasSearch={false}
           searchableAttributes={searchableAttributes}
           handleNestedChildrenClick={this.handleNestedChildrenClick}
           openItens={this.state.openItens}

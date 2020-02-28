@@ -1,12 +1,12 @@
 export const tableConfig = {
-  numberOfColumns: 6,
-  checkbox: true,
+  attForDataId: 'taskId',
+  hasCheckbox: true,
   checkboxWidth: "5%",
-  itemPath: '/manutencao/os/view/',
-  itemClickable: true,
+  isDataTree: true,
   idForNestedTable: 'title',
-  idAttributeForData: 'taskId',
-  columns: [
+  isItemClickable: true,
+  itemPathWithoutID: '/manutencao/os/view/',
+  columnsConfig: [
     { columnId: 'taskId', columnName: 'OS', width: "5%", align: "center", idForValues: ['taskId'] },
     { columnId: 'title', columnName: 'Título', width: "45%", align: "justify", isTextWrapped: true, idForValues: ['title', 'category'] },
     { columnId: 'status', columnName: 'Status', width: "15%", align: "center", idForValues: ['status'] },

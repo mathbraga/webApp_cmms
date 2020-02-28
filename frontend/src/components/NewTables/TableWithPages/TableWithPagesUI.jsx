@@ -28,6 +28,13 @@ class TableWithPagesUI extends Component {
       handleChangeSearchTerm,
       data,
       tableConfig,
+      selectedData,
+      activeSortKey,
+      isSortReverse,
+      onSort,
+      childConfig,
+      handleNestedChildrenClick,
+      openItens
     } = this.props;
 
     const pagesTotal = Math.floor(data.length / itensPerPage) + 1;
@@ -60,14 +67,22 @@ class TableWithPagesUI extends Component {
           </div>
         </div>
         <HTMLTable
-          {...this.props}
-          attForDataId={tableConfig.idAttributeForData}
-          hasCheckbox={tableConfig.checkbox}
+          data={data}
+          attForDataId={tableConfig.attForDataId}
+          hasCheckbox={tableConfig.hasCheckbox}
           checkboxWidth={tableConfig.checkboxWidth}
-          columnsConfig={tableConfig.columns}
-          idForNestedTable={tableConfig.idForNestedTable}
+          columnsConfig={tableConfig.columnsConfig}
+          selectedData={selectedData}
           currentPage={currentPage}
           itensPerPage={itensPerPage}
+          activeSortKey={activeSortKey}
+          isSortReverse={isSortReverse}
+          onSort={onSort}
+          isDataTree={tableConfig.isDataTree}
+          idForNestedTable={tableConfig.idForNestedTable}
+          childConfig={childConfig}
+          handleNestedChildrenClick={handleNestedChildrenClick}
+          openItens={openItens}
         />
         <div
           className="table-container__pagination-container"

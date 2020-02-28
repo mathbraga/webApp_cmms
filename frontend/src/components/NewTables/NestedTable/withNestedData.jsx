@@ -28,7 +28,7 @@ function assignParents(data, childConfig, tableConfig) {
   let lastItemId = false;
   let parents = [];
   data.forEach((item) => {
-    const id = item[tableConfig.idAttributeForData];
+    const id = item[tableConfig.attForDataId];
     const { nestingValue } = childConfig[id];
     if (lastNestingValue !== false) {
       if (nestingValue > lastNestingValue) {
@@ -48,7 +48,8 @@ export default function withNestedData(WrappedComponent) {
   class WithNestedData extends Component {
     render() {
       const { data, ...rest } = this.props;
-      const nestedData = prepareNestedData(data, ["000"], "taskId")
+      const { attForDataId } = this.props.tableConfig;
+      const nestedData = prepareNestedData(data, ["000"], attForDataId)
       const parents = assignParents(nestedData.data, nestedData.childConfig, this.props.tableConfig)
       return (
         <WrappedComponent
