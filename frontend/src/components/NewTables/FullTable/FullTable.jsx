@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import TableWithPagesUI from '../TableWithPages/TableWithPagesUI';
 import SearchWithFilter from '../../Search/SearchWithFilter';
 import withFilterLogic from '../../Filters/withFilterLogic';
+import PropTypes from 'prop-types';
 
 import withSorting from '../TableWithSorting/withSorting';
 import withPaginationLogic from '../TableWithPages/withPaginationLogic';
 import withSearchLogic from '../../Search/withSearchLogic';
 import withNestedData from '../NestedTable/withNestedData';
+// PropTypes
+import { selectedDataShape, tableConfigShape } from '../__propTypes__/tableConfig';
 
 import { compose } from 'redux';
 
@@ -16,6 +19,24 @@ function createDataWithoutClosedItens(data, parents, openItens, tableConfig) {
     return parents[id].every((parent) => openItens[parent]);
   }));
 }
+
+const propTypes = {
+  data: PropTypes.array,
+  tableConfig: tableConfigShape,
+  selectedData: selectedDataShape,
+  // TODO
+  searchableAttributes: PropTypes.any,
+  filterAttributes: PropTypes.any,
+  customFilters: PropTypes.any,
+  // Props from HOCS:
+  parents: PropTypes.any,
+  searchTerm: PropTypes.any,
+  handleChangeSearchTerm: PropTypes.any,
+  filterLogic: PropTypes.any,
+  filterName: PropTypes.any,
+  filterSavedId: PropTypes.any,
+  updateCurrentFilter: PropTypes.any,
+};
 
 class FullTable extends Component {
   constructor(props) {
@@ -75,6 +96,8 @@ class FullTable extends Component {
     );
   }
 }
+
+FullTable.propTypes = propTypes;
 
 export default compose(
   withSorting,
