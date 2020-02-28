@@ -20,6 +20,7 @@ export const tableConfigShape = PropTypes.shape({
   isDataTree: PropTypes.bool,
   idForNestedTable: PropTypes.string.isRequired,
   isItemClickable: PropTypes.bool,
+  dataAttForClickable: PropTypes.string,
   itemPathWithoutID: PropTypes.string,
   columnsConfig: columnsConfigShape,
 });

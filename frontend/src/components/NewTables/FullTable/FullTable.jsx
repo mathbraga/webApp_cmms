@@ -68,7 +68,8 @@ class FullTable extends Component {
       filterAttributes,
       updateCurrentFilter
     } = this.props;
-    const dataWithoutClosedItens = createDataWithoutClosedItens(data, parents, this.state.openItens, tableConfig);
+    const { isDataTree } = tableConfig;
+    const dataWithoutClosedItens = isDataTree && createDataWithoutClosedItens(data, parents, this.state.openItens, tableConfig);
     return (
       <>
         <SearchWithFilter
@@ -86,7 +87,7 @@ class FullTable extends Component {
           {...this.props}
           tableConfig={tableConfig}
           selectedData={selectedData}
-          data={dataWithoutClosedItens}
+          data={dataWithoutClosedItens || data}
           hasSearch={false}
           searchableAttributes={searchableAttributes}
           handleNestedChildrenClick={this.handleNestedChildrenClick}

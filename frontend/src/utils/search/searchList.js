@@ -1,10 +1,10 @@
 // Function used for search mechanics on search dependent components
-export default function searchList(itemsList, attributes, searchTerm, parents = null, idAtt = null) {
+export default function searchList(itemsList, attributes, searchTerm, parents = false, idAtt = false) {
   let filteredItems = itemsList;
   let filteredIds = [];
   searchTerm = searchTerm.trim().split(" ");
   const searchTermLowerCase = searchTerm.map((item) => item.toLowerCase());
-
+  console.log("Items: ", itemsList, parents);
   searchTermLowerCase.forEach((term) => {
     if (!parents) {
       filteredItems = findItem(filteredItems, attributes, term);
@@ -17,7 +17,7 @@ export default function searchList(itemsList, attributes, searchTerm, parents = 
   return filteredItems;
 }
 
-function findItem(items, attributes, term, parents = null, idAtt = null) {
+function findItem(items, attributes, term, parents = false, idAtt = false) {
   if (!parents) {
     return (items.filter((item) => {
       for (let i = 0; i < attributes.length; i++) {

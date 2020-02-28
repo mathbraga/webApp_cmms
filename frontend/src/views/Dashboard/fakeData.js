@@ -2,7 +2,7 @@ export const tableConfig = {
   attForDataId: 'taskId',
   hasCheckbox: true,
   checkboxWidth: "5%",
-  isDataTree: true,
+  isDataTree: false,
   idForNestedTable: 'title',
   isItemClickable: true,
   dataAttForClickable: 'title',

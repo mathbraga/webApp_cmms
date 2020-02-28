@@ -48,13 +48,14 @@ export default function withNestedData(WrappedComponent) {
   class WithNestedData extends Component {
     render() {
       const { data, ...rest } = this.props;
-      const { attForDataId } = this.props.tableConfig;
-      const nestedData = prepareNestedData(data, ["000"], attForDataId)
-      const parents = assignParents(nestedData.data, nestedData.childConfig, this.props.tableConfig)
+      const { attForDataId, isDataTree } = this.props.tableConfig;
+      const nestedData = isDataTree && prepareNestedData(data, ["000"], attForDataId)
+      const parents = isDataTree && assignParents(nestedData.data, nestedData.childConfig, this.props.tableConfig)
       return (
         <WrappedComponent
           {...rest}
-          data={nestedData}
+          data={nestedData ? nestedData.data : data}
+          childConfig={nestedData ? nestedData.childConfig : false}
           parents={parents}
         />
       );

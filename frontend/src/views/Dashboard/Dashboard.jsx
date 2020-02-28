@@ -47,7 +47,8 @@ class Dashboard extends Component {
                   <FullTable
                     tableConfig={tableConfig}
                     selectedData={selectedData}
-                    data={dataTree[1]}
+                    // data={dataTree[1]}
+                    data={data}
                     searchableAttributes={searchableAttributes}
                     filterAttributes={filterAttributes}
                     customFilters={customFilters}
