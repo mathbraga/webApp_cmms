@@ -11,6 +11,7 @@ import CustomHeader from './Header/CustomHeader';
 import CheckboxHeader from './Header/CheckboxHeader';
 import CustomBodyElement from './Body/CustomBodyElement';
 import CheckboxBodyElement from './Body/CheckboxBodyElement';
+import ActionBodyElement from './Body/ActionBodyElement';
 
 const propTypes = {
   data: PropTypes.array,
@@ -146,16 +147,15 @@ class HTMLTable extends Component {
                       />
                     ))}
                     {actionColumn && (
-                      <CustomBodyElement
+                      <ActionBodyElement
                         columnId={"action"}
                         itemId={item[attForDataId]}
-                        dataValue={"Deletar"}
-                        isItemClickable={true}
-                        dataAttForClickable={"action"}
-                        itemPathWithoutID={itemPathWithoutID}
-                        openitems={openitems}
-                        align={"center"}
-                        history={this.props.history}
+                        actionType={actionColumn}
+                        handleAction={{
+                          "delete": (id) => () => { console.log("OK1") },
+                          "edit": (id) => () => { console.log("OK2") }
+                        }}
+                        openItems={openitems}
                       />
                     )}
                   </tr>

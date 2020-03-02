@@ -6,11 +6,35 @@ import './Body.css'
 // Proptypes
 import { openItemsShape } from '../../__propTypes__/nestedTable';
 
+const deleteImage = require("../../../../assets/icons/red_trash.png");
+const editImage = require("../../../../assets/icons/edit.png");
+
+const deleteButton = (handleAction, itemId) => (
+  <img
+    onClick={handleAction.delete(itemId)}
+    style={{ width: "25px", height: "25px", cursor: "pointer" }}
+    src={deleteImage}
+  />
+);
+
+const editButton = (handleAction, itemId) => (
+  <img
+    onClick={handleAction.edit(itemId)}
+    style={{ width: "25px", height: "25px", cursor: "pointer" }}
+    src={editImage}
+  />
+);
+
+const button = {
+  "delete": deleteButton,
+  "edit": editButton
+}
+
 const propTypes = {
   columnId: PropTypes.string.isRequired,
   itemId: PropTypes.string.isRequired,
   actionType: PropTypes.array,
-  handleAction: PropTypes.arrayOf(PropTypes.func),
+  handleAction: PropTypes.shape({ "delete": PropTypes.func, "edit": PropTypes.func }),
   openItems: openItemsShape,
 };
 
@@ -29,37 +53,11 @@ export default function ActionBodyElement({
       key={columnId}
     >
       <div
-        className={classNames({
-          [`table-body__cell--${align}`]: align,
-        })}
-        style={{ display: "flex", alignItems: "center" }}
+        style={{ display: "flex", justifyContent: "space-evenly", width: "100%" }}
       >
-        {isDataTree && addNestingSpaces(childConfig, columnId, itemId, handleNestedChildrenClick, openitems, idForNestedTable)}
-        <div
-          style={{ display: "block" }}
-          className={classNames({
-            "table-body__cell--clickable": isItemClickable && (dataAttForClickable === columnId),
-          })}
-          onClick={isItemClickable && (dataAttForClickable === columnId) && (
-            () => {
-              history.push(itemPathWithoutID + itemId)
-            })}
-        >
-          <div className={classNames({
-            "table-body__cell__value": true,
-            "table-body__cell--nowrap": !isTextWrapped,
-          })}>
-            {dataValue}
-          </div>
-          {hasDataSubValue && (
-            <div className={classNames({
-              "table-body__cell__sub-value": true,
-            })}
-            >
-              {dataSubValue}
-            </div>
-          )}
-        </div>
+        {actionType.map((actionString) => {
+          return button[actionString](handleAction);
+        })}
       </div>
     </td>
   );
