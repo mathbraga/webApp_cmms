@@ -17,7 +17,7 @@ class TableItems extends Component {
           </table>
           :
           <div className="no-items-table">
-            <span className="no-items-description">Não há itens para serem visualizados.</span>
+            <span className="no-items-description">Não há items para serem visualizados.</span>
           </div>
         }
       </div>);

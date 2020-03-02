@@ -7,7 +7,7 @@ export default function withPaginationLogic(WrappedComponent) {
       this.state = {
         pageOnInput: 1,
         currentPage: 1,
-        itensPerPage: 15,
+        itemsPerPage: 15,
       };
 
       this.setPageOnInput = this.setPageOnInput.bind(this);
@@ -15,7 +15,7 @@ export default function withPaginationLogic(WrappedComponent) {
       this.handleChangePageOnInput = this.handleChangePageOnInput.bind(this);
       this.handleFocusOutPageOnInput = this.handleFocusOutPageOnInput.bind(this);
       this.handleEnterPageOnInput = this.handleEnterPageOnInput.bind(this);
-      this.handleItensPerPage = this.handleItensPerPage.bind(this);
+      this.handleitemsPerPage = this.handleitemsPerPage.bind(this);
     }
 
     setPageOnInput(page) {
@@ -28,9 +28,9 @@ export default function withPaginationLogic(WrappedComponent) {
       });
     }
 
-    handleItensPerPage(event) {
-      const itensPerPage = Number(event.target.value);
-      this.setState({ itensPerPage }, this.setCurrentPage(1));
+    handleitemsPerPage(event) {
+      const itemsPerPage = Number(event.target.value);
+      this.setState({ itemsPerPage }, this.setCurrentPage(1));
     }
 
     handleChangePageOnInput(event) {
@@ -57,12 +57,12 @@ export default function withPaginationLogic(WrappedComponent) {
       const paginationLogic = {
         pageOnInput: this.state.pageOnInput,
         currentPage: this.state.currentPage,
-        itensPerPage: this.state.itensPerPage,
+        itemsPerPage: this.state.itemsPerPage,
         handleChangePageOnInput: this.handleChangePageOnInput,
         handleFocusOutPageOnInput: this.handleFocusOutPageOnInput,
         handleEnterPageOnInput: this.handleEnterPageOnInput,
         setCurrentPage: this.setCurrentPage,
-        handleItensPerPage: this.handleItensPerPage
+        handleitemsPerPage: this.handleitemsPerPage
       }
       return (
         <WrappedComponent

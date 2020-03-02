@@ -35,7 +35,7 @@ export default class SearchWithFilter extends Component {
       handleChangeSearchTerm,
       filterLogic,
       filterName,
-      numberOfItens,
+      numberOfitems,
       customFilters,
       filterAttributes
     } = this.props;
@@ -46,7 +46,7 @@ export default class SearchWithFilter extends Component {
           handleChangeSearchTerm={handleChangeSearchTerm}
           filterLogic={filterLogic}
           filterName={filterName}
-          numberOfItens={numberOfItens}
+          numberOfitems={numberOfitems}
           toggleApply={this.toggleApplyFilter}
           toggleCreate={this.toggleCreateFilter}
         />

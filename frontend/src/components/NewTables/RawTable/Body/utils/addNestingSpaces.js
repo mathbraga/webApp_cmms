@@ -6,14 +6,14 @@ import '../Body.css'
 const addTree = require("../../../../../assets/icons/plus_green.png");
 const minusTree = require("../../../../../assets/icons/minus.png");
 
-export default function addNestingSpaces(childConfig, columnName, index, handleNestedChildrenClick, openItens, idForNestedTable) {
+export default function addNestingSpaces(childConfig, columnName, index, handleNestedChildrenClick, openitems, idForNestedTable) {
   if (columnName === idForNestedTable) {
     const result = [];
     for (let i = 0; i <= childConfig[index].nestingValue; i++) {
       const element = (
         <div className="add-tree-container">
           <img
-            src={!openItens[index] ? addTree : minusTree}
+            src={!openitems[index] ? addTree : minusTree}
             onClick={handleNestedChildrenClick(index)}
             className={classNames({
               "add-tree-container__icon": true,

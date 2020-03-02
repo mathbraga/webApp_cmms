@@ -75,7 +75,7 @@ class TableFilter extends Component {
           : (() => { })}
         filterLogic={this.state.filterLogic}
         filterName={this.state.filterName}
-        numberOfItens={dataWithSearchAndFilter.length}
+        numberOfitems={dataWithSearchAndFilter.length}
         data={dataWithSearchAndFilter}
         customFilters={customFilters}
         filterAttributes={filterAttributes}

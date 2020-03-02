@@ -36,19 +36,19 @@
   margin: 0;
 }
 
-.itens-per-page-container {
+.items-per-page-container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
-.itens-per-page__label {
+.items-per-page__label {
   white-space: nowrap;
   padding: 0;
   margin: 0 10px 0 0;
 }
 
-.itens-per-page__selector {
+.items-per-page__selector {
   border: 1px solid #b1b1b1;
   width: 60px;
   height: 32px;

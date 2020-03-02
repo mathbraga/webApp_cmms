@@ -3,56 +3,23 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 // CSS
 import './Body.css'
-// Functions
-import addNestingSpaces from './utils/addNestingSpaces';
 // Proptypes
-import { alignShape } from '../../__propTypes__/tableConfig';
-import { childConfigShape } from '../../__propTypes__/nestedTable';
 import { openItemsShape } from '../../__propTypes__/nestedTable';
 
 const propTypes = {
   columnId: PropTypes.string.isRequired,
   itemId: PropTypes.string.isRequired,
-  dataValue: PropTypes.string.isRequired,
-  hasDataSubValue: PropTypes.bool,
-  dataSubValue: PropTypes.string,
-  isDataTree: PropTypes.bool,
-  idForNestedTable: PropTypes.string,
-  childConfig: childConfigShape,
-  handleNestedChildrenClick: PropTypes.func,
-  openitems: openItemsShape,
-  align: alignShape,
-  isTextWrapped: PropTypes.bool,
+  actionType: PropTypes.array,
+  handleAction: PropTypes.arrayOf(PropTypes.func),
+  openItems: openItemsShape,
 };
 
-const defaultProps = {
-  hasDataSubValue: false,
-  dataSubValue: "Não cadastrado",
-  isDataTree: false,
-  childConfig: {},
-  handleNestedChildrenClick: () => { },
-  openitems: {},
-  align: "justify",
-  isTextWrapped: false,
-};
-
-export default function CustomBodyElement({
+export default function ActionBodyElement({
   columnId,
   itemId,
-  dataValue,
-  hasDataSubValue,
-  dataSubValue,
-  isItemClickable,
-  dataAttForClickable,
-  itemPathWithoutID,
-  isDataTree,
-  idForNestedTable,
-  childConfig,
-  handleNestedChildrenClick,
-  openitems,
-  align,
-  isTextWrapped,
-  history,
+  actionType,
+  handleAction,
+  openItems,
 }) {
   return (
     <td
@@ -98,5 +65,4 @@ export default function CustomBodyElement({
   );
 }
 
-CustomBodyElement.propTypes = propTypes;
-CustomBodyElement.defaultProps = defaultProps;
+ActionBodyElement.propTypes = propTypes;

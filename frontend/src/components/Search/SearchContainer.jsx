@@ -14,7 +14,7 @@ export default class SearchContainer extends Component {
       handleChangeSearchTerm,
       filterLogic,
       filterName,
-      numberOfItens,
+      numberOfitems,
       toggleApply,
       toggleCreate
     } = this.props;
@@ -33,7 +33,7 @@ export default class SearchContainer extends Component {
           </ol>
           <ol>
             <li>{(filterLogic.length === 0) ? "Sem filtro" : (filterName || "Filtro sem nome")}</li>
-            <li><span>Página com </span><b>{numberOfItens.toString()}</b><span> itens</span></li>
+            <li><span>Página com </span><b>{numberOfitems.toString()}</b><span> items</span></li>
           </ol>
         </div>
         <div className="search-buttons" style={{ width: "30%" }}>

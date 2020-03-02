@@ -22,7 +22,7 @@ const propTypes = {
   columnsConfig: columnsConfigShape,
   selectedData: selectedDataShape,
   currentPage: PropTypes.number.isRequired,
-  itensPerPage: PropTypes.number.isRequired,
+  itemsPerPage: PropTypes.number.isRequired,
   activeSortKey: PropTypes.string,
   isSortReverse: PropTypes.bool,
   onSort: PropTypes.func,
@@ -30,7 +30,7 @@ const propTypes = {
   idForNestedTable: PropTypes.string,
   childConfig: childConfigShape,
   handleNestedChildrenClick: PropTypes.func,
-  openItens: openItemsShape,
+  openitems: openItemsShape,
   actionColumn: actionColumnShape,
   actionColumnWidth: PropTypes.string,
 };
@@ -57,7 +57,7 @@ class HTMLTable extends Component {
       columnsConfig,
       selectedData,
       currentPage,
-      itensPerPage,
+      itemsPerPage,
       activeSortKey,
       isSortReverse,
       onSort,
@@ -65,16 +65,16 @@ class HTMLTable extends Component {
       idForNestedTable,
       childConfig,
       handleNestedChildrenClick,
-      openItens,
+      openitems,
       actionColumn,
       actionColumnWidth
     } = this.props;
-    const visibleData = data.slice((currentPage - 1) * itensPerPage, currentPage * itensPerPage);
+    const visibleData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
     return (
       <div className="table-wrapper">
         {visibleData.length === 0
           ? (
-            <div className="table-no-item">Página sem itens.</div>
+            <div className="table-no-item">Página sem items.</div>
           )
           : (
             <table className="main-table">
@@ -139,12 +139,25 @@ class HTMLTable extends Component {
                         idForNestedTable={idForNestedTable}
                         childConfig={childConfig}
                         handleNestedChildrenClick={handleNestedChildrenClick}
-                        openItens={openItens}
+                        openitems={openitems}
                         align={column.align}
                         isTextWrapped={column.isTextWrapped}
                         history={this.props.history}
                       />
                     ))}
+                    {actionColumn && (
+                      <CustomBodyElement
+                        columnId={"action"}
+                        itemId={item[attForDataId]}
+                        dataValue={"Deletar"}
+                        isItemClickable={true}
+                        dataAttForClickable={"action"}
+                        itemPathWithoutID={itemPathWithoutID}
+                        openitems={openitems}
+                        align={"center"}
+                        history={this.props.history}
+                      />
+                    )}
                   </tr>
                 ))}
               </tbody>

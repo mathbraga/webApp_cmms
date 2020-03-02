@@ -13,10 +13,10 @@ import { selectedDataShape, tableConfigShape } from '../__propTypes__/tableConfi
 
 import { compose } from 'redux';
 
-function createDataWithoutClosedItens(data, parents, openItens, tableConfig) {
+function createDataWithoutCloseditems(data, parents, openitems, tableConfig) {
   return (data.filter((item) => {
     const id = item[tableConfig.attForDataId];
-    return parents[id].every((parent) => openItens[parent]);
+    return parents[id].every((parent) => openitems[parent]);
   }));
 }
 
@@ -42,13 +42,13 @@ class FullTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openItens: {},
+      openitems: {},
     }
   }
 
   handleNestedChildrenClick = (id) => () => {
     this.setState((prevState) => ({
-      openItens: { ...prevState.openItens, [id]: !prevState.openItens[id] }
+      openitems: { ...prevState.openitems, [id]: !prevState.openitems[id] }
     }))
   }
 
@@ -69,7 +69,7 @@ class FullTable extends Component {
       updateCurrentFilter
     } = this.props;
     const { isDataTree } = tableConfig;
-    const dataWithoutClosedItens = isDataTree && createDataWithoutClosedItens(data, parents, this.state.openItens, tableConfig);
+    const dataWithoutCloseditems = isDataTree && createDataWithoutCloseditems(data, parents, this.state.openitems, tableConfig);
     return (
       <>
         <SearchWithFilter
@@ -79,7 +79,7 @@ class FullTable extends Component {
           handleChangeSearchTerm={handleChangeSearchTerm}
           filterLogic={filterLogic}
           filterName={filterName}
-          numberOfItens={data.length}
+          numberOfitems={data.length}
           customFilters={customFilters}
           filterAttributes={filterAttributes}
         />
@@ -87,11 +87,11 @@ class FullTable extends Component {
           {...this.props}
           tableConfig={tableConfig}
           selectedData={selectedData}
-          data={dataWithoutClosedItens || data}
+          data={dataWithoutCloseditems || data}
           hasSearch={false}
           searchableAttributes={searchableAttributes}
           handleNestedChildrenClick={this.handleNestedChildrenClick}
-          openItens={this.state.openItens}
+          openitems={this.state.openitems}
         />
       </>
     );

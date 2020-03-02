@@ -14,12 +14,12 @@ class TableWithPagesUI extends Component {
     const {
       pageOnInput,
       currentPage,
-      itensPerPage,
+      itemsPerPage,
       handleChangePageOnInput,
       handleFocusOutPageOnInput,
       handleEnterPageOnInput,
       setCurrentPage,
-      handleItensPerPage
+      handleitemsPerPage
     } = this.props.paginationLogic;
 
     const {
@@ -34,10 +34,10 @@ class TableWithPagesUI extends Component {
       onSort,
       childConfig,
       handleNestedChildrenClick,
-      openItens
+      openitems
     } = this.props;
 
-    const pagesTotal = Math.floor(data.length / itensPerPage) + 1;
+    const pagesTotal = Math.floor(data.length / itemsPerPage) + 1;
 
     return (
       <div className="table-container">
@@ -77,7 +77,7 @@ class TableWithPagesUI extends Component {
           columnsConfig={tableConfig.columnsConfig}
           selectedData={selectedData}
           currentPage={currentPage}
-          itensPerPage={itensPerPage}
+          itemsPerPage={itemsPerPage}
           activeSortKey={activeSortKey}
           isSortReverse={isSortReverse}
           onSort={onSort}
@@ -85,7 +85,7 @@ class TableWithPagesUI extends Component {
           idForNestedTable={tableConfig.idForNestedTable}
           childConfig={childConfig}
           handleNestedChildrenClick={handleNestedChildrenClick}
-          openItens={openItens}
+          openitems={openitems}
           actionColumn={tableConfig.actionColumn}
           actionColumnWidth={tableConfig.actionColumnWidth}
         />
@@ -93,15 +93,15 @@ class TableWithPagesUI extends Component {
           className="table-container__pagination-container"
           style={{ marginTop: "5px" }}
         >
-          <div className="itens-per-page-container">
-            <Label className="itens-per-page__label" for="itens-per-page">Itens por página: </Label>
+          <div className="items-per-page-container">
+            <Label className="items-per-page__label" for="items-per-page">items por página: </Label>
             <Input
               type="select"
-              name="itens-per-page"
-              id="itens-per-page"
-              className="itens-per-page__selector"
-              value={itensPerPage}
-              onChange={handleItensPerPage}
+              name="items-per-page"
+              id="items-per-page"
+              className="items-per-page__selector"
+              value={itemsPerPage}
+              onChange={handleitemsPerPage}
             >
               <option value={5}>5</option>
               <option value={10}>10</option>
