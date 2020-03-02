@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters, dataTree } from './fakeData';
 
-import FullTable from "../../components/NewTables/FullTable/FullTable";
+import CustomTable from "../../components/NewTables/CustomTable";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -44,7 +44,8 @@ class Dashboard extends Component {
             <Col md="12">
               <Card className="mx-8">
                 <CardBody className="p-8">
-                  <FullTable
+                  <CustomTable
+                    type={"full"}
                     tableConfig={tableConfig}
                     selectedData={selectedData}
                     // data={dataTree[1]}
