@@ -7,6 +7,7 @@ import './Body.css'
 import { selectedDataShape } from '../../__propTypes__/tableConfig';
 // Other Components
 import { CustomInput } from 'reactstrap';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const propTypes = {
   selectedData: selectedDataShape.isRequired,
@@ -24,9 +25,12 @@ export default function CheckboxBodyElement({ selectedData, itemId }) {
       key={"checkbox"}
     >
       <div className="main-table__checkbox">
-        <CustomInput
+        <Checkbox
           type="checkbox"
+          size="small"
+          color="primary"
           checked={selectedData[itemId]}
+          inputProps={{ 'aria-label': 'primary checkbox' }}
         />
       </div>
     </td>
