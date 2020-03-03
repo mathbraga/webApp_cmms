@@ -29,6 +29,7 @@ export default function CheckboxHeader({ width }) {
         <Checkbox
           size="small"
           color="secondary"
+          checked
           indeterminate
           inputProps={{ 'aria-label': 'primary checkbox' }}
         />

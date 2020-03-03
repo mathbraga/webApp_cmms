@@ -39,7 +39,7 @@ class Dashboard extends Component {
           </Row>
         </Container>
 
-        <Container>
+        {/* <Container>
           <Row className="justify-content-center">
             <Col md="12">
               <Card className="mx-8">
@@ -48,7 +48,6 @@ class Dashboard extends Component {
                     type={"full"}
                     tableConfig={tableConfig}
                     selectedData={selectedData}
-                    // data={dataTree[1]}
                     data={data}
                     searchableAttributes={searchableAttributes}
                     filterAttributes={filterAttributes}
@@ -58,7 +57,7 @@ class Dashboard extends Component {
               </Card>
             </Col>
           </Row>
-        </Container>
+        </Container> */}
 
       </div>
     );
