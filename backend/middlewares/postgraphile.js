@@ -28,7 +28,7 @@ module.exports = postgraphile(
       return {
         'role': role,
         'statement_timeout': 5000,
-        'auth.data.person_id': person_id,
+        'cookie.session.person_id': person_id,
       }
     }
   }

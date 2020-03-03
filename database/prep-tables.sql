@@ -106,7 +106,7 @@ create table tasks (
   date_limit timestamptz,
   date_start timestamptz,
   date_end timestamptz,
-  person_id integer not null references persons (person_id),
+  person_id integer not null references persons (person_id) default get_current_person_id(),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -115,7 +115,7 @@ create table task_messages (
   message_id integer primary key generated always as identity,
   task_id integer not null references tasks (task_id),
   message text not null,
-  person_id integer not null references persons (person_id),
+  person_id integer not null references persons (person_id) default get_current_person_id(),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -216,7 +216,7 @@ create table asset_files (
   filename text not null,
   uuid uuid not null,
   size bigint not null,
-  person_id integer not null references persons (person_id),
+  person_id integer not null references persons (person_id) default get_current_person_id(),
   created_at timestamptz not null default now()
 );
 
@@ -225,7 +225,7 @@ create table task_files (
   filename text not null,
   uuid uuid not null,
   size bigint not null,
-  person_id integer not null references persons (person_id),
+  person_id integer not null references persons (person_id) default get_current_person_id(),
   created_at timestamptz not null default now()
 );
 
@@ -234,7 +234,7 @@ create table task_files (
 --   name text not null,
 --   uuid uuid not null,
 --   size bigint not null,
---   person_id integer not null references persons (person_id),
+--   person_id integer not null references persons (person_id) default get_current_person_id(),
 --   created_at timestamptz not null default now()
 -- );
 
@@ -243,12 +243,12 @@ create table task_files (
 --   name text not null,
 --   uuid uuid not null,
 --   size bigint not null,
---   person_id integer not null references persons (person_id),
+--   person_id integer not null references persons (person_id) default get_current_person_id(),
 --   created_at timestamptz not null default now()
 -- );
 
 create table private.audit_trails (
-  person_id integer not null references persons (person_id),
+  person_id integer not null references persons (person_id) default get_current_person_id(),
   created_at timestamptz not null,
   operation text not null,
   tablename text not null,

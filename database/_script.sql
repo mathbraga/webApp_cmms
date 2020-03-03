@@ -49,6 +49,9 @@ begin transaction;
 -- alter default privileges
 \i prep-privileges.sql
 
+-- create get_current_person_id function
+\i prep-get-current-person-id.sql
+
 -- create composite types
 \i prep-types.sql
 
