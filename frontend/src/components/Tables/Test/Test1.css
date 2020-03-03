@@ -1,0 +1,33 @@
+.content-table-test {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 1.2em;
+  min-width: 600px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table-test thead tr {
+  background-color: #009879;
+  color: white;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table-test th,
+.content-table-test td {
+  padding: 12px 15px;
+}
+
+.content-table-test tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table-test tbody tr:nth-last-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table-test tbody tr:last-of-type {
+  border-bottom: 3px solid #009879;
+}

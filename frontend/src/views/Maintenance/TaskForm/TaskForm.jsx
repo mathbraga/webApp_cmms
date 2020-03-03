@@ -7,11 +7,11 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import './TaskForm.css';
 
-import { fetchGQL, fetchVariables } from './utils/dataFetchParameters';
 import DescriptionForm from './formParts/DescriptionForm';
 import ExecutionForm from './formParts/ExecutionForm';
 import AssetForm from './formParts/AssetForm';
 import WithFormLogic from './withFormLogic';
+import withGraphQLVariables from './withGraphQLVariables';
 
 class TaskForm extends Component {
   render() {
@@ -74,7 +74,8 @@ class TaskForm extends Component {
 }
 
 export default compose(
+  withGraphQLVariables,
+  withDataFetching(),
   withRouter,
-  WithFormLogic,
-  withDataFetching(fetchGQL, fetchVariables)
+  WithFormLogic
 )(TaskForm);

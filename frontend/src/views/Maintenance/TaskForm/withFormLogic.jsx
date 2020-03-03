@@ -1,24 +1,16 @@
 import React, { Component } from 'react';
+import populateStateEditForm from '../../../components/EditForm/populateStateEditForm';
+import { baseState } from './utils/stateEditMode';
 
 export default function WithFormLogic(WrappedComponent) {
 
   class WithFormLogic extends Component {
     constructor(props) {
       super(props);
-      this.state = {
-        title: "",
-        place: "",
-        description: "",
-        priority: 2,
-        category: null,
-        initialDate: null,
-        limitDate: null,
-        status: 3,
-        contract: null,
-        team: null,
-        project: null,
-        assets: [],
-      }
+      const itemData = this.props.data.allTaskData && this.props.data.allTaskData.nodes[0];
+      const { editMode } = this.props;
+
+      this.state = populateStateEditForm(baseState, itemData, editMode);
 
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleContractChange = this.handleContractChange.bind(this);
@@ -86,6 +78,7 @@ export default function WithFormLogic(WrappedComponent) {
         <WrappedComponent
           handleFunctions={handleFunctions}
           state={this.state}
+          {...this.props}
         />
       );
     }

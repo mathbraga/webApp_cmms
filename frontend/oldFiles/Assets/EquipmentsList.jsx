@@ -167,8 +167,6 @@ class EquipmentsList extends Component {
     const { pageCurrent, goToPage, searchTerm, filterLogic } = this.state;
     const allEdges = allItems.allAssets.edges;
 
-    console.log("Equipment: ", allEdges[0]);
-
     let filteredItems = filterLogic.length > 0 ? filterList(allEdges, filterLogic) : allEdges;;
     let searchedItems = searchList(filteredItems, attributes, searchTerm);
 
