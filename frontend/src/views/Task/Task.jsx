@@ -24,6 +24,8 @@ class Task extends Component {
         data={finalData}
         image={image}
         imageStatus={imageStatus}
+        buttonName={"Editar"}
+        buttonPath={"/manutencao/os/edit/" + customGraphQLVariables.taskId}
         descriptionItems={descriptionItems}
         tabs={tabsGenerator(finalData)}
         buttonPath={paths.task.toUpdate + graphQLVariables.id.toString()}

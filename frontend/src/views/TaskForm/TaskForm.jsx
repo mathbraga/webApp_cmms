@@ -53,7 +53,7 @@ class TaskForm extends Component {
               />
               <div style={{ marginTop: "60px" }} />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button 
+                <Button
                   variant="contained"
                   color="primary"
                   style={{ marginRight: "10px" }}

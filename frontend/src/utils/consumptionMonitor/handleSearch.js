@@ -12,7 +12,7 @@ import buildResultAMwater from "./buildResultAMwater";
 
 export default function handleSearch(state) {
   return new Promise((resolve, reject) => {
-    
+
     // Inputs
     let {
       meterType,
@@ -24,11 +24,11 @@ export default function handleSearch(state) {
       chosenMeter,
       meters,
     } = state;
-    
+
     // Check date inputs
     let checkInputs = checkSearchInputs(initialDate, finalDate, oneMonth);
 
-    if(checkInputs.checkBool){
+    if (checkInputs.checkBool) {
       // Run code below in case of correct search parameters inputs (checkSearchInputs returns true)
       // Transform dates inputs (from 'mm/yyyy' format to 'yymm' format)
       var aammInitial = dateWithFourDigits(initialDate);
@@ -47,54 +47,53 @@ export default function handleSearch(state) {
         aammInitial,
         aammFinal
       ).then(data => {
-        console.log(data);
-        if(meterType === "1"){ // Energy
+        if (meterType === "1") { // Energy
           // AM case
-          if (chosenMeter === meterType + "99" && oneMonth){
+          if (chosenMeter === meterType + "99" && oneMonth) {
             resolve(buildResultAM(data, meterType, meters, chosenMeter, initialDate, finalDate));
           }
-          
-        //   // AP case
-        //   if (chosenMeter === meterType + "99" && !oneMonth) {
-        //     resolve(buildResultAP(data, meterType, meters, chosenMeter, initialDate, finalDate));
-        //   }
-          
-        //   // OM case
-        //   if (chosenMeter !== meterType + "99" && oneMonth) {
-        //     resolve(buildResultOM(data, meterType, meters, chosenMeter, initialDate, finalDate));
-        //   }
 
-        //   // OP case
-        //   if (chosenMeter !== meterType + "99" && !oneMonth) {
-        //     resolve(buildResultOP(data, meterType, meters, chosenMeter, initialDate, finalDate));
-        //   }
+          //   // AP case
+          //   if (chosenMeter === meterType + "99" && !oneMonth) {
+          //     resolve(buildResultAP(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          //   }
+
+          //   // OM case
+          //   if (chosenMeter !== meterType + "99" && oneMonth) {
+          //     resolve(buildResultOM(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          //   }
+
+          //   // OP case
+          //   if (chosenMeter !== meterType + "99" && !oneMonth) {
+          //     resolve(buildResultOP(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          //   }
         } else { // Water
-          
-        //   // AM case
-        //   if (chosenMeter === meterType + "99" && oneMonth) {
-        //     resolve(buildResultAMwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
-        //   }
-          
-        //   // // AP case
-        //   if (chosenMeter === meterType + "99" && !oneMonth) {
-        //     resolve(buildResultAPwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
-        //   }
-          
-        //   // // OM case
-        //   if (chosenMeter !== meterType + "99" && oneMonth) {
-        //     resolve(buildResultOMwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
-        //   }
 
-        //   // // OP case
-        //   if (chosenMeter !== meterType + "99" && !oneMonth) {
-        //     resolve(buildResultOPwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
-        //   }
+          //   // AM case
+          //   if (chosenMeter === meterType + "99" && oneMonth) {
+          //     resolve(buildResultAMwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          //   }
+
+          //   // // AP case
+          //   if (chosenMeter === meterType + "99" && !oneMonth) {
+          //     resolve(buildResultAPwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          //   }
+
+          //   // // OM case
+          //   if (chosenMeter !== meterType + "99" && oneMonth) {
+          //     resolve(buildResultOMwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          //   }
+
+          //   // // OP case
+          //   if (chosenMeter !== meterType + "99" && !oneMonth) {
+          //     resolve(buildResultOPwater(data, meterType, meters, chosenMeter, initialDate, finalDate));
+          //   }
         }
       }).catch((queryErrorMessage) => {
         reject(queryErrorMessage);
       });
 
-    // Browser display an alert message in case of wrong search inputs
+      // Browser display an alert message in case of wrong search inputs
     } else {
       reject(checkInputs.message);
     }

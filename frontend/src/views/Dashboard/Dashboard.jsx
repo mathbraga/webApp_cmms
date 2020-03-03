@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
+import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters, dataTree } from './fakeData';
+
+import CustomTable from "../../components/NewTables/CustomTable";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -38,15 +41,24 @@ class Dashboard extends Component {
 
         {/* <Container>
           <Row className="justify-content-center">
-            <Col md="8">
-              <Card className="mx-4">
-                <CardBody className="p-4">
-                  Testing space
+            <Col md="12">
+              <Card className="mx-8">
+                <CardBody className="p-8">
+                  <CustomTable
+                    type={"full"}
+                    tableConfig={tableConfig}
+                    selectedData={selectedData}
+                    data={data}
+                    searchableAttributes={searchableAttributes}
+                    filterAttributes={filterAttributes}
+                    customFilters={customFilters}
+                  />
                 </CardBody>
               </Card>
             </Col>
           </Row>
         </Container> */}
+
       </div>
     );
   }

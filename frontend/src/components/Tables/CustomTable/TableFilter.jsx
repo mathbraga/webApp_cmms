@@ -55,8 +55,6 @@ class TableFilter extends Component {
 
     const dataWithFilter = this.state.filterLogic.length > 0 ? filterList(data, this.state.filterLogic) : data;
     const dataWithSearchAndFilter = searchList(dataWithFilter, searchableAttributes, this.state.searchTerm);
-    const totalOfPages = Math.floor(dataWithSearchAndFilter.length / ENTRIES_PER_PAGE) + 1;
-
 
     return (
       <CardTableUI
@@ -77,7 +75,7 @@ class TableFilter extends Component {
           : (() => { })}
         filterLogic={this.state.filterLogic}
         filterName={this.state.filterName}
-        numberOfItens={dataWithSearchAndFilter.length}
+        numberOfitems={dataWithSearchAndFilter.length}
         data={dataWithSearchAndFilter}
         customFilters={customFilters}
         filterAttributes={filterAttributes}

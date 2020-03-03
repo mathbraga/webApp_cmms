@@ -41,12 +41,12 @@ const routes = [
   { path: paths.facility.one, exact: true, name: "Edifício", component: Facility, props: { mode: 'one' } },
   { path: paths.facility.update, exact: true, name: "Edifício", component: FacilityForm, props: { mode: 'update' } },
   { path: paths.facility.create, exact: true, name: "Novo Edificio", component: FacilityForm, props: { mode: 'create' } },
- 
+
   // Appliance
   { path: paths.appliance.all, exact: true, name: "Equipamentos", component: Appliances, props: { mode: 'all' } },
   { path: paths.appliance.one, exact: true, name: "Equipamento", component: Appliance, props: { mode: 'one' } },
   { path: paths.appliance.update, exact: true, name: "Equipamento", component: ApplianceForm, props: { mode: 'update' } },
-  { path: paths.appliance.create, exact: true, name: "Novo Equipamento", component: ApplianceForm, props: { mode: 'create' }  },
+  { path: paths.appliance.create, exact: true, name: "Novo Equipamento", component: ApplianceForm, props: { mode: 'create' } },
 
   // Task
   { path: paths.task.all, exact: true, name: "Ordens de serviços", component: Tasks, props: { mode: 'all' } },
