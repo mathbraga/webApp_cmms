@@ -57,6 +57,7 @@ class HTMLTable extends Component {
       itemPathWithoutID,
       columnsConfig,
       selectedData,
+      handleSelectData,
       currentPage,
       itemsPerPage,
       activeSortKey,
@@ -123,6 +124,7 @@ class HTMLTable extends Component {
                     {hasCheckbox && (
                       <CheckboxBodyElement
                         selectedData={selectedData}
+                        handleSelectData={handleSelectData}
                         itemId={item[attForDataId]}
                       />
                     )}

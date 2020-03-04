@@ -8,6 +8,7 @@ import AssetCard from '../../components/Cards/AssetCard';
 import props from './props';
 import paths from '../../paths';
 import { withProps, withQuery, withGraphQL } from '../../hocs';
+import withSelectLogic from '../../components/Selection/withSelectLogic';
 import { withRouter } from "react-router-dom";
 
 class Facilities extends Component {
@@ -27,6 +28,8 @@ class Facilities extends Component {
           customFilters={customFilters}
           filterAttributes={filterAttributes}
           searchableAttributes={searchableAttributes}
+          selectedData={this.props.selectedItems}
+          handleSelectData={this.props.handleSelectItem}
           data={data}
         />
       </AssetCard>
@@ -39,4 +42,5 @@ export default compose(
   withGraphQL,
   withQuery,
   withRouter,
+  withSelectLogic
 )(Facilities);

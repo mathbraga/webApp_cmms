@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 
-export default function SelectLogic(WrappedComponent) {
+export default function withSelectLogic(WrappedComponent) {
   class SelectLogic extends Component {
     state = {
-      selectedItems: [],
+      selectedItems: {},
     }
 
-    handleSelectItem(event) {
-      console.log("Event: ", event.target);
+    handleSelectItem = (itemId) => () => {
+      this.setState((prevState) =>
+        ({
+          selectedItems: { ...prevState.selectedItems, [itemId]: !prevState.selectedItems[itemId] },
+        })
+      );
     }
 
     render() {

@@ -29,6 +29,7 @@ class TableWithPagesUI extends Component {
       data,
       tableConfig,
       selectedData,
+      handleSelectData,
       activeSortKey,
       isSortReverse,
       onSort,
@@ -76,6 +77,7 @@ class TableWithPagesUI extends Component {
           itemPathWithoutID={tableConfig.itemPathWithoutID}
           columnsConfig={tableConfig.columnsConfig}
           selectedData={selectedData}
+          handleSelectData={handleSelectData}
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}
           activeSortKey={activeSortKey}
