@@ -130,9 +130,9 @@ class HTMLTable extends Component {
                       <CustomBodyElement
                         columnId={column.columnId}
                         itemId={item[attForDataId]}
-                        dataValue={item[column.idForValues[0]]}
-                        hasDataSubValue={Boolean(column.idForValues[1])}
-                        dataSubValue={item[column.idForValues[1]]}
+                        dataValue={column.idForValues && item[column.idForValues[0]]}
+                        hasDataSubValue={column.idForValues && Boolean(column.idForValues[1])}
+                        dataSubValue={column.idForValues && item[column.idForValues[1]]}
                         isItemClickable={isItemClickable}
                         dataAttForClickable={dataAttForClickable}
                         itemPathWithoutID={itemPathWithoutID}

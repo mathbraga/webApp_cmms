@@ -38,6 +38,10 @@ const propTypes = {
   updateCurrentFilter: PropTypes.any,
 };
 
+const defaultProps = {
+  selectedData: [],
+}
+
 class FullTable extends Component {
   constructor(props) {
     super(props);
@@ -99,6 +103,7 @@ class FullTable extends Component {
 }
 
 FullTable.propTypes = propTypes;
+FullTable.defaultProps = defaultProps;
 
 export default compose(
   withSorting,

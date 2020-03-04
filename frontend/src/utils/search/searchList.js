@@ -4,7 +4,6 @@ export default function searchList(itemsList, attributes, searchTerm, parents = 
   let filteredIds = [];
   searchTerm = searchTerm.trim().split(" ");
   const searchTermLowerCase = searchTerm.map((item) => item.toLowerCase());
-  console.log("Items: ", itemsList, parents);
   searchTermLowerCase.forEach((term) => {
     if (!parents) {
       filteredItems = findItem(filteredItems, attributes, term);
