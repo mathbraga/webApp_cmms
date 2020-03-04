@@ -13,7 +13,7 @@ const propTypes = {
   itemId: PropTypes.string.isRequired,
 };
 
-export default function CheckboxBodyElement({ selectedData, itemId }) {
+export default function CheckboxBodyElement({ selectedData, handleSelectData, itemId }) {
   return (
     <td
       className={classNames({
@@ -24,11 +24,15 @@ export default function CheckboxBodyElement({ selectedData, itemId }) {
       key={"checkbox"}
     >
       <div className="main-table__checkbox">
-        <CustomInput
-          type="checkbox"
-          color="primary"
-          checked={selectedData[itemId]}
-        />
+        <div
+          onClick={handleSelectData(itemId)}
+        >
+          <CustomInput
+            type="checkbox"
+            color="primary"
+            checked={selectedData[itemId]}
+          />
+        </div>
       </div>
     </td>
   );

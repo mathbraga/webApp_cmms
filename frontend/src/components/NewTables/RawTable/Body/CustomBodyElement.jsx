@@ -73,10 +73,10 @@ export default function CustomBodyElement({
           className={classNames({
             "table-body__cell--clickable": isItemClickable && (dataAttForClickable === columnId),
           })}
-          onClick={isItemClickable && (dataAttForClickable === columnId) && (
+          onClick={(isItemClickable && dataAttForClickable === columnId) ? (
             () => {
               history.push(itemPathWithoutID + itemId)
-            })}
+            }) : undefined}
         >
           <div className={classNames({
             "table-body__cell__value": true,

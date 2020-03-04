@@ -24,6 +24,7 @@ const propTypes = {
   data: PropTypes.array,
   tableConfig: tableConfigShape,
   selectedData: selectedDataShape,
+  handleSelectData: PropTypes.func,
   // TODO
   searchableAttributes: PropTypes.any,
   filterAttributes: PropTypes.any,
@@ -60,6 +61,7 @@ class FullTable extends Component {
     const {
       tableConfig,
       selectedData,
+      handleSelectData,
       data,
       parents,
       searchableAttributes,
@@ -91,6 +93,7 @@ class FullTable extends Component {
           {...this.props}
           tableConfig={tableConfig}
           selectedData={selectedData}
+          handleSelectData={handleSelectData}
           data={dataWithoutCloseditems || data}
           hasSearch={false}
           searchableAttributes={searchableAttributes}
