@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import AssetTemplateTab from '../../../../components/Tabs/AssetTab/AssetsTemplateTab';
-import tableConfig from '../utils/tableConfig.js';
+import AssetTemplateTab from '../../../components/Tabs/AssetTab/AssetsTemplateTab';
 
 class AssetTab extends Component {
   render() {
@@ -11,7 +10,6 @@ class AssetTab extends Component {
       <>
         <AssetTemplateTab
           data={final_data}
-          tableConfig={tableConfig}
         />
       </>
     );

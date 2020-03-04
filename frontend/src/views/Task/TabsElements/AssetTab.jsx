@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 // import { customFilters, filterAttributes } from '../utils/assetTab/filterParameters';
 // import searchableAttributes from '../utils/assetTab/searchParameters';
 // import TableFilter from '../../../../components/Tables/CustomTable/TableFilter';
-import AssetTemplateTab from '../../../../components/Tabs/AssetTab/AssetsTemplateTab';
+import AssetTemplateTab from '../../../components/Tabs/AssetTab/AssetsTemplateTab';
 import './Tabs.css';
 
 class AssetTab extends Component {

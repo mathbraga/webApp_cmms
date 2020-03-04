@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AssetTemplateTab from '../../../../components/Tabs/AssetTab/AssetsTemplateTab';
+import AssetTemplateTab from '../../../components/Tabs/AssetTab/AssetsTemplateTab';
 
 class AssetTab extends Component {
   render() {
