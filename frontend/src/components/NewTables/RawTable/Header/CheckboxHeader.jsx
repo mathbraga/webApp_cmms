@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import './Header.css'
 // Other components
 import { CustomInput } from 'reactstrap';
-import Checkbox from '@material-ui/core/Checkbox';
 
 const propTypes = {
   width: PropTypes.string,
@@ -26,12 +25,9 @@ export default function CheckboxHeader({ width }) {
       key={"checkbox"}
     >
       <div className="header-container__checkbox">
-        <Checkbox
-          size="small"
-          color="secondary"
-          checked
-          indeterminate
-          inputProps={{ 'aria-label': 'primary checkbox' }}
+        <CustomInput
+          type="checkbox"
+          color="primary"
         />
       </div>
     </th>
