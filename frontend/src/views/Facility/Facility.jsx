@@ -13,6 +13,7 @@ class Facility extends Component {
   render() {
     const { data, graphQLVariables, ...rest } = this.props;
     const finalData = data.queryResponse.nodes[0];
+
     const descriptionItems = [
       { title: 'Edifício / Área', description: finalData.name, boldTitle: true },
       { title: 'Código', description: finalData.assetSf, boldTitle: false },

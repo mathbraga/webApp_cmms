@@ -18,54 +18,58 @@ function TableHeader({ tableConfig }) {
 };
 
 function TableBody({ tableConfig, data, history }) {
+
   return (
-    data.map((item) => (
-      <tr
-        onClick={tableConfig.itemClickable && (
-          () => {
-            if(tableConfig.idAttributeForData === 'assetId'){
-              if(item[tableConfig.idAttributeForData] >= 5000){
-                history.push(paths.appliance.toOne + item[tableConfig.idAttributeForData].toString())
+    data.map((item) => {
+      let correctPath = item.categoryId === 1 ? '/ativos/edificio/view/' : '/ativos/equipamento/view/';
+      return (
+        <tr
+          onClick={tableConfig.itemClickable && (
+            () => {
+              if (tableConfig.idAttributeForData === 'assetId') {
+                if (item[tableConfig.idAttributeForData] >= 5000) {
+                  history.push(paths.appliance.toOne + item[tableConfig.idAttributeForData].toString())
+                } else {
+                  history.push(paths.facility.toOne + item[tableConfig.idAttributeForData].toString())
+                }
               } else {
-                history.push(paths.facility.toOne + item[tableConfig.idAttributeForData].toString())
+                history.push(tableConfig.itemPath + item[tableConfig.idAttributeForData].toString())
               }
-            } else {
-              history.push(tableConfig.itemPath + item[tableConfig.idAttributeForData].toString())
+            })}
+        >
+          <td className="text-center checkbox-cell">
+            <CustomInput type="checkbox" />
+          </td>
+
+          {tableConfig.columnObjects.map((column) => {
+            let dataWrapper = function (item) { return column.data.map((ID) => (item[ID])); };
+            if (column.dataGenerator) {
+              dataWrapper = column.dataGenerator;
             }
-          })}
-      >
-        <td className="text-center checkbox-cell">
-          <CustomInput type="checkbox" />
-        </td>
 
-        {tableConfig.columnObjects.map((column) => {
-          let dataWrapper = function (item) { return column.data.map((ID) => (item[ID])); };
-          if (column.dataGenerator) {
-            dataWrapper = column.dataGenerator;
+            if (column.createElement) {
+              return (
+                <td className={column.className}>{column.createElement}</td>
+              );
+            }
+
+            const itemToDisplay = dataWrapper(item);
+
+            if (column.data.length >= 2) {
+              return (
+                <td className={column.className}>
+                  <div>{itemToDisplay[0]}</div>
+                  <div className="small text-muted" >{itemToDisplay[1]}</div>
+                </td>
+              );
+            }
+
+            return (<td className={column.className}>{itemToDisplay[0]}</td>);
+          })
           }
-
-          if (column.createElement) {
-            return (
-              <td className={column.className}>{column.createElement}</td>
-            );
-          }
-
-          const itemToDisplay = dataWrapper(item);
-
-          if (column.data.length >= 2) {
-            return (
-              <td className={column.className}>
-                <div>{itemToDisplay[0]}</div>
-                <div className="small text-muted" >{itemToDisplay[1]}</div>
-              </td>
-            );
-          }
-
-          return (<td className={column.className}>{itemToDisplay[0]}</td>);
-        })
-        }
-      </tr>
-    ))
+        </tr>
+      )
+    })
   );
 }
 

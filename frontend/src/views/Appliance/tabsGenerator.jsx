@@ -10,13 +10,13 @@ import LogTab from './TabsElements/LogTab';
 export default function tabsGenerator(data) {
   return (
     [
-      { id: 'info', title: 'Informações Gerais', element: <InfoTab data={data} /> },
-      { id: 'location', title: 'Localização', element: <LocationTab data={data} /> },
-      { id: 'maintenance', title: 'Manutenção', element: <MaintenanceTab data={data} /> },
-      { id: 'warranty', title: 'Garantia', element: <WarrantyTab data={data} /> },
-      { id: 'asset', title: 'Ativos', element: <AssetTab data={data} /> },
-      { id: 'files', title: 'Arquivos', element: <FilesTab data={data} /> },
-      { id: 'log', title: 'Histórico', element: <LogTab data={data} /> },
+      { id: 'info', title: 'Informações Gerais', element: <InfoTab data={data.queryResponse.nodes[0]} /> },
+      { id: 'location', title: 'Localização', element: <LocationTab data={data.queryResponse.nodes[0]} /> },
+      { id: 'maintenance', title: 'Manutenção', element: <MaintenanceTab data={data.queryResponse.nodes[0]} /> },
+      { id: 'warranty', title: 'Garantia', element: <WarrantyTab data={data.queryResponse.nodes[0]} /> },
+      { id: 'asset', title: 'Ativos', element: <AssetTab data={data.queryResponse.nodes[0] || []} /> },
+      { id: 'files', title: 'Arquivos', element: <FilesTab data={data.queryResponse.nodes[0]} /> },
+      { id: 'log', title: 'Histórico', element: <LogTab data={data.queryResponse.nodes[0]} /> },
     ]
   );
 }

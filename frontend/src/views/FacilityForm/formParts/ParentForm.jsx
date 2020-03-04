@@ -15,13 +15,16 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import ListboxComponent from './ListboxComponent';
 
 const mapIcon = require("../../../assets/icons/delete.png");
 
 class ParentForm extends Component {
+
   render() {
     const { handleParentChange, handleContextChange, addNewParent, removeParent } = this.props;
     const { topOptions, parentOptions } = this.props.formData;
+
     return (
       <>
         <h1 className="input-container-title" style={{ marginBottom: "30px" }}>Relação entre Ativos</h1>
@@ -34,6 +37,7 @@ class ParentForm extends Component {
               filterSelectedOptions
               onChange={handleParentChange}
               value={this.props.parent}
+              ListboxComponent={ListboxComponent}
               renderInput={params => (
                 <TextField
                   {...params}
@@ -57,6 +61,7 @@ class ParentForm extends Component {
               filterSelectedOptions
               onChange={handleContextChange}
               value={this.props.context}
+              ListboxComponent={ListboxComponent}
               renderInput={params => (
                 <TextField
                   {...params}

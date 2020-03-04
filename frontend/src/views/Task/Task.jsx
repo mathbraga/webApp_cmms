@@ -13,6 +13,7 @@ class Task extends Component {
   render() {
     const { data, graphQLVariables, ...rest } = this.props;
     const finalData = data.queryResponse.nodes[0];
+    console.log(data);
     const descriptionItems = [
       { title: 'Serviço', description: finalData.title, boldTitle: true },
       { title: 'Ordem de Serviço nº', description: finalData.taskId.toString().padStart(4, "0"), boldTitle: false },

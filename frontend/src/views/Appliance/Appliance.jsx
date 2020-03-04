@@ -28,7 +28,7 @@ class Appliance extends Component {
         buttonName={"Editar"}
         buttonPath={paths.appliance.toUpdate + graphQLVariables.id.toString()}
         descriptionItems={descriptionItems}
-        tabs={tabsGenerator(finalData)}
+        tabs={tabsGenerator(data)}
         {...rest}
       />
     );

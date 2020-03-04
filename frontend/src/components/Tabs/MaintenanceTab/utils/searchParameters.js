@@ -1,9 +1,10 @@
 const searchableAttributes = [
-  'orderId',
   'title',
-  'status',
-  'priority',
-  'dateLimit'
+  'taskId',
+  'dateLimit',
+  'taskStatusText',
+  'taskCategoryText',
+  'taskPriorityText'
 ];
 
 export default searchableAttributes;
