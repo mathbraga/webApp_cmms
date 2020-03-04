@@ -1,0 +1,38 @@
+.table-body__cell {
+  padding: 6px 2px;
+  height: 55px;
+  overflow: hidden;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.table-body__cell--clickable {
+  cursor: pointer;
+}
+
+.table-body__cell--center {
+  justify-content: center;
+}
+
+.table-body__cell--justify {
+  justify-content: flex-start;
+}
+
+.table-body__cell--nowrap {
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.table-body__cell__value {
+  display: block;
+  padding: 0 4px;
+}
+
+.table-body__cell__sub-value {
+  color: #73818f;
+  font-size: 0.74rem;
+  font-weight: 400;
+  padding: 1px 4px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

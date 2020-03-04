@@ -14,12 +14,12 @@ export default {
       children: [
         {
           name: "Edifícios",
-          url: "/ativos/edificios",
+          url: paths.facility.all,
           icon: "icon-home"
         },
         {
           name: "Equipamentos",
-          url: "/ativos/equipamentos",
+          url: paths.appliance.all,
           icon: "icon-rocket"
         }
       ]
@@ -31,7 +31,7 @@ export default {
       children: [
         {
           name: "Ordens de serviço",
-          url: "/manutencao/os",
+          url: paths.task.all,
           icon: "icon-list"
         },
       ]
@@ -43,12 +43,12 @@ export default {
       children: [
         {
           name: "Contratos",
-          url: "/gestao/contratos",
+          url: paths.contract.all,
           icon: "fa fa-file-text-o"
         },
         {
           name: "Espec. Técnicas",
-          url: "/gestao/servicos",
+          url: paths.spec.all,
           icon: "icon-list"
         },
       ]
@@ -60,12 +60,12 @@ export default {
       children: [
         {
           name: "Pessoas",
-          url: "/equipes/pessoas",
+          url: paths.person.all,
           icon: "icon-user"
         },
         {
           name: "Equipes",
-          url: "/equipes/grupos",
+          url: paths.team.all,
           icon: "icon-people"
         },
       ]

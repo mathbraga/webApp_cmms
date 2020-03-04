@@ -21,7 +21,7 @@ export default class CardTableUI extends Component {
       handleCardButton,
       filterLogic,
       filterName,
-      numberOfItens,
+      numberOfitems,
       customFilters,
       filterAttributes,
       hasAssetCard = true,
@@ -32,7 +32,7 @@ export default class CardTableUI extends Component {
       return (
         <AssetCard
           sectionName={title || 'Nome'}
-          sectionDescription={subtitle || 'Descrição dos itens'}
+          sectionDescription={subtitle || 'Descrição dos items'}
           handleCardButton={handleCardButton}
           buttonName={buttonName || 'Botão'}
         >
@@ -43,7 +43,7 @@ export default class CardTableUI extends Component {
             handleChangeSearchTerm={handleChangeSearchTerm}
             filterLogic={filterLogic}
             filterName={filterName}
-            numberOfItens={numberOfItens}
+            numberOfitems={numberOfitems}
             customFilters={customFilters}
             filterAttributes={filterAttributes}
           />
@@ -68,7 +68,7 @@ export default class CardTableUI extends Component {
           handleChangeSearchTerm={handleChangeSearchTerm}
           filterLogic={filterLogic}
           filterName={filterName}
-          numberOfItens={numberOfItens}
+          numberOfitems={numberOfitems}
           customFilters={customFilters}
           filterAttributes={filterAttributes}
         />

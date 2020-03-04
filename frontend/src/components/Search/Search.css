@@ -10,7 +10,19 @@
 }
 
 .card-search-form {
+  padding: 1px;
   margin: auto 0;
+}
+
+.search-form__input {
+  height: 35px;
+  border: 1px solid #c7c7c7;
+}
+
+.search-form__search-image {
+  height: 35px;
+  border: 1px solid #c7c7c7;
+  
 }
 
 .search-filter {

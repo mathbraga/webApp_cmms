@@ -47,23 +47,23 @@ create view api.task_form_data as
          asset_options
 ;
 
-create view api.supply_options as
-  select s.supply_id,
-         s.supply_sf,
-         s.contract_id,
-         s.spec_id,
-         s.qty_initial,
-         s.bid_price,
-         s.full_price,
-         z.spec_sf,
-         z.name,
-         z.unit,
-         z.allow_decimals,
-         b.qty_available
-    from supplies as s
-    inner join specs as z using (spec_id)
-    inner join balances as b using (supply_id)
-;
+-- create view api.supply_options as
+--   select s.supply_id,
+--          s.supply_sf,
+--          s.contract_id,
+--          s.spec_id,
+--          s.qty_initial,
+--          s.bid_price,
+--          s.full_price,
+--          z.spec_sf,
+--          z.name,
+--          z.unit,
+--          z.allow_decimals,
+--          b.qty_available
+--     from supplies as s
+--     inner join specs as z using (spec_id)
+--     inner join balances as b using (supply_id)
+-- ;
 
 create view api.task_data as
   select t.*,
@@ -87,7 +87,7 @@ create view api.spec_data as
   select z.*,
          zc.spec_category_text,
          zs.spec_subcategory_text,
-         s.total_available,
+         coalesce(s.total_available, 0) as total_available,
          s.supplies,
          t.tasks
     from specs as z
@@ -109,13 +109,14 @@ create view api.facility_data as
          a.area,
          t.tasks,
          pa.parents,
-         pa.contexts,
-         c.relations
+         g.trees,
+         c.contexts
     from assets as a
     inner join assets as aa on (a.category = aa.asset_id)
-    inner join parents_of_asset as pa on (a.asset_id = pa.asset_id)
-    inner join children_of_asset as c on (a.asset_id = c.asset_id)
+    left join parents_of_asset as pa on (a.asset_id = pa.asset_id)
+    left join get_asset_trees(a.asset_id) as g on (a.asset_id = g.asset_id)
     left join tasks_of_asset as t on (a.asset_id = t.asset_id)
+    cross join contexts as c
   where a.category = 1
 ;
 
@@ -132,11 +133,14 @@ create view api.appliance_data as
          a.price,
          t.tasks,
          pa.parents,
-         pa.contexts
+         g.trees,
+         c.contexts
     from assets as a
     inner join assets as aa on (a.category = aa.asset_id)
-    inner join parents_of_asset as pa on (a.asset_id = pa.asset_id)
+    left join parents_of_asset as pa on (a.asset_id = pa.asset_id)
+    left join get_asset_trees(a.asset_id) as g on (a.asset_id = g.asset_id)
     left join tasks_of_asset as t on (a.asset_id = t.asset_id)
+    cross join contexts as c
   where a.category <> 1
 ;
 
