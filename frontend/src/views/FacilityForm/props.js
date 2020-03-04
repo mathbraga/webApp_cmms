@@ -82,7 +82,6 @@ export default {
     }
   },
   getInitialFormState: (idData, mode) => {
-    
     const baseState = {
       assetSf: "",
       name: "",
@@ -125,6 +124,6 @@ export default {
       longitude: validateInput(formState.longitude),
     },
     tops: formState.parents.length > 0 ? formState.parents.map(parent => parent.context.assetId) : null,
-    parents: formState.parents.length > 0 ? formState.parents.map(parent => parent.parent.assetId) :  null,
+    parents: formState.parents.length > 0 ? formState.parents.map(parent => parent.parent.assetId) : null,
   }),
 }
