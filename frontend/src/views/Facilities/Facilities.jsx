@@ -10,11 +10,11 @@ import paths from '../../paths';
 import { withProps, withQuery, withGraphQL } from '../../hocs';
 import withSelectLogic from '../../components/Selection/withSelectLogic';
 import { withRouter } from "react-router-dom";
+import withPrepareData from '../../components/Formating/withPrepareData';
+import withDataAccess from './utils/withDataAccess';
 
 class Facilities extends Component {
   render() {
-    const data = this.props.data.queryResponse.nodes;
-
     return (
       <AssetCard
         sectionName={"Edifícios / Áreas"}
@@ -30,7 +30,7 @@ class Facilities extends Component {
           searchableAttributes={searchableAttributes}
           selectedData={this.props.selectedData}
           handleSelectData={this.props.handleSelectData}
-          data={data}
+          data={this.props.data}
         />
       </AssetCard>
     );
@@ -41,6 +41,8 @@ export default compose(
   withProps(props),
   withGraphQL,
   withQuery,
+  withDataAccess,
+  withPrepareData(tableConfig),
   withRouter,
   withSelectLogic
 )(Facilities);

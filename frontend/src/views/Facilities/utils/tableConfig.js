@@ -2,6 +2,13 @@ import React from 'react';
 
 const mapIcon = require("../../../assets/icons/map.png");
 
+function prepareArea(area) {
+  if (area) {
+    return (`${new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 }).format(area)} m²`);
+  }
+  return null;
+}
+
 const tableConfig = {
   attForDataId: 'assetId',
   hasCheckbox: true,
@@ -9,6 +16,10 @@ const tableConfig = {
   isItemClickable: true,
   dataAttForClickable: 'name',
   itemPathWithoutID: '/edificios/ver/',
+  prepareData: {
+    area: prepareArea,
+  },
+  prepareDisplayElement: false,
   columnsConfig: [
     { columnId: 'name', columnName: 'Ativo', width: "40%", align: "justify", idForValues: ['name', 'assetSf'] },
     { columnId: 'area', columnName: 'Área', width: "15%", align: "center", idForValues: ['area'] },

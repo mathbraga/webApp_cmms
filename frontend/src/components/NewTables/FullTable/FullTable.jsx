@@ -12,6 +12,7 @@ import withNestedData from '../NestedTable/withNestedData';
 import { selectedDataShape, tableConfigShape } from '../__propTypes__/tableConfig';
 
 import { compose } from 'redux';
+import withPrepareData from '../../Formating/withPrepareData';
 
 function createDataWithoutCloseditems(data, parents, openitems, tableConfig) {
   return (data.filter((item) => {

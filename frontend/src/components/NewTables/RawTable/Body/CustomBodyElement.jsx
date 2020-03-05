@@ -13,6 +13,7 @@ import { openItemsShape } from '../../__propTypes__/nestedTable';
 const propTypes = {
   columnId: PropTypes.string.isRequired,
   itemId: PropTypes.string.isRequired,
+  createElement: PropTypes.element,
   dataValue: PropTypes.string.isRequired,
   hasDataSubValue: PropTypes.bool,
   dataSubValue: PropTypes.string,
@@ -26,6 +27,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  createElement: false,
   hasDataSubValue: false,
   dataSubValue: "Não cadastrado",
   isDataTree: false,
@@ -39,6 +41,7 @@ const defaultProps = {
 export default function CustomBodyElement({
   columnId,
   itemId,
+  createElement,
   dataValue,
   hasDataSubValue,
   dataSubValue,
@@ -82,9 +85,9 @@ export default function CustomBodyElement({
             "table-body__cell__value": true,
             "table-body__cell--nowrap": !isTextWrapped,
           })}>
-            {dataValue}
+            {createElement ? createElement : dataValue}
           </div>
-          {hasDataSubValue && (
+          {hasDataSubValue && !createElement && (
             <div className={classNames({
               "table-body__cell__sub-value": true,
             })}

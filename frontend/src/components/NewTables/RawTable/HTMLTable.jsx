@@ -128,26 +128,40 @@ class HTMLTable extends Component {
                         itemId={item[attForDataId]}
                       />
                     )}
-                    {columnsConfig.map((column) => (
-                      <CustomBodyElement
-                        columnId={column.columnId}
-                        itemId={item[attForDataId]}
-                        dataValue={column.idForValues && item[column.idForValues[0]]}
-                        hasDataSubValue={column.idForValues && Boolean(column.idForValues[1])}
-                        dataSubValue={column.idForValues && item[column.idForValues[1]]}
-                        isItemClickable={isItemClickable}
-                        dataAttForClickable={dataAttForClickable}
-                        itemPathWithoutID={itemPathWithoutID}
-                        isDataTree={isDataTree}
-                        idForNestedTable={idForNestedTable}
-                        childConfig={childConfig}
-                        handleNestedChildrenClick={handleNestedChildrenClick}
-                        openitems={openitems}
-                        align={column.align}
-                        isTextWrapped={column.isTextWrapped}
-                        history={this.props.history}
-                      />
-                    ))}
+                    {columnsConfig.map((column) => {
+                      let dataValue = column.idForValues && item[column.idForValues[0]];
+                      if (column.idForValues && column.idForValues[0] && column.createElementWithData) {
+                        dataValue = column.createElementWithData(item[column.idForValues[0]]);
+                      }
+
+                      let dataSubValue = column.idForValues && item[column.idForValues[1]];
+                      if (column.idForValues && column.idForValues[1] && column.createElementWithSubData) {
+                        dataSubValue = column.createElementWithSubData(item[column.idForValues[1]]);
+                      }
+
+                      return (
+                        <CustomBodyElement
+                          columnId={column.columnId}
+                          itemId={item[attForDataId]}
+                          createElement={column.createElement}
+                          dataValue={dataValue}
+                          hasDataSubValue={column.idForValues && Boolean(column.idForValues[1])}
+                          dataSubValue={dataSubValue}
+                          isItemClickable={isItemClickable}
+                          dataAttForClickable={dataAttForClickable}
+                          itemPathWithoutID={itemPathWithoutID}
+                          isDataTree={isDataTree}
+                          idForNestedTable={idForNestedTable}
+                          childConfig={childConfig}
+                          handleNestedChildrenClick={handleNestedChildrenClick}
+                          openitems={openitems}
+                          align={column.align}
+                          isTextWrapped={column.isTextWrapped}
+                          history={this.props.history}
+                        />
+                      );
+                    }
+                    )}
                     {actionColumn && (
                       <ActionBodyElement
                         columnId={"action"}
