@@ -135,12 +135,12 @@ class HTMLTable extends Component {
                     {columnsConfig.map((column) => {
                       let dataValue = column.idForValues && item[column.idForValues[0]];
                       if (column.idForValues && column.idForValues[0] && column.createElementWithData) {
-                        dataValue = column.createElementWithData(item[column.idForValues[0]]);
+                        dataValue = column.createElementWithData(item[column.idForValues[0]], item);
                       }
 
                       let dataSubValue = column.idForValues && item[column.idForValues[1]];
                       if (column.idForValues && column.idForValues[1] && column.createElementWithSubData) {
-                        dataSubValue = column.createElementWithSubData(item[column.idForValues[1]]);
+                        dataSubValue = column.createElementWithSubData(item[column.idForValues[1]], item);
                       }
 
                       return (

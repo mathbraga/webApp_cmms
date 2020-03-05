@@ -3,8 +3,8 @@ const searchableAttributes = [
   "title",
   "company",
   "contractStatusText",
-  "dateStart",
-  "finalDate"
+  "dateEndText",
+  "urlText"
 ];
 
 export default searchableAttributes;

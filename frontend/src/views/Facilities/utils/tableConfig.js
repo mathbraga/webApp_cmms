@@ -2,9 +2,9 @@ import React from 'react';
 
 const mapIcon = require("../../../assets/icons/map.png");
 
-function prepareArea(area) {
-  if (area) {
-    return (`${new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 }).format(area)} m²`);
+function prepareArea(item) {
+  if (item.area) {
+    return (`${new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 }).format(item.area)} m²`);
   }
   return null;
 }

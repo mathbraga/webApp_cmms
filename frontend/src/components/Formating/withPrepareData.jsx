@@ -11,7 +11,7 @@ export default function withPrepareData(tableConfig) {
           data.forEach((item) => {
             let newItem = { ...item };
             Object.keys(tableConfig.prepareData).forEach((itemId) => {
-              newItem = { ...newItem, [itemId]: tableConfig.prepareData[itemId](item[itemId]) }
+              newItem = { ...newItem, [itemId]: tableConfig.prepareData[itemId](item) }
             })
             preparedData.push(newItem);
           })

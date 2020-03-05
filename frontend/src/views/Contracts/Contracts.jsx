@@ -6,22 +6,34 @@ import { compose } from 'redux';
 import TableFilter from '../../components/Tables/CustomTable/TableFilter';
 import { withProps, withGraphQL, withQuery } from '../../hocs';
 import props from './props';
+import withSelectLogic from '../../components/Selection/withSelectLogic';
+import { withRouter } from "react-router-dom";
+import withPrepareData from '../../components/Formating/withPrepareData';
+import withDataAccess from './utils/withDataAccess';
+import CustomTable from '../../components/NewTables/CustomTable';
+import AssetCard from '../../components/Cards/AssetCard';
+
 
 class Contracts extends Component {
   render() {
-    const data = this.props.data.queryResponse.nodes;
-
     return (
-      <TableFilter
-        title={"Contratos"}
-        subtitle={"Lista de contratos de engenharia"}
+      <AssetCard
+        sectionName={"Contratos"}
+        sectionDescription={"Lista de contratos de engenharia"}
+        handleCardButton={() => { console.log("OK") }}
         buttonName={"Novo Contrato"}
-        tableConfig={tableConfig}
-        customFilters={customFilters}
-        filterAttributes={filterAttributes}
-        searchableAttributes={searchableAttributes}
-        data={data}
-      />
+      >
+        <CustomTable
+          type={'full'}
+          tableConfig={tableConfig}
+          customFilters={customFilters}
+          filterAttributes={filterAttributes}
+          searchableAttributes={searchableAttributes}
+          selectedData={this.props.selectedData}
+          handleSelectData={this.props.handleSelectData}
+          data={this.props.data}
+        />
+      </AssetCard>
     );
   }
 }
@@ -29,5 +41,9 @@ class Contracts extends Component {
 export default compose(
   withProps(props),
   withGraphQL,
-  withQuery
+  withQuery,
+  withDataAccess,
+  withPrepareData(tableConfig),
+  withRouter,
+  withSelectLogic
 )(Contracts);
