@@ -14,7 +14,31 @@ const defaultProps = {
   width: "5%",
 };
 
-export default function CheckboxHeader({ width }) {
+export default function CheckboxHeader({ width, selectedData, visibleData, attForDataId, handleSelectData }) {
+  let checked = true;
+  visibleData.forEach((item) => {
+    const itemId = item[attForDataId]
+    checked = checked && selectedData[itemId];
+  });
+
+  function handleSelectAllData() {
+    if (checked) {
+      visibleData.forEach((item) => {
+        const itemId = item[attForDataId];
+        if (selectedData[itemId]) {
+          handleSelectData(itemId)();
+        }
+      })
+    } else {
+      visibleData.forEach((item) => {
+        const itemId = item[attForDataId];
+        if (!selectedData[itemId]) {
+          handleSelectData(itemId)();
+        }
+      })
+    }
+  }
+
   return (
     <th
       className={classNames({
@@ -25,10 +49,14 @@ export default function CheckboxHeader({ width }) {
       key={"checkbox"}
     >
       <div className="header-container__checkbox">
-        <CustomInput
-          type="checkbox"
-          color="primary"
-        />
+        <div
+          onClick={handleSelectAllData}
+        >
+          <CustomInput
+            type="checkbox"
+            checked={checked}
+          />
+        </div>
       </div>
     </th>
   );

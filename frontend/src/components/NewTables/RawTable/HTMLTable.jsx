@@ -88,6 +88,10 @@ class HTMLTable extends Component {
                   {hasCheckbox && (
                     <CheckboxHeader
                       width={checkboxWidth}
+                      selectedData={selectedData}
+                      visibleData={visibleData}
+                      attForDataId={attForDataId}
+                      handleSelectData={handleSelectData}
                     />
                   )}
                   {columnsConfig.map((column) => (
