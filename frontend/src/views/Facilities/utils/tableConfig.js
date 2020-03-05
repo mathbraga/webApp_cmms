@@ -19,7 +19,6 @@ const tableConfig = {
   prepareData: {
     area: prepareArea,
   },
-  prepareDisplayElement: false,
   columnsConfig: [
     { columnId: 'name', columnName: 'Ativo', width: "40%", align: "justify", idForValues: ['name', 'assetSf'] },
     { columnId: 'area', columnName: 'Área', width: "15%", align: "center", idForValues: ['area'] },
