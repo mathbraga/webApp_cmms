@@ -110,7 +110,6 @@ class TableWithPagesUI extends Component {
               <option value={15}>15</option>
               <option value={25}>25</option>
               <option value={50}>50</option>
-              <option value={100}>100</option>
             </Input>
           </div>
           <div className="pagination-container__pagination-selector">
