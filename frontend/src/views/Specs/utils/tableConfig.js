@@ -1,16 +1,25 @@
 import paths from '../../../paths';
 
+function calculeAvailableWithUnit(item) {
+  console.log("Item: ", item);
+  return `${item.totalAvailable}`;
+}
+
 const tableConfig = {
-  numberOfColumns: 4,
-  checkbox: true,
-  itemPath: paths.spec.toOne,
-  itemClickable: true,
-  idAttributeForData: 'specId',
-  columnObjects: [
-    { name: 'name', description: 'Material / Serviço', style: { width: "300px" }, className: "text-justify", data: ['name', 'specSf'] },
-    { name: 'category', description: 'Categoria', style: { width: "200px" }, className: "text-center", data: ['specCategoryText'] },
-    { name: 'subcategory', description: 'Subcategoria', style: { width: "200px" }, className: "text-center", data: ['specSubcategoryText'] },
-    { name: 'totalAvailable', description: 'Disponível', style: { width: "70px" }, className: "text-center", data: ['totalAvailable'] }
+  attForDataId: 'specId',
+  hasCheckbox: true,
+  checkboxWidth: '5%',
+  isItemClickable: true,
+  dataAttForClickable: 'name',
+  itemPathWithoutID: paths.spec.toOne,
+  prepareData: {
+    availableWithUnit: calculeAvailableWithUnit
+  },
+  columnsConfig: [
+    { columnId: 'name', columnName: 'Material / Serviço', width: "50%", align: "justify", idForValues: ['name', 'specSf'] },
+    { columnId: 'category', columnName: 'Categoria', width: "20%", align: "center", idForValues: ['specCategoryText'] },
+    { columnId: 'subcategory', columnName: 'Subcategoria', width: "15%", align: "center", idForValues: ['specSubcategoryText'] },
+    { columnId: 'totalAvailable', columnName: 'Disponível', width: "10%", align: "center", idForValues: ['availableWithUnit'] }
   ],
 };
 
