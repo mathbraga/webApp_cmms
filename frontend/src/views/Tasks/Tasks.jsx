@@ -3,27 +3,36 @@ import tableConfig from './utils/tableConfig';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import { compose } from 'redux';
-import TableFilter from '../../components/Tables/CustomTable/TableFilter';
 import props from './props';
 import { withProps, withGraphQL, withQuery } from '../../hocs';
 import paths from '../../paths';
+import withSelectLogic from '../../components/Selection/withSelectLogic';
+import { withRouter } from "react-router-dom";
+import withPrepareData from '../../components/Formating/withPrepareData';
+import withDataAccess from './utils/withDataAccess';
+import CustomTable from '../../components/NewTables/CustomTable';
+import AssetCard from '../../components/Cards/AssetCard';
 
 class Tasks extends Component {
   render() {
-    const data = this.props.data.queryResponse.nodes;
-
     return (
-      <TableFilter
-        title={"Ordens de Serviço"}
-        subtitle={"Lista de ordens de serviço de engenharia"}
+      <AssetCard
+        sectionName={"Ordens de Serviço"}
+        sectionDescription={"Lista de ordens de serviço de engenharia"}
+        handleCardButton={() => { this.props.history.push(paths.task.create) }}
         buttonName={"Nova OS"}
-        buttonPath={paths.task.create}
-        tableConfig={tableConfig}
-        customFilters={customFilters}
-        filterAttributes={filterAttributes}
-        searchableAttributes={searchableAttributes}
-        data={data}
-      />
+      >
+        <CustomTable
+          type={'full'}
+          tableConfig={tableConfig}
+          customFilters={customFilters}
+          filterAttributes={filterAttributes}
+          searchableAttributes={searchableAttributes}
+          selectedData={this.props.selectedData}
+          handleSelectData={this.props.handleSelectData}
+          data={this.props.data}
+        />
+      </AssetCard>
     );
   }
 }
@@ -31,5 +40,9 @@ class Tasks extends Component {
 export default compose(
   withProps(props),
   withGraphQL,
-  withQuery
+  withQuery,
+  withDataAccess,
+  withPrepareData(tableConfig),
+  withRouter,
+  withSelectLogic
 )(Tasks);

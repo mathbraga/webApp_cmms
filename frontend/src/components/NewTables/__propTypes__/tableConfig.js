@@ -4,6 +4,8 @@ export const alignShape = PropTypes.oneOf(['center', 'justify']);
 
 export const selectedDataShape = PropTypes.objectOf(PropTypes.bool);
 
+export const prepareDataShape = PropTypes.objectOf(PropTypes.func);
+
 export const actionColumnShape = PropTypes.arrayOf(PropTypes.oneOf(['delete', 'edit']));
 
 export const columnsConfigShape = PropTypes.shape({
@@ -13,6 +15,9 @@ export const columnsConfigShape = PropTypes.shape({
   align: PropTypes.string,
   isTextWrapped: PropTypes.bool,
   idForValues: PropTypes.arrayOf(PropTypes.string).isRequired,
+  createElement: PropTypes.element,
+  createElementWithData: PropTypes.func,
+  createElementWithSubData: PropTypes.func,
 });
 
 export const tableConfigShape = PropTypes.shape({
@@ -26,5 +31,6 @@ export const tableConfigShape = PropTypes.shape({
   itemPathWithoutID: PropTypes.string,
   actionColumn: actionColumnShape,
   actionColumnWidth: PropTypes.string,
+  prepareData: prepareDataShape,
   columnsConfig: columnsConfigShape,
 });
