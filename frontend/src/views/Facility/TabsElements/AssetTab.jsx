@@ -4,12 +4,13 @@ import AssetTemplateTab from '../../../components/Tabs/AssetTab/AssetsTemplateTa
 class AssetTab extends Component {
   render() {
     const data = Object.values(this.props.data.relations || []);
-    const final_data = [].concat(...data);
+    const finalData = [].concat(...data);
+    console.log("Asset Data: ", finalData);
 
     return (
       <>
         <AssetTemplateTab
-          data={final_data}
+          data={finalData}
         />
       </>
     );
