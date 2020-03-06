@@ -4,31 +4,40 @@ import { itemsMatrixMaterial } from '../utils/descriptionMatrix';
 import tableConfig from '../utils/materialTab/tableConfig';
 import { customFilters, filterAttributes } from '../utils/materialTab/filterParameters';
 import searchableAttributes from '../utils/materialTab/searchParameters';
-import TableFilter from '../../../components/Tables/CustomTable/TableFilter';
+import withDataAccess from '../utils/materialTab/withDataAccess';
+import CustomTable from '../../../components/NewTables/CustomTable';
+import withPrepareData from '../../../components/Formating/withPrepareData';
+import withSelectLogic from '../../../components/Selection/withSelectLogic';
+import { compose } from 'redux';
 import './Tabs.css';
 
 class MaterialTab extends Component {
   state = {}
   render() {
-    const data = this.props.data.supplies;
     return (
       <>
         <DescriptionTable
           title={'Lista de Materiais e Serviços'}
           numColumns={2}
-          itemsMatrix={itemsMatrixMaterial(data)}
+          itemsMatrix={itemsMatrixMaterial(this.props.data)}
         />
-        <TableFilter
+        <CustomTable
+          type={'full'}
           tableConfig={tableConfig}
           customFilters={customFilters}
           filterAttributes={filterAttributes}
           searchableAttributes={searchableAttributes}
-          hasAssetCard={false}
-          data={data}
+          selectedData={this.props.selectedData}
+          handleSelectData={this.props.handleSelectData}
+          data={this.props.data}
         />
       </>
     );
   }
 }
 
-export default MaterialTab;
+export default compose(
+  withDataAccess,
+  withPrepareData(tableConfig),
+  withSelectLogic
+)(MaterialTab);
