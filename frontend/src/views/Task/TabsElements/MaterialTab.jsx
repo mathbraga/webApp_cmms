@@ -5,7 +5,7 @@ import tableConfig from '../utils/materialTab/tableConfig';
 import { customFilters, filterAttributes } from '../utils/materialTab/filterParameters';
 import searchableAttributes from '../utils/materialTab/searchParameters';
 import withDataAccess from '../utils/materialTab/withDataAccess';
-import CustomTable from '../../../components/NewTables/CustomTable';
+import CustomTable from '../../../components/Tables/CustomTable';
 import withPrepareData from '../../../components/Formating/withPrepareData';
 import withSelectLogic from '../../../components/Selection/withSelectLogic';
 import { compose } from 'redux';

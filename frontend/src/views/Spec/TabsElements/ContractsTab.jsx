@@ -5,7 +5,7 @@ import tableConfig from '../utils/contractsTab/tableConfig';
 import { customFilters, filterAttributes } from '../utils/contractsTab/filterParameters';
 import searchableAttributes from '../utils/contractsTab/searchParameters';
 import withDataAccess from '../utils/contractsTab/withDataAccess';
-import CustomTable from '../../../components/NewTables/CustomTable';
+import CustomTable from '../../../components/Tables/CustomTable';
 import withPrepareData from '../../../components/Formating/withPrepareData';
 import withSelectLogic from '../../../components/Selection/withSelectLogic';
 import { compose } from 'redux';

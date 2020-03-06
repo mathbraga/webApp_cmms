@@ -10,7 +10,7 @@ import withPrepareData from '../../components/Formating/withPrepareData';
 import withDataAccess from './utils/withDataAccess';
 import withSelectLogic from '../../components/Selection/withSelectLogic';
 import { withRouter } from "react-router-dom";
-import CustomTable from '../../components/NewTables/CustomTable';
+import CustomTable from '../../components/Tables/CustomTable';
 import AssetCard from '../../components/Cards/AssetCard';
 
 class Appliances extends Component {

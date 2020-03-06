@@ -3,7 +3,7 @@ import tableConfig from './utils/tableConfig';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import { compose } from 'redux';
-import CustomTable from '../../components/NewTables/CustomTable';
+import CustomTable from '../../components/Tables/CustomTable';
 import AssetCard from '../../components/Cards/AssetCard';
 import props from './props';
 import paths from '../../paths';

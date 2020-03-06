@@ -4,7 +4,7 @@ import { itemsMatrixReport, itemsMatrixMaintenance } from './utils/descriptionMa
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import tableConfig from './utils/tableConfig';
-import CustomTable from '../../NewTables/CustomTable';
+import CustomTable from '../../Tables/CustomTable';
 import withPrepareData from '../../Formating/withPrepareData';
 import withSelectLogic from '../../Selection/withSelectLogic';
 import { compose } from 'redux';

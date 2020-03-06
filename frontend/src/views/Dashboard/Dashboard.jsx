@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters, dataTree } from './fakeData';
 
-import CustomTable from "../../components/NewTables/CustomTable";
+import CustomTable from "../../components/Tables/CustomTable";
 
 class Dashboard extends Component {
   constructor(props) {
