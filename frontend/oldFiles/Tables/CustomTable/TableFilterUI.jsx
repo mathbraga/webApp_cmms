@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AssetCard from '../../Cards/AssetCard';
+import AssetCard from '../../../src/components/Cards/AssetCard';
 import FinalTable from '../TableWithPages/Table';
-import SearchWithFilter from '../../Search/SearchWithFilter';
+import SearchWithFilter from '../../../src/components/Search/SearchWithFilter';
 
 export default class CardTableUI extends Component {
   render() {

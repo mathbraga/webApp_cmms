@@ -3,7 +3,6 @@ import tableConfig from './utils/tableConfig';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import { compose } from 'redux';
-import TableFilter from '../../components/Tables/CustomTable/TableFilter';
 import { withProps, withGraphQL, withQuery } from '../../hocs';
 import props from './props';
 import withSelectLogic from '../../components/Selection/withSelectLogic';

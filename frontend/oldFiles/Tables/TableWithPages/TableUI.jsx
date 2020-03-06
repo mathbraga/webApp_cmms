@@ -2,7 +2,7 @@ import React from 'react';
 import { CustomInput } from 'reactstrap';
 import TableWithPages from './TableWithPages';
 import { withRouter } from "react-router-dom";
-import paths from '../../../paths';
+import paths from '../../../src/paths';
 
 function TableHeader({ tableConfig }) {
   return (

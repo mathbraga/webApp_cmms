@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import withPaginationLogic from '../TableWithPages/withPaginationLogic';
 import CardTableUI from './TableFilterUI';
-import searchList from '../../../utils/search/searchList';
-import filterList from '../../../utils/filter/filter';
+import searchList from '../../../src/utils/search/searchList';
+import filterList from '../../../src/utils/filter/filter';
 import { compose } from 'redux';
 import { withRouter } from "react-router-dom";
 
