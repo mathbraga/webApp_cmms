@@ -38,7 +38,7 @@ class TableWithPagesUI extends Component {
       openitems
     } = this.props;
 
-    const pagesTotal = Math.round(data.length / itemsPerPage);
+    const pagesTotal = Math.ceil(data.length / itemsPerPage);
 
     return (
       <div className="table-container">
