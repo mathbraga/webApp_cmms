@@ -1,9 +1,9 @@
 const searchableAttributes = [
   'supplySf',
   'name',
-  'qty',
-  'bidPrice',
-  'totalPrice'
+  'qtyWithUnit',
+  'bidPriceText',
+  'totalPriceText'
 ];
 
 export default searchableAttributes;
