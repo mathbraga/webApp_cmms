@@ -4,7 +4,10 @@ import { itemsMatrixReport, itemsMatrixMaintenance } from './utils/descriptionMa
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import tableConfig from './utils/tableConfig';
-import TableFilter from '../../Tables/CustomTable/TableFilter';
+import CustomTable from '../../NewTables/CustomTable';
+import withPrepareData from '../../Formating/withPrepareData';
+import withSelectLogic from '../../Selection/withSelectLogic';
+import { compose } from 'redux';
 
 class MaintenanceTemplateTab extends Component {
   render() {
@@ -21,12 +24,14 @@ class MaintenanceTemplateTab extends Component {
           numColumns={2}
           itemsMatrix={itemsMatrixMaintenance(data)}
         />
-        <TableFilter
-          tableConfig={this.props.tableConfig || tableConfig}
-          customFilters={this.props.customFilters || customFilters}
-          filterAttributes={this.props.filterAttributes || filterAttributes}
-          searchableAttributes={this.props.searchableAttributes || searchableAttributes}
-          hasAssetCard={false}
+        <CustomTable
+          type={'full'}
+          tableConfig={tableConfig}
+          customFilters={customFilters}
+          filterAttributes={filterAttributes}
+          searchableAttributes={searchableAttributes}
+          selectedData={this.props.selectedData}
+          handleSelectData={this.props.handleSelectData}
           data={data}
         />
       </>
@@ -34,4 +39,7 @@ class MaintenanceTemplateTab extends Component {
   }
 }
 
-export default MaintenanceTemplateTab;
+export default compose(
+  withPrepareData(tableConfig),
+  withSelectLogic
+)(MaintenanceTemplateTab);
