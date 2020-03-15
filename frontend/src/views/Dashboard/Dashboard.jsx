@@ -46,7 +46,11 @@ class Dashboard extends Component {
               <Card className="mx-8">
                 <CardBody className="p-8">
                   hey
-                  <SvgTest handleArea={(event) => {console.log("Event: ", event.target.id)}} />
+                  <SvgTest 
+                    handleArea={(event) => {console.log("Event: ", event.target.id)}} 
+                    handleMouseEnter={(event) => {console.log("Enter: ", event.target.id)}} 
+                    handleMouseLeave={(event) => {console.log("Leave: ", event.target.id)}}
+                  />
                 </CardBody>
               </Card>
             </Col>

@@ -1,6 +1,6 @@
 import * as React from "react";
 function SvgTest(props) {
-  const { handleArea } = props;
+  const { handleArea, handleMouseEnter, handleMouseLeave } = props;
   return (
     <svg
       width={351}
@@ -41,6 +41,8 @@ function SvgTest(props) {
         <path
           id="JA02"
           onClick={handleArea}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           opacity={0.601}
           fill="#fca"
           fillOpacity={0}
@@ -59,6 +61,8 @@ function SvgTest(props) {
         <path
           id="JA01"
           onClick={handleArea}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           opacity={0.601}
           fill="#fca"
           fillOpacity={0}
