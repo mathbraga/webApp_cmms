@@ -8794,7 +8794,7 @@ jvB//QN1z/vxD/8AHaAPYKK8f/4aO8H/APQN1z/vxD/8do/4aO8H/wDQN1z/AL8Q/wDx2gDP/Zy/
        height="154.97025"
        x="704.16962"
        y="17.29763"
-       onClick="{handleArea(JA01)"
+       onClick="handleArea"
        inkscape:label="JA01-000-000">
       <desc
          id="desc841">JA01-000-000</desc>
@@ -8808,7 +8808,7 @@ jvB//QN1z/vxD/8AHaAPYKK8f/4aO8H/APQN1z/vxD/8do/4aO8H/wDQN1z/AL8Q/wDx2gDP/Zy/
        height="72.571434"
        x="704.16962"
        y="-55.273811"
-       onClick="handleArea(&quot;JA02&quot;)"
+       onClick="handleArea"
        inkscape:label="JA02-000-000">
       <desc
          id="desc853">Jardim 02</desc>
