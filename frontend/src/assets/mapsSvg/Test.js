@@ -3,8 +3,8 @@ function SvgTest(props) {
   const { handleArea } = props;
   return (
     <svg
-      width={3510}
-      height={2480}
+      width={351}
+      height={248}
       viewBox="0 0 928.688 656.167"
       id="svg8"
       {...props}
@@ -39,11 +39,29 @@ function SvgTest(props) {
           imageRendering="optimizeQuality"
         />
         <path
+          id="JA02"
+          onClick={handleArea}
+          opacity={0.601}
+          fill="#fca"
+          fillOpacity={0}
+          fillRule="evenodd"
+          stroke="#000"
+          strokeWidth={2.646}
+          strokeLinecap="square"
+          strokeLinejoin="miter"
+          strokeMiterlimit={4}
+          strokeDasharray="none"
+          strokeDashoffset={37.795}
+          strokeOpacity={1}
+          paintOrder="normal"
+          d="M704.17-55.274h136.071v72.571H704.17z"
+        />
+        <path
           id="JA01"
           onClick={handleArea}
           opacity={0.601}
           fill="#fca"
-          fillOpacity={1}
+          fillOpacity={0}
           fillRule="evenodd"
           stroke="#000"
           strokeWidth={2.646}
@@ -55,24 +73,6 @@ function SvgTest(props) {
           strokeOpacity={1}
           paintOrder="normal"
           d="M704.17 17.298h136.071v154.97H704.17z"
-        />
-        <path
-          id="rect849"
-          onClick={handleArea}
-          opacity={0.601}
-          fill="none"
-          fillOpacity={1}
-          fillRule="evenodd"
-          stroke="#000"
-          strokeWidth={2}
-          strokeLinecap="square"
-          strokeLinejoin="miter"
-          strokeMiterlimit={4}
-          strokeDasharray="none"
-          strokeDashoffset={37.795}
-          strokeOpacity={1}
-          paintOrder="normal"
-          d="M704.17-55.274h136.071v72.571H704.17z"
         />
       </g>
     </svg>

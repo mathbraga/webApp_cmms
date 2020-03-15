@@ -3,18 +3,7 @@ import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters, dataTree } from './fakeData';
 import svgr from '@svgr/core';
 import CustomTable from "../../components/Tables/CustomTable";
-
-const svgCode = `
-<svg xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink">
-  <rect x="10" y="10" height="100" width="100"
-    style="stroke:#ff0000; fill: #0000ff"/>
-</svg>
-`;
-
-svgr(svgCode, { icon: true }, { componentName: 'MyComponent' }).then(jsCode => {
-  console.log(jsCode)
-})
+import SvgTest from '../../assets/mapsSvg/Test';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -57,13 +46,7 @@ class Dashboard extends Component {
               <Card className="mx-8">
                 <CardBody className="p-8">
                   hey
-                  <svg width="250" height="250">
-                    <rect x="25" y="25" rx="25" ry="25" height="200" width="200" fill="steelblue" />
-                    <circle r="120" cx="125" cy="125" fill="none" stroke="red" stroke-width="10" />
-                    <circle r="70" cx="125" cy="125" fill="none" stroke="red" stroke-width="10" />
-                    {/* <line x1="10" y1="125" x2="225" y2="225" stroke="black" stroke-width="25" /> */}
-                    <polygon fill="pink" points="50,50 125,125 200,50 200,200 125,125 50,200" />
-                  </svg>
+                  <SvgTest handleArea={(event) => {console.log("Event: ", event.target.id)}} />
                 </CardBody>
               </Card>
             </Col>
