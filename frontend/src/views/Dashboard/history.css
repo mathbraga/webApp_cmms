@@ -1,0 +1,48 @@
+.history__date {
+    font-weight: bold;
+    padding-bottom: 4px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(232, 232, 232, 1);
+}
+
+.history__date span {
+    font-weight: normal;
+}
+
+.history__items {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(232, 232, 232, 1);
+}
+
+.history__icon,
+.history__occurence{
+    display: inline-block;
+}
+
+.history__icon {
+    border: 3px solid #3d5dc4;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    vertical-align: middle;
+}
+
+.history__occurence {
+    padding-left: 10px;
+    vertical-align: middle;
+}
+
+.history__creator,
+.history__description {
+    display: inline-block;
+    padding: 0 6px;
+}
+
+.history__creator {
+    padding-left: 0;
+    font-weight: bold;
+}
