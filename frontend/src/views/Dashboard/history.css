@@ -29,6 +29,11 @@
     width: 70px;
     height: 70px;
     vertical-align: middle;
+    text-align: center;
+}
+
+.history__icon span {
+    display: inline-block;
 }
 
 .history__occurence {

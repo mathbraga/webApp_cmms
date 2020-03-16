@@ -71,7 +71,7 @@ class Dashboard extends Component {
                   <div className="history__main">
                     <div className="history__date">11/03/2020 <span className="text-muted">Quarta-feira</span></div>
                     <div className="history__items">
-                    <div className="history__icon"></div>
+                    <div className="history__icon"><span>AB</span></div>
                       <div className="history__occurence">
                         <div className="history__creator">Nome</div>
                         <div className="history__description">Modificação no ativo.</div>
