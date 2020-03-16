@@ -1,10 +1,10 @@
 import * as React from "react";
 function SvgTest(props) {
-  const { handleArea, handleMouseEnter, handleMouseLeave } = props;
+  const { handleArea, handleMouseEnter, handleMouseLeave, hoveredArea } = props;
   return (
     <svg
-      width={351}
-      height={248}
+      width={900}
+      height={500}
       viewBox="0 0 928.688 656.167"
       id="svg8"
       {...props}
@@ -47,7 +47,7 @@ function SvgTest(props) {
           fill="#fca"
           fillOpacity={0}
           fillRule="evenodd"
-          stroke="#000"
+          stroke={hoveredArea === "JA02" ? "#000" : "none"}
           strokeWidth={2.646}
           strokeLinecap="square"
           strokeLinejoin="miter"
@@ -67,7 +67,7 @@ function SvgTest(props) {
           fill="#fca"
           fillOpacity={0}
           fillRule="evenodd"
-          stroke="#000"
+          stroke={hoveredArea === "JA01" ? "#000" : "none"}
           strokeWidth={2.646}
           strokeLinecap="square"
           strokeLinejoin="miter"

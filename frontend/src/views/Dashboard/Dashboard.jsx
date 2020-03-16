@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters, dataTree } from './fakeData';
 import svgr from '@svgr/core';
 import CustomTable from "../../components/Tables/CustomTable";
-import SvgTest from '../../assets/mapsSvg/Test';
+import Maps from '../../components/Maps/Maps';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -45,12 +45,7 @@ class Dashboard extends Component {
             <Col md="12">
               <Card className="mx-8">
                 <CardBody className="p-8">
-                  hey
-                  <SvgTest 
-                    handleArea={(event) => {console.log("Event: ", event.target.id)}} 
-                    handleMouseEnter={(event) => {console.log("Enter: ", event.target.id)}} 
-                    handleMouseLeave={(event) => {console.log("Leave: ", event.target.id)}}
-                  />
+                  <Maps />
                 </CardBody>
               </Card>
             </Col>
