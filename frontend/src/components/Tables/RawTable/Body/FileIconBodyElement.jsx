@@ -3,48 +3,18 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 // CSS
 import './Body.css'
-// Proptypes
-import { openItemsShape } from '../../__propTypes__/nestedTable';
-
-const deleteImage = require("../../../../assets/icons/red_trash.png");
-const editImage = require("../../../../assets/icons/edit.png");
-
-const deleteButton = (handleAction, itemId) => (
-  <img
-    onClick={handleAction.delete(itemId)}
-    style={{ width: "25px", height: "25px", cursor: "pointer" }}
-    src={deleteImage}
-  />
-);
-
-const editButton = (handleAction, itemId) => (
-  <img
-    onClick={handleAction.edit(itemId)}
-    style={{ width: "25px", height: "25px", cursor: "pointer" }}
-    src={editImage}
-  />
-);
-
-const button = {
-  "delete": deleteButton,
-  "edit": editButton
-}
 
 const propTypes = {
   columnId: PropTypes.string.isRequired,
-  itemId: PropTypes.string.isRequired,
-  actionType: PropTypes.array,
-  handleAction: PropTypes.shape({ "delete": PropTypes.func, "edit": PropTypes.func }),
-  openItems: openItemsShape,
 };
 
-export default function ActionBodyElement({
+// Icons made by <a href="https://www.flaticon.com/authors/dimitry-miroliubov" title="Dimitry Miroliubov">Dimitry Miroliubov</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+
+export default function FileIconBodyElement({
   columnId,
-  itemId,
-  actionType,
-  handleAction,
-  openItems,
+  format
 }) {
+  const formatPath = `../../../../assets/img/files/pdf.png`;
   return (
     <td
       className={classNames({
@@ -53,14 +23,15 @@ export default function ActionBodyElement({
       key={columnId}
     >
       <div
-        style={{ display: "flex", justifyContent: "space-evenly", width: "100%" }}
+        style={{ display: "flex", justifyContent: "center", width: "100%" }}
       >
-        {actionType.map((actionString) => {
-          return button[actionString](handleAction);
-        })}
+        <img
+          style={{ width: "40px", height: "40px", cursor: "pointer" }}
+          src={require(formatPath)}
+        />
       </div>
     </td>
   );
 }
 
-ActionBodyElement.propTypes = propTypes;
+FileIconBodyElement.propTypes = propTypes;
