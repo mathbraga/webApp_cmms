@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
+import DescriptionTable from '../../../components/Descriptions/DescriptionTable';
+import { itemsMatrixFiles } from '../utils/descriptionMatrix';
 
 class FilesTab extends Component {
-  state = {}
   render() {
+    const { data } = this.props;
     return (
-      <h1>Files!</h1>
+      <>
+        <DescriptionTable
+          title={'Dados sobre Arquivos'}
+          numColumns={2}
+          itemsMatrix={itemsMatrixFiles(data)}
+        />
+        <DescriptionTable
+          title={'Lista de Arquivos'}
+        />
+      </>
     );
   }
 }
