@@ -10,6 +10,17 @@ const propTypes = {
 };
 
 // Icons made by <a href="https://www.flaticon.com/authors/dimitry-miroliubov" title="Dimitry Miroliubov">Dimitry Miroliubov</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+const acceptedFileFormats = [
+  'pdf',
+  'doc', 'docx', 'txt',
+  'xls', 'xlsx', 'csv',
+  'ppt', 'pps', 'pptx',
+  'bmp', 'jpg', 'jpeg', 'gif', 'png', 'svg',
+  'msg', 'ost',
+  'zip', 'rar',
+  'dwg',
+  'py',
+];
 
 export default function FileIconElement({
   columnId,
@@ -27,7 +38,7 @@ export default function FileIconElement({
         style={{ display: "flex", justifyContent: "center", width: "100%" }}
       >
         <img
-          style={{ width: "40px", height: "40px", cursor: "pointer" }}
+          style={{ width: "35px", height: "35px", cursor: "pointer" }}
           src={IconImage}
         />
       </div>
