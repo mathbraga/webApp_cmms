@@ -1,0 +1,9 @@
+.download-button {
+  color: #20a8d8 !important;
+}
+
+.download-button:hover {
+  color: #167495 !important;
+  cursor: pointer !important;
+}
+

@@ -7,6 +7,7 @@ import CustomTable from '../../Tables/CustomTable';
 import withPrepareData from '../../Formating/withPrepareData';
 import withSelectLogic from '../../Selection/withSelectLogic';
 import { compose } from 'redux';
+import './FileTemplateTab.css';
 
 class MaintenanceTemplateTab extends Component {
   render() {
