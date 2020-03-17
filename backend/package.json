@@ -28,6 +28,8 @@
     "supertest": "^4.0.2"
   },
   "nodemonConfig": {
-    "ignore": ["tests/*"]
+    "ignore": [
+      "tests/*"
+    ]
   }
 }
