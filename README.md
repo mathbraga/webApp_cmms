@@ -79,6 +79,7 @@
   <thead>
     <tr>
       <th>Entidade</th>
+      <th>Cardinalidade</th>
       <th>Entidade</th>
       <th>Relação</th>
       <th>Detalhes</th>
@@ -87,26 +88,26 @@
   <tbody>
     <tr>
       <td>Asset</td>
+      <td>1..*</td>
       <td>Asset</td>
-      <td>1:(1 a N)</td>
       <td>Define uma relação hierárquica entre os ativos.</td>
     </tr>
     <tr>
       <td>Task</td>
+      <td>1..*</td>
       <td>Asset</td>
-      <td>1:(1 a N)</td>
       <td>Define os ativos que estão vinculados a uma determinada tarefa.</td>
     </tr>
     <tr>
       <td>Task</td>
+      <td>0..*</td>
       <td>Supplies</td>
-      <td>1:(0 a N)</td>
       <td>Define os suprimentos que serão utilizados na execuçao de determinada tarefa.</td>
     </tr>
     <tr>
       <td>Team</td>
+      <td>1..*</td>
       <td>Persons</td>
-      <td>1:(1 a N)</td>
       <td>Define as pessoas que pertencem a uma determinada equipe.</td>
     </tr>
   </tbody>
