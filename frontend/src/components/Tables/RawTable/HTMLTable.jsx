@@ -12,6 +12,7 @@ import CheckboxHeader from './Header/CheckboxHeader';
 import CustomBodyElement from './Body/CustomBodyElement';
 import CheckboxBodyElement from './Body/CheckboxBodyElement';
 import ActionBodyElement from './Body/ActionBodyElement';
+import FileIconElement from './Body/FileIconElement';
 
 const propTypes = {
   data: PropTypes.array,
@@ -34,6 +35,8 @@ const propTypes = {
   openitems: openItemsShape,
   actionColumn: actionColumnShape,
   actionColumnWidth: PropTypes.string,
+  isFileTable: PropTypes.bool,
+  fileColumnWidth: PropTypes.string
 };
 
 const defaultProps = {
@@ -69,7 +72,9 @@ class HTMLTable extends Component {
       handleNestedChildrenClick,
       openitems,
       actionColumn,
-      actionColumnWidth
+      actionColumnWidth,
+      isFileTable,
+      fileColumnWidth
     } = this.props;
     const visibleData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
     return (
@@ -92,6 +97,14 @@ class HTMLTable extends Component {
                       visibleData={visibleData}
                       attForDataId={attForDataId}
                       handleSelectData={handleSelectData}
+                    />
+                  )}
+                  {isFileTable && (
+                    <CustomHeader
+                      id={"action"}
+                      value={"Formato"}
+                      align={"center"}
+                      width={fileColumnWidth}
                     />
                   )}
                   {columnsConfig.map((column) => (
@@ -130,6 +143,12 @@ class HTMLTable extends Component {
                         selectedData={selectedData}
                         handleSelectData={handleSelectData}
                         itemId={item[attForDataId]}
+                      />
+                    )}
+                    {isFileTable && (
+                      <FileIconElement
+                        columnId={"file"}
+                        format={item.format}
                       />
                     )}
                     {columnsConfig.map((column) => {

@@ -6,11 +6,12 @@ import './Body.css'
 
 const propTypes = {
   columnId: PropTypes.string.isRequired,
+  format: PropTypes.string.isRequired
 };
 
 // Icons made by <a href="https://www.flaticon.com/authors/dimitry-miroliubov" title="Dimitry Miroliubov">Dimitry Miroliubov</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
-export default function FileIconBodyElement({
+export default function FileIconElement({
   columnId,
   format
 }) {
@@ -34,4 +35,4 @@ export default function FileIconBodyElement({
   );
 }
 
-FileIconBodyElement.propTypes = propTypes;
+FileIconElement.propTypes = propTypes;

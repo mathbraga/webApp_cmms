@@ -90,6 +90,8 @@ class TableWithPagesUI extends Component {
           openitems={openitems}
           actionColumn={tableConfig.actionColumn}
           actionColumnWidth={tableConfig.actionColumnWidth}
+          isFileTable={tableConfig.isFileTable}
+          fileColumnWidth={tableConfig.fileColumnWidth}
         />
         <div
           className="table-container__pagination-container"
