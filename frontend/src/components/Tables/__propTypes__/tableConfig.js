@@ -33,4 +33,6 @@ export const tableConfigShape = PropTypes.shape({
   actionColumnWidth: PropTypes.string,
   prepareData: prepareDataShape,
   columnsConfig: columnsConfigShape,
+  isFileTable: PropTypes.bool,
+  fileColumnWidth: PropTypes.string,
 });

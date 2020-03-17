@@ -15,7 +15,7 @@ export default function FileIconElement({
   columnId,
   format
 }) {
-  const formatPath = `../../../../assets/img/files/pdf.png`;
+  const IconImage = require('../../../../assets/img/files/pdf.png');
   return (
     <td
       className={classNames({
@@ -28,7 +28,7 @@ export default function FileIconElement({
       >
         <img
           style={{ width: "40px", height: "40px", cursor: "pointer" }}
-          src={require(formatPath)}
+          src={IconImage}
         />
       </div>
     </td>

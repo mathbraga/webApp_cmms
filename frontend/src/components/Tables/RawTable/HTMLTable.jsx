@@ -101,8 +101,8 @@ class HTMLTable extends Component {
                   )}
                   {isFileTable && (
                     <CustomHeader
-                      id={"action"}
-                      value={"Formato"}
+                      id={"format"}
+                      value={""}
                       align={"center"}
                       width={fileColumnWidth}
                     />
