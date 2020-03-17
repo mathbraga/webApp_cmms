@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import FileTemplateTab from '../../../components/Tabs/FileTab/FileTemplateTab';
+import files from '../../../utils/fakeData/filesFake';
 
 class FilesTab extends Component {
-  state = {}
   render() {
+    const { data } = this.props;
     return (
-      <h1>HI!!!!</h1>
+      <FileTemplateTab 
+        data={files}
+      />
     );
   }
 }
