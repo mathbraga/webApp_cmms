@@ -16,7 +16,7 @@ class SearchInput extends Component {
         <div className="card-search-form">
           <InputGroup>
             <Input
-              placeholder="Pesquisar ..."
+              placeholder="Filtrar por palavras ..."
               value={searchTerm}
               onChange={handleChangeSearchTerm}
               className="search-form__input"

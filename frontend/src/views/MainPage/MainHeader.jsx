@@ -6,7 +6,8 @@ import {
   Dropdown,
   DropdownItem,
   DropdownToggle,
-  DropdownMenu
+  DropdownMenu,
+  Input
 } from "reactstrap";
 
 import {
@@ -92,6 +93,17 @@ class MainHeader extends Component {
         <Nav className="d-md-down-none ml-auto" navbar>
           {this.state.email === null ? (
             <React.Fragment>
+              <NavItem className="px-3">
+                <Input type="select" name="select" id="exampleSelect" style={{ width: "200px" }}>
+                  <option>Ordens de Serviço</option>
+                  <option>Equipamentos</option>
+                  <option>Edifícios</option>
+                  <option>Contratos</option>
+                </Input>
+              </NavItem>
+              <NavItem className="px-3">
+                <Input type="text" name="search" id="search" placeholder="Buscar ..."/>
+              </NavItem>
               {/* <NavItem className="px-3">
                 <Link to="/cadastro" className="nav-link">
                   Cadastro
