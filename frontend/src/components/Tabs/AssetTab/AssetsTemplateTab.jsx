@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DescriptionTable from '../../Descriptions/DescriptionTable';
-// import { itemsMatrixReport, itemsMatrixMaintenance } from './utils/descriptionMatrix';
+import { itemsMatrixAssets, itemsMatrixAssetsConfig } from './utils/descriptionMatrix';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import tableConfig from './utils/tableConfig';
@@ -17,11 +17,16 @@ class AssetTemplateTab extends Component {
       <>
         <DescriptionTable
           title={'Lista de Ativos'}
-        //   numColumns={2}
-        //   itemsMatrix={itemsMatrixReport(data)}
+          numColumns={2}
+          itemsMatrix={itemsMatrixAssets(data)}
+        />
+        <DescriptionTable
+          title={'Configuração da Lista'}
+          numColumns={2}
+          itemsMatrix={itemsMatrixAssetsConfig(data)}
         />
         <CustomTable
-          type={'full'}
+          type={'pages-with-search'}
           tableConfig={tableConfig}
           customFilters={customFilters}
           filterAttributes={filterAttributes}
