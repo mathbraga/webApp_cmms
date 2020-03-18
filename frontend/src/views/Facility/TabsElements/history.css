@@ -30,17 +30,21 @@
 }
 
 .history__icon {
-    background-color: white;
-    border: 3px solid #3d5dc4;
+    background-color: rgb(20, 54, 94);
+    border: 3px solid rgb(20, 54, 94);
     border-radius: 50%;
     width: 70px;
     height: 70px;
+    line-height: 65px;
+    text-align: center;
     vertical-align: middle;
 }
 
-/* .history__icon span {
-    display: inline-block;
-} */
+.history__initials {
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+}
 
 .history__occurence {
     padding-left: 10px;
@@ -61,8 +65,4 @@
 .history__creator {
     padding: 0;
     font-weight: bold;
-}
-
-.history__time {
-    display: inline-block;
 }
