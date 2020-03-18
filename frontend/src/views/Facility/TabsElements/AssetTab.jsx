@@ -11,6 +11,7 @@ class AssetTab extends Component {
       <>
         <AssetTemplateTab
           data={finalData}
+          isHierarchyAssets={true}
         />
       </>
     );

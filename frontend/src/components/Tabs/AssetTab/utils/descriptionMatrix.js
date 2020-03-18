@@ -5,6 +5,16 @@ export function itemsMatrixAssets(data) {
   return (
     [
       [
+        { id: 'assets', title: 'Total de Ativos', description: '003', span: 1 },
+      ],
+    ]
+  );
+}
+
+export function itemsMatrixAssetsHierachy(data) {
+  return (
+    [
+      [
         { id: 'parents', title: 'Total de Ativos Pais', description: '003', span: 1 },
         { id: 'children', title: 'Total de Ativos Filhos', description: '020', span: 1 },
       ],

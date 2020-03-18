@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DescriptionTable from '../../Descriptions/DescriptionTable';
-import { itemsMatrixAssets, itemsMatrixAssetsConfig } from './utils/descriptionMatrix';
+import { itemsMatrixAssets, itemsMatrixAssetsConfig, itemsMatrixAssetsHierachy } from './utils/descriptionMatrix';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import tableConfig from './utils/tableConfig';
@@ -11,20 +11,32 @@ import { compose } from 'redux';
 
 class AssetTemplateTab extends Component {
   render() {
-    const { data } = this.props;
+    const { data, isHierarchyAssets } = this.props;
 
     return (
       <>
-        <DescriptionTable
-          title={'Lista de Ativos'}
-          numColumns={2}
-          itemsMatrix={itemsMatrixAssets(data)}
-        />
-        <DescriptionTable
-          title={'Configuração da Lista'}
-          numColumns={2}
-          itemsMatrix={itemsMatrixAssetsConfig(data)}
-        />
+        {isHierarchyAssets ? (
+          <>
+            <DescriptionTable
+              title={'Lista de Ativos'}
+              numColumns={2}
+              itemsMatrix={itemsMatrixAssetsHierachy(data)}
+            />
+            <DescriptionTable
+              title={'Configuração da Lista'}
+              numColumns={2}
+              itemsMatrix={itemsMatrixAssetsConfig(data)}
+            />
+          </>
+        ) : (
+          <DescriptionTable
+            title={'Lista de Ativos'}
+            numColumns={2}
+            itemsMatrix={itemsMatrixAssets(data)}
+          />
+        )
+          
+        }
         <CustomTable
           type={'pages-with-search'}
           tableConfig={tableConfig}
