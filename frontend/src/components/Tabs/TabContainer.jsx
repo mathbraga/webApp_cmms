@@ -8,12 +8,12 @@ import {
   TabPane
 } from 'reactstrap';
 
-const propsTest = {
-  id: 'facility1',
-  tabs: [
-    { id: 'info', title: 'Informação', element: <h1>Hi</h1> }
-  ]
-}
+// const propsTest = {
+//   id: 'facility1',
+//   tabs: [
+//     { id: 'info', title: 'Informação', element: <h1>Hi</h1> }
+//   ]
+// }
 
 export default class TabContainer extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ export default class TabContainer extends Component {
         <Nav tabs>
           {
             tabs.map((tab) => (
-              <NavItem>
+              <NavItem key={tab.id}>
                 <NavLink name={tab.id} onClick={this.handleClickOnNav} active={tabSelected === tab.id} >{tab.title}</NavLink>
               </NavItem>
             ))
@@ -46,7 +46,7 @@ export default class TabContainer extends Component {
         <TabContent activeTab={tabSelected} style={{ width: "100%" }}>
           {
             tabs.map((tab) => (
-              <TabPane tabId={tab.id} style={{ width: "100%" }}>
+              <TabPane key={tab.id} tabId={tab.id} style={{ width: "100%" }}>
                 {tab.element}
               </TabPane>
             ))

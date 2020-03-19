@@ -4,31 +4,40 @@ import { itemsMatrixBalance } from '../utils/descriptionMatrix';
 import tableConfig from '../utils/contractsTab/tableConfig';
 import { customFilters, filterAttributes } from '../utils/contractsTab/filterParameters';
 import searchableAttributes from '../utils/contractsTab/searchParameters';
-import TableFilter from '../../../components/Tables/CustomTable/TableFilter';
+import withDataAccess from '../utils/contractsTab/withDataAccess';
+import CustomTable from '../../../components/Tables/CustomTable';
+import withPrepareData from '../../../components/Formating/withPrepareData';
+import withSelectLogic from '../../../components/Selection/withSelectLogic';
+import { compose } from 'redux';
 import './Tabs.css';
 
-class MaterialTab extends Component {
+class ContractsTab extends Component {
   state = {}
   render() {
-    const data = this.props.data.supplies || [];
     return (
       <>
         <DescriptionTable
           title={'Lista de Contratos'}
           numColumns={2}
-          itemsMatrix={itemsMatrixBalance(data)}
+          itemsMatrix={itemsMatrixBalance(this.props.data)}
         />
-        <TableFilter
+        <CustomTable
+          type={'full'}
           tableConfig={tableConfig}
           customFilters={customFilters}
           filterAttributes={filterAttributes}
           searchableAttributes={searchableAttributes}
-          hasAssetCard={false}
-          data={data}
+          selectedData={this.props.selectedData}
+          handleSelectData={this.props.handleSelectData}
+          data={this.props.data}
         />
       </>
     );
   }
 }
 
-export default MaterialTab;
+export default compose(
+  withDataAccess,
+  withPrepareData(tableConfig),
+  withSelectLogic
+)(ContractsTab);

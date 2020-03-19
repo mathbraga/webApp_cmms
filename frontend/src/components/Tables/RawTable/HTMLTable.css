@@ -1,65 +1,68 @@
-.table-container {
-  overflow: hidden;
-  overflow-x: auto;
+.table-wrapper {
+  display: inline-block;
   width: 100%;
-  /* border: 1px solid #d4d4d4; */
-  padding: 0;
-  /* border-radius: 6px; */
-  border-bottom: 1px solid rgb(177, 177, 177);
+  overflow-x: scroll;
 }
 
-.content-table {
+.table-no-item {
+  border-bottom: 2px solid #bfbfbf;
+  margin: 20px 10px 10px 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-weight: 400;
+}
+
+.main-table {
   table-layout: fixed;
-  width: 100%;
   border-collapse: collapse;
-  border: none;
+  width: 100%;
+  min-width: 650px;
+  background-color: #FAFAFA;
+  vertical-align: middle;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
-.content-table thead th {
-  background-color: rgb(20, 54, 94);
-  color: white;
-  font-weight: 700;
-  height: 50px;
-  font-size: 14px;
+.main-table__checkbox {
+  display: flex;
+  justify-content: center;
+  padding: 0 3px;
 }
 
-.content-table thead {
+.main-table__header__row {
   border-bottom: 2px solid #cecece;
 }
 
-.content-table th,
-.content-table td {
-  padding: 6px 0;
-}
-
-.content-table tbody tr {
-  border-bottom: 1px solid #d4d4d4;
-  height: 55px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  cursor: pointer;
-}
-
-.content-table tbody tr:last-of-type {
-  border-bottom: none;
-}
-
-.content-table tbody tr:hover {
+.main-table__body__row:hover {
   background-color: rgba(0, 0, 0, 0.075);
 }
 
-.checkbox-cell {
-  width: 47px;
+.main-table__body__row:last-of-type {
+  border-bottom: 3px solid #bfbfbf;
 }
 
-.no-items-table {
-  padding-top: 8px;
+.main-table__body__row--selected {
+  background-color: rgba(88, 88, 032, 0.1);
+  font-weight: 600;
+}
+
+.add-tree-container {
+  min-width: 20px;
+  width: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  padding: 3px;
 }
 
-.no-items-description {
-  font-size: 16px;
+.add-tree-container__icon {
+  width: 100%;
+}
+
+.add-tree-container__icon:hover {
+  cursor: pointer;
+}
+
+.add-tree-container__icon--hidden {
+  visibility: hidden;
 }

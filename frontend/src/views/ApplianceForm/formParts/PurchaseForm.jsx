@@ -16,7 +16,6 @@ class LocationForm extends Component {
         <Row>
           <Col md={6}>
             <TextField
-              id="outlined-full-width"
               value={this.props.manufacturer}
               className="text-input"
               name="manufacturer"
@@ -33,7 +32,6 @@ class LocationForm extends Component {
           </Col>
           <Col md={6}>
             <TextField
-              id="outlined-full-width"
               value={this.props.serialnum}
               className="text-input"
               name="serialnum"
@@ -52,7 +50,7 @@ class LocationForm extends Component {
         <Row>
           <Col md={6}>
             <TextField
-              id="outlined-multiline-static"
+              id="model"
               value={this.props.model}
               className="text-input"
               name="model"
@@ -69,7 +67,7 @@ class LocationForm extends Component {
           </Col>
           <Col md={6}>
             <TextField
-              id="outlined-multiline-static"
+              id="price"
               value={this.props.price}
               className="text-input"
               name="price"

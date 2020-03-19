@@ -17,7 +17,7 @@ class AssetForm extends Component {
         <Row>
           <Col>
             <Autocomplete
-              id="combo-box-demo"
+              id="asset"
               multiple
               options={assetOptions}
               getOptionLabel={option => (`${option.assetSf}: ${option.name}`)}

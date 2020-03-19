@@ -4,9 +4,6 @@ import {
   Form,
   Row,
   Col,
-  FormGroup,
-  Label,
-  Input
 } from 'reactstrap';
 
 class FormTable extends Component {

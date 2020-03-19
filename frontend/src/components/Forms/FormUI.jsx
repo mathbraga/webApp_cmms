@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
 import AssetCard from '../Cards/AssetCard';
-import InputField from '../Forms/InputField';
-import NumberFormat from 'react-number-format';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import { TextareaAutosize, MenuItem } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './Form.css';
 import {
-  Form,
   Row,
   Col,
-  FormGroup,
-  Label,
-  Input
 } from 'reactstrap';
 
 import { data } from './utils/testData';
@@ -25,7 +17,7 @@ class FormUI extends Component {
       subtitle,
       buttonName
     } = this.props;
-    const { categoryOptions, contractOptions, priorityOptions, statusOptions } = data.allTaskFormData.nodes[0]
+    const { priorityOptions } = data.allTaskFormData.nodes[0]
 
     return (
       <>
@@ -41,7 +33,7 @@ class FormUI extends Component {
               <Row>
                 <Col md={8}>
                   <TextField
-                    id="outlined-full-width"
+                    id="title"
                     className="text-input"
                     fullWidth
                     label="Título"
@@ -55,7 +47,6 @@ class FormUI extends Component {
                 </Col>
                 <Col md={4}>
                   <TextField
-                    id="outlined-full-width"
                     className="text-input"
                     select
                     fullWidth
@@ -79,7 +70,6 @@ class FormUI extends Component {
               <Row style={{ marginTop: "0px" }}>
                 <Col md={8}>
                   <TextField
-                    id="outlined-full-width"
                     className="text-input"
                     fullWidth
                     label="Local"
@@ -93,7 +83,6 @@ class FormUI extends Component {
                 </Col>
                 <Col md={4}>
                   <TextField
-                    id="outlined-full-width"
                     className="text-input"
                     select
                     fullWidth
@@ -110,7 +99,7 @@ class FormUI extends Component {
               <Row style={{ marginTop: "20px" }}>
                 <Col>
                   <TextField
-                    id="outlined-multiline-static"
+                    id="description"
                     className="text-input"
                     label="Descrição"
                     placeholder="Instalação de um novo ponto de energia elétrica para alimentar um computador."
@@ -131,7 +120,6 @@ class FormUI extends Component {
               <Row>
                 <Col md={4}>
                   <TextField
-                    id="outlined-full-width"
                     className="text-input"
                     fullWidth
                     label="Início"
@@ -145,7 +133,6 @@ class FormUI extends Component {
                 </Col>
                 <Col md={4}>
                   <TextField
-                    id="outlined-full-width"
                     className="text-input"
                     fullWidth
                     label="Data Limite"
@@ -159,7 +146,6 @@ class FormUI extends Component {
                 </Col>
                 <Col md={4}>
                   <TextField
-                    id="outlined-full-width"
                     className="text-input"
                     select
                     fullWidth
@@ -176,7 +162,7 @@ class FormUI extends Component {
               <Row style={{ marginTop: "20px" }}>
                 <Col md={8}>
                   <TextField
-                    id="outlined-multiline-static"
+                    id="assetParent"
                     className="text-input"
                     select
                     label="Projeto Pai"
@@ -191,7 +177,7 @@ class FormUI extends Component {
                 </Col>
                 <Col md={4}>
                   <TextField
-                    id="outlined-multiline-static"
+                    id="project"
                     className="text-input"
                     label="Projeto"
                     fullWidth
@@ -207,7 +193,7 @@ class FormUI extends Component {
               <Row style={{ marginTop: "20px" }}>
                 <Col>
                   <TextField
-                    id="outlined-multiline-static"
+                    id="contract"
                     className="text-input"
                     select
                     label="Contrato"
@@ -224,7 +210,7 @@ class FormUI extends Component {
               <Row style={{ marginTop: "20px" }}>
                 <Col>
                   <TextField
-                    id="outlined-multiline-static"
+                    id="delegate"
                     className="text-input"
                     select
                     label="Atribuir Para"
@@ -245,7 +231,7 @@ class FormUI extends Component {
               <Row>
                 <Col>
                   <TextField
-                    id="outlined-multiline-static"
+                    id="assets"
                     className="text-input"
                     label="Equipamentos / Edifícios"
                     placeholder="Instalação de um novo ponto de energia elétrica para alimentar um computador."

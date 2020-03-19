@@ -184,7 +184,7 @@ class ContractsList extends Component {
                 <InputGroup>
                   <Input placeholder="Pesquisar ..." value={searchTerm} onChange={this.handleChangeSearchTerm} />
                   <InputGroupAddon addonType="append">
-                    <InputGroupText><img src={searchItem} alt="" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
+                    <InputGroupText><img src={searchItem} alt="Search Item" style={{ width: "19px", height: "16px", margin: "3px 0px" }} /></InputGroupText>
                   </InputGroupAddon>
                 </InputGroup>
               </div>

@@ -52,7 +52,6 @@ class ExecutionForm extends Component {
                 format="dd/MM/yyyy"
                 placeholder="DD/MM/AAAA"
                 margin="normal"
-                id="date-picker-inline"
                 onChange={handleInitialDateInputChange}
                 value={this.props.initialDate}
                 label="Data Inicial"
@@ -71,7 +70,6 @@ class ExecutionForm extends Component {
                 format="dd/MM/yyyy"
                 placeholder="DD/MM/AAAA"
                 margin="normal"
-                id="date-picker-inline"
                 onChange={handleLimitDateInputChange}
                 value={this.props.limitDate}
                 label="Data Limite"
@@ -85,7 +83,6 @@ class ExecutionForm extends Component {
             </Col>
             <Col md="4">
               <TextField
-                id="outlined-full-width"
                 value={this.props.status}
                 className="text-input"
                 name="status"
@@ -111,7 +108,7 @@ class ExecutionForm extends Component {
           <Row style={{ marginTop: "15px" }}>
             <Col md="6">
               <Autocomplete
-                id="combo-box-demo"
+                id="contract"
                 name="contract"
                 options={contractOptions}
                 value={this.props.contract}
@@ -134,7 +131,7 @@ class ExecutionForm extends Component {
             </Col>
             <Col md="6">
               <Autocomplete
-                id="combo-box-demo"
+                id="team"
                 name="team"
                 options={teamOptions}
                 getOptionLabel={option => option.name}
@@ -158,14 +155,11 @@ class ExecutionForm extends Component {
           <Row style={{ marginTop: "20px" }}>
             <Col>
               <Autocomplete
-                id="combo-box-demo"
+                id="projectParent"
                 options={projectOptions}
                 getOptionLabel={option => option.name}
                 value={this.props.project}
                 onChange={handleProjectChange}
-                style={{
-                  "-webkit-font-smoothing": "antialiased",
-                }}
                 renderInput={params => (
                   <TextField
                     {...params}

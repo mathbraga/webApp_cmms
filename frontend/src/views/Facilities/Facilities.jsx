@@ -3,27 +3,36 @@ import tableConfig from './utils/tableConfig';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
 import { compose } from 'redux';
-import TableFilter from '../../components/Tables/CustomTable/TableFilter';
+import CustomTable from '../../components/Tables/CustomTable';
+import AssetCard from '../../components/Cards/AssetCard';
 import props from './props';
 import paths from '../../paths';
 import { withProps, withQuery, withGraphQL } from '../../hocs';
+import withSelectLogic from '../../components/Selection/withSelectLogic';
+import { withRouter } from "react-router-dom";
+import withPrepareData from '../../components/Formating/withPrepareData';
+import withDataAccess from './utils/withDataAccess';
 
 class Facilities extends Component {
   render() {
-    const data = this.props.data.queryResponse.nodes;
-
     return (
-      <TableFilter
-        title={"Edifícios / Áreas"}
-        subtitle={"Lista de áreas do CASF"}
+      <AssetCard
+        sectionName={"Edifícios / Áreas"}
+        sectionDescription={"Lista de áreas do CASF"}
+        handleCardButton={() => { this.props.history.push(paths.facility.create) }}
         buttonName={"Nova área"}
-        buttonPath={paths.facility.create}
-        tableConfig={tableConfig}
-        customFilters={customFilters}
-        filterAttributes={filterAttributes}
-        searchableAttributes={searchableAttributes}
-        data={data}
-      />
+      >
+        <CustomTable
+          type={'full'}
+          tableConfig={tableConfig}
+          customFilters={customFilters}
+          filterAttributes={filterAttributes}
+          searchableAttributes={searchableAttributes}
+          selectedData={this.props.selectedData}
+          handleSelectData={this.props.handleSelectData}
+          data={this.props.data}
+        />
+      </AssetCard>
     );
   }
 }
@@ -31,5 +40,9 @@ class Facilities extends Component {
 export default compose(
   withProps(props),
   withGraphQL,
-  withQuery
+  withQuery,
+  withDataAccess,
+  withPrepareData(tableConfig),
+  withRouter,
+  withSelectLogic
 )(Facilities);

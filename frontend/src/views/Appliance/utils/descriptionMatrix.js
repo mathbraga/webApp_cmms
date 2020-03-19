@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormGroup, CustomInput } from 'reactstrap';
 
 export function itemsMatrixGeneral(data) {
@@ -77,3 +77,4 @@ export function itemsMatrixMaintenance(data) {
     ]
   );
 }
+

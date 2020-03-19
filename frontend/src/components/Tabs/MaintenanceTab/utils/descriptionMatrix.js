@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormGroup, CustomInput } from 'reactstrap';
 
 export function itemsMatrixGeneral(data) {
@@ -71,7 +71,7 @@ export function itemsMatrixMaintenance(data) {
               <FormGroup style={{ margin: "0" }}>
                 <CustomInput disabled type="switch" id="child-assets" name="customSwitch" label="Incluir ativos filhos" />
               </FormGroup>
-            ), line: 1, span: 1, style: { display: "flex", alignItems: "flex-end" }
+            ), span: 1, style: { display: "flex", alignItems: "flex-end" }
         },
       ],
     ]

@@ -1,15 +1,16 @@
 import paths from '../../../paths';
 
 const tableConfig = {
-  numberOfColumns: 3,
-  checkbox: true,
-  itemPath: paths.appliance.toOne,
-  itemClickable: true,
-  idAttributeForData: 'assetId',
-  columnObjects: [
-    { name: 'name', description: 'Equipamento', style: { width: "30%" }, className: "text-justify", data: ['name', 'assetSf'] },
-    { name: 'model', description: 'Modelo', style: { width: "10%" }, className: "text-center", data: ['model'] },
-    { name: 'manufacturer', description: 'Fabricante', style: { width: "10%" }, className: "text-center", data: ['manufacturer'] },
+  attForDataId: 'assetId',
+  hasCheckbox: true,
+  checkboxWidth: '5%',
+  isItemClickable: true,
+  dataAttForClickable: 'name',
+  itemPathWithoutID: paths.appliance.toOne,
+  columnsConfig: [
+    { columnId: 'name', columnName: 'Equipamento', width: "30%", align: "justify", idForValues: ['name', 'assetSf'] },
+    { columnId: 'model', columnName: 'Modelo', width: "10%", align: "center", idForValues: ['model'] },
+    { columnId: 'manufacturer', columnName: 'Fabricante', width: "10%", align: "center", idForValues: ['manufacturer'] },
   ],
 };
 

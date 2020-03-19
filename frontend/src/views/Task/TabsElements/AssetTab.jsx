@@ -27,14 +27,6 @@ class AssetTab extends Component {
     //       numColumns={2}
     //       itemsMatrix={itemsMatrixAssets(data)}
     //     />
-    //     <TableFilter
-    //       tableConfig={tableConfig}
-    //       customFilters={customFilters}
-    //       filterAttributes={filterAttributes}
-    //       searchableAttributes={searchableAttributes}
-    //       hasAssetCard={false}
-    //       data={data}
-    //     />
     //   </>
     // );
   }

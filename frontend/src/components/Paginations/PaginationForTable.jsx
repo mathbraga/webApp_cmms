@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 const NUM_PAGE_BUTTONS_LARGE = 5;
-const NUM_PAGE_BUTTONS_MID = 3;
-const NUM_PAGE_BUTTONS_SMALL = 1;
+// const NUM_PAGE_BUTTONS_MID = 3;
+// const NUM_PAGE_BUTTONS_SMALL = 1;
 
 class PaginationForTable extends Component {
 
@@ -61,7 +61,7 @@ class PaginationForTable extends Component {
     return (
       <Pagination aria-label="Page navigation example">
         {listPages.map(item => (
-          <PaginationItem active={item == pageCurrent} >
+          <PaginationItem active={item == pageCurrent} key={String(item)}>
             <PaginationLink
               onClick={() => this.handleClickPagination(item)}
               style={(item === "Primeira" || item === "Última") ? { width: "80px" } : { width: "auto" }}

@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import './ItemView.css';
 import { Row, Col, Badge } from 'reactstrap';
 
-const dataTest = {
-  id: 'facility1',
-  image: 'image',
-  status: 'status',
-  descriptionItems: [
-    { title: 'item1', description: 'description1', boldTitle: true }
-  ]
-};
+// const dataTest = {
+//   id: 'facility1',
+//   image: 'image',
+//   status: 'status',
+//   descriptionItems: [
+//     { title: 'item1', description: 'description1', boldTitle: true }
+//   ]
+// };
 
 export default class ItemDescription extends Component {
   render() {
@@ -30,7 +30,7 @@ export default class ItemDescription extends Component {
           {descriptionItems.map((item, index) => {
             if (index === 0) {
               return (
-                <div style={{ flexGrow: "1" }}>
+                <div style={{ flexGrow: "1" }} key={index}>
                   <Row>
                     <Col md="3" style={{ textAlign: "end" }}><span className="desc-name">{item.title}</span></Col>
                     <Col md="9" style={{ textAlign: "justify", paddingTop: "5px" }}><span>{item.description || "Não cadastrado"}</span></Col>
@@ -40,7 +40,7 @@ export default class ItemDescription extends Component {
             }
 
             return (
-              <Row>
+              <Row key={index}>
                 <Col md="3" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}><span className="desc-sub">{item.title}</span></Col>
                 <Col md="9" style={{ display: "flex", alignItems: "center" }}><span>{item.description || "Não cadastrado"}</span></Col>
               </Row>

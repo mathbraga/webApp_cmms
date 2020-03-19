@@ -1,16 +1,17 @@
 import paths from '../../../../paths';
 
 const tableConfig = {
-  numberOfColumns: 3,
-  checkbox: true,
-  itemPath: paths.task.toOne,
-  itemClickable: false,
-  idAttributeForData: 'orderId',
-  columnObjects: [
-    { name: 'taskId', description: 'OS', style: { width: "50px" }, className: "text-center", data: ['taskId'] },
-    { name: 'title', description: 'Descrição', style: { width: "300px" }, className: "text-justify", data: ['title', 'taskCategoryText'] },
-    { name: 'status', description: 'Status', style: { width: "70px" }, className: "text-center", data: ['taskStatusText'] },
-    { name: 'place', description: 'Localização', style: { width: "150px" }, className: "text-center", data: ['place'] },
+  attForDataId: 'taskId',
+  hasCheckbox: true,
+  checkboxWidth: '5%',
+  isItemClickable: true,
+  dataAttForClickable: 'title',
+  itemPathWithoutID: paths.task.toOne,
+  columnsConfig: [
+    { columnId: 'taskId', columnName: 'OS', width: "5%", align: "center", idForValues: ['taskId'] },
+    { columnId: 'title', columnName: 'Descrição', width: "55%", align: "justify", isTextWrapped: true, idForValues: ['title', 'taskCategoryText'] },
+    { columnId: 'status', columnName: 'Status', width: "15%", align: "center", idForValues: ['taskStatusText'] },
+    { columnId: 'place', columnName: 'Localização', width: "20%", align: "center", idForValues: ['place'] },
   ]
 };
 

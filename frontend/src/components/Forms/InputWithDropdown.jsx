@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   FormGroup as div,
-  Label,
   Input,
 } from 'reactstrap';
 
@@ -130,7 +129,7 @@ class InputWithDropdown extends Component {
     document.addEventListener('keyup', this.handleSelectOutsideDrop);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     document.removeEventListener('mouseup', this.handleClickOutsideDrop);
     document.removeEventListener('keyup', this.handleSelectOutsideDrop);
   }

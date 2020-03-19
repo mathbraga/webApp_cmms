@@ -351,7 +351,7 @@ class ModalCreateFilter extends Component {
                     {((attributes && (this.state.currentFilterLogic.length === 0 || this.state.currentFilterLogic.slice(-1)[0].type === 'opr'))
                       ? (
                         listDropdown.map((option) => (
-                          <option value={option}>
+                          <option value={option} key={option}>
                             {attributes[option].name}
                           </option>
                         )))

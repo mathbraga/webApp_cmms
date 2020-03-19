@@ -16,7 +16,6 @@ class LocationForm extends Component {
         <Row>
           <Col md={6}>
             <TextField
-              id="outlined-full-width"
               value={this.props.area}
               className="text-input"
               name="area"
@@ -38,7 +37,7 @@ class LocationForm extends Component {
         <Row style={{ marginTop: "15px" }}>
           <Col me={6}>
             <TextField
-              id="outlined-multiline-static"
+              id="latitude"
               value={this.props.latitude}
               className="text-input"
               name="latitude"
@@ -57,7 +56,7 @@ class LocationForm extends Component {
           </Col>
           <Col me={6}>
             <TextField
-              id="outlined-multiline-static"
+              id="longitude"
               value={this.props.longitude}
               className="text-input"
               name="longitude"

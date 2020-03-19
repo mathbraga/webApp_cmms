@@ -1,4 +1,4 @@
-.list-container {
+.table-container {
   margin: 20px 0px 10px 0px;
   padding: 20px 4px;
   border: 1px solid rgb(214, 214, 214);
@@ -7,24 +7,24 @@
   background: #fafafa;
 }
 
-.page-pagination-container {
+.table-container__pagination-container {
   display: flex;
-  margin: 0 20px;
+  margin: 0px 20px 20px 20px;
   align-items: center;
   justify-content: space-between;
 }
 
-.table-page-container {
+.page-input-container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
-.table-page-label {
+.page-input-container__page-input-label {
   margin-right: 10px;
 }
 
-.table-page-input {
+.page-input-container__page-input {
   border-radius: 3px;
   border: 1px solid #b1b1b1;
   text-align: center;
@@ -32,22 +32,28 @@
   width: 40px;
 }
 
-.table-items-container {
-  margin: 15px 0;
-}
-
-.pagination-item-container .pagination {
+.pagination-container__pagination-selector .pagination {
   margin: 0;
 }
 
-.pagination-container {
+.items-per-page-container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding-right: 20px;
 }
 
-.pagination-container .pagination {
-  margin: 0;
+.items-per-page__label {
+  white-space: nowrap;
+  padding: 0;
+  margin: 0 10px 0 0;
 }
+
+.items-per-page__selector {
+  border: 1px solid #b1b1b1;
+  width: 60px;
+  height: 32px;
+  padding: 6px;
+}
+
+
 

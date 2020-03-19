@@ -10,6 +10,7 @@ class AssetTab extends Component {
       <>
         <AssetTemplateTab
           data={final_data}
+          isHierarchyAssets={true}
         />
       </>
     );

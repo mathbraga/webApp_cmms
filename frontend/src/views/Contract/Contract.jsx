@@ -25,6 +25,7 @@ class Contract extends Component {
         imageStatus={imageStatus}
         descriptionItems={descriptionItems}
         tabs={tabsGenerator(finalData)}
+        buttonName={"Editar"}
         {...rest}
       />
     );
