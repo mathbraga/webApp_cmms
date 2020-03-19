@@ -30,7 +30,7 @@ export default function HeaderSort({ sortKey, onSort, children, activeSortKey, i
           "header__head-arrow": true,
           "header__head-arrow--rotated": isSortReverse
         })}>
-          <img src={sortingArrow} />
+          <img src={sortingArrow} alt={'Sorting Arrow'} />
         </div>
       )}
     </HeaderButton>

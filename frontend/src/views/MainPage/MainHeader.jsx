@@ -17,7 +17,7 @@ import {
 
 import logo from "../../assets/img/brand/logo.svg";
 import sygnet from "../../assets/img/brand/sygnet.svg";
-import { logout, logoutSuccess } from "../../redux/actions";
+import { logoutSuccess } from "../../redux/actions";
 import { connect } from "react-redux";
 import logoutFetch from "../../utils/authentication/logoutFetch";
 

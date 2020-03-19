@@ -11,6 +11,7 @@ const editImage = require("../../../../assets/icons/edit.png");
 
 const deleteButton = (handleAction, itemId) => (
   <img
+    alt={'Delete Image'}
     onClick={handleAction.delete(itemId)}
     style={{ width: "25px", height: "25px", cursor: "pointer" }}
     src={deleteImage}
@@ -19,6 +20,7 @@ const deleteButton = (handleAction, itemId) => (
 
 const editButton = (handleAction, itemId) => (
   <img
+    alt={'Edit Image'}
     onClick={handleAction.edit(itemId)}
     style={{ width: "25px", height: "25px", cursor: "pointer" }}
     src={editImage}

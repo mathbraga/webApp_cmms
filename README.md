@@ -64,7 +64,7 @@
   A imagem abaixo ilustra as principais relações entre as entidades existentes no banco de dados:
 </p>
 <div align="center">
-  <img src="cmms.jpg"/>
+  <img src="cmms.jpg" alt="Cmms Image"/>
 </div>
 
 <p>

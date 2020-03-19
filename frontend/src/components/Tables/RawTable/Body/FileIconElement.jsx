@@ -51,6 +51,7 @@ export default function FileIconElement({
         style={{ display: "flex", justifyContent: "center", width: "100%" }}
       >
         <img
+          alt={'Icon Image'}
           style={{ width: "35px", height: "35px", cursor: "pointer" }}
           src={iconImage}
         />

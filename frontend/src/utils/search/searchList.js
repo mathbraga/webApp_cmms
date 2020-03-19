@@ -29,6 +29,7 @@ function findItem(items, attributes, term, parents = false, idAtt = false) {
           return String(value).toLowerCase().includes(term);
         }
       }
+      return null;
     }));
   } else {
     const resultIds = [];
@@ -44,6 +45,7 @@ function findItem(items, attributes, term, parents = false, idAtt = false) {
           resultIds.push(...parents[item[idAtt]]);
         }
       }
+      return null;
     });
     return resultIds;
   }
