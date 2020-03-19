@@ -130,7 +130,7 @@ class InputWithDropdown extends Component {
     document.addEventListener('keyup', this.handleSelectOutsideDrop);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     document.removeEventListener('mouseup', this.handleClickOutsideDrop);
     document.removeEventListener('keyup', this.handleSelectOutsideDrop);
   }
