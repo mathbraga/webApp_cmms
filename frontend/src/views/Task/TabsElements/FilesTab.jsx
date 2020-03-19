@@ -4,7 +4,7 @@ import files from '../../../utils/fakeData/filesFake';
 
 class FilesTab extends Component {
   render() {
-    const { data } = this.props;
+    // const { data } = this.props;
     return (
       <FileTemplateTab 
         data={files}

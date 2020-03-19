@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import './ItemView.css';
 import { Row, Col, Badge } from 'reactstrap';
 
-const dataTest = {
-  id: 'facility1',
-  image: 'image',
-  status: 'status',
-  descriptionItems: [
-    { title: 'item1', description: 'description1', boldTitle: true }
-  ]
-};
+// const dataTest = {
+//   id: 'facility1',
+//   image: 'image',
+//   status: 'status',
+//   descriptionItems: [
+//     { title: 'item1', description: 'description1', boldTitle: true }
+//   ]
+// };
 
 export default class ItemDescription extends Component {
   render() {

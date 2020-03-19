@@ -4,7 +4,7 @@ export const tabularDataShape = PropTypes.array;
 
 export const dataTreeShape = PropTypes.objectOf(PropTypes.array);
 
-const dataTreeExample = {
+export const dataTreeExample = {
   // Parent
   "000": [
     // Children

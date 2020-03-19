@@ -12,7 +12,6 @@ import {
   ListGroup,
   ListGroupItem,
 } from "reactstrap";
-import SingleInputWithDropdown from "../Forms/SingleInputWithDropdown";
 
 import "./ModalCreateFilter.css";
 

@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
 import AssetCard from '../Cards/AssetCard';
-import InputField from '../Forms/InputField';
-import NumberFormat from 'react-number-format';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import { TextareaAutosize, MenuItem } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './Form.css';
 import {
-  Form,
   Row,
   Col,
-  FormGroup,
-  Label,
-  Input
 } from 'reactstrap';
 
 import { data } from './utils/testData';
@@ -25,7 +17,7 @@ class FormUI extends Component {
       subtitle,
       buttonName
     } = this.props;
-    const { categoryOptions, contractOptions, priorityOptions, statusOptions } = data.allTaskFormData.nodes[0]
+    const { priorityOptions } = data.allTaskFormData.nodes[0]
 
     return (
       <>

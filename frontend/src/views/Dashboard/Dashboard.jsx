@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
-import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters, dataTree } from './fakeData';
-import svgr from '@svgr/core';
-import CustomTable from "../../components/Tables/CustomTable";
-import Maps from '../../components/Maps/Maps';
+// import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters, dataTree } from './fakeData';
+// import svgr from '@svgr/core';
+// import CustomTable from "../../components/Tables/CustomTable";
+// import Maps from '../../components/Maps/Maps';
 
 class Dashboard extends Component {
   constructor(props) {

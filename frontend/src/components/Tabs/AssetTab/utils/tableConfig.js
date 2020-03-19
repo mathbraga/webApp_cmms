@@ -1,4 +1,3 @@
-import paths from '../../../../paths';
 import React from 'react';
 
 const mapIcon = require("../../../../assets/icons/map.png");

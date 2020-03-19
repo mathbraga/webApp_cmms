@@ -1,5 +1,4 @@
 import gql from 'graphql-tag';
-import validateInput from '../../utils/validateInput';
 import paths from '../../paths';
 
 export default {

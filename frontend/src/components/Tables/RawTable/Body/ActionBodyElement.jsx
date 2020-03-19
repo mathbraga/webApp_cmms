@@ -40,10 +40,8 @@ const propTypes = {
 
 export default function ActionBodyElement({
   columnId,
-  itemId,
   actionType,
   handleAction,
-  openItems,
 }) {
   return (
     <td

@@ -15,6 +15,7 @@ export default function addNestingSpaces(childConfig, columnName, index, handleN
           <img
             src={!openitems[index] ? addTree : minusTree}
             onClick={handleNestedChildrenClick(index)}
+            alt={"Imagem"}
             className={classNames({
               "add-tree-container__icon": true,
               "add-tree-container__icon--hidden": (!childConfig[index].hasChildren || i != childConfig[index].nestingValue)

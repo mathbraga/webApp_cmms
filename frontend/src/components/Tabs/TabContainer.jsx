@@ -8,12 +8,12 @@ import {
   TabPane
 } from 'reactstrap';
 
-const propsTest = {
-  id: 'facility1',
-  tabs: [
-    { id: 'info', title: 'Informação', element: <h1>Hi</h1> }
-  ]
-}
+// const propsTest = {
+//   id: 'facility1',
+//   tabs: [
+//     { id: 'info', title: 'Informação', element: <h1>Hi</h1> }
+//   ]
+// }
 
 export default class TabContainer extends Component {
   constructor(props) {

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 const NUM_PAGE_BUTTONS_LARGE = 5;
-const NUM_PAGE_BUTTONS_MID = 3;
-const NUM_PAGE_BUTTONS_SMALL = 1;
+// const NUM_PAGE_BUTTONS_MID = 3;
+// const NUM_PAGE_BUTTONS_SMALL = 1;
 
 class PaginationForTable extends Component {
 

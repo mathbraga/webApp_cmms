@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { FormGroup, CustomInput, Label, Input } from 'reactstrap';
+import React from 'react';
+import { FormGroup, Label, Input } from 'reactstrap';
 
 export function itemsMatrixAssets(data) {
   return (
