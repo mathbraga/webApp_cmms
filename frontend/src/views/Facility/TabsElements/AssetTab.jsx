@@ -5,7 +5,6 @@ class AssetTab extends Component {
   render() {
     const data = Object.values(this.props.data.relations || []);
     const finalData = [].concat(...data);
-    console.log("Asset Data: ", finalData);
 
     return (
       <>

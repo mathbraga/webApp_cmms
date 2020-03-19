@@ -7,7 +7,6 @@ export default function withPrepareData(tableConfig) {
         const { data, ...rest } = this.props;
         const preparedData = [];
         if (tableConfig.prepareData) {
-          console.log("Preparing data...");
           data.forEach((item) => {
             let newItem = { ...item };
             Object.keys(tableConfig.prepareData).forEach((itemId) => {

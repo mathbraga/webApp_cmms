@@ -16,7 +16,6 @@ import paths from '../../paths';
 class FacilityForm extends Component {
   render() {
     const { history, handleFunctions, formState, mutate } = this.props;
-    console.log("Dataa: ", this.props.data);
     const data = this.props.data.formData.nodes[0];
     return (
       <CssBaseline>

@@ -77,7 +77,6 @@ class HTMLTable extends Component {
       fileColumnWidth
     } = this.props;
     const visibleData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-    console.log("ColumnsConfig: ", columnsConfig);
     return (
       <div className="table-wrapper">
         {visibleData.length === 0
