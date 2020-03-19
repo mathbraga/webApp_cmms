@@ -53,6 +53,7 @@ export default function CheckboxHeader({ width, selectedData, visibleData, attFo
           onClick={handleSelectAllData}
         >
           <CustomInput
+            id="header-checkbox"
             type="checkbox"
             checked={checked}
           />

@@ -9,7 +9,7 @@ import HeaderButton from './HeaderButton';
 const sortingArrow = require("../../../../assets/icons/sorting_arrow.png");
 
 const propTypes = {
-  sortKey: PropTypes.string.isRequired,
+  sortKey: PropTypes.string,
   activeSortKey: PropTypes.string,
   IsSortReverse: PropTypes.bool,
   onSort: PropTypes.func.isRequired,

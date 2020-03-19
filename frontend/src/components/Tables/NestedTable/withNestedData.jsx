@@ -55,7 +55,7 @@ export default function withNestedData(WrappedComponent) {
         <WrappedComponent
           {...rest}
           data={nestedData ? nestedData.data : data}
-          childConfig={nestedData ? nestedData.childConfig : false}
+          childConfig={nestedData ? nestedData.childConfig : null}
           parents={parents}
         />
       );

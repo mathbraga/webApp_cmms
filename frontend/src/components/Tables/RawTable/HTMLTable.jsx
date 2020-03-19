@@ -21,7 +21,7 @@ const propTypes = {
   checkboxWidth: PropTypes.string,
   isItemClickable: PropTypes.bool,
   itemPathWithoutID: PropTypes.string,
-  columnsConfig: columnsConfigShape,
+  columnsConfig: PropTypes.arrayOf(columnsConfigShape),
   selectedData: selectedDataShape,
   currentPage: PropTypes.number.isRequired,
   itemsPerPage: PropTypes.number.isRequired,
@@ -77,6 +77,7 @@ class HTMLTable extends Component {
       fileColumnWidth
     } = this.props;
     const visibleData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    console.log("ColumnsConfig: ", columnsConfig);
     return (
       <div className="table-wrapper">
         {visibleData.length === 0
@@ -110,6 +111,7 @@ class HTMLTable extends Component {
                   {columnsConfig.map((column) => (
                     <CustomHeader
                       id={column.columnId}
+                      key={column.columnId}
                       value={column.columnName}
                       align={column.align}
                       width={column.width}
@@ -166,8 +168,9 @@ class HTMLTable extends Component {
                         <CustomBodyElement
                           columnId={column.columnId}
                           itemId={item[attForDataId]}
-                          createElement={column.createElement}
-                          dataValue={dataValue}
+                          key={column.columnId}
+                          createElement={column.createElement || null}
+                          dataValue={dataValue || ""}
                           hasDataSubValue={column.idForValues && Boolean(column.idForValues[1])}
                           dataSubValue={dataSubValue}
                           isItemClickable={isItemClickable}

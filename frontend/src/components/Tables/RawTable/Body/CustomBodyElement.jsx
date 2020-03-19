@@ -12,9 +12,9 @@ import { openItemsShape } from '../../__propTypes__/nestedTable';
 
 const propTypes = {
   columnId: PropTypes.string.isRequired,
-  itemId: PropTypes.string.isRequired,
+  itemId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   createElement: PropTypes.element,
-  dataValue: PropTypes.string.isRequired,
+  dataValue: PropTypes.any,
   hasDataSubValue: PropTypes.bool,
   dataSubValue: PropTypes.string,
   isDataTree: PropTypes.bool,

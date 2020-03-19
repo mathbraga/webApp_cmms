@@ -10,7 +10,7 @@ import { CustomInput } from 'reactstrap';
 
 const propTypes = {
   selectedData: selectedDataShape.isRequired,
-  itemId: PropTypes.string.isRequired,
+  itemId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default function CheckboxBodyElement({ selectedData, handleSelectData, itemId }) {
@@ -28,6 +28,7 @@ export default function CheckboxBodyElement({ selectedData, handleSelectData, it
           onClick={handleSelectData(itemId)}
         >
           <CustomInput
+            id={itemId}
             type="checkbox"
             color="primary"
             checked={selectedData[itemId]}

@@ -138,7 +138,6 @@ class ApplyFilter extends Component {
       customFilters,
       currentFilterId
     } = this.props;
-
     return (
       <Modal
         isOpen={modal}
@@ -187,6 +186,7 @@ class ApplyFilter extends Component {
                 <ListGroup style={{ borderLeft: "none" }}>
                   {customFilters.map(filter => (
                     <ListGroupItem
+                      key={filter.id}
                       className={
                         (filter.id === this.state.filterId ?
                           "filter-selected-item" :

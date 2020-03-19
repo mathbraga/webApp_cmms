@@ -14,7 +14,7 @@ const propTypes = {
   align: alignShape,
   // Percentual value. All widths must sum 100%.
   width: PropTypes.string.isRequired,
-  sortKey: PropTypes.string.isRequired,
+  sortKey: PropTypes.string,
   activeSortKey: PropTypes.string,
   IsSortReverse: PropTypes.bool,
   onSort: PropTypes.func.isRequired,

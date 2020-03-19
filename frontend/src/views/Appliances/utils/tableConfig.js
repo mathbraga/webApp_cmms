@@ -10,7 +10,7 @@ const tableConfig = {
   columnsConfig: [
     { columnId: 'name', columnName: 'Equipamento', width: "30%", align: "justify", idForValues: ['name', 'assetSf'] },
     { columnId: 'model', columnName: 'Modelo', width: "10%", align: "center", idForValues: ['model'] },
-    { nacolumnIdme: 'manufacturer', columnName: 'Fabricante', width: "10%", align: "center", idForValues: ['manufacturer'] },
+    { columnId: 'manufacturer', columnName: 'Fabricante', width: "10%", align: "center", idForValues: ['manufacturer'] },
   ],
 };
 
