@@ -11,7 +11,7 @@ class LogTab extends Component {
     return (
         <div>
             {
-              LogTabData.map((item) => {
+              LogTabData.map((item, index) => {
                 /*
                   In case a log of the same day has multiple items, the date header will only show once
                   on the first item of the list, so that the date doesn't keep getting repeated unnecessarily
@@ -23,7 +23,7 @@ class LogTab extends Component {
                 const dateClass = previousLogDate === currentLogDate ? "logs__date--hidden" : "logs__date";
 
                 return(
-                <div className="logs__main">
+                <div className="logs__main" key={index}>
                   <div className={dateClass}>{item.date} - <span className="text-muted">{item.day}</span></div>
                   <div className="logs__items">
                     <div className="logs__icon"><span className="logs__initials">{initials(item.name)}</span></div>
