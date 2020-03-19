@@ -96,5 +96,8 @@ begin transaction;
 -- commit transaction
 commit transaction;
 
+-- set the default transaction isolation level
+alter database :new_db_name set default_transaction_isolation to 'serializable';
+
 -- cleanup variable(s)
 \unset new_db_name

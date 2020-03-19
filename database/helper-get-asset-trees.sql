@@ -3,7 +3,6 @@ create or replace function get_asset_trees (
   out asset_id integer,
   out trees jsonb
 )
-  returns setof record
   language sql
   stable
   as $$
