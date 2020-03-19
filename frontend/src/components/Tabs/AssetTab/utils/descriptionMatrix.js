@@ -15,8 +15,8 @@ export function itemsMatrixAssetsHierachy(data) {
   return (
     [
       [
-        { id: 'parents', title: 'Total de Ativos Pais', description: '003', span: 1 },
-        { id: 'children', title: 'Total de Ativos Filhos', description: '020', span: 1 },
+        { id: 'parentsAssets', title: 'Total de Ativos Pais', description: '003', span: 1 },
+        { id: 'childrenAssets', title: 'Total de Ativos Filhos', description: '020', span: 1 },
       ],
     ]
   );
@@ -26,7 +26,7 @@ export function itemsMatrixAssetsConfig(data) {
   return (
     [
       [
-        { id: 'children', elementGenerator: () => (
+        { id: 'AssetsConfigHier', elementGenerator: () => (
           <FormGroup style={{width: "80%"}}>
             <Label className='desc-sub' for="exampleSelect" style={{ margin: "10px 0 4px 0 " }}>Hierarquia dos Ativos</Label>
             <Input type="select" name="select" id="exampleSelect">
@@ -36,7 +36,7 @@ export function itemsMatrixAssetsConfig(data) {
             </Input>
           </FormGroup>
         ), span: 1 },
-        { id: 'children', elementGenerator: () => (
+        { id: 'childrenContext', elementGenerator: () => (
           <FormGroup style={{width: "80%"}}>
             <Label className='desc-sub' for="exampleSelect" style={{ margin: "10px 0 4px 0 " }}>Contexto</Label>
             <Input type="select" name="select" id="exampleSelect">

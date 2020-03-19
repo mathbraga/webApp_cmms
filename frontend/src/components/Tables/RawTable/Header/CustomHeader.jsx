@@ -17,7 +17,7 @@ const propTypes = {
   sortKey: PropTypes.string,
   activeSortKey: PropTypes.string,
   IsSortReverse: PropTypes.bool,
-  onSort: PropTypes.func.isRequired,
+  onSort: PropTypes.func,
 };
 
 const defaultProps = {
