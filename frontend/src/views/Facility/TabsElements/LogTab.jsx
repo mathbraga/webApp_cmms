@@ -10,15 +10,15 @@ class LogTab extends Component {
   render() {
     return (
         <div>
-          <div className="history__main">
-            <div className="history__date">11/03/2020 <span className="text-muted">Quarta-feira</span></div>
+          <div className="logs__main">
+            <div className="logs__date">11/03/2020 <span className="text-muted">Quarta-feira</span></div>
             {
               LogTabData.map((item) => 
-              <div className="history__items">
-                <div className="history__icon"><span className="history__initials">{initials(item.name)}</span></div>
-                <div className="history__occurence">
-                  <div className="history__creator">{item.name}</div>
-                  <div className="history__description">atualizou o ativo <span>CASF</span></div>
+              <div className="logs__items">
+                <div className="logs__icon"><span className="logs__initials">{initials(item.name)}</span></div>
+                <div className="logs__occurence">
+                  <div className="logs__creator">{item.name}</div>
+                  <div className="logs__description">atualizou o ativo <span>CASF</span></div>
                   <ul>
                     <li>Nome do ativo alterado para "Novo nome"</li>
                     <li>Valor do ativo alterado para "Novo valor"</li>

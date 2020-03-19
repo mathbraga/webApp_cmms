@@ -1,7 +1,7 @@
 const LogTabData = [
-    {name: "John Doe", time: "8:53"},
-    {name: "Foo Boo Zoo", time: "13:09"},
-    {name: "Lorem Ipsum", time: "16:28"},
+    {name: "John Doe", time: "8h53"},
+    {name: "Foo Boo Zoo", time: "13h09"},
+    {name: "Lorem Ipsum", time: "16h28"},
 ]
 
 export default LogTabData;
