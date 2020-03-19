@@ -28,7 +28,7 @@ class ParentForm extends Component {
         <Row>
           <Col md={8}>
             <Autocomplete
-              id="combo-box-demo"
+              id="assetParent"
               options={parentOptions}
               getOptionLabel={option => (`${option.assetSf}: ${option.name}`)}
               filterSelectedOptions
@@ -51,7 +51,7 @@ class ParentForm extends Component {
           </Col>
           <Col md={4}>
             <Autocomplete
-              id="combo-box-demo"
+              id="assetContext"
               options={topOptions}
               getOptionLabel={option => option.name}
               filterSelectedOptions
@@ -103,7 +103,7 @@ class ParentForm extends Component {
                     <TableCell></TableCell>
                   </TableRow>
                   : this.props.parents.map((row) => (
-                    <TableRow>
+                    <TableRow key={row.parent.assetSf}>
                       <TableCell align="center" component="th" scope="row">
                         <img
                           onClick={() => removeParent(row.id)}

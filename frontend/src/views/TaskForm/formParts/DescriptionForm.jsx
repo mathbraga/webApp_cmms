@@ -19,7 +19,6 @@ class DescriptionForm extends Component {
         <Row>
           <Col md={8}>
             <TextField
-              id="outlined-full-width"
               value={this.props.title}
               className="text-input"
               name="title"
@@ -36,7 +35,6 @@ class DescriptionForm extends Component {
           </Col>
           <Col md={4}>
             <TextField
-              id="outlined-full-width"
               value={this.props.priority}
               className="text-input"
               name="priority"
@@ -62,7 +60,6 @@ class DescriptionForm extends Component {
         <Row>
           <Col md={8}>
             <TextField
-              id="outlined-full-width"
               value={this.props.place}
               className="text-input"
               name="place"
@@ -79,7 +76,6 @@ class DescriptionForm extends Component {
           </Col>
           <Col md={4}>
             <TextField
-              id="outlined-full-width"
               value={this.props.category}
               className="text-input"
               name="category"
@@ -103,7 +99,7 @@ class DescriptionForm extends Component {
         <Row style={{ marginTop: "15px" }}>
           <Col>
             <TextField
-              id="outlined-multiline-static"
+              id="description"
               value={this.props.description}
               className="text-input"
               name="description"

@@ -20,7 +20,7 @@
 }
 
 .text-input {
-  -webkit-font-smoothing: antialiased;
+  /* -webkit-font-smoothing: antialiased; */
 }
 
 .text-input legend {
