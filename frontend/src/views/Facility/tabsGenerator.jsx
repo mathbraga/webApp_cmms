@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import InfoTab from './TabsElements/InfoTab';
 import LocationTab from './TabsElements/LocationTab';
 import MaintenanceTab from './TabsElements/MaintenanceTab';

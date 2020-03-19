@@ -37,7 +37,7 @@ class WidgetOneColumn extends Component {
                 <div className="text-truncate">{secondValue}</div>
               </div>
               <div className="col-4 widget-container-image">
-                <img className="widget-image" src={image} alt=""/>
+                <img className="widget-image" src={image} alt="Widget Image"/>
               </div>
             </div>
           </div>

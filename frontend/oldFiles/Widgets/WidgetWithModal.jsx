@@ -138,7 +138,7 @@ class WidgetWithModal extends Component {
               </div>
             </Col>
             <Col xs="4" className="widget-container-image">
-              <img className="widget-image" src={image} alt=""/>
+              <img className="widget-image" src={image} alt="Widget Image"/>
             </Col>
           </Row>
         </CardBody>
