@@ -5,6 +5,14 @@
     border-bottom: 1px solid rgba(232, 232, 232, 1);
 }
 
+.logs__date--hidden {
+    display: none;
+    font-weight: bold;
+    padding-bottom: 4px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(232, 232, 232, 1);
+}
+
 .logs__date span {
     font-weight: normal;
 }

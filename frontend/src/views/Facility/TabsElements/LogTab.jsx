@@ -10,25 +10,37 @@ class LogTab extends Component {
   render() {
     return (
         <div>
-          <div className="logs__main">
-            <div className="logs__date">11/03/2020 <span className="text-muted">Quarta-feira</span></div>
             {
-              LogTabData.map((item) => 
-              <div className="logs__items">
-                <div className="logs__icon"><span className="logs__initials">{initials(item.name)}</span></div>
-                <div className="logs__occurence">
-                  <div className="logs__creator">{item.name}</div>
-                  <div className="logs__description">atualizou o ativo <span>CASF</span></div>
-                  <ul>
-                    <li>Nome do ativo alterado para "Novo nome"</li>
-                    <li>Valor do ativo alterado para "Novo valor"</li>
-                  </ul>
-                  <div className="text-muted">Atualizado às {item.time}</div>
-                </div>
-              </div>
+              LogTabData.map((item) => {
+                /*
+                  In case a log of the same day has multiple items, the date header will only show once
+                  on the first item of the list, so that the date doesn't keep getting repeated unnecessarily
+                  for each item rendered.
+                */
+                const logIndex = LogTabData.indexOf(item);
+                const previousLogDate = LogTabData[logIndex - 1] === undefined ? "" : LogTabData[logIndex - 1].date;
+                const currentLogDate = item.date;
+                const dateClass = previousLogDate === currentLogDate ? "logs__date--hidden" : "logs__date";
+
+                return(
+                <div className="logs__main">
+                  <div className={dateClass}>{item.date} - <span className="text-muted">{item.day}</span></div>
+                  <div className="logs__items">
+                    <div className="logs__icon"><span className="logs__initials">{initials(item.name)}</span></div>
+                    <div className="logs__occurence">
+                      <div className="logs__creator">{item.name}</div>
+                      <div className="logs__description">atualizou o ativo <span>{item.asset}</span></div>
+                      <ul>
+                        <li>Nome do ativo alterado para "Novo nome"</li>
+                        <li>Valor do ativo alterado para "Novo valor"</li>
+                      </ul>
+                      <div className="text-muted">Atualizado às {item.time}</div>
+                    </div>
+                  </div>
+                </div>)
+              }
               )
             }
-          </div>
         </div>
     );
   }
