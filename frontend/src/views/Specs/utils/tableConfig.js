@@ -1,7 +1,6 @@
 import paths from '../../../paths';
 
 function calculeAvailableWithUnit(item) {
-  console.log("Item: ", item);
   return `${item.totalAvailable}`;
 }
 
