@@ -1,6 +1,3 @@
-// Load environment variables
-require('dotenv').config();
-
 // Initialization and imports
 const express = require('express');
 const app = express();
