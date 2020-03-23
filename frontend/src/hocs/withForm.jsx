@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import getFiles from '../utils/getFiles';
 
 export default function withForm(WrappedComponent) {
   class WithForm extends Component {
     constructor(props) {
       super(props);
+      this.innerRef = React.createRef();
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleParentChange = this.handleParentChange.bind(this);
       this.handleContextChange = this.handleContextChange.bind(this);
@@ -117,7 +119,14 @@ export default function withForm(WrappedComponent) {
       }
       const formState = this.state;
       const formVariables = this.props.getFormVariables(formState);
-      const mutationVariables = Object.assign({}, this.props.graphQLVariables, formVariables);
+      // const filesWithMetadata = getFiles(this.innerRef.current.files)
+      
+      const mutationVariables = Object.assign(
+        {},
+        this.props.graphQLVariables,
+        formVariables,
+        // filesWithMetadata,
+      );
       return (
         <WrappedComponent
           handleFunctions={handleFunctions}
