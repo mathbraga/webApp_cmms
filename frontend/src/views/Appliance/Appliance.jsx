@@ -15,7 +15,7 @@ class Appliance extends Component {
     const { data, graphQLVariables, ...rest } = this.props;
     const finalData = data.queryResponse.nodes[0];
     const descriptionItems = [
-      { title: 'Equipamento / Sistema', description: finalData.name, boldTitle: true },
+      { title: 'Equipamento', description: finalData.name, boldTitle: true },
       { title: 'Código', description: finalData.assetSf, boldTitle: false },
       { title: 'Modelo', description: finalData.model, boldTitle: false },
       { title: 'Fabricante', description: finalData.manufacturer, boldTitle: false },
