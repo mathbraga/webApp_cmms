@@ -8,6 +8,8 @@ import {
   TabPane
 } from 'reactstrap';
 
+import './TabContainer.css';
+
 // const propsTest = {
 //   id: 'facility1',
 //   tabs: [
@@ -33,8 +35,8 @@ export default class TabContainer extends Component {
     const { tabs } = this.props;
     const { tabSelected } = this.state;
     return (
-      <div style={{ margin: "40px 20px 20px 20px", width: "96%" }}>
-        <Nav tabs>
+      <div style={{ margin: "40px -20px 20px -20px" }}>
+        <Nav tabs className='tab-container'>
           {
             tabs.map((tab) => (
               <NavItem key={tab.id}>
@@ -43,10 +45,10 @@ export default class TabContainer extends Component {
             ))
           }
         </Nav>
-        <TabContent activeTab={tabSelected} style={{ width: "100%" }}>
+        <TabContent activeTab={tabSelected} style={{ width: "100%", border: 'none', borderTop: '1px solid #c8ced3' }}>
           {
             tabs.map((tab) => (
-              <TabPane key={tab.id} tabId={tab.id} style={{ width: "100%" }}>
+              <TabPane key={tab.id} tabId={tab.id} style={{ width: "100%", padding: '20px 40px' }}>
                 {tab.element}
               </TabPane>
             ))
