@@ -35,7 +35,7 @@ export default class TabContainer extends Component {
     const { tabs } = this.props;
     const { tabSelected } = this.state;
     return (
-      <div style={{ margin: "40px -20px 20px -20px" }}>
+      <div style={{ margin: "30px -20px 20px -20px" }}>
         <Nav tabs className='navbar-tabs'>
           {
             tabs.map((tab) => (
