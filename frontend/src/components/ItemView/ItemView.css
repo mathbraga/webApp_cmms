@@ -1,5 +1,6 @@
 .asset-container {
-  margin: 0px 0px;
+  max-width: 1100px;
+  margin: 0px auto;
 }
 
 .desc-box {
