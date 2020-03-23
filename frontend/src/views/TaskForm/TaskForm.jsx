@@ -7,6 +7,7 @@ import './TaskForm.css';
 import DescriptionForm from './formParts/DescriptionForm';
 import ExecutionForm from './formParts/ExecutionForm';
 import AssetForm from './formParts/AssetForm';
+import Dropzone from 'react-dropzone';
 import props from './props';
 import { withProps, withGraphQL, withQuery, withForm, withMutation } from '../../hocs';
 import paths from '../../paths';
@@ -51,6 +52,18 @@ class TaskForm extends Component {
                 handleAssetChange={handleFunctions.handleAssetChange}
                 {...formState}
               />
+              <div style={{ marginTop: "60px" }} />
+                <h1 className="input-container-title" style={{ marginBottom: "30px" }}>Arquivos</h1>
+                <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+                  {({getRootProps, getInputProps}) => (
+                    <section>
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <p>Arraste e solte os arquivos nesta área</p>
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
               <div style={{ marginTop: "60px" }} />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Button
