@@ -122,7 +122,7 @@ create or replace function api.insert_task (
               f.filename,
               f.uuid,
               f.size,
-              default,
+              get_current_person_id(),
               now()
           from unnest(files_metadata) as f;
 
