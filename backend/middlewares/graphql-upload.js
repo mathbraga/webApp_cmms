@@ -13,8 +13,7 @@ async function resolveUpload(upload, uuid) {
 }
  
 function saveLocal({ stream, uuid }) {
-  const filepath = paths.files + uuid;
-  const fsPath = path.join(process.cwd(), filepath);
+  const fsPath = path.join(process.cwd(), paths.files, uuid);
   return new Promise((resolve, reject) =>
     stream
       .on("error", error => {

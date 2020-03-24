@@ -117,14 +117,14 @@ create or replace function api.insert_task (
       --   insert into task_supplies select id, unnest(supplies), unnest(qty);
       -- end if;
 
-      -- insert into task_files
-      --   select id,
-      --         f.filename,
-      --         f.uuid,
-      --         f.size,
-      --         default,
-      --         now()
-      --     from unnest(files_metadata) as f;
+      insert into task_files
+        select id,
+              f.filename,
+              f.uuid,
+              f.size,
+              default,
+              now()
+          from unnest(files_metadata) as f;
 
     end;
   $$
