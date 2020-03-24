@@ -18,9 +18,15 @@ export default function withForm(WrappedComponent) {
       this.handleInitialDateInputChange = this.handleInitialDateInputChange.bind(this);
       this.handleLimitDateInputChange = this.handleLimitDateInputChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleDropFiles = (files) => {
+        this.setState({files})
+      };
       const idData = this.props.data.idData && this.props.data.idData.nodes[0];
       const { mode } = this.props;
-      this.state = this.props.getInitialFormState(idData, mode);
+      this.state = {
+        ...this.props.getInitialFormState(idData, mode),
+        files: [],
+      };
     }
 
     handleInputChange(event) {
@@ -115,23 +121,30 @@ export default function withForm(WrappedComponent) {
         handleAssetChange: this.handleAssetChange,
         handleInitialDateInputChange: this.handleInitialDateInputChange,
         handleLimitDateInputChange: this.handleLimitDateInputChange,
+        handleDropFiles: this.handleDropFiles,
         handleSubmit: this.handleSubmit,
       }
       const formState = this.state;
       const formVariables = this.props.getFormVariables(formState);
-      // const filesWithMetadata = getFiles(this.innerRef.current.files)
+      const filesListItems = this.state.files.map(file => (
+        <li key={file.name}>
+          {file.name} - {file.size} bytes
+        </li>
+      ));
+      const filesAndMetadata = getFiles(this.state.files);
       
       const mutationVariables = Object.assign(
         {},
         this.props.graphQLVariables,
         formVariables,
-        // filesWithMetadata,
+        filesAndMetadata,
       );
       return (
         <WrappedComponent
           handleFunctions={handleFunctions}
           formState={formState}
           mutationVariables={mutationVariables}
+          files={filesListItems}
           {...this.props}
         />
       );

@@ -14,7 +14,7 @@ import paths from '../../paths';
 
 class TaskForm extends Component {
   render() {
-    const { history, handleFunctions, formState, mutate } = this.props;
+    const { history, handleFunctions, formState, mutate, files } = this.props;
     const data = this.props.data.formData.nodes[0];
     return (
       <CssBaseline>
@@ -54,13 +54,17 @@ class TaskForm extends Component {
               />
               <div style={{ marginTop: "60px" }} />
                 <h1 className="input-container-title" style={{ marginBottom: "30px" }}>Arquivos</h1>
-                <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+                <Dropzone onDrop={selectedFiles => handleFunctions.handleDropFiles(selectedFiles)}/*acceptedFiles => console.log(acceptedFiles)}*/>
                   {({getRootProps, getInputProps}) => (
-                    <section>
+                    <section className="container">
                       <div {...getRootProps()}>
                         <input {...getInputProps()} />
-                        <p>Arraste e solte os arquivos nesta área</p>
+                        <p>Arraste e solte os arquivos nesta área ou clique para selecionar</p>
                       </div>
+                      <aside>
+                        <h5>{files.length > 0 ? "Arquivos selecionados:" : "Nenhum arquivo selecionado"}</h5>
+                        <ul>{files}</ul>
+                      </aside>
                     </section>
                   )}
                 </Dropzone>
