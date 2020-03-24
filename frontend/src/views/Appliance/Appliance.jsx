@@ -7,7 +7,8 @@ import { withProps, withGraphQL, withQuery} from '../../hocs';
 import paths from '../../paths';
 
 // TO DO - These values will be passed as props
-const image = require("../../assets/img/test/equipment_picture.jpg");
+// Image by <a href="https://pixabay.com/users/TheDigitalArtist-202249/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=686316">Pete Linforth</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=686316">Pixabay</a>
+const image = require("../../assets/img/entities/gears.jpg");
 const imageStatus = 'Funcionando';
 
 class Appliance extends Component {
