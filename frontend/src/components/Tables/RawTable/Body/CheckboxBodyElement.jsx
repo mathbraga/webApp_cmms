@@ -24,16 +24,13 @@ export default function CheckboxBodyElement({ selectedData, handleSelectData, it
       key={"checkbox"}
     >
       <div className="main-table__checkbox">
-        <div
+        <CustomInput
+          id={itemId}
+          type="checkbox"
+          color="primary"
+          checked={selectedData[itemId]}
           onClick={handleSelectData(itemId)}
-        >
-          <CustomInput
-            id={itemId}
-            type="checkbox"
-            color="primary"
-            checked={selectedData[itemId]}
-          />
-        </div>
+        />
       </div>
     </td>
   );

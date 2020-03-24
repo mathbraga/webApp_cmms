@@ -49,15 +49,12 @@ export default function CheckboxHeader({ width, selectedData, visibleData, attFo
       key={"checkbox"}
     >
       <div className="header-container__checkbox">
-        <div
+        <CustomInput
+          id="header-checkbox"
+          type="checkbox"
+          checked={checked}
           onClick={handleSelectAllData}
-        >
-          <CustomInput
-            id="header-checkbox"
-            type="checkbox"
-            checked={checked}
-          />
-        </div>
+        />
       </div>
     </th>
   );
