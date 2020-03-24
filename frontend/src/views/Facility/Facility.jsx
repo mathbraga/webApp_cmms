@@ -15,7 +15,7 @@ class Facility extends Component {
     const finalData = data.queryResponse.nodes[0];
 
     const descriptionItems = [
-      { title: 'Edifício / Área', description: finalData.name, boldTitle: true },
+      { title: 'Edifício', description: finalData.name, boldTitle: true },
       { title: 'Código', description: finalData.assetSf, boldTitle: false },
       { title: 'Departamento(s)', description: finalData.department, boldTitle: true },
       { title: 'Área', description: finalData.area, boldTitle: true },
