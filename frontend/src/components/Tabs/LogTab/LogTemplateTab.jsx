@@ -31,8 +31,7 @@ class LogTab extends Component {
                       <div className="logs__creator">{item.name}</div>
                       <div className="logs__description">atualizou o ativo <span>{item.asset}</span></div>
                       <ul>
-                        <li>Nome do ativo alterado para "Novo nome"</li>
-                        <li>Valor do ativo alterado para "Novo valor"</li>
+                        {item.occurences.map(item => <li>{item}</li>)}
                       </ul>
                       <div className="text-muted">Atualizado às {item.time}</div>
                     </div>
