@@ -1,7 +1,7 @@
 .logs__date {
     font-weight: bold;
     padding-bottom: 4px;
-    margin-bottom: 15px;
+    margin-top: 4px;
     border-bottom: 1px solid rgba(232, 232, 232, 1);
 }
 
@@ -18,12 +18,10 @@
 }
 
 .logs__items {
-    display: inline-block;
+    display: flex;
     height: 100%;
     width: 100%;
     padding: 8px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid rgba(232, 232, 232, 1);
 }
 
 .logs__items:hover{
@@ -32,31 +30,25 @@
     /* box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.5); */
 }
 
-.logs__icon,
-.logs__occurence{
-    display: inline-block;
-}
-
 .logs__icon {
+    display: inline-flex;
     background-color: rgb(20, 54, 94);
     border: 3px solid rgb(20, 54, 94);
     border-radius: 50%;
     width: 70px;
     height: 70px;
-    line-height: 62px;
-    text-align: center;
-    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
 }
 
 .logs__initials {
-    display: inline-block;
     color: white;
     font-weight: bold;
     font-size: 24px;
 }
 
 .logs__occurence {
-    padding-left: 10px;
+    padding-left: 20px;
     vertical-align: middle;
     height: auto;
 }
