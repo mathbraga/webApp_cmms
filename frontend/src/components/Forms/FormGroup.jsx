@@ -7,7 +7,9 @@ class FormGroup extends Component {
     return ( 
       <>
         <h1 className="form-group__title">{sectionTitle}</h1>
-        {children}
+        <div className="form-group__input-field">
+          {children}
+        </div>
       </>
      );
   }

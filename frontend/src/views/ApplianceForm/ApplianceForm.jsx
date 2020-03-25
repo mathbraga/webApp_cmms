@@ -26,7 +26,12 @@ class FacilityForm extends Component {
       >
         <div className="input-container">
           <form noValidate autoComplete="off">
-            <FormGroup sectionTitle="Descrição do Equipamento">Hey</FormGroup>
+            <FormGroup sectionTitle="Descrição do Equipamento">
+              <DescriptionForm
+                handleInputChange={handleFunctions.handleInputChange}
+                {...formState}
+              />
+            </FormGroup>
           </form>
         </div>
         <br/> <br/> <br/>

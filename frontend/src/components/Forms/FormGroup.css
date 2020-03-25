@@ -7,6 +7,10 @@
   color: #3c3c3c;
 }
 
+.form-group__input-field {
+  margin: 10px 30px;
+}
+
 .input-label {
   font-weight: 600;
 }
