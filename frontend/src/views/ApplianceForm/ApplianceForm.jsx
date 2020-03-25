@@ -32,46 +32,22 @@ class FacilityForm extends Component {
                 {...formState}
               />
             </FormGroup>
-          </form>
-        </div>
-        <br/> <br/> <br/>
-        <div className="input-container">
-          <form noValidate autoComplete="off">
-            <DescriptionForm
-              handleInputChange={handleFunctions.handleInputChange}
-              {...formState}
-            />
-            <div style={{ marginTop: "60px" }} />
-            <PurchaseForm
-              handleInputChange={handleFunctions.handleInputChange}
-              {...formState}
-            />
-            <div style={{ marginTop: "60px" }} />
-            <ParentForm
-              handleParentChange={handleFunctions.handleParentChange}
-              handleContextChange={handleFunctions.handleContextChange}
-              addNewParent={handleFunctions.addNewParent}
-              removeParent={handleFunctions.removeParent}
-              data={data}
-              {...formState}
-            />
-            <div style={{ marginTop: "60px" }} />
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ marginRight: "10px" }}
-                onClick={mutate}
-              >
-                Cadastrar
-              </Button>
-              <Button variant="contained" style={{ marginRight: "10px" }}>
-                Limpar
-              </Button>
-              <Button variant="contained" color="secondary">
-                Cancelar
-              </Button>
-            </div>
+            <FormGroup sectionTitle="Detalhes sobre a Aquisição">
+              <PurchaseForm
+                handleInputChange={handleFunctions.handleInputChange}
+                {...formState}
+              />
+            </FormGroup>
+            <FormGroup sectionTitle="Relação entre Ativos">
+              <ParentForm
+                handleParentChange={handleFunctions.handleParentChange}
+                handleContextChange={handleFunctions.handleContextChange}
+                addNewParent={handleFunctions.addNewParent}
+                removeParent={handleFunctions.removeParent}
+                data={data}
+                {...formState}
+              />
+            </FormGroup>
           </form>
         </div>
       </AssetCard>

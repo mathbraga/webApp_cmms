@@ -24,11 +24,11 @@ class ParentForm extends Component {
     const { topOptions, parentOptions } = this.props.data;
     return (
       <>
-        <h1 className="input-container-title" style={{ marginBottom: "30px" }}>Relação entre Ativos</h1>
         <Row>
           <Col md={8}>
             <Autocomplete
               id="assetParent"
+              margin="normal"
               options={parentOptions}
               getOptionLabel={option => (`${option.assetSf}: ${option.name}`)}
               filterSelectedOptions
@@ -39,6 +39,7 @@ class ParentForm extends Component {
                   {...params}
                   variant="outlined"
                   fullWidth
+                  margin="normal"
                   className="text-input"
                   label="Ativo Pai"
                   placeholder="Preenchimento Obrigatório"
@@ -52,6 +53,7 @@ class ParentForm extends Component {
           <Col md={4}>
             <Autocomplete
               id="assetContext"
+              margin="normal"
               options={topOptions}
               getOptionLabel={option => option.name}
               filterSelectedOptions
@@ -62,6 +64,7 @@ class ParentForm extends Component {
                   {...params}
                   variant="outlined"
                   fullWidth
+                  margin="normal"
                   className="text-input"
                   label="Contexto"
                   placeholder=""
