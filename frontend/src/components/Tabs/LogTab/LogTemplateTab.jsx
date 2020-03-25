@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
+import DescriptionTable from '../../Descriptions/DescriptionTable';
 
 import "./LogTemplateTab.css";
 import LogTabData from './utils/LogTabFakeData';
@@ -10,6 +11,10 @@ class LogTab extends Component {
     const { data } = this.props; //temporarily unused
 
     return (
+      <>
+        <DescriptionTable
+          title="Histórico de atualizações"
+        />
         <div>
             {
               LogTabData.map((item, index) => {
@@ -41,6 +46,7 @@ class LogTab extends Component {
               )
             }
         </div>
+      </>
     );
   }
 }
