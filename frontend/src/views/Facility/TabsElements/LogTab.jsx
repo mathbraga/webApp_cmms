@@ -6,11 +6,9 @@ class LogTab extends Component {
     const data = this.props.data || [];
 
     return (
-      <>
         <LogTemplateTab
           data={data}
         />
-      </>
     );
   }
 }

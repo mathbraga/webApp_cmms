@@ -6,9 +6,9 @@ class MessageTab extends Component {
     const data = this.props.data || [];
 
     return (
-      <>
-        <div>messages here</div>
-      </>
+      <MessageTemplateTab
+        data={data}
+      />
     );
   }
 }
