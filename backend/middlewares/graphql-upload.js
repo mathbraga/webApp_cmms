@@ -34,10 +34,9 @@ function reqHasFiles(req){
 async function callback(req, res, next){
   if(reqHasFiles(req)){
     const { files, filesMetadata } = req.body.variables;
-    Promise.all(files.map((file, i) => {
-      return file.then(async resolvedFile => {
-        return await resolveUpload(resolvedFile, filesMetadata[i].uuid)
-      })
+    Promise.all(files.map(async (file, i) => {
+      const resolvedFile = await file.promise;
+      return resolveUpload(resolvedFile, filesMetadata[i].uuid);
     }))
       .then(() => {
         next();

@@ -77,11 +77,13 @@ export default {
         mutation (
           $attributes: TaskInput!,
           $assets: [Int!]!
+          $filesMetadata: [FileMetadatumInput]
         ) {
           mutationResponse: insertTask (
             input: {
               attributes: $attributes
               assets: $assets
+              filesMetadata: $filesMetadata
             }
           ) {
             id
