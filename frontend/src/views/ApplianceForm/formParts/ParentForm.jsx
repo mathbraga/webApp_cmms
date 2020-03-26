@@ -15,6 +15,7 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import CustomTable from '../../../components/Tables/CustomTable';
 
 const mapIcon = require("../../../assets/icons/delete.png");
 
@@ -22,6 +23,7 @@ class ParentForm extends Component {
   render() {
     const { handleParentChange, handleContextChange, addNewParent, removeParent } = this.props;
     const { topOptions, parentOptions } = this.props.data;
+    console.log("Parents: ", this.props.parents);
     return (
       <>
         <Row>
@@ -87,6 +89,18 @@ class ParentForm extends Component {
             Adicionar
           </Button>
         </div>
+        {/* <div className="table-container-form" >
+          <CustomTable
+            type={'full'}
+            tableConfig={tableConfig}
+            customFilters={customFilters}
+            filterAttributes={filterAttributes}
+            searchableAttributes={searchableAttributes}
+            selectedData={this.props.selectedData}
+            handleSelectData={this.props.handleSelectData}
+            data={this.props.data}
+          />
+        </div> */}
         <div className="table-container-form" >
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
