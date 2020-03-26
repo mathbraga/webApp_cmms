@@ -54,7 +54,26 @@ class TaskForm extends Component {
               />
               <div style={{ marginTop: "60px" }} />
                 <h1 className="input-container-title" style={{ marginBottom: "30px" }}>Arquivos</h1>
-                <Dropzone onDrop={selectedFiles => handleFunctions.handleDropFiles(selectedFiles)}/*acceptedFiles => console.log(acceptedFiles)}*/>
+                <Dropzone
+                  // accept={}
+                  // children={}
+                  disabled={false}
+                  // getFilesFromEvent={}
+                  // maxSize={}
+                  // minSize={}
+                  multiple={true}
+                  noClick={false}
+                  noDrag={false}
+                  noDragEventsBubbling={false}
+                  onDragEnter={() => {}}
+                  onDragLeave={() => {}}
+                  onDragOver={() => {}}
+                  onDrop={selectedFiles => handleFunctions.handleDropFiles(selectedFiles)}
+                  // onDropAccepted={}
+                  // onDropRejected={}
+                  onFileDialogCancel={() => {}}
+                  preventDropOnDocument={true}
+                >
                   {({getRootProps, getInputProps}) => (
                     <section className="container">
                       <div {...getRootProps()}>

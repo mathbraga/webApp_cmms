@@ -18,9 +18,8 @@ export default function withForm(WrappedComponent) {
       this.handleInitialDateInputChange = this.handleInitialDateInputChange.bind(this);
       this.handleLimitDateInputChange = this.handleLimitDateInputChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleDropFiles = (files) => {
-        this.setState({files})
-      };
+      this.handleDropFiles = this.handleDropFiles.bind(this);
+      this.handleRemoveFiles = this.handleRemoveFiles.bind(this);
       const idData = this.props.data.idData && this.props.data.idData.nodes[0];
       const { mode } = this.props;
       this.state = {
@@ -101,6 +100,18 @@ export default function withForm(WrappedComponent) {
     handleLimitDateInputChange(date) {
       this.setState({
         limitDate: date,
+      });
+    }
+
+    handleDropFiles(files) {
+      this.setState({
+        files: files,
+      });
+    }
+
+    handleRemoveFiles() {
+      this.setState({
+        files: [],
       });
     }
 
