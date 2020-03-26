@@ -14,6 +14,9 @@ const tables = (props) => ({
   "pages-with-search": (
     <TableWithPages hasSearch={true} {...props} />
   ),
+  "raw-table": (
+    <HTMLTable {...props} />
+  ),
 });
 
 class CustomTable extends Component {
