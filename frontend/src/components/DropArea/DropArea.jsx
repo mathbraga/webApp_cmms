@@ -1,5 +1,34 @@
-import React, { Component } from 'react';
+import React, { Component, useMemo } from 'react';
 import Dropzone from 'react-dropzone';
+
+const baseStyle = {
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '20px',
+  borderWidth: 2,
+  borderRadius: 2,
+  borderColor: '#eeeeee',
+  borderStyle: 'dashed',
+  backgroundColor: '#fafafa',
+  color: '#bdbdbd',
+  outline: 'none',
+  transition: 'border .24s ease-in-out'
+};
+
+const activeStyle = {
+  borderColor: '#2196f3'
+};
+
+const acceptStyle = {
+  borderColor: '#00e676'
+};
+
+const rejectStyle = {
+  borderColor: '#ff1744'
+};
+
 
 class DropArea extends Component {
 
@@ -30,18 +59,36 @@ class DropArea extends Component {
           onFileDialogCancel={() => {}}
           preventDropOnDocument={true}
         >
-          {({getRootProps, getInputProps}) => (
-            <section className="container">
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                <p>Arraste e solte os arquivos nesta área ou clique para selecionar</p>
-              </div>
-              <aside>
-                <h5>{files.length > 0 ? "Arquivos selecionados:" : "Nenhum arquivo selecionado"}</h5>
-                <ul>{files}</ul>
-              </aside>
-            </section>
-          )}
+          {({
+            getRootProps,
+            getInputProps,
+            isDragAccept,
+            isDragActive,
+            isDragReject
+          }) => {
+
+            const style = useMemo(() => ({
+              ...baseStyle,
+              ...(isDragActive ? activeStyle : {}),
+              ...(isDragAccept ? acceptStyle : {}),
+              ...(isDragReject ? rejectStyle : {})
+            }), [
+              isDragActive,
+              isDragReject
+            ]);
+
+            return (
+              <section>
+                <div {...getRootProps({ style })}>
+                  <input {...getInputProps()} />
+                  <p>Arraste e solte os arquivos nesta área ou clique para selecionar</p>
+                </div>
+                <aside>
+                  <h5>{files.length > 0 ? "Arquivos selecionados:" : "Nenhum arquivo selecionado"}</h5>
+                  <ul>{files}</ul>
+                </aside>
+              </section>
+            )}}
         </Dropzone>
       </React.Fragment>
     );
