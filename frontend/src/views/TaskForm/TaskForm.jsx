@@ -7,7 +7,7 @@ import './TaskForm.css';
 import DescriptionForm from './formParts/DescriptionForm';
 import ExecutionForm from './formParts/ExecutionForm';
 import AssetForm from './formParts/AssetForm';
-import Dropzone from 'react-dropzone';
+import DropArea from '../../components/DropArea/DropArea';
 import props from './props';
 import { withProps, withGraphQL, withQuery, withForm, withMutation } from '../../hocs';
 import paths from '../../paths';
@@ -53,40 +53,11 @@ class TaskForm extends Component {
                 {...formState}
               />
               <div style={{ marginTop: "60px" }} />
-                <h1 className="input-container-title" style={{ marginBottom: "30px" }}>Arquivos</h1>
-                <Dropzone
-                  // accept={}
-                  // children={}
-                  disabled={false}
-                  // getFilesFromEvent={}
-                  // maxSize={}
-                  // minSize={}
-                  multiple={true}
-                  noClick={false}
-                  noDrag={false}
-                  noDragEventsBubbling={false}
-                  onDragEnter={() => {}}
-                  onDragLeave={() => {}}
-                  onDragOver={() => {}}
-                  onDrop={selectedFiles => handleFunctions.handleDropFiles(selectedFiles)}
-                  // onDropAccepted={}
-                  // onDropRejected={}
-                  onFileDialogCancel={() => {}}
-                  preventDropOnDocument={true}
-                >
-                  {({getRootProps, getInputProps}) => (
-                    <section className="container">
-                      <div {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        <p>Arraste e solte os arquivos nesta área ou clique para selecionar</p>
-                      </div>
-                      <aside>
-                        <h5>{files.length > 0 ? "Arquivos selecionados:" : "Nenhum arquivo selecionado"}</h5>
-                        <ul>{files}</ul>
-                      </aside>
-                    </section>
-                  )}
-                </Dropzone>
+              <DropArea
+                handleDropFiles={handleFunctions.handleDropFiles}
+                handleRemoveFiles={() => {}}
+                files={files}
+              />
               <div style={{ marginTop: "60px" }} />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Button
