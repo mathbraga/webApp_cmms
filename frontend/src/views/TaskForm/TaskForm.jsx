@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core';
 import { compose } from 'redux';
 import './TaskForm.css';
 import FormGroup from '../../components/Forms/FormGroup';
+import ButtonsContainer from '../../components/Forms/ButtonsContainer';
 import DescriptionForm from './formParts/DescriptionForm';
 import ExecutionForm from './formParts/ExecutionForm';
 import AssetForm from './formParts/AssetForm';
@@ -54,23 +55,9 @@ class TaskForm extends Component {
                 {...formState}
               />
             </FormGroup>
-            <div style={{ marginTop: "60px" }} />
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ marginRight: "10px" }}
-                onClick={mutate}
-              >
-                Cadastrar
-              </Button>
-              <Button variant="contained" style={{ marginRight: "10px" }}>
-                Limpar
-              </Button>
-              <Button variant="contained" color="secondary">
-                Cancelar
-              </Button>
-            </div>
+            <ButtonsContainer 
+              mutate={mutate}
+            />
           </form>
         </div>
       </AssetCard>
