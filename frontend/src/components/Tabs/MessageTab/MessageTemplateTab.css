@@ -1,10 +1,19 @@
 .message__container{
+    display: flex;
+    flex-flow: column nowrap;
     border: 1px solid rgba(232, 232, 232, 1);
-    border-radius: 4px;
+    border-radius: 4px 4px 0 0;
     padding: 12px;
 }
 
-.message__author{
+.message__author {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.message__author div{
     display: flex;
     align-items: center;
 }
@@ -19,7 +28,7 @@
 
 .message__name{
     font-weight: bold;
-    padding-left: 5px;
+    padding-left: 8px;
 }
 
 .message__text{
@@ -27,4 +36,11 @@
     border-bottom: 1px solid rgba(232, 232, 232, 1);
     margin: 12px 0;
     padding: 8px 0;
+    text-align: justify;
+}
+
+.comment__container{
+    padding: 12px;
+    background-color: rgba(240, 240, 240, 1);
+    border-radius: 0 0 4px 4px;
 }
