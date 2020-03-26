@@ -13,7 +13,6 @@ class AssetForm extends Component {
     const { assetOptions, handleAssetChange } = this.props;
     return (
       <>
-        <h1 className="input-container-title" style={{ marginBottom: "30px" }}>Cadastro de Ativos</h1>
         <Row>
           <Col>
             <Autocomplete

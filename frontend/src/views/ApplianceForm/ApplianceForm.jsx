@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AssetCard from '../../components/Cards/AssetCard';
-import { Button } from '@material-ui/core';
 import { compose } from 'redux';
 import './ApplianceForm.css';
 

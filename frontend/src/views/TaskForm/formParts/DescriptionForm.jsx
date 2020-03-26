@@ -15,7 +15,6 @@ class DescriptionForm extends Component {
     } = this.props;
     return (
       <>
-        <h1 className="input-container-title">Descrição do Serviço</h1>
         <Row>
           <Col md={8}>
             <TextField
