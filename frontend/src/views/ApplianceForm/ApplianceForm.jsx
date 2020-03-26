@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import './ApplianceForm.css';
 
 import FormGroup from '../../components/Forms/FormGroup';
+import ButtonsContainer from '../../components/Forms/ButtonsContainer';
 import DescriptionForm from './formParts/DescriptionForm';
 import PurchaseForm from './formParts/PurchaseForm';
 import ParentForm from './formParts/ParentForm';
@@ -47,6 +48,9 @@ class FacilityForm extends Component {
                 {...formState}
               />
             </FormGroup>
+            <ButtonsContainer 
+              mutate={mutate}
+            />
           </form>
         </div>
       </AssetCard>

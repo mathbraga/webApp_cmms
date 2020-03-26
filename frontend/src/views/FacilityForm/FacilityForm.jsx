@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import AssetCard from '../../components/Cards/AssetCard';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { Button } from '@material-ui/core';
 import './FacilityForm.css';
 import FormGroup from '../../components/Forms/FormGroup';
+import ButtonsContainer from '../../components/Forms/ButtonsContainer';
 import DescriptionForm from './formParts/DescriptionForm';
 import LocationForm from './formParts/LocationForm';
 import ParentForm from './formParts/ParentForm';
@@ -46,23 +45,9 @@ class FacilityForm extends Component {
                 {...formState}
               />
             </FormGroup>
-            <div style={{ marginTop: "60px" }} />
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button 
-                variant="contained"
-                color="primary"
-                style={{ marginRight: "10px" }}
-                onClick={mutate}
-              >
-                {mode === 'update' ? "Atualizar" : "Cadastrar"}
-              </Button>
-              <Button variant="contained" style={{ marginRight: "10px" }}>
-                Limpar
-              </Button>
-              <Button variant="contained" color="secondary">
-                Cancelar
-              </Button>
-            </div>
+            <ButtonsContainer 
+              mutate={mutate}
+            />
           </form>
         </div>
       </AssetCard>
