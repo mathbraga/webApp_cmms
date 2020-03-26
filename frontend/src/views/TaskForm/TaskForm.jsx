@@ -55,7 +55,7 @@ class TaskForm extends Component {
               <div style={{ marginTop: "60px" }} />
               <DropArea
                 handleDropFiles={handleFunctions.handleDropFiles}
-                handleRemoveFiles={() => {}}
+                handleRemoveFiles={handleFunctions.handleRemoveFiles}
                 files={files}
               />
               <div style={{ marginTop: "60px" }} />

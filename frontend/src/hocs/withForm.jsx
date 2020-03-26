@@ -28,6 +28,10 @@ export default function withForm(WrappedComponent) {
       };
     }
 
+    componentWillUnmount() {
+      this.state.files.forEach(file => URL.revokeObjectURL(file.preview));
+    }
+
     handleInputChange(event) {
       const { name, value } = event.target;
       this.setState({
@@ -104,8 +108,11 @@ export default function withForm(WrappedComponent) {
     }
 
     handleDropFiles(files) {
+
+      const filesWithPreview = files.map(file => Object.assign(file, { preview: URL.createObjectURL(file) }))
+
       this.setState({
-        files: files,
+        files: filesWithPreview,
       });
     }
 

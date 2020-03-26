@@ -29,12 +29,53 @@ const rejectStyle = {
   borderColor: '#ff1744'
 };
 
+const thumbsContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  marginTop: 16
+};
+
+const thumb = {
+  display: 'inline-flex',
+  borderRadius: 2,
+  border: '1px solid #eaeaea',
+  marginBottom: 8,
+  marginRight: 8,
+  width: 100,
+  height: 100,
+  padding: 4,
+  boxSizing: 'border-box'
+};
+
+const thumbInner = {
+  display: 'flex',
+  minWidth: 0,
+  overflow: 'hidden'
+};
+
+const img = {
+  display: 'block',
+  width: 'auto',
+  height: '100%'
+};
 
 class DropArea extends Component {
 
   render() {
 
     const { handleDropFiles, handleRemoveFiles, files } = this.props;
+
+    const thumbs = files.map(file => (
+      <div style={thumb} key={file.name}>
+        <div style={thumbInner}>
+          <img
+            src={file.preview}
+            style={img}
+          />
+        </div>
+      </div>
+    ));
 
     return (
       <React.Fragment>
@@ -56,7 +97,7 @@ class DropArea extends Component {
           onDrop={selectedFiles => handleDropFiles(selectedFiles)}
           // onDropAccepted={}
           // onDropRejected={}
-          onFileDialogCancel={() => {}}
+          onFileDialogCancel={handleRemoveFiles}
           preventDropOnDocument={true}
         >
           {({
@@ -67,15 +108,12 @@ class DropArea extends Component {
             isDragReject
           }) => {
 
-            const style = useMemo(() => ({
+            const style = {
               ...baseStyle,
               ...(isDragActive ? activeStyle : {}),
               ...(isDragAccept ? acceptStyle : {}),
               ...(isDragReject ? rejectStyle : {})
-            }), [
-              isDragActive,
-              isDragReject
-            ]);
+            };
 
             return (
               <section>
@@ -83,9 +121,14 @@ class DropArea extends Component {
                   <input {...getInputProps()} />
                   <p>Arraste e solte os arquivos nesta área ou clique para selecionar</p>
                 </div>
-                <aside>
-                  <h5>{files.length > 0 ? "Arquivos selecionados:" : "Nenhum arquivo selecionado"}</h5>
+
+                {/* <aside>
+                  <p>{files.length > 0 ? "Arquivos selecionados:" : "Nenhum arquivo selecionado"}</p>
                   <ul>{files}</ul>
+                </aside> */}
+
+                <aside style={thumbsContainer}>
+                  {thumbs}
                 </aside>
               </section>
             )}}
