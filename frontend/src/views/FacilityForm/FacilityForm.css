@@ -1,35 +1,6 @@
 .input-container {
-  padding: 10px 30px;
+  padding: -20px -20px;
   /* border: 1px solid rgb(214, 214, 214);
   border-radius: 5px;
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.1); */
-}
-
-.input-container-title {
-  color: #727272;
-  padding: 0 0 4px 6px;
-  margin-bottom: 15px;
-  font-weight: 500;
-  font-size: 24px;
-  border-bottom: 2px solid #e4e4e4;
-  width: 60%
-}
-
-.input-label {
-  font-weight: 600;
-}
-
-.text-input {
-  -webkit-font-smoothing: antialiased;
-}
-
-.text-input legend {
-  width: auto;
-}
-
-.table-container-form {
-  margin-top: 20px;
-  padding: 20px;
-  background: #dddfe4;
-  border-radius: 5px;
 }

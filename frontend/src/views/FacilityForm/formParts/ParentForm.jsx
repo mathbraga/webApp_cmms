@@ -27,7 +27,6 @@ class ParentForm extends Component {
 
     return (
       <>
-        <h1 className="input-container-title" style={{ marginBottom: "30px" }}>Relação entre Ativos</h1>
         <Row>
           <Col md={8}>
             <Autocomplete
@@ -42,6 +41,7 @@ class ParentForm extends Component {
                 <TextField
                   {...params}
                   variant="outlined"
+                  margin="normal"
                   fullWidth
                   className="text-input"
                   label="Ativo Pai"
@@ -67,6 +67,7 @@ class ParentForm extends Component {
                   {...params}
                   variant="outlined"
                   fullWidth
+                  margin="normal"
                   className="text-input"
                   label="Contexto"
                   placeholder=""
