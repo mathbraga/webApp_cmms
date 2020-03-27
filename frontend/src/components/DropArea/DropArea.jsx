@@ -128,14 +128,14 @@ class DropArea extends Component {
                   <p>Arraste e solte os arquivos nesta área ou clique para selecionar</p>
                 </div>
 
-                <aside>
+                {/* <aside>
                   <p>{filesListItems.length > 0 ? "Arquivos selecionados:" : "Nenhum arquivo selecionado"}</p>
                   <ul>{filesListItems}</ul>
-                </aside>
-
-                {/* <aside style={thumbsContainer}>
-                  {thumbs}
                 </aside> */}
+
+                <aside style={thumbsContainer}>
+                  {thumbs}
+                </aside>
               </section>
             )}}
         </Dropzone>

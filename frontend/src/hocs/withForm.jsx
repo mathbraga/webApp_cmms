@@ -25,6 +25,7 @@ export default function withForm(WrappedComponent) {
       this.state = {
         ...this.props.getInitialFormState(idData, mode),
         files: [],
+        filesMetadata: [],
       };
     }
 
@@ -145,12 +146,10 @@ export default function withForm(WrappedComponent) {
       }
       const formState = this.state;
       const formVariables = this.props.getFormVariables(formState);
-      const filesAndMetadata = { files: this.state.files, filesMetadata: this.state.filesMetadata };
       const mutationVariables = Object.assign(
         {},
         this.props.graphQLVariables,
-        formVariables,
-        filesAndMetadata
+        formVariables
       );
       return (
         <WrappedComponent

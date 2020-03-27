@@ -144,5 +144,7 @@ export default {
     assets: [1],//formState.assets.length > 0 ? formState.assets.map(asset => asset.assetId) : null,
     // supplies: // TODO
     // qty: // TODO
+    files: formState.files.length > 0 ? formState.files : null,
+    filesMetadata: formState.filesMetadata.length > 0 ? formState.filesMetadata : null,
   }),
 }
