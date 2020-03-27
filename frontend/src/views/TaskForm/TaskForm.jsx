@@ -56,7 +56,7 @@ class TaskForm extends Component {
               <DropArea
                 handleDropFiles={handleFunctions.handleDropFiles}
                 handleRemoveFiles={handleFunctions.handleRemoveFiles}
-                files={files}
+                files={formState.files}
               />
               <div style={{ marginTop: "60px" }} />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
