@@ -142,7 +142,7 @@ class DropArea extends Component {
                 </div>
 
                 {files.length === 0
-                  ? <p>Nenhum arquivo selecionado</p>
+                  ? <p className="text-muted mt-3">Nenhum arquivo selecionado</p>
                   // : previewWithList
                   : previewWithThumbs
                 }
