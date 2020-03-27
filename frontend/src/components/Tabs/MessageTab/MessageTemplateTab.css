@@ -40,7 +40,31 @@
 }
 
 .comment__container{
-    padding: 12px;
-    background-color: rgba(240, 240, 240, 1);
-    border-radius: 0 0 4px 4px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.comment__button {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+}
+
+.comment__button:focus{
+    outline: none;
+}
+
+.comment__icon{
+    color: rgba(100, 100, 100, 1);
+}
+
+.comment__action{
+    padding-left: 8px;
+    font-weight: bold;
+    font-size: medium;
+    color: rgba(100, 100, 100, 1);
 }
