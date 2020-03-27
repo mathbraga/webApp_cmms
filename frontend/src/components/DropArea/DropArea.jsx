@@ -67,13 +67,13 @@ class DropArea extends Component {
     const { handleDropFiles, handleRemoveFiles, files } = this.props;
 
     const filesListItems = files.map(file => (
-      <li key={file.filename}>
+      <li key={file.name}>
         {file.name} - {file.size} bytes
       </li>
     ));
 
     const thumbs = files.map(file => (
-      <div style={thumb} key={file.filename}>
+      <div style={thumb} key={file.name}>
         <div style={thumbInner}>
           <img
             src={file.preview}
@@ -82,6 +82,19 @@ class DropArea extends Component {
         </div>
       </div>
     ));
+
+    const previewWithList = (
+      <aside>
+        <p>Arquivos selecionados:</p>
+        <ul>{filesListItems}</ul>
+      </aside>
+    );
+
+    const previewWithThumbs = (
+      <aside style={thumbsContainer}>
+        {thumbs}
+      </aside>
+    );
 
     return (
       <React.Fragment>
@@ -100,7 +113,7 @@ class DropArea extends Component {
           onDragEnter={() => {}}
           onDragLeave={() => {}}
           onDragOver={() => {}}
-          onDrop={selectedFiles => handleDropFiles(selectedFiles)}
+          onDrop={acceptedFiles => handleDropFiles(acceptedFiles)}
           // onDropAccepted={}
           // onDropRejected={}
           onFileDialogCancel={handleRemoveFiles}
@@ -128,14 +141,11 @@ class DropArea extends Component {
                   <p>Arraste e solte os arquivos nesta área ou clique para selecionar</p>
                 </div>
 
-                {/* <aside>
-                  <p>{filesListItems.length > 0 ? "Arquivos selecionados:" : "Nenhum arquivo selecionado"}</p>
-                  <ul>{filesListItems}</ul>
-                </aside> */}
-
-                <aside style={thumbsContainer}>
-                  {thumbs}
-                </aside>
+                {files.length === 0
+                  ? <p>Nenhum arquivo selecionado</p>
+                  // : previewWithList
+                  : previewWithThumbs
+                }
               </section>
             )}}
         </Dropzone>
