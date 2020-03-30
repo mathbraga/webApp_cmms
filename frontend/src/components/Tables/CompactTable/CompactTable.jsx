@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'CompactTable.css';
+import withSorting from '../TableWithSorting/withSorting';
 import HTMLTable from '../RawTable/HTMLTable';
 
 const propTypes = {
@@ -24,6 +25,18 @@ const propTypes = {
 class CompactTable extends Component {
   state = {  }
   render() { 
+    const {
+      data,
+      tableConfig,
+      selectedData,
+      handleSelectData,
+      activeSortKey,
+      isSortReverse,
+      onSort,
+      childConfig,
+      handleNestedChildrenClick,
+      openitems
+    } = this.props;
     return ( 
       <HTMLTable
           data={data}
@@ -36,7 +49,8 @@ class CompactTable extends Component {
           columnsConfig={tableConfig.columnsConfig}
           selectedData={selectedData}
           handleSelectData={handleSelectData}
-          currentPage={currentPage}
+          currentPage={1}
+          // RETIRAR
           itemsPerPage={itemsPerPage}
           activeSortKey={activeSortKey}
           isSortReverse={isSortReverse}
@@ -55,4 +69,6 @@ class CompactTable extends Component {
   }
 }
  
-export default CompactTable;
+export default compose(
+  withSorting
+)(CompactTable);
