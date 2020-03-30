@@ -24,7 +24,6 @@ class ParentForm extends Component {
   render() {
     const { handleParentChange, handleContextChange, addNewParent, removeParent } = this.props;
     const { topOptions, parentOptions } = this.props.data;
-    console.log("Parents: ", this.props.parents);
     return (
       <>
         <Row>
@@ -95,6 +94,7 @@ class ParentForm extends Component {
             type={'raw-table'}
             tableConfig={tableConfig}
             data={this.props.parents}
+            handleAction={{"delete": removeParent}}
           />
         </div>
         <div className="table-container-form" >

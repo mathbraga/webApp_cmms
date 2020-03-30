@@ -40,7 +40,8 @@ class CompactTable extends Component {
       onSort,
       childConfig,
       handleNestedChildrenClick,
-      openitems
+      openitems,
+      handleAction
     } = this.props;
     return ( 
       <HTMLTable
@@ -67,6 +68,7 @@ class CompactTable extends Component {
           isFileTable={tableConfig.isFileTable}
           fileColumnWidth={tableConfig.fileColumnWidth}
           firstEmptyColumnWidth={tableConfig.firstEmptyColumnWidth}
+          handleAction={handleAction}
         />
      );
   }

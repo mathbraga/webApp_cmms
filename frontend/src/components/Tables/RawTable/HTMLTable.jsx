@@ -73,6 +73,7 @@ class HTMLTable extends Component {
       openitems,
       actionColumn,
       actionColumnWidth,
+      handleAction,
       isFileTable,
       fileColumnWidth,
       firstEmptyColumnWidth
@@ -214,8 +215,8 @@ class HTMLTable extends Component {
                         itemId={item[attForDataId]}
                         actionType={actionColumn}
                         handleAction={{
-                          "delete": (id) => () => { console.log("OK1") },
-                          "edit": (id) => () => { console.log("OK2") }
+                          "delete": (id) => () => { handleAction.delete(id) },
+                          "edit": (id) => () => { handleAction.edit(id) }
                         }}
                         openItems={openitems}
                       />
