@@ -97,47 +97,6 @@ class ParentForm extends Component {
             handleAction={{"delete": removeParent}}
           />
         </div>
-        <div className="table-container-form" >
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center" style={{ width: "50px" }}></TableCell>
-                  <TableCell align="left" style={{ width: "400px" }}>Ativo Pai</TableCell>
-                  <TableCell align="center" style={{ width: "200px" }}>Contexto</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {(this.props.parents.length === 0
-                  ?
-                  <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell>Não há itens cadastrados.</TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-                  : this.props.parents.map((row) => (
-                    <TableRow key={row.parent.assetSf}>
-                      <TableCell align="center" component="th" scope="row">
-                        <img
-                          onClick={() => removeParent(row.id)}
-                          src={mapIcon}
-                          alt="Delete"
-                          style={{ width: "25px", height: "25px", cursor: "pointer" }}
-                        />
-                      </TableCell>
-                      <TableCell align="left" component="th" scope="row">
-                        {`${row.parent.assetSf}: ${row.parent.name}`}
-                      </TableCell>
-                      <TableCell align="center" component="th" scope="row">
-                        {row.context.name}
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
       </>
     );
   }
