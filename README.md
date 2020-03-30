@@ -12,11 +12,8 @@
 
 <h3>Banco de Dados (📁database)</h3>
 
-<p>
-  O sistema gerenciador de banco de dados relacional (RDBMS) é o <a href="https://www.postgresql.org/">PostgreSQL</a>.
-  São consideradas as seguintes entidades:
-</p>
-
+<p>O sistema gerenciador de banco de dados relacional (RDBMS) é o <a href="https://www.postgresql.org/">PostgreSQL</a>.</p>
+<p>As seguintes entidades compoẽm o modelo de dados a:</p>
 <table>
   <thead>
     <tr>
@@ -109,6 +106,66 @@
       <td>1..*</td>
       <td>Persons</td>
       <td>Define as pessoas que pertencem a uma determinada equipe.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Para a consistência deste modelo de dados, alguns dos atributos dessas entidades possuem um conjunto limitado de valores possíveis (e.g. o status de uma tarefa somente pode ser 'pendente', 'em execução', 'concluída' etc.), não podendo serem escolhidos livremente pelos usuários (como é o caso, por exemplo, da descrição de uma tarefa).
+</p>
+<p>
+  Esses valores são cadastrados no banco de dados em tabelas próprias, chamadas 'lookup tables' (LUTs), que contêm apenas códigos numéricos (um para cada valor distinto, a serem referenciados por outras tabelas) e seus respectivos textos descritivos (para visualização pelo usuário, no front-end). 
+</p>
+<p>
+  A garantia de que não serão válidas as operações de <code>INSERT</code> ou <code>UPDATE</code> que contenham valores não existentes nas LUTs é imposta por chaves estrangeiras (restrições como "<code>REFERENCES nome_da_LUT (código_da_LUT)</code>", aplicadas nas colunas que deverão ser submetidas a essa checagem).
+</p>
+<p>
+  A adição de novos valores em LUTs não é possível pela interface do usuário. Tal modificação (bem como quaisquer outras alterações no modelo de dados) somente pode ser realizada por um administrador do sistema, em um procedimento denominado '<a href="https://en.wikipedia.org/wiki/Schema_migration">schema migration</a>'.
+</p>
+<p>As LUTs são as seguintes:</p>
+<table>
+  <thead>
+    <tr>
+      <th>Nome da LUT</th>
+      <th>Atributo</th>
+      <th>Exemplos de valores possíveis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>contract_statuses</td>
+      <td>Status de uma contratação</td>
+      <td>Em licitação, em execução, finalizado etc.</td>
+    </tr>
+    <tr>
+      <td>task_statuses</td>
+      <td>Status de uma tarefa</td>
+      <td>Pendente, cancelada, concluída etc.</td>
+    </tr>
+    <tr>
+      <td>task_priorities</td>
+      <td>Prioridade de uma tarefa</td>
+      <td>Normal, alta etc.</td>
+    </tr>
+    <tr>
+      <td>task_categories</td>
+      <td>Categoria de uma tarefa</td>
+      <td>Elétrica, hidrossanitária, civil, ar-condicionado etc.</td>
+    </tr>
+    <tr>
+      <td>person_roles</td>
+      <td>Papéis (tipos de usuários, com suas respectivas permissões no sistema)</td>
+      <td>administrator, supervisor etc.</td>
+    </tr>
+    <tr>
+      <td>spec_categories</td>
+      <td>Categorias de uma especificação técnica (em conformidade com a lista atual de categorias usadas na wiki do Redmine)</td>
+      <td>Geral, Serviços de Apoio, Civil etc.</td>
+    </tr>
+    <tr>
+      <td>spec_subcategories</td>
+      <td>Subcategorias (vinculadas a uma das possíveis categorias) de uma especificação técnica (também em conformidade com a lista atual de subcategorias usadas na wiki do Redmine)</td>
+      <td>Limpeza, Revestimentos, Pinturas, Pisos etc.</td>
     </tr>
   </tbody>
 </table>
