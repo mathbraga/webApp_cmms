@@ -10,22 +10,19 @@
   O webSINFRA é desenvolvido como uma <a href="https://en.wikipedia.org/wiki/Web_application">aplicação web</a>, e os diretórios deste repositório (📁database, 📁backend e 📁frontend) correspondem às<a href="https://en.wikipedia.org/wiki/Multitier_architecture"> três camadas</a> de sua arquitetura.
 </p>
 
-<h3>Banco de Dados (📁database)</h3>
+<h3>📁 database</h3>
 
 EXPLICAÇÕES PARA ADICIONAR:
-* Extensões (pgcrypto)
-* Roles e rls
 * types (file_metadata)
 * triggers
 * exception messages
 * asset trees
-* authentication
 
 
 
 
 <p>O sistema gerenciador de banco de dados relacional (RDBMS) é o <a href="https://www.postgresql.org/">PostgreSQL</a>.</p>
-<p>As seguintes entidades compoẽm o modelo de dados a:</p>
+<p>As seguintes entidades compoẽm o modelo de dados:</p>
 <table>
   <thead>
     <tr>
@@ -181,6 +178,28 @@ EXPLICAÇÕES PARA ADICIONAR:
     </tr>
   </tbody>
 </table>
+<p>Há ainda outras tabelas, que fazem parte do schema <code>private</code> (as explicações sobre os schemas são dadas posteriormente neste documento):</p>
+<table>
+  <thead>
+    <tr>
+      <th>Nome da tabela</th>
+      <th>Conteúdo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>accounts</code></td>
+      <td>Dados referentes a contas dos usuários do sistema (e.g., hash das senhas*, papéis etc.).</td>
+    </tr>
+    <tr>
+      <td><code>audit_trails</code></td>
+      <td>Registros de modificações realizadas no banco de dados pelos usuários do sistema (operações de <code>INSERT</code>, <code>UPDATE</code> e <code>DELETE</code>.)</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  (*) Observação: o hash das senhas é gerado com uma função de criptografia proveniente da extensão <a href="https://www.postgresql.org/docs/12/pgcrypto.html"><code>pgcrypto</code></a>.
+</p>
 
 <p>
   Convenções e estratégias utilizadas:
@@ -310,13 +329,25 @@ EXPLICAÇÕES PARA ADICIONAR:
 </table>
 
 
+<p>Autenticação</p>
+
+
+
+
+
+<p>Roles e Row-Level Security (RLS)</p>
+
+
+
+
+
 
 <p>
   Os testes das rotinas que permitem os usuários realizarem alterações no banco de dados 
   (por exemplo, criação ou atualização de uma tarefa) e seus respectivos triggers de checagem são encontrados em <a href="./backend/tests">/backend/tests.</a>
 </p>
 
-<h3>Back-end (📁backend)</h3>
+<h3>📁 backend</h3>
 
 <p>
   O servidor web, desenvolvido em <a href="https://nodejs.org/en/">Node.js</a>, é uma camada intermediária entre o banco de dados e a interface do usuário.
@@ -378,7 +409,7 @@ EXPLICAÇÕES PARA ADICIONAR:
   </ul>
 </p>
 
-<h3>Front-end (📁frontend)</h3>
+<h3>📁 frontend</h3>
 
 <p>
   A interface ao usuário é uma página web, desenvolvida com um visual moderno e agradável, navegação intuitiva e responsividade (ajuste automático à largura da tela do dispositivo utilizado pelo usuário).
