@@ -44,12 +44,14 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: flex-end;
+    background-color: rgba(232, 232, 232, 1);
+    border-radius: 0 0 4px 4px;
 }
 
 .comment__button {
     display: flex;
     align-items: center;
-    padding: 0;
+    padding: 12px 12px 12px 0;
     background-color: transparent;
     border: none;
 }
@@ -67,4 +69,9 @@
     font-weight: bold;
     font-size: medium;
     color: rgba(100, 100, 100, 1);
+}
+
+.comment__text__area{
+    align-self: stretch;
+    padding: 8px;
 }

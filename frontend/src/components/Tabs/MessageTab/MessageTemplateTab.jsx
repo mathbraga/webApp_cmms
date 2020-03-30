@@ -40,28 +40,26 @@ class MessageTemplateTab extends Component {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio urna, posuere ut quam id, facilisis porttitor neque. Nullam finibus neque sed lorem vehicula, ut dignissim mauris sagittis. Sed in aliquam eros. Nunc semper dui a vulputate dignissim. Duis vestibulum ac neque vel ultrices. Vestibulum porttitor sapien nec metus dictum.
               </div>
           </div>
+          </div>
           <div className="comment__container">
+            <div className="comment__text__area">
+              <Collapse isOpen={isOpen}>
+                <Input type="textarea"/>
+              </Collapse>
+            </div>
             <button className="comment__button" onClick={setCollapseState}>
               <i className="comment__icon fa fa-comment"></i>
               <div className="comment__action">Comentar</div>
             </button>
-            <Collapse isOpen={isOpen}>
-              <Card>
-                <CardBody>
-                  Digitar comentário.
-                </CardBody>
-              </Card>
-            </Collapse>
           </div>
-        </div>
-        {/* <div className="comment__container">
+          {/* <div className="comment__container">
           <InputGroup>
             <Input/>
             <InputGroupAddon addon="append">
               <Button color="primary">Comentar</Button>
             </InputGroupAddon>
           </InputGroup>
-        </div> */}
+          </div> */}
       </>
     );
   }
