@@ -66,6 +66,7 @@ class CompactTable extends Component {
           actionColumnWidth={tableConfig.actionColumnWidth}
           isFileTable={tableConfig.isFileTable}
           fileColumnWidth={tableConfig.fileColumnWidth}
+          firstEmptyColumnWidth={tableConfig.firstEmptyColumnWidth}
         />
      );
   }

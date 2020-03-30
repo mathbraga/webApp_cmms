@@ -12,9 +12,10 @@ const tableConfig = {
   attForDataId: 'id',
   actionColumn: ['delete'],
   actionColumnWidth: '10%',
+  firstEmptyColumnWidth: '5%',
   columnsConfig: [
     { columnId: 'parent', columnName: 'Ativo Pai', width: "50%", align: "justify", idForValues: ['parent'], isTextWrapped: true, createElementWithData: createParentElement },
-    { columnId: 'context', columnName: 'Contexto', width: "40%", align: "center", idForValues: ['context'], isTextWrapped: true, createElementWithData: createContextElement },
+    { columnId: 'context', columnName: 'Contexto', width: "35%", align: "center", idForValues: ['context'], isTextWrapped: true, createElementWithData: createContextElement },
   ],
 };
 

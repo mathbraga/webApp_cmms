@@ -74,7 +74,8 @@ class HTMLTable extends Component {
       actionColumn,
       actionColumnWidth,
       isFileTable,
-      fileColumnWidth
+      fileColumnWidth,
+      firstEmptyColumnWidth
     } = this.props;
     const visibleData = itemsPerPage ? (data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)) : data;
     return (
@@ -90,6 +91,14 @@ class HTMLTable extends Component {
                   className="main-table__header__row"
                   key="header"
                 >
+                  {firstEmptyColumnWidth && (
+                    <CustomHeader
+                      width={firstEmptyColumnWidth}
+                      id={"empty"}
+                      value={""}
+                      align={"center"}
+                    />
+                  )}
                   {hasCheckbox && (
                     <CheckboxHeader
                       width={checkboxWidth}
@@ -139,6 +148,18 @@ class HTMLTable extends Component {
                     })}
                     key={item[attForDataId]}
                   >
+                    {firstEmptyColumnWidth && (
+                      <CustomBodyElement
+                        id={"empty"}
+                        value={""}
+                        columnId={"empty"}
+                        itemId={item[attForDataId]}
+                        key={"empty"}
+                        dataValue={""}
+                        openitems={openitems}
+                        align={"center"}
+                      />
+                    )}
                     {hasCheckbox && (
                       <CheckboxBodyElement
                         selectedData={selectedData}
