@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'CompactTable.css';
+import withSorting from '../TableWithSorting/withSorting';
 import HTMLTable from '../RawTable/HTMLTable';
 
 const propTypes = {
@@ -55,4 +56,6 @@ class CompactTable extends Component {
   }
 }
  
-export default CompactTable;
+export default compose(
+  withSorting
+)(CompactTable);
