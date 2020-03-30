@@ -12,6 +12,18 @@
 
 <h3>Banco de Dados (📁database)</h3>
 
+EXPLICAÇÕES PARA ADICIONAR:
+* Extensões (pgcrypto)
+* Roles e rls
+* types (file_metadata)
+* triggers
+* exception messages
+* asset trees
+* authentication
+
+
+
+
 <p>O sistema gerenciador de banco de dados relacional (RDBMS) é o <a href="https://www.postgresql.org/">PostgreSQL</a>.</p>
 <p>As seguintes entidades compoẽm o modelo de dados a:</p>
 <table>
@@ -191,7 +203,7 @@
       O schema <strong>private</strong> contém dados que somente podem ser acessados pelos administradores (tabela com hash de senhas e 'roles' dos usuários, tabela com logs/audit trails etc.).
     </p>
     <p>
-      O schema <strong>api</strong> é a interface exposta (via PostGraphile, em GraphQL), aos usuários da aplicação, contendo os objetos (views e funções) que traduzem as funcionalidades e requisitos definidos para o sistema. Exemplos:
+      O schema <strong>api</strong> é a interface exposta (via PostGraphile, em GraphQL) aos usuários da aplicação, contendo os objetos (views e funções) que traduzem as funcionalidades e requisitos definidos para o sistema. Exemplos:
       <table>
         <thead>
           <tr>
@@ -202,13 +214,13 @@
         </thead>
         <tbody>
           <tr>
-            <td>O usuário deseja visualizar todas as informações referentes  a uma determinada tarefa</td>
-            <td>View, que compila, com <code>JOIN</code>s e funções auxiliares, os dados de uma tarefa e todas entidades a ela relacionadas (ativos, suprimentos etc.)</td>
+            <td>O usuário deseja visualizar todas as informações referentes a uma determinada tarefa</td>
+            <td>View <code>api.task_data</code>, que compila, com <code>JOIN</code>s e views e funções auxiliares, todos os dados de uma tarefa e todas entidades a ela relacionadas (ativos, suprimentos etc.)</td>
             <td>Query</td>
           </tr>
           <tr>
             <td>O usuário deseja poder cadastrar um novo contrato e seus respectivos materiais e serviços</td>
-            <td>Função, cujos inputs são fornecidos pelo usuário (via formulário da UI) e executa os <code>INSERT</code>s necessários nas tabelas de contratos e suprimentos</td>
+            <td>Função <code>api.insert_contract</code>, cujos inputs são fornecidos pelo usuário (via formulário da UI) e executa os <code>INSERT</code>s necessários nas tabelas de contratos e suprimentos</td>
             <td>Mutation</td>
           </tr>
         </tbody>
