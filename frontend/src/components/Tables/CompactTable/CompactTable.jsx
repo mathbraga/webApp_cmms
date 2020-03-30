@@ -54,9 +54,6 @@ class CompactTable extends Component {
           columnsConfig={tableConfig.columnsConfig}
           selectedData={selectedData}
           handleSelectData={handleSelectData}
-          currentPage={1}
-          // RETIRAR
-          itemsPerPage={1000}
           activeSortKey={activeSortKey}
           isSortReverse={isSortReverse}
           onSort={onSort}
