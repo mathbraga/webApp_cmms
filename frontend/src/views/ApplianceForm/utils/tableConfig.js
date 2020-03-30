@@ -1,14 +1,19 @@
+import React from 'react';
+
+function createParentElement(parent) {
+  return `${parent.assetSf}: ${parent.name}`;
+}
+
+function createContextElement(context) {
+  return `${context.name}`;
+}
+
 const tableConfig = {
-  attForDataId: 'assetId',
-  hasCheckbox: true,
-  checkboxWidth: '5%',
-  isItemClickable: true,
-  dataAttForClickable: 'name',
-  itemPathWithoutID: paths.appliance.toOne,
+  attForDataId: 'id',
+  actionColumn: ['delete'],
   columnsConfig: [
-    { columnId: 'name', columnName: 'Equipamento', width: "30%", align: "justify", idForValues: ['name', 'assetSf'] },
-    { columnId: 'model', columnName: 'Modelo', width: "10%", align: "center", idForValues: ['model'] },
-    { columnId: 'manufacturer', columnName: 'Fabricante', width: "10%", align: "center", idForValues: ['manufacturer'] },
+    { columnId: 'parent', columnName: 'Ativo Pai', width: "70%", align: "justify", idForValues: ['parent'], createElementWithData: createParentElement },
+    { columnId: 'context', columnName: 'Contexto', width: "30%", align: "center", idForValues: ['context'], createElementWithData: createContextElement },
   ],
 };
 

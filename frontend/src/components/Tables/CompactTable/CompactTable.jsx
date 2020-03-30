@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import 'CompactTable.css';
+import './CompactTable.css';
 import withSorting from '../TableWithSorting/withSorting';
 import HTMLTable from '../RawTable/HTMLTable';
+import PropTypes from 'prop-types';
+// PropTypes
+import { selectedDataShape, tableConfigShape } from '../__propTypes__/tableConfig';
+
+import { compose } from 'redux';
 
 const propTypes = {
   data: PropTypes.array,
@@ -51,7 +56,7 @@ class CompactTable extends Component {
           handleSelectData={handleSelectData}
           currentPage={1}
           // RETIRAR
-          itemsPerPage={itemsPerPage}
+          itemsPerPage={1000}
           activeSortKey={activeSortKey}
           isSortReverse={isSortReverse}
           onSort={onSort}
