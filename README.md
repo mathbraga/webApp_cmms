@@ -118,6 +118,13 @@
 </p>
 
 <ol>
+  <li>Índices e chaves primárias
+    <p>Todas as entidades possuem um atributo de 'identidade', definido automaticamente pelo RDBMS como um número inteiro sequencial (e.g.: coluna <code>asset_id</code> da tabela <code>assets</code>). Tais atributos são as chaves primárias de suas respectivas tabelas e, por isso, indexados. A indexação permite que uma query que busca uma entidade específica do banco de dados retorne resultados mais rapidamente (essas queries são as que ocorrem, por exemplo, quando um usuário usa o sistema para visualizar uma determinada tarefa). A convenção para os nomes dessas colunas é utilizar a terminação <code>_id</code></p>
+    <p>A exceção desta regra é a tabela de papéis (grupos), <b>person_roles</b>, em que que a chave primária é a própria palavra que define o papel. Esta exceção é justificada pelo fato de que o comando <code>CREATE ROLE</code> não aceita números como nome do papel (o nome do papel deve ser uma palavra com caracteres alfanuméricos iniciada por uma letra).</p>
+    <p>Algumas entidades possuem um outro atributo de identidade, correspondente a uma coluna definida com a restrição <code>UNIQUE</code>. Os valores a serem inseridos nessas colunas devem ser códigos amigáveis, que, ao contrário dos números sequenciais, fazem sentido para a aplicação e seus usuários. Exemplo: coluna <code>asset_sf</code> na tabela <code>assets</code>. A convenção para os nomes dessas colunas é utilizar a terminação <code>_sf</code> (de Senado Federal).</p>
+    <p>O uso de dois identificadores dá flexibilidade ao modelo de dados, pois, dessa maneira, o usuário pode alterar livremente os códigos <code>_sf</code> das entidades, com a única restrição de que escolha um código distinto dos códigos já existentes. Já a alteração das chaves primárias, operação proibida pelo RDBMS, torna-se desnecessária para os fins da aplicação.</p>
+    <p>EXPLICAÇÃO DE CHAVES COM MÚLTIPLAS COLUNAS</p>
+  </li>
   <li>Schemas
     <p>São utilizados 3 schemas ("namespaces"): (1) public, (2) private e (3) api.</p>
     <p>
