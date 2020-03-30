@@ -16,6 +16,7 @@ import {
   Col,
 } from 'reactstrap';
 import CustomTable from '../../../components/Tables/CustomTable';
+import tableConfig from '../utils/tableConfig';
 
 const mapIcon = require("../../../assets/icons/delete.png");
 
@@ -89,18 +90,13 @@ class ParentForm extends Component {
             Adicionar
           </Button>
         </div>
-        {/* <div className="table-container-form" >
+        <div className="table-container-form" >
           <CustomTable
-            type={'full'}
+            type={'raw-table'}
             tableConfig={tableConfig}
-            customFilters={customFilters}
-            filterAttributes={filterAttributes}
-            searchableAttributes={searchableAttributes}
-            selectedData={this.props.selectedData}
-            handleSelectData={this.props.handleSelectData}
-            data={this.props.data}
+            data={this.props.parents}
           />
-        </div> */}
+        </div>
         <div className="table-container-form" >
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
