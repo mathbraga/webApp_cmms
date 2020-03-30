@@ -20,8 +20,10 @@ EXPLICAÇÕES PARA ADICIONAR:
 
 
 
-
 <p>O sistema gerenciador de banco de dados relacional (RDBMS) é o <a href="https://www.postgresql.org/">PostgreSQL</a>.</p>
+
+<h4>Modelo de dados e tabelas</h4>
+
 <p>As seguintes entidades compoẽm o modelo de dados:</p>
 <table>
   <thead>
@@ -327,25 +329,31 @@ EXPLICAÇÕES PARA ADICIONAR:
     </tr>
   </tbody>
 </table>
-
-
-<p>Autenticação</p>
-
-
-
-
-
-<p>Roles e Row-Level Security (RLS)</p>
-
-
-
-
-
-
 <p>
   Os testes das rotinas que permitem os usuários realizarem alterações no banco de dados 
   (por exemplo, criação ou atualização de uma tarefa) e seus respectivos triggers de checagem são encontrados em <a href="./backend/tests">/backend/tests.</a>
 </p>
+
+<h4>Conexão, autenticação, roles (papéis) e Row-Level Security (RLS)</h4>
+
+<p>
+  Detalhes sobre conexão, autenticação e gerenciamento de sessões são tratados no back-end (ver adiante neste documento).
+</p>
+<p>
+  No que diz respeito ao banco de dados, o processo de autenticação usa a função (<code>api.authenticate</code>), que basicamente compara o hash da senha informada no login com o hash da senha registrado na tabela <code>private.accounts</code>. Em caso de correção das informações fornecidas, a função retorna uma string com o formato <code>x-role</code>, em que <code>x</code> é o número do usuário cadastrado no sistema (<code>person_id</code> nas tabelas <code>persons</code> e <code>private.accounts</code>) e <code>role</code> é o respectivo papel (<code>person_role</code> na tabela <code>private.accounts</code>). O back-end é responsável por colocar a string num cookie e passá-lo ao cliente. A partir deste momento, as transações feitas pelo usuário logado carregam sempre esse cookie em suas requisições HTTP. O PostGraphile passa as informações contidas no cookie para o RDBMS por meio da função <a href="https://www.graphile.org/postgraphile/usage-library/#pgsettings-function"><code>pgSettings</code></a>. Durante as transações realizadas durante a sessão do usuário em questão, <code>x</code> e <code>role</code> são acessíveis, respectivamente, pela função <code>get_current_person_id()</code> e pela função (built-in) <code>current_role</code> (ou <code>current_user</code>).
+</p>
+<p>
+  Os papéis são definidos conforme a tabela a seguir:
+</p>
+<table>
+  <thead>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+
+
 
 <h3>📁 backend</h3>
 
