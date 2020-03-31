@@ -4,13 +4,17 @@ const path = require('path');
 const { pgPool } = require('../../db');
 const inputs = require('./inputs');
 const paths = require('../../paths');
-const gql = require('./gql');
+const {gql} = require('./gql');
 
 describe('Test task functions', () => {
   
   const url = path.join('http://localhost:3001', paths.db);
   const upload = __dirname + '/test.txt';
   const curl = `curl -X POST -F operations='${gql}' -F map='{ "0": ["variables.files.0"] }' -F 0=@${upload} ${url}`;
+  // const curl = `curl -X POST -H 'Content-Type: application/json' -d '${gql}' ${url}`;
+
+
+console.log(gql)
 
   // Setup and teardown
   afterAll(async () => {
