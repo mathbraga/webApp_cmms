@@ -40,18 +40,24 @@ class MessageTemplateTab extends Component {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio urna, posuere ut quam id, facilisis porttitor neque. Nullam finibus neque sed lorem vehicula, ut dignissim mauris sagittis. Sed in aliquam eros. Nunc semper dui a vulputate dignissim. Duis vestibulum ac neque vel ultrices. Vestibulum porttitor sapien nec metus dictum.
               </div>
           </div>
-          </div>
-          <div className="comment__container">
-            <div className="comment__text__area">
-              <Collapse isOpen={isOpen}>
-                <Input type="textarea"/>
-              </Collapse>
+          <button className="comment__button" onClick={setCollapseState}>
+            <i className="comment__icon fa fa-comment"></i>
+            <div className="comment__action">Comentar</div>
+          </button>
+          <div className="talk-bubble tri-right left-top">
+            <div className="talktext">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio urna, posuere ut quam id, facilisis porttitor neque. Nullam finibus neque sed lorem vehicula, ut dignissim mauris sagittis.
             </div>
-            <button className="comment__button" onClick={setCollapseState}>
-              <i className="comment__icon fa fa-comment"></i>
-              <div className="comment__action">Comentar</div>
-            </button>
           </div>
+        </div>
+          <div className="comment__container">
+          </div>
+          <Collapse isOpen={isOpen}>
+            <div className="comment__text__area">
+              <Input placeholder="Digitar mensagem." className="comment__text__box" type="textarea"/>
+              <Button className="comment__text__action" color="primary">Enviar</Button>
+            </div>
+          </Collapse>
           {/* <div className="comment__container">
           <InputGroup>
             <Input/>

@@ -50,8 +50,9 @@
 
 .comment__button {
     display: flex;
+    justify-content: flex-end;
     align-items: center;
-    padding: 12px 12px 12px 0;
+    padding: 0;
     background-color: transparent;
     border: none;
 }
@@ -72,6 +73,47 @@
 }
 
 .comment__text__area{
-    align-self: stretch;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
     padding: 8px;
+    background-color: rgba(232, 232, 232, 1);
+    border-radius: 0 0 4px 4px;
+}
+
+.comment__text__box{
+    min-height: 100px;
+}
+
+.comment__text__action{
+    margin: 8px 0 0 0;
+}
+
+/* all code beneath to be refactored later */
+.talk-bubble {
+	margin: 12px;
+    position: relative;
+    border-radius: 4px;
+    background-color: rgba(232, 232, 232, 1);
+}
+
+/* talk bubble contents */
+.talktext{
+    padding: 8px;
+    text-align: left;
+    line-height: 1.5em;
+}
+
+.tri-right.left-top:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+    left: auto;
+	right: -12px;
+    top: 0px;
+	bottom: auto;
+    border: 22px solid;
+    border-radius: 8px;
+    border-color: rgba(232, 232, 232, 1) transparent transparent transparent;
 }
