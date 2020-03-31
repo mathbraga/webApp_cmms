@@ -41,11 +41,18 @@ export default function withForm(WrappedComponent) {
         const { parent, context } = prevState;
         if (parent && context) {
           const id = `${parent.assetId}-${context.assetId}`;
+          const idList = prevState.parents.map(item => item.id);
+          if (!idList.includes(id)) {
+            return ({
+              parents: [
+                ...prevState.parents,
+                { parent, context, id }
+              ],
+              parent: null,
+              context: null,
+            });
+          }
           return ({
-            parents: [
-              ...prevState.parents,
-              { parent, context, id }
-            ],
             parent: null,
             context: null,
           });
