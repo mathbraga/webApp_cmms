@@ -20,6 +20,7 @@ export default function CheckboxHeader({ width, selectedData, visibleData, attFo
     const itemId = item[attForDataId]
     checked = checked && selectedData[itemId];
   });
+  checked = visibleData.length === 0 ? false : checked;
 
   function handleSelectAllData() {
     if (checked) {

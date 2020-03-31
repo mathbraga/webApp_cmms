@@ -46,7 +46,6 @@ export default function ActionBodyElement({
   handleAction,
   itemId,
 }) {
-  console.log("Handle: ", handleAction.delete);
   return (
     <td
       className={classNames({
