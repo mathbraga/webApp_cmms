@@ -38,7 +38,7 @@ return `{ \
 }`
 }
 
-const vars = {
+const varsSuccess = {
   id:'null',
   taskStatusId:'1',
   taskPriorityId:'1',
@@ -54,19 +54,23 @@ const vars = {
   dateStart:'null',
   dateEnd:'null',
   assets:'[1]',
-  // files:'[null]',
-  // filesMetadata:'[{"filename":"test.txt","uuid":"de741848-5e90-4c5e-8699-78aca9b37aba","size":1234}]'
   files: 'null',
   filesMetadata: 'null',
 }
 
-
-
-module.exports = {gql:  buildReqBody(Object.assign(
-  {},
-  {...vars},
+const varsSuccessWithFile = Object.assign(
+  {...varsSuccess},
   {
-    files: '[null]',
-    filesMetadata: '[{"filename":"test.txt","uuid":"de741848-5e90-4c5e-8699-78aca9b37aba","size":1234}]'
+    files:'[null]',
+    filesMetadata:'[{"filename":"test.txt","uuid":"de741848-5e90-4c5e-8699-78aca9b37aba","size":1234}]'
   }
-))}
+);
+
+
+module.exports = {
+  reqSuccess: buildReqBody(varsSuccess),
+  // reqFailNoAssets: buildReqBody(varsFailNoAssets),
+  // reqFailLargeQty: buildReqBody(varsFailLargeQty),
+  // reqFailWrongContract: buildReqBody(varsFailWrongContract),
+  reqSuccessWithFiles: buildReqBody(varsSuccessWithFile),
+}
