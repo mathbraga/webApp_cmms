@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import {
   TextField,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   Button
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -17,8 +10,6 @@ import {
 } from 'reactstrap';
 import CustomTable from '../../../components/Tables/CustomTable';
 import tableConfig from '../utils/tableConfig';
-
-const mapIcon = require("../../../assets/icons/delete.png");
 
 class ParentForm extends Component {
   render() {

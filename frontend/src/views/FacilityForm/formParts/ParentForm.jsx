@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import {
   TextField,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   Button
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -16,14 +9,16 @@ import {
   Col,
 } from 'reactstrap';
 import ListboxComponent from './ListboxComponent';
-
-const mapIcon = require("../../../assets/icons/delete.png");
+import CustomTable from '../../../components/Tables/CustomTable';
+import tableConfig from '../utils/tableConfig';
 
 class ParentForm extends Component {
 
   render() {
     const { handleParentChange, handleContextChange, addNewParent, removeParent } = this.props;
     const { topOptions, parentOptions } = this.props.formData;
+
+    console.log("Parents: ", this.props.parents);
 
     return (
       <>
@@ -91,45 +86,12 @@ class ParentForm extends Component {
           </Button>
         </div>
         <div className="table-container-form" >
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center" style={{ width: "50px" }}></TableCell>
-                  <TableCell align="left" style={{ width: "400px" }}>Ativo Pai</TableCell>
-                  <TableCell align="center" style={{ width: "200px" }}>Contexto</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {(this.props.parents.length === 0
-                  ?
-                  <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell>Não há itens cadastrados.</TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-                  : this.props.parents.map((row) => (
-                    <TableRow key={row.parent.assetSf}>
-                      <TableCell align="center" component="th" scope="row">
-                        <img
-                          onClick={() => removeParent(row.id)}
-                          src={mapIcon}
-                          alt="Delete"
-                          style={{ width: "25px", height: "25px", cursor: "pointer" }}
-                        />
-                      </TableCell>
-                      <TableCell align="left" component="th" scope="row">
-                        {`${row.parent.assetSf}: ${row.parent.name}`}
-                      </TableCell>
-                      <TableCell align="center" component="th" scope="row">
-                        {row.context.name}
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <CustomTable
+            type={'raw-table'}
+            tableConfig={tableConfig}
+            data={this.props.parents}
+            handleAction={{"delete": removeParent}}
+          />
         </div>
       </>
     );
