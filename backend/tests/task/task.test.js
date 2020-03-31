@@ -9,7 +9,6 @@ const gql = require('./gql');
 describe('Test task functions', () => {
   
   const url = path.join('http://localhost:3001', paths.db);
-  const headers = __dirname + '/headers';
   const upload = __dirname + '/test.txt';
   const curl = `curl -X POST -F operations='${gql}' -F map='{ "0": ["variables.files.0"] }' -F 0=@${upload} ${url}`;
 
@@ -65,9 +64,7 @@ describe('Test task functions', () => {
 
   // FILE UPLOAD
   test('upload file', async () => {
-    const stdout = await exec(curl);
-    console.log(stdout);
-    // expect(stdout).toMatch(/Este é um comentário/);
+    await expect(exec(curl)).resolves.toMatchObject({stdout: expect.stringMatching(/\"id\":\d+/)});
   });
 
 });
