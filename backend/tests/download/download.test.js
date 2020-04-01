@@ -12,10 +12,17 @@ describe('Download tests', () => {
     "test.txt"
   );
   const curlDownload = `curl -X GET ${downloadURL}`;
+  const curlStatic = `curl -I http://localhost:3001/images/test.jpeg`;
 
   test('Download', async () => {
     await expect(exec(curlDownload)).resolves.toMatchObject({
       stdout: expect.stringMatching(/upload and download/i)
+    });
+  });
+
+  test('Static files', async () => {
+    await expect(exec(curlStatic)).resolves.toMatchObject({
+      stdout: expect.stringMatching(/200 OK/i)
     });
   });
 
