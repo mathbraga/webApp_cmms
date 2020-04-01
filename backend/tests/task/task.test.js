@@ -1,12 +1,10 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const path = require('path');
-const { pgPool } = require('../../db');
-const inputs = require('./inputs');
 const paths = require('../../paths');
 const { reqSuccess, reqSuccessWithFiles } = require('./reqs');
 
-describe('Test task functions', () => {
+describe('Task tests', () => {
   
   const url = path.join('http://localhost:3001', paths.db);
   const upload = __dirname + '/test.txt';
