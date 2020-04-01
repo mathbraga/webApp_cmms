@@ -23,6 +23,8 @@ class Appliance extends Component {
     ];
     return (
       <ItemView
+        sectionName={'Equipamento'}
+        sectionDescription={'Ficha descritiva de um equipamento'}
         data={finalData}
         image={image}
         imageStatus={imageStatus}

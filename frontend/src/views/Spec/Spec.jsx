@@ -20,6 +20,8 @@ class Spec extends Component {
     ];
     return (
       <ItemView
+        sectionName={'Especificação Técnica'}
+        sectionDescription={'Especificacão técnica de um material/serviço'}
         data={finalData}
         image={image}
         imageStatus={imageStatus}

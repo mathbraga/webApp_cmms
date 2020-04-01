@@ -22,6 +22,8 @@ class Facility extends Component {
     ];
     return (
       <ItemView
+        sectionName={'Edifício'}
+        sectionDescription={'Ficha descritiva de uma área/edifício'}
         data={finalData}
         image={image}
         imageStatus={imageStatus}
