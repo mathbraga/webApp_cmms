@@ -89,22 +89,20 @@
     margin: 8px 0 0 0;
 }
 
-/* all code beneath to be refactored later */
-.talk-bubble {
+.comment__bubble__container {
 	margin: 12px;
     position: relative;
     border-radius: 4px;
     background-color: rgba(232, 232, 232, 1);
 }
 
-/* talk bubble contents */
-.talktext{
+.comment__bubble__content{
     padding: 8px;
     text-align: left;
     line-height: 1.5em;
 }
 
-.tri-right.left-top:after{
+.comment__bubble:after{
 	content: ' ';
 	position: absolute;
 	width: 0;

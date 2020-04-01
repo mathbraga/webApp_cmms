@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 import DescriptionTable from '../../Descriptions/DescriptionTable';
 
 import "./LogTemplateTab.css";

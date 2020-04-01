@@ -44,8 +44,8 @@ class MessageTemplateTab extends Component {
             <i className="comment__icon fa fa-comment"></i>
             <div className="comment__action">Comentar</div>
           </button>
-          <div className="talk-bubble tri-right left-top">
-            <div className="talktext">
+          <div className="comment__bubble__container comment__bubble">
+            <div className="comment__bubble__content">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio urna, posuere ut quam id, facilisis porttitor neque. Nullam finibus neque sed lorem vehicula, ut dignissim mauris sagittis.
             </div>
           </div>
