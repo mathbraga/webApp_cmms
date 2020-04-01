@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import getFiles from '../utils/getFiles';
 
 export default function withForm(WrappedComponent) {
   class WithForm extends Component {
     constructor(props) {
       super(props);
+      this.innerRef = React.createRef();
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleParentChange = this.handleParentChange.bind(this);
       this.handleContextChange = this.handleContextChange.bind(this);
@@ -16,9 +18,19 @@ export default function withForm(WrappedComponent) {
       this.handleInitialDateInputChange = this.handleInitialDateInputChange.bind(this);
       this.handleLimitDateInputChange = this.handleLimitDateInputChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleDropFiles = this.handleDropFiles.bind(this);
+      this.handleRemoveFiles = this.handleRemoveFiles.bind(this);
       const idData = this.props.data.idData && this.props.data.idData.nodes[0];
       const { mode } = this.props;
-      this.state = this.props.getInitialFormState(idData, mode);
+      this.state = {
+        ...this.props.getInitialFormState(idData, mode),
+        files: [],
+        filesMetadata: [],
+      };
+    }
+
+    componentWillUnmount() {
+      this.state.files.forEach(file => URL.revokeObjectURL(file.preview));
     }
 
     handleInputChange(event) {
@@ -96,6 +108,21 @@ export default function withForm(WrappedComponent) {
       });
     }
 
+    handleDropFiles(acceptedFiles) {
+      const { files, filesMetadata } = getFiles(acceptedFiles);
+      this.setState({
+        files,
+        filesMetadata,
+      });
+    }
+
+    handleRemoveFiles() {
+      this.setState({
+        files: [],
+        filesMetadata: [],
+      });
+    }
+
     handleSubmit(mutateFunction) {
       mutateFunction();
     }
@@ -113,11 +140,17 @@ export default function withForm(WrappedComponent) {
         handleAssetChange: this.handleAssetChange,
         handleInitialDateInputChange: this.handleInitialDateInputChange,
         handleLimitDateInputChange: this.handleLimitDateInputChange,
+        handleDropFiles: this.handleDropFiles,
+        handleRemoveFiles: this.handleRemoveFiles,
         handleSubmit: this.handleSubmit,
       }
       const formState = this.state;
       const formVariables = this.props.getFormVariables(formState);
-      const mutationVariables = Object.assign({}, this.props.graphQLVariables, formVariables);
+      const mutationVariables = Object.assign(
+        {},
+        this.props.graphQLVariables,
+        formVariables
+      );
       return (
         <WrappedComponent
           handleFunctions={handleFunctions}

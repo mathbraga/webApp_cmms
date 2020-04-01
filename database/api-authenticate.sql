@@ -1,4 +1,4 @@
-create or replace function authenticate (
+create or replace function api.authenticate (
   in input_email    text,
   in input_password text,
   out user_data text

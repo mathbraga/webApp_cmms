@@ -7,24 +7,23 @@ async function resolveUpload(upload, uuid) {
   const { filename, mimetype, encoding, createReadStream } = upload;
   const stream = createReadStream();
   // Save file to the local filesystem
-  const filepath = await saveLocal({ stream, uuid });
+  const filePath = await saveLocal({ stream, uuid });
   // Return metadata to save it to Postgres
   return;
 }
  
 function saveLocal({ stream, uuid }) {
-  const filepath = paths.files + uuid;
-  const fsPath = path.join(process.cwd(), filepath);
+  const filePath = path.join(process.cwd(), paths.files, uuid);
   return new Promise((resolve, reject) =>
     stream
       .on("error", error => {
         if (stream.truncated)
           // Delete the truncated file
-          fs.unlinkSync(fsPath);
+          fs.unlinkSync(filePath);
         reject(error);
       })
-      .on("end", () => resolve(filepath))
-      .pipe(fs.createWriteStream(fsPath))
+      .on("end", () => resolve(filePath))
+      .pipe(fs.createWriteStream(filePath))
   );
 }
 
@@ -34,12 +33,10 @@ function reqHasFiles(req){
 
 async function callback(req, res, next){
   if(reqHasFiles(req)){
-    const files = req.body.variables.files;
-    const filesMetadata = req.body.variables.filesMetadata;
-    Promise.all(files.map((file, i) => {
-      return file.then(async resolvedFile => {
-        return await resolveUpload(resolvedFile, filesMetadata[i].uuid)
-      })
+    const { files, filesMetadata } = req.body.variables;
+    Promise.all(files.map(async (file, i) => {
+      const resolvedFile = await file.promise;
+      return resolveUpload(resolvedFile, filesMetadata[i].uuid);
     }))
       .then(() => {
         next();
