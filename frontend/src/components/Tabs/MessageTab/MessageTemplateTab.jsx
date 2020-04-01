@@ -44,20 +44,33 @@ class MessageTemplateTab extends Component {
             <i className="comment__icon fa fa-comment"></i>
             <div className="comment__action">Comentar</div>
           </button>
-          <div className="comment__bubble__container comment__bubble">
-            <div className="comment__bubble__content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio urna, posuere ut quam id, facilisis porttitor neque. Nullam finibus neque sed lorem vehicula, ut dignissim mauris sagittis.
+          <div className="comment__container">
+            <div className="comment__bubble__container">
+              <div className="comment__bubble__author">
+                <div className="comment__bubble__author__info">
+                  <div className="comment__bubble__icon"/>
+                  <span className="comment__bubble__name">
+                    John Doe
+                  </span>
+                </div>
+                <span className="comment__bubble__date text-muted">
+                  Mar 28, 2020 - 8h32
+                </span>
+              </div>
+              <div className="comment__bubble__box comment__bubble">
+                <div className="comment__bubble__content">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio urna, posuere ut quam id, facilisis porttitor neque. Nullam finibus neque sed lorem vehicula, ut dignissim mauris sagittis.
+                </div>
+              </div>
             </div>
           </div>
         </div>
-          <div className="comment__container">
+        <Collapse isOpen={isOpen}>
+          <div className="text__box">
+            <Input placeholder="Digitar mensagem." className="text__box__input" type="textarea"/>
+            <Button className="text__box__button" color="primary">Enviar</Button>
           </div>
-          <Collapse isOpen={isOpen}>
-            <div className="comment__text__area">
-              <Input placeholder="Digitar mensagem." className="comment__text__box" type="textarea"/>
-              <Button className="comment__text__action" color="primary">Enviar</Button>
-            </div>
-          </Collapse>
+        </Collapse>
           {/* <div className="comment__container">
           <InputGroup>
             <Input/>
