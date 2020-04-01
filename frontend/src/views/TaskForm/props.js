@@ -77,11 +77,13 @@ export default {
         mutation (
           $attributes: TaskInput!,
           $assets: [Int!]!
+          $filesMetadata: [FileMetadatumInput]
         ) {
           mutationResponse: insertTask (
             input: {
               attributes: $attributes
               assets: $assets
+              filesMetadata: $filesMetadata
             }
           ) {
             id
@@ -125,23 +127,24 @@ export default {
   },
   getFormVariables: formState => ({
     attributes: {
-      taskStatusId: formState.taskStatusId,
-      taskPriorityId: formState.taskPriorityId,
-      taskCategoryId: formState.taskCategoryId,
+      taskStatusId: formState.taskStatusId || 1,
+      taskPriorityId: formState.taskPriorityId || 1,
+      taskCategoryId: formState.taskCategoryId || 1,
       projectId: formState.projectId,
       contractId: formState.contractId,
       teamId: formState.teamId,
-      title: formState.title,
-      description: formState.description,
+      title: formState.title || 'title',
+      description: formState.description || 'description',
       place: formState.place,
       progress: formState.progress,
       dateLimit: formState.dateLimit,
       dateStart: formState.dateStart,
       dateEnd: formState.dateEnd,
     },
-    assets: formState.assets.length > 0 ? formState.assets.map(asset => asset.assetId) : null,
+    assets: [1],//formState.assets.length > 0 ? formState.assets.map(asset => asset.assetId) : null,
     // supplies: // TODO
     // qty: // TODO
-    // files: // TODO
+    files: formState.files.length > 0 ? formState.files : null,
+    filesMetadata: formState.filesMetadata.length > 0 ? formState.filesMetadata : null,
   }),
 }

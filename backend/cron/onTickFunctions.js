@@ -21,8 +21,8 @@ const refreshAllMaterializedViews = async () => {
 
 const dumpDatabase = async () => {
   try {
-    const output = await exec('pg_dump -f dumps/dump.sql -d ' + process.env.PGDATABASE);
-    console.log('pg_dump executed successfully at: ' + new Date());
+    const output = await exec(`pg_dump -f dumps/dump.sql -d ${process.env.PGDATABASE}`);
+    console.log(`pg_dump executed successfully at: ${new Date()}`);
   } catch(error){
     console.log(error);
   }

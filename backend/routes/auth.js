@@ -8,9 +8,9 @@ router.post(
   (req, res) => {
     if(req.user){
       res.cookie('cmms:user', req.user);
-      res.end();
+      res.json({ loginSuccess: true });
     } else {
-      res.end()
+      res.json({ loginSuccess: false })
     }
   }
 );
@@ -20,7 +20,7 @@ router.get(
   (req, res) => {
     req.logout();
     req.session = null;
-    res.end();
+    res.json({ logoutSuccess: true });
   }
 );
 

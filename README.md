@@ -10,13 +10,21 @@
   O webSINFRA é desenvolvido como uma <a href="https://en.wikipedia.org/wiki/Web_application">aplicação web</a>, e os diretórios deste repositório (📁database, 📁backend e 📁frontend) correspondem às<a href="https://en.wikipedia.org/wiki/Multitier_architecture"> três camadas</a> de sua arquitetura.
 </p>
 
-<h3>Banco de Dados (📁database)</h3>
+<h3>📁 database</h3>
 
-<p>
-  O sistema gerenciador de banco de dados relacional (RDBMS) é o <a href="https://www.postgresql.org/">PostgreSQL</a>.
-  São consideradas as seguintes entidades:
-</p>
+EXPLICAÇÕES PARA ADICIONAR:
+* types (file_metadata)
+* triggers
+* exception messages
+* asset trees
 
+
+
+<p>O sistema gerenciador de banco de dados relacional (RDBMS) é o <a href="https://www.postgresql.org/">PostgreSQL</a>.</p>
+
+<h4>Modelo de dados e tabelas</h4>
+
+<p>As seguintes entidades compoẽm o modelo de dados:</p>
 <table>
   <thead>
     <tr>
@@ -114,10 +122,99 @@
 </table>
 
 <p>
+  Para a consistência deste modelo de dados, alguns dos atributos dessas entidades possuem um conjunto limitado de valores possíveis (e.g. o status de uma tarefa somente pode ser 'pendente', 'em execução', 'concluída' etc.), não podendo serem escolhidos livremente pelos usuários (como é o caso, por exemplo, da descrição de uma tarefa).
+</p>
+<p>
+  Esses valores são cadastrados no banco de dados em tabelas próprias, chamadas 'lookup tables' (LUTs), que contêm apenas códigos numéricos (um para cada valor distinto, a serem referenciados por outras tabelas) e seus respectivos textos descritivos (para visualização pelo usuário, no front-end). 
+</p>
+<p>
+  A garantia de que não serão válidas as operações de <code>INSERT</code> ou <code>UPDATE</code> que contenham valores não existentes nas LUTs é imposta por chaves estrangeiras (restrições como "<code>REFERENCES nome_da_LUT (código_da_LUT)</code>", aplicadas nas colunas que deverão ser submetidas a essa checagem).
+</p>
+<p>
+  A adição de novos valores em LUTs não é possível pela interface do usuário. Tal modificação (bem como quaisquer outras alterações no modelo de dados) somente pode ser realizada por um administrador do sistema, em um procedimento denominado '<a href="https://en.wikipedia.org/wiki/Schema_migration">schema migration</a>'.
+</p>
+<p>As LUTs são as seguintes:</p>
+<table>
+  <thead>
+    <tr>
+      <th>Nome da LUT</th>
+      <th>Atributo</th>
+      <th>Exemplos de valores possíveis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>contract_statuses</td>
+      <td>Status de uma contratação</td>
+      <td>Em licitação, em execução, finalizado etc.</td>
+    </tr>
+    <tr>
+      <td>task_statuses</td>
+      <td>Status de uma tarefa</td>
+      <td>Pendente, cancelada, concluída etc.</td>
+    </tr>
+    <tr>
+      <td>task_priorities</td>
+      <td>Prioridade de uma tarefa</td>
+      <td>Normal, alta etc.</td>
+    </tr>
+    <tr>
+      <td>task_categories</td>
+      <td>Categoria de uma tarefa</td>
+      <td>Elétrica, hidrossanitária, civil, ar-condicionado etc.</td>
+    </tr>
+    <tr>
+      <td>person_roles</td>
+      <td>Papéis (tipos de usuários, com suas respectivas permissões no sistema)</td>
+      <td>administrator, supervisor etc.</td>
+    </tr>
+    <tr>
+      <td>spec_categories</td>
+      <td>Categorias de uma especificação técnica (em conformidade com a lista atual de categorias usadas na wiki do Redmine)</td>
+      <td>Geral, Serviços de Apoio, Civil etc.</td>
+    </tr>
+    <tr>
+      <td>spec_subcategories</td>
+      <td>Subcategorias (vinculadas a uma das possíveis categorias) de uma especificação técnica (também em conformidade com a lista atual de subcategorias usadas na wiki do Redmine)</td>
+      <td>Limpeza, Revestimentos, Pinturas, Pisos etc.</td>
+    </tr>
+  </tbody>
+</table>
+<p>Há ainda outras tabelas, que fazem parte do schema <code>private</code> (as explicações sobre os schemas são dadas posteriormente neste documento):</p>
+<table>
+  <thead>
+    <tr>
+      <th>Nome da tabela</th>
+      <th>Conteúdo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>accounts</code></td>
+      <td>Dados referentes a contas dos usuários do sistema (e.g., hash das senhas*, papéis etc.).</td>
+    </tr>
+    <tr>
+      <td><code>audit_trails</code></td>
+      <td>Registros de modificações realizadas no banco de dados pelos usuários do sistema (operações de <code>INSERT</code>, <code>UPDATE</code> e <code>DELETE</code>.)</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  (*) Observação: o hash das senhas é gerado com uma função de criptografia proveniente da extensão <a href="https://www.postgresql.org/docs/12/pgcrypto.html"><code>pgcrypto</code></a>.
+</p>
+
+<p>
   Convenções e estratégias utilizadas:
 </p>
 
 <ol>
+  <li>Índices e chaves primárias
+    <p>Todas as entidades possuem um atributo de 'identidade', definido automaticamente pelo RDBMS como um número inteiro sequencial (e.g.: coluna <code>asset_id</code> da tabela <code>assets</code>). Tais atributos são as chaves primárias de suas respectivas tabelas e, por isso, indexados. A indexação permite que uma query que busca uma entidade específica do banco de dados retorne resultados mais rapidamente (essas queries são as que ocorrem, por exemplo, quando um usuário usa o sistema para visualizar uma determinada tarefa). A convenção para os nomes dessas colunas é utilizar a terminação <code>_id</code></p>
+    <p>A exceção desta regra é a tabela de papéis (grupos), <b>person_roles</b>, em que que a chave primária é a própria palavra que define o papel. Esta exceção é justificada pelo fato de que o comando <code>CREATE ROLE</code> não aceita números como nome do papel (o nome do papel deve ser uma palavra com caracteres alfanuméricos iniciada por uma letra).</p>
+    <p>Algumas entidades possuem um outro atributo de identidade, correspondente a uma coluna definida com a restrição <code>UNIQUE</code>. Os valores a serem inseridos nessas colunas devem ser códigos amigáveis, que, ao contrário dos números sequenciais, fazem sentido para a aplicação e seus usuários. Exemplo: coluna <code>asset_sf</code> na tabela <code>assets</code>. A convenção para os nomes dessas colunas é utilizar a terminação <code>_sf</code> (de Senado Federal).</p>
+    <p>O uso de dois identificadores dá flexibilidade ao modelo de dados, pois, dessa maneira, o usuário pode alterar livremente os códigos <code>_sf</code> das entidades, com a única restrição de que escolha um código distinto dos códigos já existentes. Já a alteração das chaves primárias, operação proibida pelo RDBMS, torna-se desnecessária para os fins da aplicação.</p>
+    <p>EXPLICAÇÃO DE CHAVES COM MÚLTIPLAS COLUNAS</p>
+  </li>
   <li>Schemas
     <p>São utilizados 3 schemas ("namespaces"): (1) public, (2) private e (3) api.</p>
     <p>
@@ -127,7 +224,7 @@
       O schema <strong>private</strong> contém dados que somente podem ser acessados pelos administradores (tabela com hash de senhas e 'roles' dos usuários, tabela com logs/audit trails etc.).
     </p>
     <p>
-      O schema <strong>api</strong> é a interface exposta (via PostGraphile, em GraphQL), aos usuários da aplicação, contendo os objetos (views e funções) que traduzem as funcionalidades e requisitos definidos para o sistema. Exemplos:
+      O schema <strong>api</strong> é a interface exposta (via PostGraphile, em GraphQL) aos usuários da aplicação, contendo os objetos (views e funções) que traduzem as funcionalidades e requisitos definidos para o sistema. Exemplos:
       <table>
         <thead>
           <tr>
@@ -138,13 +235,13 @@
         </thead>
         <tbody>
           <tr>
-            <td>O usuário deseja visualizar todas as informações referentes  a uma determinada tarefa</td>
-            <td>View, que compila, com <code>JOIN</code>s e funções auxiliares, os dados de uma tarefa e todas entidades a ela relacionadas (ativos, suprimentos etc.)</td>
+            <td>O usuário deseja visualizar todas as informações referentes a uma determinada tarefa</td>
+            <td>View <code>api.task_data</code>, que compila, com <code>JOIN</code>s e views e funções auxiliares, todos os dados de uma tarefa e todas entidades a ela relacionadas (ativos, suprimentos etc.)</td>
             <td>Query</td>
           </tr>
           <tr>
             <td>O usuário deseja poder cadastrar um novo contrato e seus respectivos materiais e serviços</td>
-            <td>Função, cujos inputs são fornecidos pelo usuário (via formulário da UI) e executa os <code>INSERT</code>s necessários nas tabelas de contratos e suprimentos</td>
+            <td>Função <code>api.insert_contract</code>, cujos inputs são fornecidos pelo usuário (via formulário da UI) e executa os <code>INSERT</code>s necessários nas tabelas de contratos e suprimentos</td>
             <td>Mutation</td>
           </tr>
         </tbody>
@@ -232,15 +329,33 @@
     </tr>
   </tbody>
 </table>
-
-
-
 <p>
   Os testes das rotinas que permitem os usuários realizarem alterações no banco de dados 
   (por exemplo, criação ou atualização de uma tarefa) e seus respectivos triggers de checagem são encontrados em <a href="./backend/tests">/backend/tests.</a>
 </p>
 
-<h3>Back-end (📁backend)</h3>
+<h4>Conexão, autenticação, roles (papéis) e Row-Level Security (RLS)</h4>
+
+<p>
+  Detalhes sobre conexão, autenticação e gerenciamento de sessões são tratados no back-end (ver adiante neste documento).
+</p>
+<p>
+  No que diz respeito ao banco de dados, o processo de autenticação usa a função (<code>api.authenticate</code>), que basicamente compara o hash da senha informada no login com o hash da senha registrado na tabela <code>private.accounts</code>. Em caso de correção das informações fornecidas, a função retorna uma string com o formato <code>x-role</code>, em que <code>x</code> é o número do usuário cadastrado no sistema (<code>person_id</code> nas tabelas <code>persons</code> e <code>private.accounts</code>) e <code>role</code> é o respectivo papel (<code>person_role</code> na tabela <code>private.accounts</code>). O back-end é responsável por colocar a string num cookie e passá-lo ao cliente. A partir deste momento, as transações feitas pelo usuário logado carregam sempre esse cookie em suas requisições HTTP. O PostGraphile passa as informações contidas no cookie para o RDBMS por meio da função <a href="https://www.graphile.org/postgraphile/usage-library/#pgsettings-function"><code>pgSettings</code></a>. Durante as transações realizadas durante a sessão do usuário em questão, <code>x</code> e <code>role</code> são acessíveis, respectivamente, pela função <code>get_current_person_id()</code> e pela função (built-in) <code>current_role</code> (ou <code>current_user</code>).
+</p>
+<p>
+  Os papéis são definidos conforme a tabela a seguir:
+</p>
+<table>
+  <thead>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+
+
+
+<h3>📁 backend</h3>
 
 <p>
   O servidor web, desenvolvido em <a href="https://nodejs.org/en/">Node.js</a>, é uma camada intermediária entre o banco de dados e a interface do usuário.
@@ -302,7 +417,7 @@
   </ul>
 </p>
 
-<h3>Front-end (📁frontend)</h3>
+<h3>📁 frontend</h3>
 
 <p>
   A interface ao usuário é uma página web, desenvolvida com um visual moderno e agradável, navegação intuitiva e responsividade (ajuste automático à largura da tela do dispositivo utilizado pelo usuário).

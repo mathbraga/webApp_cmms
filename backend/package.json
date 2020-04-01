@@ -16,7 +16,7 @@
     "cron": "^1.7.2",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
-    "graphql-upload": "^8.1.0",
+    "graphql-upload": "^10.0.0",
     "morgan": "^1.9.1",
     "nodemailer": "^6.3.1",
     "passport": "^0.4.0",

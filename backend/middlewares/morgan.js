@@ -17,7 +17,8 @@ const logStream = fs.createWriteStream(path.join(process.cwd(), paths.reqsLog), 
 module.exports = morgan(`
 :separator
 :date[iso]    :remote-addr    :method    :url    :status    :response-time ms
-:user`, {
+:user
+:body`, {
   skip: () => (process.env.NODE_ENV === 'test'),
   stream: process.env.NODE_ENV === 'development' ? process.stdout : logStream,
 });
