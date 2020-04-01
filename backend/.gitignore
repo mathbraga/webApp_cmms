@@ -1,9 +1,11 @@
 # Environment variables
 .env.local
 
-# Files inside folder
+# Files inside folder, ...
 files/*
-!files/.gitkeep
+# ... except this one, for download tests
+!files/de741848-5e90-4c5e-8699-78aca9b37aba
+
 dumps/*
 !dumps/.gitkeep
 logs/*

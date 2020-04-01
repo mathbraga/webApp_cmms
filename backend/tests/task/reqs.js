@@ -66,10 +66,16 @@ const varsSuccessWithFile = Object.assign(
   }
 );
 
+const varsFailNoAssets = Object.assign(
+  {...varsSuccess},
+  {
+    assets: 'null',
+  }
+);
 
 module.exports = {
   reqSuccess: buildReqBody(varsSuccess),
-  // reqFailNoAssets: buildReqBody(varsFailNoAssets),
+  reqFailNoAssets: buildReqBody(varsFailNoAssets),
   // reqFailLargeQty: buildReqBody(varsFailLargeQty),
   // reqFailWrongContract: buildReqBody(varsFailWrongContract),
   reqSuccessWithFiles: buildReqBody(varsSuccessWithFile),
