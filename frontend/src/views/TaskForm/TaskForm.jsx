@@ -55,12 +55,13 @@ class TaskForm extends Component {
                 {...formState}
               />
             </FormGroup>
-            <div style={{ marginTop: "60px" }} />
-            <DropArea
-              handleDropFiles={handleFunctions.handleDropFiles}
-              handleRemoveFiles={handleFunctions.handleRemoveFiles}
-              files={formState.files}
-            />
+            <FormGroup sectionTitle="Anexar Arquivos">
+              <DropArea
+                handleDropFiles={handleFunctions.handleDropFiles}
+                handleRemoveFiles={handleFunctions.handleRemoveFiles}
+                files={formState.files}
+              />
+            </FormGroup>
             <ButtonsContainer 
               mutate={mutate}
             />

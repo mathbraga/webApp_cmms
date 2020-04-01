@@ -97,8 +97,7 @@ class DropArea extends Component {
     );
 
     return (
-      <React.Fragment>
-        <h1 className="input-container-title" style={{ marginBottom: "30px" }}>Arquivos</h1>
+      <div style={{ margin: "40px 10px 10px 10px" }}>
         <Dropzone
           // accept={}
           // children={}
@@ -149,7 +148,7 @@ class DropArea extends Component {
               </section>
             )}}
         </Dropzone>
-      </React.Fragment>
+      </div>
     );
   }
 }
