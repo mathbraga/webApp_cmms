@@ -27,7 +27,7 @@ class MessageTemplateTab extends Component {
         <DescriptionTable
             title="Mensagens"
         />
-        <div className="message__container">
+        <div className="message__container--no-bottom">
           <div className="message__content">
               <div className="message__author">
                 <div>
@@ -44,6 +44,14 @@ class MessageTemplateTab extends Component {
             <i className="comment__icon fa fa-comment"></i>
             <button className="comment__button" onClick={setCollapseState}>Responder</button>
           </div>
+        </div>
+        <Collapse isOpen={isOpen}>
+          <div className="text__box">
+            <Input placeholder="Digitar mensagem." className="text__box__input" type="textarea"/>
+            <Button className="text__box__button" color="primary">Enviar</Button>
+          </div>
+        </Collapse>
+        <div className="message__container--no-top">
           <div className="comment__container">
             <div className="comment__bubble__container">
               <div className="comment__bubble__author">
@@ -65,12 +73,6 @@ class MessageTemplateTab extends Component {
             </div>
           </div>
         </div>
-        <Collapse isOpen={isOpen}>
-          <div className="text__box">
-            <Input placeholder="Digitar mensagem." className="text__box__input" type="textarea"/>
-            <Button className="text__box__button" color="primary">Enviar</Button>
-          </div>
-        </Collapse>
           {/* <div className="comment__container">
           <InputGroup>
             <Input/>

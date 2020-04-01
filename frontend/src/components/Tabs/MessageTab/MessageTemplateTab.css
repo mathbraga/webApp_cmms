@@ -1,12 +1,12 @@
-.message__container{
+/* .message__container{
     display: flex;
     flex-flow: column nowrap;
     border: 1px solid rgba(232, 232, 232, 1);
     border-radius: 4px 4px 0 0;
     padding: 12px;
-}
+} */
 
-/* .message__container--no-bottom{
+.message__container--no-bottom{
     display: flex;
     flex-flow: column nowrap;
     border: 1px solid rgba(232, 232, 232, 1);
@@ -22,9 +22,8 @@
     border: 1px solid rgba(232, 232, 232, 1);
     border-top: none;
     border-radius: 0 0 4px 4px;
-    padding: 12px;
-    padding-top: 0;
-} */
+    padding: 0 12px 12px 20px;
+}
 
 .message__author {
     display: flex;
@@ -87,6 +86,7 @@
     flex-flow: row wrap;
     justify-content: flex-end;
     padding: 8px;
+    margin-top: 8px;
     background-color: rgba(232, 232, 232, 1);
 }
 
