@@ -47,7 +47,6 @@
     "classnames": "^2.2.6",
     "core-js": "^2.6.5",
     "date-fns": "^2.9.0",
-    "docz": "^2.2.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.0",
     "flag-icon-css": "^3.2.1",
