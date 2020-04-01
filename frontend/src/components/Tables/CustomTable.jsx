@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // Other Components
 import FullTable from "./FullTable/FullTable";
 import TableWithPages from "./TableWithPages/TableWithPages";
-import HTMLTable from "./RawTable/HTMLTable";
+import CompactTable from "./CompactTable/CompactTable";
 
 const tables = (props) => ({
   "full": (
@@ -13,6 +13,9 @@ const tables = (props) => ({
   ),
   "pages-with-search": (
     <TableWithPages hasSearch={true} {...props} />
+  ),
+  "raw-table": (
+    <CompactTable {...props} />
   ),
 });
 

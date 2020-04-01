@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import AssetCard from '../../components/Cards/AssetCard';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { Button } from '@material-ui/core';
 import { compose } from 'redux';
 import './ApplianceForm.css';
 
+import FormGroup from '../../components/Forms/FormGroup';
+import ButtonsContainer from '../../components/Forms/ButtonsContainer';
 import DescriptionForm from './formParts/DescriptionForm';
 import PurchaseForm from './formParts/PurchaseForm';
 import ParentForm from './formParts/ParentForm';
@@ -18,25 +18,27 @@ class FacilityForm extends Component {
     const { history, handleFunctions, formState, mutate } = this.props;
     const data = this.props.data.formData.nodes[0];
     return (
-      <CssBaseline>
-        <AssetCard
-          sectionName={'Cadastro de Equipamentos'}
-          sectionDescription={'Formulário para cadastro de novos equipamentos'}
-          handleCardButton={() => { history.push(paths.appliance.all) }}
-          buttonName={'Equipamentos'}
-        >
-          <div className="input-container">
-            <form noValidate autoComplete="off">
+      <AssetCard
+        sectionName={'Cadastro de Equipamentos'}
+        sectionDescription={'Formulário para cadastro de novos equipamentos'}
+        handleCardButton={() => { history.push(paths.appliance.all) }}
+        buttonName={'Equipamentos'}
+      >
+        <div className="input-container">
+          <form noValidate autoComplete="off">
+            <FormGroup sectionTitle="Descrição do Equipamento">
               <DescriptionForm
                 handleInputChange={handleFunctions.handleInputChange}
                 {...formState}
               />
-              <div style={{ marginTop: "60px" }} />
+            </FormGroup>
+            <FormGroup sectionTitle="Detalhes sobre a Aquisição">
               <PurchaseForm
                 handleInputChange={handleFunctions.handleInputChange}
                 {...formState}
               />
-              <div style={{ marginTop: "60px" }} />
+            </FormGroup>
+            <FormGroup sectionTitle="Relação entre Ativos">
               <ParentForm
                 handleParentChange={handleFunctions.handleParentChange}
                 handleContextChange={handleFunctions.handleContextChange}
@@ -45,27 +47,13 @@ class FacilityForm extends Component {
                 data={data}
                 {...formState}
               />
-              <div style={{ marginTop: "60px" }} />
-              <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ marginRight: "10px" }}
-                  onClick={mutate}
-                >
-                  Cadastrar
-                </Button>
-                <Button variant="contained" style={{ marginRight: "10px" }}>
-                  Limpar
-                </Button>
-                <Button variant="contained" color="secondary">
-                  Cancelar
-                </Button>
-              </div>
-            </form>
-          </div>
-        </AssetCard>
-      </CssBaseline>
+            </FormGroup>
+            <ButtonsContainer 
+              mutate={mutate}
+            />
+          </form>
+        </div>
+      </AssetCard>
     );
   }
 }

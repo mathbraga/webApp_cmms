@@ -8,9 +8,11 @@ export default function withSelectLogic(WrappedComponent) {
 
     handleSelectItem = (itemId) => () => {
       this.setState((prevState) =>
-        ({
-          selectedItems: { ...prevState.selectedItems, [itemId]: !prevState.selectedItems[itemId] },
-        })
+        {
+          return ({
+            selectedItems: { ...prevState.selectedItems, [itemId]: !prevState.selectedItems[itemId] },
+          });
+        }
       );
     }
 

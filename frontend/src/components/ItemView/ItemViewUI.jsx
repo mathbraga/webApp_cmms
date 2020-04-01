@@ -6,12 +6,12 @@ import TabContainer from '../../components/Tabs/TabContainer';
 export default class ItemViewUI extends Component {
   state = {}
   render() {
-    const { data, descriptionItems, image, imageStatus, tabs, buttonName, handleCardButton } = this.props;
+    const { data, descriptionItems, image, imageStatus, tabs, buttonName, handleCardButton, sectionName, sectionDescription } = this.props;
     return (
       <div className="asset-container">
         <AssetCard
-          sectionName={'Edifício / Área'}
-          sectionDescription={'Ficha descritiva do imóvel'}
+          sectionName={sectionName}
+          sectionDescription={sectionDescription}
           handleCardButton={handleCardButton}
           buttonName={buttonName}
         >

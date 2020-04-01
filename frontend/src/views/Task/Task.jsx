@@ -6,7 +6,8 @@ import props from './props';
 import { withProps, withGraphQL, withQuery } from '../../hocs';
 import paths from '../../paths';
 
-const image = require("../../assets/img/test/equipment_picture.jpg");
+// Image by <a href="https://pixabay.com/users/OpenClipart-Vectors-30363/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1295319">OpenClipart-Vectors</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1295319">Pixabay</a>
+const image = require("../../assets/img/entities/task.png");
 const imageStatus = 'Em andamento';
 
 class Task extends Component {
@@ -15,12 +16,14 @@ class Task extends Component {
     const finalData = data.queryResponse.nodes[0];
     const descriptionItems = [
       { title: 'Serviço', description: finalData.title, boldTitle: true },
-      { title: 'Ordem de Serviço nº', description: finalData.taskId.toString().padStart(4, "0"), boldTitle: false },
+      { title: 'O.S. nº', description: finalData.taskId.toString().padStart(4, "0"), boldTitle: false },
       { title: 'Local', description: finalData.place, boldTitle: false },
       { title: 'Categoria', description: finalData.taskCategoryText, boldTitle: false },
     ];
     return (
       <ItemView
+        sectionName={'Ordem de Serviço'}
+        sectionDescription={'Ficha descritiva de uma OS'}
         data={finalData}
         image={image}
         imageStatus={imageStatus}

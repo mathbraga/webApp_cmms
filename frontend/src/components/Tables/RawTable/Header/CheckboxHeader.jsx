@@ -20,6 +20,7 @@ export default function CheckboxHeader({ width, selectedData, visibleData, attFo
     const itemId = item[attForDataId]
     checked = checked && selectedData[itemId];
   });
+  checked = visibleData.length === 0 ? false : checked;
 
   function handleSelectAllData() {
     if (checked) {
@@ -49,15 +50,12 @@ export default function CheckboxHeader({ width, selectedData, visibleData, attFo
       key={"checkbox"}
     >
       <div className="header-container__checkbox">
-        <div
+        <CustomInput
+          id="header-checkbox"
+          type="checkbox"
+          checked={checked}
           onClick={handleSelectAllData}
-        >
-          <CustomInput
-            id="header-checkbox"
-            type="checkbox"
-            checked={checked}
-          />
-        </div>
+        />
       </div>
     </th>
   );

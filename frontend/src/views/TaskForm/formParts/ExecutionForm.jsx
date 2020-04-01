@@ -42,7 +42,6 @@ class ExecutionForm extends Component {
     } = this.props;
     return (
       <>
-        <h1 className="input-container-title" style={{ marginBottom: "15px" }}>Execução</h1>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Row style={{ marginLeft: "3px" }}>
             <Col md="4">

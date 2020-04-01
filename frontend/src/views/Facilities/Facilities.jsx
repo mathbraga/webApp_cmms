@@ -17,7 +17,7 @@ class Facilities extends Component {
   render() {
     return (
       <AssetCard
-        sectionName={"Edifícios / Áreas"}
+        sectionName={"Edifícios"}
         sectionDescription={"Lista de áreas do CASF"}
         handleCardButton={() => { this.props.history.push(paths.facility.create) }}
         buttonName={"Nova área"}

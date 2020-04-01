@@ -20,6 +20,8 @@ class Contract extends Component {
     ];
     return (
       <ItemView
+        sectionName={'Contrato'}
+        sectionDescription={'Ficha descritiva de um contrato'}
         data={finalData}
         image={image}
         imageStatus={imageStatus}

@@ -73,138 +73,175 @@ class HTMLTable extends Component {
       openitems,
       actionColumn,
       actionColumnWidth,
+      handleAction,
       isFileTable,
-      fileColumnWidth
+      fileColumnWidth,
+      firstEmptyColumnWidth
     } = this.props;
-    const visibleData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    const visibleData = itemsPerPage ? (data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)) : data;
+    const numColumns = columnsConfig.length + (firstEmptyColumnWidth ? 1 : 0) + (hasCheckbox ? 1: 0) + (isFileTable ? 1: 0) + (actionColumn ? 1: 0);
     return (
       <div className="table-wrapper">
-        {visibleData.length === 0
-          ? (
-            <div className="table-no-item">Página sem items.</div>
-          )
-          : (
-            <table className="main-table">
-              <thead className="main-table__header">
-                <tr
-                  className="main-table__header__row"
-                  key="header"
+        <table className="main-table">
+          <thead className="main-table__header">
+            <tr
+              className="main-table__header__row"
+              key="header"
+            >
+              {firstEmptyColumnWidth && (
+                <CustomHeader
+                  width={firstEmptyColumnWidth}
+                  id={"empty"}
+                  value={""}
+                  align={"center"}
+                />
+              )}
+              {hasCheckbox && (
+                <CheckboxHeader
+                  width={checkboxWidth}
+                  selectedData={selectedData}
+                  visibleData={visibleData}
+                  attForDataId={attForDataId}
+                  handleSelectData={handleSelectData}
+                />
+              )}
+              {isFileTable && (
+                <CustomHeader
+                  id={"format"}
+                  value={""}
+                  align={"center"}
+                  width={fileColumnWidth}
+                />
+              )}
+              {columnsConfig.map((column) => (
+                <CustomHeader
+                  id={column.columnId}
+                  key={column.columnId}
+                  value={column.columnName}
+                  align={column.align}
+                  width={column.width}
+                  sortKey={column.columnId}
+                  activeSortKey={activeSortKey}
+                  isSortReverse={isSortReverse}
+                  onSort={onSort}
+                />
+              ))}
+              {actionColumn && (
+                <CustomHeader
+                  id={"action"}
+                  value={"Ações"}
+                  align={"center"}
+                  width={actionColumnWidth}
+                />
+              )}
+            </tr>
+          </thead>
+          <tbody className="main-table__body">
+            {visibleData.length === 0 ? (
+              <tr
+                className={classNames({
+                  "main-table__body__row": true,
+                })}
+                key={"empty"}
+              >
+                <td 
+                  colSpan={numColumns}
+                  className={classNames("table-body__cell")}
                 >
+                  <div
+                    className={classNames("table-body__cell--center")}
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    Tabela sem elementos para serem visualizados.
+                  </div>
+                </td>
+              </tr>
+            ) : (
+              visibleData.map((item) => (
+                <tr
+                  className={classNames({
+                    "main-table__body__row": true,
+                    "main-table__body__row--selected": selectedData[item[attForDataId]],
+                  })}
+                  key={item[attForDataId]}
+                >
+                  {firstEmptyColumnWidth && (
+                    <CustomBodyElement
+                      id={"empty"}
+                      value={""}
+                      columnId={"empty"}
+                      itemId={item[attForDataId]}
+                      key={"empty"}
+                      dataValue={""}
+                      openitems={openitems}
+                      align={"center"}
+                    />
+                  )}
                   {hasCheckbox && (
-                    <CheckboxHeader
-                      width={checkboxWidth}
+                    <CheckboxBodyElement
                       selectedData={selectedData}
-                      visibleData={visibleData}
-                      attForDataId={attForDataId}
                       handleSelectData={handleSelectData}
+                      itemId={item[attForDataId]}
                     />
                   )}
                   {isFileTable && (
-                    <CustomHeader
-                      id={"format"}
-                      value={""}
-                      align={"center"}
-                      width={fileColumnWidth}
+                    <FileIconElement
+                      columnId={"file"}
+                      format={item.format}
                     />
                   )}
-                  {columnsConfig.map((column) => (
-                    <CustomHeader
-                      id={column.columnId}
-                      key={column.columnId}
-                      value={column.columnName}
-                      align={column.align}
-                      width={column.width}
-                      sortKey={column.columnId}
-                      activeSortKey={activeSortKey}
-                      isSortReverse={isSortReverse}
-                      onSort={onSort}
-                    />
-                  ))}
+                  {columnsConfig.map((column) => {
+                    let dataValue = column.idForValues && item[column.idForValues[0]];
+                    if (column.idForValues && column.idForValues[0] && column.createElementWithData) {
+                      dataValue = column.createElementWithData(item[column.idForValues[0]], item);
+                    }
+  
+                    let dataSubValue = column.idForValues && item[column.idForValues[1]];
+                    if (column.idForValues && column.idForValues[1] && column.createElementWithSubData) {
+                      dataSubValue = column.createElementWithSubData(item[column.idForValues[1]], item);
+                    }
+  
+                    return (
+                      <CustomBodyElement
+                        columnId={column.columnId}
+                        itemId={item[attForDataId]}
+                        key={column.columnId}
+                        createElement={column.createElement || null}
+                        dataValue={dataValue || ""}
+                        hasDataSubValue={column.idForValues && Boolean(column.idForValues[1])}
+                        dataSubValue={dataSubValue}
+                        isItemClickable={isItemClickable}
+                        dataAttForClickable={dataAttForClickable}
+                        itemPathWithoutID={itemPathWithoutID}
+                        isDataTree={isDataTree}
+                        idForNestedTable={idForNestedTable}
+                        childConfig={childConfig}
+                        handleNestedChildrenClick={handleNestedChildrenClick}
+                        openitems={openitems}
+                        align={column.align}
+                        isTextWrapped={column.isTextWrapped}
+                        history={this.props.history}
+                      />
+                    );
+                  }
+                  )}
                   {actionColumn && (
-                    <CustomHeader
-                      id={"action"}
-                      value={"Ações"}
-                      align={"center"}
-                      width={actionColumnWidth}
+                    <ActionBodyElement
+                      columnId={"action"}
+                      itemId={item[attForDataId]}
+                      actionType={actionColumn}
+                      handleAction={{
+                        "delete": (id) => () => { handleAction.delete(id) },
+                        "edit": (id) => () => { handleAction.edit(id) }
+                      }}
+                      openItems={openitems}
                     />
                   )}
                 </tr>
-              </thead>
-              <tbody className="main-table__body">
-                {visibleData.map((item) => (
-                  <tr
-                    className={classNames({
-                      "main-table__body__row": true,
-                      "main-table__body__row--selected": selectedData[item[attForDataId]],
-                    })}
-                    key={item[attForDataId]}
-                  >
-                    {hasCheckbox && (
-                      <CheckboxBodyElement
-                        selectedData={selectedData}
-                        handleSelectData={handleSelectData}
-                        itemId={item[attForDataId]}
-                      />
-                    )}
-                    {isFileTable && (
-                      <FileIconElement
-                        columnId={"file"}
-                        format={item.format}
-                      />
-                    )}
-                    {columnsConfig.map((column) => {
-                      let dataValue = column.idForValues && item[column.idForValues[0]];
-                      if (column.idForValues && column.idForValues[0] && column.createElementWithData) {
-                        dataValue = column.createElementWithData(item[column.idForValues[0]], item);
-                      }
-
-                      let dataSubValue = column.idForValues && item[column.idForValues[1]];
-                      if (column.idForValues && column.idForValues[1] && column.createElementWithSubData) {
-                        dataSubValue = column.createElementWithSubData(item[column.idForValues[1]], item);
-                      }
-
-                      return (
-                        <CustomBodyElement
-                          columnId={column.columnId}
-                          itemId={item[attForDataId]}
-                          key={column.columnId}
-                          createElement={column.createElement || null}
-                          dataValue={dataValue || ""}
-                          hasDataSubValue={column.idForValues && Boolean(column.idForValues[1])}
-                          dataSubValue={dataSubValue}
-                          isItemClickable={isItemClickable}
-                          dataAttForClickable={dataAttForClickable}
-                          itemPathWithoutID={itemPathWithoutID}
-                          isDataTree={isDataTree}
-                          idForNestedTable={idForNestedTable}
-                          childConfig={childConfig}
-                          handleNestedChildrenClick={handleNestedChildrenClick}
-                          openitems={openitems}
-                          align={column.align}
-                          isTextWrapped={column.isTextWrapped}
-                          history={this.props.history}
-                        />
-                      );
-                    }
-                    )}
-                    {actionColumn && (
-                      <ActionBodyElement
-                        columnId={"action"}
-                        itemId={item[attForDataId]}
-                        actionType={actionColumn}
-                        handleAction={{
-                          "delete": (id) => () => { console.log("OK1") },
-                          "edit": (id) => () => { console.log("OK2") }
-                        }}
-                        openItems={openitems}
-                      />
-                    )}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )
-        }
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
     );
   }

@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import {
   TextField,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   Button
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -15,8 +8,8 @@ import {
   Row,
   Col,
 } from 'reactstrap';
-
-const mapIcon = require("../../../assets/icons/delete.png");
+import CustomTable from '../../../components/Tables/CustomTable';
+import tableConfig from '../utils/tableConfig';
 
 class ParentForm extends Component {
   render() {
@@ -24,11 +17,11 @@ class ParentForm extends Component {
     const { topOptions, parentOptions } = this.props.data;
     return (
       <>
-        <h1 className="input-container-title" style={{ marginBottom: "30px" }}>Relação entre Ativos</h1>
         <Row>
           <Col md={8}>
             <Autocomplete
               id="assetParent"
+              margin="normal"
               options={parentOptions}
               getOptionLabel={option => (`${option.assetSf}: ${option.name}`)}
               filterSelectedOptions
@@ -39,6 +32,7 @@ class ParentForm extends Component {
                   {...params}
                   variant="outlined"
                   fullWidth
+                  margin="normal"
                   className="text-input"
                   label="Ativo Pai"
                   placeholder="Preenchimento Obrigatório"
@@ -52,6 +46,7 @@ class ParentForm extends Component {
           <Col md={4}>
             <Autocomplete
               id="assetContext"
+              margin="normal"
               options={topOptions}
               getOptionLabel={option => option.name}
               filterSelectedOptions
@@ -62,6 +57,7 @@ class ParentForm extends Component {
                   {...params}
                   variant="outlined"
                   fullWidth
+                  margin="normal"
                   className="text-input"
                   label="Contexto"
                   placeholder=""
@@ -85,45 +81,12 @@ class ParentForm extends Component {
           </Button>
         </div>
         <div className="table-container-form" >
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center" style={{ width: "50px" }}></TableCell>
-                  <TableCell align="left" style={{ width: "400px" }}>Ativo Pai</TableCell>
-                  <TableCell align="center" style={{ width: "200px" }}>Contexto</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {(this.props.parents.length === 0
-                  ?
-                  <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell>Não há itens cadastrados.</TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-                  : this.props.parents.map((row) => (
-                    <TableRow key={row.parent.assetSf}>
-                      <TableCell align="center" component="th" scope="row">
-                        <img
-                          onClick={() => removeParent(row.id)}
-                          src={mapIcon}
-                          alt="Delete"
-                          style={{ width: "25px", height: "25px", cursor: "pointer" }}
-                        />
-                      </TableCell>
-                      <TableCell align="left" component="th" scope="row">
-                        {`${row.parent.assetSf}: ${row.parent.name}`}
-                      </TableCell>
-                      <TableCell align="center" component="th" scope="row">
-                        {row.context.name}
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <CustomTable
+            type={'raw-table'}
+            tableConfig={tableConfig}
+            data={this.props.parents}
+            handleAction={{"delete": removeParent}}
+          />
         </div>
       </>
     );
