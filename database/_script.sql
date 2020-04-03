@@ -96,6 +96,9 @@ begin transaction;
 -- commit transaction
 commit transaction;
 
+-- create extra indexes
+-- \i end-indexes.sql
+
 -- set the default transaction isolation level
 alter database :new_db_name set default_transaction_isolation to 'serializable';
 
