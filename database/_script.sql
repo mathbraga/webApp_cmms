@@ -70,9 +70,9 @@ begin transaction;
 \i api-inserts.sql
 \i api-modifies.sql
 \i api-views.sql
+\i api-authenticate.sql
 
 -- others
-\i end-authenticate.sql
 \i end-uuid.sql
 
 -- create and login with fake user for initial inserts
