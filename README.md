@@ -343,12 +343,45 @@ EXPLICAÇÕES PARA ADICIONAR:
   No que diz respeito ao banco de dados, o processo de autenticação usa a função (<code>api.authenticate</code>), que basicamente compara o hash da senha informada no login com o hash da senha registrado na tabela <code>private.accounts</code>. Em caso de correção das informações fornecidas, a função retorna uma string com o formato <code>x-role</code>, em que <code>x</code> é o número do usuário cadastrado no sistema (<code>person_id</code> nas tabelas <code>persons</code> e <code>private.accounts</code>) e <code>role</code> é o respectivo papel (<code>person_role</code> na tabela <code>private.accounts</code>). O back-end é responsável por colocar a string num cookie e passá-lo ao cliente. A partir deste momento, as transações feitas pelo usuário logado carregam sempre esse cookie em suas requisições HTTP. O PostGraphile passa as informações contidas no cookie para o RDBMS por meio da função <a href="https://www.graphile.org/postgraphile/usage-library/#pgsettings-function"><code>pgSettings</code></a>. Durante as transações realizadas durante a sessão do usuário em questão, <code>x</code> e <code>role</code> são acessíveis, respectivamente, pela função <code>get_current_person_id()</code> e pela função (built-in) <code>current_role</code> (ou <code>current_user</code>).
 </p>
 <p>
-  A distribuição de permissões entre os grupos de usuários (roles)é dada conforme a tabela a seguir:
+  Os papéis (roles) no banco de dados correspondem aos seguintes grupos de usuários:
 </p>
 <table>
   <thead>
     <tr>
-      <th>Permissão</th>
+      <th>Role</th>
+      <th>Grupo de usuários</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>administrator</td>
+      <td>Servidores lotados no SEPLAG</td>
+    </tr>
+    <tr>
+      <td>supervisor</td>
+      <td>Servidores efetivos da SINFRA</td>
+    </tr>
+    <tr>
+      <td>inspector</td>
+      <td>Terceirizados que atuam na fiscalização</td>
+    </tr>
+    <tr>
+      <td>employee</td>
+      <td>Terceirizados que atuam no âmbito dos contratos de manutenção</td>
+    </tr>
+    <tr>
+      <td>visitor</td>
+      <td>Pessoas externas ao sistema, sem conta cadastrada no CMMS</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  A distribuição de permissões entre os grupos de usuários (roles) é dada conforme a tabela a seguir:
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Permissão para...</th>
       <th>administrator</th>
       <th>supervisor</th>
       <th>inspector</th>
@@ -358,16 +391,17 @@ EXPLICAÇÕES PARA ADICIONAR:
   </thead>
   <tbody>
     <tr>
-      <td></td>
+      <td>...visualizar tarefa</td>
+      <td>:heavy_check_mark:</td>
+      <td>:heavy_check_mark:</td>
+      <td>:heavy_check_mark:</td>
       <td>:heavy_check_mark:</td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
+    </tr>
+    <tr>
+      <td>...criar tarefa</td>
+      <td>:heavy_check_mark:</td>
+      <td>:heavy_check_mark:</td>
       <td></td>
       <td></td>
       <td></td>
