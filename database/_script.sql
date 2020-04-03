@@ -70,6 +70,7 @@ begin transaction;
 \i api-inserts.sql
 \i api-modifies.sql
 \i api-views.sql
+\i api-forms.sql
 \i api-authenticate.sql
 
 -- others
