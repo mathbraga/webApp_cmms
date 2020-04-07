@@ -5,14 +5,17 @@ import {
   InputGroup,
   Input,
   InputGroupAddon,
-  InputGroupText
+  InputGroupText,
+  Container,
+  Row,
+  Col
 } from 'reactstrap';
 
 class SearchInput extends Component {
   render() {
     const { searchTerm, searchImage, handleChangeSearchTerm } = this.props;
     return (
-      <div className="search" style={{ width: "30%" }}>
+      <div className="search">
         <div className="card-search-form">
           <InputGroup>
             <Input

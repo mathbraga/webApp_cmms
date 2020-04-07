@@ -7,6 +7,12 @@
   height: 80px;
   align-items: center;
   justify-content: space-evenly;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.card-search-column {
+  padding: 12px;
 }
 
 .card-search-form {
