@@ -47,15 +47,16 @@ export default class SearchContainer extends Component {
       </div>
 
       {/*Testing new container */}
-        <Row className="card-search-container align-items-center">
-          <Col md="3">
+        <Row className="card-search-test">
+          <Col sm="3" md="3">
             <SearchInput
               searchTerm={searchTerm}
               searchImage={searchImage}
               handleChangeSearchTerm={handleChangeSearchTerm}
             />
           </Col>
-          <Col md="4" className="search-filter">
+          <div class="w-100 d-sm-block d-md-none"></div>
+          <Col sm="3" md="4" className="search-filter">
             <ol>
               <li><span className="card-search-title">Filtro: </span></li>
               <li><span className="card-search-title">Resultado: </span></li>
