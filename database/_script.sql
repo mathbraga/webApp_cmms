@@ -101,7 +101,7 @@ commit transaction;
 \i end-indexes.sql
 
 -- set the default transaction isolation level
-alter database :new_db_name set default_transaction_isolation to 'serializable';
+-- alter database :new_db_name set default_transaction_isolation to 'serializable';
 
 -- cleanup variable(s)
 \unset new_db_name

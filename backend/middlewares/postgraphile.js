@@ -27,7 +27,7 @@ module.exports = postgraphile(
       const [person_id, role] = req.session.populated ? req.session.passport.user.split('-') : ['0', 'visitor'];
       const readOnly = /query/i.test(req.body.query) ? 'on' : 'off';
       return {
-        'transaction_read_only': readOnly,
+        // 'transaction_read_only': readOnly,
         'role': role,
         'statement_timeout': 5000,
         'cookie.session.person_id': person_id,
