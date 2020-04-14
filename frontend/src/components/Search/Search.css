@@ -9,10 +9,11 @@
   justify-content: space-evenly;
   margin-left: 0;
   margin-right: 0;
+  padding: 16px 0;
 }
 
 .card-search-test {
-  /* display: flex; */
+  display: flex;
   border: 1px solid rgb(214, 214, 214);
   border-radius: 5px;
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.1);
