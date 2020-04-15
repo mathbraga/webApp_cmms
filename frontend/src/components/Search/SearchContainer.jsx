@@ -24,7 +24,7 @@ export default class SearchContainer extends Component {
 
     return (
     <div>
-      <div className="card-search-container">
+      {/* <div className="card-search-container">
         <SearchInput
           searchTerm={searchTerm}
           searchImage={searchImage}
@@ -44,19 +44,18 @@ export default class SearchContainer extends Component {
           <Button name="modalApplyFilter" className="search-filter-button" color="success" onClick={toggleApply}>Aplicar Filtro</Button>
           <Button name="modalFilter" className="search-filter-button" color="primary" onClick={toggleCreate}>Criar Filtro</Button>
         </div>
-      </div>
+      </div> */}
 
       {/*Testing new container */}
-        <Row className="card-search-test">
+      <Row className="card-search-container">
         <div className="d-sm-block d-md-flex align-items-center">
-          <Col sm="6" md="6" style={{ "padding-left": 0 }}>
+          <Col sm="6" md="6" style={{ "padding-left": "20px" }}>
             <SearchInput
               searchTerm={searchTerm}
               searchImage={searchImage}
               handleChangeSearchTerm={handleChangeSearchTerm}
             />
           </Col>
-          {/* <div className="w-100 d-sm-block d-md-none"></div> */}
           <Col sm="3" md="4" className="search-filter">
             <ol>
               <li><span className="card-search-title">Filtro: </span></li>
@@ -74,7 +73,7 @@ export default class SearchContainer extends Component {
             <Button name="modalFilter" className="search-filter-button" color="primary" onClick={toggleCreate}>Criar Filtro</Button>
           </Col>
         </div>
-        </Row>
+      </Row>
 
     </div>
     );
