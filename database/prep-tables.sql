@@ -53,7 +53,7 @@ create table persons (
 );
 
 create table private.accounts (
-  person_id integer not null references persons (person_id),
+  person_id integer primary key references persons (person_id),
   password_hash text not null,
   is_active boolean not null default true,
   person_role text not null references person_roles (person_role)

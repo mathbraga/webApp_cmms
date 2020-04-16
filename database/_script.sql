@@ -70,9 +70,10 @@ begin transaction;
 \i api-inserts.sql
 \i api-modifies.sql
 \i api-views.sql
+\i api-forms.sql
+\i api-authenticate.sql
 
 -- others
-\i end-authenticate.sql
 \i end-uuid.sql
 
 -- create and login with fake user for initial inserts
@@ -96,8 +97,11 @@ begin transaction;
 -- commit transaction
 commit transaction;
 
+-- create extra indexes
+\i end-indexes.sql
+
 -- set the default transaction isolation level
-alter database :new_db_name set default_transaction_isolation to 'serializable';
+-- alter database :new_db_name set default_transaction_isolation to 'serializable';
 
 -- cleanup variable(s)
 \unset new_db_name

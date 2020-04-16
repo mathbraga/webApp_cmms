@@ -13,11 +13,8 @@
 <h3>📁 database</h3>
 
 EXPLICAÇÕES PARA ADICIONAR:
-* types (file_metadata)
 * triggers
 * exception messages
-* asset trees
-
 
 
 <p>O sistema gerenciador de banco de dados relacional (RDBMS) é o <a href="https://www.postgresql.org/">PostgreSQL</a>.</p>
@@ -203,6 +200,12 @@ EXPLICAÇÕES PARA ADICIONAR:
   (*) Observação: o hash das senhas é gerado com uma função de criptografia proveniente da extensão <a href="https://www.postgresql.org/docs/12/pgcrypto.html"><code>pgcrypto</code></a>.
 </p>
 
+
+<p>
+  EXPLICAÇÃO DA RELAÇÃO ENTRE OS ATIVOS
+</p>
+
+
 <p>
   Convenções e estratégias utilizadas:
 </p>
@@ -254,85 +257,92 @@ EXPLICAÇÕES PARA ADICIONAR:
       <li>Operações realizadas pelas funções: correspondem às operações disponibilizadas na interface ao usuário</li>
       <li>Business rules e checagens necessárias para integridade dos dados triggers</li>
     </ul>
+    <p>
+      Algumas das funções:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome da função</th>
+          <th>Descrição</th>
+          <th>Momento da execução</th>
+          <th>Operações realizadas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            insert_task
+          </td>
+          <td>
+            Função que cria uma tarefa.
+          </td>
+          <td>
+            Quando o usuário envia os dados inseridos no formulário de cadastro de uma nova tarefa.
+          </td>
+          <td>
+            Cria novas linhas nas tabelas que são afetadas (tasks e outras a ela relacionadas, por exemplo, task_assets e task_supplies).
+          </td>
+        </tr>
+        <tr>
+          <td>
+            modify_task
+          </td>
+          <td>
+            Função que altera uma tarefa.
+          </td>
+          <td>
+            Quando o usuário envia os dados inseridos no formulário de edição de uma tarefa previamente criada.
+          </td>
+          <td>
+            Atualiza linhas das tabelas que são afetadas (tasks e outras a ela relacionadas, por exemplo, task_assets e task_supplies).
+          </td>
+        </tr>
+        <tr>
+          <td>
+            check_task_supply
+          </td>
+          <td>
+            Trigger que verifica se o suprimento pode ser vinculado a uma tarefa.
+          </td>
+          <td>
+            Antes da inserção (ou atualização) de uma linha na tabela task_supplies.
+          </td>
+          <td>
+            Somente permite a inserção (ou atualização) da tabela task_supplies caso as três verificações sejam realizadas com sucesso: (1) existe saldo suficiente para o suprimento; (2) os valores decimais da quantidade selecionada para o suprimento não estão em desacordo com a sua especificação técnica (há suprimentos que somente permitem valores inteiros); e (3) o contrato vinculado à tarefa é o mesmo que contém o suprimento em questão.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            log_change
+          </td>
+          <td>
+            Trigger que registra uma modificação no banco de dados.
+          </td>
+          <td>
+            Após a inserção (ou atualização) de qualquer linha de qualquer tabela do banco de dados.
+          </td>
+          <td>
+            Registra: (1) a id do usuário que realizou a modificação; (2) data e hora da modificação; (3) operação realizada (INSERT, UPDATE ou DELETE); (4) nome da tabela modificada; (5) valores antigos da linha modificada, caso exista, em formato JSON; e (6) valores novos da linha modificada, caso exista, em formato JSON.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Os testes das rotinas que permitem os usuários realizarem alterações no banco de dados 
+      (por exemplo, criação ou atualização de uma tarefa) e seus respectivos triggers de checagem são encontrados em <a href="./backend/tests">/backend/tests.</a>
+    </p>
+  </li>
+  <li>Tipos customizados
+    <p>
+      O tipo customizado <b>file_metadata</b> é utilizado para aglutinar três das colunas das tabelas associativas referentes a arquivos de upload (<code>filename</code>,
+      <code>uuid</code> e <code>size</code>) em um único objeto.
+    </p>
+    <p>
+      Isto permite a simplificação das strings das mutations GraphQL que incluem o upload de arquivos: utiliza-se uma única variável (com o tipo <code>FileMetadatumInput</code>) em vez de três variáveis.
+    </p>
   </li>
 </ol>
-
-<p>
-  Algumas das funções:
-</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Nome da função</th>
-      <th>Descrição</th>
-      <th>Momento da execução</th>
-      <th>Operações realizadas</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        insert_task
-      </td>
-      <td>
-        Função que cria uma tarefa.
-      </td>
-      <td>
-        Quando o usuário envia os dados inseridos no formulário de cadastro de uma nova tarefa.
-      </td>
-      <td>
-        Cria novas linhas nas tabelas que são afetadas (tasks e outras a ela relacionadas, por exemplo, task_assets e task_supplies).
-      </td>
-    </tr>
-    <tr>
-      <td>
-        modify_task
-      </td>
-      <td>
-        Função que altera uma tarefa.
-      </td>
-      <td>
-        Quando o usuário envia os dados inseridos no formulário de edição de uma tarefa previamente criada.
-      </td>
-      <td>
-        Atualiza linhas das tabelas que são afetadas (tasks e outras a ela relacionadas, por exemplo, task_assets e task_supplies).
-      </td>
-    </tr>
-    <tr>
-      <td>
-        check_task_supply
-      </td>
-      <td>
-        Trigger que verifica se o suprimento pode ser vinculado a uma tarefa.
-      </td>
-      <td>
-        Antes da inserção (ou atualização) de uma linha na tabela task_supplies.
-      </td>
-      <td>
-        Somente permite a inserção (ou atualização) da tabela task_supplies caso as três verificações sejam realizadas com sucesso: (1) existe saldo suficiente para o suprimento; (2) os valores decimais da quantidade selecionada para o suprimento não estão em desacordo com a sua especificação técnica (há suprimentos que somente permitem valores inteiros); e (3) o contrato vinculado à tarefa é o mesmo que contém o suprimento em questão.
-      </td>
-    </tr>
-    <tr>
-      <td>
-        log_change
-      </td>
-      <td>
-        Trigger que registra uma modificação no banco de dados.
-      </td>
-      <td>
-        Após a inserção (ou atualização) de qualquer linha de qualquer tabela do banco de dados.
-      </td>
-      <td>
-        Registra: (1) a id do usuário que realizou a modificação; (2) data e hora da modificação; (3) operação realizada (INSERT, UPDATE ou DELETE); (4) nome da tabela modificada; (5) valores antigos da linha modificada, caso exista, em formato JSON; e (6) valores novos da linha modificada, caso exista, em formato JSON.
-      </td>
-    </tr>
-  </tbody>
-</table>
-<p>
-  Os testes das rotinas que permitem os usuários realizarem alterações no banco de dados 
-  (por exemplo, criação ou atualização de uma tarefa) e seus respectivos triggers de checagem são encontrados em <a href="./backend/tests">/backend/tests.</a>
-</p>
 
 <h4>Conexão, autenticação, roles (papéis) e Row-Level Security (RLS)</h4>
 
@@ -343,12 +353,69 @@ EXPLICAÇÕES PARA ADICIONAR:
   No que diz respeito ao banco de dados, o processo de autenticação usa a função (<code>api.authenticate</code>), que basicamente compara o hash da senha informada no login com o hash da senha registrado na tabela <code>private.accounts</code>. Em caso de correção das informações fornecidas, a função retorna uma string com o formato <code>x-role</code>, em que <code>x</code> é o número do usuário cadastrado no sistema (<code>person_id</code> nas tabelas <code>persons</code> e <code>private.accounts</code>) e <code>role</code> é o respectivo papel (<code>person_role</code> na tabela <code>private.accounts</code>). O back-end é responsável por colocar a string num cookie e passá-lo ao cliente. A partir deste momento, as transações feitas pelo usuário logado carregam sempre esse cookie em suas requisições HTTP. O PostGraphile passa as informações contidas no cookie para o RDBMS por meio da função <a href="https://www.graphile.org/postgraphile/usage-library/#pgsettings-function"><code>pgSettings</code></a>. Durante as transações realizadas durante a sessão do usuário em questão, <code>x</code> e <code>role</code> são acessíveis, respectivamente, pela função <code>get_current_person_id()</code> e pela função (built-in) <code>current_role</code> (ou <code>current_user</code>).
 </p>
 <p>
-  Os papéis são definidos conforme a tabela a seguir:
+  Os papéis (roles) no banco de dados correspondem aos seguintes grupos de usuários:
 </p>
 <table>
   <thead>
+    <tr>
+      <th>Role</th>
+      <th>Grupo de usuários</th>
+    </tr>
   </thead>
   <tbody>
+    <tr>
+      <td>administrator</td>
+      <td>Servidores lotados no SEPLAG</td>
+    </tr>
+    <tr>
+      <td>supervisor</td>
+      <td>Servidores efetivos da SINFRA</td>
+    </tr>
+    <tr>
+      <td>inspector</td>
+      <td>Terceirizados que atuam na fiscalização</td>
+    </tr>
+    <tr>
+      <td>employee</td>
+      <td>Terceirizados que atuam no âmbito dos contratos de manutenção</td>
+    </tr>
+    <tr>
+      <td>visitor</td>
+      <td>Pessoas externas ao sistema, sem conta cadastrada no CMMS</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  A distribuição de permissões entre os grupos de usuários (roles) é dada conforme a tabela a seguir:
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Permissão para...</th>
+      <th>administrator</th>
+      <th>supervisor</th>
+      <th>inspector</th>
+      <th>employee</th>
+      <th>visitor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>...visualizar tarefa</td>
+      <td>:heavy_check_mark:</td>
+      <td>:heavy_check_mark:</td>
+      <td>:heavy_check_mark:</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>...criar tarefa</td>
+      <td>:heavy_check_mark:</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
   </tbody>
 </table>
 
