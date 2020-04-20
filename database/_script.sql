@@ -55,6 +55,9 @@ begin transaction;
 -- create composite types
 \i prep-types.sql
 
+-- create domains
+\i prep-domains.sql
+
 -- create tables
 \i prep-lookup-tables.sql
 \i prep-tables.sql
