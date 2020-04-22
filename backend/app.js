@@ -16,6 +16,9 @@ const morgan = require('./middlewares/morgan');
 const postgraphile = require('./middlewares/postgraphile');
 const cronJob = require('./cron');
 
+// App configuration
+app.set('x-powered-by', false);
+
 // Middlewares
 app.use(cors);
 app.use(expressJson);
