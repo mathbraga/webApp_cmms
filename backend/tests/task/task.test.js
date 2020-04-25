@@ -3,7 +3,10 @@ const exec = util.promisify(require('child_process').exec);
 const path = require('path');
 const paths = require('../../paths');
 const { reqSuccess, reqSuccessWithFiles, reqFailNoAssets } = require('./reqs');
-const request = require('supertest');
+//
+const supertest = require('supertest');
+const app = require("../../app");
+const request = supertest(app);
 
 describe('Task tests', () => {
   
@@ -13,12 +16,25 @@ describe('Task tests', () => {
   const curlFailNoAssets = `curl -X POST -H 'Content-Type: application/json' -d '${reqFailNoAssets}' ${url}`
   const curlSuccessWithFiles = `curl -X POST -F operations='${reqSuccessWithFiles}' -F map='{ "0": ["variables.files.0"] }' -F 0=@${upload} ${url}`;
 
+  beforeAll(() => {
+    exec("nodemon", (error, stdout, stderr) => {
+      if (error) {
+          console.log(`error: ${error.message}`);
+          return;
+      }
+      if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+      }
+      console.log(`stdout: ${stdout}`);
+    });
+  })
+
 //server related tests
-  const app = require("../../app");
 
   test('Server response failure', async () => {
-    const response = await request(app).get('/');
-    expect(response.statusCode).toBe(404);
+    const response = await request.get('/');
+    expect(response.status).toBe(404);
   });
 
 //--------------------
