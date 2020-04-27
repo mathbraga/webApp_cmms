@@ -14,7 +14,6 @@ const cookieSession = require('./middlewares/cookie-session');
 const passport = require('./middlewares/passport');
 const morgan = require('./middlewares/morgan');
 const postgraphile = require('./middlewares/postgraphile');
-const cronJob = require('./cron');
 
 // App configuration
 app.set('x-powered-by', false);
