@@ -39,7 +39,7 @@ const diffUploads = async () => {
 
     const diffFileContent =
       'List of uploaded files not registered in the database\n' +
-      '(diff script executed at ' + new Date() + ')\n' +
+      '(diff script executed at ' + (new Date()).toString() + ')\n' +
       '-----------------------------------------------------------------------\n' +
       diffUUIDs.join('\n').replace(/\.gitkeep\n/, '') +
       '\n'
@@ -56,9 +56,17 @@ const diffUploads = async () => {
   }
 }
 
-module.exports = {
-  testCron,
-  refreshAllMaterializedViews,
-  dumpDatabase,
-  diffUploads,
+const onTickSecond = () => {
+  if (process.env.CRON_TEST !== undefined) testCron();
 }
+
+const onTickMinute = () => {
+  if (process.env.CRON_DUMP !== undefined) dumpDatabase();
+  if (process.env.CRON_REFRESH !== undefined) refreshAllMaterializedViews();
+  if (process.env.CRON_DIFF !== undefined) diffUploads();
+}
+
+module.exports = {
+  onTickSecond,
+  onTickMinute,
+};
