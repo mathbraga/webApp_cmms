@@ -34,14 +34,6 @@ create table contracts (
   url text -- just one? many?
 );
 
--- create table departments (
---   department_id integer primary key generated always as identity,
---   department_sf text not null,
---   parent integer references departments (department_id),
---   name text not null,
---   is_active boolean not null
--- );
-
 create table persons (
   person_id integer primary key generated always as identity,
   cpf text not null unique check (cpf ~ '^[0-9]{11}$'),
@@ -63,7 +55,12 @@ create table teams (
   team_id integer primary key generated always as identity,
   name text not null unique,
   description text,
-  is_active boolean not null default true
+  is_active boolean not null default true,
+  is_verifier boolean not null default false
+);
+
+create table verifier_teams (
+  team_id integer primary key references teams (team_id)
 );
 
 create table team_persons (
@@ -93,8 +90,8 @@ create table tasks (
   task_priority_id integer not null references task_priorities (task_priority_id),
   task_category_id integer not null references task_categories (task_category_id),
   project_id integer references projects (project_id),
-  contract_id integer references contracts (contract_id),
-  team_id integer references teams (team_id),
+  -- contract_id integer references contracts (contract_id),
+  -- team_id integer references teams (team_id),
   title text not null,
   description text not null,
   request_department text,
@@ -106,9 +103,9 @@ create table tasks (
   date_limit timestamptz,
   date_start timestamptz,
   date_end timestamptz,
-  person_id integer not null references persons (person_id) default get_current_person_id(),
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
+  -- person_id integer not null references persons (person_id) default get_current_person_id(),
+  -- created_at timestamptz not null default now(),
+  -- updated_at timestamptz not null default now()
 );
 
 create table task_messages (
@@ -124,18 +121,6 @@ create table task_assets (
   asset_id integer not null references assets (asset_id),
   primary key (task_id, asset_id)
 );
-
--- create table task_teams (
---   task_id integer not null references tasks (task_id),
---   team_id integer not null references teams (team_id),
---   primary key (task_id, team_id)
--- );
-
--- create table asset_departments (
---   asset_id integer not null references assets (asset_id),
---   department_id integer not null references departments (department_id),
---   primary key (asset_id, department_id)
--- );
 
 create table specs (
   spec_id integer primary key generated always as identity,
@@ -183,42 +168,6 @@ create table task_supplies (
   primary key (task_id, supply_id)
 );
 
--- create table rules (
---   rule_id integer primary key generated always as identity,
---   rule_sf text not null unique, -- regex
---   category rule_category_type, -- enum or reference to a table
---   title text,
---   description text,
---   url text
--- );
-
--- create table asset_rules (
---   asset_id integer not null references assets (asset_id),
---   rule_id integer not null references rules (rule_id),
---   primary key (asset_id, rule_id)
--- );
-
--- create table spec_rules (
---   spec_id integer not null references specs (spec_id),
---   rule_id integer not null references rules (rule_id),
---   primary key (spec_id, rule_id)
--- );
-
--- create table templates (
---   template_id integer primary key generated always as identity,
---   name text not null unique,
---   description text not null
--- );
-
-create table asset_files (
-  asset_id integer not null references assets (asset_id),
-  filename text not null,
-  uuid uuid not null,
-  size bigint not null,
-  person_id integer not null references persons (person_id) default get_current_person_id(),
-  created_at timestamptz not null default now()
-);
-
 create table task_files (
   task_id integer not null references tasks (task_id),
   filename text not null,
@@ -228,24 +177,6 @@ create table task_files (
   created_at timestamptz not null default now()
 );
 
--- create table rule_files (
---   rule_id integer not null references rules (rule_id),
---   name text not null,
---   uuid uuid not null,
---   size bigint not null,
---   person_id integer not null references persons (person_id) default get_current_person_id(),
---   created_at timestamptz not null default now()
--- );
-
--- create table template_files (
---   template_id integer not null references templates (template_id),
---   name text not null,
---   uuid uuid not null,
---   size bigint not null,
---   person_id integer not null references persons (person_id) default get_current_person_id(),
---   created_at timestamptz not null default now()
--- );
-
 create table private.audit_trails (
   person_id integer not null references persons (person_id) default get_current_person_id(),
   created_at timestamptz not null,
@@ -253,4 +184,12 @@ create table private.audit_trails (
   tablename text not null,
   old_row jsonb,
   new_row jsonb
+);
+
+create table task_flow_logs (
+  task_id integer not null references tasks (task_id),
+);
+
+create table task_status_logs (
+  task_id integer not null references tasks (task_id),
 );
