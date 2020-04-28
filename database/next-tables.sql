@@ -188,8 +188,18 @@ create table private.audit_trails (
 
 create table task_flow_logs (
   task_id integer not null references tasks (task_id),
+  person_id integer not null references persons (person_id),
+  sent_by integer not null references teams (team_id),
+  sent_to integer not null references teams (team_id),
+  sent_at timestamptz not null,
+  received_at timestamptz not null,
+  description text,
 );
 
 create table task_status_logs (
   task_id integer not null references tasks (task_id),
+  updated_at timestamptz not null,
+  person_id integer not null references persons (person_id),
+  task_status_id integer not null references task_statuses (task_status_id),
+  description text
 );
