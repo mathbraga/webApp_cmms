@@ -102,7 +102,7 @@ create table tasks (
   progress integer check (progress >= 0 and progress <= 100),
   date_limit timestamptz,
   date_start timestamptz,
-  date_end timestamptz,
+  date_end timestamptz
   -- person_id integer not null references persons (person_id) default get_current_person_id(),
   -- created_at timestamptz not null default now(),
   -- updated_at timestamptz not null default now()
@@ -186,14 +186,14 @@ create table private.audit_trails (
   new_row jsonb
 );
 
-create table task_flow_logs (
+create table task_dispatch_logs (
   task_id integer not null references tasks (task_id),
   person_id integer not null references persons (person_id),
   sent_by integer not null references teams (team_id),
   sent_to integer not null references teams (team_id),
   sent_at timestamptz not null,
   received_at timestamptz not null,
-  description text,
+  description text
 );
 
 create table task_status_logs (

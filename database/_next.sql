@@ -57,7 +57,7 @@ begin transaction;
 
 -- create tables
 \i prep-lookup-tables.sql
-\i next-tables.sql
+\i next-prep-tables.sql
 
 -- -- create helpers
 -- \i helper-json-builders.sql
