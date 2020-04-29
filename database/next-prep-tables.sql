@@ -193,7 +193,7 @@ create table task_dispatch_logs (
   sent_to integer not null references teams (team_id),
   sent_at timestamptz not null,
   received_at timestamptz not null,
-  description text
+  note text
 );
 
 create table task_status_logs (
@@ -201,5 +201,5 @@ create table task_status_logs (
   updated_at timestamptz not null,
   person_id integer not null references persons (person_id),
   task_status_id integer not null references task_statuses (task_status_id),
-  description text
+  note text
 );
