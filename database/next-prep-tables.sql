@@ -86,7 +86,7 @@ create table projects (
 
 create table tasks (
   task_id integer primary key generated always as identity,
-  task_status_id integer not null references task_statuses (task_status_id),
+  -- task_status_id integer not null references task_statuses (task_status_id),
   task_priority_id integer not null references task_priorities (task_priority_id),
   task_category_id integer not null references task_categories (task_category_id),
   project_id integer references projects (project_id),
@@ -186,7 +186,7 @@ create table private.audit_trails (
   new_row jsonb
 );
 
-create table task_dispatch_logs (
+create table task_dispatches (
   task_id integer not null references tasks (task_id),
   person_id integer not null references persons (person_id),
   sent_by integer not null references teams (team_id),
@@ -196,7 +196,7 @@ create table task_dispatch_logs (
   note text
 );
 
-create table task_status_logs (
+create table task_status (
   task_id integer not null references tasks (task_id),
   updated_at timestamptz not null,
   person_id integer not null references persons (person_id),

@@ -5,7 +5,7 @@ create or replace function api.dispatch_task (
   language plpgsql
   as $$
     begin
-      insert into task_dispatch_logs values (
+      insert into task_dispatches values (
         dispatch.task_id,
         get_current_person_id(),
         dispatch.sent_by,
