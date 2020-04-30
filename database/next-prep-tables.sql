@@ -189,10 +189,10 @@ create table private.audit_trails (
 create table task_dispatches (
   task_id integer not null references tasks (task_id),
   person_id integer not null references persons (person_id),
-  sent_by integer not null references teams (team_id),
+  sent_by integer references teams (team_id),
   sent_to integer not null references teams (team_id),
-  sent_at timestamptz not null,
-  received_at timestamptz not null,
+  sent_at timestamptz,
+  received_at timestamptz,
   note text
 );
 
