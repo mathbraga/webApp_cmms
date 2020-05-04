@@ -5,15 +5,13 @@ const paths = require('../../paths');
 const { reqSuccess, reqSuccessWithFiles, reqFailNoAssets, supertestReq } = require('./reqs');
 const request = require('supertest');
 const app = require('../../app');
-const pgPool = require('../../db');
+const { pgPool } = require('../../db');
 
 describe('Task tests', () => {
   
   afterAll(async () => {
     await pgPool.end();
   });
-
-
 
   // const url = path.join('http://localhost:3001', paths.db);
   // const upload = __dirname + '/test.txt';
@@ -39,7 +37,7 @@ describe('Task tests', () => {
   //   });
   // });
 
-  test('supertest', async () => {
+  test('Using supertest library', async () => {
     let res = await request(app)
       .post('/db')
       .set('Accept', 'application/json')
