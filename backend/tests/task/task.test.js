@@ -2,13 +2,13 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const path = require('path');
 const paths = require('../../paths');
-const { reqSuccess, reqSuccessWithFiles, reqFailNoAssets, supertestReq } = require('./reqs');
+const { reqSuccess, reqSuccessWithFiles, reqFailNoAssets, supertestReq, supertestReqWithFile } = require('./reqs');
 const request = require('supertest');
 const app = require('../../app');
 const { pgPool } = require('../../db');
 
 describe('Task tests', () => {
-  
+
   afterAll(async () => {
     await pgPool.end();
   });
@@ -38,11 +38,18 @@ describe('Task tests', () => {
   // });
 
   test('Using supertest library', async () => {
-    let res = await request(app)
+    const response = await request(app)
       .post('/db')
       .set('Accept', 'application/json')
-      .send(supertestReq)
-    console.log(res)
-  })
+      .send(supertestReq);
+    expect(response.status).toBe(200);
+  });
+
+  // test('Using supertest library (with file upload)', async () => {
+  //   const response = await request(app)
+  //     .post('/db')
+  //     .send(supertestReqWithFile);
+  //   expect(response.status).toBe(200);
+  // });
 
 });

@@ -126,4 +126,5 @@ module.exports = {
   // reqFailWrongContract: buildReqBody(varsFailWrongContract),
   reqSuccessWithFiles: buildReqBody(varsSuccessWithFile),
   supertestReq: buildSupertestReqBody(varsSuccess),
+  // supertestReqWithFile: new FormData(this.supertestReq)
 }
