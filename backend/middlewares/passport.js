@@ -27,15 +27,16 @@ passport.serializeUser((userData, done) => {
 });
 
 passport.deserializeUser(async (userData, done) => {
-  try {
-    let data = await db.query('select person_id from persons where person_id = $1', [parseInt(userData.split('-')[0],10)]);
-    if (data.rows.length === 0){
-      return done(new Error('user not found'));
-    }
-    done(null, data.rows[0].person_id);
-  } catch (error) {
-    done(error);
-  }
+  done(null, userData);
+  // try {
+  //   // let data = await db.query('select person_id from persons where person_id = $1', [parseInt(userData.split('-')[0],10)]);
+  //   // if (data.rows.length === 0){
+  //   //   return done(new Error('user not found'));
+  //   }
+  //   done(null, data.rows[0].person_id);
+  // } catch (error) {
+  //   done(error);
+  // }
 });
 
 

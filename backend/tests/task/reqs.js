@@ -39,6 +39,47 @@ function buildReqBody(vars){
   });
 }
 
+function buildSupertestReqBody(vars){
+  return {
+    variables: {
+      id: vars.id,
+      attributes: {
+        taskStatusId: vars.taskStatusId,
+        taskPriorityId: vars.taskPriorityId,
+        taskCategoryId: vars.taskCategoryId,
+        projectId: vars.projectId,
+        contractId: vars.contractId,
+        teamId: vars.teamId,
+        title: vars.title,
+        description: vars.description,
+        place: vars.place,
+        progress: vars.progress,
+        dateLimit: vars.dateLimit,
+        dateStart: vars.dateStart,
+        dateEnd: vars.dateEnd
+      },
+      assets: vars.assets,
+      files: vars.files,
+      filesMetadata: vars.filesMetadata
+    }
+    ,
+    query: `mutation (
+      $attributes: TaskInput!,
+      $assets: [Int!]!,
+      $filesMetadata: [FileMetadatumInput]
+    ) {
+      insertTask(input:{
+        attributes: $attributes,
+        assets: $assets,
+        filesMetadata: $filesMetadata
+      }) {
+        id
+        __typename
+      }
+    }`
+  };
+}
+
 const varsSuccess = {
   id: null,
   taskStatusId: 1,
@@ -84,4 +125,5 @@ module.exports = {
   // reqFailLargeQty: buildReqBody(varsFailLargeQty),
   // reqFailWrongContract: buildReqBody(varsFailWrongContract),
   reqSuccessWithFiles: buildReqBody(varsSuccessWithFile),
+  supertestReq: buildSupertestReqBody(varsSuccess),
 }
