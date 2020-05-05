@@ -1,7 +1,6 @@
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
 const path = require('path');
 const paths = require('../../paths');
+const got = require('got');
 
 describe('Download tests', () => {
 
@@ -11,19 +10,15 @@ describe('Download tests', () => {
     "de741848-5e90-4c5e-8699-78aca9b37aba",
     "test.txt"
   );
-  const curlDownload = `curl -X GET ${downloadURL}`;
-  const curlStatic = `curl -I http://localhost:3001/images/test.jpeg`;
 
   test('Download', async () => {
-    await expect(exec(curlDownload)).resolves.toMatchObject({
-      stdout: expect.stringMatching(/upload and download/i)
-    });
+    const response = await got.get(downloadURL);
+    expect(response.statusCode).toBe(200);
   });
 
   test('Static files', async () => {
-    await expect(exec(curlStatic)).resolves.toMatchObject({
-      stdout: expect.stringMatching(/200 OK/i)
-    });
+    const response = await got.get('http://localhost:3001/images/test.jpeg');
+    expect(response.statusCode).toBe(200);
   });
 
 });
