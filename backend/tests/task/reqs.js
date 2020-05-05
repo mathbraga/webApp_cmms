@@ -1,45 +1,7 @@
-function buildReqBody(vars){
-  return JSON.stringify({
-    variables: {
-      id: vars.id,
-      attributes: {
-        taskStatusId: vars.taskStatusId,
-        taskPriorityId: vars.taskPriorityId,
-        taskCategoryId: vars.taskCategoryId,
-        projectId: vars.projectId,
-        contractId: vars.contractId,
-        teamId: vars.teamId,
-        title: vars.title,
-        description: vars.description,
-        place: vars.place,
-        progress: vars.progress,
-        dateLimit: vars.dateLimit,
-        dateStart: vars.dateStart,
-        dateEnd: vars.dateEnd
-      },
-      assets: vars.assets,
-      files: vars.files,
-      filesMetadata: vars.filesMetadata
-    }
-    ,
-    query: `mutation (
-      $attributes: TaskInput!,
-      $assets: [Int!]!,
-      $filesMetadata: [FileMetadatumInput]
-    ) {
-      insertTask(input:{
-        attributes: $attributes,
-        assets: $assets,
-        filesMetadata: $filesMetadata
-      }) {
-        id
-        __typename
-      }
-    }`
-  });
-}
+const fs = require('fs');
+const FormData = require('form-data');
 
-function buildSupertestReqBody(vars){
+function buildReqBody(vars){
   return {
     variables: {
       id: vars.id,
@@ -61,8 +23,7 @@ function buildSupertestReqBody(vars){
       assets: vars.assets,
       files: vars.files,
       filesMetadata: vars.filesMetadata
-    }
-    ,
+    },
     query: `mutation (
       $attributes: TaskInput!,
       $assets: [Int!]!,
@@ -100,7 +61,8 @@ const varsSuccess = {
   filesMetadata: null,
 }
 
-const varsSuccessWithFile = Object.assign(
+let form = new FormData();
+form.append('operations', JSON.stringify(buildReqBody(Object.assign(
   {...varsSuccess},
   {
     files: [null],
@@ -110,7 +72,9 @@ const varsSuccessWithFile = Object.assign(
       size: 1234
     }]
   }
-);
+))));
+form.append('map', JSON.stringify({0: ["variables.files.0"]}));
+form.append('0', fs.createReadStream(__dirname + '/test.txt'));
 
 const varsFailNoAssets = Object.assign(
   {...varsSuccess},
@@ -121,10 +85,5 @@ const varsFailNoAssets = Object.assign(
 
 module.exports = {
   reqSuccess: buildReqBody(varsSuccess),
-  reqFailNoAssets: buildReqBody(varsFailNoAssets),
-  // reqFailLargeQty: buildReqBody(varsFailLargeQty),
-  // reqFailWrongContract: buildReqBody(varsFailWrongContract),
-  reqSuccessWithFiles: buildReqBody(varsSuccessWithFile),
-  supertestReq: buildSupertestReqBody(varsSuccess),
-  // supertestReqWithFile: new FormData(this.supertestReq)
+  reqSuccessWithFile: form,
 }

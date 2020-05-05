@@ -22,7 +22,7 @@ module.exports = postgraphile(
     extendedErrors: ['hint', 'detail', 'errcode'],
     // exportJsonSchemaPath: process.env.NODE_ENV === 'development' ? '../frontend/src/schema.json' : false,
     // exportGqlSchemaPath: process.env.NODE_ENV === 'development' ? '../frontend/src/schema.graphql' : false,
-    sortExport: true,
+    // sortExport: true,
     pgSettings: async req => {
       const [person_id, role] = req.session.populated ? req.session.passport.user.split('-') : ['0', 'visitor'];
       const readOnly = /query/i.test(req.body.query) ? 'on' : 'off';

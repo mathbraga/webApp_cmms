@@ -25,6 +25,8 @@
     "postgraphile": "^4.7.0"
   },
   "devDependencies": {
+    "form-data": "^3.0.0",
+    "got": "^11.1.0",
     "jest": "^24.9.0",
     "supertest": "^4.0.2"
   },
