@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import DescriptionTable from '../../../components/Descriptions/DescriptionTable';
 import CustomTable from '../../../components/Tables/CustomTable';
+import { itemsMatrixAssetsHierachy } from '../utils/dispatchTab/descriptionMatrix';
 
 class AssignTab extends Component {
   state = {}
@@ -12,7 +13,7 @@ class AssignTab extends Component {
         <DescriptionTable
           title={'Lista de Ativos'}
           numColumns={2}
-          itemsMatrix={itemsMatrixAssets(data)}
+          itemsMatrix={itemsMatrixAssetsHierachy(data)}
         />
         {/* <CustomTable
           type={'pages-with-search'}
