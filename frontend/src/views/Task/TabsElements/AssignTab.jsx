@@ -11,7 +11,7 @@ class AssignTab extends Component {
     return (
       <>
         <DescriptionTable
-          title={'Lista de Ativos'}
+          title={'Unidade Atual'}
           numColumns={2}
           itemsMatrix={itemsMatrixAssetsHierachy(data)}
         />
