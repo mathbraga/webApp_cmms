@@ -15,6 +15,11 @@ class AssignTab extends Component {
           numColumns={2}
           itemsMatrix={itemsMatrixAssetsHierachy(data)}
         />
+        <div 
+          className='action-container'
+        >
+          Hey
+        </div>
         {/* <CustomTable
           type={'pages-with-search'}
           tableConfig={tableConfig}
