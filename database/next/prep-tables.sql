@@ -84,28 +84,29 @@ create table projects (
   is_active boolean not null default true
 );
 
+create table requests (
+  request_id integer primary key generated always as identity,
+  description text,
+  name text,
+  email text,
+  phone text,
+  department text,
+  place text
+);
+
 create table tasks (
   task_id integer primary key generated always as identity,
-  -- task_status_id integer not null references task_statuses (task_status_id),
   task_priority_id integer not null references task_priorities (task_priority_id),
   task_category_id integer not null references task_categories (task_category_id),
   project_id integer references projects (project_id),
-  -- contract_id integer references contracts (contract_id),
-  -- team_id integer references teams (team_id),
   title text not null,
   description text not null,
-  request_department text,
-  request_name text,
-  request_phone text,
-  request_email text,
   place text,
   progress integer check (progress >= 0 and progress <= 100),
   date_limit timestamptz,
   date_start timestamptz,
-  date_end timestamptz
-  -- person_id integer not null references persons (person_id) default get_current_person_id(),
-  -- created_at timestamptz not null default now(),
-  -- updated_at timestamptz not null default now()
+  date_end timestamptz,
+  request_id integer references requests (request_id)
 );
 
 create table task_messages (
@@ -120,6 +121,24 @@ create table task_assets (
   task_id integer not null references tasks (task_id),
   asset_id integer not null references assets (asset_id),
   primary key (task_id, asset_id)
+);
+
+create table task_dispatches (
+  task_id integer not null references tasks (task_id),
+  person_id integer not null references persons (person_id),
+  sent_by integer references teams (team_id),
+  sent_to integer not null references teams (team_id),
+  sent_at timestamptz,
+  received_at timestamptz,
+  note text
+);
+
+create table task_status_updates (
+  task_id integer not null references tasks (task_id),
+  updated_at timestamptz not null,
+  person_id integer not null references persons (person_id),
+  task_status_id integer not null references task_statuses (task_status_id),
+  note text
 );
 
 create table specs (
@@ -184,22 +203,4 @@ create table private.audit_trails (
   tablename text not null,
   old_row jsonb,
   new_row jsonb
-);
-
-create table task_dispatches (
-  task_id integer not null references tasks (task_id),
-  person_id integer not null references persons (person_id),
-  sent_by integer references teams (team_id),
-  sent_to integer not null references teams (team_id),
-  sent_at timestamptz,
-  received_at timestamptz,
-  note text
-);
-
-create table task_status (
-  task_id integer not null references tasks (task_id),
-  updated_at timestamptz not null,
-  person_id integer not null references persons (person_id),
-  task_status_id integer not null references task_statuses (task_status_id),
-  note text
 );

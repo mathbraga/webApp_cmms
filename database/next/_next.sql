@@ -55,18 +55,29 @@ begin transaction;
 -- create composite types
 \i prep-types.sql
 
+-- create domains
+-- \i prep-domains.sql
+
 -- create tables
 \i prep-lookup-tables.sql
-\i next-prep-tables.sql
+\i prep-tables.sql
 
 -- -- create helpers
--- \i helper-json-builders.sql
--- \i helper-get-asset-trees.sql
--- \i helper-views.sql
--- \i helper-exception.sql
+\i helper-json-builders.sql
+\i helper-get-asset-trees.sql
+\i helper-views.sql
+\i helper-exception.sql
 -- \i helper-trigger-functions.sql
 
 -- -- create api
+\i api-dispatch-task.sql
+\i api-update-task-status.sql
+\i api-insert-task.sql
+\i api-refresh.sql
+-- \i api-views.sql
+\i api-authenticate.sql
+-- \i api-forms.sql
+
 -- \i api-inserts.sql
 -- \i api-modifies.sql
 -- \i api-views.sql

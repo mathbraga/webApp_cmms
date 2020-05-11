@@ -11,12 +11,9 @@ create or replace function api.insert_task (
     begin
       insert into tasks values (
         default,
-        -- attributes.task_status_id,
         attributes.task_priority_id,
         attributes.task_category_id,
         attributes.project_id,
-        -- attributes.contract_id,
-        -- attributes.team_id,
         attributes.title,
         attributes.description,
         attributes.request_department,
@@ -28,9 +25,6 @@ create or replace function api.insert_task (
         attributes.date_limit,
         attributes.date_start,
         attributes.date_end
-        -- default,
-        -- default,
-        -- default
       ) returning task_id into id;
 
       if assets is not null then
@@ -58,7 +52,7 @@ create or replace function api.insert_task (
         'Criação da tarefa.'
       );
 
-      insert into task_status values (
+      insert into task_status_updates values (
         id,
         now(),
         get_current_person_id(),
