@@ -28,6 +28,10 @@
   color: #5f5f5f;
 }
 
+.action__buttons {
+  margin-right: 10px;
+}
+
 .miniform-container {
   margin: 30px;
   padding: 20px;
