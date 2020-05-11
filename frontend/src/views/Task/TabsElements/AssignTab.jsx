@@ -10,16 +10,16 @@ class AssignTab extends Component {
     const data = this.props.data.assets;
     return (
       <>
-        <DescriptionTable
-          title={'Unidade Atual'}
-          numColumns={2}
-          itemsMatrix={itemsMatrixAssetsHierachy(data)}
-        />
         <div 
           className='action-container'
         >
           Tramitar Tarefa
         </div>
+        <DescriptionTable
+          title={'Unidade Atual'}
+          numColumns={2}
+          itemsMatrix={itemsMatrixAssetsHierachy(data)}
+        />
       </>
     );
   }
