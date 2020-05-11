@@ -18,18 +18,8 @@ class AssignTab extends Component {
         <div 
           className='action-container'
         >
-          Hey
+          Tramitar Tarefa
         </div>
-        {/* <CustomTable
-          type={'pages-with-search'}
-          tableConfig={tableConfig}
-          customFilters={customFilters}
-          filterAttributes={filterAttributes}
-          searchableAttributes={searchableAttributes}
-          selectedData={this.props.selectedData}
-          handleSelectData={this.props.handleSelectData}
-          data={data}
-        /> */}
       </>
     );
   }
