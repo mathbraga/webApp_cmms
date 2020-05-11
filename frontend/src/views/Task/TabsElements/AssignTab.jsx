@@ -14,7 +14,7 @@ class AssignTab extends Component {
         <div 
           className='action-container'
         >
-          <div className="action-text">Tramitar Tarefa</div>
+          <div className="action-text">Tramitar Tarefa / Alterar Status</div>
           <div className='action-buttons'>
             <Button color="success" size="sm" style={{ marginRight: "10px" }}>
               Tramitar
