@@ -39,4 +39,7 @@ app.use(paths.email, emailRoute);
 // PostGraphile route
 app.use(postgraphile);
 
+// 404 Error
+app.use((req, res) => res.status(404).send("Página não encontrada."));
+
 module.exports = app;
