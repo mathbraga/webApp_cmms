@@ -13,6 +13,21 @@ const selectStyles = {
   }),
 };
 
+const teamsFake = [
+  {value: 'Semac', label: 'Semac'}, 
+  {value: 'Coemant', label: 'Coemant'}, 
+  {value: 'Sinfra', label: 'Sinfra'},
+  {value: 'Coproj', label: 'Coproj'},
+  {value: 'Copre', label: 'Copre'},
+  {value: 'GabSinfra', label: 'Gabinete Sinfra'},
+  {value: 'Seau', label: 'Seau'},
+  {value: 'Dger', label: 'Dger'},
+  {value: 'Ngcic', label: 'Ngcic'},
+  {value: 'Ngcot', label: 'Ngcoc'},
+  {value: 'Segp', label: 'Segp'},
+  {value: 'Prodasen', label: 'Prodasen'},
+];
+
 class AssignTab extends Component {
   state = {}
   render() {
@@ -48,7 +63,7 @@ class AssignTab extends Component {
                 isClearable
                 isSearchable
                 name="team"
-                options={[{value: 'Semac', label: 'Semac'}, {value: 'Coemant', label: 'Coemant'}, {value: 'Sinfra', label: 'Sinfra'}]}
+                options={teamsFake}
                 styles={selectStyles}
               />
             </div>
