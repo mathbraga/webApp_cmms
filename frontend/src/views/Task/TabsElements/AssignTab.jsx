@@ -37,6 +37,9 @@ class AssignTab extends Component {
             <div className='miniform__field__label'>
               Tramitar para
             </div>
+            <div className='miniform__field__sub-label'>
+              Escolha a equipe que será o destinatário da tarefa.
+            </div>
             <div className='miniform__field__input'>
               <Select
                 className="basic-single"
@@ -52,7 +55,10 @@ class AssignTab extends Component {
           </div>
           <div className='miniform__field'>
             <div className='miniform__field__label'>
-              Justificativa / Observações
+              Observações
+            </div>
+            <div className='miniform__field__sub-label'>
+              Deixe registrado o motivo da tramitação, ou qualquer informação relevante.
             </div>
             <div className='miniform__field__input'>
               <Input style={{ width: "100%" }} type="textarea" name="text" id="exampleText" />
