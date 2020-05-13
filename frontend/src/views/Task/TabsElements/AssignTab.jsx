@@ -58,10 +58,15 @@ class AssignTab extends Component {
               Observações
             </div>
             <div className='miniform__field__sub-label'>
-              Deixe registrado o motivo da tramitação, ou qualquer informação relevante.
+              Deixe registrado o motivo da tramitação, ou qualquer outra informação relevante.
             </div>
             <div className='miniform__field__input'>
-              <Input style={{ width: "100%" }} type="textarea" name="text" id="exampleText" />
+              <Input 
+                className={'miniform__field__textarea'}
+                type="textarea" 
+                name="text" 
+                id="exampleText" 
+              />
             </div>
           </div>
           <div className='miniform__buttons'>
