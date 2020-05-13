@@ -6,6 +6,13 @@ import { Button, Input } from 'reactstrap';
 import Select from 'react-select';
 import { itemsMatrixAssetsHierachy } from '../utils/dispatchTab/descriptionMatrix';
 
+const selectStyles = {
+  control: base => ({
+    ...base,
+    border: "1px solid #e4e7e9",
+  }),
+};
+
 class AssignTab extends Component {
   state = {}
   render() {
@@ -39,6 +46,7 @@ class AssignTab extends Component {
                 isSearchable
                 name="team"
                 options={[{value: 'Semac', label: 'Semac'}, {value: 'Coemant', label: 'Coemant'}, {value: 'Sinfra', label: 'Sinfra'}]}
+                styles={selectStyles}
               />
             </div>
           </div>
