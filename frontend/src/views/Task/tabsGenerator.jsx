@@ -10,11 +10,11 @@ import LogTab from './TabsElements/LogTab';
 export default function tabsGenerator(data) {
   return (
     [
-      { id: 'info', title: 'Informações Gerais', element: <InfoTab data={data} /> },
-      { id: 'resources', title: 'Materiais e Serviços', element: <MaterialTab data={data} /> },
+      { id: 'info', title: 'Informações', element: <InfoTab data={data} /> },
+      { id: 'resources', title: 'Suprimentos', element: <MaterialTab data={data} /> },
       { id: 'assets', title: 'Ativos', element: <AssetTab data={data} /> },
       { id: 'assignTo', title: 'Status / Tramitações', element: <AssignTab data={data} /> },
-      { id: 'client', title: 'Solicitante', element: <ClientTab data={data} /> },
+      { id: 'client', title: 'Mensagens', element: <ClientTab data={data} /> },
       { id: 'files', title: 'Arquivos', element: <FilesTab data={data} /> },
       { id: 'log', title: 'Histórico', element: <LogTab data={data} /> },
     ]
