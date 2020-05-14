@@ -5,6 +5,7 @@ import CustomTable from '../../../components/Tables/CustomTable';
 import { Button } from 'reactstrap';
 import DispatchForm from '../../../components/NewForms/DispatchForm'
 import { itemsMatrixAssetsHierachy } from '../utils/dispatchTab/descriptionMatrix';
+import './Tabs.css'
 
 class AssignTab extends Component {
   state = {}
