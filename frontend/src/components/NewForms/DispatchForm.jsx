@@ -1,4 +1,28 @@
 import React, { Component } from 'react';
+import Select from 'react-select';
+import { Button, Input } from 'reactstrap';
+
+const selectStyles = {
+  control: base => ({
+    ...base,
+    border: "1px solid #e4e7e9",
+  }),
+};
+
+const teamsFake = [
+  {value: 'Semac', label: 'Semac'}, 
+  {value: 'Coemant', label: 'Coemant'}, 
+  {value: 'Sinfra', label: 'Sinfra'},
+  {value: 'Coproj', label: 'Coproj'},
+  {value: 'Copre', label: 'Copre'},
+  {value: 'GabSinfra', label: 'Gabinete Sinfra'},
+  {value: 'Seau', label: 'Seau'},
+  {value: 'Dger', label: 'Dger'},
+  {value: 'Ngcic', label: 'Ngcic'},
+  {value: 'Ngcot', label: 'Ngcoc'},
+  {value: 'Segp', label: 'Segp'},
+  {value: 'Prodasen', label: 'Prodasen'},
+];
 
 class DispatchForm extends Component {
   constructor(props) {
