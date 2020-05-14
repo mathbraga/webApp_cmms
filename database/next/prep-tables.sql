@@ -96,6 +96,7 @@ create table requests (
 
 create table tasks (
   task_id integer primary key generated always as identity,
+  task_status_id integer not null references task_statuses (task_status_id),
   task_priority_id integer not null references task_priorities (task_priority_id),
   task_category_id integer not null references task_categories (task_category_id),
   project_id integer references projects (project_id),
@@ -106,7 +107,8 @@ create table tasks (
   date_limit timestamptz,
   date_start timestamptz,
   date_end timestamptz,
-  request_id integer references requests (request_id)
+  request_id integer references requests (request_id),
+  team_id integer references teams (team_id)
 );
 
 create table task_messages (
