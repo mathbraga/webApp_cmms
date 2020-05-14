@@ -39,6 +39,7 @@
 
 .miniform__field__textarea {
   width: 100%;
+  color: hsl(0, 0%, 20%);
 }
 
 .miniform__field__textarea:hover {

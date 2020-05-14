@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import { Button, Input } from 'reactstrap';
+import './DispatchForm.css'
 
 const selectStyles = {
   control: base => ({
@@ -63,7 +64,7 @@ class DispatchForm extends Component {
             </div>
             <div className='miniform__field__input'>
               <Input 
-                className={'miniform__field__textarea'}
+                className='miniform__field__textarea'
                 type="textarea" 
                 name="text" 
                 id="exampleText" 
