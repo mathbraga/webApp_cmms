@@ -57,7 +57,8 @@ select  t.*,
         d.dispatches,
         s.supplies,
         f.files,
-        p.name as project_name
+        p.name as project_name,
+        r.request_id
   from tasks as t
   inner join task_statuses as ts using (task_status_id)
   inner join task_priorities as tp using (task_priority_id)
@@ -67,4 +68,5 @@ select  t.*,
   left join supplies_of_task as s using (task_id)
   left join files_of_task as f using (task_id)
   left join projects as p using (project_id)
+  left join requests as r using (request_id)
 ;
