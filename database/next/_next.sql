@@ -70,13 +70,13 @@ begin transaction;
 -- \i helper-trigger-functions.sql
 
 -- -- create api
+\i api-task-forms.sql
+\i api-insert-task.sql
+\i api-modify-task.sql
 \i api-dispatch-task.sql
 \i api-update-task-status.sql
-\i api-insert-task.sql
-\i api-refresh.sql
--- \i api-views.sql
-\i api-authenticate.sql
--- \i api-forms.sql
+\i api-task-data.sql
+-- \i api-authenticate.sql
 
 -- \i api-inserts.sql
 -- \i api-modifies.sql
