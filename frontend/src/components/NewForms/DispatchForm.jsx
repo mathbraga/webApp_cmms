@@ -68,6 +68,7 @@ class DispatchForm extends Component {
                 type="textarea" 
                 name="text" 
                 id="exampleText" 
+                rows='3'
               />
             </div>
           </div>
