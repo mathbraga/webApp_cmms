@@ -21,3 +21,10 @@ create type task_updated_status as (
   task_status_id integer,
   note text
 );
+
+create type mutation_response_type as (
+  id integer,
+  ok boolean,
+  error_code integer,
+  error_text text
+);
