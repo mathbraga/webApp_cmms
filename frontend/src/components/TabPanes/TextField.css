@@ -1,0 +1,13 @@
+.asset-info-single-container {
+  margin-top: 10px;
+}
+
+.desc-sub {
+  font-weight: 600;
+  color: #a59f9f;
+  font-size: 1.1em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
