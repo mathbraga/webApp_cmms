@@ -14,7 +14,7 @@ create database temp_db;
 \c temp_db
 
 -- terminate existing connections
-\i prep/terminate_connections.sql
+\i script/terminate_connections.sql
 
 -- drop database
 drop database if exists :new_db_name;
@@ -26,13 +26,13 @@ create database :new_db_name with owner postgres;
 \c :new_db_name
 
 -- create extensions
-\i prep/extensions.sql
+\i public/extensions.sql
 
 -- create additional schemas
-\i prep/schemas.sql
+\i public/schemas.sql
 
 -- create roles
-\i prep/roles.sql
+\i public/roles.sql
 
 -- set password for postgres role
 alter role postgres with encrypted password '123456';
@@ -47,61 +47,75 @@ alter role postgres with encrypted password '123456';
 begin transaction;
 
 -- alter default privileges
-\i prep/privileges.sql
+\i public/privileges.sql
 
 -- create get_current_person_id function
-\i prep/get_current_person_id.sql
+\i public/get_current_person_id.sql
 
 -- create composite types
-\i prep/types.sql
+\i public/types.sql
 
 -- create domains
--- \i prep/domains.sql
+-- \i public/domains.sql
 
 -- create tables
-\i prep/lookup_tables.sql
-\i prep/tables.sql
+\i public/lookup_tables.sql
+\i public/tables.sql
 
 -- other things
-\i prep/get_asset_trees.sql
-\i prep/get_exception_message.sql
+\i public/get_asset_trees.sql
+\i public/get_exception_message.sql
 
--- create api
--- task
+-- create api schema objects
 \i api/task/insert_task.sql
 \i api/task/task_data.sql
 \i api/task/form_data.sql
--- asset
 \i api/asset/appliance_data.sql
 \i api/asset/asset_form_data.sql
 \i api/asset/facility_data.sql
--- contract
 \i api/contract/contract_data.sql
--- spec
 \i api/spec/spec_data.sql
--- team
 \i api/team/team_data.sql
 
--- others
--- \i end/uuid.sql
+-- create ws schema objects
+\i ws/authenticate.sql
+\i ws/get_all_files_uuids.sql
+\i ws/refresh_all_materialized_views.sql
 
 -- create and login with fake user for initial inserts
--- \i end/fake_user.sql
+-- \i script/fake_user.sql
 
 -- create triggers before populate tables
--- \i trigger/name_of_the_trigger.sql
+-- \i triggers/name_of_the_trigger.sql
 
--- populate tables
--- \i end/populate_tables.sql
+-- populate tables with sample data
+-- \i sample/assets.sql
+-- \i sample/asset_relations.sql
+-- \i sample/contracts.sql
+-- \i sample/persons.sql
+-- \i sample/accounts.sql
+-- \i sample/teams.sql
+-- \i sample/team_persons.sql
+-- \i sample/contract_teams.sql
+-- \i sample/projects.sql
+-- \i sample/requests.sql
+-- \i sample/tasks.sql
+-- \i sample/task_messages.sql
+-- \i sample/task_assets.sql
+-- \i sample/task_dispatches.sql
+-- \i sample/specs.sql
+-- \i sample/supplies.sql
+-- \i sample/task_supplies.sql
+-- \i sample/task_files.sql
 
 -- create triggers after populate tables
--- \i tigger/name_of_the_trigger.sql
+-- \i trigger/name_of_the_trigger.sql
 
 -- create rls policies
--- \i end/rls_policies.sql
+-- \i public/rls_policies.sql
 
 -- restart sequences
--- \i end/restart_sequences.sql
+-- \i script/restart_sequences.sql
 
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
@@ -110,7 +124,7 @@ begin transaction;
 commit transaction;
 
 -- create extra indexes
--- \i end/indexes.sql
+-- \i public/indexes.sql
 
 -- set the default transaction isolation level
 -- alter database :new_db_name set default_transaction_isolation to 'serializable';

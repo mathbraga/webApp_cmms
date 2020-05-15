@@ -1,4 +1,4 @@
-create or replace function api.authenticate (
+create or replace function ws.authenticate (
   in input_email    text,
   in input_password text,
   out user_data text
