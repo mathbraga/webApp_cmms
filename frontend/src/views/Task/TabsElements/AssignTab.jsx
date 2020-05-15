@@ -36,7 +36,7 @@ class AssignTab extends Component {
           />
           <div className="tabpane__content">
             <DispatchForm 
-              visible={true}
+              visible={this.state.formOpen}
             />
           </div>
           <PaneTitle 

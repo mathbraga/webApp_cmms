@@ -14,7 +14,12 @@ class PaneTitle extends Component {
           <div className="action__text">{title}</div>
           <div className='action__buttons'>
             {actionButtons && actionButtons.map(button => (
-              <Button color={button.color} size="sm" style={{marginRight: "10px" }}>
+              <Button 
+                color={button.color} 
+                size="sm" 
+                style={{marginRight: "10px"}}
+                onClick={button.onClick}
+              >
                 {button.name}
               </Button>
             ))}
