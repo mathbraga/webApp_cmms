@@ -1,4 +1,4 @@
-create view balances as
+create or replace view balances as
   with
     finished as (
       select task_id, supply_id, qty, task_status_id

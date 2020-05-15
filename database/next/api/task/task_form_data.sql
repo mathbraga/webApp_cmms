@@ -1,4 +1,4 @@
-create view api.task_form_data as
+create or replace view api.task_form_data as
   with
     status_options as (
       select jsonb_agg(build_task_status_json(task_status_id)) as status_options
@@ -45,21 +45,4 @@ create view api.task_form_data as
          project_options,
          team_options,
          asset_options
-;
-
-create view api.asset_form_data as
-  with
-    top_options as (
-      select jsonb_agg(build_asset_json(ar.top_id)) as top_options
-        from asset_relations as ar
-      where parent_id is null
-    ),
-    parent_options as (
-      select jsonb_agg(build_asset_json(a.asset_id)) as parent_options
-        from assets as a
-    )
-  select top_options,
-         parent_options
-    from top_options,
-         parent_options
 ;

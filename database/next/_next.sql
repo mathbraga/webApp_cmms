@@ -14,7 +14,7 @@ create database temp_db;
 \c temp_db
 
 -- terminate existing connections
-\i prep-terminate-connections.sql
+\i prep/terminate_connections.sql
 
 -- drop database
 drop database if exists :new_db_name;
@@ -26,13 +26,13 @@ create database :new_db_name with owner postgres;
 \c :new_db_name
 
 -- create extensions
-\i prep-extensions.sql
+\i prep/extensions.sql
 
 -- create additional schemas
-\i prep-schemas.sql
+\i prep/schemas.sql
 
 -- create roles
-\i prep-roles.sql
+\i prep/roles.sql
 
 -- set password for postgres role
 alter role postgres with encrypted password '123456';
@@ -47,42 +47,43 @@ alter role postgres with encrypted password '123456';
 begin transaction;
 
 -- alter default privileges
-\i prep-privileges.sql
+\i prep/privileges.sql
 
 -- create get_current_person_id function
-\i prep-get-current-person-id.sql
+\i prep/get_current_person_id.sql
 
 -- create composite types
-\i prep-types.sql
+\i prep/types.sql
 
 -- create domains
 -- \i prep-domains.sql
 
 -- create tables
-\i prep-lookup-tables.sql
-\i prep-tables.sql
+\i prep/lookup_tables.sql
+\i prep/tables.sql
 
--- -- create helpers
-\i helper-json-builders.sql
-\i helper-get-asset-trees.sql
-\i helper-views.sql
-\i helper-exception.sql
--- \i helper-trigger-functions.sql
+-- other things
+\i prep/get_asset_trees.sql
+\i prep/get_exception_message.sql
 
--- -- create api
-\i api-task-forms.sql
-\i api-insert-task.sql
-\i api-modify-task.sql
-\i api-dispatch-task.sql
-\i api-update-task-status.sql
-\i api-task-data.sql
--- \i api-authenticate.sql
+-- triggers
+-- \i trigger/name_of_the_trigger.sql
 
--- \i api-inserts.sql
--- \i api-modifies.sql
--- \i api-views.sql
--- \i api-forms.sql
--- \i api-authenticate.sql
+-- create api
+-- task
+\i api/task/insert_task.sql
+\i api/task_data.sql
+\i api/task/form_data.sql
+-- asset
+\i api/asset/appliance_data.sql
+\i api/asset/asset_form_data.sql
+\i api/asset/facility_data.sql
+-- contract
+\i api/contract/contract_data.sql
+-- spec
+\i api/spec/spec_data.sql
+-- team
+\i api/team/
 
 -- -- others
 -- \i end-uuid.sql
