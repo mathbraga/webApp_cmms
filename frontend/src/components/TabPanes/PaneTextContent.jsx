@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import TextField from './TextField';
 import { Row, Col } from 'reactstrap';
+import './PaneTextContent.css'
 
 export default class PaneTextContent extends Component {
   render() {
     const { numColumns, itemsMatrix } = this.props;
     return (
-      <div className="asset-info-container">
+      <div>
         {itemsMatrix && (
           <div className="asset-info-content">
             {
