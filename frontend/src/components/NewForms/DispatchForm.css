@@ -6,6 +6,10 @@
   border-radius: 2px;
 }
 
+.miniform-disabled {
+  display: none;
+}
+
 .miniform__field {
   display: flex;
   flex-flow: column;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import { Button, Input } from 'reactstrap';
+import classNames from 'classnames';
 import './DispatchForm.css'
 
 const selectStyles = {
@@ -33,8 +34,13 @@ class DispatchForm extends Component {
     }
   }
   render() { 
+    const { visible } = this.props;
+    const miniformClass = classNames({
+      'miniform-container': true,
+      'miniform-disabled': !visible
+    });
     return ( 
-      <div className='miniform-container'>
+      <div className={miniformClass}>
           <div className='miniform__field'>
             <div className='miniform__field__label'>
               Tramitar para

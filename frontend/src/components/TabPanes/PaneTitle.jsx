@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 import './PaneTitle.css'
 
 class PaneTitle extends Component {
