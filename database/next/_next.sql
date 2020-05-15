@@ -114,13 +114,33 @@ insert into persons overriding system value values
 -- \i sample/task_files.sql
 
 -- restart sequences
--- \i sample/restart_sequences.sql
+-- \i sample/_restart_sequences.sql
 
 -- create triggers after populate tables
 -- \i trigger/name_of_the_trigger.sql
 
 -- create rls policies
--- \i public/rls_policies.sql
+-- \i rls/assets.sql
+-- \i rls/asset_relations.sql
+-- \i rls/contracts.sql
+-- \i rls/persons.sql
+-- \i rls/accounts.sql
+-- \i rls/teams.sql
+-- \i rls/team_persons.sql
+-- \i rls/contract_teams.sql
+-- \i rls/projects.sql
+-- \i rls/requests.sql
+-- \i rls/tasks.sql
+-- \i rls/task_messages.sql
+-- \i rls/task_assets.sql
+-- \i rls/task_dispatches.sql
+-- \i rls/specs.sql
+-- \i rls/supplies.sql
+-- \i rls/task_supplies.sql
+-- \i rls/task_files.sql
+
+-- enable rls
+-- \i rls/_enable.sql
 
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
