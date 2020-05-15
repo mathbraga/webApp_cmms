@@ -2,9 +2,9 @@
   display: flex;
   justify-content: space-between;
   background: #fcfcfc;
-  border-left: 5px solid #4c6579;
+  border-left: 5px solid #7b99b1;
   /*border-left: 5px solid #26a726;*/
-  padding: 18px;
+  padding: 15px;
   box-shadow: 1px 1px 0 2px #efefef;
 }
 

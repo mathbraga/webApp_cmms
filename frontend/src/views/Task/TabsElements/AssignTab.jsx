@@ -21,17 +21,13 @@ class AssignTab extends Component {
         <div className="tabpane-container">
           <PaneTitle 
             actionButtons={DispatchActionButtons}
+            title={'Status Atual'}
           />
           <div className="tabpane__content">
             <DispatchForm 
-              visible
+              visible={false}
             />
           </div>
-          <DescriptionTable
-            title={'Unidade Atual'}
-            numColumns={2}
-            itemsMatrix={itemsMatrixAssetsHierachy(data)}
-          />
         </div>
       </>
     );
