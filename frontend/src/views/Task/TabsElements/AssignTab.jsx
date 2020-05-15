@@ -7,6 +7,11 @@ import PaneTitle from './../../../components/TabPanes/PaneTitle'
 import { itemsMatrixAssetsHierachy } from '../utils/dispatchTab/descriptionMatrix';
 import './Tabs.css'
 
+const DispatchActionButtons = [
+  {name: 'Tramitar', color: 'success', onClick: () => {console.log('OK')}},
+  {name: 'Alterar Status', color: 'primary', onClick: () => {console.log('OK')}}
+];
+
 class AssignTab extends Component {
   state = {}
   render() {
@@ -14,7 +19,9 @@ class AssignTab extends Component {
     return (
       <>
         <div className="tabpane-container">
-          <PaneTitle />
+          <PaneTitle 
+            actionButtons={DispatchActionButtons}
+          />
           <div className="tabpane__content">
             <DispatchForm 
               visible
