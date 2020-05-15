@@ -15,9 +15,11 @@ class AssignTab extends Component {
       <>
         <div className="tabpane-container">
           <PaneTitle />
-          <DispatchForm 
-            visible={false}
-          />
+          <div className="tabpane__content">
+            <DispatchForm 
+              visible
+            />
+          </div>
           <DescriptionTable
             title={'Unidade Atual'}
             numColumns={2}
