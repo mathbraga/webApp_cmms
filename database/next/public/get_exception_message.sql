@@ -1,3 +1,5 @@
+drop function if exists get_exception_message;
+
 create or replace function get_exception_message (
   in exception_code integer,
   out message text

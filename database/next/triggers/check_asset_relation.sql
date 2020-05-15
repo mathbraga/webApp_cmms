@@ -1,3 +1,6 @@
+drop trigger if exists check_asset_relation;
+drop function if exists check_asset_relation;
+
 create or replace function check_asset_relation ()
   returns trigger
   language plpgsql
@@ -17,3 +20,7 @@ create or replace function check_asset_relation ()
     end;
   $$
 ;
+
+create trigger check_asset_relation
+before insert or update on asset_relations
+for each row execute procedure check_asset_relation();

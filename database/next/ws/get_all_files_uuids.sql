@@ -1,3 +1,5 @@
+drop function if exists ws.get_all_files_uuids;
+
 create or replace function ws.get_all_files_uuids (
   out uuids_result text[]
 )

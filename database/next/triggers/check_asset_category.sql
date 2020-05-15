@@ -1,3 +1,6 @@
+drop trigger if exists check_asset_category;
+drop function if exists check_asset_category;
+
 create or replace function check_asset_category ()
   returns trigger
   language plpgsql
@@ -11,3 +14,7 @@ create or replace function check_asset_category ()
     end;
   $$
 ;
+
+create trigger check_asset_category
+before insert or update on assets
+for each row execute procedure check_asset_category();

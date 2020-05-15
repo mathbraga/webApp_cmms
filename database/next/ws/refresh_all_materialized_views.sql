@@ -1,3 +1,5 @@
+drop function if exists ws.refresh_all_materialized_views;
+
 create or replace function ws.refresh_all_materialized_views (
   out refreshed_at timestamptz
 )

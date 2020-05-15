@@ -1,3 +1,6 @@
+drop trigger if exists insert_audit_trail;
+drop function if exists insert_audit_trail;
+
 create or replace function insert_audit_trail ()
   returns trigger
   language plpgsql
@@ -16,3 +19,63 @@ create or replace function insert_audit_trail ()
     end;
   $$
 ;
+
+create trigger insert_audit_trail
+after insert or update or delete on assets
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on asset_relations
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on contracts
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on persons
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on private.accounts
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on teams
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on team_persons
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on contract_teams
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on projects
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on tasks
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on task_messages
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on task_assets
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on specs
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on supplies
+for each row execute procedure insert_audit_trail();
+
+create trigger insert_audit_trail
+after insert or update or delete on task_files
+for each row execute procedure insert_audit_trail();

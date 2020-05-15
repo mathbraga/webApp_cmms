@@ -1,3 +1,5 @@
+drop function if exists api.insert_task;
+
 create or replace function api.insert_task (
   in attributes tasks,
   in assets integer[],

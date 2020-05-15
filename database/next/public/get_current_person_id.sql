@@ -1,3 +1,5 @@
+drop function if exists get_current_person_id;
+
 create or replace function get_current_person_id(
   out current_person_id integer
 )

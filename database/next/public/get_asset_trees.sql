@@ -1,3 +1,5 @@
+drop function if exists get_asset_trees;
+
 create or replace function get_asset_trees (
   in input_asset_id integer,
   out asset_id integer,

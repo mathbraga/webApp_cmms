@@ -1,3 +1,5 @@
+drop function if exists get_mutation_response;
+
 create or replace function get_mutation_response (
   in mutation_response_row mutation_response_type,
   out mutation_response jsonb
