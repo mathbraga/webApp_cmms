@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <div className="flex-row align-items-center">
+        <div>
+            <div className="justify-content-center">
+                <div md="6">
+                    <div className="mx-4">
+                        <div className="p-4">
+                            <form>
+                                <h1>Login</h1>
+                                <p className="text-muted">Faça login em sua conta.</p>
+
+                                <!-- <InputGroup className="mb-3">
+                                <InputGroupAddon addonType="prepend">
+                                    <InputGroupText>
+                                    <i className="icon-user"></i>
+                                    </InputGroupText>
+                                </InputGroupAddon> -->
+                                <input
+                                    type="text"
+                                    id="email"
+                                    name="email"
+                                    placeholder="usuario@senado.leg.br"
+                                    autofocus
+                                />
+                                <!-- </InputGroup> -->
+
+                                <!-- <InputGroup className="mb-4">
+                                <InputGroupAddon addonType="prepend">
+                                    <InputGroupText>
+                                    <i className="icon-lock"></i>
+                                    </InputGroupText>
+                                </InputGroupAddon> -->
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Senha"
+                                />
+                                <!-- </InputGroup> -->
+
+                                <div>
+                                    <div xs="6">
+                                        <button
+                                            block
+                                            color="green"
+                                            className="px-4"
+                                            onClick={this.handleSubmit}
+                                        >Login</button>
+                                    </div>
+                                    <div xs="6" className="text-right">
+                                        <button
+                                            block
+                                            outline
+                                            color="blue"
+                                            className="px-0"
+                                        >Esqueceu sua senha?
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
