@@ -67,15 +67,15 @@ begin transaction;
 \i public/get_exception_message.sql
 
 -- create api schema objects
-\i api/task/insert_task.sql
-\i api/task/task_data.sql
-\i api/task/form_data.sql
-\i api/asset/appliance_data.sql
-\i api/asset/asset_form_data.sql
-\i api/asset/facility_data.sql
-\i api/contract/contract_data.sql
-\i api/spec/spec_data.sql
-\i api/team/team_data.sql
+\i api/insert_task.sql
+\i api/task_data.sql
+\i api/form_data.sql
+\i api/appliance_data.sql
+\i api/asset_form_data.sql
+\i api/facility_data.sql
+\i api/contract_data.sql
+\i api/pec_data.sql
+\i api/team_data.sql
 
 -- create ws schema objects
 \i ws/authenticate.sql
