@@ -14,7 +14,8 @@ create database temp_db;
 \c temp_db
 
 -- terminate existing connections
-\i script/terminate_connections.sql
+select pg_terminate_backend(pid) from pg_stat_activity
+where pid <> pg_backend_pid() and datname = :'new_db_name';
 
 -- drop database
 drop database if exists :new_db_name;
@@ -83,7 +84,9 @@ begin transaction;
 \i ws/refresh_all_materialized_views.sql
 
 -- create and login with fake user for initial inserts
--- \i script/fake_user.sql
+set local cookie.session.person_id to 0;
+insert into persons overriding system value values
+(0, '00000000000', 'email@email.com', 'Visitor', '0000', null, null);
 
 -- create triggers before populate tables
 -- \i triggers/name_of_the_trigger.sql
@@ -108,14 +111,14 @@ begin transaction;
 -- \i sample/task_supplies.sql
 -- \i sample/task_files.sql
 
+-- restart sequences
+-- \i sample/restart_sequences.sql
+
 -- create triggers after populate tables
 -- \i trigger/name_of_the_trigger.sql
 
 -- create rls policies
 -- \i public/rls_policies.sql
-
--- restart sequences
--- \i script/restart_sequences.sql
 
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
