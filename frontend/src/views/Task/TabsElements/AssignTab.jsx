@@ -6,15 +6,27 @@ import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 import { itemsMatrixAssetsHierachy } from '../utils/dispatchTab/descriptionMatrix';
 import './Tabs.css'
 
-const DispatchActionButtons = [
-  {name: 'Tramitar', color: 'success', onClick: () => {console.log('OK')}},
-  {name: 'Alterar Status', color: 'primary', onClick: () => {console.log('OK')}}
-];
-
 class AssignTab extends Component {
-  state = {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      formOpen: false,
+    };
+    this.toggleForm = this.toggleForm.bind(this);
+  }
+
+  toggleForm() {
+    this.setState(prevState => ({
+      formOpen: !prevState.formOpen
+    }));
+  }
+
   render() {
     const data = this.props.data.assets;
+    const DispatchActionButtons = [
+      {name: 'Tramitar', color: 'success', onClick: this.toggleForm},
+      {name: 'Alterar Status', color: 'primary', onClick: this.toggleForm}
+    ];
     return (
       <>
         <div className="tabpane-container">
@@ -25,7 +37,6 @@ class AssignTab extends Component {
           <div className="tabpane__content">
             <DispatchForm 
               visible={true}
-              helperText={'Utilize os botões "Tramitar" e "Alterar Status" para movimentar a tarefa ou atualizar sua situação atual.'}
             />
           </div>
           <PaneTitle 
