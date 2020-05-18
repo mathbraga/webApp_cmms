@@ -14,7 +14,8 @@
 }
 
 .asset-info-content-data {
-  border-left: 2px solid #7a99b1;
+  /* border-left: 2px solid #4dbd74; */
+  border: 1px solid gainsboro;
   padding: 3px 10px;
   margin: 1px 0;
   border-radius: 5px;
