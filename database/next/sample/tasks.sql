@@ -1,0 +1,1 @@
+insert into tasks overriding system value values (1, 1, 1, 1, null, 1, 1, 'Reparos de marcenaria', 'Descrição dos reparos', 'SEPLAG', 'Henrique', '2339', 'hzlopes@senado.leg.br', 'Sala do SEMAC / SEPLAG', 0, null, null, null, 1, '2019-10-14', now());
