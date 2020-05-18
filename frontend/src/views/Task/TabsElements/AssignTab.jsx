@@ -34,16 +34,26 @@ class AssignTab extends Component {
   render() {
     const data = this.props.data.assets;
     const { dispatchFormOpen, statusFormOpen } = this.state;
-    const DispatchActionButtons = [
-      {name: 'Tramitar', color: 'success', onClick: this.toggleDispatchForm},
-      {name: 'Alterar Status', color: 'primary', onClick: this.toggleStatusForm}
-    ];
+
+    const actionButtons = {
+      statusFormOpen: [
+        {name: 'Cancelar', color: 'danger', onClick: this.toggleStatusForm}
+      ],
+      dispatchFormOpen: [
+        {name: 'Cancelar', color: 'danger', onClick: this.toggleDispatchForm}
+      ],
+      noFormOpen: [
+        {name: 'Tramitar Tarefa', color: 'success', onClick: this.toggleDispatchForm},
+        {name: 'Alterar Status', color: 'primary', onClick: this.toggleStatusForm}
+      ],
+    };
+    const openedForm = dispatchFormOpen ? 'dispatchFormOpen' : (statusFormOpen ? 'statusFormOpen' : 'noFormOpen');
 
     return (
       <>
         <div className="tabpane-container">
           <PaneTitle 
-            actionButtons={DispatchActionButtons}
+            actionButtons={actionButtons[openedForm]}
             title={dispatchFormOpen ? 'Tramitar Tarefa' : (statusFormOpen ? 'Alterar Status' : 'Situação Atual')}
           />
           {dispatchFormOpen && (
