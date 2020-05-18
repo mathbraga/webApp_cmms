@@ -125,13 +125,14 @@ create table task_assets (
   primary key (task_id, asset_id)
 );
 
-create table task_dispatches (
+create table task_events (
   task_id integer not null references tasks (task_id),
+  task_event task_event_enum not null,
+  created_at timestamptz not null default now(),
   person_id integer not null references persons (person_id),
-  sent_by integer references teams (team_id),
-  sent_to integer not null references teams (team_id),
-  sent_at timestamptz,
-  received_at timestamptz,
+  team_id integer not null references teams (team_id),
+  task_status_id integer references task_statuses (task_status_id),
+  send_to integer references teams (team_id),
   note text
 );
 

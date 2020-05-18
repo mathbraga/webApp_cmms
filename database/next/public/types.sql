@@ -28,3 +28,9 @@ create type mutation_response_type as (
   error_code integer,
   error_text text
 );
+
+create type task_event_enum as enum (
+  'send',
+  'receive',
+  'change_status'
+);
