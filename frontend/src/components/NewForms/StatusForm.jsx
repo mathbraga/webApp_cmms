@@ -21,15 +21,44 @@ const teamsFake = [
   {value: 'Análise', label: 'Em análise'},
 ];
 
-class DispatchForm extends Component {
+class StatusForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      statusValue: [],
+      observationValue: null,
+    }
+
+    this.onChangeStatus = this.onChangeStatus.bind(this);
+    this.onChangeObservation = this.onChangeObservation.bind(this);
+  }
+
+  onChangeStatus(target) {
+    if(target) {
+      this.setState({
+        statusValue: Array.of({
+          label: target.label,
+          value: target.value,
+        })
+      });
+    } else {
+      this.setState({
+        statusValue: Array.of()
+      });
     }
   }
+
+  onChangeObservation(target) {
+    if(target) {
+      this.setState({
+        observationValue: target.value,
+      });
+    } 
+  }
+
   render() { 
     const { visible } = this.props;
+    const { statusValue, observationValue } = this.state;
     const miniformClass = classNames({
       'miniform-container': true,
       'miniform-disabled': !visible
@@ -51,8 +80,10 @@ class DispatchForm extends Component {
                 isClearable
                 isSearchable
                 name="team"
+                value={statusValue}
                 options={teamsFake}
                 styles={selectStyles}
+                onChange={this.onChangeStatus}
               />
             </div>
           </div>
@@ -70,6 +101,8 @@ class DispatchForm extends Component {
                 name="text" 
                 id="exampleText" 
                 rows='3'
+                value={observationValue}
+                onChange={this.onChangeObservation}
               />
             </div>
           </div>
@@ -89,4 +122,4 @@ class DispatchForm extends Component {
   }
 }
  
-export default DispatchForm;
+export default StatusForm;
