@@ -12,18 +12,13 @@ const selectStyles = {
 };
 
 const teamsFake = [
-  {value: 'Semac', label: 'Semac'}, 
-  {value: 'Coemant', label: 'Coemant'}, 
-  {value: 'Sinfra', label: 'Sinfra'},
-  {value: 'Coproj', label: 'Coproj'},
-  {value: 'Copre', label: 'Copre'},
-  {value: 'GabSinfra', label: 'Gabinete Sinfra'},
-  {value: 'Seau', label: 'Seau'},
-  {value: 'Dger', label: 'Dger'},
-  {value: 'Ngcic', label: 'Ngcic'},
-  {value: 'Ngcot', label: 'Ngcoc'},
-  {value: 'Segp', label: 'Segp'},
-  {value: 'Prodasen', label: 'Prodasen'},
+  {value: 'Concluído', label: 'Concluído'}, 
+  {value: 'Cancelado', label: 'Cancelado'}, 
+  {value: 'Espera', label: 'Fila de Espera'},
+  {value: 'Execução', label: 'Em Execução'},
+  {value: 'Pendente', label: 'Pendente'},
+  {value: 'Suspenso', label: 'Suspenso'},
+  {value: 'Análise', label: 'Em análise'},
 ];
 
 class DispatchForm extends Component {
@@ -43,10 +38,10 @@ class DispatchForm extends Component {
       <div className={miniformClass}>
           <div className='miniform__field'>
             <div className='miniform__field__label'>
-              Tramitar para
+              Novo status
             </div>
             <div className='miniform__field__sub-label'>
-              Escolha a equipe que será o destinatário da tarefa.
+              Escolha o status atual da tarefa.
             </div>
             <div className='miniform__field__input'>
               <Select
@@ -66,7 +61,7 @@ class DispatchForm extends Component {
               Observações
             </div>
             <div className='miniform__field__sub-label'>
-              Deixe registrado o motivo da tramitação, ou qualquer outra informação relevante.
+              Deixe registrado o motivo da alteração do status, ou qualquer outra informação relevante.
             </div>
             <div className='miniform__field__input'>
               <Input 
@@ -80,7 +75,7 @@ class DispatchForm extends Component {
           </div>
           <div className='miniform__buttons'>
             <Button color="success" size="sm" style={{ marginRight: "10px" }}>
-              Tramitar
+              Alterar
             </Button>
             <Button color="secondary" size="sm" style={{ marginRight: "10px" }}>
               Limpar

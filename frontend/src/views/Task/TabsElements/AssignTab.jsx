@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import DispatchForm from '../../../components/NewForms/DispatchForm'
+import StatusForm from '../../../components/NewForms/StatusForm'
 import PaneTitle from '../../../components/TabPanes/PaneTitle'
 import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 import { itemsMatrixAssetsHierachy } from '../utils/dispatchTab/descriptionMatrix';
@@ -65,7 +66,7 @@ class AssignTab extends Component {
           )}
           {statusFormOpen && (
             <div className="tabpane__content">
-              <DispatchForm 
+              <StatusForm 
                 visible={true}
               />
             </div>
