@@ -442,8 +442,8 @@ Diretório sample: Contém os comandos de INSERT (um arquivo para cada tabela) q
 Diretório ws: Contém funções do schema ws, as quais são executadas via paths específicos do web server (e.g. autenticação) ou via cron jobs (e.g. rotinas periódicas de manutenção do banco de dados, refresh de materialized views etc.)
 Diretório triggers: Contém os triggers e suas respectivas funções
 Arquivo _debug.sql: Contém comandos úteis para inspeção e debugging do banco de dados
-Arquivo _next_.sql: Contém script com toda a sequência de comandos para criar um novo banco de dados para o ambiente de desenvolvimento
-Arquivo _test_.sql: Arquivo em branco, a ser utilizado para desenvolvimento e teste de novos objetos do banco de dados
+Arquivo _next.sql: Contém script com toda a sequência de comandos para criar um novo banco de dados para o ambiente de desenvolvimento
+Arquivo _test.sql: Arquivo em branco, a ser utilizado para desenvolvimento e teste de novos objetos do banco de dados
 A partir de agora, a maioria dos arquivos irá conter comandos para criar apenas um objeto. Isso vai facilitar para fazer ajustes finos, em especial das queries contidas nas views e funções do schema api, sem ter que recriar todo o banco de dados.
 Lembrando que um arquivo chamado example.sql pode ser executado de duas maneiras:
 1. Dentro do psql, com o comando \i example.sql
