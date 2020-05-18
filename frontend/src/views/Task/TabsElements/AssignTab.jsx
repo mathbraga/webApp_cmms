@@ -10,23 +10,26 @@ class AssignTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formOpen: false,
+      dispatchFormOpen: false,
+      statusFormOpen: false,
     };
     this.toggleForm = this.toggleForm.bind(this);
   }
 
-  toggleForm() {
+  toggleForm(formName) {
     this.setState(prevState => ({
-      formOpen: !prevState.formOpen
+      [formName]: !prevState[formName]
     }));
   }
 
   render() {
     const data = this.props.data.assets;
+    const { formOpen } = this.state;
     const DispatchActionButtons = [
-      {name: 'Tramitar', color: 'success', onClick: this.toggleForm},
-      {name: 'Alterar Status', color: 'primary', onClick: this.toggleForm}
+      {name: 'Tramitar', color: 'success', onClick: () => this.toggleForm('dispatchFormOpen')},
+      {name: 'Alterar Status', color: 'primary', onClick: () => this.toggleForm('statusFormOpen')}
     ];
+
     return (
       <>
         <div className="tabpane-container">
@@ -41,6 +44,7 @@ class AssignTab extends Component {
           </div>
           <PaneTitle 
             title={'Situação atual'}
+            actionButtons={!formOpen && DispatchActionButtons}
           />
           <div className="tabpane__content">
             <PaneTextContent 
