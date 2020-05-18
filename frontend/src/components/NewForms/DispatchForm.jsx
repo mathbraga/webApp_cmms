@@ -30,11 +30,55 @@ class DispatchForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      teamValue: [],
+      observationValue: '',
+    }
+
+    this.onChangeTeam = this.onChangeTeam.bind(this);
+    this.onChangeObservation = this.onChangeObservation.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClean = this.handleClean.bind(this);
+  }
+
+  onChangeTeam(target) {
+    if(target) {
+      this.setState({
+        teamValue: Array.of({
+          label: target.label,
+          value: target.value,
+        })
+      });
+    } else {
+      this.setState({
+        teamValue: Array.of()
+      });
     }
   }
+
+  onChangeObservation(target) {
+    if(target) {
+      this.setState({
+        observationValue: target.value,
+      });
+    } 
+  }
+
+  handleSubmit(toggleForm) {
+    console.log("Submit team: ", this.state.teamValue);
+    console.log("Submit observation: ", this.state.observationValue);
+    toggleForm();
+  }
+
+  handleClean() {
+    this.setState({
+      teamValue: [],
+      observationValue: '',
+    });
+  } 
+
   render() { 
-    const { visible } = this.props;
+    const { visible, toggleForm } = this.props;
+    const { teamValue, observationValue } = this.state;
     const miniformClass = classNames({
       'miniform-container': true,
       'miniform-disabled': !visible
@@ -56,8 +100,10 @@ class DispatchForm extends Component {
                 isClearable
                 isSearchable
                 name="team"
+                value={teamValue}
                 options={teamsFake}
                 styles={selectStyles}
+                onChange={this.onChangeTeam}
               />
             </div>
           </div>
@@ -72,20 +118,36 @@ class DispatchForm extends Component {
               <Input 
                 className='miniform__field__textarea'
                 type="textarea" 
-                name="text" 
+                name="text"
+                value={observationValue}
                 id="exampleText" 
                 rows='3'
+                onChange={this.onChangeObservation}
               />
             </div>
           </div>
           <div className='miniform__buttons'>
-            <Button color="success" size="sm" style={{ marginRight: "10px" }}>
+            <Button 
+              color="success" 
+              size="sm" 
+              style={{ marginRight: "10px" }}
+              onClick={() => {this.handleSubmit(toggleForm)}}
+            >
               Tramitar
             </Button>
-            <Button color="secondary" size="sm" style={{ marginRight: "10px" }}>
+            <Button 
+              color="secondary" 
+              size="sm" 
+              style={{ marginRight: "10px" }}
+              onClick={this.handleClean}
+            >
               Limpar
             </Button>
-            <Button color="danger" size="sm">
+            <Button 
+              color="danger" 
+              size="sm"
+              onClick={toggleForm}
+            >
               Cancelar
             </Button>
           </div>

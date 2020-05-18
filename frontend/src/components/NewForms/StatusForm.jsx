@@ -60,7 +60,7 @@ class StatusForm extends Component {
 
   handleSubmit(toggleForm) {
     console.log("Submit status: ", this.state.statusValue);
-    console.log("Submit status: ", this.state.observationValue);
+    console.log("Submit observation: ", this.state.observationValue);
     toggleForm();
   }
 
