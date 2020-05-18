@@ -61,6 +61,7 @@ class AssignTab extends Component {
             <div className="tabpane__content">
               <DispatchForm 
                 visible={true}
+                toggleForm={this.toggleDispatchForm}
               />
             </div>
           )}
@@ -68,6 +69,7 @@ class AssignTab extends Component {
             <div className="tabpane__content">
               <StatusForm 
                 visible={true}
+                toggleForm={this.toggleStatusForm}
               />
             </div>
           )}
