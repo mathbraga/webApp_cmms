@@ -11,3 +11,8 @@
   text-overflow: ellipsis;
 }
 
+.asset-info-content-data {
+  border: 1px solid #ececec;
+  padding: 5px;
+  border-radius: 8px;
+}
