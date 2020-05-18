@@ -26,11 +26,13 @@ class StatusForm extends Component {
     super(props);
     this.state = {
       statusValue: [],
-      observationValue: null,
+      observationValue: '',
     }
 
     this.onChangeStatus = this.onChangeStatus.bind(this);
     this.onChangeObservation = this.onChangeObservation.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClean = this.handleClean.bind(this);
   }
 
   onChangeStatus(target) {
@@ -56,8 +58,21 @@ class StatusForm extends Component {
     } 
   }
 
+  handleSubmit(toggleForm) {
+    console.log("Submit status: ", this.state.statusValue);
+    console.log("Submit status: ", this.state.observationValue);
+    toggleForm();
+  }
+
+  handleClean() {
+    this.setState({
+      statusValue: [],
+      observationValue: '',
+    });
+  }
+
   render() { 
-    const { visible } = this.props;
+    const { visible, toggleForm } = this.props;
     const { statusValue, observationValue } = this.state;
     const miniformClass = classNames({
       'miniform-container': true,
@@ -107,13 +122,27 @@ class StatusForm extends Component {
             </div>
           </div>
           <div className='miniform__buttons'>
-            <Button color="success" size="sm" style={{ marginRight: "10px" }}>
+            <Button 
+              color="success" 
+              size="sm" 
+              style={{ marginRight: "10px" }}
+              onClick={() => {this.handleSubmit(toggleForm)}}
+            >
               Alterar
             </Button>
-            <Button color="secondary" size="sm" style={{ marginRight: "10px" }}>
+            <Button 
+              color="secondary" 
+              size="sm" 
+              style={{ marginRight: "10px" }}
+              onClick={this.handleClean}
+            >
               Limpar
             </Button>
-            <Button color="danger" size="sm">
+            <Button 
+              color="danger" 
+              size="sm" 
+              onClick={toggleForm}
+            >
               Cancelar
             </Button>
           </div>

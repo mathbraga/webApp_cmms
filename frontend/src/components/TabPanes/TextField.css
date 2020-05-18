@@ -5,6 +5,7 @@
 .desc-sub {
   font-weight: 600;
   color: #a59f9f;
+  /* #3e5c7b */
   font-size: 1.1em;
   white-space: nowrap;
   overflow: hidden;
@@ -14,6 +15,6 @@
 
 .asset-info-content-data {
   border: 1px solid #ececec;
-  padding: 5px;
-  border-radius: 8px;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
