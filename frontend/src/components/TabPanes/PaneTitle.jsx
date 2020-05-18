@@ -6,7 +6,6 @@ class PaneTitle extends Component {
   state = {  }
   render() { 
     const { actionButtons, title } = this.props;
-    console.log("Buttons: ", actionButtons);
     return ( 
       <div 
           className='action-container'
