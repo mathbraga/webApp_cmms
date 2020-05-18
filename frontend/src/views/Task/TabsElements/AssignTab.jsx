@@ -13,12 +13,21 @@ class AssignTab extends Component {
       dispatchFormOpen: false,
       statusFormOpen: false,
     };
-    this.toggleForm = this.toggleForm.bind(this);
+    this.toggleDispatchForm = this.toggleDispatchForm.bind(this);
+    this.toggleStatusForm = this.toggleStatusForm.bind(this);
   }
 
-  toggleForm(formName) {
+  toggleDispatchForm() {
     this.setState(prevState => ({
-      [formName]: !prevState[formName]
+      dispatchFormOpen: !prevState.dispatchFormOpen,
+      statusFormOpen: false
+    }));
+  }
+
+  toggleStatusForm() {
+    this.setState(prevState => ({
+      statusFormOpen: !prevState.statusFormOpen,
+      dispatchFormOpen: false
     }));
   }
 
@@ -26,8 +35,8 @@ class AssignTab extends Component {
     const data = this.props.data.assets;
     const { dispatchFormOpen, statusFormOpen } = this.state;
     const DispatchActionButtons = [
-      {name: 'Tramitar', color: 'success', onClick: () => this.toggleForm('dispatchFormOpen')},
-      {name: 'Alterar Status', color: 'primary', onClick: () => this.toggleForm('statusFormOpen')}
+      {name: 'Tramitar', color: 'success', onClick: this.toggleDispatchForm},
+      {name: 'Alterar Status', color: 'primary', onClick: this.toggleStatusForm}
     ];
 
     return (
@@ -37,15 +46,25 @@ class AssignTab extends Component {
             actionButtons={DispatchActionButtons}
             title={dispatchFormOpen ? 'Tramitar Tarefa' : (statusFormOpen ? 'Alterar Status' : 'Situação Atual')}
           />
-          <div className="tabpane__content">
-            <DispatchForm 
-              visible={dispatchFormOpen}
+          {dispatchFormOpen && (
+            <div className="tabpane__content">
+              <DispatchForm 
+                visible={true}
+              />
+            </div>
+          )}
+          {statusFormOpen && (
+            <div className="tabpane__content">
+              <DispatchForm 
+                visible={true}
+              />
+            </div>
+          )}
+          {(statusFormOpen || dispatchFormOpen) && (
+            <PaneTitle 
+              title={'Situação Atual'}
             />
-          </div>
-          <PaneTitle 
-            title={'Situação Atual'}
-            actionButtons={!dispatchFormOpen && DispatchActionButtons}
-          />
+          )}
           <div className="tabpane__content">
             <PaneTextContent 
               numColumns='2' 
