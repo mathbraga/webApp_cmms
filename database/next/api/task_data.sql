@@ -31,7 +31,7 @@ create or replace view api.task_data as
       group by task_id
     ),
     files_of_task as (
-      select  t.task_id,
+      select  tf.task_id,
               jsonb_agg(jsonb_build_object(
                 'filename', tf.filename,
                 'size', tf.size,
