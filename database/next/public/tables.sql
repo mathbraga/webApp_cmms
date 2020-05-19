@@ -123,7 +123,7 @@ create table task_events (
   created_at timestamptz not null default now(),
   person_id integer not null references persons (person_id),
   team_id integer not null references teams (team_id),
-  send_to integer references teams (team_id),
+  recipient_id integer references teams (team_id),
   task_status_id integer references task_statuses (task_status_id),
   note text
 );

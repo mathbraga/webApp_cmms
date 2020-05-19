@@ -14,7 +14,7 @@ create or replace function api.send_task (
         now(),
         get_current_person_id(),
         attributes.team_id,
-        attributes.send_to,
+        attributes.recipient_id,
         null,
         attributes.note
       ) returning task_id into id;
