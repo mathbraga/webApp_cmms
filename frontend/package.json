@@ -59,6 +59,7 @@
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-animate-height": "^2.0.21",
     "react-apollo": "^3.0.1",
     "react-app-polyfill": "^0.2.2",
     "react-calendar": "^2.19.0",

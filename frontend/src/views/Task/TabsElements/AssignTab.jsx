@@ -7,6 +7,8 @@ import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 import { itemsMatrixAssetsHierachy } from '../utils/dispatchTab/descriptionMatrix';
 import './Tabs.css'
 
+import AnimateHeight from 'react-animate-height';
+
 class AssignTab extends Component {
   constructor(props) {
     super(props);
@@ -49,6 +51,8 @@ class AssignTab extends Component {
       ],
     };
     const openedForm = dispatchFormOpen ? 'dispatchFormOpen' : (statusFormOpen ? 'statusFormOpen' : 'noFormOpen');
+    const heightDispatch = openedForm === 'dispatchFormOpen' ? 'auto' : 0;
+    const heightStatus = openedForm === 'statusFormOpen' ? 'auto' : 0;
 
     return (
       <>
@@ -57,21 +61,31 @@ class AssignTab extends Component {
             actionButtons={actionButtons[openedForm]}
             title={dispatchFormOpen ? 'Tramitar Tarefa' : (statusFormOpen ? 'Alterar Status' : 'Situação Atual')}
           />
-          {dispatchFormOpen && (
-            <div className="tabpane__content">
-              <DispatchForm 
-                visible={true}
-                toggleForm={this.toggleDispatchForm}
-              />
-            </div>
+          {1 && (
+            <AnimateHeight 
+            duration={300}
+            height={heightDispatch}
+            >
+              <div className="tabpane__content">
+                <DispatchForm 
+                  visible={true}
+                  toggleForm={this.toggleDispatchForm}
+                />
+              </div>
+            </AnimateHeight>
           )}
-          {statusFormOpen && (
-            <div className="tabpane__content">
-              <StatusForm 
-                visible={true}
-                toggleForm={this.toggleStatusForm}
-              />
-            </div>
+          {1 && (
+            <AnimateHeight 
+              duration={300}
+              height={heightStatus}
+            >
+              <div className="tabpane__content">
+                <StatusForm 
+                  visible={true}
+                  toggleForm={this.toggleStatusForm}
+                />
+              </div>
+            </AnimateHeight>
           )}
           {(statusFormOpen || dispatchFormOpen) && (
             <PaneTitle 
