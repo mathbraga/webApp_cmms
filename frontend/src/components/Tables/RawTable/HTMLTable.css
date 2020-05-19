@@ -2,6 +2,7 @@
   display: inline-block;
   width: 100%;
   overflow-x: scroll;
+  border-radius: 5px;
 }
 
 .table-no-item {

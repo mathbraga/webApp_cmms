@@ -2,7 +2,6 @@
   display: flex;
   border: 1px solid rgb(214, 214, 214);
   border-radius: 2px;
-  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.1);
   background: #fafafa;
   height: 80px;
   align-items: center;
