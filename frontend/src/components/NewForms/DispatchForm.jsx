@@ -104,6 +104,7 @@ class DispatchForm extends Component {
                 options={teamsFake}
                 styles={selectStyles}
                 onChange={this.onChangeTeam}
+                placeholder={'Equipes ...'}
               />
             </div>
           </div>
@@ -123,6 +124,7 @@ class DispatchForm extends Component {
                 id="exampleText" 
                 rows='3'
                 onChange={this.onChangeObservation}
+                placeholder={''}
               />
             </div>
           </div>

@@ -99,6 +99,7 @@ class StatusForm extends Component {
                 options={teamsFake}
                 styles={selectStyles}
                 onChange={this.onChangeStatus}
+                placeholder={'Status ...'}
               />
             </div>
           </div>
