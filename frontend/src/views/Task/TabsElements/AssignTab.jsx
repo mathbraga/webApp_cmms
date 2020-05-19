@@ -61,32 +61,28 @@ class AssignTab extends Component {
             actionButtons={actionButtons[openedForm]}
             title={dispatchFormOpen ? 'Tramitar Tarefa' : (statusFormOpen ? 'Alterar Status' : 'Situação Atual')}
           />
-          {1 && (
-            <AnimateHeight 
+          <AnimateHeight 
+          duration={300}
+          height={heightDispatch}
+          >
+            <div className="tabpane__content">
+              <DispatchForm 
+                visible={true}
+                toggleForm={this.toggleDispatchForm}
+              />
+            </div>
+          </AnimateHeight>
+          <AnimateHeight 
             duration={300}
-            height={heightDispatch}
-            >
-              <div className="tabpane__content">
-                <DispatchForm 
-                  visible={true}
-                  toggleForm={this.toggleDispatchForm}
-                />
-              </div>
-            </AnimateHeight>
-          )}
-          {1 && (
-            <AnimateHeight 
-              duration={300}
-              height={heightStatus}
-            >
-              <div className="tabpane__content">
-                <StatusForm 
-                  visible={true}
-                  toggleForm={this.toggleStatusForm}
-                />
-              </div>
-            </AnimateHeight>
-          )}
+            height={heightStatus}
+          >
+            <div className="tabpane__content">
+              <StatusForm 
+                visible={true}
+                toggleForm={this.toggleStatusForm}
+              />
+            </div>
+          </AnimateHeight>
           {(statusFormOpen || dispatchFormOpen) && (
             <PaneTitle 
               title={'Situação Atual'}
