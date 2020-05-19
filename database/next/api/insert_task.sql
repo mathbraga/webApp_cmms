@@ -18,15 +18,14 @@ create or replace function api.insert_task (
         attributes.project_id,
         attributes.title,
         attributes.description,
-        attributes.request_department,
-        attributes.request_name,
-        attributes.request_phone,
-        attributes.request_email,
         attributes.place,
         attributes.progress,
         attributes.date_limit,
         attributes.date_start,
-        attributes.date_end
+        attributes.date_end,
+        null,
+        1,
+        attributes.team_id
       ) returning task_id into id;
 
       if assets is not null then
@@ -44,22 +43,15 @@ create or replace function api.insert_task (
               now()
           from unnest(files_metadata) as f;
 
-      insert into task_dispatches values (
+      insert into task_events values (
         id,
-        get_current_person_id(),
-        null,
-        current_team, -- ????
-        null,
+        'insert'::task_event_enum,
         now(),
+        get_current_person_id(),
+        attributes.team_id,
+        attributes.team_id,
+        1,
         'Criação da tarefa.'
-      );
-
-      insert into task_status_updates values (
-        id,
-        now(),
-        get_current_person_id(),
-        1, -- ????
-        'Status inicial.'
       );
 
     end;
