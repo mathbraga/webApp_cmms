@@ -69,11 +69,16 @@ begin transaction;
 \i public/get_mutation_response.sql
 
 -- create api schema objects
+-- task
 \i api/insert_task.sql
 \i api/modify_task.sql
+\i api/move_task.sql
+\i api/receive_task.sql
+\i api/send_task.sql
 \i api/task_data.sql
-\i api/form_data.sql
+\i api/task_form_data.sql
 \i api/appliance_data.sql
+-- others
 \i api/asset_form_data.sql
 \i api/facility_data.sql
 \i api/contract_data.sql
