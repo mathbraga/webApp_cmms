@@ -1,6 +1,8 @@
 const searchableAttributes = [
-  'assetSf',
-  'name'
+  'date',
+  'event',
+  'team',
+  'note',
 ];
 
 export default searchableAttributes;
