@@ -94,6 +94,9 @@ class AssignTab extends Component {
               itemsMatrix={itemsMatrixAssetsHierachy(data)}
             />
           </div>
+          <PaneTitle 
+            title={'Histórico'}
+          />
         </div>
       </>
     );
