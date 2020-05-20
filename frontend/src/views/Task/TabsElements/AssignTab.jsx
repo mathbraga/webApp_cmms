@@ -8,7 +8,7 @@ import { itemsMatrixAssetsHierachy } from '../utils/dispatchTab/descriptionMatri
 import { compose } from 'redux';
 import './Tabs.css'
 
-import CustomTable from '../../../components/Tables/CompactTable/CompactTable';
+import CustomTable from '../../../components/Tables/CustomTable';
 import tableConfig from '../utils/dispatchTab/tableConfig';
 import searchableAttributes from '../utils/dispatchTab/searchParameters';
 import fakeData from '../utils/dispatchTab/fakeData';
