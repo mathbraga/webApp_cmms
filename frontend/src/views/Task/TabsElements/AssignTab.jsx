@@ -9,7 +9,6 @@ import './Tabs.css'
 
 import CustomTable from '../../../components/Tables/CompactTable/CompactTable';
 import tableConfig from '../utils/dispatchTab/tableConfig';
-import { customFilters, filterAttributes } from '../utils/dispatchTab/filterParameters';
 import searchableAttributes from '../utils/dispatchTab/searchParameters';
 
 import AnimateHeight from 'react-animate-height';
