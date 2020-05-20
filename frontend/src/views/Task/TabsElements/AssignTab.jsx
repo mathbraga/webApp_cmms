@@ -7,8 +7,7 @@ import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 import { itemsMatrixAssetsHierachy } from '../utils/dispatchTab/descriptionMatrix';
 import './Tabs.css'
 
-import CustomTable from '../../../components/Tables/CompactTable';
-import tableConfig from '';
+import CustomTable from '../../../components/Tables/CompactTable/CompactTable';
 
 import AnimateHeight from 'react-animate-height';
 
@@ -101,7 +100,7 @@ class AssignTab extends Component {
             title={'Histórico'}
           />
           <div className="tabpane__content">
-            <CustomTable
+            {/* <CustomTable
               type={'pages-with-search'}
               tableConfig={tableConfig}
               customFilters={customFilters}
@@ -110,7 +109,7 @@ class AssignTab extends Component {
               selectedData={this.props.selectedData}
               handleSelectData={this.props.handleSelectData}
               data={data}
-            />
+            /> */}
           </div>
         </div>
       </>
@@ -120,7 +119,7 @@ class AssignTab extends Component {
 
 export default AssignTab;
 
-export default compose(
-  withPrepareData(tableConfig),
-  withSelectLogic
-)(AssignTab);
+// export default compose(
+//   withPrepareData(tableConfig),
+//   withSelectLogic
+// )(AssignTab);
