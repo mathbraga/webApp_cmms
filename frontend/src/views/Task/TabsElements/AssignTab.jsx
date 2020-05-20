@@ -5,11 +5,16 @@ import StatusForm from '../../../components/NewForms/StatusForm'
 import PaneTitle from '../../../components/TabPanes/PaneTitle'
 import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 import { itemsMatrixAssetsHierachy } from '../utils/dispatchTab/descriptionMatrix';
+import { compose } from 'redux';
 import './Tabs.css'
 
 import CustomTable from '../../../components/Tables/CompactTable/CompactTable';
 import tableConfig from '../utils/dispatchTab/tableConfig';
 import searchableAttributes from '../utils/dispatchTab/searchParameters';
+import fakeData from '../utils/dispatchTab/fakeData';
+
+import withPrepareData from '../../../components/Formating/withPrepareData';
+import withSelectLogic from '../../../components/Selection/withSelectLogic';
 
 import AnimateHeight from 'react-animate-height';
 
@@ -101,17 +106,15 @@ class AssignTab extends Component {
           <PaneTitle 
             title={'Histórico'}
           />
-          <div className="tabpane__content">
-            {/* <CustomTable
+          <div className="tabpane__content__table">
+            <CustomTable
               type={'pages-with-search'}
               tableConfig={tableConfig}
-              customFilters={customFilters}
-              filterAttributes={filterAttributes}
               searchableAttributes={searchableAttributes}
               selectedData={this.props.selectedData}
               handleSelectData={this.props.handleSelectData}
-              data={data}
-            /> */}
+              data={fakeData}
+            />
           </div>
         </div>
       </>
@@ -119,9 +122,6 @@ class AssignTab extends Component {
   }
 }
 
-export default AssignTab;
-
-// export default compose(
-//   withPrepareData(tableConfig),
-//   withSelectLogic
-// )(AssignTab);
+export default compose(
+  withSelectLogic
+)(AssignTab);

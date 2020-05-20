@@ -18,3 +18,7 @@
 .tabpane__content {
   margin: 10px 30px 30px 30px;
 }
+
+.tabpane__content__table {
+  margin: 50px 30px;
+}

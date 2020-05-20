@@ -1,6 +1,6 @@
 .table-body__cell {
   padding: 6px 2px;
-  height: 55px;
+  height: 52px;
   overflow: hidden;
   border-bottom: 1px solid #d4d4d4;
 }
@@ -28,11 +28,12 @@
 .table-body__cell__value {
   display: block;
   padding: 0 4px;
+  font-size: 0.8rem;
 }
 
 .table-body__cell__sub-value {
   color: #73818f;
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   font-weight: 400;
   padding: 1px 4px;
   white-space: nowrap;

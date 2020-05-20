@@ -1,7 +1,7 @@
 const fakeData = [
   {
     event: 'insert',
-    time: '2004-10-19 10:23:54',
+    time: '2004-10-19',
     personName: 'Pedro Serafim',
     personId: '00001',
     senderName: 'Seplag',
@@ -14,7 +14,7 @@ const fakeData = [
   },
   {
     event: 'move',
-    time: '2004-10-20 11:25:54',
+    time: '2004-10-20',
     personName: 'Henrique Zaidan',
     personId: '00002',
     senderName: 'Seplag',
@@ -27,7 +27,7 @@ const fakeData = [
   },
   {
     event: 'send',
-    time: '2004-10-21 10:23:54',
+    time: '2004-10-21',
     personName: 'Pedro Serafim',
     personId: '00001',
     senderName: 'Seplag',
@@ -40,7 +40,7 @@ const fakeData = [
   },
   {
     event: 'receive',
-    time: '2004-10-22 10:23:54',
+    time: '2004-10-22',
     personName: 'Flávio Antônio',
     personId: '00004',
     senderName: 'RCS Tecnologia - Posto Anexo II',
@@ -53,7 +53,7 @@ const fakeData = [
   },
   {
     event: 'move',
-    time: '2004-10-23 10:23:54',
+    time: '2004-10-23',
     personName: 'Flávio Antônio',
     personId: '00004',
     senderName: 'RCS Tecnologia - Posto Anexo II',
@@ -66,7 +66,7 @@ const fakeData = [
   },
   {
     event: 'send',
-    time: '2004-10-24 10:23:54',
+    time: '2004-10-24',
     personName: 'Flávio Antônio',
     personId: '00004',
     senderName: 'RCS Tecnologia - Posto Anexo II',
@@ -79,7 +79,7 @@ const fakeData = [
   },
   {
     event: 'receive',
-    time: '2004-10-25 10:23:54',
+    time: '2004-10-25',
     personName: 'Ricardo Luís',
     personId: '00006',
     senderName: 'Entherm - Posto CM3',
@@ -92,7 +92,7 @@ const fakeData = [
   },
   {
     event: 'move',
-    time: '2004-10-26 10:23:54',
+    time: '2004-10-26',
     personName: 'Ricardo Luís',
     personId: '00008',
     senderName: 'Entherm - Posto CM3',
@@ -105,7 +105,7 @@ const fakeData = [
   },
   {
     event: 'send',
-    time: '2004-10-27 10:23:54',
+    time: '2004-10-27',
     personName: 'Ricardo Luís',
     personId: '00008',
     senderName: 'Entherm - Posto CM3',
@@ -118,7 +118,7 @@ const fakeData = [
   },
   {
     event: 'cancel',
-    time: '2004-10-28 10:23:54',
+    time: '2004-10-28',
     personName: 'Ricardo Luís',
     personId: '00006',
     senderName: 'Entherm - Posto CM3',
@@ -131,7 +131,7 @@ const fakeData = [
   },
   {
     event: 'move',
-    time: '2004-10-29 10:23:54',
+    time: '2004-10-29',
     personName: 'Ricardo Luís',
     personId: '00008',
     senderName: 'Entherm - Posto CM3',
