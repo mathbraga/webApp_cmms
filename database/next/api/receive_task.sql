@@ -17,8 +17,8 @@ create or replace function api.receive_task (
         get_current_person_id(),
         attributes.team_id,
         null,
-        null,
-        null
+        attributes.task_status_id,
+        null, -- or attributes.note?
       ) returning task_id into id;
 
     end;

@@ -13,6 +13,7 @@ create or replace function api.insert_task (
     begin
       insert into tasks values (
         default,
+        now(),
         attributes.task_priority_id,
         attributes.task_category_id,
         attributes.project_id,
@@ -24,8 +25,9 @@ create or replace function api.insert_task (
         attributes.date_start,
         attributes.date_end,
         null,
-        1,
-        attributes.team_id
+        get_constant_value('task_initial_status')::integer,
+        attributes.team_id,
+        false
       ) returning task_id into id;
 
       if assets is not null then
@@ -50,7 +52,7 @@ create or replace function api.insert_task (
         get_current_person_id(),
         attributes.team_id,
         attributes.team_id,
-        1,
+        get_constant_value('task_initial_status')::integer,
         'Criação da tarefa.'
       );
 
