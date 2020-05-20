@@ -26,12 +26,12 @@ create table task_statuses (
 );
 
 insert into task_statuses values
-  (1, 'Cancelada'),
-  (2, 'Negada'),
-  (3, 'Pendente'),
+  (1, 'Fila de espera'),
+  (2, 'Pendente'),
+  (3, 'Em execução'),
   (4, 'Suspensa'),
-  (5, 'Fila de espera'),
-  (6, 'Em execução'),
+  (5, 'Em análise'),
+  (6, 'Cancelada'),
   (7, 'Concluída');
 
 -- task priorities
