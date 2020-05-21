@@ -4,7 +4,7 @@ import DispatchForm from '../../../components/NewForms/DispatchForm'
 import StatusForm from '../../../components/NewForms/StatusForm'
 import PaneTitle from '../../../components/TabPanes/PaneTitle'
 import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
-import { itemsMatrixAssetsHierachy } from '../utils/dispatchTab/descriptionMatrix';
+import { itemsMatrixAssetsHierachy, itemsMatrixLog } from '../utils/dispatchTab/descriptionMatrix';
 import { compose } from 'redux';
 import './Tabs.css'
 
@@ -106,6 +106,12 @@ class AssignTab extends Component {
           <PaneTitle 
             title={'Histórico'}
           />
+          <div className="tabpane__content">
+            <PaneTextContent 
+              numColumns='2' 
+              itemsMatrix={itemsMatrixLog(data)}
+            />
+          </div>
           <div className="tabpane__content__table">
             <CustomTable
               type={'pages-with-search'}

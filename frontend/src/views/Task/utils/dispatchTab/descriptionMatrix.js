@@ -18,3 +18,13 @@ export function itemsMatrixAssetsHierachy(data) {
     ]
   );
 }
+
+export function itemsMatrixLog(data) {
+  return (
+    [
+      [
+        { id: 'logData', title: 'Exibir histórico de', description: 'Tramitações', span: 1 },
+      ],
+    ]
+  );
+}
