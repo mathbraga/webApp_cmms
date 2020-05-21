@@ -25,9 +25,15 @@ export function itemsMatrixLog(data) {
       [
         { 
           id: 'logData', 
-          title: 'Exibir histórico de', 
-          description: (
-            <h1>Hey</h1>
+          elementGenerator: () => (
+            <FormGroup style={{width: "80%"}}>
+              <Label className='desc-sub' for="exampleSelect" style={{ margin: "10px 0 2px 0 " }}>Exibir histórico de</Label>
+              <Input type="select" name="select" id="exampleSelect">
+                <option>Tramitações e Status</option>
+                <option>Tramitações</option>
+                <option>Status</option>
+              </Input>
+            </FormGroup>
           ), 
           span: 1 
         },
