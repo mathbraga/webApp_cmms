@@ -75,10 +75,12 @@ begin transaction;
 \i api/move_task.sql
 \i api/receive_task.sql
 \i api/send_task.sql
+\i api/cancel_send_task.sql
 \i api/task_data.sql
 \i api/task_form_data.sql
-\i api/appliance_data.sql
+\i api/bind_supplies_to_task.sql
 -- others
+\i api/appliance_data.sql
 \i api/asset_form_data.sql
 \i api/facility_data.sql
 \i api/contract_data.sql
