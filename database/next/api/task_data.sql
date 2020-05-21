@@ -12,7 +12,7 @@ create or replace view api.task_data as
         from task_assets as ta
         inner join assets as a using (asset_id)
         inner join assets as aa on (a.category = aa.asset_id)
-      group by task_id
+      group by ta.task_id
     ),
     supplies_of_task as (
       select  ts.task_id,
@@ -28,7 +28,7 @@ create or replace view api.task_data as
         from task_supplies as ts
         inner join supplies as s using (supply_id)
         inner join specs as z using (spec_id)
-      group by task_id
+      group by ts.task_id
     ),
     files_of_task as (
       select  tf.task_id,
@@ -41,7 +41,7 @@ create or replace view api.task_data as
               )) as files
         from task_files as tf
         inner join persons as p on (tf.person_id = p.person_id)
-      group by task_id
+      group by tf.task_id
     ),
     events_of_task as (
       select  te.task_id,
@@ -50,20 +50,20 @@ create or replace view api.task_data as
                 'time', te.created_at::text,
                 'personName', p.name,
                 'personId', p.person_id,
-                'senderName', q.name,
-                'senderId', q.name,
-                'recipientName', qq.name,
-                'recipientId', qq.team_id,
+                'teamName', t.name,
+                'teamId', t.name,
+                'recipientName', tt.name,
+                'recipientId', tt.team_id,
                 'taskStatusText', ts.task_status_text,
                 'taskStatusId', ts.task_status_id,
                 'note', te.note
               )) as events
         from task_events as te
         inner join persons as p using (person_id)
-        inner join teams as q on (te.team_id = q.team_id)
-        left join teams as qq on (te.send_to = qq.team_id)
+        inner join teams as t on (te.team_id = t.team_id)
+        left join teams as tt on (te.recipient_id = tt.team_id)
         left join task_statuses as ts using (task_status_id)
-      group by task_id
+      group by te.task_id
     )
   select  t.*,
           tp.task_priority_text,
