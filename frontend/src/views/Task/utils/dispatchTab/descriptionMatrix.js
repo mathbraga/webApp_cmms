@@ -23,7 +23,14 @@ export function itemsMatrixLog(data) {
   return (
     [
       [
-        { id: 'logData', title: 'Exibir histórico de', description: 'Tramitações', span: 1 },
+        { 
+          id: 'logData', 
+          title: 'Exibir histórico de', 
+          description: (
+            <h1>Hey</h1>
+          ), 
+          span: 1 
+        },
       ],
     ]
   );
