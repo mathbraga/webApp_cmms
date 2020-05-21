@@ -18,8 +18,8 @@ const tableConfig = {
   },
   columnsConfig: [
     { columnId: 'date', columnName: 'Data', width: '15%', align: "center", idForValues: ['time']},
-    { columnId: 'event', columnName: 'Evento', width: '20%', align: "justify", idForValues: ['eventName']},
-    { columnId: 'team', columnName: 'Equipe', width: '25%', align: "justify", idForValues: ['senderName', 'personName']},
+    { columnId: 'event', columnName: 'Evento', width: '20%', align: "center", idForValues: ['eventName']},
+    { columnId: 'team', columnName: 'Equipe / Status', width: '25%', align: "justify", idForValues: ['senderName', 'personName']},
     { columnId: 'note', columnName: 'Observação', width: '40%', align: "justify", isTextWrapped: true, idForValues: ['note']},
   ]
 };

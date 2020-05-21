@@ -17,6 +17,7 @@ import withPrepareData from '../../../components/Formating/withPrepareData';
 import withSelectLogic from '../../../components/Selection/withSelectLogic';
 
 import AnimateHeight from 'react-animate-height';
+import LogTable from '../utils/dispatchTab/LogTable';
 
 class AssignTab extends Component {
   constructor(props) {
@@ -113,12 +114,7 @@ class AssignTab extends Component {
             />
           </div>
           <div className="tabpane__content__table">
-            <CustomTable
-              type={'pages-with-search'}
-              tableConfig={tableConfig}
-              searchableAttributes={searchableAttributes}
-              selectedData={this.props.selectedData}
-              handleSelectData={this.props.handleSelectData}
+            <LogTable 
               data={fakeData}
             />
           </div>
@@ -128,6 +124,4 @@ class AssignTab extends Component {
   }
 }
 
-export default compose(
-  withSelectLogic
-)(AssignTab);
+export default AssignTab;
