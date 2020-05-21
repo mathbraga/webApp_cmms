@@ -14,7 +14,7 @@ function selectTeamOrStatus(item) {
   
   if (item.event === 'move') {
     result = item.taskStatusText;
-  } else if (item.event = 'send') {
+  } else if (item.event === 'send') {
     result = item.recipientName;
   } else {
     result = item.senderName;
@@ -32,9 +32,9 @@ const tableConfig = {
     teamOrStatus: selectTeamOrStatus,
   },
   columnsConfig: [
-    { columnId: 'date', columnName: 'Data', width: '15%', align: "center", idForValues: ['time']},
-    { columnId: 'event', columnName: 'Evento', width: '20%', align: "center", idForValues: ['eventName']},
-    { columnId: 'team', columnName: 'Equipe / Status', width: '25%', align: "justify", idForValues: ['teamOrStatus', 'personName']},
+    { columnId: 'date', columnName: 'Data', width: '10%', align: "center", idForValues: ['time']},
+    { columnId: 'event', columnName: 'Evento', width: '20%', align: "center", idForValues: ['eventName'], style: {fontWeight: '600'}},
+    { columnId: 'team', columnName: 'Equipe / Status', width: '30%', align: "justify", idForValues: ['teamOrStatus', 'personName']},
     { columnId: 'note', columnName: 'Observação', width: '40%', align: "justify", isTextWrapped: true, idForValues: ['note']},
   ]
 };

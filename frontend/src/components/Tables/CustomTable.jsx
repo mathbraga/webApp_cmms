@@ -22,7 +22,6 @@ const tables = (props) => ({
 class CustomTable extends Component {
   render() {
     const { type, ...rest } = this.props;
-    console.log("Type: ", type);
     return (
       tables(rest)[type]
     );

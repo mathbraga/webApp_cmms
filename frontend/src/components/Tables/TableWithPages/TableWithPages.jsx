@@ -7,7 +7,6 @@ import { compose } from 'redux';
 
 class TableWithPages extends Component {
   render() {
-    console.log("I'm here!", this.props);
     return (
       <TableWithPagesUI
         {...this.props}
