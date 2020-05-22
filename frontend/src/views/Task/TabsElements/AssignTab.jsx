@@ -5,16 +5,9 @@ import StatusForm from '../../../components/NewForms/StatusForm'
 import PaneTitle from '../../../components/TabPanes/PaneTitle'
 import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 import { itemsMatrixAssetsHierachy, itemsMatrixLog } from '../utils/dispatchTab/descriptionMatrix';
-import { compose } from 'redux';
 import './Tabs.css'
 
-import CustomTable from '../../../components/Tables/CustomTable';
-import tableConfig from '../utils/dispatchTab/tableConfig';
-import searchableAttributes from '../utils/dispatchTab/searchParameters';
 import fakeData from '../utils/dispatchTab/fakeData';
-
-import withPrepareData from '../../../components/Formating/withPrepareData';
-import withSelectLogic from '../../../components/Selection/withSelectLogic';
 
 import AnimateHeight from 'react-animate-height';
 import LogTable from '../utils/dispatchTab/LogTable';
