@@ -21,6 +21,12 @@ create or replace function api.receive_task (
         null,
       ) returning task_id into id;
 
+      update tasks as t set (
+        is_received
+      ) = (
+        true
+      ) where t.task_id = attributes.task_id;
+
     end;
   $$
 ;

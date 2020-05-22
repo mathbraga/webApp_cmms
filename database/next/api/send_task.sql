@@ -19,6 +19,16 @@ create or replace function api.send_task (
         attributes.note
       ) returning task_id into id;
 
+      update tasks as t set (
+        sender_id,
+        recipient_id,
+        is_received
+      ) = (
+        attributes.team_id,
+        attributes.recipient_id,
+        false
+      ) where t.task_id = attributes.task_id;
+
     end;
   $$
 ;

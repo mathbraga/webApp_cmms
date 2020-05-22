@@ -19,6 +19,14 @@ create or replace function api.cancel_send_task (
         null
       ) returning task_id into id;
 
+      update tasks as t set (
+        recipient_id,
+        is_received
+      ) = (
+        attributes.team_id,
+        true
+      ) where t.task_id = attributes.task_id;
+
     end;
   $$
 ;

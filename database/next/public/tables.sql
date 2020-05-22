@@ -109,7 +109,9 @@ create table tasks (
   date_end timestamptz,
   request_id integer references requests (request_id),
   task_status_id integer not null references task_statuses (task_status_id),
-  team_id integer references teams (team_id),
+  sender_id integer references teams (team_id),
+  recipient_id integer references teams (team_id),
+  is_received boolean,
   is_locked boolean not null
 );
 

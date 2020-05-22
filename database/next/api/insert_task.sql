@@ -27,6 +27,8 @@ create or replace function api.insert_task (
         null,
         get_constant_value('task_initial_status')::integer,
         attributes.team_id,
+        attributes.team_id,
+        true,
         false
       ) returning task_id into id;
 
