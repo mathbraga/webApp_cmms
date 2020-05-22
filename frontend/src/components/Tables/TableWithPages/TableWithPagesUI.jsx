@@ -36,7 +36,7 @@ class TableWithPagesUI extends Component {
       childConfig,
       handleNestedChildrenClick,
       openitems,
-      disableSorting
+      disableSorting,
     } = this.props;
 
     const pagesTotal = Math.ceil(data.length / itemsPerPage);
@@ -94,6 +94,7 @@ class TableWithPagesUI extends Component {
           isFileTable={tableConfig.isFileTable}
           fileColumnWidth={tableConfig.fileColumnWidth}
           disableSorting={disableSorting}
+          styleBodyElement={tableConfig.styleBodyElement}
         />
         <div
           className="table-container__pagination-container"

@@ -77,7 +77,8 @@ class HTMLTable extends Component {
       isFileTable,
       fileColumnWidth,
       firstEmptyColumnWidth, 
-      disableSorting
+      disableSorting,
+      styleBodyElement
     } = this.props;
     const visibleData = itemsPerPage ? (data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)) : data;
     const numColumns = columnsConfig.length + (firstEmptyColumnWidth ? 1 : 0) + (hasCheckbox ? 1: 0) + (isFileTable ? 1: 0) + (actionColumn ? 1: 0);
@@ -226,6 +227,8 @@ class HTMLTable extends Component {
                         align={column.align}
                         isTextWrapped={column.isTextWrapped}
                         history={this.props.history}
+                        styleBodyElement={styleBodyElement}
+                        item={item}
                       />
                     );
                   }

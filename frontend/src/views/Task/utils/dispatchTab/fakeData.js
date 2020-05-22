@@ -10,7 +10,7 @@ const fakeData = [
     recipientId: null,
     taskStatusText: 'Fila de Espera',
     taskStatusId: '001',
-    note: 'Status padrão ao criar uma nova tarefa.',
+    note: 'Tarefa criada com sucesso.',
   },
   {
     event: 'move',
@@ -127,7 +127,7 @@ const fakeData = [
     recipientId: null,
     taskStatusText: null,
     taskStatusId: null,
-    note: 'Tarefa será executada.',
+    note: '',
   },
   {
     event: 'move',
@@ -138,7 +138,7 @@ const fakeData = [
     senderId: '00005',
     recipientName: null,
     recipientId: null,
-    taskStatusText: 'Execução',
+    taskStatusText: 'Em execução',
     taskStatusId: '001',
     note: 'Análise de possíveis vazamentos.',
   },

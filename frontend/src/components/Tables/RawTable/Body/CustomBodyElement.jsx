@@ -41,6 +41,7 @@ const defaultProps = {
 export default function CustomBodyElement({
   columnId,
   itemId,
+  item,
   createElement,
   dataValue,
   hasDataSubValue,
@@ -56,6 +57,7 @@ export default function CustomBodyElement({
   align,
   isTextWrapped,
   history,
+  styleBodyElement,
 }) {
   return (
     <td
@@ -69,6 +71,7 @@ export default function CustomBodyElement({
           [`table-body__cell--${align}`]: align,
         })}
         style={{ display: "flex", alignItems: "center" }}
+        style={styleBodyElement && styleBodyElement(item, columnId)}
       >
         {isDataTree && addNestingSpaces(childConfig, columnId, itemId, handleNestedChildrenClick, openitems, idForNestedTable)}
         <div
