@@ -9,6 +9,8 @@ import './Tabs.css'
 
 import fakeData from '../utils/dispatchTab/fakeData';
 
+import sortList from '../../../components/Tables/TableWithSorting/sortList'
+
 import AnimateHeight from 'react-animate-height';
 import LogTable from '../utils/dispatchTab/LogTable';
 
@@ -56,6 +58,8 @@ class AssignTab extends Component {
     const openedForm = dispatchFormOpen ? 'dispatchFormOpen' : (statusFormOpen ? 'statusFormOpen' : 'noFormOpen');
     const heightDispatch = openedForm === 'dispatchFormOpen' ? 'auto' : 0;
     const heightStatus = openedForm === 'statusFormOpen' ? 'auto' : 0;
+
+    const sortedData = sortList(fakeData, 'time', true, false);
 
     return (
       <>
@@ -108,7 +112,7 @@ class AssignTab extends Component {
           </div>
           <div className="tabpane__content__table">
             <LogTable 
-              data={fakeData}
+              data={sortedData}
             />
           </div>
         </div>
