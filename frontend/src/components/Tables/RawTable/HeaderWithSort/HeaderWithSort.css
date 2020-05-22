@@ -22,3 +22,8 @@
   align-items: center;
   cursor: pointer;
 }
+
+.header__head-nobutton {
+  display: inline-flex;
+  align-items: center;
+}
