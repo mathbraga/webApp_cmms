@@ -1,6 +1,6 @@
-drop function if exists ws.refresh_all_materialized_views;
+drop function if exists www.refresh_all_materialized_views;
 
-create or replace function ws.refresh_all_materialized_views (
+create or replace function www.refresh_all_materialized_views (
   out refreshed_at timestamptz
 )
   language plpgsql

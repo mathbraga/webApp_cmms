@@ -1,6 +1,6 @@
-drop function if exists ws.authenticate;
+drop function if exists www.authenticate;
 
-create or replace function ws.authenticate (
+create or replace function www.authenticate (
   in input_email    text,
   in input_password text,
   out user_data text

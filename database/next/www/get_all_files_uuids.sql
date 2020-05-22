@@ -1,6 +1,6 @@
-drop function if exists ws.get_all_files_uuids;
+drop function if exists www.get_all_files_uuids;
 
-create or replace function ws.get_all_files_uuids (
+create or replace function www.get_all_files_uuids (
   out uuids_result text[]
 )
   language plpgsql
