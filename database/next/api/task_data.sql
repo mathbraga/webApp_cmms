@@ -64,6 +64,25 @@ create or replace view api.task_data as
         left join teams as tt on (te.recipient_id = tt.team_id)
         left join task_statuses as ts using (task_status_id)
       group by te.task_id
+    ),
+    send_options (
+      select  t.team_id,
+              jsonb_agg(jsonb_build_object(
+                'teamId', t.team_id,
+                'name', t.name
+              )) as send_options
+          from teams as t
+        where t.is_active
+      group by t.team_id
+    ),
+    move_options (
+      select  s.task_status_id,
+              jsonb_agg(jsonb_build_object(
+                'taskStatusId', s.task_status_id,
+                'taskStatusText', s.task_status_text
+              )) as move_options
+        from task_statuses as s
+      group by s.task_status_id
     )
   select  t.*,
           tp.task_priority_text,
@@ -83,4 +102,6 @@ create or replace view api.task_data as
   left join files_of_task as f using (task_id)
   left join projects as p using (project_id)
   left join requests as r using (request_id)
+  inner join send_options as so on (so.team_id <> t.recipient_id)
+  inner join move_options as mo on (mo.task_status_id <> t.task_status_id)
 ;
