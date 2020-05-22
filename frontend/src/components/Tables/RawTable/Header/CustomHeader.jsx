@@ -27,7 +27,7 @@ const defaultProps = {
   IsSortReverse: false,
 };
 
-export default function CustomHeader({ id, value, onSort, width, align, activeSortKey, isSortReverse }) {
+export default function CustomHeader({ id, value, onSort, width, align, activeSortKey, isSortReverse, disableSorting }) {
   return (
     <th
       className={classNames({
@@ -44,7 +44,13 @@ export default function CustomHeader({ id, value, onSort, width, align, activeSo
               value
             )
             : (
-              <HeaderWithSort sortKey={id} onSort={onSort} activeSortKey={activeSortKey} isSortReverse={isSortReverse}>
+              <HeaderWithSort 
+                sortKey={id} 
+                onSort={onSort} 
+                activeSortKey={activeSortKey} 
+                isSortReverse={isSortReverse}
+                disableSorting={disableSorting}
+              >
                 {value}
               </HeaderWithSort>
             )

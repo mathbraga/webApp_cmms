@@ -21,6 +21,7 @@ class LogTable extends Component {
         selectedData={this.props.selectedData}
         handleSelectData={this.props.handleSelectData}
         data={this.props.data}
+        disableSorting
       />
      );
   }

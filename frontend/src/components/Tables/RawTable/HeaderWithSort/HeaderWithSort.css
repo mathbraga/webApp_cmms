@@ -26,4 +26,5 @@
 .header__head-nobutton {
   display: inline-flex;
   align-items: center;
+  cursor: default;
 }

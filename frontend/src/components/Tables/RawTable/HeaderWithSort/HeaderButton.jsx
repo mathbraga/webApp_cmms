@@ -17,7 +17,7 @@ const defaultProps = {
 
 export default function HeaderButton({ onClick, children, className, disableSorting = false }) {
   return (
-    <div onClick={onClick} className={classNames(disableSorting ? "header__head-nobutton" : "header__head-button", className)}>
+    <div onClick={disableSorting ? (() => {}) : onClick} className={classNames(disableSorting ? "header__head-nobutton" : "header__head-button", className)}>
       {children}
     </div>
   );

@@ -76,7 +76,8 @@ class HTMLTable extends Component {
       handleAction,
       isFileTable,
       fileColumnWidth,
-      firstEmptyColumnWidth
+      firstEmptyColumnWidth, 
+      disableSorting
     } = this.props;
     const visibleData = itemsPerPage ? (data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)) : data;
     const numColumns = columnsConfig.length + (firstEmptyColumnWidth ? 1 : 0) + (hasCheckbox ? 1: 0) + (isFileTable ? 1: 0) + (actionColumn ? 1: 0);
@@ -94,6 +95,7 @@ class HTMLTable extends Component {
                   id={"empty"}
                   value={""}
                   align={"center"}
+                  disableSorting
                 />
               )}
               {hasCheckbox && (
@@ -111,6 +113,7 @@ class HTMLTable extends Component {
                   value={""}
                   align={"center"}
                   width={fileColumnWidth}
+                  disableSorting
                 />
               )}
               {columnsConfig.map((column) => (
@@ -124,6 +127,7 @@ class HTMLTable extends Component {
                   activeSortKey={activeSortKey}
                   isSortReverse={isSortReverse}
                   onSort={onSort}
+                  disableSorting={disableSorting}
                 />
               ))}
               {actionColumn && (
@@ -132,6 +136,7 @@ class HTMLTable extends Component {
                   value={"Ações"}
                   align={"center"}
                   width={actionColumnWidth}
+                  disableSorting
                 />
               )}
             </tr>

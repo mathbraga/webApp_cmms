@@ -21,9 +21,12 @@ const defaultProps = {
   IsSortReverse: false,
 };
 
-export default function HeaderSort({ sortKey, onSort, children, activeSortKey, isSortReverse }) {
+export default function HeaderSort({ sortKey, onSort, children, activeSortKey, isSortReverse, disableSorting }) {
   return (
-    <HeaderButton onClick={() => onSort(sortKey)}>
+    <HeaderButton 
+      onClick={() => onSort(sortKey)}
+      disableSorting={disableSorting}
+    >
       {children}
       {activeSortKey === sortKey && (
         <div className={classNames({
