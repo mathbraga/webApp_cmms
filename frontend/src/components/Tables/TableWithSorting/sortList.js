@@ -1,3 +1,5 @@
+import { sortBy } from "lodash";
+
 export default function sortList(data, sortKey, isSortReverse, isDataTree) {
   if (isDataTree) {
     let sortedList = {};
