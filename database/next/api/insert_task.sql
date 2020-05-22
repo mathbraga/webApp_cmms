@@ -36,14 +36,7 @@ create or replace function api.insert_task (
         raise exception '%', get_exception_message(1);
       end if;
 
-      insert into task_files
-        select id,
-              f.filename,
-              f.uuid,
-              f.size,
-              get_current_person_id(),
-              now()
-          from unnest(files_metadata) as f;
+      insert_task_files(id, files_metadata);
 
       insert into task_events values (
         id,
