@@ -9,7 +9,8 @@ create or replace function get_constant_value(
     select
       case constant_name
         when 'task_initial_status'    then '1'
-        when 'another_constant_name'  then '2'
+        when 'task_canceled_status'   then '6'
+        when 'task_finished_status'   then '7'
       end
     as constant_value;
   $$
