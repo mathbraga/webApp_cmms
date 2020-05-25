@@ -37,6 +37,7 @@ export function itemsMatrixLog(data) {
           ), 
           span: 1 
         },
+        { id: 'totalEvents', title: 'Número de eventos', description: '015', span: 1 }
       ],
     ]
   );
