@@ -1,7 +1,8 @@
 const searchableAttributes = [
-  'date',
-  'event',
-  'team',
+  'time',
+  'eventName',
+  'teamOrStatus',
+  'personName',
   'note',
 ];
 
