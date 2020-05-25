@@ -3,8 +3,6 @@ drop function if exists api.insert_task;
 create or replace function api.insert_task (
   in attributes tasks,
   in assets integer[],
-  in supplies integer[],
-  in qty numeric[],
   in files_metadata file_metadata[],
   out id integer
 )

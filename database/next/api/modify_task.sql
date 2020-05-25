@@ -3,7 +3,8 @@ drop function if exists api.modify_task;
 create or replace function api.modify_task (
   inout id integer,
   in attributes tasks,
-  in assets integer[]
+  in assets integer[],
+  in files_metadata file_metadata[]
 )
   language plpgsql
   strict
@@ -62,6 +63,9 @@ create or replace function api.modify_task (
       delete from task_assets as ta
         where ta.task_id = id and
               asset_id in (select asset_id from removed_assets);
+
+      insert_task_files(id, files_metadata);
+
     end;
   $$
 ;
