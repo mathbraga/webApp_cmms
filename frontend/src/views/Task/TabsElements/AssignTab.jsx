@@ -20,9 +20,11 @@ class AssignTab extends Component {
     this.state = {
       dispatchFormOpen: false,
       statusFormOpen: false,
+      logType: 'all',
     };
     this.toggleDispatchForm = this.toggleDispatchForm.bind(this);
     this.toggleStatusForm = this.toggleStatusForm.bind(this);
+    this.handleLogTypeChange = this.handleLogTypeChange.bind(this);
   }
 
   toggleDispatchForm() {
@@ -37,6 +39,12 @@ class AssignTab extends Component {
       statusFormOpen: !prevState.statusFormOpen,
       dispatchFormOpen: false
     }));
+  }
+
+  handleLogTypeChange(event) {
+    this.setState({
+      logType: event.target.value,
+    });
   }
 
   render() {
@@ -107,7 +115,7 @@ class AssignTab extends Component {
           <div className="tabpane__content">
             <PaneTextContent 
               numColumns='2' 
-              itemsMatrix={itemsMatrixLog(data)}
+              itemsMatrix={itemsMatrixLog('15', this.handleLogTypeChange)}
             />
           </div>
           <div className="tabpane__content__table">

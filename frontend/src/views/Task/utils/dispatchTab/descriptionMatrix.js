@@ -19,7 +19,7 @@ export function itemsMatrixAssetsHierachy(data) {
   );
 }
 
-export function itemsMatrixLog(data) {
+export function itemsMatrixLog(numEvent) {
   return (
     [
       [
@@ -37,7 +37,7 @@ export function itemsMatrixLog(data) {
           ), 
           span: 1 
         },
-        { id: 'totalEvents', title: 'Número de eventos', description: '015', span: 1 }
+        { id: 'totalEvents', title: 'Número de eventos', description: numEvent, span: 1 }
       ],
     ]
   );
