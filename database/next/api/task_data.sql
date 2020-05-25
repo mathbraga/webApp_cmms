@@ -46,8 +46,8 @@ create or replace view api.task_data as
     events_of_task as (
       select  te.task_id,
               jsonb_agg(jsonb_build_object(
-                'event', te.task_event::text,
-                'createdAt', te.created_at::text,
+                'eventName', te.event_name::text,
+                'eventTime', te.event_time,
                 'personName', p.name,
                 'personId', p.person_id,
                 'teamName', t.name,
