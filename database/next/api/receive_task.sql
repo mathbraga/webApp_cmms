@@ -8,7 +8,13 @@ create or replace function api.receive_task (
   as $$
     begin
 
-      update tasks set (team_id) = (attributes.team_id);
+      update tasks set (
+        recipient_id,
+        receive_pending
+      ) = (
+        attributes.team_id,
+        false
+      ) where task_id = attributes.task_id;
 
       insert into task_events values (
         attributes.task_id,
@@ -20,12 +26,6 @@ create or replace function api.receive_task (
         attributes.task_status_id,
         null,
       ) returning task_id into id;
-
-      update tasks as t set (
-        is_received
-      ) = (
-        true
-      ) where t.task_id = attributes.task_id;
 
     end;
   $$

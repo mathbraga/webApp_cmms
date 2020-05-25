@@ -95,8 +95,12 @@ create table requests (
 );
 
 create table tasks (
+  -- basic task fields:
   task_id integer primary key generated always as identity,
-  created_at timestamptz not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  created_by integer not null references persons (person_id),
+  updated_by integer not null references persons (person_id),
   task_priority_id integer not null references task_priorities (task_priority_id),
   task_category_id integer not null references task_categories (task_category_id),
   project_id integer references projects (project_id),
@@ -108,11 +112,11 @@ create table tasks (
   date_start timestamptz,
   date_end timestamptz,
   request_id integer references requests (request_id),
+  -- last event fields:
   task_status_id integer not null references task_statuses (task_status_id),
   sender_id integer references teams (team_id),
-  recipient_id integer references teams (team_id),
-  is_received boolean,
-  is_locked boolean not null
+  recipient_id integer not null references teams (team_id),
+  receive_pending boolean not null
 );
 
 create table task_assets (
@@ -123,8 +127,8 @@ create table task_assets (
 
 create table task_events (
   task_id integer not null references tasks (task_id),
-  task_event task_event_enum not null,
-  created_at timestamptz not null default now(),
+  event_name task_event_enum not null,
+  event_time timestamptz not null default now(),
   person_id integer not null references persons (person_id),
   team_id integer not null references teams (team_id),
   recipient_id integer references teams (team_id),

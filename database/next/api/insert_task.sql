@@ -14,6 +14,8 @@ create or replace function api.insert_task (
       insert into tasks values (
         default,
         now(),
+        now(),
+        get_current_person_id(),
         attributes.task_priority_id,
         attributes.task_category_id,
         attributes.project_id,
@@ -24,11 +26,10 @@ create or replace function api.insert_task (
         attributes.date_limit,
         attributes.date_start,
         attributes.date_end,
-        null,
+        attributes.request_id,
         get_constant_value('task_initial_status')::integer,
         attributes.team_id,
         attributes.team_id,
-        true,
         false
       ) returning task_id into id;
 

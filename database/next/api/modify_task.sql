@@ -11,9 +11,33 @@ create or replace function api.modify_task (
     begin
       update tasks as t
         set (
-          
+          updated_at,
+          updated_by,
+          task_priority_id,
+          task_category_id,
+          project_id,
+          title,
+          description,
+          place text,
+          progress,
+          date_limit,
+          date_start,
+          date_end,
+          request_id
         ) = (
-          
+          now(),
+          get_current_person_id(),
+          attributes.task_priority_id,
+          attributes.task_category_id,
+          attributes.project_id,
+          attributes.title,
+          attributes.description,
+          attributes.place,
+          attributes.progress,
+          attributes.date_limit,
+          attributes.date_start,
+          attributes.date_end,
+          attributes.request_id
         ) where t.task_id = id;
 
       with added_assets as (

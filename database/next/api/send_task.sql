@@ -8,6 +8,16 @@ create or replace function api.send_task (
   as $$
     begin
 
+      update tasks set (
+        sender_id,
+        recipient_id,
+        receive_pending
+      ) = (
+        attributes.team_id,
+        attributes.recipient_id,
+        true
+      ) where task_id = attributes.task_id;
+
       insert into task_events values (
         attributes.task_id,
         'send'::task_event_enum,
@@ -18,16 +28,6 @@ create or replace function api.send_task (
         null,
         attributes.note
       ) returning task_id into id;
-
-      update tasks as t set (
-        sender_id,
-        recipient_id,
-        is_received
-      ) = (
-        attributes.team_id,
-        attributes.recipient_id,
-        false
-      ) where t.task_id = attributes.task_id;
 
     end;
   $$

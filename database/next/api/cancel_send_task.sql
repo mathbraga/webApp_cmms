@@ -8,6 +8,14 @@ create or replace function api.cancel_send_task (
   as $$
     begin
 
+      update tasks set (
+        recipient_id,
+        receive_pending
+      ) = (
+        row(sender_id),
+        false
+      ) where task_id = attributes.task_id;
+
       insert into task_events values (
         attributes.task_id,
         'cancel'::task_event_enum,
@@ -18,14 +26,6 @@ create or replace function api.cancel_send_task (
         null,
         null
       ) returning task_id into id;
-
-      update tasks as t set (
-        recipient_id,
-        is_received
-      ) = (
-        attributes.team_id,
-        true
-      ) where t.task_id = attributes.task_id;
 
     end;
   $$

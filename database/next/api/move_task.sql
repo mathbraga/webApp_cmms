@@ -8,7 +8,11 @@ create or replace function api.move_task (
   as $$
     begin
 
-      update tasks set (task_status_id) = (attributes.task_status_id);
+      update tasks set (
+        task_status_id
+      ) = (
+        attributes.task_status_id
+      ) where task_id = attributes.task_id;
 
       insert into task_events values (
         attributes.task_id,

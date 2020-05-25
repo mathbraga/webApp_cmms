@@ -22,17 +22,18 @@ insert into contract_statuses values
 -- task statuses
 create table task_statuses (
   task_status_id integer primary key,
-  task_status_text text not null
+  task_status_text text not null,
+  is_locked boolean not null
 );
 
 insert into task_statuses values
-  (1, 'Fila de espera'),
-  (2, 'Pendente'),
-  (3, 'Em execução'),
-  (4, 'Suspensa'),
-  (5, 'Em análise'),
-  (6, 'Cancelada'),
-  (7, 'Concluída');
+  (1, 'Fila de espera', false),
+  (2, 'Pendente', false),
+  (3, 'Em execução', false),
+  (4, 'Suspensa', false),
+  (5, 'Em análise', true),
+  (6, 'Cancelada', true),
+  (7, 'Concluída', true);
 
 -- task priorities
 create table task_priorities (
