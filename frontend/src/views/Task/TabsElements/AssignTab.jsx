@@ -48,8 +48,9 @@ class AssignTab extends Component {
   }
 
   render() {
-    const data = this.props.data.assets;
-    const { dispatchFormOpen, statusFormOpen } = this.state;
+    const data = fakeData;
+    //this.props.data.assets;
+    const { dispatchFormOpen, statusFormOpen, logType } = this.state;
 
     const actionButtons = {
       statusFormOpen: [
@@ -67,7 +68,10 @@ class AssignTab extends Component {
     const heightDispatch = openedForm === 'dispatchFormOpen' ? 'auto' : 0;
     const heightStatus = openedForm === 'statusFormOpen' ? 'auto' : 0;
 
-    const sortedData = sortList(fakeData, 'time', true, false);
+    const filteredData = logType === 'all' ? data : (data.filter(item => (logType === 'status' ? (item.event === 'move' || item.event === 'insert') : (item.event !== 'move'))));
+    const sortedData = sortList(filteredData, 'time', true, false);
+
+    console.log("Type", logType);
 
     return (
       <>
@@ -115,7 +119,7 @@ class AssignTab extends Component {
           <div className="tabpane__content">
             <PaneTextContent 
               numColumns='2' 
-              itemsMatrix={itemsMatrixLog('15', this.handleLogTypeChange)}
+              itemsMatrix={itemsMatrixLog(sortedData.length, this.handleLogTypeChange)}
             />
           </div>
           <div className="tabpane__content__table">

@@ -19,7 +19,7 @@ export function itemsMatrixAssetsHierachy(data) {
   );
 }
 
-export function itemsMatrixLog(numEvent) {
+export function itemsMatrixLog(numEvent, handleLogTypeChange) {
   return (
     [
       [
@@ -28,10 +28,10 @@ export function itemsMatrixLog(numEvent) {
           elementGenerator: () => (
             <FormGroup style={{width: "80%"}}>
               <Label className='desc-sub' for="exampleSelect" style={{ margin: "10px 0 2px 0 " }}>Exibir histórico de</Label>
-              <Input type="select" name="select" id="exampleSelect">
-                <option>Tramitações e Status</option>
-                <option>Tramitações</option>
-                <option>Status</option>
+              <Input type="select" name="select" id="exampleSelect" onChange={handleLogTypeChange}>
+                <option value='all'>Tramitações e Status</option>
+                <option value='assign'>Tramitações</option>
+                <option value='status'>Status</option>
               </Input>
             </FormGroup>
           ), 

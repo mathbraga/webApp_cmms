@@ -12,7 +12,6 @@ import tableConfig from './tableConfig';
 class LogTable extends Component {
   state = {  }
   render() { 
-    console.log("Event Data: ", this.props.data);
     return ( 
       <CustomTable
         type={'pages-with-search'}
