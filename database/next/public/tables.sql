@@ -151,7 +151,8 @@ create table task_messages (
   message text not null,
   person_id integer not null references persons (person_id) default get_current_person_id(),
   created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
+  updated_at timestamptz not null default now(),
+  is_visible boolean not null default true
 );
 
 create table specs (
