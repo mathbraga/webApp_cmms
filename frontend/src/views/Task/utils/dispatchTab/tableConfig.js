@@ -30,7 +30,6 @@ function styleStatus(item, columnId) {
       borderRadius: '4px',
       fontWeight: '600',
       color: 'white',
-      fontSize: '5px'
     };
   }
   if (item.event === 'send' && columnId === 'event') {
@@ -78,7 +77,7 @@ const tableConfig = {
   styleBodyElement: styleStatus,
   columnsConfig: [
     { columnId: 'date', columnName: 'Data', width: '15%', align: "center", idForValues: ['time']},
-    { columnId: 'event', columnName: 'Evento', width: '20%', align: "center", idForValues: ['eventName'], style: {fontWeight: '600'}},
+    { columnId: 'event', columnName: 'Evento', width: '20%', align: "center", idForValues: ['eventName'], styleText: {fontSize: '0.7rem'}},
     { columnId: 'team', columnName: 'Equipe / Status', width: '30%', align: "justify", idForValues: ['teamOrStatus', 'personName']},
     { columnId: 'note', columnName: 'Observação', width: '35%', align: "justify", isTextWrapped: true, idForValues: ['note']},
   ]

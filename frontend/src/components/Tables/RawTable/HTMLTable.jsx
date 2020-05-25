@@ -228,6 +228,7 @@ class HTMLTable extends Component {
                         isTextWrapped={column.isTextWrapped}
                         history={this.props.history}
                         styleBodyElement={styleBodyElement}
+                        styleText={column.styleText}
                         item={item}
                       />
                     );

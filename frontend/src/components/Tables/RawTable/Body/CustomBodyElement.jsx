@@ -58,6 +58,7 @@ export default function CustomBodyElement({
   isTextWrapped,
   history,
   styleBodyElement,
+  styleText
 }) {
   return (
     <td
@@ -87,7 +88,9 @@ export default function CustomBodyElement({
           <div className={classNames({
             "table-body__cell__value": true,
             "table-body__cell--nowrap": !isTextWrapped,
-          })}>
+          })}
+            style={styleText}
+          >
             {createElement ? createElement : dataValue}
           </div>
           {hasDataSubValue && !createElement && (
