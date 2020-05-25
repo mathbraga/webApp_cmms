@@ -103,6 +103,7 @@ create table tasks (
   updated_by integer not null references persons (person_id),
   task_priority_id integer not null references task_priorities (task_priority_id),
   task_category_id integer not null references task_categories (task_category_id),
+  contract_id integer references contracts (contract_id),
   project_id integer references projects (project_id),
   title text not null,
   description text not null,
