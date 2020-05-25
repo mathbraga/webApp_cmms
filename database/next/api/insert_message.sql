@@ -2,14 +2,14 @@ drop function if exists api.insert_message;
 
 create or replace function api.insert_message (
   inout id integer,
-  message text
+  in attributes task_messages
 )
   language plpgsql
   as $$
     begin
       insert into task_messages values (
         id,
-        message,
+        attributes.message,
         get_current_person_id(),
         now(),
         now(),

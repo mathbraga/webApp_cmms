@@ -1,8 +1,8 @@
 drop function if exists api.remove_message;
 
 create or replace function api.remove_message (
-  inout id,
-  in message
+  inout id integer,
+  in attributes task_messages
 )
   language plpgsql
   as $$
