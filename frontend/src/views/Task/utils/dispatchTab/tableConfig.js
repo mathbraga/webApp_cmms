@@ -119,7 +119,7 @@ const tableConfig = {
   },
   styleBodyElement: styleStatus,
   columnsConfig: [
-    { columnId: 'date', columnName: 'Data', width: '15%', align: "center", idForValues: ['time']},
+    { columnId: 'date', columnName: 'Data / Usuário', width: '15%', align: "center", idForValues: ['time', 'personName']},
     { columnId: 'event', columnName: 'Evento', width: '18%', align: "center", idForValues: ['eventName'], styleText: {fontSize: '0.7rem'}},
     { columnId: 'team', columnName: 'Equipe / Status', width: '32%', align: "justify", idForValues: ['teamOrStatus', 'subTeam'], createElementWithData: createTeamStatusElement, createElementWithSubData: createSubTeamStatusElement },
     { columnId: 'note', columnName: 'Observação', width: '35%', align: "justify", isTextWrapped: true, idForValues: ['note']},
