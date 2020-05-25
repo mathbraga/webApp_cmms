@@ -30,6 +30,7 @@ function styleStatus(item, columnId) {
       borderRadius: '4px',
       fontWeight: '600',
       color: 'white',
+      fontSize: '5px'
     };
   }
   if (item.event === 'send' && columnId === 'event') {
