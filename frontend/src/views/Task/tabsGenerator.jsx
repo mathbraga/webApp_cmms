@@ -5,7 +5,6 @@ import AssignTab from './TabsElements/AssignTab';
 import AssetTab from './TabsElements/AssetTab';
 import ClientTab from './TabsElements/ClientTab';
 import FilesTab from './TabsElements/FilesTab';
-import LogTab from './TabsElements/LogTab';
 
 export default function tabsGenerator(data) {
   return (
@@ -16,7 +15,6 @@ export default function tabsGenerator(data) {
       { id: 'assignTo', title: 'Status / Tramitações', element: <AssignTab data={data} /> },
       { id: 'client', title: 'Mensagens', element: <ClientTab data={data} /> },
       { id: 'files', title: 'Arquivos', element: <FilesTab data={data} /> },
-      { id: 'log', title: 'Histórico', element: <LogTab data={data} /> },
     ]
   );
 }

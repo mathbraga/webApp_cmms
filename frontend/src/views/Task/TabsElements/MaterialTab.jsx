@@ -14,13 +14,24 @@ import './Tabs.css';
 class MaterialTab extends Component {
   state = {}
   render() {
+    const actionButtons = {
+      editFormOpen: [
+        {name: 'Salvar', color: 'success', onClick: () => {console.log('Clicked')}},
+        {name: 'Cancelar', color: 'danger', onClick: () => {console.log('Clicked')}}
+      ],
+      addFormOpen: [
+        {name: 'Salvar', color: 'success', onClick: () => {console.log('Clicked')}},
+        {name: 'Cancelar', color: 'danger', onClick: () => {console.log('Clicked')}}
+      ],
+      noFormOpen: [
+        {name: 'Adicionar Suprimentos', color: 'primary', onClick: () => {console.log('Clicked')}},
+      ],
+    };
     return (
       <>
-        <DescriptionTable
-          title={'Lista de Materiais e Serviços'}
-          numColumns={2}
-          itemsMatrix={itemsMatrixMaterial(this.props.data)}
-        />
+        <div className="tabpane-container">
+
+        </div>
         <CustomTable
           type={'full'}
           tableConfig={tableConfig}
