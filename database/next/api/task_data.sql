@@ -129,12 +129,50 @@ create or replace view api.task_data as
         inner join move_options as mo using (task_id)
       group by task_id
     )
-  select  t.*,
+  select  t.task_id,
+          t.created_at,
+          t.updated_at,
+          -- t.created_by,
+          -- t.updated_by,
+          -- t.task_priority_id,
+          -- t.task_category_id,
+          -- t.contract_id,
+          -- t.project_id,
+          t.title,
+          t.description,
+          t.place,
+          t.progress,
+          t.date_limit,
+          t.date_start,
+          t.date_end,
+          -- t.request_id,
+          t.task_status_id,
+          -- t.sender_id,
+          -- t.recipient_id,
+          -- t.receive_pending
           ts.task_status_text,
           tp.task_priority_text,
           tc.task_category_text,
-          p.name as project_name,
-          r.request_id,
+          jsonb_build_object(
+            'personId', p.person_id,
+            'personName', p.name
+          ) as created_by,
+          jsonb_build_object(
+            'personId', pp.person_id,
+            'personName', pp.name
+          ) as updated_by,
+          jsonb_build_object(
+            'contractId', c.contract_id,
+            'title', c.title
+          ) as contract,
+          jsonb_build_object(
+            'projectId', pr.project_id,
+            'title', pr.title
+          ) as project,
+          jsonb_build_object(
+            'requestId', r.request_id,
+            'title', r.title
+          ) as request,
           j.assets,
           j.events,
           j.supplies,
@@ -145,7 +183,11 @@ create or replace view api.task_data as
   inner join task_statuses as ts using (task_status_id)
   inner join task_priorities as tp using (task_priority_id)
   inner join task_categories as tc using (task_category_id)
-  left join projects as p using (project_id)
+  inner join team as q on (t.recipient_id = q.team_id)
+  inner join persons as p on (t.created_by = p.person_id)
+  inner join persons as pp on (t.updated_by = pp.person_id)
+  left join contracts as c using (contract_id)
+  left join projects as pr using (project_id)
   left join requests as r using (request_id)
   inner join json_lists as j using (task_id)
 ;
