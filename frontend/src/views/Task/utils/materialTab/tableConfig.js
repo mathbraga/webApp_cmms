@@ -14,11 +14,11 @@ function addUnit(item) {
 
 const tableConfig = {
   attForDataId: 'supplyId',
-  hasCheckbox: true,
-  checkboxWidth: '5%',
   isItemClickable: true,
   dataAttForClickable: 'name',
   itemPathWithoutID: paths.spec.toOne,
+  actionColumn: ['delete'],
+  actionColumnWidth: '10%',
   prepareData: {
     qtyWithUnit: addUnit,
     bidPriceText: formatCurrency("bidPrice"),
@@ -27,9 +27,9 @@ const tableConfig = {
   columnsConfig: [
     { columnId: 'supplySf', columnName: 'Código', width: "10%", align: "center", idForValues: ['supplySf'] },
     { columnId: 'name', columnName: 'Descrição', width: "40%", align: "justify", isTextWrapped: true, idForValues: ['name'] },
-    { columnId: 'qty', columnName: 'Quantidade', width: "15%", align: "center", isTextWrapped: true, idForValues: ['qtyWithUnit'] },
-    { columnId: 'bidPrice', columnName: 'Preço Unitário', width: "15%", align: "center", idForValues: ['bidPriceText'] },
-    { columnId: 'totalPrice', columnName: 'Total', width: "15%", align: "center", idForValues: ['totalPriceText'] },
+    { columnId: 'qty', columnName: 'Quantidade', width: "13%", align: "center", isTextWrapped: true, idForValues: ['qtyWithUnit'] },
+    { columnId: 'bidPrice', columnName: 'Preço Unitário', width: "13%", align: "center", idForValues: ['bidPriceText'] },
+    { columnId: 'totalPrice', columnName: 'Total', width: "14%", align: "center", idForValues: ['totalPriceText'] },
   ],
 };
 

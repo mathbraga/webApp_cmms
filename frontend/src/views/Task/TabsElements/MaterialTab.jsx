@@ -58,18 +58,18 @@ class MaterialTab extends Component {
           <PaneTitle 
             title={'Tabela de suprimentos'}
           />
+          <div className="tabpane__content" style={{ marginTop: '50px' }}>
+            <CustomTable
+              type={'pages-with-search'}
+              tableConfig={tableConfig}
+              searchableAttributes={searchableAttributes}
+              selectedData={this.props.selectedData}
+              handleSelectData={this.props.handleSelectData}
+              data={this.props.data}
+              disableSorting
+            />
+          </div>
         </div>
-
-        {/* <CustomTable
-          type={'full'}
-          tableConfig={tableConfig}
-          customFilters={customFilters}
-          filterAttributes={filterAttributes}
-          searchableAttributes={searchableAttributes}
-          selectedData={this.props.selectedData}
-          handleSelectData={this.props.handleSelectData}
-          data={this.props.data}
-        /> */}
       </>
     );
   }
