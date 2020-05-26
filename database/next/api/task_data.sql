@@ -1,6 +1,6 @@
 create or replace view api.task_data as
   with
-    assets_of_task as (
+    ord_assets as (
       select  ta.task_id,
               a.asset_id,
               a.asset_sf,
@@ -12,7 +12,18 @@ create or replace view api.task_data as
         inner join assets as aa on (a.category = aa.asset_id)
       order by a.asset_sf
     ),
-    supplies_of_task as (
+    agg_assets as (
+      select  a.task_id,
+              jsonb_agg(jsonb_build_object(
+                'assetId', a.asset_id,
+                'assetSf', a.asset_sf,
+                'name', a.name,
+                'categoryId', a.category,
+                'categoryName', a.name
+              )) as assets
+      from ord_assets as a
+    ),
+    ord_supplies as (
       select  ts.task_id,
               s.supply_id,
               s.supply_sf,
@@ -26,7 +37,20 @@ create or replace view api.task_data as
         inner join specs as z using (spec_id)
       order by s.supply_sf
     ),
-    files_of_task as (
+    agg_supplies as (
+      select  s.task_id,
+              jsonb_agg(jsonb_build_object(
+                'supplyId', s.supply_id,
+                'supplySf', s.supply_sf,
+                'qty', s.qty,
+                'bidPrice', s.bid_price,
+                'totalPrice', s.total_price,
+                'name', s.name,
+                'unit', s.unit
+              )) as supplies
+      from ord_supplies as s
+    ),
+    ord_files as (
       select  tf.task_id,
               tf.filename,
               tf.size,
@@ -37,7 +61,18 @@ create or replace view api.task_data as
         inner join persons as p on (tf.person_id = p.person_id)
       order by tf.filename
     ),
-    events_of_task as (
+    agg_files as (
+      select  f.task_id,
+              jsonb_agg(jsonb_build_object(
+                'filename', f.filename,
+                'size', f.size,
+                'uuid', f.uuid,
+                'createdAt', f.created_at,
+                'person', f.name
+              )) as files
+      from ord_files as f
+    ),
+    ord_events as (
       select  te.task_id,
               te.event_name::text,
               te.event_time,
@@ -58,60 +93,8 @@ create or replace view api.task_data as
         left join task_statuses as ts using (task_status_id)
       order by te.event_time
     ),
-    messages_of_task (
-      select  tm.task_id,
-              tm.message,
-              p.person_id,
-              p.name,
-              tm.created_at,
-              tm.updated_at
-          from task_messages as tm
-          inner join persons as p using (person_id)
-        where tm.is_visible
-      order by tm.created_at
-    ),
-    send_options (
-      select  t.task_id,
-              q.team_id,
-              q.name
-          from teams as q
-          inner join tasks as t on (t.recipient_id <> q.team_id)
-        where q.is_active
-      order by q.name
-    ),
-    move_options (
-      select  t.task_id,
-              s.task_status_id,
-              s.task_status_text
-        from task_statuses as s
-        inner join tasks as t on (t.task_status_id <> s.task_status_id)
-      order by s.task_status_text
-    ),
-    json_lists (
-      select  task_id,
-              jsonb_agg(jsonb_build_object(
-                'assetId', a.asset_id,
-                'assetSf', a.asset_sf,
-                'name', a.name,
-                'categoryId', a.category,
-                'categoryName', a.name
-              )) as assets,
-              jsonb_agg(jsonb_build_object(
-                'supplyId', s.supply_id,
-                'supplySf', s.supply_sf,
-                'qty', s.qty,
-                'bidPrice', s.bid_price,
-                'totalPrice', s.total_price,
-                'name', z.name,
-                'unit', z.unit
-              )) as supplies,
-              jsonb_agg(jsonb_build_object(
-                'filename', f.filename,
-                'size', f.size,
-                'uuid', f.uuid,
-                'createdAt', f.created_at,
-                'person', f.name
-              )) as files,
+    agg_events as (
+      select  e.task_id,
               jsonb_agg(jsonb_build_object(
                 'eventName', e.event_name,
                 'eventTime', e.event_time,
@@ -124,30 +107,64 @@ create or replace view api.task_data as
                 'taskStatusText', e.task_status_text,
                 'taskStatusId', e.task_status_id,
                 'note', e.note
-              )) as events,
-            jsonb_agg(jsonbbuild_object(
+              )) as events
+      from ord_events as e
+    ),
+    ord_messages as (
+      select  tm.task_id,
+              tm.message,
+              p.person_id,
+              p.name,
+              tm.created_at,
+              tm.updated_at
+          from task_messages as tm
+          inner join persons as p using (person_id)
+        where tm.is_visible
+      order by tm.created_at
+    ),
+    agg_messages as (
+      select  m.task_id,
+              jsonb_agg(jsonb_build_object(
               'message', m.message,
               'personId', m.person_id,
               'personName', m.name,
               'createdAt', m.created_at,
               'updatedAt', m.updated_at
-            )) as messages,
+            )) as messages
+      from ord_messages as m
+    ),
+    ord_send_options as (
+      select  t.task_id,
+              q.team_id,
+              q.name
+          from teams as q
+          inner join tasks as t on (t.recipient_id <> q.team_id)
+        where q.is_active
+      order by q.name
+    ),
+    agg_send_options as (
+      select  so.task_id,
               jsonb_agg(jsonb_build_object(
                 'teamId', so.team_id,
                 'name', so.name
-              )) as send_options,
+              )) as send_options
+      from ord_send_options as so
+    ),
+    ord_move_options as (
+      select  t.task_id,
+              s.task_status_id,
+              s.task_status_text
+        from task_statuses as s
+        inner join tasks as t on (t.task_status_id <> s.task_status_id)
+      order by s.task_status_text
+    ),
+    agg_move_options (
+      select  mo.task_id,
               jsonb_agg(jsonb_build_object(
                 'taskStatusId', mo.task_status_id,
                 'taskStatusText', mo.task_status_text
               )) as move_options
-        from assets_of_task as a
-        left join supplies_of_task as s using (task_id)
-        left join files_of_task as f using (task_id)
-        inner join events_of_task as e using (task_id)
-        left join messages_of_task as m using (task_id)
-        inner join send_options as so using (task_id)
-        inner join move_options as mo using (task_id)
-      group by task_id
+      from ord_move_options as mo
     )
   select  t.task_id,
           t.created_at,
@@ -193,13 +210,13 @@ create or replace view api.task_data as
             'requestId', r.request_id,
             'title', r.title
           ) as request,
-          j.assets,
-          j.events,
-          j.supplies,
-          j.files,
-          j.messages,
-          j.send_options,
-          j.move_options
+          a.assets,
+          e.events,
+          s.supplies,
+          f.files,
+          m.messages,
+          so.send_options,
+          mo.move_options
   from tasks as t
   inner join task_statuses as ts using (task_status_id)
   inner join task_priorities as tp using (task_priority_id)
@@ -210,5 +227,11 @@ create or replace view api.task_data as
   left join contracts as c using (contract_id)
   left join projects as pr using (project_id)
   left join requests as r using (request_id)
-  inner join json_lists as j using (task_id)
+  left join agg_assets as a using (task_id)
+  left join agg_supplies as s using (task_id)
+  left join agg_files as f using (task_id)
+  left join agg_events as e using (task_id)
+  left join agg_messages as m using (task_id)
+  left join agg_move_options as mo using (task_id)
+  left join agg_send_options as so using (task_id)
 ;
