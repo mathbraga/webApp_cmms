@@ -8,6 +8,9 @@ import withDataAccess from '../utils/materialTab/withDataAccess';
 import CustomTable from '../../../components/Tables/CustomTable';
 import withPrepareData from '../../../components/Formating/withPrepareData';
 import withSelectLogic from '../../../components/Selection/withSelectLogic';
+
+import PaneTitle from '../../../components/TabPanes/PaneTitle';
+
 import { compose } from 'redux';
 import './Tabs.css';
 
@@ -20,6 +23,8 @@ class MaterialTab extends Component {
     };
   }
   render() {
+    const { addFormOpen, editFormOpen } = this.state;
+
     const actionButtons = {
       editFormOpen: [
         {name: 'Salvar', color: 'success', onClick: () => {console.log('Clicked')}},
@@ -33,12 +38,26 @@ class MaterialTab extends Component {
         {name: 'Adicionar Suprimentos', color: 'primary', onClick: () => {console.log('Clicked')}},
       ],
     };
+
+    const openedForm = addFormOpen ? 'addFormOpen' : (editFormOpen ? 'editFormOpen' : 'noFormOpen');
+
     return (
       <>
         <div className="tabpane-container">
-
+          <PaneTitle 
+            actionButtons={actionButtons[openedForm]}
+            title={addFormOpen ? 'Adicionar novo suprimento' : (editFormOpen ? 'Alterar suprimentos' : 'Tabela de suprimentos')}
+          />
         </div>
-        <CustomTable
+
+        <div className="tabpane__content">
+          <PaneTextContent 
+            numColumns='2' 
+            itemsMatrix={itemsMatrixAssetsHierachy(data)}
+          />
+        </div>
+
+        {/* <CustomTable
           type={'full'}
           tableConfig={tableConfig}
           customFilters={customFilters}
@@ -47,7 +66,7 @@ class MaterialTab extends Component {
           selectedData={this.props.selectedData}
           handleSelectData={this.props.handleSelectData}
           data={this.props.data}
-        />
+        /> */}
       </>
     );
   }
