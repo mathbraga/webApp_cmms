@@ -197,7 +197,7 @@ create or replace view api.task_data as
           j.events,
           j.supplies,
           j.files,
-          -- j.messages,
+          j.messages,
           j.send_options,
           j.move_options
   from tasks as t
