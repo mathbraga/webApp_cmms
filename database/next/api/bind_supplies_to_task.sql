@@ -5,6 +5,7 @@ create or replace function api.bind_supplies_to_task (
   in supplies integer[],
   in quantities numeric[]
   -- in jsupplies jsonb
+  -- in supplies task_supplies[]
 )
   language plpgsql
   as $$
@@ -27,6 +28,12 @@ create or replace function api.bind_supplies_to_task (
         --     "supplyId" integer,
         --     "qty" numeric
         --   )
+
+        -- OR
+        -- select  id,
+        --         s.supply_id,
+        --         s.qty
+        -- from unnest(supplies) as s
       ;
     end;
   $$
