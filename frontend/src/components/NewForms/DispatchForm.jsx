@@ -66,7 +66,6 @@ class DispatchForm extends Component {
   handleSubmit(toggleForm) {
     console.log("Submit team: ", this.state.teamValue);
     console.log("Submit observation: ", this.state.observationValue);
-    this.handleSubmit();
     toggleForm();
   }
 
