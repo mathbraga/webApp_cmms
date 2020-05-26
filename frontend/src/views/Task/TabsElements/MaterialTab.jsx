@@ -12,7 +12,13 @@ import { compose } from 'redux';
 import './Tabs.css';
 
 class MaterialTab extends Component {
-  state = {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      addFormOpen: false,
+      editFormOpen: false,
+    };
+  }
   render() {
     const actionButtons = {
       editFormOpen: [
