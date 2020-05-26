@@ -166,7 +166,9 @@ create or replace view api.task_data as
               )) as move_options
       from ord_move_options as mo
     )
-  select  t.task_id,
+  select  
+          -- task table fields:
+          t.task_id,
           t.created_at,
           t.updated_at,
           -- t.created_by,
@@ -186,7 +188,9 @@ create or replace view api.task_data as
           t.task_status_id,
           -- t.sender_id,
           -- t.recipient_id,
-          -- t.receive_pending
+          -- t.receive_pending,
+
+          -- aditional data from joins:
           ts.task_status_text,
           tp.task_priority_text,
           tc.task_category_text,
@@ -210,6 +214,8 @@ create or replace view api.task_data as
             'requestId', r.request_id,
             'title', r.title
           ) as request,
+
+          -- aggregates from 'with' queries:
           a.assets,
           e.events,
           s.supplies,
