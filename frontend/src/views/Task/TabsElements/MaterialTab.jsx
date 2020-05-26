@@ -47,14 +47,16 @@ class MaterialTab extends Component {
         <div className="tabpane-container">
           <PaneTitle 
             actionButtons={actionButtons[openedForm]}
-            title={addFormOpen ? 'Adicionar novo suprimento' : (editFormOpen ? 'Alterar suprimentos' : 'Gastos com suprimentos')}
+            title={addFormOpen ? 'Adicionar novo suprimento' : (editFormOpen ? 'Alterar suprimentos' : 'Tabela de suprimentos')}
           />
-        </div>
-
-        <div className="tabpane__content">
-          <PaneTextContent 
-            numColumns='2' 
-            itemsMatrix={itemsMatrixSupply()}
+          <div className="tabpane__content">
+            <PaneTextContent 
+              numColumns='2' 
+              itemsMatrix={itemsMatrixSupply()}
+            />
+          </div>
+          <PaneTitle 
+            title={'Tabela de suprimentos'}
           />
         </div>
 
