@@ -1,4 +1,4 @@
-export function itemsMatrixSupply(data) {
+export function itemsMatrixSupply() {
   return (
     [
       [

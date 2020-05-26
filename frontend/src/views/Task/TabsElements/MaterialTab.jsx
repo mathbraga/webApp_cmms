@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DescriptionTable from '../../../components/Descriptions/DescriptionTable';
-import { itemsMatrixMaterial } from '../utils/descriptionMatrix';
+import { itemsMatrixSupply } from '../utils/materialTab/descriptionMatrix';
 import tableConfig from '../utils/materialTab/tableConfig';
 import { customFilters, filterAttributes } from '../utils/materialTab/filterParameters';
 import searchableAttributes from '../utils/materialTab/searchParameters';
@@ -10,6 +10,7 @@ import withPrepareData from '../../../components/Formating/withPrepareData';
 import withSelectLogic from '../../../components/Selection/withSelectLogic';
 
 import PaneTitle from '../../../components/TabPanes/PaneTitle';
+import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 
 import { compose } from 'redux';
 import './Tabs.css';
@@ -46,14 +47,14 @@ class MaterialTab extends Component {
         <div className="tabpane-container">
           <PaneTitle 
             actionButtons={actionButtons[openedForm]}
-            title={addFormOpen ? 'Adicionar novo suprimento' : (editFormOpen ? 'Alterar suprimentos' : 'Tabela de suprimentos')}
+            title={addFormOpen ? 'Adicionar novo suprimento' : (editFormOpen ? 'Alterar suprimentos' : 'Gastos com suprimentos')}
           />
         </div>
 
         <div className="tabpane__content">
           <PaneTextContent 
             numColumns='2' 
-            itemsMatrix={itemsMatrixAssetsHierachy(data)}
+            itemsMatrix={itemsMatrixSupply()}
           />
         </div>
 
