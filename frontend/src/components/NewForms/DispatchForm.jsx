@@ -67,6 +67,7 @@ class DispatchForm extends Component {
     console.log("Submit team: ", this.state.teamValue);
     console.log("Submit observation: ", this.state.observationValue);
     toggleForm();
+    this.handleClean();
   }
 
   handleClean() {
@@ -148,7 +149,7 @@ class DispatchForm extends Component {
             <Button 
               color="danger" 
               size="sm"
-              onClick={toggleForm}
+              onClick={() => {toggleForm(); this.handleClean()}}
             >
               Cancelar
             </Button>
