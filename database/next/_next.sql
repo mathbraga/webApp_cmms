@@ -69,17 +69,24 @@ begin transaction;
 \i public/get_mutation_response.sql
 
 -- create api schema objects
--- task
+-- task basic
+\i api/task_data.sql
+\i api/task_form_data.sql
 \i api/insert_task.sql
 \i api/modify_task.sql
+-- task events
 \i api/move_task.sql
 \i api/receive_task.sql
 \i api/send_task.sql
 \i api/cancel_send_task.sql
-\i api/task_data.sql
-\i api/task_form_data.sql
+-- task messages
+\i api/insert_task_message.sql
+\i api/modify_task_message.sql
+\i api/remove_task_message.sql
+-- task supplies
 \i api/bind_supplies_to_task.sql
--- others
+
+-- other entities
 \i api/appliance_data.sql
 \i api/asset_form_data.sql
 \i api/facility_data.sql

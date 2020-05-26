@@ -1,48 +1,55 @@
 create or replace view api.task_form_data as
-  with
-    status_options as (
-      select jsonb_agg(build_task_status_json(task_status_id)) as status_options
-      from task_statuses
-    ),
-    category_options as (
-      select jsonb_agg(build_task_category_json(task_category_id)) as category_options
-      from task_categories
-    ),
-    priority_options as (
-      select jsonb_agg(build_task_priority_json(task_priority_id)) as priority_options
-      from task_priorities
-    ),
-    contract_options as (
-      select jsonb_agg(build_contract_json(c.contract_id)) as contract_options
-        from contracts as c
-      where c.date_end >= current_date
-    ),
-    project_options as (
-      select jsonb_agg(build_project_json(p.project_id)) as project_options
-        from projects as p
-      where p.is_active
-    ),
-    team_options as (
-      select jsonb_agg(build_team_json(t.team_id)) as team_options
-        from teams as t
-      where t.is_active
-    ),
-    asset_options as (
-      select jsonb_agg(build_asset_json(a.asset_id)) as asset_options
-        from assets as a
-    )
-  select status_options,
-         category_options,
+  with category_options as (
+    select  jsonb_agg(jsonb_build_object(
+              'taskCategoryId', task_category_id,
+              'taskCategoryText', task_category_text
+            )) as category_options
+    from task_categories
+  ),
+  priority_options as (
+    select  jsonb_agg(jsonb_build_object(
+              'taskPriorityId', task_priority_id,
+              'taskPriorityText', task_priority_text
+            )) as priority_options
+    from task_priorities
+  ),
+  contract_options as (
+    select  jsonb_agg(jsonb_build_object(
+              'contractId', c.contract_id,
+              'contractSf', c.contract_sf,
+              'title', c.title,
+              'company', c.company,
+              'description', c.description
+            )) as contract_options
+    from contracts as c
+  ),
+  project_options as (
+    select  jsonb_agg(jsonb_build_object(
+              'projectId', p.project_id,
+              'name', p.name,
+              'description', p.description
+            )) as project_options
+    from projects as p
+  ),
+  asset_options as (
+    select  jsonb_agg(jsonb_build_object(
+              'assetId', a.asset_id,
+              'assetSf', a.asset_sf,
+              'name', a.name,
+              'categoryId', a.category,
+              'categoryName', aa.name
+            )) as asset_options
+    from assets as a
+    inner join assets as aa on (a.category = aa.asset_id)
+  )
+  select category_options,
          priority_options,
          contract_options,
          project_options,
-         team_options,
          asset_options
-    from status_options,
-         category_options,
+    from category_options,
          priority_options,
          contract_options,
          project_options,
-         team_options,
          asset_options
 ;
