@@ -58,6 +58,18 @@ create or replace view api.task_data as
         left join task_statuses as ts using (task_status_id)
       order by te.event_time
     ),
+    messages_of_task (
+      select  tm.task_id,
+              tm.message,
+              p.person_id,
+              p.name,
+              tm.created_at,
+              tm.updated_at
+          from task_messages as tm
+          inner join persons as p using (person_id)
+        where tm.is_visible
+      order by tm.created_at
+    ),
     send_options (
       select  t.task_id,
               q.team_id,
@@ -113,6 +125,13 @@ create or replace view api.task_data as
                 'taskStatusId', e.task_status_id,
                 'note', e.note
               )) as events,
+            jsonb_agg(jsonbbuild_object(
+              'message', m.message,
+              'personId', m.person_id,
+              'personName', m.name,
+              'createdAt', m.created_at,
+              'updatedAt', m.updated_at
+            )) as messages,
               jsonb_agg(jsonb_build_object(
                 'teamId', so.team_id,
                 'name', so.name
@@ -125,6 +144,7 @@ create or replace view api.task_data as
         left join supplies_of_task as s using (task_id)
         left join files_of_task as f using (task_id)
         inner join events_of_task as e using (task_id)
+        left join messages_of_task as m using (task_id)
         inner join send_options as so using (task_id)
         inner join move_options as mo using (task_id)
       group by task_id
@@ -177,6 +197,7 @@ create or replace view api.task_data as
           j.events,
           j.supplies,
           j.files,
+          -- j.messages,
           j.send_options,
           j.move_options
   from tasks as t
