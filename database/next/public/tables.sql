@@ -127,6 +127,7 @@ create table task_assets (
 );
 
 create table task_events (
+  task_event_id integer generated always as identity,
   task_id integer not null references tasks (task_id),
   event_name task_event_enum not null,
   event_time timestamptz not null default now(),
@@ -147,6 +148,8 @@ create table task_files (
 );
 
 create table task_messages (
+  task_message_id integer generated always as identity,
+  reply_to integer references task_messages (task_message_id),
   task_id integer not null references tasks (task_id),
   message text not null,
   person_id integer not null references persons (person_id) default get_current_person_id(),
