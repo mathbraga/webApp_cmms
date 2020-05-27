@@ -32,14 +32,14 @@ class MaterialTab extends Component {
 
   toggleAddForm() {
     this.setState(prevState => ({
-      addFormOpen: !prevState.statusFormOpen,
+      addFormOpen: !prevState.addFormOpen,
       editFormOpen: false
     }));
   }
 
   toggleEditForm() {
     this.setState(prevState => ({
-      editFormOpen: !prevState.statusFormOpen,
+      editFormOpen: !prevState.editFormOpen,
       addFormOpen: false
     }));
   }
@@ -53,11 +53,11 @@ class MaterialTab extends Component {
         {name: 'Cancelar', color: 'danger', onClick: () => {console.log('Clicked')}}
       ],
       addFormOpen: [
-        {name: 'Salvar', color: 'success', onClick: () => {console.log('Clicked')}},
-        {name: 'Cancelar', color: 'danger', onClick: () => {console.log('Clicked')}}
+        {name: 'Salvar', color: 'success', onClick: this.toggleAddForm},
+        {name: 'Cancelar', color: 'danger', onClick: this.toggleAddForm}
       ],
       noFormOpen: [
-        {name: 'Adicionar Suprimentos', color: 'primary', onClick: () => {console.log('Clicked')}},
+        {name: 'Adicionar Suprimentos', color: 'primary', onClick: this.toggleAddForm},
       ],
     };
 
@@ -72,33 +72,38 @@ class MaterialTab extends Component {
             actionButtons={actionButtons[openedForm]}
             title={addFormOpen ? 'Adicionar novo suprimento' : (editFormOpen ? 'Alterar suprimentos' : 'Resumo dos gastos')}
           />
+          <AnimateHeight 
+            duration={300}
+            height={heightAdd}
+          >
+            <div className="tabpane__content">
+              <DispatchForm 
+                visible={true}
+                toggleForm={() => {}}
+              />
+            </div>
+          </AnimateHeight>
+          <AnimateHeight 
+            duration={300}
+            height={heightEdit}
+          >
+            <div className="tabpane__content">
+              <StatusForm 
+                visible={true}
+                toggleForm={() => {}}
+              />
+            </div>
+          </AnimateHeight>
+          {(addFormOpen || editFormOpen) && (
+            <PaneTitle 
+              title={'Resumo dos Gastos'}
+            />
+          )}
           <div className="tabpane__content">
             <PaneTextContent 
               numColumns='2' 
               itemsMatrix={itemsMatrixSupply()}
             />
-            <AnimateHeight 
-              duration={300}
-              height={heightAdd}
-            >
-              <div className="tabpane__content">
-                <DispatchForm 
-                  visible={true}
-                  toggleForm={() => {}}
-                />
-              </div>
-            </AnimateHeight>
-            <AnimateHeight 
-              duration={300}
-              height={heightEdit}
-            >
-              <div className="tabpane__content">
-                <StatusForm 
-                  visible={true}
-                  toggleForm={() => {}}
-                />
-              </div>
-            </AnimateHeight>
           </div>
           <PaneTitle 
             title={'Tabela de suprimentos'}
