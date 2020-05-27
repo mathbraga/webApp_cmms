@@ -23,6 +23,19 @@
   margin-top: 12px;
 }
 
+.miniform__info__label {
+  color: #5d5d5d;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.miniform__info__value {
+  color: #5d5d5d;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
 .miniform__field__label {
   color: #5d5d5d;
   font-size: 16px;
@@ -35,6 +48,16 @@
   font-weight: 400;
   margin-bottom: 8px;
   padding: 0 2px;
+}
+
+.miniform__field__input__container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.miniform__field__input-half {
+  width: 47%;
 }
 
 .miniform__field__input {

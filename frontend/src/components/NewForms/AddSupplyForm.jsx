@@ -38,30 +38,74 @@ class AddSupplyForm extends Component {
       <div className={miniformClass}>
           <div className='miniform__field'>
             <div className='miniform__field__label'>
-              Escolher suprimento
+              Escolher o suprimento
             </div>
             <div className='miniform__field__sub-label'>
-              Escolha a equipe que será o destinatário da tarefa.
+              Escolha o estoque que será utilizado, e logo em seguida o suprimento.
             </div>
-            <div className='miniform__field__input'>
-              <Select
-                className="basic-single"
-                classNamePrefix="select"
-                defaultValue={'Semac'}
-                isClearable
-                isSearchable
-                name="team"
-                options={teamsFake}
-                styles={selectStyles}
-              />
+            <div className="miniform__field__input__container">
+              <div className='miniform__field__input-half'>
+                <Select
+                  className="basic-single"
+                  classNamePrefix="select"
+                  defaultValue={'Semac'}
+                  isClearable
+                  isSearchable
+                  name="team"
+                  placeholder={'Estoque (contrato, nota fiscal, ...)'}
+                  options={teamsFake}
+                  styles={selectStyles}
+                />
+              </div>
+              <div className='miniform__field__input-half'>
+                <Select
+                  className="basic-single"
+                  classNamePrefix="select"
+                  defaultValue={'Semac'}
+                  isClearable
+                  isSearchable
+                  name="team"
+                  placeholder={'Suprimento'}
+                  options={teamsFake}
+                  styles={selectStyles}
+                />
+              </div>
+            </div>
+          </div>
+          <div className='miniform__field'>
+            <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
+              <div className="miniform__info__container">
+                <div className="miniform__info__label">
+                  Código do Item
+                </div>
+                <div className="miniform__info__value">
+                  SF-054205
+                </div>
+              </div>
+              <div className="miniform__info__container">
+                <div className="miniform__info__label">
+                  Quantidade Disponível
+                </div>
+                <div className="miniform__info__value">
+                  735 metros
+                </div>
+              </div>
+              <div className="miniform__info__container">
+                <div className="miniform__info__label">
+                  Preço Unitário
+                </div>
+                <div className="miniform__info__value">
+                  R$ 12,00
+                </div>
+              </div>
             </div>
           </div>
           <div className='miniform__field'>
             <div className='miniform__field__label'>
-              Observações
+              Quantidades
             </div>
             <div className='miniform__field__sub-label'>
-              Deixe registrado o motivo da tramitação, ou qualquer outra informação relevante.
+              Indique o quantitativo utilizado e a unidade de medida.
             </div>
             <div className='miniform__field__input'>
               <Input 
@@ -82,7 +126,7 @@ class AddSupplyForm extends Component {
               style={{ marginRight: "10px" }}
               onClick={() => {}}
             >
-              Tramitar
+              Salvar
             </Button>
             <Button 
               color="secondary" 
