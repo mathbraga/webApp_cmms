@@ -38,7 +38,7 @@ class AddSupplyForm extends Component {
       <div className={miniformClass}>
           <div className='miniform__field'>
             <div className='miniform__field__label'>
-              Escolher o suprimento
+              Adicionar suprimento
             </div>
             <div className='miniform__field__sub-label'>
               Escolha o estoque que será utilizado, e logo em seguida o suprimento.
@@ -100,7 +100,7 @@ class AddSupplyForm extends Component {
               </div>
             </div>
           </div>
-          <div className='miniform__field'>
+          <div className='miniform__field' style={{ borderBottom: '4px solid #e2e2e2' }}>
             <div className='miniform__field__label'>
               Quantitativo
             </div>
@@ -126,6 +126,20 @@ class AddSupplyForm extends Component {
                   Adicionar Item
                 </Button>
               </div>
+            </div>
+          </div>
+          <div className='miniform__field'>
+            <div className='miniform__field__label'>
+              Alterar ou exlcuir suprimento
+            </div>
+            <div className='miniform__field__sub-label'>
+              Ao salvar, os itens listados abaixo serão adicionados na tabela de suprimentos.
+            </div>
+            <div className='miniform__field__item'>
+              <div className='miniform__field__item__value'>CT 022208 - Elétrica</div>
+              <div className='miniform__field__item__value'>Tomada 4x2 - Branca</div>
+              <div className='miniform__field__item__value'>12 unidades</div>
+              <div style={{color: 'blue', marginLeft: '15px'}}>Excluir</div>
             </div>
           </div>
           <div className='miniform__buttons'>

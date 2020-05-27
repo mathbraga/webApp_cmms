@@ -70,6 +70,23 @@
   width: 100%;
 }
 
+.miniform__field__item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.miniform__field__item__value {
+  border: 1px solid #c8ced3;
+  border-radius: 2px;
+  background-color: white;
+  color: #5d5d5d;
+  padding: 3px 10px;
+  margin: 0 5px;
+}
+
 .miniform__field__textarea {
   width: 100%;
   color: hsl(0, 0%, 20%);
