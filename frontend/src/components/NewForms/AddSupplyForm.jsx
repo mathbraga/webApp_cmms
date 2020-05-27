@@ -102,7 +102,7 @@ class AddSupplyForm extends Component {
           </div>
           <div className='miniform__field' style={{ borderBottom: '4px solid #e2e2e2' }}>
             <div className='miniform__field__label'>
-              Quantitativo
+              Quantidade
             </div>
             <div className='miniform__field__sub-label'>
               Indique a quantidade utilizada. **Atenção para a unidade de medida.
