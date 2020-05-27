@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
+import Select from 'react-select';
+import { Button, Input } from 'reactstrap';
+import classNames from 'classnames';
 import './AddSupplyForm.css';
+
+const selectStyles = {
+  control: base => ({
+    ...base,
+    border: "1px solid #e4e7e9",
+  }),
+};
 
 const teamsFake = [
   {value: 'Semac', label: 'Semac'}, 
@@ -19,6 +29,7 @@ const teamsFake = [
 class AddSupplyForm extends Component {
   state = {  }
   render() { 
+    const { visible, toggleForm } = this.props;
     const miniformClass = classNames({
       'miniform-container': true,
       'miniform-disabled': !visible
@@ -69,7 +80,7 @@ class AddSupplyForm extends Component {
               color="success" 
               size="sm" 
               style={{ marginRight: "10px" }}
-              onClick={() => {() => {}}}
+              onClick={() => {}}
             >
               Tramitar
             </Button>
