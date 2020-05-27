@@ -32,7 +32,7 @@
 .miniform__info__value {
   color: #5d5d5d;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
   text-align: center;
 }
 
@@ -58,6 +58,12 @@
 
 .miniform__field__input-half {
   width: 47%;
+}
+
+.miniform__field__button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .miniform__field__input {

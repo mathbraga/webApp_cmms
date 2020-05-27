@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import { Button, Input } from 'reactstrap';
+import { Button, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import classNames from 'classnames';
 import './AddSupplyForm.css';
 
@@ -86,8 +86,8 @@ class AddSupplyForm extends Component {
                 <div className="miniform__info__label">
                   Quantidade Disponível
                 </div>
-                <div className="miniform__info__value">
-                  735 metros
+                <div className="miniform__info__value" style={{ color: '#f86c6b' }}>
+                  735 metro(s)
                 </div>
               </div>
               <div className="miniform__info__container">
@@ -102,21 +102,30 @@ class AddSupplyForm extends Component {
           </div>
           <div className='miniform__field'>
             <div className='miniform__field__label'>
-              Quantidades
+              Quantitativo
             </div>
             <div className='miniform__field__sub-label'>
-              Indique o quantitativo utilizado e a unidade de medida.
+              Indique a quantidade utilizada. **Atenção para a unidade de medida.
             </div>
-            <div className='miniform__field__input'>
-              <Input 
-                className='miniform__field__textarea'
-                type="textarea" 
-                name="text"
-                id="exampleText" 
-                rows='3'
-                onChange={() => {}}
-                placeholder={''}
-              />
+            <div className="miniform__field__input__container">
+              <div className='miniform__field__input-half'>
+                <InputGroup>
+                  <Input className='miniform__field__textarea' style={{ textAlign: 'right' }} placeholder='0,00'/>
+                  <InputGroupAddon addonType="append">
+                    <InputGroupText>metro(s)</InputGroupText>
+                  </InputGroupAddon>
+                </InputGroup>
+              </div>
+              <div className='miniform__field__button'>
+                <Button 
+                  color="primary" 
+                  size="sm" 
+                  style={{ marginRight: "10px" }}
+                  onClick={() => {}}
+                >
+                  Adicionar Item
+                </Button>
+              </div>
             </div>
           </div>
           <div className='miniform__buttons'>
