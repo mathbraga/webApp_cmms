@@ -1,5 +1,25 @@
 drop function if exists get_asset_trees;
 
+create or replace function build_asset_json (
+  in input_asset_id integer,
+  out asset_json jsonb
+)
+  language sql
+  as $$
+    select jsonb_build_object(
+              'assetId', a.asset_id,
+              'assetSf', a.asset_sf,
+              'name', a.name,
+              'categoryId', a.category,
+              'categoryName', aa.name
+            ) as asset_json
+      from assets as a
+      inner join assets as aa on (a.category = aa.asset_id)
+    where a.asset_id = input_asset_id
+  $$
+;
+
+
 create or replace function get_asset_trees (
   in input_asset_id integer,
   out asset_id integer,

@@ -70,6 +70,7 @@ begin transaction;
 
 -- create api schema objects
 -- task basic
+\i api/insert_task_files.sql
 \i api/task_data.sql
 \i api/task_form_data.sql
 \i api/insert_task.sql
@@ -84,20 +85,20 @@ begin transaction;
 \i api/modify_task_message.sql
 \i api/remove_task_message.sql
 -- task supplies
-\i api/bind_supplies_to_task.sql
+\i api/modify_task_supplies.sql
 
 -- other entities
 \i api/appliance_data.sql
 \i api/asset_form_data.sql
 \i api/facility_data.sql
-\i api/contract_data.sql
-\i api/spec_data.sql
+-- \i api/contract_data.sql
+-- \i api/spec_data.sql
 \i api/team_data.sql
 
 -- create ws schema objects
-\i ws/authenticate.sql
-\i ws/get_all_files_uuids.sql
-\i ws/refresh_all_materialized_views.sql
+\i www/authenticate.sql
+\i www/get_all_files_uuids.sql
+\i www/refresh_all_materialized_views.sql
 
 -- create and login with fake user for initial inserts
 set local cookie.session.person_id to 0;

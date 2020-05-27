@@ -38,7 +38,7 @@ create or replace function api.insert_task (
         raise exception '%', get_exception_message(1);
       end if;
 
-      insert_task_files(id, files_metadata);
+      select api.insert_task_files(id, files_metadata);
 
       insert into task_events values (
         id,

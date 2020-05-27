@@ -5,7 +5,7 @@ create or replace view api.task_data as
             a.asset_sf,
             a.name,
             a.category,
-            aa.name
+            aa.name as category_name
       from task_assets as ta
       inner join assets as a using (asset_id)
       inner join assets as aa on (a.category = aa.asset_id)
@@ -18,9 +18,10 @@ create or replace view api.task_data as
               'assetSf', a.asset_sf,
               'name', a.name,
               'categoryId', a.category,
-              'categoryName', a.name
+              'categoryName', a.category_name
             )) as assets
-    from ord_assets as a
+      from ord_assets as a
+    group by a.task_id
   ),
   ord_supplies as (
     select  ts.task_id,
@@ -47,7 +48,8 @@ create or replace view api.task_data as
               'name', s.name,
               'unit', s.unit
             )) as supplies
-    from ord_supplies as s
+      from ord_supplies as s
+    group by s.task_id
   ),
   ord_files as (
     select  tf.task_id,
@@ -69,7 +71,8 @@ create or replace view api.task_data as
               'createdAt', f.created_at,
               'person', f.name
             )) as files
-    from ord_files as f
+      from ord_files as f
+    group by f.task_id
   ),
   ord_events as (
     select  te.task_id,
@@ -84,7 +87,6 @@ create or replace view api.task_data as
             ts.task_status_text,
             ts.task_status_id,
             te.note
-            )) as events
       from task_events as te
       inner join persons as p using (person_id)
       inner join teams as t on (te.team_id = t.team_id)
@@ -107,7 +109,8 @@ create or replace view api.task_data as
               'taskStatusId', e.task_status_id,
               'note', e.note
             )) as events
-    from ord_events as e
+      from ord_events as e
+    group by e.task_id
   ),
   ord_messages as (
     select  tm.task_id,
@@ -130,7 +133,8 @@ create or replace view api.task_data as
             'createdAt', m.created_at,
             'updatedAt', m.updated_at
           )) as messages
-    from ord_messages as m
+      from ord_messages as m
+    group by m.task_id
   ),
   ord_send_options as (
     select  t.task_id,
@@ -147,7 +151,8 @@ create or replace view api.task_data as
               'teamId', so.team_id,
               'name', so.name
             )) as send_options
-    from ord_send_options as so
+      from ord_send_options as so
+    group by so.task_id
   ),
   ord_move_options as (
     select  t.task_id,
@@ -157,13 +162,14 @@ create or replace view api.task_data as
       inner join tasks as t on (t.task_status_id <> s.task_status_id)
     order by s.task_status_text
   ),
-  agg_move_options (
+  agg_move_options as (
     select  mo.task_id,
             jsonb_agg(jsonb_build_object(
               'taskStatusId', mo.task_status_id,
               'taskStatusText', mo.task_status_text
             )) as move_options
-    from ord_move_options as mo
+      from ord_move_options as mo
+    group by mo.task_id
   )
   select  
           -- task table fields:
@@ -207,7 +213,7 @@ create or replace view api.task_data as
           ) as contract,
           jsonb_build_object(
             'projectId', pr.project_id,
-            'title', pr.title
+            'name', pr.name
           ) as project,
           jsonb_build_object(
             'requestId', r.request_id,
@@ -226,10 +232,10 @@ create or replace view api.task_data as
   inner join task_statuses as ts using (task_status_id)
   inner join task_priorities as tp using (task_priority_id)
   inner join task_categories as tc using (task_category_id)
-  inner join team as q on (t.recipient_id = q.team_id)
+  inner join teams as q on (t.recipient_id = q.team_id)
   inner join persons as p on (t.created_by = p.person_id)
   inner join persons as pp on (t.updated_by = pp.person_id)
-  left join contracts as c using (contract_id)
+  left join contracts as c on (t.contract_id = c.contract_id)
   left join projects as pr using (project_id)
   left join requests as r using (request_id)
   left join agg_assets as a using (task_id)

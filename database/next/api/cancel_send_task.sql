@@ -1,8 +1,8 @@
 drop function if exists api.cancel_send_task;
 
 create or replace function api.cancel_send_task (
-  in attributes task_events,
-  out id integer
+  in args task_events,
+  inout id integer
 )
   language plpgsql
   as $$
@@ -12,20 +12,20 @@ create or replace function api.cancel_send_task (
         recipient_id,
         receive_pending
       ) = (
-        row(sender_id),
+        row(sender_id), -- swap current sender_id and recipient_id values
         false
-      ) where task_id = attributes.task_id;
+      ) where task_id = id;
 
       insert into task_events values (
-        attributes.task_id,
+        id,
         'cancel'::task_event_enum,
         now(),
         get_current_person_id(),
-        attributes.team_id,
+        args.team_id,
         null,
         null,
         null
-      ) returning task_id into id;
+      );
 
     end;
   $$

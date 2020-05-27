@@ -1,8 +1,8 @@
 drop function if exists api.modify_task_message;
 
 create or replace function api.modify_task_message (
-  in attributes task_messages,
-  out id integer
+  in args task_messages,
+  inout id integer
 )
   language plpgsql
   as $$
@@ -11,10 +11,9 @@ create or replace function api.modify_task_message (
         message,
         updated_at
       ) = (
-        attributes.message,
+        args.message,
         now()
-      ) where task_message_id = attributes.task_message_id
-      returning task_id into id;
+      ) where task_message_id = attributes.task_message_id;
     end;
   $$
 ;

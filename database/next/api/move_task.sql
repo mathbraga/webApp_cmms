@@ -1,8 +1,8 @@
 drop function if exists api.move_task;
 
 create or replace function api.move_task (
-  in attributes task_events,
-  out id integer
+  in args task_events,
+  inout id integer
 )
   language plpgsql
   as $$
@@ -11,19 +11,19 @@ create or replace function api.move_task (
       update tasks set (
         task_status_id
       ) = (
-        attributes.task_status_id
-      ) where task_id = attributes.task_id;
+        args.task_status_id
+      ) where task_id = id;
 
       insert into task_events values (
-        attributes.task_id,
+        id,
         'move'::task_event_enum,
         now(),
         get_current_person_id(),
-        attributes.team_id,
+        args.team_id,
         null,
-        attributes.task_status_id,
-        attributes.note
-      ) returning task_id into id;
+        args.task_status_id,
+        args.note
+      );
 
     end;
   $$

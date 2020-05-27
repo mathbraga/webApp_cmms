@@ -1,10 +1,10 @@
 drop function if exists api.modify_task;
 
 create or replace function api.modify_task (
-  inout id integer,
   in attributes tasks,
   in assets integer[],
-  in files_metadata file_metadata[]
+  in files_metadata file_metadata[],
+  inout id integer
 )
   language plpgsql
   strict
@@ -20,7 +20,7 @@ create or replace function api.modify_task (
           project_id,
           title,
           description,
-          place text,
+          place,
           progress,
           date_limit,
           date_start,
@@ -64,7 +64,7 @@ create or replace function api.modify_task (
         where ta.task_id = id and
               asset_id in (select asset_id from removed_assets);
 
-      insert_task_files(id, files_metadata);
+      select api.insert_task_files(id, files_metadata);
 
     end;
   $$

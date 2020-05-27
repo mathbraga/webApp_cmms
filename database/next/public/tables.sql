@@ -87,7 +87,7 @@ create table projects (
 create table requests (
   request_id integer primary key generated always as identity,
   description text,
-  name text,
+  title text,
   email text,
   phone text,
   department text,
@@ -114,22 +114,22 @@ create table tasks (
   date_end timestamptz,
   request_id integer references requests (request_id),
   -- last event fields:
-  task_status_id integer references task_statuses (task_status_id) check task_category_id is not null,
+  task_status_id integer references task_statuses (task_status_id) check (task_status_id is not null),
   sender_id integer references teams (team_id),
-  recipient_id integer references teams (team_id) check recipient_id is not null,
+  recipient_id integer references teams (team_id) check (recipient_id is not null),
   receive_pending boolean not null default false
 );
 
 create table task_assets (
-  task_id integer references tasks (task_id) check task_id is not null,
+  task_id integer references tasks (task_id) check (task_id is not null),
   asset_id integer not null references assets (asset_id),
   primary key (task_id, asset_id)
 );
 
 create table task_events (
   task_event_id integer generated always as identity,
-  task_id integer references tasks (task_id) check task_id is not null,
-  event_name task_event_enum check event_name is not null,
+  task_id integer references tasks (task_id) check (task_id is not null),
+  event_name task_event_enum check (event_name is not null),
   event_time timestamptz not null default now(),
   person_id integer not null references persons (person_id) default get_current_person_id(),
   team_id integer not null references teams (team_id),
@@ -139,7 +139,7 @@ create table task_events (
 );
 
 create table task_files (
-  task_id integer references tasks (task_id) check task_id is not null,
+  task_id integer references tasks (task_id) check (task_id is not null),
   filename text not null,
   uuid uuid not null,
   size bigint not null,
@@ -148,7 +148,7 @@ create table task_files (
 );
 
 create table task_messages (
-  task_message_id integer generated always as identity,
+  task_message_id integer primary key generated always as identity,
   reply_to integer references task_messages (task_message_id),
   task_id integer not null references tasks (task_id),
   message text not null,
