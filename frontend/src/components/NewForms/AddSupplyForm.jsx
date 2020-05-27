@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './AddSupplyForm.css';
 
 const teamsFake = [
   {value: 'Semac', label: 'Semac'}, 
@@ -26,7 +27,7 @@ class AddSupplyForm extends Component {
       <div className={miniformClass}>
           <div className='miniform__field'>
             <div className='miniform__field__label'>
-              Tramitar para
+              Escolher suprimento
             </div>
             <div className='miniform__field__sub-label'>
               Escolha a equipe que será o destinatário da tarefa.
