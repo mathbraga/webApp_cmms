@@ -9,6 +9,10 @@ import CustomTable from '../../../components/Tables/CustomTable';
 import withPrepareData from '../../../components/Formating/withPrepareData';
 import withSelectLogic from '../../../components/Selection/withSelectLogic';
 
+import AnimateHeight from 'react-animate-height';
+import DispatchForm from '../../../components/NewForms/DispatchForm';
+import StatusForm from '../../../components/NewForms/StatusForm'
+
 import PaneTitle from '../../../components/TabPanes/PaneTitle';
 import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 
@@ -22,7 +26,24 @@ class MaterialTab extends Component {
       addFormOpen: false,
       editFormOpen: false,
     };
+    this.toggleAddForm = this.toggleAddForm.bind(this);
+    this.toggleEditForm = this.toggleEditForm.bind(this);
   }
+
+  toggleAddForm() {
+    this.setState(prevState => ({
+      addFormOpen: !prevState.statusFormOpen,
+      editFormOpen: false
+    }));
+  }
+
+  toggleEditForm() {
+    this.setState(prevState => ({
+      editFormOpen: !prevState.statusFormOpen,
+      addFormOpen: false
+    }));
+  }
+
   render() {
     const { addFormOpen, editFormOpen } = this.state;
 
@@ -41,6 +62,8 @@ class MaterialTab extends Component {
     };
 
     const openedForm = addFormOpen ? 'addFormOpen' : (editFormOpen ? 'editFormOpen' : 'noFormOpen');
+    const heightAdd = openedForm === 'addFormOpen' ? 'auto' : 0;
+    const heightEdit = openedForm === 'editFormOpen' ? 'auto' : 0;
 
     return (
       <>
@@ -54,6 +77,28 @@ class MaterialTab extends Component {
               numColumns='2' 
               itemsMatrix={itemsMatrixSupply()}
             />
+            <AnimateHeight 
+              duration={300}
+              height={heightAdd}
+            >
+              <div className="tabpane__content">
+                <DispatchForm 
+                  visible={true}
+                  toggleForm={() => {}}
+                />
+              </div>
+            </AnimateHeight>
+            <AnimateHeight 
+              duration={300}
+              height={heightEdit}
+            >
+              <div className="tabpane__content">
+                <StatusForm 
+                  visible={true}
+                  toggleForm={() => {}}
+                />
+              </div>
+            </AnimateHeight>
           </div>
           <PaneTitle 
             title={'Tabela de suprimentos'}
