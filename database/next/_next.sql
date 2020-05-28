@@ -96,9 +96,9 @@ begin transaction;
 \i api/team_data.sql
 
 -- create ws schema objects
-\i www/authenticate.sql
-\i www/get_all_files_uuids.sql
-\i www/refresh_all_materialized_views.sql
+\i ws/authenticate.sql
+\i ws/get_all_files_uuids.sql
+\i ws/refresh_all_materialized_views.sql
 
 -- create and login with fake user for initial inserts
 set local cookie.session.person_id to 0;

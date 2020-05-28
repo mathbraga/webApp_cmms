@@ -4,7 +4,7 @@ create or replace function api.modify_task (
   in attributes tasks,
   in assets integer[],
   in files_metadata file_metadata[],
-  inout id integer
+  out id integer
 )
   language plpgsql
   strict
@@ -41,30 +41,35 @@ create or replace function api.modify_task (
           attributes.date_start,
           attributes.date_end,
           attributes.request_id
-        ) where t.task_id = id;
+        ) where t.task_id = attributes.task_id;
 
       with added_assets as (
         select unnest(assets) as asset_id
         except
         select asset_id
           from task_assets as ta
-        where ta.task_id = id
+        where ta.task_id = attributes.task_id
       )
       insert into task_assets
-        select id, asset_id from added_assets;
+        select attributes.task_id, asset_id from added_assets;
 
       with recursive removed_assets as (
         select asset_id
           from task_assets as ta
-        where ta.task_id = id
+        where ta.task_id = attributes.task_id
         except
         select unnest(assets) as asset_id
       )
       delete from task_assets as ta
-        where ta.task_id = id and
+        where ta.task_id = attributes.task_id and
               asset_id in (select asset_id from removed_assets);
 
-      select api.insert_task_files(id, files_metadata);
+      select api.insert_task_files(
+        attributes.task_id,
+        files_metadata
+      );
+
+      id = attributes.task_id;
 
     end;
   $$
