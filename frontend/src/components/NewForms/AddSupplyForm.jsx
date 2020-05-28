@@ -123,7 +123,7 @@ class AddSupplyForm extends Component {
               color="success" 
               size="sm" 
               style={{ marginRight: "10px" }}
-              onClick={() => {}}
+              onClick={toggleForm}
             >
               Adicionar Item
             </Button>
@@ -131,14 +131,14 @@ class AddSupplyForm extends Component {
               color="secondary" 
               size="sm" 
               style={{ marginRight: "10px" }}
-              onClick={() => {}}
+              onClick={toggleForm}
             >
               Limpar
             </Button>
             <Button 
               color="danger" 
               size="sm"
-              onClick={() => {}}
+              onClick={toggleForm}
             >
               Voltar
             </Button>

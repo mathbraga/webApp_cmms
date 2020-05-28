@@ -87,7 +87,7 @@ class EditSupplyForm extends Component {
                 <InputGroup>
                   <Input className='miniform__field__textarea' style={{ textAlign: 'right' }} value={'122,12'} placeholder='0,00'/>
                   <InputGroupAddon addonType="append">
-                    <InputGroupText>metro 2(s)</InputGroupText>
+                    <InputGroupText>m³</InputGroupText>
                   </InputGroupAddon>
                 </InputGroup>
               </div>
@@ -103,7 +103,7 @@ class EditSupplyForm extends Component {
               color="success" 
               size="sm" 
               style={{ marginRight: "10px" }}
-              onClick={() => {}}
+              onClick={toggleForm}
             >
               Salvar
             </Button>
@@ -111,14 +111,14 @@ class EditSupplyForm extends Component {
               color="secondary" 
               size="sm" 
               style={{ marginRight: "10px" }}
-              onClick={() => {}}
+              onClick={toggleForm}
             >
               Limpar
             </Button>
             <Button 
               color="danger" 
               size="sm"
-              onClick={() => {}}
+              onClick={toggleForm}
             >
               Cancelar
             </Button>
