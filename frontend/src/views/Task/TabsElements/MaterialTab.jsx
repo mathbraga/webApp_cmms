@@ -55,8 +55,7 @@ class MaterialTab extends Component {
         {name: 'Cancelar', color: 'danger', onClick: this.toggleEditForm}
       ],
       addFormOpen: [
-        {name: 'Salvar', color: 'success', onClick: this.toggleAddForm},
-        {name: 'Cancelar', color: 'danger', onClick: this.toggleAddForm}
+        {name: 'Voltar', color: 'danger', onClick: this.toggleAddForm}
       ],
       noFormOpen: [
         {name: 'Adicionar Suprimentos', color: 'primary', onClick: this.toggleAddForm},
@@ -82,7 +81,7 @@ class MaterialTab extends Component {
             <div className="tabpane__content">
               <AddSupplyForm 
                 visible={true}
-                toggleForm={() => {}}
+                toggleForm={this.toggleAddForm}
               />
             </div>
           </AnimateHeight>
@@ -93,7 +92,7 @@ class MaterialTab extends Component {
             <div className="tabpane__content">
               <EditSupplyForm 
                 visible={true}
-                toggleForm={() => {}}
+                toggleForm={this.toggleEditForm}
               />
             </div>
           </AnimateHeight>

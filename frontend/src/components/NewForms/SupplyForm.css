@@ -60,10 +60,21 @@
   width: 47%;
 }
 
+.miniform__field__remove-button {
+  text-align: center;
+  color: #2684ff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.miniform__field__remove-button:hover {
+  color: blue;
+}
+
 .miniform__field__button {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: justify-end;
 }
 
 .miniform__field__input {
@@ -84,6 +95,10 @@
   background-color: white;
   color: #5d5d5d;
   padding: 3px 10px;
+  margin: 0 5px;
+}
+
+.miniform__field__edit-supply {
   margin: 0 5px;
 }
 

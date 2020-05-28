@@ -41,13 +41,48 @@ class EditSupplyForm extends Component {
               Alterar ou exlcuir suprimento
             </div>
             <div className='miniform__field__sub-label'>
-              Ao salvar, os itens listados abaixo serão alterados na tabela de suprimentos.
+              Ao salvar, os itens alterados na lista abaixo serão gravados na tabela de suprimentos.
             </div>
             <div className='miniform__field__item'>
-              <div className='miniform__field__item__value'>CT 022208 - Elétrica</div>
-              <div className='miniform__field__item__value'>Tomada 4x2 - Branca</div>
-              <div className='miniform__field__item__value'>12 unidades</div>
-              <div style={{color: 'blue', marginLeft: '15px'}}>Excluir</div>
+              <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
+                <Select
+                  className="basic-single"
+                  classNamePrefix="select"
+                  defaultValue={'Semac'}
+                  isClearable
+                  isSearchable
+                  name="team"
+                  placeholder={'Estoque'}
+                  options={teamsFake}
+                  styles={selectStyles}
+                />
+              </div>
+              <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
+                <Select
+                  className="basic-single"
+                  classNamePrefix="select"
+                  defaultValue={'Semac'}
+                  isClearable
+                  isSearchable
+                  name="team"
+                  placeholder={'Suprimento'}
+                  options={teamsFake}
+                  styles={selectStyles}
+                />
+              </div>
+              <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
+                <InputGroup>
+                  <Input className='miniform__field__textarea' style={{ textAlign: 'right' }} placeholder='0,00'/>
+                  <InputGroupAddon addonType="append">
+                    <InputGroupText>metro(s)</InputGroupText>
+                  </InputGroupAddon>
+                </InputGroup>
+              </div>
+              <div style={{flexGrow: '1'}}>
+                <div className="miniform__field__remove-button">
+                  Exlcuir
+                </div>
+              </div>
             </div>
           </div>
           <div className='miniform__buttons'>

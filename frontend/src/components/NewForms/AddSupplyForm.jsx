@@ -100,12 +100,12 @@ class AddSupplyForm extends Component {
               </div>
             </div>
           </div>
-          <div className='miniform__field' style={{ borderBottom: '4px solid #e2e2e2' }}>
+          <div className='miniform__field'>
             <div className='miniform__field__label'>
               Quantidade
             </div>
             <div className='miniform__field__sub-label'>
-              Indique a quantidade utilizada. **Atenção para a unidade de medida.
+              Indique a quantidade utilizada. **Atenção com a unidade de medida.
             </div>
             <div className="miniform__field__input__container">
               <div className='miniform__field__input-half'>
@@ -116,30 +116,6 @@ class AddSupplyForm extends Component {
                   </InputGroupAddon>
                 </InputGroup>
               </div>
-              <div className='miniform__field__button'>
-                <Button 
-                  color="primary" 
-                  size="sm" 
-                  style={{ marginRight: "10px" }}
-                  onClick={() => {}}
-                >
-                  Adicionar Item
-                </Button>
-              </div>
-            </div>
-          </div>
-          <div className='miniform__field'>
-            <div className='miniform__field__label'>
-              Alterar ou exlcuir suprimento
-            </div>
-            <div className='miniform__field__sub-label'>
-              Ao salvar, os itens listados abaixo serão adicionados na tabela de suprimentos.
-            </div>
-            <div className='miniform__field__item'>
-              <div className='miniform__field__item__value'>CT 022208 - Elétrica</div>
-              <div className='miniform__field__item__value'>Tomada 4x2 - Branca</div>
-              <div className='miniform__field__item__value'>12 unidades</div>
-              <div style={{color: 'blue', marginLeft: '15px'}}>Excluir</div>
             </div>
           </div>
           <div className='miniform__buttons'>
@@ -149,7 +125,7 @@ class AddSupplyForm extends Component {
               style={{ marginRight: "10px" }}
               onClick={() => {}}
             >
-              Salvar
+              Adicionar Item
             </Button>
             <Button 
               color="secondary" 
@@ -164,7 +140,7 @@ class AddSupplyForm extends Component {
               size="sm"
               onClick={() => {}}
             >
-              Cancelar
+              Voltar
             </Button>
           </div>
         </div>
