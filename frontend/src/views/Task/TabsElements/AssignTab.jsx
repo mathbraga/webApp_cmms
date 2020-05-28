@@ -60,8 +60,8 @@ class AssignTab extends Component {
         {name: 'Cancelar', color: 'danger', onClick: this.toggleDispatchForm}
       ],
       noFormOpen: [
-        {name: 'Tramitar Tarefa', color: 'success', onClick: this.toggleDispatchForm},
-        {name: 'Alterar Status', color: 'primary', onClick: this.toggleStatusForm}
+        {name: 'Tramitar Tarefa', color: 'primary', onClick: this.toggleDispatchForm},
+        {name: 'Alterar Status', color: 'success', onClick: this.toggleStatusForm}
       ],
     };
     const openedForm = dispatchFormOpen ? 'dispatchFormOpen' : (statusFormOpen ? 'statusFormOpen' : 'noFormOpen');
