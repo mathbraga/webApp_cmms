@@ -11,19 +11,30 @@ const selectStyles = {
   }),
 };
 
-const teamsFake = [
-  {value: 'Semac', label: 'Semac'}, 
-  {value: 'Coemant', label: 'Coemant'}, 
-  {value: 'Sinfra', label: 'Sinfra'},
-  {value: 'Coproj', label: 'Coproj'},
-  {value: 'Copre', label: 'Copre'},
-  {value: 'GabSinfra', label: 'Gabinete Sinfra'},
-  {value: 'Seau', label: 'Seau'},
-  {value: 'Dger', label: 'Dger'},
-  {value: 'Ngcic', label: 'Ngcic'},
-  {value: 'Ngcot', label: 'Ngcoc'},
-  {value: 'Segp', label: 'Segp'},
-  {value: 'Prodasen', label: 'Prodasen'},
+const contractsFake = [
+  {value: '1', label: 'CT 02002020'}, 
+  {value: '2', label: 'CT 02012020'}, 
+  {value: '3', label: 'CT 02022020'},
+  {value: '4', label: 'CT 02032020'},
+  {value: '5', label: 'CT 02042020'},
+  {value: '6', label: 'CT 02052020'},
+  {value: '7', label: 'CT 02062020'},
+  {value: '8', label: 'CT 02072020'},
+  {value: '9', label: 'CT 02082020'},
+  {value: '10', label: 'CT 02092020'},
+  {value: '11', label: 'CT 02102020'},
+  {value: '12', label: 'CT 02112020'},
+];
+
+const suppliesFake = [
+  {value: '1', label: 'Arame galvanizado, bitola 16 BWG'}, 
+  {value: '2', label: 'Arame farpado'}, 
+  {value: '3', label: 'Alicate'},
+  {value: '4', label: 'Parafuso'},
+  {value: '5', label: 'Tinta cor branca'},
+  {value: '6', label: 'Areia'},
+  {value: '7', label: 'Concreto'},
+  {value: '8', label: 'Brita'},
 ];
 
 class EditSupplyForm extends Component {
@@ -52,8 +63,9 @@ class EditSupplyForm extends Component {
                   isClearable
                   isSearchable
                   name="team"
+                  value={{value: '12', label: 'CT 02112020'}}
                   placeholder={'Estoque'}
-                  options={teamsFake}
+                  options={contractsFake}
                   styles={selectStyles}
                 />
               </div>
@@ -66,15 +78,16 @@ class EditSupplyForm extends Component {
                   isSearchable
                   name="team"
                   placeholder={'Suprimento'}
-                  options={teamsFake}
+                  value={{value: '8', label: 'Brita'}}
+                  options={suppliesFake}
                   styles={selectStyles}
                 />
               </div>
               <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
                 <InputGroup>
-                  <Input className='miniform__field__textarea' style={{ textAlign: 'right' }} placeholder='0,00'/>
+                  <Input className='miniform__field__textarea' style={{ textAlign: 'right' }} value={'122,12'} placeholder='0,00'/>
                   <InputGroupAddon addonType="append">
-                    <InputGroupText>metro(s)</InputGroupText>
+                    <InputGroupText>metro 2(s)</InputGroupText>
                   </InputGroupAddon>
                 </InputGroup>
               </div>
