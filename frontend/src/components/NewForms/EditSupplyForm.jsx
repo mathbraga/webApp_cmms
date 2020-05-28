@@ -26,7 +26,7 @@ const teamsFake = [
   {value: 'Prodasen', label: 'Prodasen'},
 ];
 
-class AddSupplyForm extends Component {
+class EditSupplyForm extends Component {
   state = {  }
   render() { 
     const { visible, toggleForm } = this.props;
@@ -172,4 +172,4 @@ class AddSupplyForm extends Component {
   }
 }
  
-export default AddSupplyForm;
+export default EditSupplyForm;

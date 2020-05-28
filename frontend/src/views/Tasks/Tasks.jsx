@@ -17,7 +17,7 @@ class Tasks extends Component {
   render() {
     return (
       <AssetCard
-        sectionName={"Ordens de Serviço"}
+        sectionName={"Tarefas"}
         sectionDescription={"Lista de ordens de serviço de engenharia"}
         handleCardButton={() => { this.props.history.push(paths.task.create) }}
         buttonName={"Nova OS"}

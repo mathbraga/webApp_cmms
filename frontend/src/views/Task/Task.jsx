@@ -22,8 +22,8 @@ class Task extends Component {
     ];
     return (
       <ItemView
-        sectionName={'Ordem de Serviço'}
-        sectionDescription={'Ficha descritiva de uma OS'}
+        sectionName={'Tarefa'}
+        sectionDescription={'Ficha descritiva de uma tarefa'}
         data={finalData}
         image={image}
         imageStatus={imageStatus}

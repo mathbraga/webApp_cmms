@@ -30,7 +30,7 @@ export default {
       icon: "icon-wrench",
       children: [
         {
-          name: "Ordens de serviço",
+          name: "Tarefas",
           url: paths.task.all,
           icon: "icon-list"
         },
