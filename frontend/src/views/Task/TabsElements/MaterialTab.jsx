@@ -13,6 +13,7 @@ import AnimateHeight from 'react-animate-height';
 import DispatchForm from '../../../components/NewForms/DispatchForm';
 import StatusForm from '../../../components/NewForms/StatusForm'
 import AddSupplyForm from '../../../components/NewForms/AddSupplyForm';
+import EditSupplyForm from '../../../components/NewForms/EditSupplyForm';
 
 import PaneTitle from '../../../components/TabPanes/PaneTitle';
 import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
@@ -50,8 +51,8 @@ class MaterialTab extends Component {
 
     const actionButtons = {
       editFormOpen: [
-        {name: 'Salvar', color: 'success', onClick: () => {console.log('Clicked')}},
-        {name: 'Cancelar', color: 'danger', onClick: () => {console.log('Clicked')}}
+        {name: 'Salvar', color: 'success', onClick: this.toggleEditForm},
+        {name: 'Cancelar', color: 'danger', onClick: this.toggleEditForm}
       ],
       addFormOpen: [
         {name: 'Salvar', color: 'success', onClick: this.toggleAddForm},
@@ -59,7 +60,7 @@ class MaterialTab extends Component {
       ],
       noFormOpen: [
         {name: 'Adicionar Suprimentos', color: 'primary', onClick: this.toggleAddForm},
-        {name: 'Editar Suprimentos', color: 'success', onClick: this.toggleAddForm},
+        {name: 'Editar Suprimentos', color: 'success', onClick: this.toggleEditForm},
       ],
     };
 
@@ -90,7 +91,7 @@ class MaterialTab extends Component {
             height={heightEdit}
           >
             <div className="tabpane__content">
-              <StatusForm 
+              <EditSupplyForm 
                 visible={true}
                 toggleForm={() => {}}
               />

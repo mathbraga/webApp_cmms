@@ -38,102 +38,10 @@ class EditSupplyForm extends Component {
       <div className={miniformClass}>
           <div className='miniform__field'>
             <div className='miniform__field__label'>
-              Adicionar suprimento
-            </div>
-            <div className='miniform__field__sub-label'>
-              Escolha o estoque que será utilizado, e logo em seguida o suprimento.
-            </div>
-            <div className="miniform__field__input__container">
-              <div className='miniform__field__input-half'>
-                <Select
-                  className="basic-single"
-                  classNamePrefix="select"
-                  defaultValue={'Semac'}
-                  isClearable
-                  isSearchable
-                  name="team"
-                  placeholder={'Estoque (contrato, nota fiscal, ...)'}
-                  options={teamsFake}
-                  styles={selectStyles}
-                />
-              </div>
-              <div className='miniform__field__input-half'>
-                <Select
-                  className="basic-single"
-                  classNamePrefix="select"
-                  defaultValue={'Semac'}
-                  isClearable
-                  isSearchable
-                  name="team"
-                  placeholder={'Suprimento'}
-                  options={teamsFake}
-                  styles={selectStyles}
-                />
-              </div>
-            </div>
-          </div>
-          <div className='miniform__field'>
-            <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
-              <div className="miniform__info__container">
-                <div className="miniform__info__label">
-                  Código do Item
-                </div>
-                <div className="miniform__info__value">
-                  SF-054205
-                </div>
-              </div>
-              <div className="miniform__info__container">
-                <div className="miniform__info__label">
-                  Quantidade Disponível
-                </div>
-                <div className="miniform__info__value" style={{ color: '#f86c6b' }}>
-                  735 metro(s)
-                </div>
-              </div>
-              <div className="miniform__info__container">
-                <div className="miniform__info__label">
-                  Preço Unitário
-                </div>
-                <div className="miniform__info__value">
-                  R$ 12,00
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='miniform__field' style={{ borderBottom: '4px solid #e2e2e2' }}>
-            <div className='miniform__field__label'>
-              Quantidade
-            </div>
-            <div className='miniform__field__sub-label'>
-              Indique a quantidade utilizada. **Atenção para a unidade de medida.
-            </div>
-            <div className="miniform__field__input__container">
-              <div className='miniform__field__input-half'>
-                <InputGroup>
-                  <Input className='miniform__field__textarea' style={{ textAlign: 'right' }} placeholder='0,00'/>
-                  <InputGroupAddon addonType="append">
-                    <InputGroupText>metro(s)</InputGroupText>
-                  </InputGroupAddon>
-                </InputGroup>
-              </div>
-              <div className='miniform__field__button'>
-                <Button 
-                  color="primary" 
-                  size="sm" 
-                  style={{ marginRight: "10px" }}
-                  onClick={() => {}}
-                >
-                  Adicionar Item
-                </Button>
-              </div>
-            </div>
-          </div>
-          <div className='miniform__field'>
-            <div className='miniform__field__label'>
               Alterar ou exlcuir suprimento
             </div>
             <div className='miniform__field__sub-label'>
-              Ao salvar, os itens listados abaixo serão adicionados na tabela de suprimentos.
+              Ao salvar, os itens listados abaixo serão alterados na tabela de suprimentos.
             </div>
             <div className='miniform__field__item'>
               <div className='miniform__field__item__value'>CT 022208 - Elétrica</div>
