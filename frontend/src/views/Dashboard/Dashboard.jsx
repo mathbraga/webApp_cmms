@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Card, CardBody, } from "reactstrap";
+import { Container, Row, Col, Card, CardBody, Button } from "reactstrap";
 // import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters, dataTree } from './fakeData';
 // import svgr from '@svgr/core';
 // import CustomTable from "../../components/Tables/CustomTable";
@@ -8,6 +8,11 @@ import { Container, Row, Col, Card, CardBody, } from "reactstrap";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+  }
+
+  returnData = () => {
+    const data = localStorage.getItem('session');
+    console.log(data);
   }
 
   render() {
@@ -36,6 +41,18 @@ class Dashboard extends Component {
                   </div>
                 </CardBody>
               </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="text-right">
+              <Button
+                block
+                outline
+                color="primary"
+                className="px-0"
+                onClick={this.returnData}
+              >Get Data
+              </Button>
             </Col>
           </Row>
         </Container>

@@ -101,6 +101,16 @@ class Login extends Component {
     });
   }
 
+  storeData = () => {
+    const profile = { name: 'User', email: this.state.email }
+    localStorage.setItem('User', JSON.stringify(profile));
+  }
+
+  returnData = () => {
+    const data = JSON.parse(localStorage.getItem('User'));
+    console.log(data);
+  }
+
   render() {
     return (
       <React.Fragment>
