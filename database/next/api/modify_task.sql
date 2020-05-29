@@ -64,10 +64,12 @@ create or replace function api.modify_task (
         where ta.task_id = attributes.task_id and
               asset_id in (select asset_id from removed_assets);
 
-      select api.insert_task_files(
-        attributes.task_id,
-        files_metadata
-      );
+      if files_metadata is not null then
+        select api.insert_task_files(
+          attributes.task_id,
+          files_metadata
+        );
+      end if;
 
       id = attributes.task_id;
 

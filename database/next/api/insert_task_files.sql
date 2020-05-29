@@ -1,21 +1,22 @@
 drop function if exists api.insert_task_files;
 
 create or replace function api.insert_task_files (
-  inout id integer,
-  in files_metadata file_metadata[]
+  in task_id integer,
+  in files_metadata file_metadata[],
+  out id integer
 )
   language plpgsql
   as $$
     begin
-      insert into task_files
-        select  id,
+      insert into task_files as tf
+        select  task_id,
                 f.filename,
                 f.uuid,
                 f.size,
                 get_current_person_id(),
                 now()
         from unnest(files_metadata) as f
-      ;
+      returning tf.task_id into id;
     end;
   $$
 ;

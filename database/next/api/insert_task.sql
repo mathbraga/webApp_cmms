@@ -38,10 +38,12 @@ create or replace function api.insert_task (
         raise exception '%', get_exception_message(1);
       end if;
 
-      select api.insert_task_files(
-        id,
-        files_metadata
-      );
+      if files_metadata is not null then
+        select api.insert_task_files(
+          id,
+          files_metadata
+        );
+      end if;
 
       insert into task_events values (
         id,
