@@ -1,7 +1,7 @@
 drop function if exists api.receive_task;
 
 create or replace function api.receive_task (
-  in args task_events,
+  in event task_events,
   out id integer
 )
   language plpgsql
@@ -12,18 +12,18 @@ create or replace function api.receive_task (
         recipient_id,
         receive_pending
       ) = (
-        args.team_id,
+        event.team_id,
         false
-      ) where task_id = args.task_id;
+      ) where task_id = event.task_id;
 
       insert into task_events values (
-        args.task_id,
+        event.task_id,
         'receive'::task_event_enum,
         now(),
         get_current_person_id(),
-        args.team_id,
+        event.team_id,
         null,
-        args.task_status_id,
+        event.task_status_id,
         null
       ) returning task_id into id;
 

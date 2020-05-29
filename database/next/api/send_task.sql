@@ -1,7 +1,7 @@
 drop function if exists api.send_task;
 
 create or replace function api.send_task (
-  in args task_events,
+  in event task_events,
   out id integer
 )
   language plpgsql
@@ -13,20 +13,20 @@ create or replace function api.send_task (
         recipient_id,
         receive_pending
       ) = (
-        args.team_id,
-        args.recipient_id,
+        event.team_id,
+        event.recipient_id,
         true
-      ) where task_id = args.task_id;
+      ) where task_id = event.task_id;
 
       insert into task_events values (
-        args.task_id,
+        event.task_id,
         'send'::task_event_enum,
         now(),
         get_current_person_id(),
-        args.team_id,
-        args.recipient_id,
+        event.team_id,
+        event.recipient_id,
         null,
-        args.note
+        event.note
       ) returning task_id into id;
 
     end;

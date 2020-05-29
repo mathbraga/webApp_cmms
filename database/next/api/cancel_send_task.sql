@@ -14,14 +14,14 @@ create or replace function api.cancel_send_task (
       ) = (
         row(sender_id), -- swap current sender_id and recipient_id values
         false
-      ) where task_id = args.task_id;
+      ) where task_id = event.task_id;
 
       insert into task_events values (
-        args.task_id,
+        event.task_id,
         'cancel'::task_event_enum,
         now(),
         get_current_person_id(),
-        args.team_id,
+        event.team_id,
         null,
         null,
         null
