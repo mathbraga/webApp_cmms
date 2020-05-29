@@ -2,8 +2,16 @@ create or replace view api.facility_data as
   with
     parents_of_asset as (
       select  ar.asset_id,
-              jsonb_agg(build_asset_json(ar.parent_id)) as parents
+              jsonb_agg(jsonb_build_object(
+                'assetId', a.asset_id,
+                'assetSf', a.asset_sf,
+                'name', a.name,
+                'categoryId', a.category,
+                'categoryName', aa.name
+              )) as parents
         from asset_relations as ar
+        inner join assets as a on (ar.parent_id = a.asset_id)
+        inner join assets as aa on (aa.asset_id = a.category)
         where ar.parent_id is not null
       group by ar.asset_id
     ),
@@ -25,8 +33,13 @@ create or replace view api.facility_data as
       group by ta.asset_id
     ),
     contexts as (
-      select jsonb_agg(build_asset_json(ar.asset_id)) as contexts
+      select  jsonb_agg(jsonb_build_object(
+                'assetId', a.asset_id,
+                'assetSf', a.asset_sf,
+                'name', a.name
+              )) as contexts
         from asset_relations as ar
+        inner join assets as a using (asset_id)
       where ar.parent_id is null
     )
   select  a.asset_id,
