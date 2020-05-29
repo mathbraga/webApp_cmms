@@ -1,16 +1,16 @@
 create or replace view balances as
   with
     finished as (
-      select task_id, supply_id, qty, task_status_id
-        from tasks
-        inner join task_supplies using (task_id)
-      where task_status_id = 7
+      select ts.task_id, ts.supply_id, ts.qty, t.task_status_id
+        from task_supplies as ts
+        inner join tasks as t using (task_id)
+      where t.task_status_id > 6
     ),
     unfinished as (
-      select task_id, supply_id, qty, task_status_id
-        from tasks
-        inner join task_supplies using (task_id)
-      where task_status_id <> 7
+      select ts.task_id, ts.supply_id, ts.qty, t.task_status_id
+        from task_supplies as ts
+        inner join tasks as t using (task_id)
+      where t.task_status_id < 6 
     ),
     quantities as (
       select s.supply_id,

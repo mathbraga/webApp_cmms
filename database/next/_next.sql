@@ -66,11 +66,12 @@ begin transaction;
 -- other things
 \i public/get_asset_trees.sql
 \i public/get_exception_message.sql
-\i public/get_mutation_response.sql
+\i public/balances.sql
 
 -- create api schema objects
 -- task basic
 \i api/insert_task_files.sql
+\i api/remove_task_file.sql
 \i api/task_data.sql
 \i api/task_form_data.sql
 \i api/insert_task.sql
@@ -91,8 +92,8 @@ begin transaction;
 \i api/appliance_data.sql
 \i api/asset_form_data.sql
 \i api/facility_data.sql
--- \i api/contract_data.sql
--- \i api/spec_data.sql
+\i api/contract_data.sql
+\i api/spec_data.sql
 \i api/team_data.sql
 
 -- create ws schema objects
