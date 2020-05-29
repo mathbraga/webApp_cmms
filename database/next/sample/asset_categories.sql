@@ -24,11 +24,11 @@ insert into assets overriding system value values (
 );
 
 insert into assets overriding system value values (
-  get_constant_value('asset_category_air_cond')::integer,
+  get_constant_value('asset_category_air')::integer,
   'MECN-SR-0001',
   'Sistem de refrigeração do Senado Federal',
   'Sistem de refrigeração do Senado Federal',
-  get_constant_value('asset_category_air_cond')::integer,
+  get_constant_value('asset_category_air')::integer,
   null,
   null,
   null,

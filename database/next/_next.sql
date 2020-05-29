@@ -113,8 +113,7 @@ insert into persons overriding system value values
 -- \i triggers/name_of_the_trigger.sql
 
 -- populate tables with sample data
--- \i sample/asset_categories.sql
--- alter sequence assets_asset_id_seq restart with 11;
+\i sample/asset_categories.sql
 \i sample/assets.sql
 \i sample/asset_relations.sql
 -- \i sample/contracts.sql

@@ -15,9 +15,9 @@ create or replace function get_constant_value(
         when 'task_status_threshold'   then '6'
         -- asset categories:
         when 'asset_category_facility' then '1'
-        when 'asset_category_electric' then '2' --5001
-        when 'asset_category_air_cond' then '3' --5022
-        when 'asset_category_hydro'    then '4' --5032
+        when 'asset_category_electric' then '5001'
+        when 'asset_category_air'      then '5022'
+        when 'asset_category_hydro'    then '5032'
       end
     as constant_value;
   $$
