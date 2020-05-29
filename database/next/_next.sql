@@ -124,10 +124,13 @@ insert into persons overriding system value values
 -- \i sample/contract_teams.sql
 -- \i sample/projects.sql
 -- \i sample/requests.sql
+
 -- \i sample/tasks.sql
+-- \i sample/task_events.sql
+-- \i sample/task_files.sql
 -- \i sample/task_messages.sql
 -- \i sample/task_assets.sql
--- \i sample/task_dispatches.sql
+
 -- \i sample/specs.sql
 -- \i sample/supplies.sql
 -- \i sample/task_supplies.sql
