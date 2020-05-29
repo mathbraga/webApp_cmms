@@ -114,8 +114,8 @@ insert into persons overriding system value values
 
 -- populate tables with sample data
 \i sample/asset_categories.sql
-\i sample/assets.sql
-\i sample/asset_relations.sql
+-- \i sample/assets.sql
+-- \i sample/asset_relations.sql
 -- \i sample/contracts.sql
 -- \i sample/persons.sql
 -- \i sample/accounts.sql
