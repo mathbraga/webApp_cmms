@@ -59,6 +59,9 @@ begin transaction;
 -- create domains
 -- \i public/domains.sql
 
+-- define db constants
+\i public/get_constant_value.sql
+
 -- create tables
 \i public/lookup_tables.sql
 \i public/tables.sql
@@ -110,8 +113,10 @@ insert into persons overriding system value values
 -- \i triggers/name_of_the_trigger.sql
 
 -- populate tables with sample data
--- \i sample/assets.sql
--- \i sample/asset_relations.sql
+-- \i sample/asset_categories.sql
+-- alter sequence assets_asset_id_seq restart with 11;
+\i sample/assets.sql
+\i sample/asset_relations.sql
 -- \i sample/contracts.sql
 -- \i sample/persons.sql
 -- \i sample/accounts.sql

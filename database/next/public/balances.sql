@@ -4,13 +4,13 @@ create or replace view balances as
       select ts.task_id, ts.supply_id, ts.qty, t.task_status_id
         from task_supplies as ts
         inner join tasks as t using (task_id)
-      where t.task_status_id > 6
+      where t.task_status_id >= get_constant_value('task_status_threshold')::integer
     ),
     unfinished as (
       select ts.task_id, ts.supply_id, ts.qty, t.task_status_id
         from task_supplies as ts
         inner join tasks as t using (task_id)
-      where t.task_status_id < 6 
+      where t.task_status_id < get_constant_value('task_status_threshold')::integer
     ),
     quantities as (
       select s.supply_id,

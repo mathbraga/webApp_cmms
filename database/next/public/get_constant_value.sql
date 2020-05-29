@@ -8,9 +8,16 @@ create or replace function get_constant_value(
   as $$
     select
       case constant_name
-        when 'task_initial_status'    then '1'
-        when 'task_canceled_status'   then '6'
-        when 'task_finished_status'   then '7'
+        -- task status constants:
+        when 'task_initial_status'     then '1'
+        when 'task_canceled_status'    then '6'
+        when 'task_finished_status'    then '7'
+        when 'task_status_threshold'   then '6'
+        -- asset categories:
+        when 'asset_category_facility' then '1'
+        when 'asset_category_electric' then '2' --5001
+        when 'asset_category_air_cond' then '3' --5022
+        when 'asset_category_hydro'    then '4' --5032
       end
     as constant_value;
   $$
