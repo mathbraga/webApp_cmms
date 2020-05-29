@@ -4,13 +4,10 @@ create or replace view api.asset_form_data as
       select  jsonb_agg(jsonb_build_object(
                 'assetId', a.asset_id,
                 'assetSf', a.asset_sf,
-                'name', a.name,
-                'categoryId', a.category,
-                'categoryName', aa.name
+                'name', a.name
               )) as top_options
         from asset_relations as ar
         inner join assets as a on (a.asset_id = ar.top_id)
-        inner join assets as aa on (aa.asset_id = a.category)
       where ar.parent_id is null
     ),
     parent_options as (
