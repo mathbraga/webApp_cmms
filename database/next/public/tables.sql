@@ -59,10 +59,6 @@ create table teams (
   is_verifier boolean not null default false
 );
 
-create table verifier_teams (
-  team_id integer primary key references teams (team_id)
-);
-
 create table team_persons (
   team_id integer references teams (team_id),
   person_id integer references persons (person_id),
