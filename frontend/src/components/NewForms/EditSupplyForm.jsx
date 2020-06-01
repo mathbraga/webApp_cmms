@@ -38,7 +38,17 @@ const suppliesFake = [
 ];
 
 class EditSupplyForm extends Component {
-  state = {  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      supplies: [
+        {contract: {value: '9', label: 'CT 02082020'}, supply: {value: '8', label: 'Brita'}, quantity: 122.12, unit: 'm³'},
+        {contract: {value: '9', label: 'CT 02082020'}, supply: {value: '1', label: 'Arame galvanizado, bitola 16 BWG'}, quantity: 122.12, unit: 'm³'},
+        {contract: {value: '9', label: 'CT 02082020'}, supply: {value: '6', label: 'Areia'}, quantity: 122.12, unit: 'm³'},
+        {contract: {value: '9', label: 'CT 02082020'}, supply: {value: '7', label: 'Concreto'}, quantity: 122.12, unit: 'm³'},
+      ],
+    };
+  }
   render() { 
     const { visible, toggleForm } = this.props;
     const miniformClass = classNames({
