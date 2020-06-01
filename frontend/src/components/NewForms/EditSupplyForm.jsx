@@ -64,49 +64,51 @@ class EditSupplyForm extends Component {
             <div className='miniform__field__sub-label'>
               Ao salvar, os itens alterados na lista abaixo serão gravados na tabela de suprimentos.
             </div>
-            <div className='miniform__field__item'>
-              <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
-                <Select
-                  className="basic-single"
-                  classNamePrefix="select"
-                  defaultValue={'Semac'}
-                  isClearable
-                  isSearchable
-                  name="team"
-                  value={{value: '12', label: 'CT 02112020'}}
-                  placeholder={'Estoque'}
-                  options={contractsFake}
-                  styles={selectStyles}
-                />
-              </div>
-              <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
-                <Select
-                  className="basic-single"
-                  classNamePrefix="select"
-                  defaultValue={'Semac'}
-                  isClearable
-                  isSearchable
-                  name="team"
-                  placeholder={'Suprimento'}
-                  value={{value: '8', label: 'Brita'}}
-                  options={suppliesFake}
-                  styles={selectStyles}
-                />
-              </div>
-              <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
-                <InputGroup>
-                  <Input className='miniform__field__textarea' style={{ textAlign: 'right' }} value={'122,12'} placeholder='0,00'/>
-                  <InputGroupAddon addonType="append">
-                    <InputGroupText>m³</InputGroupText>
-                  </InputGroupAddon>
-                </InputGroup>
-              </div>
-              <div style={{flexGrow: '1'}}>
-                <div className="miniform__field__remove-button">
-                  Exlcuir
+            {this.state.supplies.map(supply => (
+              <div className='miniform__field__item'>
+                <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
+                  <Select
+                    className="basic-single"
+                    classNamePrefix="select"
+                    defaultValue={'Semac'}
+                    isClearable
+                    isSearchable
+                    name="team"
+                    value={{value: '12', label: 'CT 02112020'}}
+                    placeholder={'Estoque'}
+                    options={contractsFake}
+                    styles={selectStyles}
+                  />
+                </div>
+                <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
+                  <Select
+                    className="basic-single"
+                    classNamePrefix="select"
+                    defaultValue={'Semac'}
+                    isClearable
+                    isSearchable
+                    name="team"
+                    placeholder={'Suprimento'}
+                    value={{value: '8', label: 'Brita'}}
+                    options={suppliesFake}
+                    styles={selectStyles}
+                  />
+                </div>
+                <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
+                  <InputGroup>
+                    <Input className='miniform__field__textarea' style={{ textAlign: 'right' }} value={'122,12'} placeholder='0,00'/>
+                    <InputGroupAddon addonType="append">
+                      <InputGroupText>m³</InputGroupText>
+                    </InputGroupAddon>
+                  </InputGroup>
+                </div>
+                <div style={{flexGrow: '1'}}>
+                  <div className="miniform__field__remove-button">
+                    Exlcuir
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
           <div className='miniform__buttons'>
             <Button 
