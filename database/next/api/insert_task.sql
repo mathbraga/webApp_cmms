@@ -26,10 +26,9 @@ create or replace function api.insert_task (
         attributes.date_start,
         attributes.date_end,
         attributes.request_id,
-        get_constant_value('task_initial_status')::integer,
-        attributes.recipient_id,
-        attributes.recipient_id,
-        false
+        attributes.team_id,
+        null,
+        get_constant_value('task_initial_status')::integer
       ) returning task_id into id;
 
       if assets is not null then

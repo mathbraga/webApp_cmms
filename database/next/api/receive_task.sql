@@ -9,11 +9,11 @@ create or replace function api.receive_task (
     begin
 
       update tasks set (
-        recipient_id,
-        receive_pending
+        team_id,
+        next_team_id
       ) = (
         event.team_id,
-        false
+        null
       ) where task_id = event.task_id;
 
       insert into task_events values (

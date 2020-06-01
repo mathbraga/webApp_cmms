@@ -82,15 +82,15 @@ create or replace view api.task_data as
             p.person_id,
             t.team_id,
             t.name as team_name,
-            tt.team_id as recipient_id,
-            tt.name as recipient_name,
+            tt.team_id as next_team_id,
+            tt.name as next_team_name,
             ts.task_status_text,
             ts.task_status_id,
             te.note
       from task_events as te
       inner join persons as p using (person_id)
-      inner join teams as t on (te.team_id = t.team_id)
-      left join teams as tt on (te.recipient_id = tt.team_id)
+      inner join teams as t on (t.team_id = te.team_id)
+      left join teams as tt on (tt.team_id = te.next_team_id)
       left join task_statuses as ts using (task_status_id)
     order by te.event_time
   ),
@@ -103,8 +103,8 @@ create or replace view api.task_data as
               'personName', e.person_name,
               'teamId', e.team_id,
               'teamName', e.team_name,
-              'recipientId', e.recipient_id,
-              'recipientName', e.recipient_name,
+              'nextTeamId', e.next_team_id,
+              'nextTeamName', e.next_team_name,
               'taskStatusText', e.task_status_text,
               'taskStatusId', e.task_status_id,
               'note', e.note
@@ -141,8 +141,8 @@ create or replace view api.task_data as
             q.team_id,
             q.name
         from teams as q
-        inner join tasks as t on (t.recipient_id <> q.team_id)
-      where q.is_active
+        inner join tasks as t on (t.team_id <> q.team_id)
+      where q.is_active and t.next_team_id is null
     order by q.name
   ),
   agg_send_options as (
@@ -190,10 +190,9 @@ create or replace view api.task_data as
           t.date_start,
           t.date_end,
           -- t.request_id,
+          t.team_id,
+          t.next_team_id,
           t.task_status_id,
-          -- t.sender_id,
-          -- t.recipient_id,
-          -- t.receive_pending,
 
           -- aditional data from joins:
           ts.task_status_text,
@@ -232,7 +231,7 @@ create or replace view api.task_data as
   inner join task_statuses as ts using (task_status_id)
   inner join task_priorities as tp using (task_priority_id)
   inner join task_categories as tc using (task_category_id)
-  inner join teams as q on (t.recipient_id = q.team_id)
+  inner join teams as q on (t.team_id = q.team_id)
   inner join persons as p on (t.created_by = p.person_id)
   inner join persons as pp on (t.updated_by = pp.person_id)
   left join contracts as c on (t.contract_id = c.contract_id)

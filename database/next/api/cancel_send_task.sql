@@ -9,11 +9,9 @@ create or replace function api.cancel_send_task (
     begin
 
       update tasks set (
-        recipient_id,
-        receive_pending
+        next_team_id
       ) = (
-        row(sender_id), -- swap current sender_id and recipient_id values
-        false
+        null
       ) where task_id = event.task_id;
 
       insert into task_events values (

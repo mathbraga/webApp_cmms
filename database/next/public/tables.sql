@@ -110,10 +110,9 @@ create table tasks (
   date_end timestamptz,
   request_id integer references requests (request_id),
   -- last event fields:
-  task_status_id integer references task_statuses (task_status_id) check (task_status_id is not null),
-  sender_id integer references teams (team_id),
-  recipient_id integer not null references teams (team_id),
-  receive_pending boolean not null default false
+  team_id integer not null references teams (team_id),
+  next_team_id integer references teams (team_id),
+  task_status_id integer references task_statuses (task_status_id) check (task_status_id is not null)
 );
 
 create table task_assets (
@@ -129,7 +128,7 @@ create table task_events (
   event_time timestamptz not null default now(),
   person_id integer not null references persons (person_id) default get_current_person_id(),
   team_id integer not null references teams (team_id),
-  recipient_id integer references teams (team_id),
+  next_team_id integer references teams (team_id),
   task_status_id integer references task_statuses (task_status_id),
   note text
 );
