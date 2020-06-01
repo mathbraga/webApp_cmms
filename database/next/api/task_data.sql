@@ -191,7 +191,9 @@ create or replace view api.task_data as
           t.date_end,
           -- t.request_id,
           t.team_id,
+          q.name as team_name,
           t.next_team_id,
+          qq.name as next_team_name,
           t.task_status_id,
 
           -- aditional data from joins:
@@ -231,10 +233,11 @@ create or replace view api.task_data as
   inner join task_statuses as ts using (task_status_id)
   inner join task_priorities as tp using (task_priority_id)
   inner join task_categories as tc using (task_category_id)
-  inner join teams as q on (t.team_id = q.team_id)
+  inner join teams as q on (q.team_id = t.team_id)
   inner join persons as p on (t.created_by = p.person_id)
   inner join persons as pp on (t.updated_by = pp.person_id)
   left join contracts as c on (t.contract_id = c.contract_id)
+  left join teams as qq on (qq.team_id = t.next_team_id)
   left join projects as pr using (project_id)
   left join requests as r using (request_id)
   left join agg_assets as a using (task_id)
