@@ -42,10 +42,10 @@ class EditSupplyForm extends Component {
     super(props);
     this.state = {
       supplies: [
-        {contract: {value: '9', label: 'CT 02082020'}, supply: {value: '8', label: 'Brita'}, quantity: 122.12, unit: 'm³'},
-        {contract: {value: '9', label: 'CT 02082020'}, supply: {value: '1', label: 'Arame galvanizado, bitola 16 BWG'}, quantity: 122.12, unit: 'm³'},
-        {contract: {value: '9', label: 'CT 02082020'}, supply: {value: '6', label: 'Areia'}, quantity: 122.12, unit: 'm³'},
-        {contract: {value: '9', label: 'CT 02082020'}, supply: {value: '7', label: 'Concreto'}, quantity: 122.12, unit: 'm³'},
+        {contract: {value: '9', label: 'CT 02082020'}, item: {value: '8', label: 'Brita'}, quantity: 122.12, unit: 'm³'},
+        {contract: {value: '9', label: 'CT 02082020'}, item: {value: '1', label: 'Arame galvanizado, bitola 16 BWG'}, quantity: 122.12, unit: 'm³'},
+        {contract: {value: '9', label: 'CT 02082020'}, item: {value: '6', label: 'Areia'}, quantity: 122.12, unit: 'm³'},
+        {contract: {value: '9', label: 'CT 02082020'}, item: {value: '7', label: 'Concreto'}, quantity: 122.12, unit: 'm³'},
       ],
     };
   }
@@ -74,7 +74,7 @@ class EditSupplyForm extends Component {
                     isClearable
                     isSearchable
                     name="team"
-                    value={{value: '12', label: 'CT 02112020'}}
+                    value={supply.contract}
                     placeholder={'Estoque'}
                     options={contractsFake}
                     styles={selectStyles}
@@ -89,16 +89,16 @@ class EditSupplyForm extends Component {
                     isSearchable
                     name="team"
                     placeholder={'Suprimento'}
-                    value={{value: '8', label: 'Brita'}}
+                    value={supply.item}
                     options={suppliesFake}
                     styles={selectStyles}
                   />
                 </div>
                 <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
                   <InputGroup>
-                    <Input className='miniform__field__textarea' style={{ textAlign: 'right' }} value={'122,12'} placeholder='0,00'/>
+                    <Input className='miniform__field__textarea' style={{ textAlign: 'right' }} value={supply.quantity} placeholder='0,00'/>
                     <InputGroupAddon addonType="append">
-                      <InputGroupText>m³</InputGroupText>
+                      <InputGroupText>{supply.unit}</InputGroupText>
                     </InputGroupAddon>
                   </InputGroup>
                 </div>
