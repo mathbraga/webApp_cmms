@@ -85,7 +85,7 @@
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 8px;
 }
 
@@ -99,7 +99,7 @@
 }
 
 .miniform__field__edit-supply {
-  margin: 0 5px;
+  padding: 0 5px;
 }
 
 .miniform__field__textarea {

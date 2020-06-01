@@ -42,10 +42,10 @@ class EditSupplyForm extends Component {
     super(props);
     this.state = {
       supplies: [
-        {contract: {value: '9', label: 'CT 02082020'}, item: {value: '8', label: 'Brita'}, quantity: 122.12, unit: 'm³'},
-        {contract: {value: '9', label: 'CT 02082020'}, item: {value: '1', label: 'Arame galvanizado, bitola 16 BWG'}, quantity: 122.12, unit: 'm³'},
-        {contract: {value: '9', label: 'CT 02082020'}, item: {value: '6', label: 'Areia'}, quantity: 122.12, unit: 'm³'},
-        {contract: {value: '9', label: 'CT 02082020'}, item: {value: '7', label: 'Concreto'}, quantity: 122.12, unit: 'm³'},
+        {contract: {value: '9', label: 'CT 02082020'}, item: {value: '8', label: 'Brita'}, quantity: 130.00, unit: 'm³'},
+        {contract: {value: '9', label: 'CT 02082020'}, item: {value: '1', label: 'Arame galvanizado, bitola 16 BWG'}, quantity: 7.5, unit: 'm'},
+        {contract: {value: '9', label: 'CT 02082020'}, item: {value: '6', label: 'Areia'}, quantity: 22.000, unit: 'dm³'},
+        {contract: {value: '9', label: 'CT 02082020'}, item: {value: '7', label: 'Concreto'}, quantity: 12, unit: 'm³'},
       ],
     };
   }
@@ -66,7 +66,7 @@ class EditSupplyForm extends Component {
             </div>
             {this.state.supplies.map(supply => (
               <div className='miniform__field__item'>
-                <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
+                <div className='miniform__field__edit-supply' style={{width: '30%'}}>
                   <Select
                     className="basic-single"
                     classNamePrefix="select"
@@ -80,7 +80,7 @@ class EditSupplyForm extends Component {
                     styles={selectStyles}
                   />
                 </div>
-                <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
+                <div className='miniform__field__edit-supply' style={{width: '40%'}}>
                   <Select
                     className="basic-single"
                     classNamePrefix="select"
@@ -94,15 +94,15 @@ class EditSupplyForm extends Component {
                     styles={selectStyles}
                   />
                 </div>
-                <div className='miniform__field__edit-supply' style={{flexGrow: '1'}}>
+                <div className='miniform__field__edit-supply' style={{ width: '20%'}}>
                   <InputGroup>
-                    <Input className='miniform__field__textarea' style={{ textAlign: 'right' }} value={supply.quantity} placeholder='0,00'/>
-                    <InputGroupAddon addonType="append">
-                      <InputGroupText>{supply.unit}</InputGroupText>
+                    <Input className='miniform__field__textarea' style={{ textAlign: 'right', width: '60%' }} value={supply.quantity} placeholder='0,00'/>
+                    <InputGroupAddon addonType="append" style={{ width: '40%' }}>
+                      <InputGroupText style={{ justifyContent: 'center', textOverflow: 'hidden', width: '100%' }}>{supply.unit}</InputGroupText>
                     </InputGroupAddon>
                   </InputGroup>
                 </div>
-                <div style={{flexGrow: '1'}}>
+                <div style={{width: '10%'}}>
                   <div className="miniform__field__remove-button">
                     Exlcuir
                   </div>
