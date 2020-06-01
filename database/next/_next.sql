@@ -110,7 +110,11 @@ insert into persons overriding system value values
 (0, '00000000000', 'email@email.com', 'Visitor', '0000', null, null);
 
 -- create triggers before populate tables
--- \i triggers/name_of_the_trigger.sql
+-- \i triggers/check_asset_category.sql
+-- \i triggers/check_asset_relation.sql
+-- \i triggets/check_task_event.sql
+-- \i triggers/check_task_supply.sql
+-- \i triggers/insert_audit_trail.sql
 
 -- populate tables with sample data
 \i sample/asset_categories.sql
