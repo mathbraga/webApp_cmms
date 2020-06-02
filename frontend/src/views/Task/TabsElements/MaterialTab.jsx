@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DescriptionTable from '../../../components/Descriptions/DescriptionTable';
-import { itemsMatrixSupply } from '../utils/materialTab/descriptionMatrix';
+import { itemsMatrixSupply, itemsMatrixTableFilter } from '../utils/materialTab/descriptionMatrix';
 import tableConfig from '../utils/materialTab/tableConfig';
 import { customFilters, filterAttributes } from '../utils/materialTab/filterParameters';
 import searchableAttributes from '../utils/materialTab/searchParameters';
@@ -110,6 +110,12 @@ class MaterialTab extends Component {
           <PaneTitle 
             title={'Tabela de suprimentos'}
           />
+          <div className="tabpane__content">
+            <PaneTextContent 
+              numColumns='2' 
+              itemsMatrix={itemsMatrixTableFilter()}
+            />
+          </div>
           <div className="tabpane__content" style={{ marginTop: '50px' }}>
             <CustomTable
               type={'pages-with-search'}
