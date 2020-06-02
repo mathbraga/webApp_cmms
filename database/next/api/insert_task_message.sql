@@ -1,22 +1,22 @@
 drop function if exists api.insert_task_message;
 
 create or replace function api.insert_task_message (
-  in args task_messages,
+  in message task_messages,
   out id integer
 )
   language plpgsql
   as $$
     begin
-      insert into task_messages values (
+      insert into task_messages as tm values (
         default,
-        args.reply_to,
-        args.task_id,
-        args.message,
+        message.reply_to,
+        message.task_id,
+        message.message,
         get_current_person_id(),
         now(),
         now(),
         true
-      ) returning task_id into id;
+      ) returning tm.task_id into id;
     end;
   $$
 ;
