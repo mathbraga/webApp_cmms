@@ -116,7 +116,7 @@ class MaterialTab extends Component {
               itemsMatrix={itemsMatrixTableFilter()}
             />
           </div>
-          <div className="tabpane__content" style={{ marginTop: '50px' }}>
+          <div className="tabpane__content__table">
             <CustomTable
               type={'pages-with-search'}
               tableConfig={tableConfig}
