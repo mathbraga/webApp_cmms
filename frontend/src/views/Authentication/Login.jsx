@@ -4,6 +4,10 @@ import ModalForgottenPassword from "../../components/Authentication/ModalForgott
 import { connect } from "react-redux";
 import { login, loginSuccess } from "../../redux/actions";
 import loginFetch from "../../utils/authentication/loginFetch";
+// import { withProps, withQuery, withGraphQL } from '../../hocs';
+// import withDataAccess from './utils/withDataAccess';
+// import props from './utils/props';
+// import { compose } from "redux";
 
 class Login extends Component {
   constructor(props) {
@@ -222,3 +226,10 @@ const mapStateToProps = storeState => {
 }
 
 export default connect(mapStateToProps)(Login);
+
+// export default compose(
+//   withProps(props),
+//   withGraphQL,
+//   withQuery,
+//   withDataAccess
+// )(Login);
