@@ -49,6 +49,8 @@ class MaterialTab extends Component {
   render() {
     const { addFormOpen, editFormOpen } = this.state;
 
+    console.log("Data", this.props.data);
+
     const actionButtons = {
       editFormOpen: [
         {name: 'Salvar', color: 'success', onClick: this.toggleEditForm},
