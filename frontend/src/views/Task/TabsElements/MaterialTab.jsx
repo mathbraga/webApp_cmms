@@ -11,7 +11,7 @@ import withSelectLogic from '../../../components/Selection/withSelectLogic';
 
 import AnimateHeight from 'react-animate-height';
 import DispatchForm from '../../../components/NewForms/DispatchForm';
-import StatusForm from '../../../components/NewForms/StatusForm'
+import StatusForm from '../../../components/NewForms/StatusForm';
 import AddSupplyForm from '../../../components/NewForms/AddSupplyForm';
 import EditSupplyForm from '../../../components/NewForms/EditSupplyForm';
 

@@ -6,6 +6,9 @@ import React, { Component } from 'react';
 // import searchableAttributes from '../utils/assetTab/searchParameters';
 // import TableFilter from '../../../../components/Tables/CustomTable/TableFilter';
 import AssetTemplateTab from '../../../components/Tabs/AssetTab/AssetsTemplateTab';
+
+import PaneTitle from '../../../components/TabPanes/PaneTitle';
+
 import './Tabs.css';
 
 class AssetTab extends Component {
@@ -15,20 +18,13 @@ class AssetTab extends Component {
 
     return (
       <>
-        <AssetTemplateTab
-          data={data}
-        />
+        <div className="tabpane-container">
+          <PaneTitle 
+            title={'Tabela de Ativos'}
+          />
+        </div>
       </>
     );
-    // return (
-    //   <>
-    //     <DescriptionTable
-    //       title={'Lista de Ativos'}
-    //       numColumns={2}
-    //       itemsMatrix={itemsMatrixAssets(data)}
-    //     />
-    //   </>
-    // );
   }
 }
 
