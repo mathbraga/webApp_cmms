@@ -1,3 +1,7 @@
+import React from 'react';
+
+const mapIcon = require("../../../../assets/icons/map.png");
+
 const tableConfig = {
   attForDataId: 'time',
   columnsConfig: [
