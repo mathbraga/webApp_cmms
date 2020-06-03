@@ -23,7 +23,6 @@ class AssetTab extends Component {
   state = {}
   render() {
     const data = this.props.data.assets;
-    console.log("Data: ", data);
     return (
       <>
         <div className="tabpane-container">

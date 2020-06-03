@@ -71,8 +71,6 @@ class AssignTab extends Component {
     const filteredData = logType === 'all' ? data : (data.filter(item => (logType === 'status' ? (item.event === 'move' || item.event === 'insert') : (item.event !== 'move'))));
     const sortedData = sortList(filteredData, 'time', true, false);
 
-    console.log("Type", logType);
-
     return (
       <>
         <div className="tabpane-container">
