@@ -2,8 +2,7 @@ drop function if exists api.modify_task_supplies;
 
 create or replace function api.modify_task_supplies (
   in task_id integer,
-  in supplies integer[],
-  in quantities numeric[],
+  in supplies task_supplies[],
   out id integer
 )
   language plpgsql
@@ -14,8 +13,9 @@ create or replace function api.modify_task_supplies (
       -- insert new supplies
       insert into task_supplies as ts
         select  task_id,
-                unnest(supplies),
-                unnest(quantities)
+                s.supply_id,
+                s.qty
+        from unnest(supplies) as s
       returning ts.task_id into id;
     end;
   $$

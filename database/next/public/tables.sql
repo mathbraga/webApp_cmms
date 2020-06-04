@@ -193,7 +193,7 @@ create table supplies (
 );
 
 create table task_supplies (
-  task_id integer not null references tasks (task_id),
+  task_id integer references tasks (task_id) check (task_id is not null),
   supply_id integer not null references supplies (supply_id),
   qty numeric not null,
   primary key (task_id, supply_id)
