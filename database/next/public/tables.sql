@@ -31,7 +31,8 @@ create table contracts (
   company text not null,
   title text not null,
   description text not null,
-  url text -- just one? many?
+  url text,
+  is_active boolean default true
 );
 
 create table persons (

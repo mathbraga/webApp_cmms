@@ -170,6 +170,43 @@ create or replace view api.task_data as
             )) as move_options
       from ord_move_options as mo
     group by mo.task_id
+  ),
+  ord_supply_options as (
+    select  c.contract_id,
+            c.contract_sf,
+            s.supply_sf,
+            jsonb_build_object(
+              'supplyId', s.supply_id,
+              'supplySf', s.supply_sf,
+              'bidPrice', s.bid_price,
+              'qtyInitial', b.qty_initial,
+              'qtyBlocked', b.qty_blocked,
+              'qtyConsumed', b.qty_consumed,
+              'qtyAvailable', b.qty_available,
+              'name', z.name
+            ) as supply
+      from contracts as c
+      inner join supplies as s using (contract_id)
+      inner join balances as b using (supply_id)
+      inner join specs as z using (spec_id)
+    order by c.contract_sf, s.supply_sf
+  ),
+  agg_supply_options as (
+    select  os.contract_id,
+            jsonb_agg(os.supply) as supplies
+      from ord_supply_options as os
+    group by os.contract_id
+  ),
+  agg_contract_supply_options as (
+    select  jsonb_agg(jsonb_build_object(
+              'contractId', aso.contract_id,
+              'contractSf', c.contract_sf,
+              'title', c.title,
+              'company', c.company,
+              'supplies', aso.supplies
+            )) as supply_options
+    from agg_supply_options as aso
+    inner join contracts as c using (contract_id)
   )
   select  
           -- task table fields:
@@ -247,4 +284,5 @@ create or replace view api.task_data as
   left join agg_messages as m using (task_id)
   left join agg_move_options as mo using (task_id)
   left join agg_send_options as so using (task_id)
+  cross join agg_contract_supply_options as acso
 ;
