@@ -25,7 +25,15 @@ class AssetTab extends Component {
     this.state = {
       editFormOpen: false,
     }
+    this.toggleEditForm = this.toggleEditForm.bind(this);
   }
+
+  toggleEditForm() {
+    this.setState(prevState => ({
+      editFormOpen: !prevState.editFormOpen,
+    }));
+  }
+
   render() {
     const data = this.props.data.assets;
     return (
