@@ -48,7 +48,7 @@ class EditAssetForm extends Component {
               Adicionar ativo
             </div>
             <div className='miniform__field__sub-label'>
-              Após incluir o ativo, clique em 'Salvar' para confirmar a operação.
+              Ao incluir um novo ativo, ele será vinculado imediatamente a esta tarefa.
             </div>
             <div className="miniform__field__input__container">
               <div className='miniform__field__input' style={{ width: '80%' }}>
@@ -79,7 +79,7 @@ class EditAssetForm extends Component {
               Tabela de ativos
             </div>
             <div className='miniform__field__sub-label'>
-              Após excluir qualquer ativo, clique em 'Salvar' para confirmar a operação.
+              Ao excluir qualquer ativo, ele será retirado imediatamente desta tarefa.
             </div>
             {this.state.assets.map(asset => (
               <div className='miniform__field__item'>
@@ -99,27 +99,11 @@ class EditAssetForm extends Component {
           </div>
           <div className='miniform__buttons'>
             <Button 
-              color="success" 
-              size="sm" 
-              style={{ marginRight: "10px" }}
-              onClick={toggleForm}
-            >
-              Salvar
-            </Button>
-            <Button 
-              color="secondary" 
-              size="sm" 
-              style={{ marginRight: "10px" }}
-              onClick={toggleForm}
-            >
-              Limpar
-            </Button>
-            <Button 
               color="danger" 
               size="sm"
               onClick={toggleForm}
             >
-              Cancelar
+              Voltar
             </Button>
           </div>
         </div>

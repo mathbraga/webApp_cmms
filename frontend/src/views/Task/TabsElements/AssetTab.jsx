@@ -43,8 +43,7 @@ class AssetTab extends Component {
 
     const actionButtons = {
       editFormOpen: [
-        {name: 'Salvar', color: 'success', onClick: this.toggleEditForm},
-        {name: 'Cancelar', color: 'danger', onClick: this.toggleEditForm}
+        {name: 'Voltar', color: 'danger', onClick: this.toggleEditForm}
       ],
       noFormOpen: [
         {name: 'Alterar Ativos', color: 'success', onClick: this.toggleEditForm},
