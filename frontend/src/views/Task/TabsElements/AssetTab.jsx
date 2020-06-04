@@ -57,7 +57,7 @@ class AssetTab extends Component {
         <div className="tabpane-container">
           <PaneTitle 
             actionButtons={editFormOpen ? actionButtons.editFormOpen : actionButtons.noFormOpen}
-            title={editFormOpen ? 'Alterar ativos' : 'Resumo dos gastos'}
+            title={editFormOpen ? 'Alterar ativos' : 'Tabela de ativos'}
           />
           <AnimateHeight 
             duration={300}

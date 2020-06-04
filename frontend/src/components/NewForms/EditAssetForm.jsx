@@ -76,7 +76,7 @@ class EditAssetForm extends Component {
           </div>
           <div className='miniform__field'>
             <div className='miniform__field__label'>
-              Tabela de ativos
+              Excluir ativos
             </div>
             <div className='miniform__field__sub-label'>
               Ao excluir qualquer ativo, ele será retirado imediatamente desta tarefa.
