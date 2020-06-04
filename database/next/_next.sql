@@ -90,6 +90,7 @@ begin transaction;
 \i api/modify_task_message.sql
 \i api/remove_task_message.sql
 -- task supplies
+\i api/insert_task_supply.sql
 \i api/modify_task_supplies.sql
 
 -- other entities
