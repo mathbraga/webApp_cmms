@@ -20,7 +20,12 @@ import { compose } from 'redux';
 import './Tabs.css';
 
 class AssetTab extends Component {
-  state = {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      editFormOpen: false,
+    }
+  }
   render() {
     const data = this.props.data.assets;
     return (
@@ -29,6 +34,33 @@ class AssetTab extends Component {
           <PaneTitle 
             title={'Tabela de Ativos'}
           />
+          <AnimateHeight 
+            duration={300}
+            height={heightAdd}
+          >
+            <div className="tabpane__content">
+              <AddSupplyForm 
+                visible={true}
+                toggleForm={this.toggleAddForm}
+              />
+            </div>
+          </AnimateHeight>
+          <AnimateHeight 
+            duration={300}
+            height={heightEdit}
+          >
+            <div className="tabpane__content">
+              <EditSupplyForm 
+                visible={true}
+                toggleForm={this.toggleEditForm}
+              />
+            </div>
+          </AnimateHeight>
+          {(editFormOpen) && (
+            <PaneTitle 
+              title={'Tabela de Ativos'}
+            />
+          )}
           <div className="tabpane__content">
             <PaneTextContent 
               numColumns='2' 
