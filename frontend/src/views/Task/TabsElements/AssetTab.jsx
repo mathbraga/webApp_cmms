@@ -13,7 +13,7 @@ import withSelectLogic from '../../../components/Selection/withSelectLogic';
 import CustomTable from '../../../components/Tables/CustomTable';
 
 import AnimateHeight from 'react-animate-height';
-import AddSupplyForm from '../../../components/NewForms/AddSupplyForm';
+import EditAssetForm from '../../../components/NewForms/EditAssetForm';
 
 import PaneTitle from '../../../components/TabPanes/PaneTitle';
 import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
@@ -65,8 +65,7 @@ class AssetTab extends Component {
             height={heightEdit}
           >
             <div className="tabpane__content">
-              <AddSupplyForm 
-                visible={true}
+              <EditAssetForm 
                 toggleForm={this.toggleEditForm}
               />
             </div>

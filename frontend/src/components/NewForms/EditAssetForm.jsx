@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
 import { Button, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
-import classNames from 'classnames';
-import './SupplyForm.css';
+import Select from 'react-select';
+import './AssetForm.css';
 
 const selectStyles = {
   control: base => ({
@@ -11,71 +10,77 @@ const selectStyles = {
   }),
 };
 
+const assetsFake = [
+  {id: '9', name: 'Motor-gerador', assetSf: 'DFEF-2304-234'},
+  {id: '10', name: 'Circuito elétrico do Seplag', assetSf: 'ASDF-1545-234'},
+  {id: '11', name: 'Quadro geral - Sinfra', assetSf: 'GSFD-2345-234'},
+  {id: '12', name: 'CM3 - Chiller', assetSf: 'GFSS-8678-234'},
+  {id: '1', name: 'Bloco 10 - Subsolo', assetSf: 'BL10-SUB-010'},
+  {id: '2', name: 'Anexo I - Térreo', assetSf: 'AX01-TER-002'},
+  {id: '3', name: 'Edifício Principal - 2 Andar', assetSf: 'EDPR-2AD-052'},
+  {id: '4', name: 'Anexo II - Subsolo', assetSf: 'AX02-SUB-005'},
+  {id: '5', name: 'Anexo I - 27 Andar', assetSf: 'AX01-27A-005'},
+  {id: '6', name: 'Bloco 14 - Mezanino', assetSf: 'BL14-MEZ-010'},
+  {id: '7', name: 'Bloco 12 - Térreo', assetSf: 'BL12-TER-014'},
+  {id: '8', name: 'Bloco 10 - Subsolo', assetSf: 'BL10-SUB-014'},
+];
+
+const assetsFakeDrop = assetsFake.map(asset => ({value: asset.id, label: `${asset.name} (${asset.assetSf})`}));
+
 class EditAssetForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      supplies: [
-        {id: '9', label: 'Bloco 14 - Mezanino'},
-        {id: '10', label: 'Anexo II - Gabinete 10'},
+      assets: [
+        {id: '9', name: 'Bloco 14 - Mezanino', assetSf: 'BL14-MEZ-043'},
+        {id: '10', name: 'Anexo II - Gabinete 10', assetSf: 'AX02-GAB-010'},
       ],
     };
   }
   
   render() { 
-    const { visible, toggleForm } = this.props;
-    const miniformClass = classNames({
-      'miniform-container': true,
-      'miniform-disabled': !visible
-    });
+    const { toggleForm } = this.props;
+
     return ( 
-      <div className={miniformClass}>
-          <div className='miniform__field'>
+      <div className={'miniform-container'}>
+        <div className='miniform__field'>
             <div className='miniform__field__label'>
-              Alterar ou exlcuir suprimento
+              Adicionar ativo
             </div>
             <div className='miniform__field__sub-label'>
-              Ao salvar, os itens alterados na lista abaixo serão gravados na tabela de suprimentos.
+              Após incluir o ativo, clique em 'Salvar' para confirmar a operação.
             </div>
-            {this.state.supplies.map(supply => (
+            <div className="miniform__field__input__container">
+              <div className='miniform__field__input'>
+                <Select
+                  className="basic-single"
+                  classNamePrefix="select"
+                  isClearable
+                  isSearchable
+                  name="team"
+                  placeholder={'Edifício / Equipamento'}
+                  options={assetsFakeDrop}
+                  styles={selectStyles}
+                />
+              </div>
+            </div>
+          </div>
+          <div className='miniform__field'>
+            <div className='miniform__field__label'>
+              Tabela de ativos
+            </div>
+            <div className='miniform__field__sub-label'>
+              Após excluir qualquer ativo, clique em 'Salvar' para confirmar a operação.
+            </div>
+            {this.state.assets.map(asset => (
               <div className='miniform__field__item'>
-                <div className='miniform__field__edit-supply' style={{width: '30%'}}>
-                  <Select
-                    className="basic-single"
-                    classNamePrefix="select"
-                    defaultValue={'Semac'}
-                    isClearable
-                    isSearchable
-                    name="team"
-                    value={supply.contract}
-                    placeholder={'Estoque'}
-                    options={contractsFake}
-                    styles={selectStyles}
-                  />
+                <div className='miniform__field__edit-supply' style={{width: '25%'}}>
+                  <Input value={asset.assetSf} style={{ backgroundColor: "white" }} disabled/>
                 </div>
-                <div className='miniform__field__edit-supply' style={{width: '40%'}}>
-                  <Select
-                    className="basic-single"
-                    classNamePrefix="select"
-                    defaultValue={'Semac'}
-                    isClearable
-                    isSearchable
-                    name="team"
-                    placeholder={'Suprimento'}
-                    value={supply.item}
-                    options={suppliesFake}
-                    styles={selectStyles}
-                  />
+                <div className='miniform__field__edit-supply' style={{width: '60%'}}>
+                  <Input value={asset.name} style={{ backgroundColor: "white" }}  disabled/>
                 </div>
-                <div className='miniform__field__edit-supply' style={{ width: '20%'}}>
-                  <InputGroup>
-                    <Input className='miniform__field__textarea' style={{ textAlign: 'right', width: '60%' }} value={supply.quantity} placeholder='0,00'/>
-                    <InputGroupAddon addonType="append" style={{ width: '40%' }}>
-                      <InputGroupText style={{ justifyContent: 'center', textOverflow: 'hidden', width: '100%' }}>{supply.unit}</InputGroupText>
-                    </InputGroupAddon>
-                  </InputGroup>
-                </div>
-                <div style={{width: '10%'}}>
+                <div style={{width: '15%'}}>
                   <div className="miniform__field__remove-button">
                     Exlcuir
                   </div>
