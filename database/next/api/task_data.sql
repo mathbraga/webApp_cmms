@@ -118,10 +118,10 @@ create or replace view api.task_data as
             p.person_id,
             p.name,
             tm.created_at,
-            tm.updated_at
-        from task_messages as tm
-        inner join persons as p using (person_id)
-      where tm.is_visible
+            tm.updated_at,
+            tm.is_visible
+      from task_messages as tm
+      inner join persons as p using (person_id)
     order by tm.created_at
   ),
   agg_messages as (
@@ -131,7 +131,8 @@ create or replace view api.task_data as
             'personId', m.person_id,
             'personName', m.name,
             'createdAt', m.created_at,
-            'updatedAt', m.updated_at
+            'updatedAt', m.updated_at,
+            'isVisible', m.is_visible
           )) as messages
       from ord_messages as m
     group by m.task_id
@@ -265,7 +266,8 @@ create or replace view api.task_data as
           f.files,
           m.messages,
           so.send_options,
-          mo.move_options
+          mo.move_options,
+          acso.supply_options
   from tasks as t
   inner join task_statuses as ts using (task_status_id)
   inner join task_priorities as tp using (task_priority_id)
