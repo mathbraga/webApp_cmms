@@ -61,7 +61,7 @@ class MaterialTab extends Component {
       ],
       noFormOpen: [
         {name: 'Adicionar Suprimentos', color: 'primary', onClick: this.toggleAddForm},
-        {name: 'Editar Suprimentos', color: 'success', onClick: this.toggleEditForm},
+        {name: 'Alterar Suprimentos', color: 'success', onClick: this.toggleEditForm},
       ],
     };
 

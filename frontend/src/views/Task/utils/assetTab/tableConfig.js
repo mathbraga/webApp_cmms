@@ -7,9 +7,8 @@ const tableConfig = {
   isItemClickable: false,
   dataAttForClickable: 'title',
   columnsConfig: [
-    { columnId: 'context', columnName: 'Contexto', width: "25%", align: "center", idForValues: ['categoryName'] },
-    { columnId: 'place', columnName: 'Ativo', width: "60%", align: "justify", idForValues: ['name', 'assetSf'] },
-    { columnId: 'map', columnName: 'Planta', width: "15%", align: "center", createElement: (<img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />) }
+    { columnId: 'map', columnName: 'Planta', width: "15%", align: "center", createElement: (<img src={mapIcon} alt="Google Maps" style={{ width: "35px", height: "35px" }} />) },
+    { columnId: 'place', columnName: 'Ativo', width: "85%", align: "justify", idForValues: ['name', 'assetSf'] }
   ],
 };
 
