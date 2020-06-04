@@ -61,7 +61,6 @@ begin transaction;
 
 -- define db constants
 \i public/get_constant_value.sql
-\i public/get_next_task_id.sql
 
 -- create tables
 \i public/lookup_tables.sql
