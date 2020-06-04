@@ -36,6 +36,10 @@ class AssetTab extends Component {
 
   render() {
     const data = this.props.data.assets;
+    const { editFormOpen } = this.state;
+
+
+
     return (
       <>
         <div className="tabpane-container">
