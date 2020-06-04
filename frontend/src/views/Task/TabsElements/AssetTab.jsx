@@ -12,6 +12,9 @@ import withPrepareData from '../../../components/Formating/withPrepareData';
 import withSelectLogic from '../../../components/Selection/withSelectLogic';
 import CustomTable from '../../../components/Tables/CustomTable';
 
+import AnimateHeight from 'react-animate-height';
+import AddSupplyForm from '../../../components/NewForms/AddSupplyForm';
+
 import PaneTitle from '../../../components/TabPanes/PaneTitle';
 import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 
