@@ -38,31 +38,31 @@ class AssetTab extends Component {
     const data = this.props.data.assets;
     const { editFormOpen } = this.state;
 
+    const actionButtons = {
+      editFormOpen: [
+        {name: 'Salvar', color: 'success', onClick: this.toggleEditForm},
+        {name: 'Cancelar', color: 'danger', onClick: this.toggleEditForm}
+      ],
+      noFormOpen: [
+        {name: 'Alterar Ativos', color: 'success', onClick: this.toggleEditForm},
+      ],
+    };
 
+    const heightEdit = editFormOpen === true ? 'auto' : 0;
 
     return (
       <>
         <div className="tabpane-container">
           <PaneTitle 
-            title={'Tabela de Ativos'}
+            actionButtons={editFormOpen ? actionButtons.editFormOpen : actionButtons.noFormOpen}
+            title={editFormOpen ? 'Alterar ativos' : 'Resumo dos gastos'}
           />
-          <AnimateHeight 
-            duration={300}
-            height={heightAdd}
-          >
-            <div className="tabpane__content">
-              <AddSupplyForm 
-                visible={true}
-                toggleForm={this.toggleAddForm}
-              />
-            </div>
-          </AnimateHeight>
           <AnimateHeight 
             duration={300}
             height={heightEdit}
           >
             <div className="tabpane__content">
-              <EditSupplyForm 
+              <AddSupplyForm 
                 visible={true}
                 toggleForm={this.toggleEditForm}
               />
