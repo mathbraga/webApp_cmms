@@ -11,17 +11,19 @@ class SessionData extends Component{
     }
 
     render(){
+        const data = this.props.data;
+
         return(
-            <div>{this.props.data}</div>
+            <div>{data}</div>
         )
     }
 }
 
-// export default SessionData;
+// export default withDataAccess(SessionData);
 
 export default compose(
   withProps(props),
   withGraphQL,
-  withQuery
-//   withDataAccess
+  withQuery,
+  withDataAccess
 )(SessionData);

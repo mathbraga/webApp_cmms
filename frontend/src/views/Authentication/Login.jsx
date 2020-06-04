@@ -4,7 +4,7 @@ import ModalForgottenPassword from "../../components/Authentication/ModalForgott
 import { connect } from "react-redux";
 import { login, loginSuccess } from "../../redux/actions";
 import loginFetch from "../../utils/authentication/loginFetch";
-import SessionData from "./test/SessionData";
+// import SessionData from "./test/SessionData";
 // import { withProps, withQuery, withGraphQL } from '../../hocs';
 // import withDataAccess from './utils/withDataAccess';
 // import props from './utils/props';
@@ -210,7 +210,7 @@ class Login extends Component {
           toggle={this.closeModal}
         />
 
-        <SessionData/>
+        {/* <SessionData/> */}
 
       </React.Fragment>
     );

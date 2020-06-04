@@ -5,6 +5,7 @@ export default function withDataAccess(WrappedComponent) {
     class DataAccess extends Component {
       render() {
         const { data, ...rest } = this.props;
+
         return (
           <WrappedComponent
             {...rest}

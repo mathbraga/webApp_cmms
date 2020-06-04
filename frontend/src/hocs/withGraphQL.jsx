@@ -4,8 +4,8 @@ export default function withGraphQL(WrappedComponent) {
   class WithGraphQL extends Component {
     render() {
       const { match, mode, GQLs } = this.props;
-      const queryGQL = GQLs[mode].query;
-      const mutationGQL = GQLs[mode].mutation;
+      const queryGQL = GQLs["all"].query;
+      const mutationGQL = GQLs["all"].mutation;
       const graphQLVariables = {
         id: mode === 'update' || mode === 'one' ? Number(match.params.id) : null,
       };

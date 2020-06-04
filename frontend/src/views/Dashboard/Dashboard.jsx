@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, Button } from "reactstrap";
+import SessionData from "../Authentication/test/SessionData";
 // import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters, dataTree } from './fakeData';
 // import svgr from '@svgr/core';
 // import CustomTable from "../../components/Tables/CustomTable";
@@ -17,6 +18,8 @@ class Dashboard extends Component {
 
   render() {
     return (
+      <React.Fragment>
+
       <div className="flex-row align-items-center animated fadeIn">
         <Container>
           <Row className="justify-content-center">
@@ -43,18 +46,6 @@ class Dashboard extends Component {
               </Card>
             </Col>
           </Row>
-          <Row>
-            <Col className="text-right">
-              <Button
-                block
-                outline
-                color="primary"
-                className="px-0"
-                onClick={this.returnData}
-              >Get Data
-              </Button>
-            </Col>
-          </Row>
         </Container>
 
         {/* <Container>
@@ -70,6 +61,19 @@ class Dashboard extends Component {
         </Container> */}
 
       </div>
+
+      <Button
+        block
+        outline
+        color="primary"
+        className="px-0"
+        onClick={this.returnData}
+      >Get Data
+      </Button>
+
+      <SessionData/>
+
+      </React.Fragment>
     );
   }
 }
