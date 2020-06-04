@@ -51,7 +51,7 @@ class EditAssetForm extends Component {
               Após incluir o ativo, clique em 'Salvar' para confirmar a operação.
             </div>
             <div className="miniform__field__input__container">
-              <div className='miniform__field__input'>
+              <div className='miniform__field__input' style={{ width: '80%' }}>
                 <Select
                   className="basic-single"
                   classNamePrefix="select"
@@ -62,6 +62,15 @@ class EditAssetForm extends Component {
                   options={assetsFakeDrop}
                   styles={selectStyles}
                 />
+              </div>
+              <div className='miniform__buttons-inline'>
+                <Button 
+                  color="primary" 
+                  size="sm" 
+                  onClick={toggleForm}
+                >
+                  Incluir Ativo
+                </Button>
               </div>
             </div>
           </div>
