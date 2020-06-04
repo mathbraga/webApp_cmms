@@ -21,7 +21,8 @@ create or replace view api.task_form_data as
               'company', c.company,
               'description', c.description
             )) as contract_options
-    from contracts as c
+      from contracts as c
+    where c.is_active
   ),
   project_options as (
     select  jsonb_agg(jsonb_build_object(
