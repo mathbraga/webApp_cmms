@@ -1,6 +1,24 @@
 import React, { Component } from 'react';
+import PaneTitle from '../../../components/TabPanes/PaneTitle';
+import AnimateHeight from 'react-animate-height';
+import EditAssetForm from '../../../components/NewForms/EditAssetForm';
 
 class MessageTab extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messageInputOpen: false
+    }
+    this.toggleMessageInput = this.toggleMessageInput.bind(this);
+  }
+
+
+  toggleMessageInput() {
+    this.setState(prevState => ({
+      messageInputOpen: !prevState.messageInputOpen,
+    }));
+  }
+
   render() {
     return (
       <div className="tabpane-container">
