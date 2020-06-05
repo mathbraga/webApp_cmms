@@ -11,7 +11,7 @@ const testCron = () => {
 
 const refreshAllMaterializedViews = async () => {
   try {
-    const { rows: [ { timestamp } ] } = await db.query('select refresh_all_materialized_views() as timestamp');
+    const { rows: [ { timestamp } ] } = await db.query('select ws.refresh_all_materialized_views() as timestamp');
     console.log('All materialized views refreshed at: ' + timestamp);
   }
   catch (error) {
