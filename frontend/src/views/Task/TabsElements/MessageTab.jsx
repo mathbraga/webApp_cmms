@@ -20,25 +20,38 @@ class MessageTab extends Component {
   }
 
   render() {
+    const { messageInputOpen } = this.state;
+
+    const actionButtons = {
+      messageInputOpen: [
+        {name: 'Cancelar', color: 'danger', onClick: this.toggleMessageInput}
+      ],
+      noFormOpen: [
+        {name: 'Nova Mensagem', color: 'success', onClick: this.toggleMessageInput},
+      ],
+    };
+
+    const heightMessageInput = messageInputOpen === true ? 'auto' : 0;
+
     return (
       <div className="tabpane-container">
         <PaneTitle 
-          actionButtons={editFormOpen ? actionButtons.editFormOpen : actionButtons.noFormOpen}
-          title={editFormOpen ? 'Alterar ativos' : 'Tabela de ativos'}
+          actionButtons={messageInputOpen ? actionButtons.messageInputOpen : actionButtons.noFormOpen}
+          title={messageInputOpen ? 'Escrever mensagem' : 'Mensagens'}
         />
         <AnimateHeight 
           duration={300}
-          height={heightEdit}
+          height={heightMessageInput}
         >
           <div className="tabpane__content">
             <EditAssetForm 
-              toggleForm={this.toggleEditForm}
+              toggleForm={this.toggleMessageInput}
             />
           </div>
         </AnimateHeight>
-        {(editFormOpen) && (
+        {(messageInputOpen) && (
           <PaneTitle 
-            title={'Tabela de Ativos'}
+            title={'Mensagens'}
           />
         )}
       </div>
