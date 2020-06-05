@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PaneTitle from '../../../components/TabPanes/PaneTitle';
 import AnimateHeight from 'react-animate-height';
 import MessageInput from '../../../components/NewForms/MessageInput';
+import MessageBox from '../../../components/Message/MessageBox';
 
 class MessageTab extends Component {
   constructor(props) {
@@ -54,6 +55,9 @@ class MessageTab extends Component {
             title={'Mensagens'}
           />
         )}
+        <div className="tabpane__content" style={{ marginTop: '40px' }}>
+          <MessageBox />
+        </div>
       </div>
     );
   }
