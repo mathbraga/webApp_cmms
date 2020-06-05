@@ -14,7 +14,7 @@ create or replace function api.remove_task_asset (
       delete from task_assets as ta
       where ta.task_id = task_id and ta.asset_id = asset_id;
 
-      select count(*) as line_count
+      select count(*) into line_count
         from task_assets as ta
       where ta.task_id = task_id;
 
