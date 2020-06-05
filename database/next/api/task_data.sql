@@ -208,6 +208,21 @@ create or replace view api.task_data as
             )) as supply_options
     from agg_supply_options as aso
     inner join contracts as c using (contract_id)
+  ),
+  ord_asset_options as (
+    select  a.asset_id,
+            a.asset_sf,
+            a.name
+      from assets as a
+    order by a.asset_sf
+  ),
+  agg_asset_options as (
+    select  jsonb_agg(jsonb_build_object(
+              'assetId', a.asset_id,
+              'assetSf', a.asset_sf,
+              'name', a.name
+            )) as asset_options
+    from ord_asset_options as a
   )
   select  
           -- task table fields:
@@ -267,7 +282,8 @@ create or replace view api.task_data as
           m.messages,
           so.send_options,
           mo.move_options,
-          acso.supply_options
+          acso.supply_options,
+          aa.asset_options
   from tasks as t
   inner join task_statuses as ts using (task_status_id)
   inner join task_priorities as tp using (task_priority_id)
@@ -287,4 +303,5 @@ create or replace view api.task_data as
   left join agg_move_options as mo using (task_id)
   left join agg_send_options as so using (task_id)
   cross join agg_contract_supply_options as acso
+  cross join agg_asset_options as aa
 ;
