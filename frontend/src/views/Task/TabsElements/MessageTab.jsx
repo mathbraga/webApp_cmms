@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PaneTitle from '../../../components/TabPanes/PaneTitle';
 import AnimateHeight from 'react-animate-height';
-import EditAssetForm from '../../../components/NewForms/EditAssetForm';
+import MessageInput from '../../../components/NewForms/MessageInput';
 
 class MessageTab extends Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class MessageTab extends Component {
           height={heightMessageInput}
         >
           <div className="tabpane__content">
-            <EditAssetForm 
+            <MessageInput 
               toggleForm={this.toggleMessageInput}
             />
           </div>

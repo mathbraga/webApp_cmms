@@ -44,7 +44,7 @@ class MessageInput extends Component {
               Nova mensagem
             </div>
             <div className='miniform__field__sub-label'>
-              Após redigi-la, clique em "Enviar Mensagem".
+              Escreva sua mensagem no campo abaixo. Após, clique em "Enviar Mensagem".
             </div>
             <div className='miniform__field__input'>
               <Input 
@@ -52,7 +52,7 @@ class MessageInput extends Component {
                 type="textarea" 
                 name="text" 
                 id="exampleText" 
-                rows='6'
+                rows='4'
                 value={messageValue}
                 onChange={this.onChangeMessage}
               />
