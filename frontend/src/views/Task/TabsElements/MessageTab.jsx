@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ClientTab extends Component {
+class MessageTab extends Component {
   render() {
     return (
       <h1>HI!!!!</h1>
@@ -8,4 +8,4 @@ class ClientTab extends Component {
   }
 }
 
-export default ClientTab;
+export default MessageTab;
