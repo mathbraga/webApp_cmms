@@ -11,16 +11,17 @@ create or replace function api.remove_task_asset (
       line_count integer;
     begin
 
-      delete from task_assets as ta
-      where ta.task_id = task_id and ta.asset_id = asset_id;
-
       select count(*) into line_count
         from task_assets as ta
       where ta.task_id = task_id;
 
-      if line_count = 0
-        then raise exception '%', get_exception_message(1);
-        else id = task_id;
+      if line_count = 1
+        then
+          raise exception '%', get_exception_message(1);
+        else
+          delete from task_assets as ta
+            where ta.task_id = task_id and ta.asset_id = asset_id
+          returning ta.task_id into id;
       end if;
 
     end;
