@@ -4,18 +4,7 @@ import AnimateHeight from 'react-animate-height';
 import MessageInput from '../../../components/NewForms/MessageInput';
 import MessageBox from '../../../components/Message/MessageBox';
 
-const message = {
-  user: 'Pedro Serafim',
-  team: 'Seplag',
-  time: 'Mar 26, 2020 - 14h56',
-  content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio urna, posuere ut quam id, facilisis porttitor neque. Nullam finibus neque sed lorem vehicula, ut dignissim mauris sagittis. Sed in aliquam eros. Nunc semper dui a vulputate dignissim. Duis vestibulum ac neque vel ultrices. Vestibulum porttitor sapien nec metus dictum.',
-}
-
-const referenceMessage = {
-  user: 'Henrique Zaidan',
-  time: 'Mar 19, 2020 - 8h35',
-  content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio urna, posuere ut quam id, facilisis porttitor neque. Nullam finibus neque sed lorem vehicula, ut dignissim mauris sagittis.',
-}
+import messages from '../utils/messageTab/fakeMessages';
 
 class MessageTab extends Component {
   constructor(props) {
@@ -47,6 +36,8 @@ class MessageTab extends Component {
 
     const heightMessageInput = messageInputOpen === true ? 'auto' : 0;
 
+    console.log("Messages: ", messages);
+
     return (
       <div className="tabpane-container">
         <PaneTitle 
@@ -68,12 +59,15 @@ class MessageTab extends Component {
             title={'Mensagens'}
           />
         )}
-        <div className="tabpane__content" style={{ marginTop: '40px' }}>
-          <MessageBox 
-            message={message}
-            referenceMessage={referenceMessage}
-          />
-        </div>
+        {
+          messages.map(message => (
+            <div className="tabpane__content" style={{ marginTop: '40px' }}>
+              <MessageBox 
+                message={message}
+              />
+            </div>
+          ))
+        }
       </div>
     );
   }

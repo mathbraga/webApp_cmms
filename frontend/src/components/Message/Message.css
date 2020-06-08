@@ -1,6 +1,7 @@
 .message {
-  border: 1px solid rgba(232, 232, 232, 1);
+  border: 1px solid rgba(215, 215, 215, 1);
   border-radius: 4px;
+  box-shadow: 1px 1px 2px 1px #dedede;
 }
 
 .message__container{

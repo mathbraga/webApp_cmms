@@ -19,7 +19,7 @@ class MessageBox extends Component {
   }
 
   render() {
-    const { message, referenceMessage } = this.props;
+    const { message } = this.props;
 
     const isOpen = this.state.isOpen;
     const setCollapseState = this.setCollapseState;
@@ -60,27 +60,29 @@ class MessageBox extends Component {
             </div>
           </div>
         </Collapse>
-        <div className="message__container">
-          <div className="comment__container">
-            <div className="comment__bubble__container">
-              <div className="comment__bubble__author">
-                <div className="comment__bubble__author__info">
-                  <span className="comment__bubble__name">
-                    A mensagem acima é uma resposta ao <span className='comment__bubble__user'>{referenceMessage.user}</span>:
+        {message.reference && (
+          <div className="message__container">
+            <div className="comment__container">
+              <div className="comment__bubble__container">
+                <div className="comment__bubble__author">
+                  <div className="comment__bubble__author__info">
+                    <span className="comment__bubble__name">
+                      A mensagem acima é uma resposta ao <span className='comment__bubble__user'>{message.reference.user}</span>:
+                    </span>
+                  </div>
+                  <span className="comment__bubble__date text-muted">
+                    {message.reference.time}
                   </span>
                 </div>
-                <span className="comment__bubble__date text-muted">
-                  {referenceMessage.time}
-                </span>
-              </div>
-              <div className="comment__bubble__box comment__bubble">
-                <div className="comment__bubble__content">
-                  {referenceMessage.content}
+                <div className="comment__bubble__box comment__bubble">
+                  <div className="comment__bubble__content">
+                    {message.reference.content}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
