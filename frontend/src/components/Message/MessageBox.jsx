@@ -24,8 +24,8 @@ class MessageBox extends Component {
     const setCollapseState = this.setCollapseState;
 
     return (
-      <>
-        <div className="message__container--no-bottom">
+      <div className='message'>
+        <div className="message__container">
           <div className="message__content">
               <div className="message__header">
                 <div className="message__author">
@@ -51,7 +51,7 @@ class MessageBox extends Component {
         <Collapse isOpen={isOpen}>
           <div className="text__box">
             <div className="comment__bubble__name" style={{ marginBottom: '10px' }}>
-              Digitar uma resposta à mensagem de <span className='comment__bubble__user'>Pedro Serafim</span>:
+              Digitar resposta à mensagem de <span className='comment__bubble__user'>Pedro Serafim</span>:
             </div>
             <Input placeholder="Digitar mensagem." className="text__box__input" type="textarea"/>
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -59,7 +59,7 @@ class MessageBox extends Component {
             </div>
           </div>
         </Collapse>
-        <div className="message__container--no-top">
+        <div className="message__container">
           <div className="comment__container">
             <div className="comment__bubble__container">
               <div className="comment__bubble__author">
@@ -80,7 +80,7 @@ class MessageBox extends Component {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

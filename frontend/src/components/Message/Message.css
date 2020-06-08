@@ -1,12 +1,15 @@
-/* .message__container{
+.message {
+  border: 1px solid rgba(232, 232, 232, 1);
+  border-radius: 4px;
+}
+
+.message__container{
     display: flex;
     flex-flow: column nowrap;
-    border: 1px solid rgba(232, 232, 232, 1);
-    border-radius: 4px 4px 0 0;
-    padding: 12px;
-} */
+    margin: 12px;
+}
 
-.message__container--no-bottom{
+/* .message__container{
   display: flex;
   flex-flow: column nowrap;
   border: 1px solid rgba(232, 232, 232, 1);
@@ -23,7 +26,7 @@
   border-top: none;
   border-radius: 0 0 4px 4px;
   padding: 0 12px 12px 20px;
-}
+} */
 
 .message__header {
   display: flex;
@@ -70,7 +73,6 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: 10px;
 }
 
 .comment__icon{
