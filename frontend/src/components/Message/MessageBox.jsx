@@ -19,7 +19,8 @@ class MessageBox extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { message, referenceMessage } = this.props;
+
     const isOpen = this.state.isOpen;
     const setCollapseState = this.setCollapseState;
 
@@ -33,14 +34,14 @@ class MessageBox extends Component {
                     <img src={userAvatar} alt="User Avatar" style={{ width: "55px", height: "55px" }} />
                   </div>
                   <div className="user-description">
-                    <div className="user-description__name">Pedro Serafim</div> 
-                    <div className="user-description__team">Seplag</div>
+                    <div className="user-description__name">{message.user}</div> 
+                    <div className="user-description__team">{message.team}</div>
                   </div>
                 </div>
-                <div className="text-muted message__date">Mar 26, 2020 - 14h56</div>
+                <div className="text-muted message__date">{message.time}</div>
               </div>
               <div className="message__text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio urna, posuere ut quam id, facilisis porttitor neque. Nullam finibus neque sed lorem vehicula, ut dignissim mauris sagittis. Sed in aliquam eros. Nunc semper dui a vulputate dignissim. Duis vestibulum ac neque vel ultrices. Vestibulum porttitor sapien nec metus dictum.
+                {message.content}
               </div>
           </div>
           <div className="comment__action">
@@ -51,7 +52,7 @@ class MessageBox extends Component {
         <Collapse isOpen={isOpen}>
           <div className="text__box">
             <div className="comment__bubble__name" style={{ marginBottom: '10px' }}>
-              Digitar resposta à mensagem de <span className='comment__bubble__user'>Pedro Serafim</span>:
+              Digitar resposta à mensagem de <span className='comment__bubble__user'>{message.user}</span>:
             </div>
             <Input placeholder="Digitar mensagem." className="text__box__input" type="textarea"/>
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -65,16 +66,16 @@ class MessageBox extends Component {
               <div className="comment__bubble__author">
                 <div className="comment__bubble__author__info">
                   <span className="comment__bubble__name">
-                    A mensagem acima é uma resposta ao <span className='comment__bubble__user'>Henrique Zaidan</span>:
+                    A mensagem acima é uma resposta ao <span className='comment__bubble__user'>{referenceMessage.user}</span>:
                   </span>
                 </div>
                 <span className="comment__bubble__date text-muted">
-                  Mar 20, 2020 - 8h32
+                  {referenceMessage.time}
                 </span>
               </div>
               <div className="comment__bubble__box comment__bubble">
                 <div className="comment__bubble__content">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio urna, posuere ut quam id, facilisis porttitor neque. Nullam finibus neque sed lorem vehicula, ut dignissim mauris sagittis.
+                  {referenceMessage.content}
                 </div>
               </div>
             </div>
