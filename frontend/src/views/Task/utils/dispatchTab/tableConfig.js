@@ -40,42 +40,32 @@ function createSubTeam(item) {
 function styleStatus(item, columnId) {
   if (item.event === 'cancel' && columnId === 'event') {
     return {
-      background: '#ff4c4c',
-      borderRadius: '4px',
-      fontWeight: '600',
-      color: 'white',
+      fontWeight: '700',
+      color: '#c12a2a',
     };
   }
   if (item.event === 'send' && columnId === 'event') {
     return {
-      background: '#acb5bc',
-      borderRadius: '4px',
-      fontWeight: '600',
-      color: 'white',
+      fontWeight: '700',
+      color: '#8a7d24',
     };
   }
   if (item.event === 'receive' && columnId === 'event') {
     return {
-      background: '#4dbd74',
-      borderRadius: '4px',
-      fontWeight: '600',
-      color: 'white',
+      fontWeight: '700',
+      color: '#27962f',
     };
   }
   if (item.event === 'move' && columnId === 'event') {
     return {
-      background: '#43a7cb',
-      borderRadius: '4px',
-      fontWeight: '600',
-      color: 'white',
+      fontWeight: '700',
+      color: '#256898',
     };
   }
   if (item.event === 'insert' && columnId === 'event') {
     return {
-      background: '#181b1e',
-      borderRadius: '4px',
-      fontWeight: '600',
-      color: 'white',
+      fontWeight: '700',
+      color: '#181b1e',
     };
   }
   return null;
@@ -120,7 +110,7 @@ const tableConfig = {
   styleBodyElement: styleStatus,
   columnsConfig: [
     { columnId: 'date', columnName: 'Data / Usuário', width: '15%', align: "center", idForValues: ['time', 'personName']},
-    { columnId: 'event', columnName: 'Evento', width: '18%', align: "center", idForValues: ['eventName'], styleText: {fontSize: '0.7rem'}},
+    { columnId: 'event', columnName: 'Evento', width: '18%', align: "center", isTextWrapped: true, idForValues: ['eventName'], styleText: {fontSize: '0.7rem', border: '1px solid #dadada', borderRadius: '4px'}},
     { columnId: 'team', columnName: 'Equipe / Status', width: '32%', align: "justify", idForValues: ['teamOrStatus', 'subTeam'], createElementWithData: createTeamStatusElement, createElementWithSubData: createSubTeamStatusElement },
     { columnId: 'note', columnName: 'Observação', width: '35%', align: "justify", isTextWrapped: true, idForValues: ['note']},
   ]
