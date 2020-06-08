@@ -114,8 +114,11 @@ create or replace view api.task_data as
   ),
   ord_messages as (
     select  tm.task_id,
+            tm.task_message_id,
             tm.message,
+            tm.reply_to,
             p.person_id,
+            get_current_person_id() = p.person_id as is_creator,
             p.name,
             tm.created_at,
             tm.updated_at,
@@ -127,13 +130,16 @@ create or replace view api.task_data as
   agg_messages as (
     select  m.task_id,
             jsonb_agg(jsonb_build_object(
-            'message', m.message,
-            'personId', m.person_id,
-            'personName', m.name,
-            'createdAt', m.created_at,
-            'updatedAt', m.updated_at,
-            'isVisible', m.is_visible
-          )) as messages
+              'taskMessageId', m.task_message_id,
+              'message', m.message,
+              'replyTo', m.reply_to,
+              'personId', m.person_id,
+              'isCreator', m.is_creator,
+              'personName', m.name,
+              'createdAt', m.created_at,
+              'updatedAt', m.updated_at,
+              'isVisible', m.is_visible
+            )) as messages
       from ord_messages as m
     group by m.task_id
   ),
