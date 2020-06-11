@@ -1,0 +1,12 @@
+POST http://localhost:3001/auth/login
+Content-Type: application/json
+
+{
+    "email":"matheus.braga@senado.leg.br",
+    "password":"123456"
+}
+
+###
+
+GET http://localhost:3001/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMyAtIGFkbWluaXN0cmF0b3IiLCJpYXQiOjE1OTE4NDAyNTAsImV4cCI6MTU5MTg0MDI2NX0.OWYKECIgaky8DsHV5tJIBjilZgiFwxjUApCCJxmeUks

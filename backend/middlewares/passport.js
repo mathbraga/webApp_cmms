@@ -18,6 +18,7 @@ passport.use(new LocalStrategy(
       return done(error);
     }
     let userData = data.rows[0].authenticate;
+    
     return done(null, userData);
   }
 ));

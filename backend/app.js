@@ -9,20 +9,23 @@ const emailRoute = require('./routes/email');
 const paths = require('./paths');
 const cors = require('./middlewares/cors');
 const expressJson = require('./middlewares/express-json');
-const expressStatic = require('./middlewares/express-static');
+const { expressStatic, loginStatic } = require('./middlewares/express-static');
 const cookieSession = require('./middlewares/cookie-session');
 const passport = require('./middlewares/passport');
 const morgan = require('./middlewares/morgan');
 const redirectUnauth = require('./middlewares/redirect-unauth');
 const postgraphile = require('./middlewares/postgraphile');
+// const path = require('path');
 
 // App configuration
 app.set('x-powered-by', false);
+// app.use(express.static(path.join(process.cwd(), "../frontend/build")));
 
 // Middlewares
 app.use(cors);
 app.use(expressJson);
 app.use(expressStatic);
+app.use(loginStatic);
 app.use(cookieSession);
 app.use(passport.initialize());
 app.use(passport.session());

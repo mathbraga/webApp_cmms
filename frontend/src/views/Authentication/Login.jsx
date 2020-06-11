@@ -235,5 +235,5 @@ export default connect(mapStateToProps)(Login);
 //   withGraphQL,
 //   withQuery,
 //   withDataAccess,
-// connect(mapStateToProps)
+//   connect(mapStateToProps)
 // )(Login);
