@@ -119,27 +119,20 @@ insert into persons overriding system value values
 
 -- populate tables with sample data
 \i sample/asset_categories.sql
--- \i sample/assets.sql
--- \i sample/asset_relations.sql
--- \i sample/contracts.sql
--- \i sample/persons.sql
--- \i sample/accounts.sql
--- \i sample/teams.sql
--- \i sample/team_persons.sql
--- \i sample/contract_teams.sql
--- \i sample/projects.sql
--- \i sample/requests.sql
-
--- \i sample/tasks.sql
--- \i sample/task_events.sql
--- \i sample/task_files.sql
--- \i sample/task_messages.sql
--- \i sample/task_assets.sql
-
--- \i sample/specs.sql
--- \i sample/supplies.sql
--- \i sample/task_supplies.sql
--- \i sample/task_files.sql
+\i sample/assets.sql
+\i sample/asset_relations.sql
+\i sample/contracts.sql
+\i sample/persons.sql
+\i sample/accounts.sql
+\i sample/teams.sql
+\i sample/team_persons.sql
+\i sample/contract_teams.sql
+\i sample/projects.sql
+\i sample/requests.sql
+\i sample/specs.sql
+\i sample/supplies.sql
+-- tasks
+-- \i sample/task1.sql
 
 -- restart sequences
 -- \i sample/_restart_sequences.sql
@@ -177,7 +170,7 @@ insert into persons overriding system value values
 commit transaction;
 
 -- create extra indexes
--- \i public/indexes.sql
+\i public/indexes.sql
 
 -- set the default transaction isolation level
 -- alter database :new_db_name set default_transaction_isolation to 'serializable';
