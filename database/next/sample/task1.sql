@@ -24,7 +24,7 @@ select api.insert_task(
     null-- task_status_id
   ),
   array[4,5,6],
-  null,
+  null
 );
 
 select api.insert_task_files(
@@ -34,12 +34,12 @@ select api.insert_task_files(
       'texto.txt',
       'de741848-5e90-4c5e-8699-78aca9b37aba',
       1234
-    ),
+    )::file_metadata,
     (
       'texto.txt',
       'ee841848-5e90-4c5e-8699-78aca9b37aba',
       4321
-    )
+    )::file_metadata
   ]
 );
 
@@ -184,7 +184,7 @@ select api.modify_task_supplies(
       null,-- task_id
       2,-- supply_id
       2-- qty
-    )
+    )::task_supplies
   ]
 );
 

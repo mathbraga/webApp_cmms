@@ -10,7 +10,7 @@ create or replace function api.move_task (
 
       update tasks set (
         task_status_id
-      ) = (
+      ) = row(
         event.task_status_id
       ) where task_id = event.task_id;
 

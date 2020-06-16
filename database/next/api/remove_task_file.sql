@@ -7,11 +7,14 @@ create or replace function api.remove_task_file (
 )
   language plpgsql
   as $$
+    declare
+      uuidsearch uuid;
     begin
+      id = task_id;
+      uuidsearch = uuid;
       delete from task_files as ts
-        where ts.task_id = task_id and
-              ts.uuid = uuid
-      returning ts.task_id into id;
+        where ts.task_id = id and
+              ts.uuid = uuidsearch;
     end;
   $$
 ;

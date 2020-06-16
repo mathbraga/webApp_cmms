@@ -15,8 +15,8 @@ create or replace function api.insert_task_files (
                 f.size,
                 get_current_person_id(),
                 now()
-        from unnest(files_metadata) as f
-      returning tf.task_id into id;
+        from unnest(files_metadata) as f;
+      id = task_id;
     end;
   $$
 ;

@@ -14,6 +14,7 @@ create or replace function api.insert_task (
         now(),
         now(),
         get_current_person_id(),
+        get_current_person_id(),
         attributes.task_priority_id,
         attributes.task_category_id,
         attributes.contract_id,
@@ -49,8 +50,8 @@ create or replace function api.insert_task (
         'insert'::task_event_enum,
         now(),
         get_current_person_id(),
-        attributes.recipient_id,
-        attributes.recipient_id,
+        attributes.team_id,
+        attributes.team_id,
         get_constant_value('task_initial_status')::integer,
         'Criação da tarefa.'
       );

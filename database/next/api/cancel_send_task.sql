@@ -1,7 +1,7 @@
 drop function if exists api.cancel_send_task;
 
 create or replace function api.cancel_send_task (
-  in args task_events,
+  in event task_events,
   out id integer
 )
   language plpgsql
@@ -10,7 +10,7 @@ create or replace function api.cancel_send_task (
 
       update tasks set (
         next_team_id
-      ) = (
+      ) = row(
         null
       ) where task_id = event.task_id;
 

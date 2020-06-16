@@ -91,6 +91,9 @@ begin transaction;
 -- task supplies
 \i api/insert_task_supply.sql
 \i api/modify_task_supplies.sql
+-- task assets
+\i api/insert_task_asset.sql
+\i api/remove_task_asset.sql
 
 -- other entities
 \i api/appliance_data.sql
@@ -132,10 +135,10 @@ insert into persons overriding system value values
 \i sample/specs.sql
 \i sample/supplies.sql
 -- tasks
--- \i sample/task1.sql
+\i sample/task1.sql
 
 -- restart sequences
--- \i sample/_restart_sequences.sql
+\i sample/_restart_sequences.sql
 
 -- create triggers after populate tables
 -- \i trigger/name_of_the_trigger.sql

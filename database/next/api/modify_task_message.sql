@@ -10,7 +10,7 @@ create or replace function api.modify_task_message (
       update task_messages as tm set (
         message,
         updated_at
-      ) = (
+      ) = row(
         message.message,
         now()
       ) where tm.task_message_id = message.task_message_id
