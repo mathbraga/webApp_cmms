@@ -28,47 +28,233 @@ select api.insert_task(
 );
 
 select api.insert_task_files(
-    
+  1,
+  array[
+    (
+      'texto.txt',
+      'de741848-5e90-4c5e-8699-78aca9b37aba',
+      1234
+    ),
+    (
+      'texto.txt',
+      'ee841848-5e90-4c5e-8699-78aca9b37aba',
+      4321
+    )
+  ]
 );
 
-select api.remove_task_file();
+select api.remove_task_file(
+  1,
+  'ee841848-5e90-4c5e-8699-78aca9b37aba'
+);
 
-select api.send_task();
+select api.send_task(
+  (
+    1,-- task_id
+    null,-- event_name
+    null,-- event_time
+    null,-- person_id
+    1,-- team_id
+    2,-- next_team_id
+    null,-- task_status_id
+    'Para verificação.'-- note
+  )
+);
 
 set local cookie.session.person_id to 2;
 
-select api.receive_task();
+select api.receive_task(
+  (
+    1,-- task_id
+    null,-- event_name
+    null,-- event_time
+    null,-- person_id
+    2,-- team_id
+    null,-- next_team_id
+    2,-- task_status_id
+    null-- note
+  )
+);
 
-select api.insert_task_message();
+select api.insert_task_message(
+  (
+    null,-- task_message_id
+    null,-- reply_to
+    1,-- task_id
+    'Verificação será comandada por Machado de Assis.',-- message
+    null,-- person_id
+    null,-- created_at
+    null,-- updated_at
+    null-- is_visible
+  )
+);
 
-select api.move_task();
+select api.move_task(
+  (
+    1,-- task_id
+    null,-- event_name
+    null,-- event_time
+    null,-- person_id
+    2,-- team_id
+    null,-- next_team_id
+    3,-- task_status_id
+    'Verificação foi concluída com sucesso.'-- note
+  )
+);
 
-select api.send_task();
+select api.send_task(
+  (
+    1,-- task_id
+    null,-- event_name
+    null,-- event_time
+    null,-- person_id
+    2,-- team_id
+    3,-- next_team_id
+    null,-- task_status_id
+    'Após verificação.'-- note
+  )
+);
 
-select api.cancel_send_task();
+select api.cancel_send_task(
+  (
+    1,-- task_id
+    null,-- event_name
+    null,-- event_time
+    null,-- person_id
+    2,-- team_id
+    null,-- next_team_id
+    null,-- task_status_id
+    null-- note
+  )
+);
 
-select api.modify_task();
+select api.modify_task(
+  (
+    1,-- task_id
+    null,-- created_at
+    null,-- updated_at
+    null,-- created_by
+    null,-- updated_by
+    1,-- task_priority_id
+    1,-- task_category_id
+    1,-- contract_id
+    null,-- project_id
+    'Manutenção no subsolo do Edifício Principal',-- title
+    'Troca de eletrodutos e lâmpadas queimadas',-- description
+    'Subsolo do Edifício Principal',-- place
+    null,-- progress
+    '2020-12-31',-- date_limit
+    '2020-12-01',-- date_start
+    null,-- date_end
+    null,-- request_id
+    null,-- team_id
+    null,-- next_team_id
+    null-- task_status_id
+  ),
+  null,-- assets
+  null-- files_metadata
+);
 
-select api.insert_task_asset();
+select api.insert_task_asset(
+  1,-- task_id
+  7-- asset_id
+);
 
-select api.remove_task_asset();
+select api.remove_task_asset(
+  1,-- task_id
+  6-- asset_id
+);
 
-select api.insert_task_supply();
+select api.insert_task_supply(
+  1,-- task_id
+  1,-- supply_id
+  1-- qty
+);
 
-select api.insert_task_supply();
+select api.insert_task_supply(
+  1,-- task_id
+  2,-- supply_id
+  1-- qty
+);
 
-select api.modify_task_supplies();
+select api.modify_task_supplies(
+  1,-- task_id
+  array[
+    (
+      null,-- task_id
+      2,-- supply_id
+      2-- qty
+    )
+  ]
+);
 
-select api.send_task();
+select api.send_task(
+  (
+    1,-- task_id
+    null,-- event_name
+    null,-- event_time
+    null,-- person_id
+    2,-- team_id
+    3,-- next_team_id
+    null,-- task_status_id
+    'Após definição dos suprimentos.'-- note
+  )
+);
 
 set local cookie.session.person_id to 3;
 
-select api.receive_task();
+select api.receive_task(
+  (
+    1,-- task_id
+    null,-- event_name
+    null,-- event_time
+    null,-- person_id
+    3,-- team_id
+    null,-- next_team_id
+    4,-- task_status_id
+    null-- note
+  )
+);
 
-select api.insert_task_message();
+select api.insert_task_message(
+  (
+    null,-- task_message_id
+    null,-- reply_to
+    1,-- task_id
+    'Aguardando chegada de material.',-- message
+    null,-- person_id
+    null,-- created_at
+    null,-- updated_at
+    null-- is_visible
+  )
+);
 
-select api.remove_task_message();
+select api.remove_task_message(
+  2
+);
 
-select api.insert_task_message();
+select api.insert_task_message(
+  (
+    null,-- task_message_id
+    1,-- reply_to
+    1,-- task_id
+    'Aguardando chegada de material.',-- message
+    null,-- person_id
+    null,-- created_at
+    null,-- updated_at
+    null-- is_visible
+  )
+);
 
-select api.modify_task_message();
+select api.modify_task_message(
+  (
+    3,-- task_message_id
+    null,-- reply_to
+    1,-- task_id
+    'Aguardando chegada dos materiais.',-- message
+    null,-- person_id
+    null,-- created_at
+    null,-- updated_at
+    null-- is_visible
+  )
+);
