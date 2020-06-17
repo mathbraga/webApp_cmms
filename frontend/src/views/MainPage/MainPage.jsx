@@ -18,8 +18,16 @@ import navigation from "../../_nav";
 import routes from "../../routes";
 
 const MainHeader = React.lazy(() => import("./MainHeader"));
+const Dashboard = React.lazy(() => import("../Dashboard"));
+const Login = React.lazy(() => import("../Authentication/Login"));
 
 class MainPage extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      user: null
+    }
+  }
   
   loading = () => (
     <div className="animated fadeIn pt-1 text-center">Carregando...</div>
@@ -48,7 +56,7 @@ class MainPage extends Component {
             <Container fluid className="pt-4">
               <Suspense fallback={this.loading()}>
                 <Switch>
-                  {routes.map((route, idx) => {
+                  {this.state.user && routes.map((route, idx) => {
                     return route.component ? (
                       <Route
                         key={idx}
@@ -59,7 +67,10 @@ class MainPage extends Component {
                       />
                     ) : null;
                   })}
-                  <Redirect from="/" to={{ pathname: "/painel" }}/>
+                  {!this.state.user && <Route path="/painel" name="Painel" component={Dashboard}/>}
+                  {!this.state.user && <Route path="/login" name="Login" component={Login}/>}
+                  {!this.state.user && <Redirect from="/" to={{ pathname: "/login" }}/>}
+                  {this.state.user && <Redirect from="/" to={{ pathname: "/painel" }}/>}
                 </Switch>
               </Suspense>
             </Container>

@@ -1,17 +1,17 @@
 const router = require('express').Router();
 const passport = require('../middlewares/passport');
 const paths = require('../paths');
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 router.post(
   paths.login,
   passport.authenticate('local'),
   (req, res) => {
     if(req.user){
-      // const token = jwt.sign({ user: req.user }, process.env.ACCESS_TOKEN, { expiresIn: '15s' })
+      const token = jwt.sign({ user: req.user }, process.env.ACCESS_TOKEN)
       res.cookie('cmms:user', req.user);
-      res.json({ loginSuccess: true });
-      // res.json({ loginSuccess: true, token: token });
+      // res.json({ loginSuccess: true });
+      res.json({ loginSuccess: true, token: token });
     } else {
       res.json({ loginSuccess: false })
     }

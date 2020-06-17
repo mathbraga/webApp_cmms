@@ -16,9 +16,13 @@ export default function loginFetch(email, password){
       .then(r => {
         if(r.status === 200){
           resolve();
+          return r.json();
         } else {
           reject();
         }
+      })
+      .then(r => {
+        console.log(r);
       })
       .catch(error => {
         alert(error);
