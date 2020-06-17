@@ -56,6 +56,11 @@ create or replace function api.insert_task (
         'Criação da tarefa.'
       );
 
+      perform pg_notify(
+        'task_channel',
+        'Task created by calling api.insert_task function'
+      );
+
     end;
   $$
 ;
