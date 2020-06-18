@@ -13,7 +13,7 @@ const expressStatic = require('./middlewares/express-static');
 const cookieSession = require('./middlewares/cookie-session');
 const passport = require('./middlewares/passport');
 const morgan = require('./middlewares/morgan');
-const redirectUnauth = require('./middlewares/redirect-unauth');
+const checkAuthUser = require('./middlewares/check-auth-user');
 const postgraphile = require('./middlewares/postgraphile');
 
 // App configuration
@@ -27,7 +27,7 @@ app.use(cookieSession);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan);
-app.use(redirectUnauth);
+app.use(checkAuthUser);
 
 // Routes
 app.use(paths.auth, authRoute);

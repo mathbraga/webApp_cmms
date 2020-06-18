@@ -1,4 +1,4 @@
-const redirectUnauth = (req, res, next) => {
+const checkAuthUser = (req, res, next) => {
   if (!req.user) {
     // res.status(401).end();
     next();
@@ -7,4 +7,4 @@ const redirectUnauth = (req, res, next) => {
   }
 }
 
-module.exports = redirectUnauth;
+module.exports = checkAuthUser;
