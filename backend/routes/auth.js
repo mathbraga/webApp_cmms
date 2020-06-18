@@ -12,8 +12,6 @@ router.post(
       // console.log(cookieContent)
       res.cookie('cmms:user', cookieContent);
       res.json(req.user);
-    } else {
-      res.json({ loginSuccess: false })
     }
   }
 );
