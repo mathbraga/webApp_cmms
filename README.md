@@ -420,6 +420,34 @@ EXPLICAÇÕES PARA ADICIONAR:
 </table>
 
 
+Segue a lógica da nova organização da pasta database:
+cmms
+└── ...
+next
+├── api
+├── public
+├── rls
+├── sample
+├── ws
+├── triggers
+├── _debug.sql
+├── _next.sql
+└── _test.sql
+O diretório cmms contém os arquivos para criar o banco de dados do modelo atual.
+O diretório next contém os arquivos para criar o banco de dados do próximo modelo, que considera novas funcionalidades para a entidade 'tarefa':
+Diretório api: Contém views e funções do schema api, que serão expostas ao usuário pela API GraphQL (path /api do web server, mas atualmente path /db)
+Diretório public: Contém os arquivos para criar a maior parte dos objetos do schema public, que servem de base para o modelo de dados e das 'business rules' da aplicação (tables, functions, roles, schemas, types etc.), com exceção das políticas RLS e triggers
+Diretório rls: Contém as políticas RLS, um arquivo para cada tabela
+Diretório sample: Contém os comandos de INSERT (um arquivo para cada tabela) que criam os dados iniciais, preenchendo as tabelas com informações inventadas para possibilitar testes da aplicação
+Diretório ws: Contém funções do schema ws, as quais são executadas via paths específicos do web server (e.g. autenticação) ou via cron jobs (e.g. rotinas periódicas de manutenção do banco de dados, refresh de materialized views etc.)
+Diretório triggers: Contém os triggers e suas respectivas funções
+Arquivo _debug.sql: Contém comandos úteis para inspeção e debugging do banco de dados
+Arquivo _next.sql: Contém script com toda a sequência de comandos para criar um novo banco de dados para o ambiente de desenvolvimento
+Arquivo _test.sql: Arquivo em branco, a ser utilizado para desenvolvimento e teste de novos objetos do banco de dados
+A partir de agora, a maioria dos arquivos irá conter comandos para criar apenas um objeto. Isso vai facilitar para fazer ajustes finos, em especial das queries contidas nas views e funções do schema api, sem ter que recriar todo o banco de dados.
+Lembrando que um arquivo chamado example.sql pode ser executado de duas maneiras:
+1. Dentro do psql, com o comando \i example.sql
+2. Pela linha de comando ($ psql -f example.sql -d dbname)
 
 
 <h3>📁 backend</h3>

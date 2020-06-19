@@ -8,12 +8,11 @@ router.post(
   passport.authenticate('local'),
   (req, res) => {
     if(req.user){
-      const token = jwt.sign({ user: req.user }, process.env.ACCESS_TOKEN)
-      res.cookie('cmms:user', req.user);
-      // res.json({ loginSuccess: true });
-      res.json({ loginSuccess: true, token: token });
-    } else {
-      res.json({ loginSuccess: false })
+      // console.log(req.user)
+      // let cookieContent = req.user.personId.toString() + '-' + req.user.role;
+      // console.log(cookieContent)
+      // res.cookie('cmms:user', cookieContent);
+      res.json(req.user);
     }
   }
 );

@@ -13,7 +13,7 @@ const { expressStatic, loginStatic } = require('./middlewares/express-static');
 const cookieSession = require('./middlewares/cookie-session');
 const passport = require('./middlewares/passport');
 const morgan = require('./middlewares/morgan');
-const redirectUnauth = require('./middlewares/redirect-unauth');
+const checkAuthUser = require('./middlewares/check-auth-user');
 const postgraphile = require('./middlewares/postgraphile');
 // const path = require('path');
 
@@ -30,7 +30,7 @@ app.use(cookieSession);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan);
-app.use(redirectUnauth);
+app.use(checkAuthUser);
 
 // Routes
 app.use(paths.auth, authRoute);
@@ -41,5 +41,8 @@ app.use(paths.email, emailRoute);
 
 // PostGraphile route
 app.use(postgraphile);
+
+// 404 Error
+app.use((req, res) => res.status(404).send("Página não encontrada."));
 
 module.exports = app;
