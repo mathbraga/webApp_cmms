@@ -18,7 +18,7 @@ create or replace function api.cancel_send_task (
         event.task_id,
         'cancel'::task_event_enum,
         now(),
-        get_current_person_id(),
+        get_person_id(),
         event.team_id,
         null,
         null,

@@ -118,7 +118,7 @@ create or replace view api.task_data as
             tm.message,
             tm.reply_to,
             p.person_id,
-            get_current_person_id() = p.person_id as is_creator,
+            get_person_id() = p.person_id as is_creator,
             p.name,
             tm.created_at,
             tm.updated_at,

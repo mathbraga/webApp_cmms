@@ -126,7 +126,7 @@ create table task_events (
   task_id integer not null references tasks (task_id),
   event_name task_event_enum check (event_name is not null),
   event_time timestamptz not null default now(),
-  person_id integer not null references persons (person_id) default get_current_person_id(),
+  person_id integer not null references persons (person_id) default get_person_id(),
   team_id integer not null references teams (team_id),
   next_team_id integer references teams (team_id),
   task_status_id integer references task_statuses (task_status_id),
@@ -138,7 +138,7 @@ create table task_files (
   filename text not null,
   uuid uuid not null,
   size bigint not null,
-  person_id integer not null references persons (person_id) default get_current_person_id(),
+  person_id integer not null references persons (person_id) default get_person_id(),
   created_at timestamptz not null default now()
 );
 
@@ -147,7 +147,7 @@ create table task_messages (
   reply_to integer references task_messages (task_message_id),
   task_id integer not null references tasks (task_id),
   message text not null,
-  person_id integer not null references persons (person_id) default get_current_person_id(),
+  person_id integer not null references persons (person_id) default get_person_id(),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   is_visible boolean not null default true
@@ -200,7 +200,7 @@ create table task_supplies (
 );
 
 create table private.audit_trails (
-  person_id integer not null references persons (person_id) default get_current_person_id(),
+  person_id integer not null references persons (person_id) default get_person_id(),
   created_at timestamptz not null,
   operation text not null,
   tablename text not null,

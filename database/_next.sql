@@ -50,8 +50,8 @@ begin transaction;
 -- alter default privileges
 \i public/privileges.sql
 
--- create get_current_person_id function
-\i public/get_current_person_id.sql
+-- create get_person_id function
+\i public/get_person_id.sql
 
 -- create composite types
 \i public/types.sql

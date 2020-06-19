@@ -13,7 +13,7 @@ create or replace function api.insert_task_files (
                 f.filename,
                 f.uuid,
                 f.size,
-                get_current_person_id(),
+                get_person_id(),
                 now()
         from unnest(files_metadata) as f;
       id = task_id;

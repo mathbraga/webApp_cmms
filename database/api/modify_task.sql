@@ -28,7 +28,7 @@ create or replace function api.modify_task (
           request_id
         ) = (
           now(),
-          get_current_person_id(),
+          get_person_id(),
           attributes.task_priority_id,
           attributes.task_category_id,
           attributes.contract_id,

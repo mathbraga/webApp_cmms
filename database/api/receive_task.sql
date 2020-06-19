@@ -20,7 +20,7 @@ create or replace function api.receive_task (
         event.task_id,
         'receive'::task_event_enum,
         now(),
-        get_current_person_id(),
+        get_person_id(),
         event.team_id,
         null,
         event.task_status_id,

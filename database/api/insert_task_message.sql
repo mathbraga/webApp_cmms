@@ -12,7 +12,7 @@ create or replace function api.insert_task_message (
         message.reply_to,
         message.task_id,
         message.message,
-        get_current_person_id(),
+        get_person_id(),
         now(),
         now(),
         true
