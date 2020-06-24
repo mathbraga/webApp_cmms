@@ -6,6 +6,10 @@ files/*
 # ... except this one, for download tests
 !files/de741848-5e90-4c5e-8699-78aca9b37aba
 
+# Frontend build files
+public/*
+!public/images/*
+
 dumps/*
 !dumps/.gitkeep
 logs/*
