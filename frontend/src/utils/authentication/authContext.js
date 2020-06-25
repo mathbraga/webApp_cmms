@@ -2,5 +2,5 @@ import React from 'react';
 
 export default React.createContext({
     user: null,
-    setUser: (user) => {}
+    loginFetch: (email, password) => {}
 })

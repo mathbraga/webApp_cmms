@@ -31,8 +31,33 @@ class MainPage extends Component {
     }
   }
 
-  setUser = (user) => {
-    this.setState({ user: user });
+  loginFetch = (email, password) => {
+    return new Promise((resolve, reject) => {
+    
+      fetch(process.env.REACT_APP_SERVER_URL + process.env.REACT_APP_LOGIN_PATH, {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify({
+          email: email,
+          password: password
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      })
+        .then(r => {
+          if(r.status === 200){
+            resolve(r.json());
+          } else {
+            reject();
+          }
+        })
+        .catch(error => {
+          alert(error);
+          reject("Erro no login.")
+        });
+    });
   }
   
   loading = () => (
@@ -41,7 +66,7 @@ class MainPage extends Component {
 
   render() {
     return (
-      <AuthContext.Provider value={{ user: this.state.user, setUser: this.setUser }}>
+      <AuthContext.Provider value={{ user: this.state.user, loginFetch: this.loginFetch }}>
         <div className="app">
           <AppHeader fixed>
             <Suspense fallback={this.loading()}>

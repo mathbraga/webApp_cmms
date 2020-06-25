@@ -69,7 +69,7 @@ class Login extends Component {
       alertVisible: true,
     });
 
-    loginFetch(this.state.email, this.state.password)
+    this.context.loginFetch(this.state.email, this.state.password)
       .then(r => {
         this.setState({
           loginError: false,
@@ -80,7 +80,7 @@ class Login extends Component {
         // window.localStorage.setItem('login-event', 'login' + Math.random());
         this.props.dispatch(loginSuccess(this.state.email));
         this.props.history.push("/painel");
-        // this.context.setUser(r.name); // Server response with user data
+        // console.log(r.name); // Server response with user data
       })
       .catch(() => {
         this.setState({
