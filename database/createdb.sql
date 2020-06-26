@@ -159,6 +159,9 @@ insert into persons overriding system value values
 -- tasks
 \i sample/task1.sql
 
+-- switch back to person_id = 0
+set local cookie.session.person_id to 0;
+
 -- restart sequences
 \i sample/_restart_sequences.sql
 
