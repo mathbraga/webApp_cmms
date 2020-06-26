@@ -4,7 +4,6 @@ function formatDateLimit(item) {
   return item.dateLimit && item.dateLimit.split('T')[0];
 }
 
-
 const tableConfig = {
   attForDataId: 'taskId',
   hasCheckbox: true,
