@@ -13,7 +13,16 @@ import withDataAccess from './utils/withDataAccess';
 import CustomTable from '../../components/Tables/CustomTable';
 import AssetCard from '../../components/Cards/AssetCard';
 
+import { useQuery, useEfect } from '@apollo/react-hooks';
+
+import { TASKS_QUERY } from './graphql/gql';
+import prepareData from '../../components/DataManipulation/prepareData';
+
+
 const Tasks = (props) => {
+  const { loading, data: { allTaskData: { nodes: rawData } = {} } = {} } = useQuery(TASKS_QUERY);
+  const data = prepareData(rawData, tableConfig);
+  
   return (
     <AssetCard
       sectionName={"Tarefas"}
@@ -21,26 +30,24 @@ const Tasks = (props) => {
       handleCardButton={() => { props.history.push(paths.task.create) }}
       buttonName={"Nova OS"}
     >
-      <CustomTable
-        type={'full'}
-        tableConfig={tableConfig}
-        customFilters={customFilters}
-        filterAttributes={filterAttributes}
-        searchableAttributes={searchableAttributes}
-        selectedData={props.selectedData}
-        handleSelectData={props.handleSelectData}
-        data={props.data}
-      />
+      {
+        !loading && (
+          <CustomTable
+            type={'full'}
+            tableConfig={tableConfig}
+            customFilters={customFilters}
+            filterAttributes={filterAttributes}
+            searchableAttributes={searchableAttributes}
+            selectedData={props.selectedData}
+            handleSelectData={props.handleSelectData}
+            data={data}
+          />
+        )
+      }
     </AssetCard>
   );
 }
 
 export default compose(
-  withProps(props),
-  withGraphQL,
-  withQuery,
-  withDataAccess,
-  withPrepareData(tableConfig),
-  withRouter,
-  withSelectLogic
+  withRouter
 )(Tasks);

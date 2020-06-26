@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const TASKS_GQL = gql`
+export const TASKS_QUERY = gql`
   query TasksQuery {
     allTaskData {
       nodes {
