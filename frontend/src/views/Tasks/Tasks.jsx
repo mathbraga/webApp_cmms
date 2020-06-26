@@ -2,26 +2,23 @@ import React from 'react';
 import tableConfig from './utils/tableConfig';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
-import { compose } from 'redux';
-import props from './props';
-import { withProps, withGraphQL, withQuery } from '../../hocs';
 import paths from '../../paths';
-import withSelectLogic from '../../components/Selection/withSelectLogic';
-import { withRouter } from "react-router-dom";
-import withPrepareData from '../../components/Formating/withPrepareData';
-import withDataAccess from './utils/withDataAccess';
 import CustomTable from '../../components/Tables/CustomTable';
 import AssetCard from '../../components/Cards/AssetCard';
 
-import { useQuery, useEfect } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 
 import { TASKS_QUERY } from './graphql/gql';
 import prepareData from '../../components/DataManipulation/prepareData';
 
 
 const Tasks = (props) => {
-  const { loading, data: { allTaskData: { nodes: rawData } = {} } = {} } = useQuery(TASKS_QUERY);
+  const { loading, data: { allTaskData: { nodes: rawData } = [] } = [] } = useQuery(TASKS_QUERY);
+  
   const data = prepareData(rawData, tableConfig);
+
+  console.log(loading);
+  console.log(data);
   
   return (
     <AssetCard
@@ -38,8 +35,8 @@ const Tasks = (props) => {
             customFilters={customFilters}
             filterAttributes={filterAttributes}
             searchableAttributes={searchableAttributes}
-            selectedData={props.selectedData}
-            handleSelectData={props.handleSelectData}
+            selectedData={{}}
+            handleSelectData={() => {}}
             data={data}
           />
         )
@@ -48,6 +45,4 @@ const Tasks = (props) => {
   );
 }
 
-export default compose(
-  withRouter
-)(Tasks);
+export default Tasks;

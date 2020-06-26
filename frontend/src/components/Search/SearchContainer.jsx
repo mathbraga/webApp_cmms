@@ -37,8 +37,8 @@ export default class SearchContainer extends Component {
           </ol>
         </div>
         <div className="search-buttons" style={{ width: "30%" }}>
-          <Button name="modalApplyFilter" className="search-filter-button" color="success" onClick={toggleApply}>Aplicar Filtro</Button>
-          <Button name="modalFilter" className="search-filter-button" color="primary" onClick={toggleCreate}>Criar Filtro</Button>
+          <Button name="modalApplyFilter" size="sm" className="search-filter-button" color="success" onClick={toggleApply}>Aplicar Filtro</Button>
+          <Button name="modalFilter" size="sm" className="search-filter-button" color="primary" onClick={toggleCreate}>Criar Filtro</Button>
         </div>
       </div>
     );

@@ -1,6 +1,6 @@
 const searchableAttributes = [
   'taskId',
-  'dateLimit',
+  'dateLimitText',
   'taskCategoryText',
   'taskStatusText',
   'title',
