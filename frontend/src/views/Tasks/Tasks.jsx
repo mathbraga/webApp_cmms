@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import tableConfig from './utils/tableConfig';
 import { customFilters, filterAttributes } from './utils/filterParameters';
 import searchableAttributes from './utils/searchParameters';
@@ -13,28 +13,26 @@ import withDataAccess from './utils/withDataAccess';
 import CustomTable from '../../components/Tables/CustomTable';
 import AssetCard from '../../components/Cards/AssetCard';
 
-class Tasks extends Component {
-  render() {
-    return (
-      <AssetCard
-        sectionName={"Tarefas"}
-        sectionDescription={"Lista de ordens de serviço de engenharia"}
-        handleCardButton={() => { this.props.history.push(paths.task.create) }}
-        buttonName={"Nova OS"}
-      >
-        <CustomTable
-          type={'full'}
-          tableConfig={tableConfig}
-          customFilters={customFilters}
-          filterAttributes={filterAttributes}
-          searchableAttributes={searchableAttributes}
-          selectedData={this.props.selectedData}
-          handleSelectData={this.props.handleSelectData}
-          data={this.props.data}
-        />
-      </AssetCard>
-    );
-  }
+const Tasks = (props) => {
+  return (
+    <AssetCard
+      sectionName={"Tarefas"}
+      sectionDescription={"Lista de ordens de serviço de engenharia"}
+      handleCardButton={() => { props.history.push(paths.task.create) }}
+      buttonName={"Nova OS"}
+    >
+      <CustomTable
+        type={'full'}
+        tableConfig={tableConfig}
+        customFilters={customFilters}
+        filterAttributes={filterAttributes}
+        searchableAttributes={searchableAttributes}
+        selectedData={props.selectedData}
+        handleSelectData={props.handleSelectData}
+        data={props.data}
+      />
+    </AssetCard>
+  );
 }
 
 export default compose(
