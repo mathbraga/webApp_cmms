@@ -1,5 +1,8 @@
+const fs = require('fs');
+const FormData = require('form-data');
+
 function buildReqBody(vars){
-  return JSON.stringify({
+  return {
     variables: {
       id: vars.id,
       attributes: {
@@ -20,8 +23,7 @@ function buildReqBody(vars){
       assets: vars.assets,
       files: vars.files,
       filesMetadata: vars.filesMetadata
-    }
-    ,
+    },
     query: `mutation (
       $attributes: TaskInput!,
       $assets: [Int!]!,
@@ -36,7 +38,7 @@ function buildReqBody(vars){
         __typename
       }
     }`
-  });
+  };
 }
 
 const varsSuccess = {
@@ -59,7 +61,8 @@ const varsSuccess = {
   filesMetadata: null,
 }
 
-const varsSuccessWithFile = Object.assign(
+let form = new FormData();
+form.append('operations', JSON.stringify(buildReqBody(Object.assign(
   {...varsSuccess},
   {
     files: [null],
@@ -69,7 +72,9 @@ const varsSuccessWithFile = Object.assign(
       size: 1234
     }]
   }
-);
+))));
+form.append('map', JSON.stringify({0: ["variables.files.0"]}));
+form.append('0', fs.createReadStream(__dirname + '/test.txt'));
 
 const varsFailNoAssets = Object.assign(
   {...varsSuccess},
@@ -80,8 +85,5 @@ const varsFailNoAssets = Object.assign(
 
 module.exports = {
   reqSuccess: buildReqBody(varsSuccess),
-  reqFailNoAssets: buildReqBody(varsFailNoAssets),
-  // reqFailLargeQty: buildReqBody(varsFailLargeQty),
-  // reqFailWrongContract: buildReqBody(varsFailWrongContract),
-  reqSuccessWithFiles: buildReqBody(varsSuccessWithFile),
+  reqSuccessWithFile: form,
 }

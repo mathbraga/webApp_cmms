@@ -3,22 +3,23 @@ const fs = require('fs');
 const path = require('path');
 const paths = require('../paths');
 
-morgan.token('separator', () => ('-----------------------------------------------------------------------------------------------------'));
+morgan.token('separator', req => '-----------------------------------------------------------------------------------------------------');
+morgan.token('user', req => JSON.stringify(req.user));
+morgan.token('session', req => JSON.stringify(req.session));
+morgan.token('body', req => JSON.stringify(req.body));
 
-morgan.token('user', req => (
-  'User: ' + JSON.stringify(req.user) +
-  '    Session: ' + JSON.stringify(req.session)
-));
+const logFormatDevelopment = `\n:separator\n:date[iso]    :remote-addr    :method    :url    :status    :response-time ms\nUser: :user    Session: :session\nBody: :body`;
+const logFormatProduction = `:date[iso]    :remote-addr    :method    :url    :status    :response-time    :user    :session    :body`;
+const logFormat = process.env.NODE_ENV === 'development' ? logFormatDevelopment : logFormatProduction;
 
-morgan.token('body', req => (JSON.stringify(req.body)));
+const logStreamDevelopment = process.stdout;
+const logStreamProduction = fs.createWriteStream(path.join(process.cwd(), paths.reqsLog), { flags: 'a' });
+const logStream = process.env.NODE_ENV === 'development' ? logStreamDevelopment : logStreamProduction;
 
-const logStream = fs.createWriteStream(path.join(process.cwd(), paths.reqsLog), { flags: 'a' });
-
-module.exports = morgan(`
-:separator
-:date[iso]    :remote-addr    :method    :url    :status    :response-time ms
-:user
-:body`, {
-  skip: () => (process.env.NODE_ENV === 'test'),
-  stream: process.env.NODE_ENV === 'development' ? process.stdout : logStream,
-});
+module.exports = morgan(
+  logFormat,
+  {
+    skip: () => (process.env.NODE_ENV === 'test'),
+    stream: logStream,
+  }
+);
