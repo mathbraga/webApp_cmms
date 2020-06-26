@@ -27,13 +27,15 @@ create database :new_db_name with owner postgres;
 \c :new_db_name
 
 -- create extensions
-\i public/extensions.sql
+create extension if not exists pgcrypto;
 
 -- create additional schemas
-\i public/schemas.sql
+create schema private;
+create schema api;
+create schema web;
 
 -- create roles
-\i public/roles.sql
+\i roles/roles.sql
 
 -- set password for postgres role
 alter role postgres with encrypted password '123456';
@@ -48,7 +50,7 @@ alter role postgres with encrypted password '123456';
 begin transaction;
 
 -- alter default privileges
-\i public/privileges.sql
+\i roles/privileges.sql
 
 -- create get_person_id function
 \i public/get_person_id.sql
@@ -103,10 +105,10 @@ begin transaction;
 \i api/spec_data.sql
 \i api/team_data.sql
 
--- create ws schema objects
-\i ws/authenticate.sql
-\i ws/get_all_files_uuids.sql
-\i ws/refresh_all_materialized_views.sql
+-- create web schema objects
+\i web/authenticate.sql
+\i web/get_all_files_uuids.sql
+\i web/refresh_all_materialized_views.sql
 
 -- create and login with fake user for initial inserts
 set local cookie.session.person_id to 0;
@@ -119,6 +121,26 @@ insert into persons overriding system value values
 -- \i triggets/check_task_event.sql
 -- \i triggers/check_task_supply.sql
 -- \i triggers/insert_audit_trail.sql
+
+-- create rls policies
+-- \i policies/assets.sql
+-- \i policies/asset_relations.sql
+-- \i policies/contracts.sql
+-- \i policies/persons.sql
+-- \i policies/accounts.sql
+-- \i policies/teams.sql
+-- \i policies/team_persons.sql
+-- \i policies/contract_teams.sql
+-- \i policies/projects.sql
+-- \i policies/requests.sql
+-- \i policies/tasks.sql
+\i policies/task_messages.sql
+-- \i policies/task_assets.sql
+-- \i policies/task_events.sql
+-- \i policies/specs.sql
+-- \i policies/supplies.sql
+-- \i policies/task_supplies.sql
+-- \i policies/task_files.sql
 
 -- populate tables with sample data
 \i sample/asset_categories.sql
@@ -142,29 +164,6 @@ insert into persons overriding system value values
 
 -- create triggers after populate tables
 -- \i trigger/name_of_the_trigger.sql
-
--- create rls policies
--- \i rls/assets.sql
--- \i rls/asset_relations.sql
--- \i rls/contracts.sql
--- \i rls/persons.sql
--- \i rls/accounts.sql
--- \i rls/teams.sql
--- \i rls/team_persons.sql
--- \i rls/contract_teams.sql
--- \i rls/projects.sql
--- \i rls/requests.sql
--- \i rls/tasks.sql
--- \i rls/task_messages.sql
--- \i rls/task_assets.sql
--- \i rls/task_dispatches.sql
--- \i rls/specs.sql
--- \i rls/supplies.sql
--- \i rls/task_supplies.sql
--- \i rls/task_files.sql
-
--- enable rls
--- \i rls/_enable.sql
 
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off

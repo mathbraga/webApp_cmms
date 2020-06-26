@@ -1,6 +1,6 @@
-drop function if exists ws.authenticate;
+drop function if exists web.authenticate;
 
-create or replace function ws.authenticate (
+create or replace function web.authenticate (
   in input_email    text,
   in input_password text,
   out authenticated_person jsonb
