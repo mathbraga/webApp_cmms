@@ -4,7 +4,7 @@ import ModalForgottenPassword from "../../components/Authentication/ModalForgott
 import { connect } from "react-redux";
 import { login, loginSuccess } from "../../redux/actions";
 import loginFetch from "../../utils/authentication/loginFetch";
-import AuthContext from "../../utils/authentication/authContext";
+// import AuthContext from "../../utils/authentication/authContext";
 
 // import SessionData from "./test/SessionData";
 // import { withProps, withQuery, withGraphQL } from '../../hocs';
@@ -27,7 +27,7 @@ class Login extends Component {
     }
   }
 
-  static context = AuthContext;
+  // static context = AuthContext;
 
   componentDidMount = () => {
     if (window.localStorage.getItem('session') !== null) {
@@ -69,8 +69,8 @@ class Login extends Component {
       alertVisible: true,
     });
 
-    this.context.loginFetch(this.state.email, this.state.password)
-      .then(r => {
+    this.props.loginFetch(this.state.email, this.state.password)
+      .then(() => {
         this.setState({
           loginError: false,
           isFetching: false,

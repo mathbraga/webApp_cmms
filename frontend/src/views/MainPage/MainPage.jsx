@@ -57,7 +57,12 @@ class MainPage extends Component {
           alert(error);
           reject("Erro no login.")
         });
-    });
+    })
+    .then(r => this.updateUser(r.name));
+  }
+
+  updateUser = (name) => {
+    this.setState({ user: name })
   }
   
   loading = () => (
@@ -69,7 +74,7 @@ class MainPage extends Component {
       <AuthContext.Provider value={{ user: this.state.user, loginFetch: this.loginFetch }}>
         <div className="app">
           <AppHeader fixed>
-            <Suspense fallback={this.loading()}>
+            <Suspense fallback={this.loading}>
               <MainHeader/>
             </Suspense>
           </AppHeader>
@@ -100,7 +105,7 @@ class MainPage extends Component {
                       ) : null;
                     })}
                     {!this.state.user && <Route path="/painel" name="Painel" component={Dashboard}/>}
-                    {!this.state.user && <Route path="/login" name="Login" component={Login}/>}
+                    {!this.state.user && <Route path="/login" name="Login" render={routerProps => <Login {...routerProps} loginFetch={this.loginFetch}/>}/>}
                     {!this.state.user && <Redirect from="/" to={{ pathname: "/login" }}/>}
                     {this.state.user && <Redirect from="/" to={{ pathname: "/painel" }}/>}
                   </Switch>
