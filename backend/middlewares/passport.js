@@ -10,7 +10,7 @@ passport.use(new LocalStrategy(
   async function(email, password, done){
     let data;
     try {
-      data = await db.query('select ws.authenticate($1, $2)', [email, password]);
+      data = await db.query('select web.authenticate($1, $2)', [email, password]);
       if (data.rows.length === 0) {
         return done(null, false, {message: 'Incorrect'});
       }
