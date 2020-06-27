@@ -1,11 +1,10 @@
 // Initialization and imports
 const express = require('express');
 const app = express();
-const authRoute = require('./routes/auth');
+const loginRoute = require('./routes/login');
+const logoutRoute = require('./routes/logout');
 const uploadRoute = require('./routes/upload');
 const downloadRoute = require('./routes/download');
-const redmineRoute = require('./routes/redmine');
-const emailRoute = require('./routes/email');
 const paths = require('./paths');
 const cors = require('./middlewares/cors');
 const expressJson = require('./middlewares/express-json');
@@ -30,11 +29,10 @@ app.use(morgan);
 app.use(checkAuthUser);
 
 // Routes
-app.use(paths.auth, authRoute);
-app.use(paths.db, uploadRoute);
+app.use(paths.login, loginRoute);
+app.use(paths.logout, logoutRoute);
+app.use(paths.api, uploadRoute);
 app.use(paths.files, downloadRoute);
-app.use(paths.redmine, redmineRoute);
-app.use(paths.email, emailRoute);
 
 // PostGraphile route
 app.use(postgraphile);

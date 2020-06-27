@@ -1,11 +1,8 @@
 const paths = {
-  auth: '/auth',
+  api: '/api',
   login: '/login',
   logout: '/logout',
-  db: '/db',
   graphiql: '/graphiql',
-  email: '/email',
-  redmine: '/redmine',
   fileuuid: '/:uuid/:filename',
   public: '/public',
   images: '/images',
