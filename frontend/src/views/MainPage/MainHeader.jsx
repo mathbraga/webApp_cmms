@@ -59,6 +59,7 @@ class MainHeader extends Component {
           email: null,
         });
         window.localStorage.removeItem('session');
+        window.localStorage.removeItem('user');
         window.localStorage.setItem('logout-event', 'logout' + Math.random());
         this.props.dispatch(logoutSuccess());
         this.props.history.push('/login');

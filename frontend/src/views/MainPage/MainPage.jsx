@@ -17,8 +17,6 @@ import navigation from "../../_nav";
 // routes config
 import routes from "../../routes";
 
-import AuthContext from "../../utils/authentication/authContext"
-
 const MainHeader = React.lazy(() => import("./MainHeader"));
 const Dashboard = React.lazy(() => import("../Dashboard"));
 const Login = React.lazy(() => import("../Authentication/Login"));
@@ -30,40 +28,6 @@ class MainPage extends Component {
       user: null
     }
   }
-
-  loginFetch = (email, password) => {
-    return new Promise((resolve, reject) => {
-    
-      fetch(process.env.REACT_APP_SERVER_URL + process.env.REACT_APP_LOGIN_PATH, {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify({
-          email: email,
-          password: password
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-      })
-        .then(r => {
-          if(r.status === 200){
-            resolve(r.json());
-          } else {
-            reject();
-          }
-        })
-        .catch(error => {
-          alert(error);
-          reject("Erro no login.")
-        });
-    })
-    .then(r => this.updateUser(r.name));
-  }
-
-  updateUser = (name) => {
-    this.setState({ user: name })
-  }
   
   loading = () => (
     <div className="animated fadeIn pt-1 text-center">Carregando...</div>
@@ -71,50 +35,48 @@ class MainPage extends Component {
 
   render() {
     return (
-      <AuthContext.Provider value={{ user: this.state.user, loginFetch: this.loginFetch }}>
-        <div className="app">
-          <AppHeader fixed>
-            <Suspense fallback={this.loading}>
-              <MainHeader/>
+      <div className="app">
+        <AppHeader fixed>
+          <Suspense fallback={this.loading}>
+            <MainHeader/>
+          </Suspense>
+        </AppHeader>
+        <div className="app-body">
+          <AppSidebar fixed display="lg">
+            <AppSidebarHeader />
+            <AppSidebarForm />
+            <Suspense>
+              <AppSidebarNav navConfig={navigation} {...this.props} />
             </Suspense>
-          </AppHeader>
-          <div className="app-body">
-            <AppSidebar fixed display="lg">
-              <AppSidebarHeader />
-              <AppSidebarForm />
-              <Suspense>
-                <AppSidebarNav navConfig={navigation} {...this.props} />
+            <AppSidebarFooter />
+            <AppSidebarMinimizer />
+          </AppSidebar>
+          <main className="main">
+            {/* <AppBreadcrumb appRoutes={routes} /> */}
+            <Container fluid className="pt-4">
+              <Suspense fallback={this.loading()}>
+                <Switch>
+                  {window.localStorage.getItem('user') && routes.map((route, idx) => {
+                    return route.component ? (
+                      <Route
+                        key={idx}
+                        path={route.path}
+                        exact={route.exact}
+                        name={route.name}
+                        render={routerProps => <route.component {...routerProps} {...route.props}/>}
+                      />
+                    ) : null;
+                  })}
+                  {!window.localStorage.getItem('user') && <Route path="/painel" name="Painel" component={Dashboard}/>}
+                  {!window.localStorage.getItem('user') && <Route path="/login" name="Login" component={Login}/>}
+                  {!window.localStorage.getItem('user') && <Redirect from="/" to={{ pathname: "/login" }}/>}
+                  {window.localStorage.getItem('user') && <Redirect from="/" to={{ pathname: "/painel" }}/>}
+                </Switch>
               </Suspense>
-              <AppSidebarFooter />
-              <AppSidebarMinimizer />
-            </AppSidebar>
-            <main className="main">
-              {/* <AppBreadcrumb appRoutes={routes} /> */}
-              <Container fluid className="pt-4">
-                <Suspense fallback={this.loading()}>
-                  <Switch>
-                    {this.state.user && routes.map((route, idx) => {
-                      return route.component ? (
-                        <Route
-                          key={idx}
-                          path={route.path}
-                          exact={route.exact}
-                          name={route.name}
-                          render={routerProps => <route.component {...routerProps} {...route.props}/>}
-                        />
-                      ) : null;
-                    })}
-                    {!this.state.user && <Route path="/painel" name="Painel" component={Dashboard}/>}
-                    {!this.state.user && <Route path="/login" name="Login" render={routerProps => <Login {...routerProps} loginFetch={this.loginFetch}/>}/>}
-                    {!this.state.user && <Redirect from="/" to={{ pathname: "/login" }}/>}
-                    {this.state.user && <Redirect from="/" to={{ pathname: "/painel" }}/>}
-                  </Switch>
-                </Suspense>
-              </Container>
-            </main>
-          </div>
+            </Container>
+          </main>
         </div>
-      </AuthContext.Provider>
+      </div>
     );
   }
 }
