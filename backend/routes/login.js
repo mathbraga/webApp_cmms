@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const passport = require('../middlewares/passport');
-const paths = require('../paths');
 
 router.post(
   '/',
