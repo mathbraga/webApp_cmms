@@ -68,10 +68,15 @@ begin transaction;
 \i public/lookup_tables.sql
 \i public/tables.sql
 
--- other things
+-- create functions
 \i public/get_asset_trees.sql
 \i public/get_exception_message.sql
+
+-- create views
 \i public/balances.sql
+
+-- create materialized views
+\i public/asset_contexts.sql
 
 -- create api schema objects
 -- task basic
@@ -173,6 +178,9 @@ set local cookie.session.person_id to 0;
 
 -- commit transaction
 commit transaction;
+
+-- refresh materialized views
+select web.refresh_all_materialized_views();
 
 -- create extra indexes
 \i public/indexes.sql
