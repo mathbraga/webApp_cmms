@@ -8,7 +8,7 @@ create or replace function check_task_supply ()
     declare
       is_same_person_id boolean;
     begin
-      select old.person_id = get_person_id() into is_same_person_id;
+      select old.person_id = new.person_id into is_same_person_id;
       if is_same_person_id then
         return new;
       else
