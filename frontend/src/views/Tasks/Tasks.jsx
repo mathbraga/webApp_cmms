@@ -14,11 +14,7 @@ import prepareData from '../../components/DataManipulation/prepareData';
 
 const Tasks = (props) => {
   const { loading, data: { allTaskData: { nodes: rawData } = [] } = [] } = useQuery(TASKS_QUERY);
-  
   const data = prepareData(rawData, tableConfig);
-
-  console.log(loading);
-  console.log(data);
   
   return (
     <AssetCard

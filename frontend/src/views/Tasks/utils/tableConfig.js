@@ -15,9 +15,9 @@ const tableConfig = {
     'dateLimitText': formatDateLimit,
   },
   columnsConfig: [
-    { columnId: 'taskId', columnName: 'OS', width: "10%", align: "center", idForValues: ['taskId'] },
+    { columnId: 'taskId', columnName: 'OS', width: "7%", align: "center", idForValues: ['taskId'] },
     { columnId: 'title', columnName: 'Título', width: "45%", align: "justify", idForValues: ['title', 'taskCategoryText'] },
-    { columnId: 'status', columnName: 'Status', width: "10%", align: "center", idForValues: ['taskStatusText'] },
+    { columnId: 'status', columnName: 'Status', width: "13%", align: "center", idForValues: ['taskStatusText'] },
     { columnId: 'dateLimit', columnName: 'Prazo Final', width: "10%", align: "center", idForValues: ['dateLimitText'] },
     { columnId: 'place', columnName: 'Localização', width: "20%", isTextWrapped: true, align: "center", idForValues: ['place'] },
   ],
