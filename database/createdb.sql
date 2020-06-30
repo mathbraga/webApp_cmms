@@ -123,29 +123,13 @@ insert into persons overriding system value values
 -- create triggers before populate tables
 -- \i triggers/check_asset_category.sql
 -- \i triggers/check_asset_relation.sql
--- \i triggets/check_task_event.sql
--- \i triggers/check_task_supply.sql
+\i triggets/check_task_event.sql
+\i triggers/check_task_message.sql
+\i triggers/check_task_supply.sql
 -- \i triggers/insert_audit_trail.sql
 
 -- create rls policies
--- \i policies/assets.sql
--- \i policies/asset_relations.sql
--- \i policies/contracts.sql
--- \i policies/persons.sql
--- \i policies/accounts.sql
--- \i policies/teams.sql
--- \i policies/team_persons.sql
--- \i policies/contract_teams.sql
--- \i policies/projects.sql
--- \i policies/requests.sql
--- \i policies/tasks.sql
 \i policies/task_messages.sql
--- \i policies/task_assets.sql
--- \i policies/task_events.sql
--- \i policies/specs.sql
--- \i policies/supplies.sql
--- \i policies/task_supplies.sql
--- \i policies/task_files.sql
 
 -- populate tables with sample data
 \i sample/asset_categories.sql
