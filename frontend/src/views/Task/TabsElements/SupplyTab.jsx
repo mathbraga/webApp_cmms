@@ -1,140 +1,115 @@
-import React, { Component } from 'react';
-import DescriptionTable from '../../../components/Descriptions/DescriptionTable';
+import React, { useState } from 'react';
 import { itemsMatrixSupply, itemsMatrixTableFilter } from '../utils/supplyTab/descriptionMatrix';
 import tableConfig from '../utils/supplyTab/tableConfig';
-import { customFilters, filterAttributes } from '../utils/supplyTab/filterParameters';
 import searchableAttributes from '../utils/supplyTab/searchParameters';
-import withDataAccess from '../utils/supplyTab/withDataAccess';
 import CustomTable from '../../../components/Tables/CustomTable';
-import withPrepareData from '../../../components/Formating/withPrepareData';
-import withSelectLogic from '../../../components/Selection/withSelectLogic';
 
 import AnimateHeight from 'react-animate-height';
-import DispatchForm from '../../../components/NewForms/DispatchForm';
-import StatusForm from '../../../components/NewForms/StatusForm';
 import AddSupplyForm from '../../../components/NewForms/AddSupplyForm';
 import EditSupplyForm from '../../../components/NewForms/EditSupplyForm';
 
 import PaneTitle from '../../../components/TabPanes/PaneTitle';
 import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 
-import { compose } from 'redux';
 import './Tabs.css';
 
-class SupplyTab extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      addFormOpen: false,
-      editFormOpen: false,
-    };
-    this.toggleAddForm = this.toggleAddForm.bind(this);
-    this.toggleEditForm = this.toggleEditForm.bind(this);
+function SupplyTab(props) {
+  const [ addFormOpen, setAddFormOpen ] = useState(false);
+  const [ editFormOpen, setEditFormOpen ] = useState(false);
+
+  function toggleAddForm() {
+    setAddFormOpen(!addFormOpen);
+    setEditFormOpen(false);
   }
 
-  toggleAddForm() {
-    this.setState(prevState => ({
-      addFormOpen: !prevState.addFormOpen,
-      editFormOpen: false
-    }));
+  function toggleEditForm() {
+    setAddFormOpen(false);
+    setEditFormOpen(!editFormOpen);
   }
 
-  toggleEditForm() {
-    this.setState(prevState => ({
-      editFormOpen: !prevState.editFormOpen,
-      addFormOpen: false
-    }));
-  }
+  const actionButtons = {
+    editFormOpen: [
+      {name: 'Salvar', color: 'success', onClick: toggleEditForm},
+      {name: 'Cancelar', color: 'danger', onClick: toggleEditForm}
+    ],
+    addFormOpen: [
+      {name: 'Voltar', color: 'danger', onClick: toggleAddForm}
+    ],
+    noFormOpen: [
+      {name: 'Adicionar Suprimentos', color: 'primary', onClick: toggleAddForm},
+      {name: 'Alterar Suprimentos', color: 'success', onClick: toggleEditForm},
+    ],
+  };
 
-  render() {
-    const { addFormOpen, editFormOpen } = this.state;
+  const openedForm = addFormOpen ? 'addFormOpen' : (editFormOpen ? 'editFormOpen' : 'noFormOpen');
+  const heightAdd = openedForm === 'addFormOpen' ? 'auto' : 0;
+  const heightEdit = openedForm === 'editFormOpen' ? 'auto' : 0;
+  
+  console.log("Props Data: ", props.data);
 
-    const actionButtons = {
-      editFormOpen: [
-        {name: 'Salvar', color: 'success', onClick: this.toggleEditForm},
-        {name: 'Cancelar', color: 'danger', onClick: this.toggleEditForm}
-      ],
-      addFormOpen: [
-        {name: 'Voltar', color: 'danger', onClick: this.toggleAddForm}
-      ],
-      noFormOpen: [
-        {name: 'Adicionar Suprimentos', color: 'primary', onClick: this.toggleAddForm},
-        {name: 'Alterar Suprimentos', color: 'success', onClick: this.toggleEditForm},
-      ],
-    };
-
-    const openedForm = addFormOpen ? 'addFormOpen' : (editFormOpen ? 'editFormOpen' : 'noFormOpen');
-    const heightAdd = openedForm === 'addFormOpen' ? 'auto' : 0;
-    const heightEdit = openedForm === 'editFormOpen' ? 'auto' : 0;
-
-    return (
-      <>
-        <div className="tabpane-container">
-          <PaneTitle 
-            actionButtons={actionButtons[openedForm]}
-            title={addFormOpen ? 'Adicionar novo suprimento' : (editFormOpen ? 'Alterar suprimentos' : 'Resumo dos gastos')}
-          />
-          <AnimateHeight 
-            duration={300}
-            height={heightAdd}
-          >
-            <div className="tabpane__content">
-              <AddSupplyForm 
-                visible={true}
-                toggleForm={this.toggleAddForm}
-              />
-            </div>
-          </AnimateHeight>
-          <AnimateHeight 
-            duration={300}
-            height={heightEdit}
-          >
-            <div className="tabpane__content">
-              <EditSupplyForm 
-                visible={true}
-                toggleForm={this.toggleEditForm}
-              />
-            </div>
-          </AnimateHeight>
-          {(addFormOpen || editFormOpen) && (
-            <PaneTitle 
-              title={'Resumo dos Gastos'}
-            />
-          )}
+  return (
+    <>
+      <div className="tabpane-container">
+        <PaneTitle 
+          actionButtons={actionButtons[openedForm]}
+          title={addFormOpen ? 'Adicionar novo suprimento' : (editFormOpen ? 'Alterar suprimentos' : 'Resumo dos gastos')}
+        />
+        <AnimateHeight 
+          duration={300}
+          height={heightAdd}
+        >
           <div className="tabpane__content">
-            <PaneTextContent 
-              numColumns='2' 
-              itemsMatrix={itemsMatrixSupply()}
+            <AddSupplyForm 
+              visible={true}
+              toggleForm={toggleAddForm}
             />
           </div>
-          <PaneTitle 
-            title={'Tabela de suprimentos'}
-          />
+        </AnimateHeight>
+        <AnimateHeight 
+          duration={300}
+          height={heightEdit}
+        >
           <div className="tabpane__content">
-            <PaneTextContent 
-              numColumns='2' 
-              itemsMatrix={itemsMatrixTableFilter()}
+            <EditSupplyForm 
+              visible={true}
+              toggleForm={toggleEditForm}
             />
           </div>
-          <div className="tabpane__content__table">
-            <CustomTable
-              type={'pages-with-search'}
-              tableConfig={tableConfig}
-              searchableAttributes={searchableAttributes}
-              selectedData={this.props.selectedData}
-              handleSelectData={this.props.handleSelectData}
-              data={this.props.data}
-              disableSorting
-            />
-          </div>
+        </AnimateHeight>
+        {(addFormOpen || editFormOpen) && (
+          <PaneTitle 
+            title={'Resumo dos Gastos'}
+          />
+        )}
+        <div className="tabpane__content">
+          <PaneTextContent 
+            numColumns='2' 
+            itemsMatrix={itemsMatrixSupply()}
+          />
         </div>
-      </>
-    );
-  }
+        <PaneTitle 
+          title={'Tabela de suprimentos'}
+        />
+        <div className="tabpane__content">
+          <PaneTextContent 
+            numColumns='2' 
+            itemsMatrix={itemsMatrixTableFilter()}
+          />
+        </div>
+        <div className="tabpane__content__table">
+          <CustomTable
+            type={'pages-with-search'}
+            tableConfig={tableConfig}
+            searchableAttributes={searchableAttributes}
+            selectedData={props.selectedData}
+            handleSelectData={props.handleSelectData}
+            data={props.data.supplies}
+            disableSorting
+          />
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default compose(
-  withDataAccess,
-  withPrepareData(tableConfig),
-  withSelectLogic
-)(SupplyTab);
+export default SupplyTab;
