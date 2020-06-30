@@ -17,6 +17,8 @@ import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import { createUploadLink } from 'apollo-upload-client';
 
+import { ApolloProvider as ApolloProviderHooks } from '@apollo/react-hooks';
+
 const store = configureStore(preloadedState);
 
 const httpLink = new HttpLink({
@@ -47,9 +49,11 @@ const client = new ApolloClient({
 const renderApp = () =>
   ReactDOM.render(
     <ApolloProvider client={client}>
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <ApolloProviderHooks client={client}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ApolloProviderHooks>
     </ApolloProvider>,
     document.getElementById("root")
   );
