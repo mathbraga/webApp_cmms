@@ -1,4 +1,4 @@
-drop trigger if exists check_task_supply;
+drop trigger if exists check_task_supply on task_supplies;
 drop function if exists check_task_supply;
 
 create or replace function check_task_supply ()

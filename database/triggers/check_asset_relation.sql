@@ -1,4 +1,4 @@
-drop trigger if exists check_asset_relation;
+drop trigger if exists check_asset_relation on asset_relations;
 drop function if exists check_asset_relation;
 
 create or replace function check_asset_relation ()

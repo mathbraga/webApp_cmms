@@ -1,14 +1,14 @@
-drop trigger if exists check_task_message;
+drop trigger if exists check_task_message on task_messages;
 drop function if exists check_task_message;
 
-create or replace function check_task_supply ()
+create or replace function check_task_message ()
   returns trigger
   language plpgsql
   as $$
     declare
       is_same_person_id boolean;
     begin
-      select old.person_id = new.person_id into is_same_person_id;
+      is_same_person_id = old.person_id = new.person_id;
       if is_same_person_id then
         return new;
       else

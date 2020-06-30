@@ -1,4 +1,4 @@
-drop trigger if exists check_task_event;
+drop trigger if exists check_task_event on task_events;
 drop function if exists check_task_event;
 
 create or replace function check_task_event ()
