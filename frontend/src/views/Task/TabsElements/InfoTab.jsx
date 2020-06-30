@@ -1,22 +1,33 @@
 import React from 'react';
-import DescriptionTable from '../../../components/Descriptions/DescriptionTable';
+
+import PaneTitle from '../../../components/TabPanes/PaneTitle';
+import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 import { itemsMatrixGeneral, itemsMatrixDate } from '../utils/descriptionMatrix';
 
 
 function InfoTab({ data }) {
+  
   return (
-    <>
-      <DescriptionTable
+    <div className="tabpane-container">
+      <PaneTitle 
         title={'Detalhes do Serviço'}
-        numColumns={2}
-        itemsMatrix={itemsMatrixGeneral(data)}
       />
-      <DescriptionTable
+      <div className="tabpane__content">
+        <PaneTextContent 
+          numColumns='2' 
+          itemsMatrix={itemsMatrixGeneral(data)}
+        />
+      </div>
+      <PaneTitle 
         title={'Prazos e Datas'}
-        numColumns={2}
-        itemsMatrix={itemsMatrixDate(data)}
       />
-    </>
+      <div className="tabpane__content">
+        <PaneTextContent 
+          numColumns='2' 
+          itemsMatrix={itemsMatrixDate(data)}
+        />
+      </div>
+    </div>
   );
 }
 

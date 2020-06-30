@@ -1,3 +1,14 @@
+import moment from 'moment';
+
+function daysOfDelay(date, dueDate) {
+  const today = new Date();
+  const dateObj = date ? moment(date) : moment(today);
+  const dueDateObj = moment(dueDate);
+  const diff = dateObj.diff(dueDateObj, 'days');
+  
+  return diff > 0 ? diff : `Sem atraso (+ ${-diff} dias)`;
+}
+
 export function itemsMatrixGeneral(data) {
   return (
     [
@@ -23,12 +34,12 @@ export function itemsMatrixDate(data) {
   return (
     [
       [
-        { id: 'createdAt', title: 'Criação da OS', description: data.createdAt, span: 1 },
-        { id: 'dateLimit', title: 'Prazo Final', description: data.dateLimit, span: 1 },
+        { id: 'createdAt', title: 'Criação da OS', description: data.createdAt.split("T")[0], span: 1 },
+        { id: 'dateLimit', title: 'Prazo Final', description: data.dateLimit.split("T")[0], span: 1 },
       ],
       [
         { id: 'dateStart', title: 'Início da Execução', description: data.dateStart, span: 1 },
-        { id: 'delay', title: 'Dias de Atraso', description: data.dateLimit, span: 1 },
+        { id: 'delay', title: 'Dias de Atraso', description: daysOfDelay(data.dateEnd, data.dateLimit), span: 1 },
       ],
       [{ id: 'dateEnd', title: 'Término da Execução', description: data.dateEnd, span: 1 }],
     ]
