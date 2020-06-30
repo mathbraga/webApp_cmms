@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import DescriptionTable from '../../../components/Descriptions/DescriptionTable';
-import { itemsMatrixSupply, itemsMatrixTableFilter } from '../utils/materialTab/descriptionMatrix';
-import tableConfig from '../utils/materialTab/tableConfig';
-import { customFilters, filterAttributes } from '../utils/materialTab/filterParameters';
-import searchableAttributes from '../utils/materialTab/searchParameters';
-import withDataAccess from '../utils/materialTab/withDataAccess';
+import { itemsMatrixSupply, itemsMatrixTableFilter } from '../utils/supplyTab/descriptionMatrix';
+import tableConfig from '../utils/supplyTab/tableConfig';
+import { customFilters, filterAttributes } from '../utils/supplyTab/filterParameters';
+import searchableAttributes from '../utils/supplyTab/searchParameters';
+import withDataAccess from '../utils/supplyTab/withDataAccess';
 import CustomTable from '../../../components/Tables/CustomTable';
 import withPrepareData from '../../../components/Formating/withPrepareData';
 import withSelectLogic from '../../../components/Selection/withSelectLogic';
@@ -21,7 +21,7 @@ import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 import { compose } from 'redux';
 import './Tabs.css';
 
-class MaterialTab extends Component {
+class SupplyTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -137,4 +137,4 @@ export default compose(
   withDataAccess,
   withPrepareData(tableConfig),
   withSelectLogic
-)(MaterialTab);
+)(SupplyTab);
