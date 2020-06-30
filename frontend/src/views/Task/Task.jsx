@@ -8,37 +8,52 @@ import paths from '../../paths';
 
 import { useQuery } from '@apollo/react-hooks';
 
-import { TASKS_QUERY } from './graphql/gql';
+import { TASK_QUERY } from './graphql/gql';
 
 // Image by <a href="https://pixabay.com/users/OpenClipart-Vectors-30363/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1295319">OpenClipart-Vectors</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1295319">Pixabay</a>
 const image = require("../../assets/img/entities/task.png");
 const imageStatus = 'Em andamento';
 
-class Task extends Component {
-  render() {
-    const { data, graphQLVariables, ...rest } = this.props;
-    const finalData = data.queryResponse.nodes[0];
-    const descriptionItems = [
-      { title: 'Serviço', description: finalData.title, boldTitle: true },
-      { title: 'O.S. nº', description: finalData.taskId.toString().padStart(4, "0"), boldTitle: false },
-      { title: 'Local', description: finalData.place, boldTitle: false },
-      { title: 'Categoria', description: finalData.taskCategoryText, boldTitle: false },
-    ];
-    return (
+const descriptionItems = [
+  { title: 'Serviço', description: "", boldTitle: true },
+  { title: 'O.S. nº', description: "", boldTitle: false },
+  { title: 'Local', description: "", boldTitle: false },
+  { title: 'Categoria', description: "", boldTitle: false },
+];
+
+function Task(props) {
+  const taskId = Number(props.match.params.id)
+  const { loading, data: { allTaskData: { nodes: [data] = [] } = {} } = {} } = useQuery(TASK_QUERY, {
+    variables: { taskId }
+   });
+   
+   if (!loading) {
+    descriptionItems[0].description = data.title;
+    descriptionItems[1].description = data.taskId.toString().padStart(4, "0");
+    descriptionItems[2].description = data.place;
+    descriptionItems[3].description = data.taskCategoryText;
+   }
+
+  return (
+    loading ? (
+      <div>Loading</div>
+    ) : (
       <ItemView
         sectionName={'Tarefa'}
         sectionDescription={'Ficha descritiva de uma tarefa'}
-        data={finalData}
+        data={data}
         image={image}
         imageStatus={imageStatus}
         descriptionItems={descriptionItems}
-        tabs={tabsGenerator(finalData)}
-        buttonPath={paths.task.toUpdate + graphQLVariables.id.toString()}
+        tabs={tabsGenerator(data)}
+        buttonPath={paths.task.toUpdate + taskId.toString()}
         buttonName={"Editar"}
-        {...rest}
+        {...props}
       />
-    );
-  }
+    )
+  );
 }
 
 export default Task;
+
+

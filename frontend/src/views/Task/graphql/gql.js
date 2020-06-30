@@ -1,11 +1,11 @@
 import gql from 'graphql-tag';
 
 export const TASK_QUERY = gql`
-  query TaskQuery($taskId: ID!) {
+  query TaskQuery($taskId: Int!) {
     allTaskData(condition: {taskId: $taskId}) {
       nodes {
         taskId
-        contracts
+        contract
         createdAt
         createdBy
         dateEnd
