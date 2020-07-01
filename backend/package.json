@@ -41,7 +41,9 @@
       "name": "BACKEND",
       "color": "blue"
     },
-    "extraGlobals": ["JSON"],
+    "extraGlobals": [
+      "JSON"
+    ],
     "testEnvironment": "node",
     "verbose": true
   }

@@ -23,6 +23,7 @@ const descriptionItems = [
 
 function Task(props) {
   const taskId = Number(props.match.params.id)
+  
   const { loading, data: { allTaskData: { nodes: [data] = [] } = {} } = {} } = useQuery(TASK_QUERY, {
     variables: { taskId }
    });
