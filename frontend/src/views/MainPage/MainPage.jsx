@@ -16,6 +16,7 @@ import {
 import navigation from "../../_nav";
 // routes config
 import routes from "../../routes";
+import cookieAuth from "../../utils/authentication/cookieAuth";
 
 const MainHeader = React.lazy(() => import("./MainHeader"));
 const Dashboard = React.lazy(() => import("../Dashboard"));
@@ -29,6 +30,10 @@ class MainPage extends Component {
     }
   }
   
+  componentWillMount(){
+    cookieAuth().then(console.log("checking cookie."))
+  }
+
   loading = () => (
     <div className="animated fadeIn pt-1 text-center">Carregando...</div>
   );
