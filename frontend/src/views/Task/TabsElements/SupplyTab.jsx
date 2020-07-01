@@ -10,13 +10,16 @@ import EditSupplyForm from '../../../components/NewForms/EditSupplyForm';
 
 import PaneTitle from '../../../components/TabPanes/PaneTitle';
 import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
+import prepareData from '../../../components/DataManipulation/prepareData';
 
 import './Tabs.css';
 
-function SupplyTab(props) {
+function SupplyTab({ data }) {
   const [ addFormOpen, setAddFormOpen ] = useState(false);
   const [ editFormOpen, setEditFormOpen ] = useState(false);
-
+  
+  const supplies = prepareData(data.supplies, tableConfig);
+  
   function toggleAddForm() {
     setAddFormOpen(!addFormOpen);
     setEditFormOpen(false);
@@ -45,7 +48,7 @@ function SupplyTab(props) {
   const heightAdd = openedForm === 'addFormOpen' ? 'auto' : 0;
   const heightEdit = openedForm === 'editFormOpen' ? 'auto' : 0;
   
-  console.log("Props Data: ", props.data);
+  console.log("Supplies: ", supplies);
 
   return (
     <>
@@ -84,7 +87,7 @@ function SupplyTab(props) {
         <div className="tabpane__content">
           <PaneTextContent 
             numColumns='2' 
-            itemsMatrix={itemsMatrixSupply()}
+            itemsMatrix={itemsMatrixSupply(data)}
           />
         </div>
         <PaneTitle 
@@ -93,7 +96,7 @@ function SupplyTab(props) {
         <div className="tabpane__content">
           <PaneTextContent 
             numColumns='2' 
-            itemsMatrix={itemsMatrixTableFilter()}
+            itemsMatrix={itemsMatrixTableFilter(data)}
           />
         </div>
         <div className="tabpane__content__table">
@@ -101,9 +104,7 @@ function SupplyTab(props) {
             type={'pages-with-search'}
             tableConfig={tableConfig}
             searchableAttributes={searchableAttributes}
-            selectedData={props.selectedData}
-            handleSelectData={props.handleSelectData}
-            data={props.data.supplies}
+            data={supplies}
             disableSorting
           />
         </div>

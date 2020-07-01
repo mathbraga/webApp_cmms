@@ -1,11 +1,20 @@
 import React from 'react';
 import { FormGroup, Label, Input } from 'reactstrap';
 
-export function itemsMatrixSupply() {
+const formatter = new Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL',
+});
+
+export function itemsMatrixSupply(data) {
   return (
     [
       [
-        { id: 'taskValue', title: 'Custo total da tarefa', description: 'R$ 1.341,00', span: 1 },
+        { 
+          id: 'taskValue', title: 'Custo total da tarefa', 
+          description: formatter.format(data.supplies.reduce((acc, item) => (item.totalPrice + acc), 0)), 
+          span: 1 
+        },
       ],
       [
         { id: 'taskValuePerStorage', title: 'Custo por "estoque"', description: 
@@ -19,7 +28,7 @@ export function itemsMatrixSupply() {
   );
 }
 
-export function itemsMatrixTableFilter(handleLogTypeChange) {
+export function itemsMatrixTableFilter(data, handleLogTypeChange) {
   return (
     [
       [
