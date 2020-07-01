@@ -79,7 +79,7 @@ class Login extends Component {
         // window.localStorage.setItem('login-event', 'login' + Math.random());
         this.props.dispatch(loginSuccess(this.state.email));
         this.props.history.push("/painel");
-        console.log(r.name); // Server response with user data
+        console.log(r); // Server response with user data
       })
       .catch(() => {
         this.setState({

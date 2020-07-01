@@ -8,9 +8,9 @@ router.post(
   (req, res) => {
     if(req.user){
       // console.log(req.user)
-      // let cookieContent = req.user.personId.toString() + '-' + req.user.role;
+      let cookieContent = req.user.personId.toString() + '-' + req.user.role;
       // console.log(cookieContent)
-      // res.cookie('cmms:user', cookieContent);
+      res.cookie('cmms:user', cookieContent);
       res.json(req.user);
     }
   }

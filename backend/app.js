@@ -10,7 +10,10 @@ const paths = require('./paths');
 const cors = require('./middlewares/cors');
 const expressJson = require('./middlewares/express-json');
 const { expressStatic, loginStatic } = require('./middlewares/express-static');
+// Cookie related
 const cookieSession = require('./middlewares/cookie-session');
+const cookieParser = require('cookie-parser');
+
 const passport = require('./middlewares/passport');
 const morgan = require('./middlewares/morgan');
 const checkAuthUser = require('./middlewares/check-auth-user');
@@ -27,6 +30,7 @@ app.use(expressJson);
 app.use(expressStatic);
 app.use(loginStatic);
 app.use(cookieSession);
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan);
