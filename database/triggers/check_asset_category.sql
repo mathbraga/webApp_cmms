@@ -1,4 +1,4 @@
-drop trigger if exists check_asset_category;
+drop trigger if exists check_asset_category on assets;
 drop function if exists check_asset_category;
 
 create or replace function check_asset_category ()

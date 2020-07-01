@@ -34,13 +34,11 @@ create or replace view api.facility_data as
     ),
     contexts as (
       select  jsonb_agg(jsonb_build_object(
-                'assetId', a.asset_id,
-                'assetSf', a.asset_sf,
-                'name', a.name
+                'assetId', ac.asset_id,
+                'assetSf', ac.asset_sf,
+                'name', ac.name
               )) as contexts
-        from asset_relations as ar
-        inner join assets as a using (asset_id)
-      where ar.parent_id is null
+      from asset_contexts as ac
     )
   select  a.asset_id,
           a.asset_sf,

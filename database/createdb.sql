@@ -27,13 +27,15 @@ create database :new_db_name with owner postgres;
 \c :new_db_name
 
 -- create extensions
-\i public/extensions.sql
+create extension if not exists pgcrypto;
 
 -- create additional schemas
-\i public/schemas.sql
+create schema private;
+create schema api;
+create schema web;
 
 -- create roles
-\i public/roles.sql
+\i roles/roles.sql
 
 -- set password for postgres role
 alter role postgres with encrypted password '123456';
@@ -48,7 +50,7 @@ alter role postgres with encrypted password '123456';
 begin transaction;
 
 -- alter default privileges
-\i public/privileges.sql
+\i roles/privileges.sql
 
 -- create get_person_id function
 \i public/get_person_id.sql
@@ -66,10 +68,15 @@ begin transaction;
 \i public/lookup_tables.sql
 \i public/tables.sql
 
--- other things
+-- create functions
 \i public/get_asset_trees.sql
 \i public/get_exception_message.sql
+
+-- create views
 \i public/balances.sql
+
+-- create materialized views
+\i public/asset_contexts.sql
 
 -- create api schema objects
 -- task basic
@@ -103,10 +110,10 @@ begin transaction;
 \i api/spec_data.sql
 \i api/team_data.sql
 
--- create ws schema objects
-\i ws/authenticate.sql
-\i ws/get_all_files_uuids.sql
-\i ws/refresh_all_materialized_views.sql
+-- create web schema objects
+\i web/authenticate.sql
+\i web/get_all_files_uuids.sql
+\i web/refresh_all_materialized_views.sql
 
 -- create and login with fake user for initial inserts
 set local cookie.session.person_id to 0;
@@ -116,9 +123,13 @@ insert into persons overriding system value values
 -- create triggers before populate tables
 -- \i triggers/check_asset_category.sql
 -- \i triggers/check_asset_relation.sql
--- \i triggets/check_task_event.sql
--- \i triggers/check_task_supply.sql
+\i triggers/check_task_event.sql
+\i triggers/check_task_message.sql
+\i triggers/check_task_supply.sql
 -- \i triggers/insert_audit_trail.sql
+
+-- create rls policies
+\i policies/task_messages.sql
 
 -- populate tables with sample data
 \i sample/asset_categories.sql
@@ -137,40 +148,23 @@ insert into persons overriding system value values
 -- tasks
 \i sample/task1.sql
 
+-- switch back to person_id = 0
+set local cookie.session.person_id to 0;
+
 -- restart sequences
 \i sample/_restart_sequences.sql
 
 -- create triggers after populate tables
 -- \i trigger/name_of_the_trigger.sql
 
--- create rls policies
--- \i rls/assets.sql
--- \i rls/asset_relations.sql
--- \i rls/contracts.sql
--- \i rls/persons.sql
--- \i rls/accounts.sql
--- \i rls/teams.sql
--- \i rls/team_persons.sql
--- \i rls/contract_teams.sql
--- \i rls/projects.sql
--- \i rls/requests.sql
--- \i rls/tasks.sql
--- \i rls/task_messages.sql
--- \i rls/task_assets.sql
--- \i rls/task_dispatches.sql
--- \i rls/specs.sql
--- \i rls/supplies.sql
--- \i rls/task_supplies.sql
--- \i rls/task_files.sql
-
--- enable rls
--- \i rls/_enable.sql
-
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
 
 -- commit transaction
 commit transaction;
+
+-- refresh materialized views
+select web.refresh_all_materialized_views();
 
 -- create extra indexes
 \i public/indexes.sql

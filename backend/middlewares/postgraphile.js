@@ -9,7 +9,7 @@ module.exports = postgraphile(
     watchPg: process.env.NODE_ENV === 'development',
     retryOnInitFail: false,
     enableCors: false,
-    graphqlRoute: paths.db,
+    graphqlRoute: paths.api,
     graphiql: process.env.NODE_ENV === 'development',
     graphiqlRoute: paths.graphiql,
     // ignoreIndexes: false,
