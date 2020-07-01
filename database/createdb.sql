@@ -123,7 +123,7 @@ insert into persons overriding system value values
 -- create triggers before populate tables
 -- \i triggers/check_asset_category.sql
 -- \i triggers/check_asset_relation.sql
-\i triggets/check_task_event.sql
+\i triggers/check_task_event.sql
 \i triggers/check_task_message.sql
 \i triggers/check_task_supply.sql
 -- \i triggers/insert_audit_trail.sql
