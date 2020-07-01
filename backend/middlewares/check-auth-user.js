@@ -6,7 +6,7 @@ const checkAuthUser = (req, res, next) => {
     next();
   } else {
     // res.send('User connected.');
-    console.log(req.cookies['cmms:user']);
+    // res.json(req.cookies);
     next();
   }
 }

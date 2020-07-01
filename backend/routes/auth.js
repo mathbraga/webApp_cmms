@@ -21,6 +21,7 @@ router.get(
   (req, res) => {
     req.logout();
     req.session = null;
+    res.clearCookie('cmms:user');
     res.json({ logoutSuccess: true });
   }
 );
