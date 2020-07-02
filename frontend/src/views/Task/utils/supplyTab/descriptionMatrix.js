@@ -7,6 +7,9 @@ const formatter = new Intl.NumberFormat('pt-BR', {
 });
 
 export function itemsMatrixSupply(data) {
+  const contracts = [...new Set(data.supplies.map(item => ({ id: item.contractId, name: item.contractSf, company: item.company })))];
+  contracts.forEach(contract => { contract.cost = data.supplies.reduce((acc, item) => (item.contractId === contract.id ? item.totalPrice + acc : acc), 0); });
+  console.log("Contracts: ", contracts);
   return (
     [
       [
@@ -17,18 +20,23 @@ export function itemsMatrixSupply(data) {
         },
       ],
       [
-        { id: 'taskValuePerStorage', title: 'Custo por "estoque"', description: 
+        { id: 'taskValuePerStorage', 
+          title: 'Custo por "estoque"', 
+          description: 
           <ul style={{ paddingLeft: '20px', marginBottom: '0' }}>
-            <li>Contrato n. 12/2020 - RCS:  <span style={{fontWeight: '600'}}>R$ 700,00</span></li>
-            <li>Nota Fiscal n. 8918/2020:  <span style={{fontWeight: '600'}}>R$ 641,00</span></li>
-          </ul>
-        , span: 2 },
+            {contracts.map(contract => (
+               <li key={contract.id}>{contract.name} - {contract.company}: <span style={{fontWeight: '600'}}>{formatter.format(contract.cost)}</span></li>
+            ))}
+          </ul>, 
+          span: 2 
+        },
       ],
     ]
   );
 }
 
 export function itemsMatrixTableFilter(data, handleLogTypeChange) {
+  const contracts = [...new Set(data.supplies.map(item => ({ id: item.contractId, name: item.contractSf, company: item.company })))];
   return (
     [
       [
@@ -39,9 +47,9 @@ export function itemsMatrixTableFilter(data, handleLogTypeChange) {
               <Label className='desc-sub' for="exampleSelect" style={{ margin: "10px 0 2px 0 " }}>Filtrar por</Label>
               <Input type="select" name="select" id="exampleSelect" onChange={handleLogTypeChange}>
                 <option value='all'>Sem filtro</option>
-                <option value='assign'>CT 020/2020 - RCS</option>
-                <option value='status'>CT 020/2021 - RCS</option>
-                <option value='status'>NF 0205/2020 - RCS</option>
+                {contracts.map(contract => (
+                  <option value={contract.id} key={contract.id}>{contract.name} - {contract.company}</option>
+                ))}
               </Input>
             </FormGroup>
           ), 
