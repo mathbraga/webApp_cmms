@@ -90,6 +90,7 @@
     "react-scripts": "^3.4.0"
   },
   "scripts": {
+    "build-and-mv": "npm run build && mv build/* ../backend/public/",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
