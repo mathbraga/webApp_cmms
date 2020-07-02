@@ -27,6 +27,9 @@ create or replace view api.task_data as
     select  ts.task_id,
             s.supply_id,
             s.supply_sf,
+            s.contract_id,
+            c.contract_sf,
+            c.company,
             ts.qty,
             s.bid_price,
             ts.qty * s.bid_price as total_price,
@@ -34,6 +37,7 @@ create or replace view api.task_data as
             z.unit
       from task_supplies as ts
       inner join supplies as s using (supply_id)
+      inner join contracts as c using (contract_id)
       inner join specs as z using (spec_id)
     order by s.supply_sf
   ),
@@ -42,6 +46,9 @@ create or replace view api.task_data as
             jsonb_agg(jsonb_build_object(
               'supplyId', s.supply_id,
               'supplySf', s.supply_sf,
+              'contractId', s.contract_id,
+              'contractSf', s.contract_sf,
+              'company', s.company,
               'qty', s.qty,
               'bidPrice', s.bid_price,
               'totalPrice', s.total_price,
@@ -118,7 +125,6 @@ create or replace view api.task_data as
             tm.message,
             tm.reply_to,
             p.person_id,
-            get_person_id() = p.person_id as is_creator,
             p.name,
             tm.created_at,
             tm.updated_at,
@@ -134,7 +140,6 @@ create or replace view api.task_data as
               'message', m.message,
               'replyTo', m.reply_to,
               'personId', m.person_id,
-              'isCreator', m.is_creator,
               'personName', m.name,
               'createdAt', m.created_at,
               'updatedAt', m.updated_at,

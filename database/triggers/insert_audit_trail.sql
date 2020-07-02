@@ -1,5 +1,4 @@
-drop trigger if exists insert_audit_trail;
-drop function if exists insert_audit_trail;
+drop function if exists insert_audit_trail cascade;
 
 create or replace function insert_audit_trail ()
   returns trigger

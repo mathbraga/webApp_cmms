@@ -8,13 +8,7 @@ create or replace function api.move_task (
   as $$
     begin
 
-      update tasks set (
-        task_status_id
-      ) = row(
-        event.task_status_id
-      ) where task_id = event.task_id;
-
-      insert into task_events values (
+    insert into task_events values (
         event.task_id,
         'move'::task_event_enum,
         now(),
@@ -24,6 +18,12 @@ create or replace function api.move_task (
         event.task_status_id,
         event.note
       ) returning task_id into id;
+
+      update tasks set (
+        task_status_id
+      ) = row(
+        event.task_status_id
+      ) where task_id = event.task_id;
 
     end;
   $$

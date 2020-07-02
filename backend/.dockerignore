@@ -1,0 +1,5 @@
+dumps/*
+files/*
+logs/*
+node_modules
+tests

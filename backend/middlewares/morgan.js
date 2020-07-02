@@ -6,7 +6,7 @@ const paths = require('../paths');
 morgan.token('separator', req => '-----------------------------------------------------------------------------------------------------');
 morgan.token('user', req => JSON.stringify(req.user));
 morgan.token('session', req => JSON.stringify(req.session));
-morgan.token('body', req => JSON.stringify(req.body));
+morgan.token('body', req => req.path === paths.login ? '{ SECRET }' : JSON.stringify(req.body));
 
 const logFormatDevelopment = `\n:separator\n:date[iso]    :remote-addr    :method    :url    :status    :response-time ms\nUser: :user    Session: :session\nBody: :body`;
 const logFormatProduction = `:date[iso]    :remote-addr    :method    :url    :status    :response-time    :user    :session    :body`;

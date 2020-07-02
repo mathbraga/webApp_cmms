@@ -8,14 +8,6 @@ create or replace function api.receive_task (
   as $$
     begin
 
-      update tasks set (
-        team_id,
-        next_team_id
-      ) = (
-        event.team_id,
-        null
-      ) where task_id = event.task_id;
-
       insert into task_events values (
         event.task_id,
         'receive'::task_event_enum,
@@ -26,6 +18,14 @@ create or replace function api.receive_task (
         event.task_status_id,
         null
       ) returning task_id into id;
+
+      update tasks set (
+        team_id,
+        next_team_id
+      ) = (
+        event.team_id,
+        null
+      ) where task_id = event.task_id;
 
     end;
   $$

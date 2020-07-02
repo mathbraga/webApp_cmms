@@ -1,13 +1,19 @@
-# FROM (first layer, with the OS for the container)
+# Linux x64
+FROM alpine
 
-# LABEL (maintainers)
+# LABEL maintainer="maintainer@email.com"
 
-# Install npm and nodejs
+# Install Node and NPM (apk is alpine's package manager tool)
+RUN apk add --update nodejs nodejs-npm
 
-# Copy web server directory contents (from Docker host to the container)
+# Copy app to /src
+COPY . /backend
 
-# WORKDIR
+WORKDIR /backend
 
-# RUN npm install
+# Install dependencies
+RUN  npm install
 
-# EXPOSE port
+EXPOSE 8080
+
+ENTRYPOINT ["node", "./server.js"]
