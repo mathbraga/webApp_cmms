@@ -13,10 +13,7 @@ function addUnit(item) {
 }
 
 function addStorage(item) {
-  if (item.supplyId % 2 === 0) {
-    return 'NF 4516/2020 - Elétrica S.A.';
-  }
-  return 'CT 020/2020 - RCS';
+  return `${item.contractSf} - ${item.company}`;
 }
 
 const tableConfig = {
