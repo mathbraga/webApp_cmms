@@ -32,10 +32,22 @@ const teamsFake = [
 
 function AddSupplyForm({ visible, toggleForm }) {
   const [ contract, setContract ] = useState(null);
+  const [ supplies, setSupplies ] = useState(null);
   
   const { loading, data: { allContractData: { nodes: contracts } = {} } = {} } = useQuery(SUPPLIES_QUERY);
    
-  const contractsOption = contracts ? contracts.map(contract => ({value: contract.contractId, label: `${contract.contractSf} - ${contract.company}`})) : [];
+  const contractsOption = contracts ? contracts.map(contract => ({
+    value: contract.contractId, 
+    label: `${contract.contractSf.split(/([0-9]+)/)[0]} ${contract.contractSf.split(/([0-9]+)/)[1]} - ${contract.company}`})) : [];
+  
+  const suppliesOption = contracts ? contracts.map(contract => ({
+    label: `${contract.contractSf.split(/([0-9]+)/)[0]} ${contract.contractSf.split(/([0-9]+)/)[1]} - ${contract.company}`, 
+    options: contract.supplies.map(supply => ({
+      label: `${supply.supplySf} - ${supply.name}`,
+      value: supply.supplyId
+    }))
+  })) : [];
+  
   
   const miniformClass = classNames({
     'miniform-container': true,
@@ -44,6 +56,10 @@ function AddSupplyForm({ visible, toggleForm }) {
   
   function handleChangeContract(contract) {
     setContract(contract);
+  }
+  
+  function handleChangeSupply(supply) {
+    console.log("Supply: ", supply);
   }
   
   return ( 
@@ -80,7 +96,7 @@ function AddSupplyForm({ visible, toggleForm }) {
                 isSearchable
                 name="team"
                 placeholder={'Suprimento'}
-                options={teamsFake}
+                options={suppliesOption}
                 styles={selectStyles}
               />
             </div>
