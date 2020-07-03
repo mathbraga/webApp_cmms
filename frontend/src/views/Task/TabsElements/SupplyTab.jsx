@@ -26,8 +26,8 @@ function SupplyTab({ data }) {
   }
 
   function toggleEditForm() {
-    setAddFormOpen(false);
     setEditFormOpen(!editFormOpen);
+    setAddFormOpen(false);
   }
 
   const actionButtons = {
@@ -63,6 +63,7 @@ function SupplyTab({ data }) {
             <AddSupplyForm 
               visible={true}
               toggleForm={toggleAddForm}
+              setAddFormOpen={setAddFormOpen}
               taskId={data.taskId}
             />
           </div>

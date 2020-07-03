@@ -21,7 +21,7 @@ const formatter = new Intl.NumberFormat('pt-BR', {
   currency: 'BRL',
 });
 
-function AddSupplyForm({ visible, toggleForm, taskId }) {
+function AddSupplyForm({ visible, toggleForm, taskId, setAddFormOpen }) {
   const [ contract, setContract ] = useState(null);
   const [ supply, setSupply ] = useState(null);
   const [ quantity, setQuantity ] = useState(null);
@@ -34,12 +34,13 @@ function AddSupplyForm({ visible, toggleForm, taskId }) {
       supplyId: supply && supply.supplyId,
       qty: quantity
     },
-    update: () => {
+    onCompleted: () => {
       setContract(null);
       setSupply(null);
       setQuantity(null);
+      setAddFormOpen(false);
     },
-    refetchQueries: [{ query: TASK_SUPPLIES_QUERY, variables: { taskId } }],
+    refetchQueries: [{ query: TASK_SUPPLIES_QUERY, variables: { taskId } }, { query: SUPPLIES_QUERY }],
     onError: (err) => { console.log(err); },
   });
   
@@ -88,7 +89,6 @@ function AddSupplyForm({ visible, toggleForm, taskId }) {
   
   function handleSubmit() {
     insertSupply();
-    toggleForm();
   }
   
   return ( 
