@@ -24,3 +24,14 @@ export const INSERT_SUPPLY = gql`
     }
   }
 `;
+
+export const TASK_SUPPLIES_QUERY = gql`
+  query TaskQuery($taskId: Int!) {
+    allTaskData(condition: {taskId: $taskId}) {
+      nodes {
+        taskId
+        supplies
+      }
+    }
+  }
+`;

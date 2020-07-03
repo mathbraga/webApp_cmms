@@ -7,7 +7,7 @@ import './SupplyForm.css';
 
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { SUPPLIES_QUERY, INSERT_SUPPLY } from './graphql/supplyFormGql';
+import { SUPPLIES_QUERY, INSERT_SUPPLY, TASK_SUPPLIES_QUERY } from './graphql/supplyFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -30,10 +30,16 @@ function AddSupplyForm({ visible, toggleForm, taskId }) {
   
   const [insertSupply, { error }] = useMutation(INSERT_SUPPLY, {
     variables: {
-      taskId: taskId,
+      taskId,
       supplyId: supply && supply.supplyId,
       qty: quantity
     },
+    update: () => {
+      setContract(null);
+      setSupply(null);
+      setQuantity(null);
+    },
+    refetchQueries: [{ query: TASK_SUPPLIES_QUERY, variables: { taskId } }],
     onError: (err) => { console.log(err); },
   });
   
