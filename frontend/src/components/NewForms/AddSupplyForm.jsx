@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import { Button, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import classNames from 'classnames';
+import NumberFormat from 'react-number-format';
 import './SupplyForm.css';
 
 import { useQuery } from '@apollo/react-hooks';
@@ -15,24 +16,15 @@ const selectStyles = {
   }),
 };
 
-const teamsFake = [
-  {value: 'Semac', label: 'Semac'}, 
-  {value: 'Coemant', label: 'Coemant'}, 
-  {value: 'Sinfra', label: 'Sinfra'},
-  {value: 'Coproj', label: 'Coproj'},
-  {value: 'Copre', label: 'Copre'},
-  {value: 'GabSinfra', label: 'Gabinete Sinfra'},
-  {value: 'Seau', label: 'Seau'},
-  {value: 'Dger', label: 'Dger'},
-  {value: 'Ngcic', label: 'Ngcic'},
-  {value: 'Ngcot', label: 'Ngcoc'},
-  {value: 'Segp', label: 'Segp'},
-  {value: 'Prodasen', label: 'Prodasen'},
-];
+const formatter = new Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL',
+});
 
 function AddSupplyForm({ visible, toggleForm }) {
   const [ contract, setContract ] = useState(null);
   const [ supply, setSupply ] = useState(null);
+  const [ quantity, setQuantity ] = useState(null);
   
   const { loading, data: { allContractData: { nodes: contracts } = {} } = {} } = useQuery(SUPPLIES_QUERY);
    
@@ -45,7 +37,11 @@ function AddSupplyForm({ visible, toggleForm }) {
     options: contract.supplies.map(supply => ({
       label: `${supply.supplySf}: ${supply.name}`,
       value: supply.supplyId,
-      contract: {value: contract.contractId, label: `${contract.contractSf.split(/([0-9]+)/)[0]} ${contract.contractSf.split(/([0-9]+)/)[1]} - ${contract.company}`}
+      contract: {value: contract.contractId, label: `${contract.contractSf.split(/([0-9]+)/)[0]} ${contract.contractSf.split(/([0-9]+)/)[1]} - ${contract.company}`},
+      bidPrice: supply.bidPrice,
+      supplySf: supply.supplySf,
+      qtyAvailable: supply.qtyAvailable,
+      unit: supply.unit
     }))
   })) : [];
   
@@ -59,13 +55,19 @@ function AddSupplyForm({ visible, toggleForm }) {
   function handleChangeContract(contract) {
     setContract(contract);
     setSupply(null);
+    setQuantity(null);
   }
   
   function handleChangeSupply(supply) {
     setSupply(supply);
+    setQuantity(null);
     if (!contract) {
       setContract(supply.contract);
     }
+  }
+  
+  function handleChangeQuantity(event) {
+    setQuantity(parseFloat(event.target.value.replace(/\./g, '').replace(/,/g, '.')));
   }
   
   return ( 
@@ -117,7 +119,7 @@ function AddSupplyForm({ visible, toggleForm }) {
                 Código do Item
               </div>
               <div className="miniform__info__value">
-                SF-054205
+                {supply ? supply.supplySf : "-"}
               </div>
             </div>
             <div className="miniform__info__container">
@@ -125,7 +127,7 @@ function AddSupplyForm({ visible, toggleForm }) {
                 Quantidade Disponível
               </div>
               <div className="miniform__info__value" style={{ color: '#f86c6b' }}>
-                735 metro(s)
+                {supply ? `${supply.qtyAvailable} ${supply.unit}` : "-"}
               </div>
             </div>
             <div className="miniform__info__container">
@@ -133,7 +135,7 @@ function AddSupplyForm({ visible, toggleForm }) {
                 Preço Unitário
               </div>
               <div className="miniform__info__value">
-                R$ 12,00
+                {supply ? formatter.format(supply.bidPrice) : "-"}
               </div>
             </div>
           </div>
@@ -148,11 +150,29 @@ function AddSupplyForm({ visible, toggleForm }) {
           <div className="miniform__field__input__container">
             <div className='miniform__field__input-half'>
               <InputGroup>
-                <Input className='miniform__field__textarea' style={{ textAlign: 'right' }} placeholder='0,00'/>
+                <NumberFormat 
+                  className='form-control miniform__field__textarea'
+                  thousandSeparator={'.'} 
+                  decimalSeparator={','}
+                  style={{ textAlign: 'right' }} 
+                  placeholder='0,00'
+                  decimalScale='2'
+                  value={quantity}
+                  fixedDecimalScale={true}
+                  onChange={handleChangeQuantity}
+                />
                 <InputGroupAddon addonType="append">
-                  <InputGroupText>metro(s)</InputGroupText>
+                  <InputGroupText>{supply ? supply.unit  : "-"}</InputGroupText>
                 </InputGroupAddon>
-              </InputGroup>
+               </InputGroup>
+            </div>
+            <div className='miniform__field__input-half'>
+              <div className="miniform__info__label" style={{ textAlign: 'center' }}>
+                Valor Total
+              </div>
+              <div className="miniform__info__value">
+                {supply ? formatter.format(supply.bidPrice * quantity) : "-"}
+              </div>
             </div>
           </div>
         </div>
