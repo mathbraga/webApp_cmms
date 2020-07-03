@@ -58,6 +58,7 @@ function AddSupplyForm({ visible, toggleForm }) {
   
   function handleChangeContract(contract) {
     setContract(contract);
+    setSupply(null);
   }
   
   function handleChangeSupply(supply) {
