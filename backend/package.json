@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start-web-server": "NODE_ENV=production node server.js",
+    "start": "NODE_ENV=development nodemon server.js",
     "test": "jest"
   },
   "author": "",

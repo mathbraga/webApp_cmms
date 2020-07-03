@@ -1,8 +1,8 @@
 # Node.js environment:
-NODE_ENV=production
+#NODE_ENV=production
 
 # HTTP port:
-HTTP_PORT=80
+HTTP_PORT=3001
 
 # Database connection:
 PGUSER=postgres
