@@ -6,6 +6,15 @@ const path = require('path');
 router.get(
   '/',
   (req, res, next) => {
+  
+  /*
+    Frontend links for the downloads will be in the format
+    http://localhost:3001/download/?uuid=...&filename=...
+    and therefore must be URI encoded
+    (to handle spaces and other special characters in the filename)
+    See:
+    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI
+  */
 
   // console.log(req.query);
 
