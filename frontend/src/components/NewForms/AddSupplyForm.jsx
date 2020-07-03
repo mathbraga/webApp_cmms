@@ -32,7 +32,7 @@ const teamsFake = [
 
 function AddSupplyForm({ visible, toggleForm }) {
   const [ contract, setContract ] = useState(null);
-  const [ supplies, setSupplies ] = useState(null);
+  const [ supply, setSupply ] = useState(null);
   
   const { loading, data: { allContractData: { nodes: contracts } = {} } = {} } = useQuery(SUPPLIES_QUERY);
    
@@ -43,11 +43,13 @@ function AddSupplyForm({ visible, toggleForm }) {
   const suppliesOption = contracts ? contracts.map(contract => ({
     label: `${contract.contractSf.split(/([0-9]+)/)[0]} ${contract.contractSf.split(/([0-9]+)/)[1]} - ${contract.company}`, 
     options: contract.supplies.map(supply => ({
-      label: `${supply.supplySf} - ${supply.name}`,
-      value: supply.supplyId
+      label: `${supply.supplySf}: ${supply.name}`,
+      value: supply.supplyId,
+      contract: {value: contract.contractId, label: `${contract.contractSf.split(/([0-9]+)/)[0]} ${contract.contractSf.split(/([0-9]+)/)[1]} - ${contract.company}`}
     }))
   })) : [];
   
+  const filteredSuppliesOption = !contract || !contracts ? suppliesOption : suppliesOption.filter(option => (option.label === contract.label));
   
   const miniformClass = classNames({
     'miniform-container': true,
@@ -59,7 +61,10 @@ function AddSupplyForm({ visible, toggleForm }) {
   }
   
   function handleChangeSupply(supply) {
-    console.log("Supply: ", supply);
+    setSupply(supply);
+    if (!contract) {
+      setContract(supply.contract);
+    }
   }
   
   return ( 
@@ -96,8 +101,10 @@ function AddSupplyForm({ visible, toggleForm }) {
                 isSearchable
                 name="team"
                 placeholder={'Suprimento'}
-                options={suppliesOption}
+                value={supply}
+                options={filteredSuppliesOption}
                 styles={selectStyles}
+                onChange={handleChangeSupply}
               />
             </div>
           </div>
