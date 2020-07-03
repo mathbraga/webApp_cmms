@@ -1,13 +1,13 @@
 # Node.js environment:
-NODE_ENV=development
+#NODE_ENV=production
 
 # HTTP port:
-EXPRESS_PORT=3001
+HTTP_PORT=3001
 
 # Database connection:
 PGUSER=postgres
 PGHOST=localhost
-PGDATABASE=next
+PGDATABASE=db_pro
 PGPASSWORD=123456
 PGPORT=5432
 

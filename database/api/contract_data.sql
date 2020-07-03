@@ -5,6 +5,7 @@ create or replace view api.contract_data as
               jsonb_agg(jsonb_build_object(
                 'supplyId', s.supply_id,
                 'supplySf', s.supply_sf,
+                'specSf', z.spec_sf,
                 'name', z.name,
                 'unit', z.unit,
                 'qtyInitial', b.qty_initial,

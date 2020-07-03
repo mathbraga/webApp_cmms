@@ -3,7 +3,7 @@ const got = require('got');
 
 describe('Task tests', () => {
 
-  const gotURL = 'http://localhost:3001/db';
+  const gotURL = 'http://localhost:3001/api';
   
   test('Insert task', async () => {
     const response = await got.post(gotURL, { json: reqSuccess, responseType: 'json' });

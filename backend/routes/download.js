@@ -3,11 +3,22 @@ const router = express.Router();
 const paths = require('../paths');
 const path = require('path');
 
-router.get(paths.fileuuid, (req, res, next) => {
+router.get(
+  '/',
+  (req, res, next) => {
   
-  const [emptyString, uuid, filename] = req.path.split('/');
+  /*
+    Frontend links for the downloads will be in the format
+    http://localhost:3001/download/?uuid=...&filename=...
+    and therefore must be URI encoded
+    (to handle spaces and other special characters in the filename)
+    See:
+    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI
+  */
 
-  // console.log(req.path)
+  // console.log(req.query);
+
+  const { uuid, filename } = req.query;
 
   res.download(
     path.join(
