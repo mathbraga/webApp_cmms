@@ -4,8 +4,8 @@ const got = require('got');
 
 describe('Authentication tests', () => {
 
-  const loginURL = path.join('http://localhost:3001', paths.auth, paths.login);
-  const logoutURL = path.join('http://localhost:3001', paths.auth, paths.logout);
+  const loginURL = path.join('http://localhost:3001', paths.login);
+  const logoutURL = path.join('http://localhost:3001', paths.logout);
 
   test('Login success', async () => {
     const response = await got.post(

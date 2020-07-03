@@ -31,8 +31,8 @@ app.use(checkAuthUser);
 // Routes
 app.use(paths.login, loginRoute);
 app.use(paths.logout, logoutRoute);
-app.use(paths.api, uploadRoute);
-app.use(paths.files, downloadRoute);
+app.use(paths.upload, uploadRoute);
+app.use(paths.download, downloadRoute);
 
 // PostGraphile route
 app.use(postgraphile);

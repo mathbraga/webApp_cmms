@@ -3,11 +3,13 @@ const router = express.Router();
 const paths = require('../paths');
 const path = require('path');
 
-router.get(paths.fileuuid, (req, res, next) => {
-  
-  const [emptyString, uuid, filename] = req.path.split('/');
+router.get(
+  '/',
+  (req, res, next) => {
 
-  // console.log(req.path)
+  // console.log(req.query);
+
+  const { uuid, filename } = req.query;
 
   res.download(
     path.join(

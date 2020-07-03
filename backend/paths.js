@@ -2,8 +2,9 @@ const paths = {
   api: '/api',
   login: '/login',
   logout: '/logout',
+  download: '/download',
+  upload: '/api', // Must be the same as api path
   graphiql: '/graphiql',
-  fileuuid: '/:uuid/:filename',
   public: '/public',
   images: '/images',
   files: '/files',
