@@ -30,8 +30,16 @@ class MainPage extends Component {
     }
   }
   
-  componentWillMount(){
-    cookieAuth().then(console.log("checking cookie."))
+  componentWillMount(){ // fix later with react context
+    cookieAuth().then(r => {
+      if(r['cmms:session.sig']){
+        this.setUser();
+      }
+    });
+  }
+
+  setUser = () => {
+    this.setState({ user: true });
   }
 
   loading = () => (
@@ -61,7 +69,7 @@ class MainPage extends Component {
             <Container fluid className="pt-4">
               <Suspense fallback={this.loading()}>
                 <Switch>
-                  {window.localStorage.getItem('user') && routes.map((route, idx) => {
+                  {this.state.user && routes.map((route, idx) => {
                     return route.component ? (
                       <Route
                         key={idx}
@@ -72,10 +80,10 @@ class MainPage extends Component {
                       />
                     ) : null;
                   })}
-                  {!window.localStorage.getItem('user') && <Route path="/painel" name="Painel" component={Dashboard}/>}
-                  {!window.localStorage.getItem('user') && <Route path="/login" name="Login" component={Login}/>}
-                  {!window.localStorage.getItem('user') && <Redirect from="/" to={{ pathname: "/login" }}/>}
-                  {window.localStorage.getItem('user') && <Redirect from="/" to={{ pathname: "/painel" }}/>}
+                  {!this.state.user && <Route path="/painel" name="Painel" component={Dashboard}/>}
+                  {!this.state.user && <Route path="/login" name="Login" component={Login}/>}
+                  {!this.state.user && <Redirect from="/" to={{ pathname: "/login" }}/>}
+                  {this.state.user && <Redirect from="/" to={{ pathname: "/painel" }}/>}
                 </Switch>
               </Suspense>
             </Container>

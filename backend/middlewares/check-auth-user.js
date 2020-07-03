@@ -7,10 +7,6 @@ const checkAuthUser = (req, res, next) => {
     next();
   } else {
     // res.send('User connected.');
-    // res.json(req.cookies);
-    if(!req.cookies){
-      return res.redirect('/auth/logout');
-    }
     next();
   }
 }
