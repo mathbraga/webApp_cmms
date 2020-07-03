@@ -5,9 +5,9 @@ import classNames from 'classnames';
 import NumberFormat from 'react-number-format';
 import './SupplyForm.css';
 
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { SUPPLIES_QUERY } from './graphql/supplyFormGql';
+import { SUPPLIES_QUERY, INSERT_SUPPLY } from './graphql/supplyFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -21,13 +21,22 @@ const formatter = new Intl.NumberFormat('pt-BR', {
   currency: 'BRL',
 });
 
-function AddSupplyForm({ visible, toggleForm }) {
+function AddSupplyForm({ visible, toggleForm, taskId }) {
   const [ contract, setContract ] = useState(null);
   const [ supply, setSupply ] = useState(null);
   const [ quantity, setQuantity ] = useState(null);
   
   const { loading, data: { allContractData: { nodes: contracts } = {} } = {} } = useQuery(SUPPLIES_QUERY);
-   
+  
+  const [insertSupply, { error }] = useMutation(INSERT_SUPPLY, {
+    variables: {
+      taskId: taskId,
+      supplyId: supply && supply.supplyId,
+      qty: quantity
+    },
+    onError: (err) => { console.log(err); },
+  });
+  
   const contractsOption = contracts ? contracts.map(contract => ({
     value: contract.contractId, 
     label: `${contract.contractSf.split(/([0-9]+)/)[0]} ${contract.contractSf.split(/([0-9]+)/)[1]} - ${contract.company}`})) : [];
@@ -40,6 +49,7 @@ function AddSupplyForm({ visible, toggleForm }) {
       contract: {value: contract.contractId, label: `${contract.contractSf.split(/([0-9]+)/)[0]} ${contract.contractSf.split(/([0-9]+)/)[1]} - ${contract.company}`},
       bidPrice: supply.bidPrice,
       supplySf: supply.supplySf,
+      supplyId: supply.supplyId,
       qtyAvailable: supply.qtyAvailable,
       unit: supply.unit
     }))
@@ -68,6 +78,11 @@ function AddSupplyForm({ visible, toggleForm }) {
   
   function handleChangeQuantity(event) {
     setQuantity(parseFloat(event.target.value.replace(/\./g, '').replace(/,/g, '.')));
+  }
+  
+  function handleSubmit() {
+    insertSupply();
+    toggleForm();
   }
   
   return ( 
@@ -181,7 +196,7 @@ function AddSupplyForm({ visible, toggleForm }) {
             color="success" 
             size="sm" 
             style={{ marginRight: "10px" }}
-            onClick={toggleForm}
+            onClick={handleSubmit}
           >
             Adicionar Item
           </Button>

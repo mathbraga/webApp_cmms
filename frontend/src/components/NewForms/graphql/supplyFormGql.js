@@ -12,3 +12,15 @@ export const SUPPLIES_QUERY = gql`
     }
   }
 `;
+
+export const INSERT_SUPPLY = gql`
+  mutation SupplyTaskMutation($taskId: Int!, $supplyId: Int!, $qty: BigFloat!) {
+    insertTaskSupply(input: {
+      taskId: $taskId,
+      supplyId: $supplyId,
+      qty: $qty
+    }) {
+      id
+    }
+  }
+`;

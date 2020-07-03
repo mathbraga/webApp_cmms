@@ -7,9 +7,24 @@ const formatter = new Intl.NumberFormat('pt-BR', {
 });
 
 export function itemsMatrixSupply(data) {
-  const contracts = [...new Set(data.supplies.map(item => ({ id: item.contractId, name: item.contractSf, company: item.company })))];
-  contracts.forEach(contract => { contract.cost = data.supplies.reduce((acc, item) => (item.contractId === contract.id ? item.totalPrice + acc : acc), 0); });
-  console.log("Contracts: ", contracts);
+  
+  const contracts = {};
+  data.supplies.forEach((item) => {
+    if (!(item.contractId in contracts)) {
+      contracts[item.contractId] = {
+        id: item.contractId,
+        name: item.contractSf,
+        company: item.company,
+        cost: item.totalPrice
+      }
+    } else {
+      contracts[item.contractId].cost += item.totalPrice
+    }
+  })
+  
+  console.log("Contracts 2: ", contracts);
+  
+  
   return (
     [
       [
@@ -24,8 +39,8 @@ export function itemsMatrixSupply(data) {
           title: 'Custo por "estoque"', 
           description: 
           <ul style={{ paddingLeft: '20px', marginBottom: '0' }}>
-            {contracts.map(contract => (
-               <li key={contract.id}>{contract.name} - {contract.company}: <span style={{fontWeight: '600'}}>{formatter.format(contract.cost)}</span></li>
+            {Object.keys(contracts).map(contractId => (
+               <li key={contractId}>{contracts[contractId].name} - {contracts[contractId].company}: <span style={{fontWeight: '600'}}>{formatter.format(contracts[contractId].cost)}</span></li>
             ))}
           </ul>, 
           span: 2 

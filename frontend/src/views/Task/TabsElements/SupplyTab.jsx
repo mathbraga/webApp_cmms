@@ -47,8 +47,6 @@ function SupplyTab({ data }) {
   const openedForm = addFormOpen ? 'addFormOpen' : (editFormOpen ? 'editFormOpen' : 'noFormOpen');
   const heightAdd = openedForm === 'addFormOpen' ? 'auto' : 0;
   const heightEdit = openedForm === 'editFormOpen' ? 'auto' : 0;
-  
-  console.log("Supplies: ", supplies);
 
   return (
     <>
@@ -65,6 +63,7 @@ function SupplyTab({ data }) {
             <AddSupplyForm 
               visible={true}
               toggleForm={toggleAddForm}
+              taskId={data.taskId}
             />
           </div>
         </AnimateHeight>
@@ -76,6 +75,7 @@ function SupplyTab({ data }) {
             <EditSupplyForm 
               visible={true}
               toggleForm={toggleEditForm}
+              taskId={data.taskId}
             />
           </div>
         </AnimateHeight>
