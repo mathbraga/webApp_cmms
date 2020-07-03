@@ -11,7 +11,7 @@ const testCron = () => {
 
 const refreshAllMaterializedViews = async () => {
   try {
-    const { rows: [ { timestamp } ] } = await db.query('select ws.refresh_all_materialized_views() as timestamp');
+    const { rows: [ { timestamp } ] } = await db.query('select web.refresh_all_materialized_views() as timestamp');
     console.log('All materialized views refreshed at: ' + timestamp);
   }
   catch (error) {
@@ -31,7 +31,7 @@ const dumpDatabase = async () => {
 const diffUploads = async () => {
 
   try {
-    const { rows: [ { dbUUIDs } ] } = await db.query('select get_all_files_uuids() as "dbUUIDs"');
+    const { rows: [ { dbUUIDs } ] } = await db.query('select web.get_all_files_uuids() as "dbUUIDs"');
 
     const UUIDs = fs.readdirSync(path.join(process.cwd(), paths.files));
 
