@@ -2,7 +2,7 @@
 rollback;
 
 -- define new database name
-\set new_db_name 'next'
+\set new_db_name 'db_dev'
 
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
