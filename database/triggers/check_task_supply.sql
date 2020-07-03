@@ -16,7 +16,7 @@ create or replace function check_task_supply ()
             -- (t.contract_id = s.contract_id)
             into
             qty_ok,
-            decimals_ok,
+            decimals_ok
             -- contract_ok
         from supplies as s
         inner join specs as z using (spec_id)
