@@ -16,18 +16,6 @@ router.post(
   }
 );
 
-router.get( // maybe create independent middleware for this
-  '/authcookie',
-  (req, res) => {
-    if (req.user) {
-      res.json(req.cookies);
-    }
-    else{
-      res.json({ cookies: false });
-    }
-  }
-)
-
 router.get(
   paths.logout,
   (req, res) => {

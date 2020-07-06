@@ -30,16 +30,23 @@ class MainPage extends Component {
     }
   }
   
-  componentWillMount(){ // fix later with react context
+  componentWillMount(){
     cookieAuth().then(r => {
       if(r['cmms:session.sig']){
         this.setUser();
+      }
+      else{
+        this.setNoUser();
       }
     });
   }
 
   setUser = () => {
     this.setState({ user: true });
+  }
+
+  setNoUser = () => {
+    this.setState({ user: false });
   }
 
   loading = () => (

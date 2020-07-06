@@ -31,6 +31,7 @@ class MainHeader extends Component {
     this.state = {
       dropdownOpen: false,
       email: window.localStorage.getItem('session'),
+      // name: window.localStorage.getItem('user')
     }
   }
 

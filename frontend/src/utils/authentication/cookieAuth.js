@@ -1,7 +1,7 @@
 export default function cookieAuth(){
     return new Promise((resolve, reject) => {
       
-      fetch(process.env.REACT_APP_SERVER_URL + '/auth/authcookie', {
+      fetch(process.env.REACT_APP_SERVER_URL + '/authcookie', {
         method: 'GET',
         credentials: 'include'
       })
@@ -14,7 +14,7 @@ export default function cookieAuth(){
         })
         .catch(error => {
           alert(error);
-          reject("Erro no login.")
+          reject("Cookie not found.")
         });
     });
   }

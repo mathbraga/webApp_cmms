@@ -12,6 +12,7 @@ const paths = {
   files: '/files',
   reqsLog: '/logs/reqs',
   filesDiffLog: '/logs/filesdiff',
+  cookieAuth: '/authcookie'
 };
 
 module.exports = paths;

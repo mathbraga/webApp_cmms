@@ -6,6 +6,7 @@ const uploadRoute = require('./routes/upload');
 const downloadRoute = require('./routes/download');
 const redmineRoute = require('./routes/redmine');
 const emailRoute = require('./routes/email');
+const cookieAuthRoute = require('./routes/cookieAuth');
 const paths = require('./paths');
 const cors = require('./middlewares/cors');
 const expressJson = require('./middlewares/express-json');
@@ -42,6 +43,7 @@ app.use(paths.db, uploadRoute);
 app.use(paths.files, downloadRoute);
 app.use(paths.redmine, redmineRoute);
 app.use(paths.email, emailRoute);
+app.use(paths.cookieAuth, cookieAuthRoute);
 
 // PostGraphile route
 app.use(postgraphile);
