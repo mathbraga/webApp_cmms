@@ -10,6 +10,12 @@
   display: none;
 }
 
+.miniform__box__item {
+  width: 100%;
+  border-bottom: 1px solid #e2e2e2;
+  padding: 10px 0;
+}
+
 .miniform__field {
   display: flex;
   flex-flow: column;
@@ -60,9 +66,17 @@
   width: 47%;
 }
 
+.miniform__field__remove-container {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+}
+
 .miniform__field__remove-button {
   text-align: center;
   color: #2684ff;
+  background-color: red;
+  padding: 10px;
   text-decoration: underline;
   cursor: pointer;
 }

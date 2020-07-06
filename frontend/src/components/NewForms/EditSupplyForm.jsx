@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import classNames from 'classnames';
 import NumberFormat from 'react-number-format';
@@ -6,6 +6,10 @@ import './SupplyForm.css';
 
 function EditSupplyForm({ visible, toggleForm, taskId, supplies = [] }) {
   const [ formSupplies, setFormSupplies ] = useState(supplies);
+  
+  useEffect(() => {
+    setFormSupplies(supplies);
+  }, [supplies])
   
   const miniformClass = classNames({
     'miniform-container': true,
@@ -39,35 +43,37 @@ function EditSupplyForm({ visible, toggleForm, taskId, supplies = [] }) {
             Ao salvar, os itens alterados na lista abaixo serão gravados na tabela de suprimentos.
           </div>
           {formSupplies.map(supply => (
-            <div className='miniform__field__item'>
-              <div className='miniform__field__edit-supply' style={{width: '25%'}}>
-                <Input value={`${supply.contractSf} - ${supply.company}`} style={{ backgroundColor: "#f1f1f1" }} disabled/>
+            <div className={'miniform__box__item'}>
+              <div className='miniform__field__item'>
+                <div className='miniform__field__edit-supply' style={{width: '50%'}}>
+                  <Input value={`${supply.contractSf} - ${supply.company}`} style={{ backgroundColor: "#f1f1f1" }} disabled/>
+                </div>
+                <div className='miniform__field__edit-supply' style={{width: '50%'}}>
+                  <Input value={supply.name} style={{ backgroundColor: "#f1f1f1" }} disabled/>
+                </div>
               </div>
-              <div className='miniform__field__edit-supply' style={{width: '40%'}}>
-                <Input value={supply.name} style={{ backgroundColor: "#f1f1f1" }} disabled/>
-              </div>
-              <div className='miniform__field__edit-supply' style={{ width: '25%'}}>
-                <InputGroup>
-                  <NumberFormat 
-                    id={supply.supplyId}
-                    className='form-control miniform__field__textarea'
-                    thousandSeparator={'.'} 
-                    decimalSeparator={','}
-                    style={{ textAlign: 'right' }} 
-                    placeholder='0,00'
-                    decimalScale='2'
-                    value={supply.qty}
-                    fixedDecimalScale={true}
-                    onChange={handleChangeQuantity}
-                  />
-                  <InputGroupAddon addonType="append" style={{ width: '50%', textOverflow: 'hidden', }}>
-                    <InputGroupText style={{ justifyContent: 'center', textOverflow: 'hidden', width: '100%' }}>{supply ? supply.unit  : "-"}</InputGroupText>
-                  </InputGroupAddon>
-                 </InputGroup>
-              </div>
-              <div style={{width: '10%'}}>
-                <div className="miniform__field__remove-button">
-                  Exlcuir
+              <div className='miniform__field__item'>
+                <div className='miniform__field__edit-supply' style={{ width: '50%'}}>
+                  <InputGroup>
+                    <NumberFormat 
+                      id={supply.supplyId}
+                      className='form-control miniform__field__textarea'
+                      thousandSeparator={'.'} 
+                      decimalSeparator={','}
+                      style={{ textAlign: 'right' }} 
+                      placeholder='0,00'
+                      decimalScale='2'
+                      value={supply.qty}
+                      fixedDecimalScale={true}
+                      onChange={handleChangeQuantity}
+                    />
+                    <InputGroupAddon addonType="append" style={{ minWidth: '40%' }}>
+                      <InputGroupText style={{ justifyContent: 'left', overflow: 'hidden', width: '100%' }}>{supply ? supply.unit  : "-"}</InputGroupText>
+                    </InputGroupAddon>
+                   </InputGroup>
+                </div>
+                <div className="miniform__field__remove-container">
+                  <Button outline color="danger" size="sm">Exlcuir</Button>
                 </div>
               </div>
             </div>
