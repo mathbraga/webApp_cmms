@@ -4,12 +4,37 @@ import classNames from 'classnames';
 import NumberFormat from 'react-number-format';
 import './SupplyForm.css';
 
-function EditSupplyForm({ visible, toggleForm, taskId, supplies = [] }) {
+import { useQuery, useMutation } from '@apollo/react-hooks';
+
+import { SUPPLIES_QUERY, MODIFY_SUPPLY, TASK_SUPPLIES_QUERY } from './graphql/supplyFormGql';
+
+function EditSupplyForm({ visible, toggleForm, taskId, supplies}) {
   const [ formSupplies, setFormSupplies ] = useState(supplies);
   
+  console.log("Supplies: ", supplies);
+  console.log("Form: ", formSupplies);
+  
   useEffect(() => {
+    console.log("Effect");
     setFormSupplies(supplies);
   }, [supplies])
+  
+  const suppliesForUpdate = formSupplies.map(({ supplyId, qty }) => ({
+    taskId,
+    supplyId,
+    qty
+  }))
+  
+  const [modifySupply, { error }] = useMutation(MODIFY_SUPPLY, {
+    variables: {
+      taskId,
+      supplies: suppliesForUpdate,
+    },
+    onCompleted: () => {
+    },
+    refetchQueries: [{ query: TASK_SUPPLIES_QUERY, variables: { taskId } }, { query: SUPPLIES_QUERY }],
+    onError: (err) => { console.log(err); },
+  });
   
   const miniformClass = classNames({
     'miniform-container': true,
@@ -17,6 +42,7 @@ function EditSupplyForm({ visible, toggleForm, taskId, supplies = [] }) {
   });
   
   function handleChangeQuantity({ target }) {
+    console.log("Qty");
     const  newSupplies = formSupplies.map(supply => {
       if (supply.supplyId == target.id) {
         return {...supply, qty: parseFloat(target.value.replace(/\./g, '').replace(/,/g, '.'))};
@@ -26,9 +52,22 @@ function EditSupplyForm({ visible, toggleForm, taskId, supplies = [] }) {
     setFormSupplies(newSupplies);
   }
   
+  function handleRemoveSupply(supplyId) {
+    console.log("Remove");
+    const newSupplies = formSupplies.filter(supply => supply.supplyId != supplyId);
+    setFormSupplies([...newSupplies]);
+  }
+  
   function handleCancel() {
+    console.log("Cancel");
     toggleForm();
-    setInterval(() => { setFormSupplies(supplies); }, 1000);
+    setFormSupplies(supplies);
+  }
+  
+  function handleSubmit() {
+    console.log("Submit");
+    toggleForm();
+    modifySupply();
   }
   
   console.log("formSupplies: ", formSupplies)
@@ -73,7 +112,7 @@ function EditSupplyForm({ visible, toggleForm, taskId, supplies = [] }) {
                    </InputGroup>
                 </div>
                 <div className="miniform__field__remove-container">
-                  <Button outline color="danger" size="sm">Exlcuir</Button>
+                  <Button outline color="danger" size="sm" onClick={() => {handleRemoveSupply(supply.supplyId)}}>Exlcuir</Button>
                 </div>
               </div>
             </div>
@@ -84,7 +123,7 @@ function EditSupplyForm({ visible, toggleForm, taskId, supplies = [] }) {
             color="success" 
             size="sm" 
             style={{ marginRight: "10px" }}
-            onClick={toggleForm}
+            onClick={handleSubmit}
           >
             Salvar
           </Button>

@@ -38,7 +38,6 @@ function AddSupplyForm({ visible, toggleForm, taskId, setAddFormOpen }) {
       setContract(null);
       setSupply(null);
       setQuantity(null);
-      setAddFormOpen(false);
     },
     refetchQueries: [{ query: TASK_SUPPLIES_QUERY, variables: { taskId } }, { query: SUPPLIES_QUERY }],
     onError: (err) => { console.log(err); },
@@ -89,6 +88,7 @@ function AddSupplyForm({ visible, toggleForm, taskId, setAddFormOpen }) {
   
   function handleSubmit() {
     insertSupply();
+    setAddFormOpen(false);
   }
   
   return ( 

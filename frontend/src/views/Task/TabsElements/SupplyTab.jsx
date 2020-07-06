@@ -56,7 +56,7 @@ function SupplyTab({ data }) {
           title={addFormOpen ? 'Adicionar novo suprimento' : (editFormOpen ? 'Alterar suprimentos' : 'Resumo dos gastos')}
         />
         <AnimateHeight 
-          duration={300}
+          duration={heightAdd === "auto" ? 300 : 0}
           height={heightAdd}
         >
           <div className="tabpane__content">
@@ -69,7 +69,7 @@ function SupplyTab({ data }) {
           </div>
         </AnimateHeight>
         <AnimateHeight 
-          duration={300}
+          duration={heightEdit === "auto" ? 300 : 0}
           height={heightEdit}
         >
           <div className="tabpane__content">
@@ -77,7 +77,7 @@ function SupplyTab({ data }) {
               visible={true}
               toggleForm={toggleEditForm}
               taskId={data.taskId}
-              supplies={supplies}
+              supplies={data.supplies}
             />
           </div>
         </AnimateHeight>
