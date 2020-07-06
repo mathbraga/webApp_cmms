@@ -62,7 +62,8 @@ class MainHeader extends Component {
         window.localStorage.removeItem('user');
         window.localStorage.setItem('logout-event', 'logout' + Math.random());
         this.props.dispatch(logoutSuccess());
-        this.props.history.push('/login');
+        // this.props.history.push('/login');
+        window.location.reload();
       })
       .catch(() => {
         alert('Logout falhou. Tente novamente.')
