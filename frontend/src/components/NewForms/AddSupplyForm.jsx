@@ -78,7 +78,7 @@ function AddSupplyForm({ visible, toggleForm, taskId, setAddFormOpen }) {
   function handleChangeSupply(supply) {
     setSupply(supply);
     setQuantity(null);
-    if (!contract) {
+    if (!contract && supply) {
       setContract(supply.contract);
     }
   }

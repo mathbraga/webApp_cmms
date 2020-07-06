@@ -4,39 +4,6 @@ import { Button, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reac
 import classNames from 'classnames';
 import './SupplyForm.css';
 
-const selectStyles = {
-  control: base => ({
-    ...base,
-    border: "1px solid #e4e7e9",
-  }),
-};
-
-const contractsFake = [
-  {value: '1', label: 'CT 02002020'}, 
-  {value: '2', label: 'CT 02012020'}, 
-  {value: '3', label: 'CT 02022020'},
-  {value: '4', label: 'CT 02032020'},
-  {value: '5', label: 'CT 02042020'},
-  {value: '6', label: 'CT 02052020'},
-  {value: '7', label: 'CT 02062020'},
-  {value: '8', label: 'CT 02072020'},
-  {value: '9', label: 'CT 02082020'},
-  {value: '10', label: 'CT 02092020'},
-  {value: '11', label: 'CT 02102020'},
-  {value: '12', label: 'CT 02112020'},
-];
-
-const suppliesFake = [
-  {value: '1', label: 'Arame galvanizado, bitola 16 BWG'}, 
-  {value: '2', label: 'Arame farpado'}, 
-  {value: '3', label: 'Alicate'},
-  {value: '4', label: 'Parafuso'},
-  {value: '5', label: 'Tinta cor branca'},
-  {value: '6', label: 'Areia'},
-  {value: '7', label: 'Concreto'},
-  {value: '8', label: 'Brita'},
-];
-
 class EditSupplyForm extends Component {
   constructor(props) {
     super(props);
