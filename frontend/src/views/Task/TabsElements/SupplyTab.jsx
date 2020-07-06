@@ -77,6 +77,7 @@ function SupplyTab({ data }) {
               visible={true}
               toggleForm={toggleEditForm}
               taskId={data.taskId}
+              supplies={supplies}
             />
           </div>
         </AnimateHeight>
