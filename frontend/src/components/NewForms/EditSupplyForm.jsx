@@ -67,32 +67,10 @@ class EditSupplyForm extends Component {
             {this.state.supplies.map(supply => (
               <div className='miniform__field__item'>
                 <div className='miniform__field__edit-supply' style={{width: '30%'}}>
-                  <Select
-                    className="basic-single"
-                    classNamePrefix="select"
-                    defaultValue={'Semac'}
-                    isClearable
-                    isSearchable
-                    name="team"
-                    value={supply.contract}
-                    placeholder={'Estoque'}
-                    options={contractsFake}
-                    styles={selectStyles}
-                  />
+                  <Input value={supply.contract.label} style={{ backgroundColor: "#f1f1f1" }} disabled/>
                 </div>
                 <div className='miniform__field__edit-supply' style={{width: '40%'}}>
-                  <Select
-                    className="basic-single"
-                    classNamePrefix="select"
-                    defaultValue={'Semac'}
-                    isClearable
-                    isSearchable
-                    name="team"
-                    placeholder={'Suprimento'}
-                    value={supply.item}
-                    options={suppliesFake}
-                    styles={selectStyles}
-                  />
+                  <Input value={supply.item.label} style={{ backgroundColor: "#f1f1f1" }} disabled/>
                 </div>
                 <div className='miniform__field__edit-supply' style={{ width: '20%'}}>
                   <InputGroup>
