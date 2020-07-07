@@ -11,8 +11,8 @@ PGDATABASE=db_pro
 PGPASSWORD=123456
 PGPORT=5432
 
-# Cron jobs - Remove # to select the cron jobs to be executed:
-#CRON_TEST=
-#CRON_REFRESH=
-#CRON_DUMP=
-#CRON_DIFF=
+# Cron jobs (those with value=yes will be executed)
+CRON_TEST=
+CRON_REFRESH=
+CRON_DUMP=
+CRON_DIFF=
