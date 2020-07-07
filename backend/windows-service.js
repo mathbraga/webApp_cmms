@@ -7,7 +7,17 @@ var Service = require('node-windows').Service;
 var svc = new Service({
   name:'Node.js - CMMS web app',
   description: 'Node.js - CMMS web application as Windows Service',
-  script: 'D:\\USERS\\hzlopes\\Desktop\\code\\cmms\\backend\\server.js'
+  script: 'D:\\USERS\\hzlopes\\Desktop\\code\\cmms\\backend\\server.js',
+  nodeOptions: [
+    '--require dotenv/config',
+  ],
+  scriptOptions: [
+    '',
+  ],
+  env: {
+    name: 'dotenv_config_path',
+    value: '.env.pro'
+  }
 });
 
 // Listen for the "install" event, which indicates the

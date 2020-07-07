@@ -4,8 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start-web-server": "NODE_ENV=production node server.js",
-    "start": "NODE_ENV=development nodemon server.js",
+    "start": "nodemon --require dotenv/config server.js dotenv_config_path=.env.dev",
     "test": "jest"
   },
   "author": "",
