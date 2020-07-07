@@ -11,9 +11,6 @@ import { SUPPLIES_QUERY, MODIFY_SUPPLY, TASK_SUPPLIES_QUERY } from './graphql/su
 function EditSupplyForm({ visible, toggleForm, taskId, supplies}) {
   const [ formSupplies, setFormSupplies ] = useState(supplies);
   
-  console.log("Supplies: ", supplies);
-  console.log("Form: ", formSupplies);
-  
   useEffect(() => {
     console.log("Effect");
     setFormSupplies(supplies);
@@ -42,7 +39,6 @@ function EditSupplyForm({ visible, toggleForm, taskId, supplies}) {
   });
   
   function handleChangeQuantity({ target }) {
-    console.log("Qty");
     const  newSupplies = formSupplies.map(supply => {
       if (supply.supplyId == target.id) {
         return {...supply, qty: parseFloat(target.value.replace(/\./g, '').replace(/,/g, '.'))};
@@ -53,24 +49,20 @@ function EditSupplyForm({ visible, toggleForm, taskId, supplies}) {
   }
   
   function handleRemoveSupply(supplyId) {
-    console.log("Remove");
     const newSupplies = formSupplies.filter(supply => supply.supplyId != supplyId);
     setFormSupplies([...newSupplies]);
   }
   
   function handleCancel() {
-    console.log("Cancel");
     toggleForm();
     setFormSupplies(supplies);
   }
   
   function handleSubmit() {
-    console.log("Submit");
     toggleForm();
     modifySupply();
   }
   
-  console.log("formSupplies: ", formSupplies)
   
   return ( 
     <div className={miniformClass}>
