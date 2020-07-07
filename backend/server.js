@@ -1,11 +1,3 @@
-// Load environment variables
-// const path = require('path');
-// const envFilename = process.env.NODE_ENV === 'production' ? '.env.pro' : '.env.dev';
-// require('dotenv').config({
-//   path: path.resolve(process.cwd(), envFilename),
-// });
-console.log(process.env);
-
 const app = require('./app');
 const http = require('http');
 const server = http.createServer(app);

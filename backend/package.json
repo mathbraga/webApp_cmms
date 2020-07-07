@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --require dotenv/config server.js dotenv_config_path=.env.dev",
+    "start": "nodemon --require dotenv/config server.js",
     "test": "jest"
   },
   "author": "",
@@ -29,7 +29,7 @@
   "nodemonConfig": {
     "ignore": [
       "tests/*",
-      "windows-service/*"
+      "windows-service-*"
     ]
   },
   "jest": {
