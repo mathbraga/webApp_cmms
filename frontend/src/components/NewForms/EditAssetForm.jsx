@@ -5,7 +5,7 @@ import './AssetForm.css';
 import { List } from 'react-virtualized';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { ALL_ASSETS_QUERY, INSERT_ASSET, TASK_ASSETS_QUERY } from './graphql/assetFormGql';
+import { ALL_ASSETS_QUERY, INSERT_ASSET, TASK_ASSETS_QUERY, REMOVE_ASSET } from './graphql/assetFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -43,7 +43,7 @@ function EditAssetForm({ toggleForm, assets, taskId }) {
     }
   });
   
-  const [ insertAsset, { error } ] = useMutation(INSERT_ASSET, {
+  const [ insertAsset, { errorInsert } ] = useMutation(INSERT_ASSET, {
     variables: {
       taskId,
       assetId: selectedAsset && selectedAsset.value,
@@ -55,8 +55,23 @@ function EditAssetForm({ toggleForm, assets, taskId }) {
     onError: (err) => { console.log(err); },
   });
   
+  const [ removeAsset, { errorRemove } ] = useMutation(REMOVE_ASSET, {
+    onCompleted: () => {
+      setSelectedAsset(null);
+    },
+    refetchQueries: [{ query: TASK_ASSETS_QUERY, variables: { taskId } }],
+    onError: (err) => { console.log(err); },
+  });
+  
   function handleSelectAsset(asset) {
     setSelectedAsset(asset);
+  }
+  
+  function handleDeleteAsset(assetId) {
+    removeAsset({ variables: {
+      taskId,
+      assetId
+    } });
   }
   
   return ( 
@@ -112,7 +127,7 @@ function EditAssetForm({ toggleForm, assets, taskId }) {
                 <Input value={asset.name} style={{ backgroundColor: "white" }}  disabled/>
               </div>
               <div style={{width: '15%', textAlign: 'center'}}>
-                <Button outline color="danger" size="sm" onClick={() => {}}>Exlcuir</Button>
+                <Button outline color="danger" size="sm" onClick={() => {handleDeleteAsset(asset.assetId)}}>Exlcuir</Button>
               </div>
             </div>
           ))}

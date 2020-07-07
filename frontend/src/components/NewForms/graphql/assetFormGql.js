@@ -21,6 +21,17 @@ export const INSERT_ASSET = gql`
   }
 `;
 
+export const REMOVE_ASSET = gql`
+  mutation RemoveAssetTaskMutation($taskId: Int!, $assetId: Int!) {
+    removeTaskAsset(input: {
+      taskId: $taskId,
+      assetId: $assetId,
+    }) {
+      id
+    }
+  }
+`;
+
 
 export const TASK_ASSETS_QUERY = gql`
   query TaskQuery($taskId: Int!) {

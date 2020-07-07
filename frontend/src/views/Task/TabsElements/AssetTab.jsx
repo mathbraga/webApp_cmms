@@ -81,7 +81,7 @@ class AssetTab extends Component {
           <div className="tabpane__content">
             <PaneTextContent 
               numColumns='2' 
-              itemsMatrix={itemsMatrixAssets()}
+              itemsMatrix={itemsMatrixAssets(data)}
             />
           </div>
           <div className="tabpane__content__table">
