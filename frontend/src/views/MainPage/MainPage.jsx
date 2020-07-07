@@ -16,7 +16,10 @@ import {
 import navigation from "../../_nav";
 // routes config
 import routes from "../../routes";
+
 import cookieAuth from "../../utils/authentication/cookieAuth";
+import logoutFetch from "../../utils/authentication/logoutFetch";
+import { logoutSuccess } from "../../redux/actions";
 
 const MainHeader = React.lazy(() => import("./MainHeader"));
 const Dashboard = React.lazy(() => import("../Dashboard"));
@@ -37,6 +40,16 @@ class MainPage extends Component {
     .catch((err) => { // no cookie
       console.log(err);
       this.setNoUser();
+      if(window.localStorage.getItem('session')){ // will clear user data in case cookies expire (or somehow get deleted?) mid-use of the app. This method requires page to be refreshed though.
+        logoutFetch()
+        .then(() => {
+          window.localStorage.removeItem('session');
+          window.localStorage.removeItem('user');
+          window.localStorage.setItem('logout-event', 'logout' + Math.random());
+          // this.props.dispatch(logoutSuccess());
+          window.location.reload();
+        });
+      }
     })
   }
 

@@ -10,7 +10,7 @@ export default function cookieAuth(){
             resolve(r.json());
           } 
           else if(r.status === 400){
-            throw new Error('Cookie not found.');
+            throw new Error('Cookie not found!');
             // reject();
           }
         })
