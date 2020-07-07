@@ -51,6 +51,8 @@ class AssetTab extends Component {
     };
 
     const heightEdit = editFormOpen === true ? 'auto' : 0;
+    
+    console.log("Data2: ", this.props.data);
 
     return (
       <>
@@ -66,6 +68,8 @@ class AssetTab extends Component {
             <div className="tabpane__content">
               <EditAssetForm 
                 toggleForm={this.toggleEditForm}
+                assets={data}
+                taskId={this.props.data.taskId}
               />
             </div>
           </AnimateHeight>

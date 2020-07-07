@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
-import Select from 'react-select';
+import Select, { createFilter } from 'react-select';
 import './AssetForm.css';
 import { List } from 'react-virtualized';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { ALL_ASSETS_QUERY } from './graphql/assetFormGql';
+import { ALL_ASSETS_QUERY, INSERT_ASSET, TASK_ASSETS_QUERY } from './graphql/assetFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -25,29 +25,40 @@ function MenuList({ children }) {
       style={{ width: '100%' }}
       width={600}
       height={300}
-      rowHeight={30}
-      rowCount={rows.length}
+      rowHeight={35}
+      rowCount={rows.length || 0}
       rowRenderer={rowRenderer}
     />
   );
 }
 
-function EditAssetForm({ toggleForm }) {
-  const [ assets, setAssets ] = useState([
-    {id: '9', name: 'Bloco 14 - Mezanino', assetSf: 'BL14-MEZ-043'},
-    {id: '10', name: 'Anexo II - Gabinete 10', assetSf: 'AX02-GAB-010'},
-  ]);
+function EditAssetForm({ toggleForm, assets, taskId }) {
   const [ assetOptions, setAssetOptions ] = useState([]);
+  const [ selectedAsset, setSelectedAsset ] = useState(null);
   
-  const { loading, data } = useQuery(ALL_ASSETS_QUERY, {
+  const { loading } = useQuery(ALL_ASSETS_QUERY, {
     onCompleted: ({ allTaskData: { nodes: [{ assetOptions }]}}) => {
-      const assetsSelect = assetOptions.map(asset => ({value: asset.id, label: `${asset.assetSf}: ${asset.name}`}));
+      const assetsSelect = assetOptions.map(asset => ({value: asset.assetId, label: `${asset.assetSf}: ${asset.name}`}));
       setAssetOptions(assetsSelect);
     }
   });
   
-  console.log("AssetOptions: ", assetOptions);
-
+  const [ insertAsset, { error } ] = useMutation(INSERT_ASSET, {
+    variables: {
+      taskId,
+      assetId: selectedAsset && selectedAsset.value,
+    },
+    onCompleted: () => {
+      setSelectedAsset(null);
+    },
+    refetchQueries: [{ query: TASK_ASSETS_QUERY, variables: { taskId } }],
+    onError: (err) => { console.log(err); },
+  });
+  
+  function handleSelectAsset(asset) {
+    setSelectedAsset(asset);
+  }
+  
   return ( 
     <div className={'miniform-container'}>
       <div className='miniform__field'>
@@ -67,15 +78,18 @@ function EditAssetForm({ toggleForm }) {
                 name="assets"
                 components={{ MenuList }}
                 placeholder={'Edifício / Equipamento'}
+                value={selectedAsset}
+                filterOption={createFilter({ ignoreAccents: false })}
                 options={assetOptions}
                 styles={selectStyles}
+                onChange={handleSelectAsset}
               />
             </div>
             <div className='miniform__buttons-inline'>
               <Button 
                 color="primary" 
                 size="sm" 
-                onClick={toggleForm}
+                onClick={insertAsset}
               >
                 Incluir Ativo
               </Button>
