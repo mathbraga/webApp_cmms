@@ -1,14 +1,15 @@
 const router = require('express').Router();
-const paths = require('../paths');
 
 router.get(
   '/',
   (req, res) => {
-    if (req.user) {
-      res.json(req.cookies);
+    if(req.user){
+      if(req.cookies){
+        res.json({ cookie: true });
+      }
     }
     else{
-      res.json({ cookies: false });
+      res.sendStatus(400);
     }
   }
 )

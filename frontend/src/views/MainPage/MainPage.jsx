@@ -31,14 +31,12 @@ class MainPage extends Component {
   }
   
   componentWillMount(){
-    cookieAuth().then(r => {
-      if(r['cmms:session.sig']){
+    cookieAuth().then(() => { // cookie = true
         this.setUser();
-      }
-      else{
-        this.setNoUser();
-      }
-    });
+    })
+    .catch(() => { // no cookie
+      this.setNoUser();
+    })
   }
 
   setUser = () => {

@@ -14,7 +14,7 @@ export default function cookieAuth(){
         })
         .catch(error => {
           alert(error);
-          reject("Cookie not found.")
+          reject(error);
         });
     });
   }
