@@ -105,7 +105,6 @@ function AddSupplyForm({ visible, toggleForm, taskId, setAddFormOpen }) {
               <Select
                 className="basic-single"
                 classNamePrefix="select"
-                defaultValue={'Semac'}
                 isClearable
                 isSearchable
                 name="team"

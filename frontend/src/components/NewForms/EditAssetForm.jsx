@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Button, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import Select from 'react-select';
 import './AssetForm.css';
+import { List } from 'react-virtualized';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+
+import { ALL_ASSETS_QUERY } from './graphql/assetFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -10,28 +14,39 @@ const selectStyles = {
   }),
 };
 
-const assetsFake = [
-  {id: '9', name: 'Motor-gerador', assetSf: 'DFEF-2304-234'},
-  {id: '10', name: 'Circuito elétrico do Seplag', assetSf: 'ASDF-1545-234'},
-  {id: '11', name: 'Quadro geral - Sinfra', assetSf: 'GSFD-2345-234'},
-  {id: '12', name: 'CM3 - Chiller', assetSf: 'GFSS-8678-234'},
-  {id: '1', name: 'Bloco 10 - Subsolo', assetSf: 'BL10-SUB-010'},
-  {id: '2', name: 'Anexo I - Térreo', assetSf: 'AX01-TER-002'},
-  {id: '3', name: 'Edifício Principal - 2 Andar', assetSf: 'EDPR-2AD-052'},
-  {id: '4', name: 'Anexo II - Subsolo', assetSf: 'AX02-SUB-005'},
-  {id: '5', name: 'Anexo I - 27 Andar', assetSf: 'AX01-27A-005'},
-  {id: '6', name: 'Bloco 14 - Mezanino', assetSf: 'BL14-MEZ-010'},
-  {id: '7', name: 'Bloco 12 - Térreo', assetSf: 'BL12-TER-014'},
-  {id: '8', name: 'Bloco 10 - Subsolo', assetSf: 'BL10-SUB-014'},
-];
-
-const assetsFakeDrop = assetsFake.map(asset => ({value: asset.id, label: `${asset.name} (${asset.assetSf})`}));
+function MenuList({ children }) {
+  const rows = children;
+  const rowRenderer = ({ key, index, isScrolling, isVisible, style }) => (
+    <div key={key} style={style}>{rows[index]}</div>
+  )
+  
+  return (
+    <List 
+      style={{ width: '100%' }}
+      width={600}
+      height={300}
+      rowHeight={30}
+      rowCount={rows.length}
+      rowRenderer={rowRenderer}
+    />
+  );
+}
 
 function EditAssetForm({ toggleForm }) {
   const [ assets, setAssets ] = useState([
     {id: '9', name: 'Bloco 14 - Mezanino', assetSf: 'BL14-MEZ-043'},
     {id: '10', name: 'Anexo II - Gabinete 10', assetSf: 'AX02-GAB-010'},
   ]);
+  const [ assetOptions, setAssetOptions ] = useState([]);
+  
+  const { loading, data } = useQuery(ALL_ASSETS_QUERY, {
+    onCompleted: ({ allTaskData: { nodes: [{ assetOptions }]}}) => {
+      const assetsSelect = assetOptions.map(asset => ({value: asset.id, label: `${asset.assetSf}: ${asset.name}`}));
+      setAssetOptions(assetsSelect);
+    }
+  });
+  
+  console.log("AssetOptions: ", assetOptions);
 
   return ( 
     <div className={'miniform-container'}>
@@ -49,9 +64,10 @@ function EditAssetForm({ toggleForm }) {
                 classNamePrefix="select"
                 isClearable
                 isSearchable
-                name="team"
+                name="assets"
+                components={{ MenuList }}
                 placeholder={'Edifício / Equipamento'}
-                options={assetsFakeDrop}
+                options={assetOptions}
                 styles={selectStyles}
               />
             </div>
