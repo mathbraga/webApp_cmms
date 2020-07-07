@@ -2,8 +2,8 @@ var Service = require('node-windows').Service;
 
 // Create a new service object
 var svc = new Service({
-  name:'Node application as Windows Service',
-  description: 'Node application as Windows Service',
+  name:'Node.js - CMMS web app',
+  description: 'Node.js - CMMS web application as Windows Service',
   script: 'D:\\USERS\\hzlopes\\Desktop\\code\\cmms\\backend\\server.js'
 });
 
