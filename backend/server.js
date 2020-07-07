@@ -4,6 +4,7 @@ const envFilename = process.env.NODE_ENV === 'production' ? '.env.pro' : '.env.d
 require('dotenv').config({
   path: path.resolve(process.cwd(), envFilename),
 });
+// console.log(process.env);
 
 const app = require('./app');
 const http = require('http');

@@ -1,3 +1,6 @@
+// Usage instructions:
+// https://dev.to/petereysermans/installing-a-node-js-application-as-a-windows-service-28j7
+
 var Service = require('node-windows').Service;
 
 // Create a new service object
