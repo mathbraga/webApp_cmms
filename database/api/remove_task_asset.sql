@@ -13,6 +13,7 @@ create or replace function api.remove_task_asset (
     begin
 
       id = task_id;
+      assetid = asset_id;
 
       select count(*) into line_count
         from task_assets as ta

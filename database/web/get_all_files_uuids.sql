@@ -1,14 +1,12 @@
 drop function if exists web.get_all_files_uuids;
 
 create or replace function web.get_all_files_uuids (
-  out uuids_result text[]
+  out uuids_result uuid[]
 )
   language plpgsql
-  stable
   as $$
     declare
       files_tables record;
-      uuids_result uuid[];
       uuids_to_append uuid[];
     begin
       for files_tables in

@@ -10,6 +10,8 @@ const paths = {
   files: '/files',
   reqsLog: '/logs/reqs',
   filesDiffLog: '/logs/filesdiff',
+  dbDumpLog: '/logs/dump',
+  refreshMVLog: '/logs/mv',
 };
 
 module.exports = paths;

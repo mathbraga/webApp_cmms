@@ -15,6 +15,9 @@ dumps/*
 logs/*
 !logs/.gitkeep
 
+# Windows service files
+daemon/*
+
 # dependencies
 /node_modules
 package-lock.json
