@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import NumberFormat from 'react-number-format';
 import './SupplyForm.css';
 
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 
 import { SUPPLIES_QUERY, MODIFY_SUPPLY, TASK_SUPPLIES_QUERY } from './graphql/supplyFormGql';
 

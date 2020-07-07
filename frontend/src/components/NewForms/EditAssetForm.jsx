@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Button, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import Select from 'react-select';
 import './AssetForm.css';
@@ -27,88 +27,77 @@ const assetsFake = [
 
 const assetsFakeDrop = assetsFake.map(asset => ({value: asset.id, label: `${asset.name} (${asset.assetSf})`}));
 
-class EditAssetForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      assets: [
-        {id: '9', name: 'Bloco 14 - Mezanino', assetSf: 'BL14-MEZ-043'},
-        {id: '10', name: 'Anexo II - Gabinete 10', assetSf: 'AX02-GAB-010'},
-      ],
-    };
-  }
-  
-  render() { 
-    const { toggleForm } = this.props;
+function EditAssetForm({ toggleForm }) {
+  const [ assets, setAssets ] = useState([
+    {id: '9', name: 'Bloco 14 - Mezanino', assetSf: 'BL14-MEZ-043'},
+    {id: '10', name: 'Anexo II - Gabinete 10', assetSf: 'AX02-GAB-010'},
+  ]);
 
-    return ( 
-      <div className={'miniform-container'}>
-        <div className='miniform__field'>
-            <div className='miniform__field__label'>
-              Adicionar ativo
-            </div>
-            <div className='miniform__field__sub-label'>
-              Ao incluir um novo ativo, ele será vinculado imediatamente a esta tarefa.
-            </div>
-            <div className="miniform__field__input__container">
-              <div className='miniform__field__input' style={{ width: '80%' }}>
-                <Select
-                  className="basic-single"
-                  classNamePrefix="select"
-                  isClearable
-                  isSearchable
-                  name="team"
-                  placeholder={'Edifício / Equipamento'}
-                  options={assetsFakeDrop}
-                  styles={selectStyles}
-                />
-              </div>
-              <div className='miniform__buttons-inline'>
-                <Button 
-                  color="primary" 
-                  size="sm" 
-                  onClick={toggleForm}
-                >
-                  Incluir Ativo
-                </Button>
-              </div>
-            </div>
+  return ( 
+    <div className={'miniform-container'}>
+      <div className='miniform__field'>
+          <div className='miniform__field__label'>
+            Adicionar ativo
           </div>
-          <div className='miniform__field'>
-            <div className='miniform__field__label'>
-              Excluir ativos
-            </div>
-            <div className='miniform__field__sub-label'>
-              Ao excluir qualquer ativo, ele será retirado imediatamente desta tarefa.
-            </div>
-            {this.state.assets.map(asset => (
-              <div className='miniform__field__item'>
-                <div className='miniform__field__edit-supply' style={{width: '25%'}}>
-                  <Input value={asset.assetSf} style={{ backgroundColor: "white" }} disabled/>
-                </div>
-                <div className='miniform__field__edit-supply' style={{width: '60%'}}>
-                  <Input value={asset.name} style={{ backgroundColor: "white" }}  disabled/>
-                </div>
-                <div style={{width: '15%'}}>
-                  <div className="miniform__field__remove-button">
-                    Exlcuir
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className='miniform__field__sub-label'>
+            Ao incluir um novo ativo, ele será vinculado imediatamente a esta tarefa.
           </div>
-          <div className='miniform__buttons'>
-            <Button 
-              color="danger" 
-              size="sm"
-              onClick={toggleForm}
-            >
-              Voltar
-            </Button>
+          <div className="miniform__field__input__container">
+            <div className='miniform__field__input' style={{ width: '80%' }}>
+              <Select
+                className="basic-single"
+                classNamePrefix="select"
+                isClearable
+                isSearchable
+                name="team"
+                placeholder={'Edifício / Equipamento'}
+                options={assetsFakeDrop}
+                styles={selectStyles}
+              />
+            </div>
+            <div className='miniform__buttons-inline'>
+              <Button 
+                color="primary" 
+                size="sm" 
+                onClick={toggleForm}
+              >
+                Incluir Ativo
+              </Button>
+            </div>
           </div>
         </div>
-     );
-  }
+        <div className='miniform__field'>
+          <div className='miniform__field__label'>
+            Excluir ativos
+          </div>
+          <div className='miniform__field__sub-label'>
+            Ao excluir qualquer ativo, ele será retirado imediatamente desta tarefa.
+          </div>
+          {assets.map(asset => (
+            <div className='miniform__field__item'>
+              <div className='miniform__field__edit-supply' style={{width: '25%'}}>
+                <Input value={asset.assetSf} style={{ backgroundColor: "white" }} disabled/>
+              </div>
+              <div className='miniform__field__edit-supply' style={{width: '60%'}}>
+                <Input value={asset.name} style={{ backgroundColor: "white" }}  disabled/>
+              </div>
+              <div style={{width: '15%', textAlign: 'center'}}>
+                <Button outline color="danger" size="sm" onClick={() => {}}>Exlcuir</Button>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className='miniform__buttons'>
+          <Button 
+            color="danger" 
+            size="sm"
+            onClick={toggleForm}
+          >
+            Voltar
+          </Button>
+        </div>
+      </div>
+   );
 }
  
 export default EditAssetForm;
