@@ -34,7 +34,8 @@ class MainPage extends Component {
     cookieAuth().then(() => { // cookie = true
         this.setUser();
     })
-    .catch(() => { // no cookie
+    .catch((err) => { // no cookie
+      console.log(err);
       this.setNoUser();
     })
   }

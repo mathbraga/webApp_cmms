@@ -8,12 +8,13 @@ export default function cookieAuth(){
         .then(r => {
           if(r.status === 200){
             resolve(r.json());
-          } else {
-            reject();
+          } 
+          else if(r.status === 400){
+            throw new Error('Cookie not found.');
+            // reject();
           }
         })
         .catch(error => {
-          alert(error);
           reject(error);
         });
     });
