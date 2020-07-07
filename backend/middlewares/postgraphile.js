@@ -29,7 +29,7 @@ module.exports = postgraphile(
       return {
         // 'transaction_read_only': readOnly,
         'role': role,
-        'statement_timeout': 5000,
+        // 'statement_timeout': 5000,
         'cookie.session.person_id': person_id,
       }
     }

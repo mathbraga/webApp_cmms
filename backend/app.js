@@ -25,7 +25,8 @@ app.use(expressStatic);
 app.use(cookieSession);
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(morgan);
+app.use(morgan.logConsole);
+app.use(morgan.logFile);
 app.use(checkAuthUser);
 
 // Routes
