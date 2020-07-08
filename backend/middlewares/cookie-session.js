@@ -7,7 +7,7 @@ module.exports = cookieSession({
   maxAge: 604800000, // miliseconds in 1 week
   // expires: ,
   path: '/',
-  domain: 'localhost',
+  domain: process.env.NODE_ENV === 'production' ? 'senado.gov.br' : 'localhost',
   secure: false,
   // secureProxy: ,
   httpOnly: true,
