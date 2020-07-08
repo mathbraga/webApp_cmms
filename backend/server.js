@@ -2,7 +2,8 @@ const app = require('./app');
 const http = require('http');
 const server = http.createServer(app);
 const port = process.env.HTTP_PORT;
-console.log(process.env)
+// console.log(process.env)
+
 // Cron jobs
 const cronJobs = require('./cron');
 

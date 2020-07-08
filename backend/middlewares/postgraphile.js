@@ -1,22 +1,34 @@
-const { postgraphile } = require('postgraphile');
+const { postgraphile, makePluginHook } = require('postgraphile');
+const { default: PgPubsub } = require("@graphile/pg-pubsub");
 const paths = require('../paths');
 const { pgPool } = require('../db');
+const cookieSession = require('./cookie-session');
+const passport = require('./passport');
+
+const pluginHook = makePluginHook([PgPubsub]);
 
 module.exports = postgraphile(
   pgPool,
   ['api'],
   { 
-    watchPg: process.env.NODE_ENV === 'development',
+    pluginHook,
+    subscriptions: true,
+    simpleSubscriptions: true,
+    websocketMiddlewares: [
+      cookieSession,
+      passport.initialize(),
+      passport.session(),
+    ],
+    watchPg: process.env.NODE_ENV !== 'production',
     retryOnInitFail: false,
     enableCors: false,
     graphqlRoute: paths.api,
-    graphiql: process.env.NODE_ENV === 'development',
+    graphiql: process.env.NODE_ENV !== 'production',
     graphiqlRoute: paths.graphiql,
     // ignoreIndexes: false,
-    // subscriptions: true,
-    enhanceGraphiql: process.env.NODE_ENV === 'development',
+    enhanceGraphiql: process.env.NODE_ENV !== 'production',
     disableDefaultMutations: true,
-    disableQueryLog: process.env.NODE_ENV !== 'development',
+    disableQueryLog: process.env.NODE_ENV !== 'production',
     dynamicJson: true,
     showErrorStack: 'json',
     extendedErrors: ['hint', 'detail', 'errcode'],
@@ -25,7 +37,7 @@ module.exports = postgraphile(
     // sortExport: true,
     pgSettings: async req => {
       const [person_id, role] = req.session.populated ? req.session.passport.user.split('-') : ['0', 'visitor'];
-      const readOnly = /query/i.test(req.body.query) ? 'on' : 'off';
+      const readOnly = (req.method === 'POST' && /query/i.test(req.body.query)) ? 'on' : 'off';
       return {
         // 'transaction_read_only': readOnly,
         'role': role,
