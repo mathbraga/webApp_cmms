@@ -1,25 +1,14 @@
 const CronJob = require('cron').CronJob;
-const fs = require("fs");
-const path = require('path');
 const db = require('../../db');
-const paths = require('../../paths');
+const cronWritableStream = require('../cronWritableStream');
 
 const refreshAllMVs = async () => {
   try {
     const { rows: [ { timestamp } ] } = await db.query('select web.refresh_all_materialized_views() as timestamp');
-    const logContent = `All materialized views refreshed at: ${timestamp}`;
-    fs.writeFile(path.join(process.cwd(), paths.refreshMVLog), logContent, error => {
-      if(error){
-        console.log(error);
-      }
-    });
-  }
-  catch (refreshError) {
-    fs.writeFile(path.join(process.cwd(), paths.refreshMVLog), refreshError, error => {
-      if(error){
-        console.log(error);
-      }
-    });
+    const logContent = `Materialized views refreshed at: ${timestamp}\n`;
+    cronWritableStream.write(logContent, 'utf8');
+  } catch (refreshError) {
+    cronWritableStream.write(refreshError, 'utf8');
   }
 }
 

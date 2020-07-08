@@ -8,10 +8,8 @@ const paths = {
   public: '/public',
   images: '/images',
   files: '/files',
-  reqsLog: '/logs/reqs',
-  filesDiffLog: '/logs/filesdiff',
-  dbDumpLog: '/logs/dump',
-  refreshMVLog: '/logs/mv',
+  httpLog: '/logs/http.log',
+  cronLog: '/logs/cron.log',
 };
 
 module.exports = paths;

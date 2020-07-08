@@ -12,7 +12,10 @@ const logFormat = `:date[iso]\t:remote-addr\t:method\t:url\t:status\t:response-t
 const logFormatWithSeparator = `\n:separator\n${logFormat}`;
 
 const logStreamConsole = process.stdout;
-const logStreamFile = fs.createWriteStream(path.join(process.cwd(), paths.reqsLog), { flags: 'a' });
+const logStreamFile = fs.createWriteStream(
+  path.join(process.cwd(), paths.httpLog),
+  { flags: 'a' }
+);
 
 module.exports = {
   logConsole: morgan(

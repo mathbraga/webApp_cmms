@@ -4,22 +4,15 @@ const exec = util.promisify(require('child_process').exec);
 const fs = require('fs');
 const path = require('path');
 const paths = require('../../paths');
+const cronWritableStream = require('../cronWritableStream')
 
 const dumpDatabase = async () => {
   try {
     const output = await exec(`pg_dump -f dumps/dump.sql -d ${process.env.PGDATABASE}`);
-    const logContent = `pg_dump executed successfully at: ${new Date()}`;
-    fs.writeFile(path.join(process.cwd(), paths.dbDumpLog), logContent, error => {
-      if(error){
-        console.log(error);
-      }
-    });
-  } catch(dumpError){
-    fs.writeFile(path.join(process.cwd(), paths.dbDumpLog), dumpError, error => {
-      if(error){
-        console.log(error);
-      }
-    });
+    const logContent = `Database dump executed successfully at: ${new Date()}\n`;
+    cronWritableStream.write(logContent, 'utf8');
+  } catch (dumpError){
+    cronWritableStream.write(dumpError, 'utf8');
   }
 }
 

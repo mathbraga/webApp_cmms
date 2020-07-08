@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const db = require('../../db');
 const paths = require('../../paths');
+const cronWritableStream = require('../cronWritableStream');
 
 const diffUploadedFiles = async () => {
 
@@ -13,26 +14,19 @@ const diffUploadedFiles = async () => {
 
     const diffUUIDs = UUIDs.filter(uuid => (!dbUUIDs.includes(uuid)));
 
-    const diffFileContent =
-      'List of uploaded files not registered in the database\n' +
-      '(diff script executed at ' + (new Date()).toString() + ')\n' +
-      '-----------------------------------------------------------------------\n' +
+    const logContent =
+      `Diff of uploaded files at: ${new Date()}` +
+      '\n------------------------------------\n' +
       diffUUIDs.join('\n').replace(/\.gitkeep\n/, '') +
-      '\n'
+      '\n------------------------------------\n'
     ;
 
-    fs.writeFile(path.join(process.cwd(), paths.filesDiffLog), diffFileContent, error => {
-      if(error){
-        console.log(error);
-      }
-    });
+    cronWritableStream.write(logContent, 'utf8');
 
-  } catch(diffError){
-    fs.writeFile(path.join(process.cwd(), paths.filesDiffLog), diffError, error => {
-      if(error){
-        console.log(error);
-      }
-    });
+  } catch (diffError){
+
+    cronWritableStream.write(diffError, 'utf8');
+
   }
 }
 
