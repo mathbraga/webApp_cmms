@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import './DispatchForm.css'
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { ALL_TEAMS_QUERY, SEND_TASK, TASK_TEAMS_QUERY } from './graphql/dispatchFormGql';
+import { ALL_TEAMS_QUERY, SEND_TASK, TASK_EVENTS_QUERY } from './graphql/dispatchFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -20,7 +20,8 @@ function DispatchForm({ visible, toggleForm, taskId }) {
   const [ teamOptions, setTeamOptions ] = useState([]);
 
   const { loading } = useQuery(ALL_TEAMS_QUERY, {
-    onCompleted: ({ allTeamData: { nodes: data}}) => {
+    variables: { taskId },
+    onCompleted: ({ allTaskData: { nodes: [{ sendOptions: data }]}}) => {
       const teamOptionsData = data.map(team => ({value: team.teamId, label: team.name}));
       setTeamOptions(teamOptionsData);
     }
@@ -37,7 +38,7 @@ function DispatchForm({ visible, toggleForm, taskId }) {
       setTeamValue(null);
       setObservationValue(null);
     },
-    refetchQueries: [{ query: TASK_TEAMS_QUERY, variables: { taskId } }],
+    refetchQueries: [{ query: TASK_EVENTS_QUERY, variables: { taskId } }],
     onError: (err) => { console.log(err); },
   });
 

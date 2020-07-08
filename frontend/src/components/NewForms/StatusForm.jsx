@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import './DispatchForm.css'
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { MOVE_OPTIONS_QUERY } from './graphql/statusFormGql';
+import { MOVE_OPTIONS_QUERY, MOVE_TASK, TASK_EVENTS_QUERY } from './graphql/statusFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -24,6 +24,21 @@ function StatusForm({ visible, toggleForm, taskId }) {
       const moveOptionsData = data.map(option => ({value: option.taskStatusId, label: option.taskStatusText}));
       setMoveOptions(moveOptionsData);
     }
+  });
+  
+  const [ moveTask, { errorMove } ] = useMutation(MOVE_TASK, {
+    variables: {
+      taskId,
+      teamId: 1,
+      taskStatusId: statusValue && statusValue.value,
+      note: observationValue && observationValue.value,
+    },
+    onCompleted: () => {
+      setStatusValue(null);
+      setObservationValue(null);
+    },
+    refetchQueries: [{ query: TASK_EVENTS_QUERY, variables: { taskId } }],
+    onError: (err) => { console.log(err); },
   });
   
   const miniformClass = classNames({

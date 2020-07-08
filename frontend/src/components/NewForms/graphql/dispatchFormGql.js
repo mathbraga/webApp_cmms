@@ -1,11 +1,10 @@
 import gql from 'graphql-tag';
 
 export const ALL_TEAMS_QUERY = gql`
-  query TeamsQuery {
-    allTeamData {
+  query TeamsQuery($taskId: Int!) {
+    allTaskData(condition: {taskId: $taskId}) {
       nodes {
-        teamId
-        name
+        sendOptions
       }
     }
   }
@@ -26,14 +25,11 @@ export const SEND_TASK = gql`
   }
 `;
 
-export const TASK_TEAMS_QUERY = gql`
+export const TASK_EVENTS_QUERY = gql`
   query TaskQuery($taskId: Int!) {
     allTaskData(condition: {taskId: $taskId}) {
       nodes {
         taskId
-        events
-        teamId
-        teamName
       }
     }
   }
