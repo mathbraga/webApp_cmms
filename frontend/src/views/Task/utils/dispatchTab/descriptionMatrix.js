@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup, Label, Input } from 'reactstrap';
 
-export function itemsMatrixAssetsHierachy(data) {
+export function currentStateInfo(data) {
   return (
     [
       [
@@ -19,7 +19,7 @@ export function itemsMatrixAssetsHierachy(data) {
   );
 }
 
-export function itemsMatrixLog(numEvent, handleLogTypeChange) {
+export function dispatchLogInfo(numEvent, handleLogTypeChange) {
   return (
     [
       [
