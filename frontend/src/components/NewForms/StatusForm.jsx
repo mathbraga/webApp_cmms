@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import './DispatchForm.css'
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { ALL_TEAMS_QUERY, SEND_TASK, TASK_TEAMS_QUERY } from './graphql/dispatchFormGql';
+import { MOVE_OPTIONS_QUERY } from './graphql/statusFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -14,20 +14,17 @@ const selectStyles = {
   }),
 };
 
-const teamsFake = [
-  {value: 'Concluído', label: 'Concluído'}, 
-  {value: 'Cancelado', label: 'Cancelado'}, 
-  {value: 'Espera', label: 'Fila de Espera'},
-  {value: 'Execução', label: 'Em Execução'},
-  {value: 'Pendente', label: 'Pendente'},
-  {value: 'Suspenso', label: 'Suspenso'},
-  {value: 'Análise', label: 'Em análise'},
-];
-
 function StatusForm({ visible, toggleForm, taskId }) {
   const [ statusValue, setStatusValue ] = useState(null);
   const [ observationValue, setObservationValue ] = useState(null);
-  const [ statusOptions, setStatusOptions ] = useState([]);
+  const [ moveOptions, setMoveOptions ] = useState([]);
+  
+  const { loading } = useQuery(MOVE_OPTIONS_QUERY, {
+    onCompleted: ({ allTaskData: { nodes: [{ moveOptions: data }]}}) => {
+      const moveOptionsData = data.map(option => ({value: option.taskStatusId, label: option.taskStatusText}));
+      setMoveOptions(moveOptionsData);
+    }
+  });
   
   const miniformClass = classNames({
     'miniform-container': true,
@@ -78,7 +75,7 @@ function StatusForm({ visible, toggleForm, taskId }) {
               isSearchable
               name="team"
               value={statusValue}
-              options={teamsFake}
+              options={moveOptions}
               styles={selectStyles}
               onChange={onChangeStatus}
               placeholder={'Status ...'}
