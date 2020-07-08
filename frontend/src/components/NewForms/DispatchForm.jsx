@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import './DispatchForm.css'
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { ALL_TEAMS_QUERY, SEND_TASK } from './graphql/dispatchFormGql';
+import { ALL_TEAMS_QUERY, SEND_TASK, TASK_TEAMS_QUERY } from './graphql/dispatchFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -14,7 +14,7 @@ const selectStyles = {
   }),
 };
 
-function DispatchForm({ visible, toggleForm }) { 
+function DispatchForm({ visible, toggleForm, taskId }) { 
   const [ teamValue, setTeamValue ] = useState(null);
   const [ observationValue, setObservationValue ] = useState(null);
   const [ teamOptions, setTeamOptions ] = useState([]);

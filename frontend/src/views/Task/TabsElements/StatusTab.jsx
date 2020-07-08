@@ -49,7 +49,7 @@ class StatusTab extends Component {
 
   render() {
     const data = fakeData;
-    //this.props.data.assets;
+    const { taskId } = this.props.data;
     const { dispatchFormOpen, statusFormOpen, logType } = this.state;
 
     const actionButtons = {
@@ -86,6 +86,7 @@ class StatusTab extends Component {
               <DispatchForm 
                 visible={true}
                 toggleForm={this.toggleDispatchForm}
+                taskId={taskId}
               />
             </div>
           </AnimateHeight>
