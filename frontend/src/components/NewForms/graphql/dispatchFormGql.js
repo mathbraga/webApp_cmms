@@ -12,11 +12,12 @@ export const ALL_TEAMS_QUERY = gql`
 `;
 
 export const SEND_TASK = gql`
-  mutation SendTaskMutation($taskId: Int!, $teamId: Int!, $note: String) {
+  mutation SendTaskMutation($taskId: Int!, $teamId: Int!, $nextTeamId: Int!, $note: String) {
     sendTask(input: {
       event: {
         taskId: $taskId,
         teamId: $teamId,
+        nextTeamId: $nextTeamId,
         note: $note
       }
     }) {

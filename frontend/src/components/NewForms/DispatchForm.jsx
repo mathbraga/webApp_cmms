@@ -30,6 +30,7 @@ function DispatchForm({ visible, toggleForm, taskId }) {
     variables: {
       taskId,
       teamId: teamValue && teamValue.value,
+      nextTeamId: teamValue && teamValue.value,
       note: observationValue && observationValue.value,
     },
     onCompleted: () => {
