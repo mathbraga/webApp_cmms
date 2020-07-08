@@ -1,19 +1,30 @@
 import React from 'react';
 import { FormGroup, Label, Input } from 'reactstrap';
 
-export function currentStateInfo(data) {
+export function currentStateInfo({createdAt, taskStatusText, teamName, events}) {
+  let receivedDate = createdAt;
+  let lastNote = "Tarefa tramitada sem observações"
+  
+  events.forEach(event => {
+    if (event.eventName === 'receive') {
+      receivedDate = event.eventTime;
+    } else if (event.eventName === 'send') {
+      lastNote = event.note;
+    }
+  })
+  
   return (
     [
       [
-        { id: 'parentsAssets', title: 'Status', description: 'Fila de Espera', span: 1 },
-        { id: 'childrenAssets', title: 'Data de recebimento', description: '10/10/2020', span: 1 },
+        { id: 'status', title: 'Status', description: taskStatusText, span: 1 },
+        { id: 'receivedDate', title: 'Data de recebimento', description: receivedDate.split("T")[0], span: 1 },
       ],
       [
-        { id: 'team', title: 'Equipe', description: 'Semac', span: 1 },
-        { id: 'totalDays', title: 'Dias com a tarefa', description: '020 dias', span: 1 }
+        { id: 'team', title: 'Equipe', description: teamName, span: 1 },
+        { id: 'totalDays', title: 'Dias com a tarefa', description: 'TODO', span: 1 }
       ],
       [
-        { id: 'obs', title: 'Última observação (tramitação)', description: 'Reparar os móveis localizados dentro da sala do SEMAC/SEPLAG. O serviço deverá ser realizado fora do horário de expediente. Qualquer dúvida, falar com o Pedro (Ramal: 2339)', span: 2 },
+        { id: 'obs', title: 'Última observação (tramitação)', description: lastNote, span: 2 },
       ],
     ]
   );

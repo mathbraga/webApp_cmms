@@ -46,7 +46,7 @@ class DispatchTab extends Component {
   }
 
   render() {
-    const { taskId, taskStatusText, teamName, events } = this.props.data;
+    const { taskId, createdAt, taskStatusText, teamName, events } = this.props.data;
     const { dispatchFormOpen, statusFormOpen, logType } = this.state;
     
     console.log("Data Status: ", this.props.data);
@@ -108,7 +108,7 @@ class DispatchTab extends Component {
           <div className="tabpane__content">
             <PaneTextContent 
               numColumns='2' 
-              itemsMatrix={currentStateInfo({taskStatusText, teamName, events})}
+              itemsMatrix={currentStateInfo({createdAt, taskStatusText, teamName, events})}
             />
           </div>
           <PaneTitle 
