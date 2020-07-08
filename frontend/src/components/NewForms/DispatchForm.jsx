@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import './DispatchForm.css'
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { ALL_TEAMS_QUERY } from './graphql/dispatchFormGql';
+import { ALL_TEAMS_QUERY, SEND_TASK } from './graphql/dispatchFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -15,8 +15,8 @@ const selectStyles = {
 };
 
 function DispatchForm({ visible, toggleForm }) { 
-  const [ teamValue, setTeamValue ] = useState([]);
-  const [ observationValue, setObservationValue ] = useState("");
+  const [ teamValue, setTeamValue ] = useState(null);
+  const [ observationValue, setObservationValue ] = useState(null);
   const [ teamOptions, setTeamOptions ] = useState([]);
   
   const { loading } = useQuery(ALL_TEAMS_QUERY, {
@@ -24,6 +24,20 @@ function DispatchForm({ visible, toggleForm }) {
       const teamOptionsData = data.map(team => ({value: team.teamId, label: team.name}));
       setTeamOptions(teamOptionsData);
     }
+  });
+  
+  const [ dispatchTask, { errorInsert } ] = useMutation(SEND_TASK, {
+    variables: {
+      taskId,
+      teamId: teamValue && teamValue.value,
+      note: observationValue && observationValue.value,
+    },
+    onCompleted: () => {
+      setSelectedAsset(null);
+      setObservationValue(null);
+    },
+    refetchQueries: [{ query: TASK_ASSETS_QUERY, variables: { taskId } }],
+    onError: (err) => { console.log(err); },
   });
   
   const miniformClass = classNames({
@@ -71,7 +85,6 @@ function DispatchForm({ visible, toggleForm }) {
             <Select
               className="basic-single"
               classNamePrefix="select"
-              defaultValue={'Semac'}
               isClearable
               isSearchable
               name="team"

@@ -11,35 +11,28 @@ export const ALL_TEAMS_QUERY = gql`
   }
 `;
 
-export const INSERT_ASSET = gql`
-  mutation AssetTaskMutation($taskId: Int!, $assetId: Int!) {
-    insertTaskAsset(input: {
-      taskId: $taskId,
-      assetId: $assetId,
+export const SEND_TASK = gql`
+  mutation SendTaskMutation($taskId: Int!, $teamId: Int!, $note: String) {
+    sendTask(input: {
+      event: {
+        taskId: $taskId,
+        teamId: $teamId,
+        note: $note
+      }
     }) {
       id
     }
   }
 `;
 
-export const REMOVE_ASSET = gql`
-  mutation RemoveAssetTaskMutation($taskId: Int!, $assetId: Int!) {
-    removeTaskAsset(input: {
-      taskId: $taskId,
-      assetId: $assetId,
-    }) {
-      id
-    }
-  }
-`;
-
-
-export const TASK_ASSETS_QUERY = gql`
+export const TASK_TEAMS_QUERY = gql`
   query TaskQuery($taskId: Int!) {
     allTaskData(condition: {taskId: $taskId}) {
       nodes {
         taskId
-        assets
+        events
+        teamId
+        teamName
       }
     }
   }
