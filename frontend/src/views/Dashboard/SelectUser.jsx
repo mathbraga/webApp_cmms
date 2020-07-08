@@ -22,6 +22,7 @@ export default function SelectUser() {
   
   function handleTeamChange(team) {
     setTeam(team);
+    setUser(null);
   }
   
   function handleUserChange(user) {
