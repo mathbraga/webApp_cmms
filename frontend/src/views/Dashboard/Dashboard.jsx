@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, } from "reactstrap";
+import SelectUser from "./SelectUser";
 // import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters, dataTree } from './fakeData';
 // import svgr from '@svgr/core';
 // import CustomTable from "../../components/Tables/CustomTable";
@@ -38,6 +39,17 @@ class Dashboard extends Component {
               </Card>
             </Col>
           </Row>
+          {/* Temporary -> User selection */}
+          <Row className="justify-content-center">
+            <Col md="8">
+              <Card className="mx-4">
+                <CardBody className="p-4">
+                  <SelectUser />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+          {/* Temporary -> User selection */}
         </Container>
 
         {/* <Container>
