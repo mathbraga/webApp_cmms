@@ -3,6 +3,9 @@ import Select from 'react-select';
 import { Button, Input } from 'reactstrap';
 import classNames from 'classnames';
 import './DispatchForm.css'
+import { useQuery, useMutation } from '@apollo/react-hooks';
+
+import { ALL_TEAMS_QUERY } from './graphql/dispatchFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -11,24 +14,17 @@ const selectStyles = {
   }),
 };
 
-const teamsFake = [
-  {value: 'Semac', label: 'Semac'}, 
-  {value: 'Coemant', label: 'Coemant'}, 
-  {value: 'Sinfra', label: 'Sinfra'},
-  {value: 'Coproj', label: 'Coproj'},
-  {value: 'Copre', label: 'Copre'},
-  {value: 'GabSinfra', label: 'Gabinete Sinfra'},
-  {value: 'Seau', label: 'Seau'},
-  {value: 'Dger', label: 'Dger'},
-  {value: 'Ngcic', label: 'Ngcic'},
-  {value: 'Ngcot', label: 'Ngcoc'},
-  {value: 'Segp', label: 'Segp'},
-  {value: 'Prodasen', label: 'Prodasen'},
-];
-
 function DispatchForm({ visible, toggleForm }) { 
   const [ teamValue, setTeamValue ] = useState([]);
   const [ observationValue, setObservationValue ] = useState("");
+  const [ teamOptions, setTeamOptions ] = useState([]);
+  
+  const { loading } = useQuery(ALL_TEAMS_QUERY, {
+    onCompleted: ({ allTeamData: { nodes: data}}) => {
+      const teamOptionsData = data.map(team => ({value: team.teamId, label: team.name}));
+      setTeamOptions(teamOptionsData);
+    }
+  });
   
   const miniformClass = classNames({
     'miniform-container': true,
@@ -80,7 +76,7 @@ function DispatchForm({ visible, toggleForm }) {
               isSearchable
               name="team"
               value={teamValue}
-              options={teamsFake}
+              options={teamOptions}
               styles={selectStyles}
               onChange={onChangeTeam}
               placeholder={'Equipes ...'}
