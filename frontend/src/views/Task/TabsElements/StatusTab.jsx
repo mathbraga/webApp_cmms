@@ -14,7 +14,7 @@ import sortList from '../../../components/Tables/TableWithSorting/sortList'
 import AnimateHeight from 'react-animate-height';
 import LogTable from '../utils/dispatchTab/LogTable';
 
-class AssignTab extends Component {
+class StatusTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -131,4 +131,4 @@ class AssignTab extends Component {
   }
 }
 
-export default AssignTab;
+export default StatusTab;

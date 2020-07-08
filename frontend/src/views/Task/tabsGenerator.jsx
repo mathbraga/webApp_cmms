@@ -1,7 +1,7 @@
 import React from 'react';
 import InfoTab from './TabsElements/InfoTab';
 import SupplyTab from './TabsElements/SupplyTab';
-import AssignTab from './TabsElements/AssignTab';
+import StatusTab from './TabsElements/StatusTab';
 import AssetTab from './TabsElements/AssetTab';
 import MessageTab from './TabsElements/MessageTab';
 import FilesTab from './TabsElements/FilesTab';
@@ -12,7 +12,7 @@ export default function tabsGenerator(data) {
       { id: 'info', title: 'Informações', element: <InfoTab data={data} /> },
       { id: 'resources', title: 'Suprimentos', element: <SupplyTab data={data} /> },
       { id: 'assets', title: 'Ativos', element: <AssetTab data={data} /> },
-      { id: 'assignTo', title: 'Status / Tramitações', element: <AssignTab data={data} /> },
+      { id: 'assignTo', title: 'Status / Tramitações', element: <StatusTab data={data} /> },
       { id: 'messages', title: 'Mensagens', element: <MessageTab data={data} /> },
       { id: 'files', title: 'Arquivos', element: <FilesTab data={data} /> },
     ]
