@@ -8,18 +8,18 @@ function generateEventName(item) {
     cancel: 'Tramitação cancelada',
     move: 'Status alterado'
   }
-  return relationEvents[item.event];
+  return relationEvents[item.eventName];
 }
 
 function selectTeamOrStatus(item) {
   let result = null;
   
-  if (item.event === 'move') {
+  if (item.eventName === 'move') {
     result = item.taskStatusText;
-  } else if (item.event === 'send') {
-    result = item.recipientName;
+  } else if (item.eventName === 'send') {
+    result = item.nextTeamName;
   } else {
-    result = item.senderName;
+    result = item.teamName;
   }
 
   return result;
@@ -28,8 +28,8 @@ function selectTeamOrStatus(item) {
 function createSubTeam(item) {
   let result = null;
   
-  if (item.event === 'move' || item.event === 'send') {
-    result = item.senderName;
+  if (item.eventName === 'move' || item.eventName === 'send') {
+    result = item.teamName;
   } else {
     result = null;
   }
@@ -38,31 +38,31 @@ function createSubTeam(item) {
 }
 
 function styleStatus(item, columnId) {
-  if (item.event === 'cancel' && columnId === 'event') {
+  if (item.eventName === 'cancel' && columnId === 'event') {
     return {
       fontWeight: '700',
       color: '#c12a2a',
     };
   }
-  if (item.event === 'send' && columnId === 'event') {
+  if (item.eventName === 'send' && columnId === 'event') {
     return {
       fontWeight: '700',
       color: '#8a7d24',
     };
   }
-  if (item.event === 'receive' && columnId === 'event') {
+  if (item.eventName === 'receive' && columnId === 'event') {
     return {
       fontWeight: '700',
       color: '#27962f',
     };
   }
-  if (item.event === 'move' && columnId === 'event') {
+  if (item.eventName === 'move' && columnId === 'event') {
     return {
       fontWeight: '700',
       color: '#256898',
     };
   }
-  if (item.event === 'insert' && columnId === 'event') {
+  if (item.eventName === 'insert' && columnId === 'event') {
     return {
       fontWeight: '700',
       color: '#181b1e',
@@ -72,13 +72,13 @@ function styleStatus(item, columnId) {
 }
 
 function createTeamStatusElement(teamStatus, item) {
-  if (item.event === 'send') {
+  if (item.eventName === 'send') {
     return (
       <div>
         <span style={{fontWeight: '700'}}>PARA: </span> {teamStatus}
       </div>
     );
-  } else if (item.event === 'receive' || item.event === 'cancel' || item.event === 'insert') {
+  } else if (item.eventName === 'receive' || item.eventName === 'cancel' || item.eventName === 'insert') {
     return (
       <div>
         <span style={{fontWeight: '700'}}>POR: </span> {teamStatus}
@@ -89,7 +89,7 @@ function createTeamStatusElement(teamStatus, item) {
 }
 
 function createSubTeamStatusElement(subTeam, item) {
-  if (item.event === 'send') {
+  if (item.eventName === 'send') {
     return (
       <div>
         <span style={{fontWeight: '700'}}>DE: </span> {subTeam}
@@ -99,19 +99,24 @@ function createSubTeamStatusElement(subTeam, item) {
   return (subTeam);
 }
 
+function generateTimeText(item) {
+  return item.eventTime.split("T")[0];
+}
+
 
 const tableConfig = {
   attForDataId: 'time',
   prepareData: {
-    eventName: generateEventName,
+    eventText: generateEventName,
     teamOrStatus: selectTeamOrStatus,
     subTeam: createSubTeam,
+    timeText: generateTimeText,
   },
   styleBodyElement: styleStatus,
   columnsConfig: [
-    { columnId: 'date', columnName: 'Data / Usuário', width: '15%', align: "center", idForValues: ['time', 'personName']},
-    { columnId: 'event', columnName: 'Evento', width: '18%', align: "center", isTextWrapped: true, idForValues: ['eventName'], styleText: {fontSize: '0.7rem', border: '1px solid #dadada', borderRadius: '4px'}},
-    { columnId: 'team', columnName: 'Equipe / Status', width: '32%', align: "justify", idForValues: ['teamOrStatus', 'subTeam'], createElementWithData: createTeamStatusElement, createElementWithSubData: createSubTeamStatusElement },
+    { columnId: 'date', columnName: 'Data / Usuário', width: '20%', align: "center", idForValues: ['timeText', 'personName']},
+    { columnId: 'event', columnName: 'Evento', width: '18%', align: "center", isTextWrapped: true, idForValues: ['eventText'], styleText: {fontSize: '0.7rem', border: '1px solid #dadada', borderRadius: '4px'}},
+    { columnId: 'team', columnName: 'Equipe / Status', width: '27%', align: "justify", idForValues: ['teamOrStatus', 'subTeam'], createElementWithData: createTeamStatusElement, createElementWithSubData: createSubTeamStatusElement },
     { columnId: 'note', columnName: 'Observação', width: '35%', align: "justify", isTextWrapped: true, idForValues: ['note']},
   ]
 };
