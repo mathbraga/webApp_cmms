@@ -57,7 +57,7 @@ create or replace function api.insert_task (
       );
 
       perform pg_notify(
-        'task_channel',
+        'postgraphile:task_channel',
         'Task created by calling api.insert_task function'
       );
 
