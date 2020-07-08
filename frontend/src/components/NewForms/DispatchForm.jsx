@@ -18,14 +18,14 @@ function DispatchForm({ visible, toggleForm, taskId }) {
   const [ teamValue, setTeamValue ] = useState(null);
   const [ observationValue, setObservationValue ] = useState(null);
   const [ teamOptions, setTeamOptions ] = useState([]);
-  
+
   const { loading } = useQuery(ALL_TEAMS_QUERY, {
     onCompleted: ({ allTeamData: { nodes: data}}) => {
       const teamOptionsData = data.map(team => ({value: team.teamId, label: team.name}));
       setTeamOptions(teamOptionsData);
     }
   });
-  
+
   const [ dispatchTask, { errorInsert } ] = useMutation(SEND_TASK, {
     variables: {
       taskId,
@@ -33,13 +33,13 @@ function DispatchForm({ visible, toggleForm, taskId }) {
       note: observationValue && observationValue.value,
     },
     onCompleted: () => {
-      setSelectedAsset(null);
+      setTeamValue(null);
       setObservationValue(null);
     },
-    refetchQueries: [{ query: TASK_ASSETS_QUERY, variables: { taskId } }],
+    refetchQueries: [{ query: TASK_TEAMS_QUERY, variables: { taskId } }],
     onError: (err) => { console.log(err); },
   });
-  
+
   const miniformClass = classNames({
     'miniform-container': true,
     'miniform-disabled': !visible
@@ -62,15 +62,21 @@ function DispatchForm({ visible, toggleForm, taskId }) {
     } 
   }
 
-  function handleSubmit(toggleForm) {
-    toggleForm();
-    handleClean();
-  }
-
   function handleClean() {
     setTeamValue([]);
     setObservationValue("");
   } 
+
+  function handleSubmit() {
+    dispatchTask()
+    toggleForm();
+    handleClean();
+  }
+
+  function handleCancel() {
+    toggleForm();
+    handleClean();
+  }
 
   return ( 
     <div className={miniformClass}>
@@ -121,7 +127,7 @@ function DispatchForm({ visible, toggleForm, taskId }) {
             color="success" 
             size="sm" 
             style={{ marginRight: "10px" }}
-            onClick={() => {handleSubmit(toggleForm)}}
+            onClick={handleSubmit}
           >
             Tramitar
           </Button>
@@ -136,7 +142,7 @@ function DispatchForm({ visible, toggleForm, taskId }) {
           <Button 
             color="danger" 
             size="sm"
-            onClick={() => {toggleForm(); handleClean()}}
+            onClick={handleCancel}
           >
             Cancelar
           </Button>
