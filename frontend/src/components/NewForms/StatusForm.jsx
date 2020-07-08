@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import { Button, Input } from 'reactstrap';
 import classNames from 'classnames';
 import './DispatchForm.css'
+import { useQuery, useMutation } from '@apollo/react-hooks';
+
+import { ALL_TEAMS_QUERY, SEND_TASK, TASK_TEAMS_QUERY } from './graphql/dispatchFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -21,135 +24,113 @@ const teamsFake = [
   {value: 'Análise', label: 'Em análise'},
 ];
 
-class StatusForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      statusValue: [],
-      observationValue: '',
-    }
+function StatusForm({ visible, toggleForm, taskId }) {
+  const [ statusValue, setStatusValue ] = useState(null);
+  const [ observationValue, setObservationValue ] = useState(null);
+  const [ statusOptions, setStatusOptions ] = useState([]);
+  
+  const miniformClass = classNames({
+    'miniform-container': true,
+    'miniform-disabled': !visible
+  });
 
-    this.onChangeStatus = this.onChangeStatus.bind(this);
-    this.onChangeObservation = this.onChangeObservation.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClean = this.handleClean.bind(this);
-  }
-
-  onChangeStatus(target) {
+  function onChangeStatus(target) {
     if(target) {
-      this.setState({
-        statusValue: Array.of({
-          label: target.label,
-          value: target.value,
-        })
+      setStatusValue({
+        label: target.label,
+        value: target.value
       });
     } else {
-      this.setState({
-        statusValue: Array.of()
-      });
+      setStatusValue(null);
     }
   }
 
-  onChangeObservation(target) {
+  function onChangeObservation(target) {
     if(target) {
-      this.setState({
-        observationValue: target.value,
-      });
+      setObservationValue(target.value);
     } 
   }
 
-  handleSubmit(toggleForm) {
-    console.log("Submit status: ", this.state.statusValue);
-    console.log("Submit observation: ", this.state.observationValue);
+  function handleSubmit(toggleForm) {
     toggleForm();
   }
 
-  handleClean() {
-    this.setState({
-      statusValue: [],
-      observationValue: '',
-    });
+  function handleClean() {
+    setStatusValue(null);
+    setObservationValue(null);
   }
 
-  render() { 
-    const { visible, toggleForm } = this.props;
-    const { statusValue, observationValue } = this.state;
-    const miniformClass = classNames({
-      'miniform-container': true,
-      'miniform-disabled': !visible
-    });
-    return ( 
-      <div className={miniformClass}>
-          <div className='miniform__field'>
-            <div className='miniform__field__label'>
-              Novo status
-            </div>
-            <div className='miniform__field__sub-label'>
-              Escolha o status atual da tarefa.
-            </div>
-            <div className='miniform__field__input'>
-              <Select
-                className="basic-single"
-                classNamePrefix="select"
-                defaultValue={'Semac'}
-                isClearable
-                isSearchable
-                name="team"
-                value={statusValue}
-                options={teamsFake}
-                styles={selectStyles}
-                onChange={this.onChangeStatus}
-                placeholder={'Status ...'}
-              />
-            </div>
+  return ( 
+    <div className={miniformClass}>
+        <div className='miniform__field'>
+          <div className='miniform__field__label'>
+            Novo status
           </div>
-          <div className='miniform__field'>
-            <div className='miniform__field__label'>
-              Observações
-            </div>
-            <div className='miniform__field__sub-label'>
-              Deixe registrado o motivo da alteração do status, ou qualquer outra informação relevante.
-            </div>
-            <div className='miniform__field__input'>
-              <Input 
-                className='miniform__field__textarea'
-                type="textarea" 
-                name="text" 
-                id="exampleText" 
-                rows='3'
-                value={observationValue}
-                onChange={this.onChangeObservation}
-              />
-            </div>
+          <div className='miniform__field__sub-label'>
+            Escolha o status atual da tarefa.
           </div>
-          <div className='miniform__buttons'>
-            <Button 
-              color="success" 
-              size="sm" 
-              style={{ marginRight: "10px" }}
-              onClick={() => {this.handleSubmit(toggleForm)}}
-            >
-              Alterar
-            </Button>
-            <Button 
-              color="secondary" 
-              size="sm" 
-              style={{ marginRight: "10px" }}
-              onClick={this.handleClean}
-            >
-              Limpar
-            </Button>
-            <Button 
-              color="danger" 
-              size="sm" 
-              onClick={toggleForm}
-            >
-              Cancelar
-            </Button>
+          <div className='miniform__field__input'>
+            <Select
+              className="basic-single"
+              classNamePrefix="select"
+              defaultValue={'Semac'}
+              isClearable
+              isSearchable
+              name="team"
+              value={statusValue}
+              options={teamsFake}
+              styles={selectStyles}
+              onChange={onChangeStatus}
+              placeholder={'Status ...'}
+            />
           </div>
         </div>
-     );
-  }
+        <div className='miniform__field'>
+          <div className='miniform__field__label'>
+            Observações
+          </div>
+          <div className='miniform__field__sub-label'>
+            Deixe registrado o motivo da alteração do status, ou qualquer outra informação relevante.
+          </div>
+          <div className='miniform__field__input'>
+            <Input 
+              className='miniform__field__textarea'
+              type="textarea" 
+              name="text" 
+              id="exampleText" 
+              rows='3'
+              value={observationValue}
+              onChange={onChangeObservation}
+            />
+          </div>
+        </div>
+        <div className='miniform__buttons'>
+          <Button 
+            color="success" 
+            size="sm" 
+            style={{ marginRight: "10px" }}
+            onClick={() => {handleSubmit(toggleForm)}}
+          >
+            Alterar
+          </Button>
+          <Button 
+            color="secondary" 
+            size="sm" 
+            style={{ marginRight: "10px" }}
+            onClick={handleClean}
+          >
+            Limpar
+          </Button>
+          <Button 
+            color="danger" 
+            size="sm" 
+            onClick={toggleForm}
+          >
+            Cancelar
+          </Button>
+        </div>
+      </div>
+   );
 }
  
 export default StatusForm;
