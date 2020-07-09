@@ -1,10 +1,13 @@
 # Public directory
 public/*
-
-# Exceptions inside public directory (necessary for tests)
-!public/files/de741848-5e90-4c5e-8699-78aca9b37aba
-!public/files/ee8da299-1b61-2b55-9898-99ccc11b2def
+# Exceptions inside 'public' directory (necessary for tests)
 !public/images/test.jpeg
+
+# Files directory
+files/*
+# Exceptions inside 'files' directory (necessary for tests)
+!files/de741848-5e90-4c5e-8699-78aca9b37aba
+!files/ee8da299-1b61-2b55-9898-99ccc11b2def
 
 # Database dumps
 dumps/*
