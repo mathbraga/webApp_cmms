@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-const UserContext = React.createContext();
+export const UserContext = React.createContext();
 
-function UserProvider({ children }) {
+export function UserProvider({ children }) {
   const [ user, setUser ] = useState(null);
   const [ team, setTeam ] = useState(null);
   const [ isLogged, setIsLogged ] = useState(false);
@@ -22,5 +22,3 @@ function UserProvider({ children }) {
     </UserContext.Provider>
   )
 }
-
-export default UserProvider
