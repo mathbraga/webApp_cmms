@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import Select from 'react-select';
 import { useQuery } from '@apollo/react-hooks';
-import { Button } from 'reactstrap';
+import { Button, Input } from 'reactstrap';
 
 import { ALL_TEAMS_QUERY } from './utils/graphql';
 import { UserContext } from '../../context/UserProvider';
@@ -32,37 +32,53 @@ export default function SelectUser() {
     setUser(user);
   }
   
+  console.log("userContext: ", userContext);
+  
   return (
     <div>
-      <div style={{ margin: '10px 0', fontWeight: '700' }}>Selecione a equipe:</div>
-      <Select
-        className="basic-single"
-        classNamePrefix="select"
-        isClearable
-        isSearchable
-        name="team"
-        options={teamOptions}
-        placeholder={'Equipe ...'}
-        onChange={handleTeamChange}
-        value={team}
-      />
-      <div style={{ margin: '20px 0 10px 0', fontWeight: '700' }}>Selecione o usuário:</div>
-      <Select
-        className="basic-single"
-        classNamePrefix="select"
-        isClearable
-        isSearchable
-        name="team"
-        options={team ? teamOptions.filter(teamOption => teamOption.value == team.value)[0].members : []}
-        placeholder={'Usuário ...'}
-        onChange={handleUserChange}
-        value={user}
-      />
-      <div
-        style={{ marginTop: "20px", textAlign: "end" }}
-      >
-        <Button color="primary">Login</Button>
-        <Button color="danger">Logout</Button>
+      {userContext.isLogged ? (
+        <div>
+          <div style={{ margin: '10px 0', fontWeight: '700' }}>Equipe ativa:</div>
+          <Input value={userContext.team.label} disabled/>
+          <div style={{ margin: '20px 0 10px 0', fontWeight: '700' }}>Usuário ativo:</div>
+          <Input value={userContext.user.label} disabled/>
+        </div>
+      ) : (
+        <div>
+          <div style={{ margin: '10px 0', fontWeight: '700' }}>Selecione a equipe:</div>
+          <Select
+            className="basic-single"
+            classNamePrefix="select"
+            isClearable
+            isSearchable
+            name="team"
+            options={teamOptions}
+            placeholder={'Equipe ...'}
+            onChange={handleTeamChange}
+            value={team}
+          />
+          <div style={{ margin: '20px 0 10px 0', fontWeight: '700' }}>Selecione o usuário:</div>
+          <Select
+            className="basic-single"
+            classNamePrefix="select"
+            isClearable
+            isSearchable
+            name="team"
+            options={team ? teamOptions.filter(teamOption => teamOption.value == team.value)[0].members : []}
+            placeholder={'Usuário ...'}
+            onChange={handleUserChange}
+            value={user}
+          />
+        </div>
+      )}
+        <div
+          style={{ marginTop: "20px", textAlign: "end" }}
+        >
+        {userContext.isLogged ? (
+          <Button color="danger" onClick={userContext.logout}>Logout</Button>
+        ) : (
+          <Button color="primary" onClick={() => {userContext.login(user, team)}}>Login</Button>
+        )}
       </div>
     </div>
   )
