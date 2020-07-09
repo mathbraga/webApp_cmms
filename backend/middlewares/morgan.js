@@ -6,7 +6,7 @@ const paths = require('../paths');
 morgan.token('separator', req => '-----------------------------------------------------------------------------------------------------');
 morgan.token('user', req => JSON.stringify(req.user));
 morgan.token('session', req => JSON.stringify(req.session));
-morgan.token('body', req => req.baseUrl === paths.login ? '{"BODY WITH PASSWORD OMITTED"}' : JSON.stringify(req.body));
+morgan.token('body', req => req.baseUrl === paths.login ? JSON.stringify({ email: req.body.email, password: '******'}) : JSON.stringify(req.body));
 
 const logFormat = `:date[iso]\t:remote-addr\t:method\t:url\t:status\t:response-time\t:user\t:session\t:body`;
 const logFormatWithSeparator = `\n:separator\n${logFormat}`;
