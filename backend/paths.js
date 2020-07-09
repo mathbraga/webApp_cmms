@@ -6,8 +6,8 @@ const paths = {
   upload: '/api', // Must be the same as api path
   graphiql: '/graphiql',
   public: '/public',
-  images: '/images',
-  files: '/files',
+  images: '/public/images',
+  files: '/public/files',
   httpLog: '/logs/http.log',
   cronLog: '/logs/cron.log',
 };
