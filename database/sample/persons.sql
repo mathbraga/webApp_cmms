@@ -18,4 +18,4 @@ insert into persons overriding system value values (17, '00000000017', 'moacir@s
 insert into persons overriding system value values (18, '00000000018', 'everson@senado.leg.br', 'Everson Magalhães', '3568', null, null);
 insert into persons overriding system value values (19, '00000000019', 'jorge@senado.leg.br', 'Jorge de Oliveira', '2462', null, null);
 insert into persons overriding system value values (20, '00000000020', 'joaopaulo@senado.leg.br', 'João Paulo', '1345', null, null);
-insert into persons overriding system value values (21, '00000000021', 'rafael@senado.leg.br', 'Rafael Amâncio', '6524', null, null);
+insert into persons overriding system value values (21, '00000000021', 'rafael@senado.leg.br', 'Rafael Amâncio', '6524', null, 1);
