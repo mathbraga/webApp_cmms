@@ -21,6 +21,8 @@ import cookieAuth from "../../utils/authentication/cookieAuth";
 import logoutFetch from "../../utils/authentication/logoutFetch";
 import { logoutSuccess } from "../../redux/actions";
 
+import UserContext from "../../utils/userContext";
+
 const MainHeader = React.lazy(() => import("./MainHeader"));
 const Dashboard = React.lazy(() => import("../Dashboard"));
 const Login = React.lazy(() => import("../Authentication/Login"));
@@ -29,11 +31,13 @@ class MainPage extends Component {
   constructor(props){
     super(props);
     this.state = {
-      user: null
+      user: null,
+      time: null
     }
   }
   
   componentWillMount(){
+    console.log('will mount');
     cookieAuth().then(() => { // cookie = true
         this.setUser();
     })
@@ -67,6 +71,7 @@ class MainPage extends Component {
 
   render() {
     return (
+      <UserContext.Provider value={user="test"}>
       <div className="app">
         <AppHeader fixed>
           <Suspense fallback={this.loading}>
@@ -109,6 +114,7 @@ class MainPage extends Component {
           </main>
         </div>
       </div>
+      </UserContext.Provider>
     );
   }
 }

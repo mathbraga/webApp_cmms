@@ -7,6 +7,7 @@ const checkAuthUser = (req, res, next) => {
     next();
   } else {
     // res.send('User connected.');
+    console.log('yes user')
     next();
   }
 }
