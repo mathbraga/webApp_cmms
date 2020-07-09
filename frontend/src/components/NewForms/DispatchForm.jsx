@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Select from 'react-select';
 import { Button, Input } from 'reactstrap';
 import classNames from 'classnames';
@@ -6,6 +6,7 @@ import './DispatchForm.css'
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { ALL_TEAMS_QUERY, SEND_TASK, TASK_EVENTS_QUERY } from './graphql/dispatchFormGql';
+import { UserContext } from '../../context/UserProvider';
 
 const selectStyles = {
   control: base => ({
@@ -18,21 +19,26 @@ function DispatchForm({ visible, toggleForm, taskId }) {
   const [ teamValue, setTeamValue ] = useState(null);
   const [ observationValue, setObservationValue ] = useState(null);
   const [ teamOptions, setTeamOptions ] = useState([]);
+  
+  const userContext = useContext(UserContext);
 
   const { loading } = useQuery(ALL_TEAMS_QUERY, {
     variables: { taskId },
     onCompleted: ({ allTaskData: { nodes: [{ sendOptions: data }]}}) => {
-      const teamOptionsData = data.map(team => ({value: team.teamId, label: team.name}));
+      const teamOptionsData = data && data.map(team => ({value: team.teamId, label: team.name}));
       setTeamOptions(teamOptionsData);
     }
   });
+  
+  console.log("User t: ", userContext.user);
 
   const [ dispatchTask, { errorInsert } ] = useMutation(SEND_TASK, {
     variables: {
       taskId,
-      teamId: teamValue && teamValue.value,
+      personId: userContext.user && userContext.user.value,
+      teamId: userContext.team &&  userContext.team.value,
       nextTeamId: teamValue && teamValue.value,
-      note: observationValue && observationValue.value,
+      note: observationValue && observationValue.label,
     },
     onCompleted: () => {
       setTeamValue(null);
@@ -49,12 +55,12 @@ function DispatchForm({ visible, toggleForm, taskId }) {
 
   function onChangeTeam(target) {
     if(target) {
-      setTeamValue([{
+      setTeamValue({
         label: target.label,
         value: target.value,
-      }]);
+      });
     } else {
-      setTeamValue([]);
+      setTeamValue(null);
     }
   }
 
@@ -65,8 +71,8 @@ function DispatchForm({ visible, toggleForm, taskId }) {
   }
 
   function handleClean() {
-    setTeamValue([]);
-    setObservationValue("");
+    setTeamValue(null);
+    setObservationValue(null);
   } 
 
   function handleSubmit() {

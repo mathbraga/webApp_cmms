@@ -12,7 +12,8 @@ create or replace function api.send_task (
         event.task_id,
         'send'::task_event_enum,
         now(),
-        get_person_id(),
+        event.person_id, -- Just for testing
+        -- get_person_id(),
         event.team_id,
         event.next_team_id,
         null,
