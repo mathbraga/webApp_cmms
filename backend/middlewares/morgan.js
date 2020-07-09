@@ -4,9 +4,9 @@ const path = require('path');
 const paths = require('../paths');
 
 morgan.token('separator', req => '-----------------------------------------------------------------------------------------------------');
-morgan.token('user', req => JSON.stringify(req.user));
+morgan.token('user', req => JSON.stringify(req.user ? req.user : '0-visitor'));
 morgan.token('session', req => JSON.stringify(req.session));
-morgan.token('body', req => req.baseUrl === paths.login ? JSON.stringify({ email: req.body.email, password: '******'}) : JSON.stringify(req.body));
+morgan.token('body', req => JSON.stringify(req.baseUrl === paths.login ? { email: req.body.email, password: '******' } : req.body));
 
 const logFormat = `:date[iso]\t:remote-addr\t:method\t:url\t:status\t:response-time\t:user\t:session\t:body`;
 const logFormatWithSeparator = `\n:separator\n${logFormat}`;
