@@ -9,11 +9,11 @@ const paths = {
   graphiql: '/graphiql',
 
   // Directories paths
-  public: '/public',
-  images: '/public/images',
-  files: '/files',
-  httpLog: '/logs/http.log',
-  cronLog: '/logs/cron.log',
+  public: 'public',
+  images: 'public/images',
+  files: 'files',
+  httpLog: 'logs/http.log',
+  cronLog: 'logs/cron.log',
 
 };
 
