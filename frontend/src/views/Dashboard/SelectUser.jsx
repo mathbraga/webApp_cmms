@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Select from 'react-select';
 import { useQuery } from '@apollo/react-hooks';
+import { Button } from 'reactstrap';
 
 import { ALL_TEAMS_QUERY } from './utils/graphql';
+import { UserContext } from '../../context/UserProvider';
 
 export default function SelectUser() {
   const [ team, setTeam ] = useState(null);
   const [ user, setUser ] = useState(null);
   const [ teamOptions, setTeamOptions ] = useState([]);
+  const userContext = useContext(UserContext);
 
   const { loading } = useQuery(ALL_TEAMS_QUERY, {
     onCompleted: ({ allTeamData: { nodes: data}}) => {
@@ -55,6 +58,12 @@ export default function SelectUser() {
         onChange={handleUserChange}
         value={user}
       />
+      <div
+        style={{ marginTop: "20px", textAlign: "end" }}
+      >
+        <Button color="primary">Login</Button>
+        <Button color="danger">Logout</Button>
+      </div>
     </div>
   )
 }
