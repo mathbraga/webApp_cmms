@@ -1,6 +1,6 @@
 const prepareData = (data = [], tableConfig) => {
   const result = [];
-  if (tableConfig.prepareData) {
+  if (tableConfig.prepareData && data) {
     data.forEach((item) => {
       let newItem = { ...item };
       Object.keys(tableConfig.prepareData).forEach((itemId) => {

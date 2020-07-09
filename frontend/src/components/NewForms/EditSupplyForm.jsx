@@ -9,11 +9,11 @@ import { useMutation } from '@apollo/react-hooks';
 import { SUPPLIES_QUERY, MODIFY_SUPPLY, TASK_SUPPLIES_QUERY } from './graphql/supplyFormGql';
 
 function EditSupplyForm({ visible, toggleForm, taskId, supplies}) {
-  const [ formSupplies, setFormSupplies ] = useState(supplies);
+  const [ formSupplies, setFormSupplies ] = useState(supplies || []);
   
   useEffect(() => {
     console.log("Effect");
-    setFormSupplies(supplies);
+    setFormSupplies(supplies || []);
   }, [supplies])
   
   const suppliesForUpdate = formSupplies.map(({ supplyId, qty }) => ({

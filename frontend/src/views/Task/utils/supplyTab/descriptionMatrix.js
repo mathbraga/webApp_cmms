@@ -7,9 +7,10 @@ const formatter = new Intl.NumberFormat('pt-BR', {
 });
 
 export function itemsMatrixSupply(data) {
-  
   const contracts = {};
-  data.supplies.forEach((item) => {
+  const supplies = data.supplies || [];
+  
+  supplies.forEach((item) => {
     if (!(item.contractId in contracts)) {
       contracts[item.contractId] = {
         id: item.contractId,
@@ -22,15 +23,13 @@ export function itemsMatrixSupply(data) {
     }
   })
   
-  console.log("Contracts 2: ", contracts);
-  
   
   return (
     [
       [
         { 
           id: 'taskValue', title: 'Custo total da tarefa', 
-          description: formatter.format(data.supplies.reduce((acc, item) => (item.totalPrice + acc), 0)), 
+          description: formatter.format(supplies.reduce((acc, item) => (item.totalPrice + acc), 0)), 
           span: 1 
         },
       ],
@@ -51,7 +50,8 @@ export function itemsMatrixSupply(data) {
 }
 
 export function itemsMatrixTableFilter(data, handleLogTypeChange) {
-  const contracts = [...new Set(data.supplies.map(item => ({ id: item.contractId, name: item.contractSf, company: item.company })))];
+  const supplies = data.supplies || [];
+  const contracts = [...new Set(supplies.map(item => ({ id: item.contractId, name: item.contractSf, company: item.company })))];
   return (
     [
       [
