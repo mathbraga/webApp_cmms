@@ -23,6 +23,11 @@ export default function SelectUser() {
     }
   });
   
+  function cleanForm() {
+    setTeam(null);
+    setUser(null);
+  }
+  
   function handleTeamChange(team) {
     setTeam(team);
     setUser(null);
@@ -75,7 +80,7 @@ export default function SelectUser() {
           style={{ marginTop: "20px", textAlign: "end" }}
         >
         {userContext.isLogged ? (
-          <Button color="danger" onClick={userContext.logout}>Logout</Button>
+          <Button color="danger" onClick={() => {userContext.logout(); cleanForm();}}>Logout</Button>
         ) : (
           <Button color="primary" onClick={() => {userContext.login(user, team)}}>Login</Button>
         )}
