@@ -12,7 +12,7 @@ const refreshAllMVs = async () => {
   }
 }
 
-module.exports = process.env.CRON_REFRESH !== '' ? new CronJob({
+module.exports = /^\S+ \S+ \S+ \S+ \S+ \S+$/.test(process.env.CRON_REFRESH) ? new CronJob({
   cronTime: process.env.CRON_REFRESH,
   onTick: refreshAllMVs,
   onComplete: () => {},

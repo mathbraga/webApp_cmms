@@ -30,7 +30,7 @@ const diffUploadedFiles = async () => {
   }
 }
 
-module.exports = process.env.CRON_DIFF !== '' ? new CronJob({
+module.exports = /^\S+ \S+ \S+ \S+ \S+ \S+$/.test(process.env.CRON_DIFF) ? new CronJob({
   cronTime: process.env.CRON_DIFF,
   onTick: diffUploadedFiles,
   onComplete: () => {},

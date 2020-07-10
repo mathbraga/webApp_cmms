@@ -1,6 +1,12 @@
 // Usage instructions:
 // https://dev.to/petereysermans/installing-a-node-js-application-as-a-windows-service-28j7
 
+
+
+// DO NOT FORGET TO RUN    'npm link node-windows'    BEFORE INSTALLING SERVICE
+
+
+
 const Service = require('node-windows').Service;
 
 const scriptPathname = __dirname + '\\server.js';
@@ -10,12 +16,8 @@ const svc = new Service({
   name:'CMMS',
   description: 'CMMS web application as Windows Service',
   script: scriptPathname,
-  // nodeOptions: [
-  //   '--require dotenv/config',
-  // ],
-  // scriptOptions: [
-  //   '',
-  // ],
+  // nodeOptions: [],
+  // scriptOptions: [],
   env: [
     { name: 'NODE_ENV',     value: 'production' },
     { name: 'HTTP_PORT',    value: '3001' },
@@ -24,9 +26,9 @@ const svc = new Service({
     { name: 'PGDATABASE',   value: 'db_dev' },
     { name: 'PGPASSWORD',   value: '123456' },
     { name: 'PGPORT',       value: '3001' },
-    { name: 'CRON_DIFF',    value: '' },
-    { name: 'CRON_DUMP',    value: '' },
-    { name: 'CRON_REFRESH', value: '' },
+    { name: 'CRON_DIFF',    value: '0 1 2 * * *' },
+    { name: 'CRON_DUMP',    value: '0 2 2 * * *' },
+    { name: 'CRON_REFRESH', value: '0 3 2 * * *' },
     { name: 'CRON_TEST',    value: '' },
   ],
 });

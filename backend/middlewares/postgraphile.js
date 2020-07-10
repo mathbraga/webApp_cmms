@@ -20,7 +20,7 @@ module.exports = postgraphile(
     //   passport.session(),
     // ],
     watchPg: process.env.NODE_ENV !== 'production',
-    retryOnInitFail: false,
+    retryOnInitFail: true,
     enableCors: false,
     graphqlRoute: paths.api,
     graphiql: process.env.NODE_ENV !== 'production',

@@ -16,7 +16,7 @@ const dumpDatabase = async () => {
   }
 }
 
-module.exports = process.env.CRON_DUMP !== '' ? new CronJob({
+module.exports = /^\S+ \S+ \S+ \S+ \S+ \S+$/.test(process.env.CRON_DUMP) ? new CronJob({
   cronTime: process.env.CRON_DUMP,
   onTick: dumpDatabase,
   onComplete: () => {},
