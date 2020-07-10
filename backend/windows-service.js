@@ -3,11 +3,13 @@
 
 const Service = require('node-windows').Service;
 
+const scriptPathname = __dirname + '\\server.js';
+
 // Create a new service object
 const svc = new Service({
   name:'Node.js - CMMS web app',
   description: 'Node.js - CMMS web application as Windows Service',
-  script: 'D:\\USERS\\hzlopes\\Desktop\\code\\cmms\\backend\\server.js',
+  script: scriptPathname,
   // nodeOptions: [
   //   '--require dotenv/config',
   // ],

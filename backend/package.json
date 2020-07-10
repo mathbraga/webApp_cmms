@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "production": "node windows-service-install.js",
     "start": "nodemon --require dotenv/config server.js",
     "test": "jest"
   },
