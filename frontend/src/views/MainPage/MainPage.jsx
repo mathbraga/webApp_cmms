@@ -21,7 +21,7 @@ import cookieAuth from "../../utils/authentication/cookieAuth";
 import logoutFetch from "../../utils/authentication/logoutFetch";
 import { logoutSuccess } from "../../redux/actions";
 
-import UserContext from "../../utils/userContext";
+import { userContext } from "../../utils/userContext";
 
 const MainHeader = React.lazy(() => import("./MainHeader"));
 const Dashboard = React.lazy(() => import("../Dashboard"));
@@ -32,12 +32,16 @@ class MainPage extends Component {
     super(props);
     this.state = {
       user: null,
-      time: null
+      id: null,
+      name: null,
+      email: null
     }
   }
   
+  static contextType = userContext;
+
   componentWillMount(){
-    console.log('will mount');
+    console.log(this.context.user);
     cookieAuth().then(() => { // cookie = true
         this.setUser();
     })
@@ -71,7 +75,7 @@ class MainPage extends Component {
 
   render() {
     return (
-      <UserContext.Provider value={user="test"}>
+      <userContext.Provider value={this.state}>
       <div className="app">
         <AppHeader fixed>
           <Suspense fallback={this.loading}>
@@ -105,7 +109,14 @@ class MainPage extends Component {
                     ) : null;
                   })}
                   {!this.state.user && <Route path="/painel" name="Painel" component={Dashboard}/>}
-                  {!this.state.user && <Route path="/login" name="Login" component={Login}/>}
+                  {!this.state.user && 
+                  <Route path="/login" name="Login">
+                    <userContext.Consumer>
+                      {({id, name, email}) => (
+                        <Login/>
+                      )}
+                    </userContext.Consumer>
+                  </Route>}
                   {!this.state.user && <Redirect from="/" to={{ pathname: "/login" }}/>}
                   {this.state.user && <Redirect from="/" to={{ pathname: "/painel" }}/>}
                 </Switch>
@@ -114,7 +125,7 @@ class MainPage extends Component {
           </main>
         </div>
       </div>
-      </UserContext.Provider>
+      </userContext.Provider>
     );
   }
 }

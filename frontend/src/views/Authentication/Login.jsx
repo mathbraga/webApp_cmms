@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { login, loginSuccess } from "../../redux/actions";
 import loginFetch from "../../utils/authentication/loginFetch";
 
+import { userContext } from "../../utils/userContext";
+
 // import SessionData from "./test/SessionData";
 // import { withProps, withQuery, withGraphQL } from '../../hocs';
 // import withDataAccess from './utils/withDataAccess';
@@ -26,8 +28,11 @@ class Login extends Component {
     }
   }
 
+  static contextType = userContext;
 
   componentDidMount = () => {
+    this.context.id = 2;
+    console.log(this.context)
     if (window.localStorage.getItem('session') !== null) {
       this.props.history.push("/painel");
     }
