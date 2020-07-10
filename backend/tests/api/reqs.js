@@ -56,6 +56,7 @@ const varsSuccess = {
   dateLimit: null,
   dateStart: null,
   dateEnd: null,
+  teamId: 1,
   assets: [1],
   files: null,
   filesMetadata: null,

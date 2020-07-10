@@ -39,7 +39,7 @@ create or replace function api.insert_task (
       end if;
 
       if files_metadata is not null then
-        select api.insert_task_files(
+        perform api.insert_task_files(
           id,
           files_metadata
         );
