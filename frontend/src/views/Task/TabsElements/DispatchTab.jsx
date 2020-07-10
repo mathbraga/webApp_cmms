@@ -13,47 +13,84 @@ import sortList from '../../../components/Tables/TableWithSorting/sortList'
 import AnimateHeight from 'react-animate-height';
 import LogTable from '../utils/dispatchTab/LogTable';
 
+const NO_ACTIONS = 'noActions';
+const NO_FORM = 'noForm';
+const DISPATCH_FORM = 'dispatchForm';
+const STATUS_FORM = 'statusForm';
+const RECEIVE_FORM = 'receiveForm';
+const NO_FORM_RECEIVE_TASK = 'noFormReceiveTask';
+
 function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, events, nextTeamId } }) {
-  const [ dispatchFormOpen, setDispatchFormOpen ] = useState(false);
-  const [ statusFormOpen, setStatusFormOpen ] = useState(false);
+  const [openedForm, setOpenedForm] = useState(NO_FORM);
   const [ logType, setLogType ] = useState('all');
   
   const { user, team } = useContext(UserContext);
-  
-  function toggleDispatchForm() {
-    setDispatchFormOpen(!dispatchFormOpen);
-    setStatusFormOpen(false);
-  }
-
-  function toggleStatusForm() {
-    setStatusFormOpen(!statusFormOpen);
-    setDispatchFormOpen(false);
-  }
 
   function handleLogTypeChange(event) {
     setLogType(event.target.value);
   }
+  
+  function toggleStatusForm() {
+    if (openedForm === 'statusForm') {
+      setOpenedForm(NO_FORM);
+    } else {
+      setOpenedForm(STATUS_FORM);
+    }
+  }
+  
+  function toggleDispatchForm() {
+    if (openedForm === 'dispatchForm') {
+      setOpenedForm(NO_FORM);
+    } else {
+      setOpenedForm(DISPATCH_FORM);
+    }
+  }
+  
+
+  if(openedForm === NO_FORM && team && team.value === nextTeamId) {
+    setOpenedForm(NO_FORM_RECEIVE_TASK);
+  } else if(openedForm === NO_FORM && nextTeamId) {
+    setOpenedForm(NO_ACTIONS);
+  }
 
   const actionButtons = {
-    statusFormOpen: [
+    statusForm: [
       {name: 'Cancelar', color: 'danger', onClick: toggleStatusForm}
     ],
-    dispatchFormOpen: [
+    dispatchForm: [
       {name: 'Cancelar', color: 'danger', onClick: toggleDispatchForm}
     ],
-    noFormOpen: [
+    noForm: [
       {name: 'Tramitar Tarefa', color: 'primary', onClick: toggleDispatchForm},
       {name: 'Alterar Status', color: 'success', onClick: toggleStatusForm}
     ],
-    receiveTask: [
+    noFormReceiveTask: [
+      {name: 'Receber Tarefa', color: 'success', onClick: toggleDispatchForm},
+      {name: 'Cancelar Tramitação', color: 'danger', onClick: toggleStatusForm}
+    ],
+    receiveTaskForm: [
       {name: 'Receber Tarefa', color: 'success', onClick: toggleDispatchForm},
       {name: 'Cancelar Tramitação', color: 'danger', onClick: toggleStatusForm}
     ],
   };
-
-  const openedForm = dispatchFormOpen ? 'dispatchFormOpen' : (statusFormOpen ? 'statusFormOpen' : 'noFormOpen');
-  const heightDispatch = openedForm === 'dispatchFormOpen' ? 'auto' : 0;
-  const heightStatus = openedForm === 'statusFormOpen' ? 'auto' : 0;
+  
+  const titlesPane = {
+    noActions: 'Situação Atual',
+    statusForm: 'Alterar Status',
+    dispatchForm: 'Tramitar Tarefa',
+    noForm: 'Situação Atual',
+    noFormReceiveTask: 'Situação Atual',
+    receiveTaskForm: 'Receber Tarefa',
+  }
+  
+  const formOpen = {
+    noAction: false,
+    statusForm: true,
+    dispatchForm: true,
+    noForm: false,
+    noFormReceiveTask: false,
+    receiveTaskForm: true,
+  }
 
   const filteredData = logType === 'all' ? events : (events.filter(item => (logType === 'status' ? (item.event === 'move' || item.event === 'insert') : (item.event !== 'move'))));
   const sortedData = sortList(filteredData, 'time', true, false);
@@ -62,12 +99,12 @@ function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, even
     <>
       <div className="tabpane-container">
         <PaneTitle 
-          actionButtons={nextTeamId ? (team && team.value == nextTeamId && actionButtons["receiveTask"]) : actionButtons[openedForm]}
-          title={dispatchFormOpen ? 'Tramitar Tarefa' : (statusFormOpen ? 'Alterar Status' : 'Situação Atual')}
+          actionButtons={actionButtons[openedForm]}
+          title={titlesPane[openedForm]}
         />
         <AnimateHeight 
         duration={300}
-        height={heightDispatch}
+        height={openedForm === 'dispatchForm' ? 'auto' : 0}
         >
           <div className="tabpane__content">
             <DispatchForm 
@@ -79,7 +116,7 @@ function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, even
         </AnimateHeight>
         <AnimateHeight 
           duration={300}
-          height={heightStatus}
+          height={openedForm === 'StatusForm' ? 'auto' : 0}
         >
           <div className="tabpane__content">
             <StatusForm 
@@ -88,7 +125,7 @@ function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, even
             />
           </div>
         </AnimateHeight>
-        {(statusFormOpen || dispatchFormOpen) && (
+        {formOpen[openedForm] && (
           <PaneTitle 
             title={'Situação Atual'}
           />
