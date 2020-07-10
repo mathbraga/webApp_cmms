@@ -46,7 +46,7 @@ class DispatchTab extends Component {
   }
 
   render() {
-    const { taskId, createdAt, taskStatusText, teamName, events } = this.props.data;
+    const { taskId, createdAt, taskStatusText, teamName, events, nextTeamId } = this.props.data;
     const { dispatchFormOpen, statusFormOpen, logType } = this.state;
     
     console.log("Data Status: ", this.props.data);
@@ -62,6 +62,10 @@ class DispatchTab extends Component {
         {name: 'Tramitar Tarefa', color: 'primary', onClick: this.toggleDispatchForm},
         {name: 'Alterar Status', color: 'success', onClick: this.toggleStatusForm}
       ],
+      receiveTask: [
+        {name: 'Receber Tarefa', color: 'success', onClick: this.toggleDispatchForm},
+        {name: 'Cancelar Tramitação', color: 'danger', onClick: this.toggleStatusForm}
+      ],
     };
     const openedForm = dispatchFormOpen ? 'dispatchFormOpen' : (statusFormOpen ? 'statusFormOpen' : 'noFormOpen');
     const heightDispatch = openedForm === 'dispatchFormOpen' ? 'auto' : 0;
@@ -74,7 +78,7 @@ class DispatchTab extends Component {
       <>
         <div className="tabpane-container">
           <PaneTitle 
-            actionButtons={actionButtons[openedForm]}
+            actionButtons={nextTeamId ? (actionButtons["receiveTask"]) : actionButtons[openedForm]}
             title={dispatchFormOpen ? 'Tramitar Tarefa' : (statusFormOpen ? 'Alterar Status' : 'Situação Atual')}
           />
           <AnimateHeight 
