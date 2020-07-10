@@ -7,8 +7,8 @@ const scriptPathname = __dirname + '\\server.js';
 
 // Create a new service object
 const svc = new Service({
-  name:'Node.js - CMMS web app',
-  description: 'Node.js - CMMS web application as Windows Service',
+  name:'CMMS',
+  description: 'CMMS web application as Windows Service',
   script: scriptPathname,
   // nodeOptions: [
   //   '--require dotenv/config',
