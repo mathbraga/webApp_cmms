@@ -30,7 +30,7 @@ function DispatchForm({ visible, toggleForm, taskId }) {
     }
   });
   
-  console.log("User t: ", userContext.user);
+  console.log("User t: ", observationValue);
 
   const [ dispatchTask, { errorInsert } ] = useMutation(SEND_TASK, {
     variables: {
@@ -38,11 +38,11 @@ function DispatchForm({ visible, toggleForm, taskId }) {
       personId: userContext.user && userContext.user.value,
       teamId: userContext.team &&  userContext.team.value,
       nextTeamId: teamValue && teamValue.value,
-      note: observationValue && observationValue.label,
+      note: observationValue,
     },
     onCompleted: () => {
       setTeamValue(null);
-      setObservationValue(null);
+      setObservationValue("");
     },
     refetchQueries: [{ query: TASK_EVENTS_QUERY, variables: { taskId } }],
     onError: (err) => { console.log(err); },
@@ -64,7 +64,7 @@ function DispatchForm({ visible, toggleForm, taskId }) {
     }
   }
 
-  function onChangeObservation(target) {
+  function onChangeObservation({target}) {
     if(target) {
       setObservationValue(target.value);
     } 
@@ -72,7 +72,7 @@ function DispatchForm({ visible, toggleForm, taskId }) {
 
   function handleClean() {
     setTeamValue(null);
-    setObservationValue(null);
+    setObservationValue("");
   } 
 
   function handleSubmit() {
@@ -123,10 +123,9 @@ function DispatchForm({ visible, toggleForm, taskId }) {
               type="textarea" 
               name="text"
               value={observationValue}
-              id="exampleText" 
+              id="exampleText"
               rows='3'
               onChange={onChangeObservation}
-              placeholder={''}
             />
           </div>
         </div>

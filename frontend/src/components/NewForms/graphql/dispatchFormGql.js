@@ -31,6 +31,11 @@ export const TASK_EVENTS_QUERY = gql`
     allTaskData(condition: {taskId: $taskId}) {
       nodes {
         taskId
+        createdAt
+        taskStatusText
+        teamName
+        nextTeamName
+        events
       }
     }
   }
