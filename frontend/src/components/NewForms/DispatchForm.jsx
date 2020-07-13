@@ -29,8 +29,6 @@ function DispatchForm({ visible, toggleForm, taskId }) {
       setTeamOptions(teamOptionsData);
     }
   });
-  
-  console.log("User t: ", observationValue);
 
   const [ dispatchTask, { errorInsert } ] = useMutation(SEND_TASK, {
     variables: {

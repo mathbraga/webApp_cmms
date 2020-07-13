@@ -6,7 +6,8 @@ import './DispatchForm.css'
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { UserContext } from '../../context/UserProvider';
-import { MOVE_OPTIONS_QUERY, RECEIVE_TASK, TASK_EVENTS_QUERY } from './graphql/dispatchFormGql';
+import { RECEIVE_TASK, TASK_EVENTS_QUERY } from './graphql/dispatchFormGql';
+import { MOVE_OPTIONS_QUERY } from './graphql/statusFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -32,8 +33,8 @@ function StatusForm({ visible, toggleForm, taskId }) {
   const [ receiveTask, { errorMove } ] = useMutation(RECEIVE_TASK, {
     variables: {
       taskId,
-      personId: userContext.user && userContext.user.value,
-      teamId: userContext.team &&  userContext.team.value,
+      personId: user && user.value,
+      teamId: team &&  team.value,
       taskStatusId: statusValue && statusValue.value,
       note: observationValue,
     },
@@ -68,6 +69,7 @@ function StatusForm({ visible, toggleForm, taskId }) {
   }
 
   function handleSubmit() {
+    receiveTask();
     toggleForm();
   }
 
@@ -121,16 +123,16 @@ function StatusForm({ visible, toggleForm, taskId }) {
           </div>
         </div>
         <div className='miniform__buttons'>
-          <Button 
-            color="success" 
-            size="sm" 
+          <Button
+            color="success"
+            size="sm"
             style={{ marginRight: "10px" }}
             onClick={handleSubmit}
           >
-            Alterar
+            Receber Tarefa
           </Button>
           <Button 
-            color="secondary" 
+            color="secondary"
             size="sm" 
             style={{ marginRight: "10px" }}
             onClick={handleClean}
@@ -139,10 +141,10 @@ function StatusForm({ visible, toggleForm, taskId }) {
           </Button>
           <Button 
             color="danger" 
-            size="sm" 
+            size="sm"
             onClick={toggleForm}
           >
-            Cancelar
+            Voltar
           </Button>
         </div>
       </div>

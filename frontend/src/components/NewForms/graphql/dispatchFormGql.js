@@ -42,6 +42,20 @@ export const RECEIVE_TASK = gql`
   }
 `;
 
+export const CANCEL_SEND_TASK = gql`
+  mutation CancelSendTaskMutation($taskId: Int!, $personId: Int!, $teamId: Int!) {
+    cancelSendTask(input: {
+      event: {
+        taskId: $taskId,
+        personId: $personId,
+        teamId: $teamId,
+      }
+    }) {
+      id
+    }
+  }
+`;
+
 export const TASK_EVENTS_QUERY = gql`
   query TaskQuery($taskId: Int!) {
     allTaskData(condition: {taskId: $taskId}) {
@@ -49,7 +63,9 @@ export const TASK_EVENTS_QUERY = gql`
         taskId
         createdAt
         taskStatusText
+        teamId
         teamName
+        nextTeamId
         nextTeamName
         events
       }

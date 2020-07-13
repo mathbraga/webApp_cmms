@@ -3,8 +3,14 @@ import React, { useState } from 'react'
 export const UserContext = React.createContext();
 
 export function UserProvider({ children }) {
-  const [ user, setUser ] = useState(null);
-  const [ team, setTeam ] = useState(null);
+  const [ user, setUser ] = useState({
+    label: 'Everson Magalhães',
+    value: 18,
+  });
+  const [ team, setTeam ] = useState({
+    label: 'RCS Tecnologia - Posto 01',
+    value: 5,
+  });
   const [ isLogged, setIsLogged ] = useState(false);
   
   function login(user, team) {
