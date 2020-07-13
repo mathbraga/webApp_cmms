@@ -32,9 +32,10 @@ function StatusForm({ visible, toggleForm, taskId }) {
   const [ receiveTask, { errorMove } ] = useMutation(RECEIVE_TASK, {
     variables: {
       taskId,
-      teamId: 1,
+      personId: userContext.user && userContext.user.value,
+      teamId: userContext.team &&  userContext.team.value,
       taskStatusId: statusValue && statusValue.value,
-      note: observationValue && observationValue.value,
+      note: observationValue,
     },
     onCompleted: () => {
       setStatusValue(null);
@@ -66,7 +67,7 @@ function StatusForm({ visible, toggleForm, taskId }) {
     } 
   }
 
-  function handleSubmit(toggleForm) {
+  function handleSubmit() {
     toggleForm();
   }
 
@@ -82,7 +83,7 @@ function StatusForm({ visible, toggleForm, taskId }) {
             Novo status
           </div>
           <div className='miniform__field__sub-label'>
-            Escolha o status atual da tarefa.
+            Para concluir o recebimento da tarefa, escolha o seu status atual.
           </div>
           <div className='miniform__field__input'>
             <Select
@@ -105,7 +106,7 @@ function StatusForm({ visible, toggleForm, taskId }) {
             Observações
           </div>
           <div className='miniform__field__sub-label'>
-            Deixe registrado o motivo da alteração do status, ou qualquer outra informação relevante.
+            Deixe registrado o motivo do novo status, ou qualquer outra informação relevante.
           </div>
           <div className='miniform__field__input'>
             <Input 
@@ -124,7 +125,7 @@ function StatusForm({ visible, toggleForm, taskId }) {
             color="success" 
             size="sm" 
             style={{ marginRight: "10px" }}
-            onClick={() => {handleSubmit(toggleForm)}}
+            onClick={handleSubmit}
           >
             Alterar
           </Button>
