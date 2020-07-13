@@ -80,35 +80,35 @@ begin transaction;
 
 -- create api schema objects
 -- task basic
-\i api/insert_task_files.sql
-\i api/remove_task_file.sql
-\i api/task_data.sql
-\i api/task_form_data.sql
-\i api/insert_task.sql
-\i api/modify_task.sql
+\i api/task/insert_task_files.sql
+\i api/task/remove_task_file.sql
+\i api/task/task_data.sql
+\i api/task/task_form_data.sql
+\i api/task/insert_task.sql
+\i api/task/modify_task.sql
 -- task events
-\i api/move_task.sql
-\i api/receive_task.sql
-\i api/send_task.sql
-\i api/cancel_send_task.sql
+\i api/task/move_task.sql
+\i api/task/receive_task.sql
+\i api/task/send_task.sql
+\i api/task/cancel_send_task.sql
 -- task messages
-\i api/insert_task_message.sql
-\i api/modify_task_message.sql
-\i api/remove_task_message.sql
+\i api/task/insert_task_message.sql
+\i api/task/modify_task_message.sql
+\i api/task/remove_task_message.sql
 -- task supplies
-\i api/insert_task_supply.sql
-\i api/modify_task_supplies.sql
+\i api/task/insert_task_supply.sql
+\i api/task/modify_task_supplies.sql
 -- task assets
-\i api/insert_task_asset.sql
-\i api/remove_task_asset.sql
+\i api/task/insert_task_asset.sql
+\i api/task/remove_task_asset.sql
 
 -- other entities
-\i api/appliance_data.sql
-\i api/asset_form_data.sql
-\i api/facility_data.sql
-\i api/contract_data.sql
-\i api/spec_data.sql
-\i api/team_data.sql
+\i api/asset/appliance_data.sql
+\i api/asset/asset_form_data.sql
+\i api/asset/facility_data.sql
+\i api/contract/contract_data.sql
+\i api/spec/spec_data.sql
+\i api/team/team_data.sql
 
 -- create web schema objects
 \i web/authenticate.sql
