@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Select from 'react-select';
 import { Button, Input } from 'reactstrap';
 import classNames from 'classnames';
 import './DispatchForm.css'
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { MOVE_OPTIONS_QUERY, MOVE_TASK, TASK_EVENTS_QUERY } from './graphql/dispatchFormGql';
+import { UserContext } from '../../context/UserProvider';
+import { MOVE_OPTIONS_QUERY, RECEIVE_TASK, TASK_EVENTS_QUERY } from './graphql/dispatchFormGql';
 
 const selectStyles = {
   control: base => ({
@@ -19,6 +20,8 @@ function StatusForm({ visible, toggleForm, taskId }) {
   const [ observationValue, setObservationValue ] = useState(null);
   const [ moveOptions, setMoveOptions ] = useState([]);
   
+  const { user, team } = useContext(UserContext);
+  
   const { loading } = useQuery(MOVE_OPTIONS_QUERY, {
     onCompleted: ({ allTaskData: { nodes: [{ moveOptions: data }]}}) => {
       const moveOptionsData = data.map(option => ({value: option.taskStatusId, label: option.taskStatusText}));
@@ -26,7 +29,7 @@ function StatusForm({ visible, toggleForm, taskId }) {
     }
   });
   
-  const [ moveTask, { errorMove } ] = useMutation(MOVE_TASK, {
+  const [ receiveTask, { errorMove } ] = useMutation(RECEIVE_TASK, {
     variables: {
       taskId,
       teamId: 1,
