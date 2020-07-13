@@ -31,8 +31,6 @@ class Login extends Component {
   static contextType = userContext;
 
   componentDidMount = () => {
-    this.context.id = 2;
-    console.log(this.context)
     if (window.localStorage.getItem('session') !== null) {
       this.props.history.push("/painel");
     }
@@ -80,11 +78,10 @@ class Login extends Component {
           alertVisible: false,
         });
         window.localStorage.setItem('session', this.state.email);
-        window.localStorage.setItem('user', r.name);
+        window.localStorage.setItem('user', JSON.stringify(r));
         // window.localStorage.setItem('login-event', 'login' + Math.random());
         this.props.dispatch(loginSuccess(this.state.email));
         // this.props.history.push("/painel");
-        console.log(r);
         window.location.reload();
       })
       .catch(() => {

@@ -6,9 +6,17 @@ import SessionData from "../Authentication/test/SessionData";
 // import CustomTable from "../../components/Tables/CustomTable";
 // import Maps from '../../components/Maps/Maps';
 
+import { userContext } from "../../utils/userContext";
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+  }
+
+  static contextType = userContext
+
+  componentDidMount(){
+    console.log(this.context);
   }
 
   returnData = () => {
@@ -61,17 +69,6 @@ class Dashboard extends Component {
         </Container> */}
 
       </div>
-
-      <Button
-        block
-        outline
-        color="primary"
-        className="px-0"
-        onClick={this.returnData}
-      >Get Data
-      </Button>
-
-      <SessionData/>
 
       </React.Fragment>
     );

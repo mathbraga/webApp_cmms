@@ -1,6 +1,6 @@
 import React, { Component, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { Container } from "reactstrap";
+import { Container, Button } from "reactstrap";
 import {
   // AppBreadcrumb,
   AppHeader,
@@ -32,18 +32,30 @@ class MainPage extends Component {
     super(props);
     this.state = {
       user: null,
-      id: null,
-      name: null,
-      email: null
+      cpf: "",
+      email: "", 
+      name: "", 
+      personId: "", 
+      role: "", 
+      teams: []
     }
   }
-  
+
   static contextType = userContext;
 
   componentWillMount(){
-    console.log(this.context.user);
     cookieAuth().then(() => { // cookie = true
-        this.setUser();
+        if(window.localStorage.getItem('session')){
+          this.setUser()
+        }
+        else{
+          this.setNoUser()
+          logoutFetch()
+          .then(() => {
+            this.clearStorage();
+            window.location.reload();
+        });
+        }
     })
     .catch((err) => { // no cookie
       console.log(err);
@@ -51,22 +63,30 @@ class MainPage extends Component {
       if(window.localStorage.getItem('session')){ // will clear user data in case cookies expire (or somehow get deleted?) mid-use of the app. This method requires page to be refreshed though.
         logoutFetch()
         .then(() => {
-          window.localStorage.removeItem('session');
-          window.localStorage.removeItem('user');
-          window.localStorage.setItem('logout-event', 'logout' + Math.random());
-          // this.props.dispatch(logoutSuccess());
+          this.clearStorage();
           window.location.reload();
         });
       }
     })
   }
 
+  clearStorage = () => {
+    window.localStorage.removeItem('session');
+    window.localStorage.removeItem('user');
+    window.localStorage.setItem('logout-event', 'logout' + Math.random());
+  }
+
   setUser = () => {
-    this.setState({ user: true });
+    this.setState({ user: true,  ...JSON.parse(window.localStorage.getItem('user'))});
+    console.log(this.state)
   }
 
   setNoUser = () => {
     this.setState({ user: false });
+  }
+
+  displayContext = () => {
+    console.log(this.context);
   }
 
   loading = () => (
@@ -75,7 +95,6 @@ class MainPage extends Component {
 
   render() {
     return (
-      <userContext.Provider value={this.state}>
       <div className="app">
         <AppHeader fixed>
           <Suspense fallback={this.loading}>
@@ -109,23 +128,16 @@ class MainPage extends Component {
                     ) : null;
                   })}
                   {!this.state.user && <Route path="/painel" name="Painel" component={Dashboard}/>}
-                  {!this.state.user && 
-                  <Route path="/login" name="Login">
-                    <userContext.Consumer>
-                      {({id, name, email}) => (
-                        <Login/>
-                      )}
-                    </userContext.Consumer>
-                  </Route>}
+                  {!this.state.user && <Route path="/login" name="Login" component={Login}/>}
                   {!this.state.user && <Redirect from="/" to={{ pathname: "/login" }}/>}
                   {this.state.user && <Redirect from="/" to={{ pathname: "/painel" }}/>}
                 </Switch>
               </Suspense>
             </Container>
+            <Button onClick={this.displayContext}>Show Context</Button>
           </main>
         </div>
       </div>
-      </userContext.Provider>
     );
   }
 }
