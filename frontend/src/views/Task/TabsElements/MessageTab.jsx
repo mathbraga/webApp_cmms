@@ -6,10 +6,9 @@ import MessageBox from '../../../components/Message/MessageBox';
 
 import messages from '../utils/messageTab/fakeMessages';
 
-function MessageTab(props) { 
+function MessageTab({ data }) { 
   const [ messageInputOpen, setMessageInputOpen ] = useState(false);
-  
-  console.log("Message Props: ", props);
+  const { taskId } = data;
 
   const actionButtons = {
     messageInputOpen: [
@@ -39,6 +38,7 @@ function MessageTab(props) {
         <div className="tabpane__content">
           <MessageInput 
             toggleForm={toggleMessageInput}
+            taskId={taskId}
           />
         </div>
       </AnimateHeight>
