@@ -32,3 +32,10 @@ create or replace function api.receive_task (
     end;
   $$
 ;
+
+comment on function api.receive_task is E'
+Input fields (* are mandatory):\n
+- event.taskId *\n
+- event.teamId *\n
+- event.taskStatusId *
+';

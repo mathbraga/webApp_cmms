@@ -20,3 +20,11 @@ create or replace function api.insert_task_files (
     end;
   $$
 ;
+
+comment on function api.insert_task_files is E'
+Input fields (* are mandatory):\n
+- taskId *\n
+- filesMetadata.filename *\n
+- filesMetadata.uuid *\n
+- filesMetadata.size *\n
+';

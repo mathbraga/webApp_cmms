@@ -33,7 +33,7 @@ create or replace function api.send_task (
 
 comment on function api.send_task is E'
 Input fields (* are mandatory):\n
-- teamId *\n
-- nextTeamId *\n
-- note
+- event.teamId *\n
+- event.nextTeamId *\n
+- event.note
 ';

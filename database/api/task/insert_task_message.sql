@@ -20,3 +20,10 @@ create or replace function api.insert_task_message (
     end;
   $$
 ;
+
+comment on function api.insert_task_message is E'
+Input fields (* are mandatory):\n
+- message.taskId *\n
+- message.replyTo\n
+- message.message *
+';

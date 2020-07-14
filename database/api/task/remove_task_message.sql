@@ -19,3 +19,8 @@ create or replace function api.remove_task_message (
     end;
   $$
 ;
+
+comment on function api.move_task is E'
+Input fields (* are mandatory):\n
+- taskMessageId *
+';
