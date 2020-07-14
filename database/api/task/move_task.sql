@@ -9,6 +9,7 @@ create or replace function api.move_task (
     begin
 
     insert into task_events values (
+        default,
         event.task_id,
         'move'::task_event_enum,
         now(),
@@ -16,7 +17,10 @@ create or replace function api.move_task (
         event.team_id,
         null,
         event.task_status_id,
-        event.note
+        event.note,
+        null,
+        null,
+        true
       ) returning task_id into id;
 
       update tasks set (
@@ -29,10 +33,10 @@ create or replace function api.move_task (
   $$
 ;
 
-comment on function api.move_task is E'
-Input fields (* are mandatory):\n
-- event.taskId *\n
-- event.teamId *\n
-- event.taskStatusId *\n
-- event.note
-';
+-- comment on function api.move_task is E'
+-- Input fields (* are mandatory):\n
+-- - event.taskId *\n
+-- - event.teamId *\n
+-- - event.taskStatusId *\n
+-- - event.note
+-- ';

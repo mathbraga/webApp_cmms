@@ -9,6 +9,7 @@ create or replace function api.send_task (
     begin
 
       insert into task_events values (
+        default,
         event.task_id,
         'send'::task_event_enum,
         now(),
@@ -16,7 +17,10 @@ create or replace function api.send_task (
         event.team_id,
         event.next_team_id,
         null,
-        event.note
+        event.note,
+        null,
+        null,
+        true
       ) returning task_id into id;
 
       update tasks set (
@@ -31,9 +35,9 @@ create or replace function api.send_task (
   $$
 ;
 
-comment on function api.send_task is E'
-Input fields (* are mandatory):\n
-- event.teamId *\n
-- event.nextTeamId *\n
-- event.note
-';
+-- comment on function api.send_task is E'
+-- Input fields (* are mandatory):\n
+-- - event.teamId *\n
+-- - event.nextTeamId *\n
+-- - event.note
+-- ';

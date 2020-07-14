@@ -32,6 +32,14 @@ create or replace function check_task_event ()
                 )
                 when 'cancel' then new.team_id = ls.team_id
                 when 'move' then new.task_status_id is not null
+                when 'insert_note' then new.note is not null
+                when 'modify_note' then (
+                  (new.note is not null) and
+                  (old.person_id = get_person_id())
+                )
+                when 'remove_note' then (
+                  (old.person_id = get_person_id())
+                )
               end into is_event_ok
         from last_send as ls
       ;
