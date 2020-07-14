@@ -44,7 +44,8 @@ class MainPage extends Component {
   static contextType = userContext;
 
   componentWillMount(){
-    cookieAuth().then(() => { // cookie = true
+    cookieAuth().then(r => { // cookie = true
+        console.log(r);
         if(window.localStorage.getItem('session')){
           this.setUser()
         }
@@ -55,7 +56,7 @@ class MainPage extends Component {
             this.clearStorage();
             window.location.reload();
         });
-        }
+      }
     })
     .catch((err) => { // no cookie
       console.log(err);
