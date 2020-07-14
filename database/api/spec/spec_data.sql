@@ -6,8 +6,7 @@ create or replace view api.spec_data as
               jsonb_agg(jsonb_build_object(
                 'supplyId', s.supply_id,
                 'supplySf', s.supply_sf,
-                'bidPrice', s.bid_price,
-                'fullPrice', s.full_price,
+                'price', s.price,
                 'contractId', c.contract_id,
                 'contractSf', c.contract_sf,
                 'company', c.company,

@@ -31,8 +31,8 @@ create or replace view api.task_data as
             c.contract_sf,
             c.company,
             ts.qty,
-            s.bid_price,
-            ts.qty * s.bid_price as total_price,
+            s.price,
+            ts.qty * s.price as total_price,
             z.name,
             z.unit
       from task_supplies as ts
@@ -50,7 +50,7 @@ create or replace view api.task_data as
               'contractSf', s.contract_sf,
               'company', s.company,
               'qty', s.qty,
-              'bidPrice', s.bid_price,
+              'price', s.price,
               'totalPrice', s.total_price,
               'name', s.name,
               'unit', s.unit
@@ -190,7 +190,7 @@ create or replace view api.task_data as
             jsonb_build_object(
               'supplyId', s.supply_id,
               'supplySf', s.supply_sf,
-              'bidPrice', s.bid_price,
+              'price', s.price,
               'qtyInitial', b.qty_initial,
               'qtyBlocked', b.qty_blocked,
               'qtyConsumed', b.qty_consumed,
