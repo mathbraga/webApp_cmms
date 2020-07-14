@@ -1,5 +1,6 @@
 set local cookie.session.person_id to 1;
 
+-- task_event_id = 1
 select api.insert_task(
   (
     null,-- task_id
@@ -48,6 +49,7 @@ select api.remove_task_file(
   'ee841848-5e90-4c5e-8699-78aca9b37aba'
 );
 
+-- task_event_id = 2
 select api.send_task(
   (
     null,
@@ -67,6 +69,7 @@ select api.send_task(
 
 set local cookie.session.person_id to 2;
 
+-- task_event_id = 3
 select api.receive_task(
   (
     null,
@@ -84,6 +87,7 @@ select api.receive_task(
   )
 );
 
+-- task_event_id = 4
 select api.insert_task_note(
   (
     null,
@@ -101,6 +105,7 @@ select api.insert_task_note(
   )
 );
 
+-- task_event_id = 5
 select api.move_task(
   (
     null,
@@ -118,6 +123,7 @@ select api.move_task(
   )
 );
 
+-- task_event_id = 6
 select api.send_task(
   (
     null,
@@ -135,6 +141,7 @@ select api.send_task(
   )
 );
 
+-- task_event_id = 7
 select api.cancel_send_task(
   (
     null,
@@ -212,6 +219,7 @@ select api.modify_task_supplies(
   ]
 );
 
+-- task_event_id = 8
 select api.send_task(
   (
     null,
@@ -231,6 +239,7 @@ select api.send_task(
 
 set local cookie.session.person_id to 3;
 
+-- task_event_id = 9
 select api.receive_task(
   (
     null,
@@ -248,6 +257,7 @@ select api.receive_task(
   )
 );
 
+-- task_event_id = 10
 select api.insert_task_note(
   (
     null,
@@ -266,7 +276,7 @@ select api.insert_task_note(
 );
 
 select api.remove_task_note(
-  2
+  10
 );
 
 select api.insert_task_note(

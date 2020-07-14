@@ -10,7 +10,7 @@ create or replace function api.insert_task_note (
       insert into task_events as te values (
         default,
         event.task_id,
-        'insert_note'::task_event_enum,
+        'note'::task_event_enum,
         now(),
         get_person_id(),
         event.team_id,
