@@ -9,6 +9,13 @@ create policy x on task_messages
 
 create policy y on task_messages
   as permissive
+  for insert
+  to public
+  using (true)
+;
+
+create policy y on task_messages
+  as permissive
   for update
   to public
   using (person_id = get_person_id())
