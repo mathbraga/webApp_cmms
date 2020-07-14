@@ -30,3 +30,10 @@ create or replace function api.send_task (
     end;
   $$
 ;
+
+comment on function api.send_task is E'
+Input fields (* are mandatory):\n
+- teamId *\n
+- nextTeamId *\n
+- note
+';
