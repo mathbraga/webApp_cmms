@@ -9,6 +9,8 @@ import messages from '../utils/messageTab/fakeMessages';
 function MessageTab({ data }) { 
   const [ messageInputOpen, setMessageInputOpen ] = useState(false);
   const { taskId } = data;
+  
+  console.log("Messages: ", data.messages);
 
   const actionButtons = {
     messageInputOpen: [
