@@ -30,13 +30,6 @@ function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, even
   const [ logType, setLogType ] = useState('all');
   
   const { user, team } = useContext(UserContext);
-  console.log("User: ", user);
-  console.log("Team: ", team);
-  
-  useEffect(() => {
-    console.log("Changing form...");
-    console.log(openedForm);
-  }, [openedForm]);
   
   const [ cancelSendTask, { errorCancelSend } ] = useMutation(CANCEL_SEND_TASK, {
     variables: {
@@ -45,7 +38,6 @@ function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, even
       teamId: team &&  team.value,
     },
     onCompleted: () => {
-      console.log("HhAHhaha");
       setOpenedForm(NO_FORM);
     },
     refetchQueries: [{ query: TASK_EVENTS_QUERY, variables: { taskId } }],
@@ -68,9 +60,6 @@ function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, even
       setOpenedForm(form);
     }
   }
-  
-  console.log("Events: ", events.slice(-1)[0].eventName);
-  console.log("FORM: ", openedForm);
 
   if (openedForm === NO_FORM) {
     if (events.slice(-1)[0].eventName === 'send' && team && team.value === nextTeamId) {
