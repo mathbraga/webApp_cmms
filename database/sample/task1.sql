@@ -50,6 +50,7 @@ select api.remove_task_file(
 
 select api.send_task(
   (
+    null,
     1,-- task_id
     null,-- event_name
     null,-- event_time
@@ -57,7 +58,10 @@ select api.send_task(
     1,-- team_id
     2,-- next_team_id
     null,-- task_status_id
-    'Para verificação.'-- note
+    'Para verificação.',-- note
+    null,
+    null,
+    null
   )
 );
 
@@ -65,6 +69,7 @@ set local cookie.session.person_id to 2;
 
 select api.receive_task(
   (
+    null,
     1,-- task_id
     null,-- event_name
     null,-- event_time
@@ -72,25 +77,33 @@ select api.receive_task(
     2,-- team_id
     null,-- next_team_id
     2,-- task_status_id
-    null-- note
+    null,-- note
+    null,
+    null,
+    null
   )
 );
 
-select api.insert_task_message(
+select api.insert_task_note(
   (
-    null,-- task_message_id
-    null,-- reply_to
+    null,
     1,-- task_id
-    'Verificação será comandada por Machado de Assis.',-- message
+    null,-- event_name
+    null,-- event_time
     null,-- person_id
-    null,-- created_at
-    null,-- updated_at
-    null-- is_visible
+    2,-- team_id
+    null,-- next_team_id
+    null,-- task_status_id
+    'Verificação será comandada por Machado de Assis.',-- note
+    null,
+    null,
+    null
   )
 );
 
 select api.move_task(
   (
+    null,
     1,-- task_id
     null,-- event_name
     null,-- event_time
@@ -98,12 +111,16 @@ select api.move_task(
     2,-- team_id
     null,-- next_team_id
     3,-- task_status_id
-    'Verificação foi concluída com sucesso.'-- note
+    'Verificação foi concluída com sucesso.',-- note
+    null,
+    null,
+    null
   )
 );
 
 select api.send_task(
   (
+    null,
     1,-- task_id
     null,-- event_name
     null,-- event_time
@@ -111,12 +128,16 @@ select api.send_task(
     2,-- team_id
     3,-- next_team_id
     null,-- task_status_id
-    'Após verificação.'-- note
+    'Após verificação.',-- note
+    null,
+    null,
+    null
   )
 );
 
 select api.cancel_send_task(
   (
+    null,
     1,-- task_id
     null,-- event_name
     null,-- event_time
@@ -124,7 +145,10 @@ select api.cancel_send_task(
     2,-- team_id
     null,-- next_team_id
     null,-- task_status_id
-    null-- note
+    null,-- note
+    null,
+    null,
+    null
   )
 );
 
@@ -190,6 +214,7 @@ select api.modify_task_supplies(
 
 select api.send_task(
   (
+    null,
     1,-- task_id
     null,-- event_name
     null,-- event_time
@@ -197,7 +222,10 @@ select api.send_task(
     2,-- team_id
     3,-- next_team_id
     null,-- task_status_id
-    'Após definição dos suprimentos.'-- note
+    'Após definição dos suprimentos.',-- note
+    null,
+    null,
+    null
   )
 );
 
@@ -205,6 +233,7 @@ set local cookie.session.person_id to 3;
 
 select api.receive_task(
   (
+    null,
     1,-- task_id
     null,-- event_name
     null,-- event_time
@@ -212,49 +241,64 @@ select api.receive_task(
     3,-- team_id
     null,-- next_team_id
     4,-- task_status_id
-    null-- note
+    null,-- note
+    null,
+    null,
+    null
   )
 );
 
-select api.insert_task_message(
+select api.insert_task_note(
   (
-    null,-- task_message_id
-    null,-- reply_to
+    null,
     1,-- task_id
-    'Aguardando chegada de material.',-- message
+    null,-- event_name
+    null,-- event_time
     null,-- person_id
-    null,-- created_at
-    null,-- updated_at
-    null-- is_visible
+    3,-- team_id
+    null,-- next_team_id
+    null,-- task_status_id
+    'Aguardando chegada de material.',-- note
+    null,
+    null,
+    null
   )
 );
 
-select api.remove_task_message(
+select api.remove_task_note(
   2
 );
 
-select api.insert_task_message(
+select api.insert_task_note(
   (
-    null,-- task_message_id
-    1,-- reply_to
+    null,
     1,-- task_id
-    'Aguardando chegada de material.',-- message
+    null,-- event_name
+    null,-- event_time
     null,-- person_id
-    null,-- created_at
-    null,-- updated_at
-    null-- is_visible
+    3,-- team_id
+    null,-- next_team_id
+    null,-- task_status_id
+    'Aguardando a chegada de material.',-- note
+    null,
+    null,
+    null
   )
 );
 
-select api.modify_task_message(
+select api.modify_task_note(
   (
-    3,-- task_message_id
-    null,-- reply_to
+    null,
     1,-- task_id
-    'Aguardando chegada dos materiais.',-- message
+    null,-- event_name
+    null,-- event_time
     null,-- person_id
-    null,-- created_at
-    null,-- updated_at
-    null-- is_visible
+    3,-- team_id
+    null,-- next_team_id
+    null,-- task_status_id
+    'Aguardando chegada dos materiais.',-- note
+    null,
+    null,
+    null
   )
 );

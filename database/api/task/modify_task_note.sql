@@ -13,7 +13,7 @@ create or replace function api.modify_task_note (
       ) = row(
         event.note,
         now()
-      ) where tm.task_message_id = event.task_event_id
+      ) where te.task_event_id = event.task_event_id
       returning te.task_id into id;
     end;
   $$

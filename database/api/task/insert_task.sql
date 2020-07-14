@@ -46,6 +46,7 @@ create or replace function api.insert_task (
       end if;
 
       insert into task_events values (
+        default,
         id,
         'insert'::task_event_enum,
         now(),
@@ -53,7 +54,10 @@ create or replace function api.insert_task (
         attributes.team_id,
         attributes.team_id,
         get_constant_value('task_initial_status')::integer,
-        'Criação da tarefa.'
+        'Criação da tarefa.',
+        null,
+        null,
+        true
       );
 
       perform pg_notify(

@@ -82,9 +82,10 @@ create or replace view api.task_data as
     group by f.task_id
   ),
   ord_events as (
-    select  te.task_id,
+    select  te.task_event_id,
+            te.task_id,
             te.event_name::text,
-            te.event_time,
+            te.created_at,
             p.name as person_name,
             p.person_id,
             t.team_id,
@@ -93,19 +94,23 @@ create or replace view api.task_data as
             tt.name as next_team_name,
             ts.task_status_text,
             ts.task_status_id,
-            te.note
+            te.note,
+            te.reply_to,
+            te.updated_at,
+            te.is_visible
       from task_events as te
       inner join persons as p using (person_id)
       inner join teams as t on (t.team_id = te.team_id)
       left join teams as tt on (tt.team_id = te.next_team_id)
       left join task_statuses as ts using (task_status_id)
-    order by te.event_time
+    order by te.created_at
   ),
   agg_events as (
     select  e.task_id,
             jsonb_agg(jsonb_build_object(
+              'taskEventId', e.task_event_id,
               'eventName', e.event_name,
-              'eventTime', e.event_time,
+              'createdAt', e.created_at,
               'personId', e.person_id,
               'personName', e.person_name,
               'teamId', e.team_id,
@@ -114,40 +119,43 @@ create or replace view api.task_data as
               'nextTeamName', e.next_team_name,
               'taskStatusText', e.task_status_text,
               'taskStatusId', e.task_status_id,
-              'note', e.note
+              'note', e.note,
+              'replyTo', e.reply_to,
+              'updatedAt', e.updated_at,
+              'isVisible', e.is_visible
             )) as events
       from ord_events as e
     group by e.task_id
   ),
-  ord_messages as (
-    select  tm.task_id,
-            tm.task_message_id,
-            tm.message,
-            tm.reply_to,
-            p.person_id,
-            p.name,
-            tm.created_at,
-            tm.updated_at,
-            tm.is_visible
-      from task_messages as tm
-      inner join persons as p using (person_id)
-    order by tm.created_at
-  ),
-  agg_messages as (
-    select  m.task_id,
-            jsonb_agg(jsonb_build_object(
-              'taskMessageId', m.task_message_id,
-              'message', m.message,
-              'replyTo', m.reply_to,
-              'personId', m.person_id,
-              'personName', m.name,
-              'createdAt', m.created_at,
-              'updatedAt', m.updated_at,
-              'isVisible', m.is_visible
-            )) as messages
-      from ord_messages as m
-    group by m.task_id
-  ),
+  -- ord_messages as (
+  --   select  tm.task_id,
+  --           tm.task_message_id,
+  --           tm.message,
+  --           tm.reply_to,
+  --           p.person_id,
+  --           p.name,
+  --           tm.created_at,
+  --           tm.updated_at,
+  --           tm.is_visible
+  --     from task_messages as tm
+  --     inner join persons as p using (person_id)
+  --   order by tm.created_at
+  -- ),
+  -- agg_messages as (
+  --   select  m.task_id,
+  --           jsonb_agg(jsonb_build_object(
+  --             'taskMessageId', m.task_message_id,
+  --             'message', m.message,
+  --             'replyTo', m.reply_to,
+  --             'personId', m.person_id,
+  --             'personName', m.name,
+  --             'createdAt', m.created_at,
+  --             'updatedAt', m.updated_at,
+  --             'isVisible', m.is_visible
+  --           )) as messages
+  --     from ord_messages as m
+  --   group by m.task_id
+  -- ),
   ord_send_options as (
     select  t.task_id,
             q.team_id,
@@ -290,7 +298,7 @@ create or replace view api.task_data as
           e.events,
           s.supplies,
           f.files,
-          m.messages,
+          -- m.messages,
           so.send_options,
           mo.move_options,
           acso.supply_options,
@@ -310,7 +318,7 @@ create or replace view api.task_data as
   left join agg_supplies as s using (task_id)
   left join agg_files as f using (task_id)
   left join agg_events as e using (task_id)
-  left join agg_messages as m using (task_id)
+  -- left join agg_messages as m using (task_id)
   left join agg_move_options as mo using (task_id)
   left join agg_send_options as so using (task_id)
   cross join agg_contract_supply_options as acso

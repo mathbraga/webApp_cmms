@@ -7,14 +7,14 @@ create or replace function api.remove_task_note (
   language plpgsql
   as $$
     declare
-      tmid integer;
+      teid integer;
     begin
       teid = task_event_id;
       update task_events as te set (
         is_visible
       ) = row(
         false
-      ) where te.task_message_id = teid
+      ) where te.task_event_id = teid
       returning te.task_id into id;
     end;
   $$

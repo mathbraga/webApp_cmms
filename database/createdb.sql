@@ -92,9 +92,9 @@ begin transaction;
 \i api/task/send_task.sql
 \i api/task/cancel_send_task.sql
 -- task messages
-\i api/task/insert_task_message.sql
-\i api/task/modify_task_message.sql
-\i api/task/remove_task_message.sql
+\i api/task/insert_task_note.sql
+\i api/task/modify_task_note.sql
+\i api/task/remove_task_note.sql
 -- task supplies
 \i api/task/insert_task_supply.sql
 \i api/task/modify_task_supplies.sql
