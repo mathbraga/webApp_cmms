@@ -36,8 +36,6 @@ class MessageTab extends Component {
 
     const heightMessageInput = messageInputOpen === true ? 'auto' : 0;
 
-    console.log("Messages: ", messages);
-
     return (
       <div className="tabpane-container">
         <PaneTitle 

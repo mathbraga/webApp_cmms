@@ -18,8 +18,6 @@ class ParentForm extends Component {
     const { handleParentChange, handleContextChange, addNewParent, removeParent } = this.props;
     const { topOptions, parentOptions } = this.props.formData;
 
-    console.log("Parents: ", this.props.parents);
-
     return (
       <>
         <Row>

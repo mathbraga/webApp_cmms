@@ -12,7 +12,6 @@ function EditSupplyForm({ visible, toggleForm, taskId, supplies}) {
   const [ formSupplies, setFormSupplies ] = useState(supplies || []);
   
   useEffect(() => {
-    console.log("Effect");
     setFormSupplies(supplies || []);
   }, [supplies])
   

@@ -51,8 +51,6 @@ class AssetTab extends Component {
     };
 
     const heightEdit = editFormOpen === true ? 'auto' : 0;
-    
-    console.log("Data2: ", this.props.data);
 
     return (
       <>

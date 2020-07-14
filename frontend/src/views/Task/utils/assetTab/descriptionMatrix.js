@@ -1,5 +1,4 @@
 export function itemsMatrixAssets(data) {
-  console.log("Inside: ", data);
   return (
     [
       [

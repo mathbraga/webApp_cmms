@@ -29,8 +29,6 @@ function StatusForm({ visible, toggleForm, taskId }) {
     }
   });
   
-  console.log("Obs: ", observationValue);
-  
   const [ moveTask, { errorMove } ] = useMutation(MOVE_TASK, {
     variables: {
       taskId,

@@ -51,13 +51,9 @@ class FileInput extends Component {
     this.readFile(this.fileInputRef.current.files[0])
       .then(arr => {
 
-        console.log('arr:');
-        console.log(arr);
 
         let paramsArr = this.buildParamsArr(arr, this.props.tableName);
 
-        console.log("paramsArr:");
-        console.log(paramsArr);
 
         writeItemsInDB(this.props.dbObject, paramsArr)
           .then(() => {
