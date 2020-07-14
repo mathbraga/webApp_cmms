@@ -187,7 +187,7 @@ create table supplies (
   contract_id integer not null references contracts (contract_id),
   spec_id integer not null references specs (spec_id),
   qty_initial numeric not null,
-  price numeric not null
+  price numeric not null,
   unique (contract_id, supply_sf)
 );
 
