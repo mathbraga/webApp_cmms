@@ -45,41 +45,21 @@ class MainPage extends Component {
 
   componentWillMount(){
     cookieAuth().then(r => { // cookie = true
-        console.log(r);
-        if(window.localStorage.getItem('session')){
-          this.setUser()
+        if(r){
+          this.setUser(r)
         }
         else{
           this.setNoUser()
-          logoutFetch()
-          .then(() => {
-            this.clearStorage();
-            window.location.reload();
-        });
-      }
+        }
     })
     .catch((err) => { // no cookie
       console.log(err);
       this.setNoUser();
-      if(window.localStorage.getItem('session')){ // will clear user data in case cookies expire (or somehow get deleted?) mid-use of the app. This method requires page to be refreshed though.
-        logoutFetch()
-        .then(() => {
-          this.clearStorage();
-          window.location.reload();
-        });
-      }
     })
   }
 
-  clearStorage = () => {
-    window.localStorage.removeItem('session');
-    window.localStorage.removeItem('user');
-    window.localStorage.setItem('logout-event', 'logout' + Math.random());
-  }
-
-  setUser = () => {
-    this.setState({ user: true,  ...JSON.parse(window.localStorage.getItem('user'))});
-    console.log(this.state)
+  setUser = (data) => {
+    this.setState({ user: true,  ...data});
   }
 
   setNoUser = () => {
@@ -87,6 +67,7 @@ class MainPage extends Component {
   }
 
   displayContext = () => {
+    this.context = {...this.state}
     console.log(this.context);
   }
 
