@@ -1,22 +1,13 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Card, CardBody, Button } from "reactstrap";
-import SessionData from "../Authentication/test/SessionData";
 // import { tableConfig, selectedData, data, searchableAttributes, filterAttributes, customFilters, dataTree } from './fakeData';
 // import svgr from '@svgr/core';
 // import CustomTable from "../../components/Tables/CustomTable";
 // import Maps from '../../components/Maps/Maps';
 
-import { userContext } from "../../utils/userContext";
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-  }
-
-  static contextType = userContext
-
-  componentDidMount(){
-    console.log(this.context);
   }
 
   returnData = () => {

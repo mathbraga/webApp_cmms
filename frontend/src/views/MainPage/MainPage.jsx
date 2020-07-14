@@ -18,8 +18,6 @@ import navigation from "../../_nav";
 import routes from "../../routes";
 
 import cookieAuth from "../../utils/authentication/cookieAuth";
-import logoutFetch from "../../utils/authentication/logoutFetch";
-import { logoutSuccess } from "../../redux/actions";
 
 import { userContext } from "../../utils/userContext";
 
@@ -40,8 +38,6 @@ class MainPage extends Component {
       teams: []
     }
   }
-
-  static contextType = userContext;
 
   componentWillMount(){
     cookieAuth().then(r => { // cookie = true
@@ -66,17 +62,13 @@ class MainPage extends Component {
     this.setState({ user: false });
   }
 
-  displayContext = () => {
-    this.context = {...this.state}
-    console.log(this.context);
-  }
-
   loading = () => (
     <div className="animated fadeIn pt-1 text-center">Carregando...</div>
   );
 
   render() {
     return (
+      <userContext.Provider value={{...this.state}}>
       <div className="app">
         <AppHeader fixed>
           <Suspense fallback={this.loading}>
@@ -116,10 +108,10 @@ class MainPage extends Component {
                 </Switch>
               </Suspense>
             </Container>
-            <Button onClick={this.displayContext}>Show Context</Button>
           </main>
         </div>
       </div>
+      </userContext.Provider>
     );
   }
 }

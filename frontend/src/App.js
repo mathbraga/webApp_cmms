@@ -3,8 +3,6 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 import Loadable from "react-loadable";
 import "./App.scss";
 
-import { userContext } from "./utils/userContext";
-
 const loading = () => (
   <div className="animated fadeIn pt-3 text-center">Carregando...</div>
 );
@@ -20,9 +18,7 @@ class App extends Component {
     return (
       <HashRouter>
         <Switch>
-          <userContext.Provider value={{cpf: "", email: "", name: "", personId: "", role: "", teams: []}}>
-              <Route path="/" name="Home" component={MainPage} />
-          </userContext.Provider>
+          <Route path="/" name="Home" component={MainPage} />
         </Switch>
       </HashRouter>
     );

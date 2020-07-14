@@ -20,8 +20,10 @@ import sygnet from "../../assets/img/brand/sygnet.svg";
 import { logoutSuccess } from "../../redux/actions";
 import { connect } from "react-redux";
 import logoutFetch from "../../utils/authentication/logoutFetch";
+import { userContext } from "../../utils/userContext";
 
 class MainHeader extends Component {
+  static contextType = userContext;
   constructor(props) {
     super(props);
     this.handleProfile = this.handleProfile.bind(this);
@@ -30,9 +32,14 @@ class MainHeader extends Component {
     this.handleDropdownClick = this.handleDropdownClick.bind(this);
     this.state = {
       dropdownOpen: false,
-      email: window.localStorage.getItem('session'),
-      // name: window.localStorage.getItem('user')
+      email: null
     }
+  }
+
+  componentWillMount(){
+    this.setState({
+      email: this.context.email === "" ? null : this.context.email
+    })
   }
 
   componentDidUpdate = prevProps => {
@@ -45,7 +52,7 @@ class MainHeader extends Component {
 
   handleSession() {
     this.setState({
-      email: window.localStorage.getItem('session')
+      email: this.context.email === "" ? null : this.context.email
     });
   }
 
@@ -59,8 +66,8 @@ class MainHeader extends Component {
         this.setState({
           email: null,
         });
-        window.localStorage.removeItem('session');
-        window.localStorage.removeItem('user');
+        // window.localStorage.removeItem('session');
+        // window.localStorage.removeItem('user');
         window.localStorage.setItem('logout-event', 'logout' + Math.random());
         this.props.dispatch(logoutSuccess());
         // this.props.history.push('/login');
@@ -78,7 +85,6 @@ class MainHeader extends Component {
   }
 
   render() {
-    
     window.addEventListener('storage', event => {
       if (event.key === 'session') { 
         this.handleSession();
