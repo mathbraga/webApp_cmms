@@ -85,7 +85,6 @@ function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, even
     ],
     noFormReceiveTask: [
       {name: 'Receber Tarefa', color: 'success', onClick: () => {toggleForm(RECEIVE_FORM)}},
-      {name: 'Cancelar Tramitação', color: 'danger', onClick: handleCancelSendTask}
     ],
     noFormCancelTask: [
       {name: 'Cancelar Tramitação', color: 'danger', onClick: handleCancelSendTask}
@@ -159,6 +158,7 @@ function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, even
             <ReceiveForm 
               visible={true}
               toggleForm={() => {toggleForm(RECEIVE_FORM)}}
+              setOpenedForm={setOpenedForm}
               taskId={taskId}
             />
           </div>

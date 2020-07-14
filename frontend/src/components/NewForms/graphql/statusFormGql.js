@@ -11,8 +11,8 @@ export const MOVE_OPTIONS_QUERY = gql`
 `;
 
 export const MOVE_TASK = gql`
-  mutation SendTaskMutation($taskId: Int!, $teamId: Int!, $taskStatusId: Int!, $note: String) {
-    sendTask(input: {
+  mutation MoveTaskMutation($taskId: Int!, $teamId: Int!, $taskStatusId: Int!, $note: String) {
+    moveTask(input: {
       event: {
         taskId: $taskId,
         teamId: $teamId,
@@ -30,6 +30,13 @@ export const TASK_EVENTS_QUERY = gql`
     allTaskData(condition: {taskId: $taskId}) {
       nodes {
         taskId
+        createdAt
+        taskStatusText
+        teamId
+        teamName
+        nextTeamId
+        nextTeamName
+        events
       }
     }
   }

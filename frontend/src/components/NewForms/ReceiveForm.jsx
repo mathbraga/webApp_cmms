@@ -9,6 +9,8 @@ import { UserContext } from '../../context/UserProvider';
 import { RECEIVE_TASK, TASK_EVENTS_QUERY } from './graphql/dispatchFormGql';
 import { MOVE_OPTIONS_QUERY } from './graphql/statusFormGql';
 
+const NO_FORM = 'noForm';
+
 const selectStyles = {
   control: base => ({
     ...base,
@@ -16,7 +18,7 @@ const selectStyles = {
   }),
 };
 
-function StatusForm({ visible, toggleForm, taskId }) {
+function StatusForm({ visible, toggleForm, taskId, setOpenedForm }) {
   const [ statusValue, setStatusValue ] = useState(null);
   const [ observationValue, setObservationValue ] = useState(null);
   const [ moveOptions, setMoveOptions ] = useState([]);
@@ -41,8 +43,10 @@ function StatusForm({ visible, toggleForm, taskId }) {
     onCompleted: () => {
       setStatusValue(null);
       setObservationValue(null);
+      setOpenedForm(NO_FORM);
     },
     refetchQueries: [{ query: TASK_EVENTS_QUERY, variables: { taskId } }],
+    awaitRefetchQueries: true,
     onError: (err) => { console.log(err); },
   });
   
