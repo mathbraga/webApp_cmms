@@ -16,5 +16,6 @@ create type task_event_enum as enum (
   'send',
   'receive',
   'cancel',
-  'move'
+  'move',
+  'note'
 );

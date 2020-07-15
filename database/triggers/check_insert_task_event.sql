@@ -1,7 +1,7 @@
-drop trigger if exists check_task_event on task_events;
-drop function if exists check_task_event;
+drop trigger if exists check_insert_task_event on task_events;
+drop function if exists check_insert_task_event;
 
-create or replace function check_task_event ()
+create or replace function check_insert_task_event ()
   returns trigger
   language plpgsql
   as $$
@@ -32,6 +32,7 @@ create or replace function check_task_event ()
                 )
                 when 'cancel' then new.team_id = ls.team_id
                 when 'move' then new.task_status_id is not null
+                when 'note' then new.note is not null
               end into is_event_ok
         from last_send as ls
       ;
@@ -45,6 +46,6 @@ create or replace function check_task_event ()
   $$
 ;
 
-create trigger check_task_event
+create trigger check_insert_task_event
 before insert on task_events
-for each row execute procedure check_task_event();
+for each row execute procedure check_insert_task_event();

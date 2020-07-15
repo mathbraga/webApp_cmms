@@ -1,5 +1,6 @@
 set local cookie.session.person_id to 1;
 
+-- task_event_id = 1
 select api.insert_task(
   (
     null,-- task_id

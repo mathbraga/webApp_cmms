@@ -39,13 +39,14 @@ create or replace function api.insert_task (
       end if;
 
       if files_metadata is not null then
-        select api.insert_task_files(
+        perform api.insert_task_files(
           id,
           files_metadata
         );
       end if;
 
       insert into task_events values (
+        default,
         id,
         'insert'::task_event_enum,
         now(),
@@ -53,11 +54,14 @@ create or replace function api.insert_task (
         attributes.team_id,
         attributes.team_id,
         get_constant_value('task_initial_status')::integer,
-        'Criação da tarefa.'
+        'Criação da tarefa.',
+        null,
+        null,
+        true
       );
 
       perform pg_notify(
-        'task_channel',
+        'postgraphile:task_channel',
         'Task created by calling api.insert_task function'
       );
 

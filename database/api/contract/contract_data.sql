@@ -9,7 +9,7 @@ create or replace view api.contract_data as
                 'name', z.name,
                 'unit', z.unit,
                 'qtyInitial', b.qty_initial,
-                'bidPrice', s.bid_price,
+                'price', s.price,
                 'qtyConsumed', b.qty_consumed,
                 'qtyBlocked', b.qty_blocked,
                 'qtyAvailable', b.qty_available

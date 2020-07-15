@@ -9,6 +9,7 @@ create or replace function api.cancel_send_task (
     begin
 
       insert into task_events values (
+        default,
         event.task_id,
         'cancel'::task_event_enum,
         now(),
@@ -16,7 +17,10 @@ create or replace function api.cancel_send_task (
         event.team_id,
         null,
         null,
-        null
+        null,
+        null,
+        null,
+        true
       ) returning task_id into id;
 
       update tasks set (
@@ -28,3 +32,9 @@ create or replace function api.cancel_send_task (
     end;
   $$
 ;
+
+comment on function api.cancel_send_task is E'
+Input fields (* are mandatory):\n
+- event.taskId *\n
+- event.teamId *
+';

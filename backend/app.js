@@ -21,13 +21,13 @@ app.set('x-powered-by', false);
 // Middlewares
 app.use(cors);
 app.use(expressJson);
-app.use(expressStatic);
 app.use(cookieSession);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan.logConsole);
 app.use(morgan.logFile);
 app.use(checkAuthUser);
+app.use(expressStatic);
 
 // Routes
 app.use(paths.login, loginRoute);

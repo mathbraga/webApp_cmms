@@ -4,12 +4,15 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "production-on": "node windows-service-install.js",
+    "production-off": "node windows-service-uninstall.js",
     "start": "nodemon --require dotenv/config server.js",
     "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@graphile/pg-pubsub": "^4.7.0",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "cron": "^1.8.2",
