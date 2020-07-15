@@ -276,22 +276,34 @@ create or replace view api.task_data as
             'personId', p.person_id,
             'personName', p.name
           ) as created_by,
-          jsonb_build_object(
-            'personId', pp.person_id,
-            'personName', pp.name
-          ) as updated_by,
-          jsonb_build_object(
-            'contractId', c.contract_id,
-            'title', c.title
-          ) as contract,
-          jsonb_build_object(
-            'projectId', pr.project_id,
-            'name', pr.name
-          ) as project,
-          jsonb_build_object(
-            'requestId', r.request_id,
-            'title', r.title
-          ) as request,
+          case
+            when pp.person_id is null then null
+            else jsonb_build_object(
+              'personId', pp.person_id,
+              'personName', pp.name
+            )
+          end as updated_by,
+          case
+            when c.contract_id is null then null
+            else jsonb_build_object(
+              'contractId', c.contract_id,
+              'title', c.title
+            )
+          end as contract,
+          case
+            when pr.project_id is null then null
+            else jsonb_build_object(
+              'projectId', pr.project_id,
+              'name', pr.name
+            )
+          end as project,
+          case
+            when r.request_id is null then null
+            else jsonb_build_object(
+              'requestId', r.request_id,
+              'title', r.title
+            )
+          end as request,
 
           -- aggregates from 'with' queries:
           a.assets,
