@@ -17,8 +17,17 @@ import './Tabs.css';
 function SupplyTab({ data }) {
   const [ addFormOpen, setAddFormOpen ] = useState(false);
   const [ editFormOpen, setEditFormOpen ] = useState(false);
+  const [ contractFilterId, setContractFilterId ] = useState(null);
   
-  const supplies = prepareData(data.supplies, tableConfig);
+  console.log("ContractFilter: ", contractFilterId, typeof contractFilterId);
+  
+  const notFilteredSupplies = prepareData(data.supplies, tableConfig);
+ 
+  const supplies = contractFilterId ? notFilteredSupplies.filter(supply => supply.contractId === contractFilterId) : notFilteredSupplies;
+  
+  function handleSetContractFilter({target}) {
+    setContractFilterId(parseInt(target.value));
+  }
   
   function toggleAddForm() {
     setAddFormOpen(!addFormOpen);
@@ -98,7 +107,7 @@ function SupplyTab({ data }) {
         <div className="tabpane__content">
           <PaneTextContent 
             numColumns='2' 
-            itemsMatrix={itemsMatrixTableFilter(data)}
+            itemsMatrix={itemsMatrixTableFilter(data, handleSetContractFilter)}
           />
         </div>
         <div className="tabpane__content__table">

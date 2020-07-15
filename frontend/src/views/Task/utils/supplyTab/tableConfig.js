@@ -23,7 +23,7 @@ const tableConfig = {
   itemPathWithoutID: paths.spec.toOne,
   prepareData: {
     qtyWithUnit: addUnit,
-    bidPriceText: formatCurrency("bidPrice"),
+    bidPriceText: formatCurrency("price"),
     totalPriceText: formatCurrency("totalPrice"),
     storage: addStorage,
   },
