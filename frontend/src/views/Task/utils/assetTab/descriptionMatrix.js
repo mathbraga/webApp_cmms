@@ -2,7 +2,7 @@ export function itemsMatrixAssets(data) {
   return (
     [
       [
-        { id: 'numAssets', title: 'Número de ativos', description: data && data.length, span: 1 },
+        { id: 'numAssets', title: 'Total de ativos', description: data && data.length.toString().padStart(3, "0"), span: 1 },
       ],
     ]
   );

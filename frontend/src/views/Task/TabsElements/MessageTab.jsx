@@ -4,13 +4,15 @@ import AnimateHeight from 'react-animate-height';
 import MessageInput from '../../../components/NewForms/MessageInput';
 import MessageBox from '../../../components/Message/MessageBox';
 
-import messages from '../utils/messageTab/fakeMessages';
-
 function MessageTab({ data }) { 
   const [ messageInputOpen, setMessageInputOpen ] = useState(false);
-  const { taskId } = data;
+  const { taskId, events } = data;
   
-  console.log("Eventos: ", data.events);
+  if (events[0].eventName === 'insert') {
+    events.reverse();
+  }
+  
+  console.log("Eventos: ", events);
 
   const actionButtons = {
     messageInputOpen: [
@@ -31,7 +33,7 @@ function MessageTab({ data }) {
     <div className="tabpane-container">
       <PaneTitle 
         actionButtons={messageInputOpen ? actionButtons.messageInputOpen : actionButtons.noFormOpen}
-        title={messageInputOpen ? 'Escrever mensagem' : 'Mensagens'}
+        title={messageInputOpen ? 'Escrever mensagem' : 'Histórico'}
       />
       <AnimateHeight 
         duration={300}
@@ -46,14 +48,14 @@ function MessageTab({ data }) {
       </AnimateHeight>
       {(messageInputOpen) && (
         <PaneTitle 
-          title={'Mensagens'}
+          title={'Histórico'}
         />
       )}
       {
-        messages.map(message => (
+        events.map(event => (
           <div className="tabpane__content" style={{ marginTop: '40px' }}>
             <MessageBox 
-              event={message}
+              event={event}
             />
           </div>
         ))
