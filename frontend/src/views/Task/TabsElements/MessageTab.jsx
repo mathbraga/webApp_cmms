@@ -10,7 +10,7 @@ function MessageTab({ data }) {
   const [ messageInputOpen, setMessageInputOpen ] = useState(false);
   const { taskId } = data;
   
-  console.log("Messages: ", data.messages);
+  console.log("Eventos: ", data.events);
 
   const actionButtons = {
     messageInputOpen: [
@@ -53,7 +53,7 @@ function MessageTab({ data }) {
         messages.map(message => (
           <div className="tabpane__content" style={{ marginTop: '40px' }}>
             <MessageBox 
-              message={message}
+              event={message}
             />
           </div>
         ))
