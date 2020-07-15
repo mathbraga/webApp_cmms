@@ -1,18 +1,39 @@
 import React, { useState } from 'react';
 import PaneTitle from '../../../components/TabPanes/PaneTitle';
+import PaneTextContent from '../../../components/TabPanes/PaneTextContent';
 import AnimateHeight from 'react-animate-height';
 import MessageInput from '../../../components/NewForms/MessageInput';
 import MessageBox from '../../../components/Message/MessageBox';
+import { logInfo } from '../utils/messageTab/descriptionMatrix';
+
+function filterEvents(events, logTypeFilter) {
+  if (logTypeFilter === 'all') {
+    return events;
+  } else {
+    return events.filter(item => {
+      if (logTypeFilter === 'status') {
+        return (item.eventName === 'move' || item.eventName === 'insert');
+      } else if (logTypeFilter === 'dispatch') {
+        return (item.eventName === 'send' || item.eventName === 'receive' || item.eventName === 'cancel' || item.eventName === 'insert');
+      } else {
+        return item.eventName === 'note';
+      }
+    })
+  }
+}
 
 function MessageTab({ data }) { 
   const [ messageInputOpen, setMessageInputOpen ] = useState(false);
   const { taskId, events } = data;
+  const [ logTypeFilter, setLogTypeFilter ] = useState('all');
   
   if (events[0].eventName === 'insert') {
     events.reverse();
   }
   
   console.log("Eventos: ", events);
+  
+  const filteredEvents = filterEvents(events, logTypeFilter);
 
   const actionButtons = {
     messageInputOpen: [
@@ -24,6 +45,10 @@ function MessageTab({ data }) {
   };
 
   const heightMessageInput = messageInputOpen === true ? 'auto' : 0;
+  
+  function handleLogTypeFilterChange(event) {
+    setLogTypeFilter(event.target.value);
+  }
   
   function toggleMessageInput() {
     setMessageInputOpen(!messageInputOpen);
@@ -51,9 +76,15 @@ function MessageTab({ data }) {
           title={'Histórico'}
         />
       )}
+      <div className="tabpane__content" style={{ marginBottom: '20px' }}>
+        <PaneTextContent 
+          numColumns='2' 
+          itemsMatrix={logInfo(filteredEvents.length.toString().padStart(3, "0"), handleLogTypeFilterChange)}
+        />
+      </div>
       {
-        events.map(event => (
-          <div className="tabpane__content" style={{ marginTop: '40px' }}>
+        filteredEvents.map(event => (
+          <div className="tabpane__content" style={{ marginBottom: '40px' }}>
             <MessageBox 
               event={event}
             />

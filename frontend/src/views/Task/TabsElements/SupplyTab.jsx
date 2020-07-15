@@ -19,8 +19,6 @@ function SupplyTab({ data }) {
   const [ editFormOpen, setEditFormOpen ] = useState(false);
   const [ contractFilterId, setContractFilterId ] = useState(null);
   
-  console.log("ContractFilter: ", contractFilterId, typeof contractFilterId);
-  
   const notFilteredSupplies = prepareData(data.supplies, tableConfig);
  
   const supplies = contractFilterId ? notFilteredSupplies.filter(supply => supply.contractId === contractFilterId) : notFilteredSupplies;

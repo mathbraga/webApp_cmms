@@ -13,7 +13,7 @@ export default function tabsGenerator(data) {
       { id: 'resources', title: 'Suprimentos', element: <SupplyTab data={data} /> },
       { id: 'assets', title: 'Ativos', element: <AssetTab data={data} /> },
       { id: 'assignTo', title: 'Status / Tramitações', element: <DispatchTab data={data} /> },
-      { id: 'messages', title: 'Mensagens', element: <MessageTab data={data} /> },
+      { id: 'messages', title: 'Histórico', element: <MessageTab data={data} /> },
       { id: 'files', title: 'Arquivos', element: <FilesTab data={data} /> },
     ]
   );
