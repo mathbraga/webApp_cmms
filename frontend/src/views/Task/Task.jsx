@@ -12,13 +12,12 @@ import { TASK_QUERY } from './graphql/gql';
 
 // Image by <a href="https://pixabay.com/users/OpenClipart-Vectors-30363/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1295319">OpenClipart-Vectors</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1295319">Pixabay</a>
 const image = require("../../assets/img/entities/task.png");
-const imageStatus = 'Em andamento';
 
 const descriptionItems = [
   { title: 'Serviço', description: "", boldTitle: true },
   { title: 'O.S. nº', description: "", boldTitle: false },
   { title: 'Local', description: "", boldTitle: false },
-  { title: 'Categoria', description: "", boldTitle: false },
+  { title: 'Descrição', description: "", boldTitle: false },
 ];
 
 function Task(props) {
@@ -28,11 +27,13 @@ function Task(props) {
     variables: { taskId }
    });
    
+   const imageStatus = data && data.taskStatusText;
+   
    if (!loading) {
     descriptionItems[0].description = data.title;
     descriptionItems[1].description = data.taskId.toString().padStart(4, "0");
     descriptionItems[2].description = data.place;
-    descriptionItems[3].description = data.taskCategoryText;
+    descriptionItems[3].description = data.description;
    }
 
   return (
