@@ -82,15 +82,18 @@ function MessageTab({ data }) {
           itemsMatrix={logInfo(filteredEvents.length.toString().padStart(3, "0"), handleLogTypeFilterChange)}
         />
       </div>
-      {
-        filteredEvents.map(event => (
-          <div className="tabpane__content" style={{ marginBottom: '20px' }}>
-            <MessageBox 
-              event={event}
-            />
-          </div>
-        ))
-      }
+      <div className="messages_list">
+        {
+          filteredEvents.map(event => (
+            <div className="messagebox__container">
+              <MessageBox 
+                event={event}
+              />
+              <div className="horizontal-line" />
+            </div>
+          ))
+        }
+      </div>
     </div>
   );
 }
