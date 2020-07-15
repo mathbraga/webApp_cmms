@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const INSERT_TASK_MESSAGE = gql`
-  mutation myMutation($taskId: Int!, $message: String) {
+  mutation myMutation($taskId: Int!, $message: String!) {
     insertTaskMessage(input: {
       message: {
         taskId: $taskId,
@@ -18,13 +18,7 @@ export const TASK_MESSAGES = gql`
     allTaskData(condition: {taskId: $taskId}) {
       nodes {
         taskId
-        createdAt
-        taskStatusText
-        teamId
-        teamName
-        nextTeamId
-        nextTeamName
-        events
+        messages
       }
     }
   }

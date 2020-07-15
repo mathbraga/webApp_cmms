@@ -129,7 +129,7 @@ insert into persons overriding system value values
 -- \i triggers/insert_audit_trail.sql
 
 -- create rls policies
-\i policies/task_messages.sql
+-- \i policies/task_messages.sql
 
 -- populate tables with sample data
 \i sample/asset_categories.sql

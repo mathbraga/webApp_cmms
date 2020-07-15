@@ -2,9 +2,23 @@ import React, { useState } from 'react';
 import { Button, Input } from 'reactstrap';
 import './Message.css'
 
+import { useQuery, useMutation } from '@apollo/react-hooks';
+
+import { INSERT_TASK_MESSAGE, TASK_MESSAGES } from './graphql/messageFormGql';
+
 function MessageInput({ toggleForm, taskId }) {
   const [ messageValue, setMessageValue ] = useState('');
-  console.log("Messagesss: ", messageValue);
+  
+  console.log("MessageValue: ", messageValue, typeof messageValue);
+  
+  const [ insertTaskMessage, { errorInsert } ] = useMutation(INSERT_TASK_MESSAGE, {
+    variables: {
+      taskId,
+      message: messageValue,
+    },
+    refetchQueries: [{ query: TASK_MESSAGES, variables: { taskId } }],
+    onError: (err) => { console.log(err); },
+  });
 
   function onChangeMessage({target}) {
     if(target) {
@@ -13,7 +27,7 @@ function MessageInput({ toggleForm, taskId }) {
   }
 
   function handleSubmit() {
-    console.log("Submit observation: ", messageValue);
+    insertTaskMessage();
     toggleForm();
     setMessageValue('');
   }
