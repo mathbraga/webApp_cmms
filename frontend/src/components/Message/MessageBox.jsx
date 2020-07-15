@@ -84,7 +84,7 @@ function MessageBox({ event }) {
           <div className="message__header">
             <div className="message__author">
               <div className="message__avatar">
-                <img src={eventsAvatar[event.eventName]} alt="User Avatar" style={{ width: "55px", height: "55px" }} />
+                <img src={eventsAvatar[event.eventName]} alt="User Avatar" style={{ width: "50px", height: "50px" }} />
               </div>
               <div className="user-description">
                 <div className="user-description__name">{event.personName}</div> 

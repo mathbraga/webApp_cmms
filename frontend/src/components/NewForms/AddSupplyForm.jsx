@@ -53,7 +53,7 @@ function AddSupplyForm({ visible, toggleForm, taskId, setAddFormOpen }) {
       label: `${supply.supplySf}: ${supply.name}`,
       value: supply.supplyId,
       contract: {value: contract.contractId, label: `${contract.contractSf.split(/([0-9]+)/)[0]} ${contract.contractSf.split(/([0-9]+)/)[1]} - ${contract.company}`},
-      bidPrice: supply.bidPrice,
+      price: supply.price,
       supplySf: supply.supplySf,
       supplyId: supply.supplyId,
       qtyAvailable: supply.qtyAvailable,
@@ -155,7 +155,7 @@ function AddSupplyForm({ visible, toggleForm, taskId, setAddFormOpen }) {
                 Preço Unitário
               </div>
               <div className="miniform__info__value">
-                {supply ? formatter.format(supply.bidPrice) : "-"}
+                {supply ? formatter.format(supply.price) : "-"}
               </div>
             </div>
           </div>
@@ -191,7 +191,7 @@ function AddSupplyForm({ visible, toggleForm, taskId, setAddFormOpen }) {
                 Valor Total
               </div>
               <div className="miniform__info__value">
-                {supply ? formatter.format(supply.bidPrice * quantity) : "-"}
+                {supply ? formatter.format(supply.price * quantity) : "-"}
               </div>
             </div>
           </div>

@@ -84,7 +84,7 @@ function MessageTab({ data }) {
       </div>
       {
         filteredEvents.map(event => (
-          <div className="tabpane__content" style={{ marginBottom: '40px' }}>
+          <div className="tabpane__content" style={{ marginBottom: '20px' }}>
             <MessageBox 
               event={event}
             />
