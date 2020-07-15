@@ -36,7 +36,7 @@ function LogContent({ event }) {
       <ul style ={{ margin: '0' }}>
         <li><span style={{ fontWeight: '600' }}>De: </span><span>{event.teamName}</span></li>
         <li><span style={{ fontWeight: '600' }}>Para: </span><span>{event.nextTeamName}</span></li>
-        <li><span style={{ fontWeight: '600' }}>Observações: </span><span>{event.note || "Evento sem observações."}</span></li>
+        <li><span style={{ fontWeight: '600' }}>Despacho: </span><span>{event.note || "Evento sem observações."}</span></li>
       </ul>
     ),
     receive: (
@@ -97,15 +97,17 @@ function MessageBox({ event }) {
             <LogContent event={event} />
           </div>
         </div>
-        <div className="comment__action">
-          <i className="comment__icon fa fa-comment"></i>
-          <button className="comment__button" onClick={toggleMessageInput}>Responder</button>
-        </div>
+        {event.eventName === 'note' && (
+          <div className="comment__action">
+            <i className="comment__icon fa fa-comment"></i>
+            <button className="comment__button" onClick={toggleMessageInput}>Responder</button>
+          </div>
+        )}
       </div>
       <Collapse isOpen={isMessageInputOpen}>
         <div className="text__box">
           <div className="comment__bubble__name" style={{ marginBottom: '10px' }}>
-            Digitar resposta à mensagem de <span className='comment__bubble__user'>{event.user}</span>:
+            Resposta à mensagem de <span className='comment__bubble__user'>{event.personName}</span>:
           </div>
           <Input placeholder="Digitar mensagem." className="text__box__input" type="textarea"/>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>

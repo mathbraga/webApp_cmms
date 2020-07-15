@@ -24,7 +24,7 @@ export function currentStateInfo({createdAt, taskStatusText, teamName, events}) 
         { id: 'totalDays', title: 'Dias com a tarefa', description: 'TODO', span: 1 }
       ],
       [
-        { id: 'obs', title: 'Última observação (tramitação)', description: lastNote, span: 2 },
+        { id: 'obs', title: 'Último despacho (tramitação)', description: lastNote, span: 2 },
       ],
     ]
   );

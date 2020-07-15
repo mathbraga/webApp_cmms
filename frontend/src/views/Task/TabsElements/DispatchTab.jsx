@@ -9,10 +9,7 @@ import { currentStateInfo, dispatchLogInfo } from '../utils/dispatchTab/descript
 import { UserContext } from '../../../context/UserProvider';
 import './Tabs.css';
 
-import sortList from '../../../components/Tables/TableWithSorting/sortList';
-
 import AnimateHeight from 'react-animate-height';
-import LogTable from '../utils/dispatchTab/LogTable';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { CANCEL_SEND_TASK, TASK_EVENTS_QUERY } from '../../../components/NewForms/graphql/dispatchFormGql';
@@ -27,7 +24,6 @@ const NO_FORM_CANCEL_TASK = 'noFormCancelTask';
 
 function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, events, nextTeamId, teamId } }) {
   const [ openedForm, setOpenedForm ] = useState(NO_FORM);
-  const [ logType, setLogType ] = useState('all');
   
   const { user, team } = useContext(UserContext);
   
@@ -44,10 +40,6 @@ function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, even
     awaitRefetchQueries: true,
     onError: (err) => { console.log(err); },
   });
-
-  function handleLogTypeChange(event) {
-    setLogType(event.target.value);
-  }
   
   function handleCancelSendTask() {
     cancelSendTask();
@@ -116,9 +108,6 @@ function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, even
     receiveTaskForm: true,
   }
 
-  const filteredData = logType === 'all' ? events : (events.filter(item => (logType === 'status' ? (item.event === 'move' || item.event === 'insert') : (item.event !== 'move'))));
-  const sortedData = sortList(filteredData, 'time', true, false);
-
   return (
     <>
       <div className="tabpane-container">
@@ -172,20 +161,6 @@ function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, even
           <PaneTextContent 
             numColumns='2' 
             itemsMatrix={currentStateInfo({createdAt, taskStatusText, teamName, events})}
-          />
-        </div>
-        <PaneTitle 
-          title={'Histórico'}
-        />
-        <div className="tabpane__content">
-          <PaneTextContent 
-            numColumns='2' 
-            itemsMatrix={dispatchLogInfo(sortedData.length, handleLogTypeChange)}
-          />
-        </div>
-        <div className="tabpane__content__table">
-          <LogTable 
-            data={sortedData}
           />
         </div>
       </div>
