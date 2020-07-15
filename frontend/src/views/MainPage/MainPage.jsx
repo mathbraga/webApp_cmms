@@ -18,7 +18,6 @@ import navigation from "../../_nav";
 import routes from "../../routes";
 
 import cookieAuth from "../../utils/authentication/cookieAuth";
-
 import { userContext } from "../../utils/userContext";
 
 const MainHeader = React.lazy(() => import("./MainHeader"));
@@ -67,14 +66,17 @@ class MainPage extends Component {
   );
 
   render() {
+    console.log(this.state)
     return (
       <userContext.Provider value={{...this.state}}>
       <div className="app">
-        <AppHeader fixed>
-          <Suspense fallback={this.loading}>
-            <MainHeader/>
-          </Suspense>
-        </AppHeader>
+          <AppHeader fixed>
+            <Suspense fallback={this.loading}> 
+              <userContext.Consumer>
+              {context => <MainHeader/>}
+              </userContext.Consumer>
+            </Suspense>
+          </AppHeader>
         <div className="app-body">
           <AppSidebar fixed display="lg">
             <AppSidebarHeader />

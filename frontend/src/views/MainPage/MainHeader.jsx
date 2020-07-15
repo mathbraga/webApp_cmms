@@ -23,7 +23,6 @@ import logoutFetch from "../../utils/authentication/logoutFetch";
 import { userContext } from "../../utils/userContext";
 
 class MainHeader extends Component {
-  static contextType = userContext;
   constructor(props) {
     super(props);
     this.handleProfile = this.handleProfile.bind(this);
@@ -35,8 +34,10 @@ class MainHeader extends Component {
       email: null
     }
   }
+  static contextType = userContext;
 
-  componentWillMount(){
+  componentDidMount(){
+    console.log(this.props)
     this.setState({
       email: this.context.email === "" ? null : this.context.email
     })

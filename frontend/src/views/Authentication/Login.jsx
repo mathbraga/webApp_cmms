@@ -77,8 +77,8 @@ class Login extends Component {
           isFetching: false,
           alertVisible: false,
         });
-        window.localStorage.setItem('session', this.state.email);
-        window.localStorage.setItem('user', JSON.stringify(r));
+        // window.localStorage.setItem('session', this.state.email);
+        // window.localStorage.setItem('user', JSON.stringify(r));
         // window.localStorage.setItem('login-event', 'login' + Math.random());
         this.props.dispatch(loginSuccess(this.state.email));
         // this.props.history.push("/painel");

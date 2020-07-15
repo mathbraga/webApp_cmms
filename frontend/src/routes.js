@@ -33,7 +33,7 @@ const NoView = <h1>NoView!</h1>
 const routes = [
   { path: '/', exact: true, name: "Página Principal", component: MainPage },
   { path: '/painel', name: "Painel", component: Dashboard },
-  { path: "/login", name: "Login", component: Login },
+  // { path: "/login", name: "Login", component: Login },
   { path: "/perfil", name: "Perfil", component: Profile },
 
   // Facility
