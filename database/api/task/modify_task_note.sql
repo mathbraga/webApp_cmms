@@ -19,8 +19,8 @@ create or replace function api.modify_task_note (
   $$
 ;
 
--- comment on function api.modify_task_message is E'
--- Input fields (* are mandatory):\n
--- - message.taskMessageId *\n
--- - message.message *
--- ';
+comment on function api.modify_task_note is E'
+Input fields (* are mandatory):\n
+- event.taskMessageId *\n
+- event.note *
+';

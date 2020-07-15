@@ -33,7 +33,8 @@ create or replace function api.cancel_send_task (
   $$
 ;
 
--- comment on function api.cancel_send_task is E'
--- Input fields (* are mandatory):\n
--- - event.teamId *
--- ';
+comment on function api.cancel_send_task is E'
+Input fields (* are mandatory):\n
+- event.taskId *\n
+- event.teamId *
+';

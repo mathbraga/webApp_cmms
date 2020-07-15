@@ -35,9 +35,10 @@ create or replace function api.send_task (
   $$
 ;
 
--- comment on function api.send_task is E'
--- Input fields (* are mandatory):\n
--- - event.teamId *\n
--- - event.nextTeamId *\n
--- - event.note
--- ';
+comment on function api.send_task is E'
+Input fields (* are mandatory):\n
+- event.taskId *\n
+- event.teamId *\n
+- event.nextTeamId *\n
+- event.note
+';

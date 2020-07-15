@@ -33,10 +33,10 @@ create or replace function api.move_task (
   $$
 ;
 
--- comment on function api.move_task is E'
--- Input fields (* are mandatory):\n
--- - event.taskId *\n
--- - event.teamId *\n
--- - event.taskStatusId *\n
--- - event.note
--- ';
+comment on function api.move_task is E'
+Input fields (* are mandatory):\n
+- event.taskId *\n
+- event.teamId *\n
+- event.taskStatusId *\n
+- event.note
+';

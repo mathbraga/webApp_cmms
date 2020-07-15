@@ -20,7 +20,7 @@ create or replace function api.remove_task_note (
   $$
 ;
 
--- comment on function api.move_task is E'
--- Input fields (* are mandatory):\n
--- - taskMessageId *
--- ';
+comment on function api.remove_task_note is E'
+Input fields (* are mandatory):\n
+- taskMessageId *
+';
