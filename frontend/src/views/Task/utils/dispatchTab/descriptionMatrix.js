@@ -7,7 +7,7 @@ export function currentStateInfo({createdAt, taskStatusText, teamName, events}) 
   
   events.forEach(event => {
     if (event.eventName === 'receive') {
-      receivedDate = event.eventTime;
+      receivedDate = event.createdAt;
     } else if (event.eventName === 'send') {
       lastNote = event.note;
     }

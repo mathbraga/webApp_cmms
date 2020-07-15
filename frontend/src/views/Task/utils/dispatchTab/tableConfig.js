@@ -100,7 +100,7 @@ function createSubTeamStatusElement(subTeam, item) {
 }
 
 function generateTimeText(item) {
-  return item.eventTime.split("T")[0];
+  return item.createdAt.split("T")[0];
 }
 
 

@@ -14,7 +14,6 @@ export const TASK_QUERY = gql`
         description
         events
         files
-        messages
         moveOptions
         nextTeamId
         nextTeamName
