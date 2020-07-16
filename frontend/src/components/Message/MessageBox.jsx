@@ -27,39 +27,39 @@ const subTitleEvent = {
 function LogContent({ event }) {
   const logContent = {
     insert: (
-      <ul style ={{ margin: '0' }}>
+      <ul className='log-content__list'>
         <li><span style={{ fontWeight: '600' }}>Tarefa criada por: </span><span>{event.teamName}</span></li>
         <li><span style={{ fontWeight: '600' }}>Observações: </span><span>{event.note || "Evento sem observações."}</span></li>
       </ul>
     ),
     send: (
-      <ul style ={{ margin: '0' }}>
+      <ul className='log-content__list'>
         <li><span style={{ fontWeight: '600' }}>De: </span><span>{event.teamName}</span></li>
         <li><span style={{ fontWeight: '600' }}>Para: </span><span>{event.nextTeamName}</span></li>
         <li><span style={{ fontWeight: '600' }}>Despacho: </span><span>{event.note || "Evento sem observações."}</span></li>
       </ul>
     ),
     receive: (
-      <ul style ={{ margin: '0' }}>
+      <ul className='log-content__list'>
         <li><span style={{ fontWeight: '600' }}>Recebido por: </span><span>{event.teamName}</span></li>
         <li><span style={{ fontWeight: '600' }}>Observações: </span><span>{event.note || "Evento sem observações."}</span></li>
       </ul>
     ),
     cancel: (
-      <ul style ={{ margin: '0' }}>
+      <ul className='log-content__list'>
         <li><span style={{ fontWeight: '600' }}>Cancelado por: </span><span>{event.teamName}</span></li>
         <li><span style={{ fontWeight: '600' }}>Observações: </span><span>{event.note || "Evento sem observações."}</span></li>
       </ul>
     ),
     move: (
-      <ul style ={{ margin: '0' }}>
+      <ul className='log-content__list'>
         <li><span style={{ fontWeight: '600' }}>Novo Status: </span><span>{event.taskStatusText}</span></li>
         <li><span style={{ fontWeight: '600' }}>Alterado por: </span><span>{event.teamName}</span></li>
         <li><span style={{ fontWeight: '600' }}>Observações: </span><span>{event.note || "Evento sem observações."}</span></li>
       </ul>
     ),
     note: (
-      <ul style ={{ margin: '0' }}>
+      <ul className='log-content__list'>
         <li><span style={{ fontWeight: '600' }}>Mensagem de: </span><span>{event.teamName}</span></li>
         <li><span style={{ fontWeight: '600' }}>Mensagem: </span><span>{event.note || "Nenhuma mensagem foi cadastrada."}</span></li>
       </ul>
@@ -99,8 +99,13 @@ function MessageBox({ event }) {
         </div>
         {event.eventName === 'note' && (
           <div className="comment__action">
-            <i className="comment__icon fa fa-comment"></i>
-            <button className="comment__button" onClick={toggleMessageInput}>Responder</button>
+            <div>
+              <Button color="danger" size='sm'>Apagar Mensagem</Button>
+             </div>
+            <div>
+              <i className="comment__icon fa fa-comment"></i>
+              <button className="comment__button" onClick={toggleMessageInput}>Responder</button>
+            </div>
           </div>
         )}
       </div>

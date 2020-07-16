@@ -3,6 +3,11 @@
   /* box-shadow: 1px 1px 2px 1px #dedede; */
 }
 
+.log-content__list {
+  margin: 0;
+  padding-right: 30px;
+}
+
 .message__container{
     display: flex;
     flex-flow: column nowrap;
@@ -71,8 +76,9 @@
 
 .comment__action {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  margin: 0 10px;
 }
 
 .comment__icon{
