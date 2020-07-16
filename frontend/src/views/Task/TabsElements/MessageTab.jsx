@@ -88,6 +88,7 @@ function MessageTab({ data }) {
             <div className="messagebox__container">
               <MessageBox 
                 event={event}
+                taskId={taskId}
               />
               <div className="horizontal-line" />
             </div>

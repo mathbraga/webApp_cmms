@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Input, Collapse } from 'reactstrap';
 import moment from 'moment';
 import 'moment/locale/pt-br' 
 import "./Message.css"
+
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { REMOVE_TASK_NOTE, TASK_MESSAGES } from '../NewForms/graphql/messageFormGql';
+import { UserContext } from '../../context/UserProvider';
 
 const userAvatar = require("../../assets/avatar/user.png");
 
@@ -68,8 +72,17 @@ function LogContent({ event }) {
   return logContent[event.eventName];
 }
 
-function MessageBox({ event }) {
+function MessageBox({ event, taskId }) {
   const [ isMessageInputOpen, setisMessageInputOpen ] = useState(false);
+  const { user } = useContext(UserContext);
+  
+  const [ removeTaskNote, { errorInsert } ] = useMutation(REMOVE_TASK_NOTE, {
+    variables: { 
+      taskEventId: event && event.taskEventId,
+    },
+    refetchQueries: [{ query: TASK_MESSAGES, variables: { taskId } }],
+    onError: (err) => { console.log(err); },
+  });
   
   const createdAt = moment(event.createdAt).locale('pt-br');
 
@@ -100,7 +113,9 @@ function MessageBox({ event }) {
         {event.eventName === 'note' && (
           <div className="comment__action">
             <div>
-              <Button color="danger" size='sm'>Apagar Mensagem</Button>
+              {event.personId === user.value && (
+                <Button color="danger" size='sm' onClick={removeTaskNote}>Apagar Mensagem</Button>
+              )}
              </div>
             <div>
               <i className="comment__icon fa fa-comment"></i>
