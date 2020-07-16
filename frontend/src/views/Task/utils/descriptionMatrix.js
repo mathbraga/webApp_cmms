@@ -34,8 +34,8 @@ export function itemsMatrixDate(data) {
   return (
     [
       [
-        { id: 'createdAt', title: 'Criação da OS', description: data.createdAt.split("T")[0], span: 1 },
-        { id: 'dateLimit', title: 'Prazo Final', description: data.dateLimit.split("T")[0], span: 1 },
+        { id: 'createdAt', title: 'Criação da OS', description: moment(data.createdAt).format("DD-MM-YYYY"), span: 1 },
+        { id: 'dateLimit', title: 'Prazo Final', description: moment(data.dateLimit).format("DD-MM-YYYY"), span: 1 },
       ],
       [
         { id: 'dateStart', title: 'Início da Execução', description: data.dateStart, span: 1 },

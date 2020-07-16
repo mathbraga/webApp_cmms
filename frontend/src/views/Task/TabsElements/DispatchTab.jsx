@@ -22,7 +22,7 @@ const RECEIVE_FORM = 'receiveForm';
 const NO_FORM_RECEIVE_TASK = 'noFormReceiveTask';
 const NO_FORM_CANCEL_TASK = 'noFormCancelTask';
 
-function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, events, nextTeamId, teamId } }) {
+function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, events, nextTeamId, teamId, taskPriorityText } }) {
   const [ openedForm, setOpenedForm ] = useState(NO_FORM);
   
   const { user, team } = useContext(UserContext);
@@ -160,7 +160,7 @@ function DispatchTab({ data: { taskId, createdAt, taskStatusText, teamName, even
         <div className="tabpane__content">
           <PaneTextContent 
             numColumns='2' 
-            itemsMatrix={currentStateInfo({createdAt, taskStatusText, teamName, events})}
+            itemsMatrix={currentStateInfo({createdAt, taskStatusText, taskPriorityText, teamName, events})}
           />
         </div>
       </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { compose } from 'redux';
 import ItemView from '../../components/ItemView/ItemView';
 import tabsGenerator from './tabsGenerator';
-import props from './props';
+import moment from 'moment';
 import { withProps, withGraphQL, withQuery } from '../../hocs';
 import paths from '../../paths';
 
@@ -15,7 +15,7 @@ const image = require("../../assets/img/entities/task.png");
 
 const descriptionItems = [
   { title: 'Serviço', description: "", boldTitle: true },
-  { title: 'O.S. nº', description: "", boldTitle: false },
+  { title: 'Prazo', description: "", boldTitle: false },
   { title: 'Local', description: "", boldTitle: false },
   { title: 'Descrição', description: "", boldTitle: false },
 ];
@@ -31,7 +31,7 @@ function Task(props) {
    
    if (!loading) {
     descriptionItems[0].description = data.title;
-    descriptionItems[1].description = data.taskId.toString().padStart(4, "0");
+    descriptionItems[1].description = moment(data.dateLimit).format("DD-MM-YYYY");
     descriptionItems[2].description = data.place;
     descriptionItems[3].description = data.description;
    }
@@ -41,8 +41,8 @@ function Task(props) {
       <div>Loading</div>
     ) : (
       <ItemView
-        sectionName={'Tarefa'}
-        sectionDescription={'Ficha descritiva de uma tarefa'}
+        sectionName={`Tarefa nº ${taskId.toString().padStart(6, "0")}`}
+        sectionDescription={'Informações detalhadas da tarefa'}
         data={data}
         image={image}
         imageStatus={imageStatus}

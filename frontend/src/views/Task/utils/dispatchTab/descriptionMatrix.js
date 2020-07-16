@@ -1,15 +1,31 @@
 import React from 'react';
 import { FormGroup, Label, Input } from 'reactstrap';
+import moment from 'moment';
 
-export function currentStateInfo({createdAt, taskStatusText, teamName, events}) {
-  let receivedDate = createdAt;
-  let lastNote = "Tarefa tramitada sem observações"
+function upperCaseFirstLetter(string) {
+    return string.toString().charAt(0).toUpperCase() + string.toString().slice(1);
+}
+
+export function currentStateInfo({createdAt, taskStatusText, taskPriorityText, teamName, events}) {
+  const lastSend = {
+    note: "Tarefa tramitada sem observações",
+    date: createdAt,
+  };
+  const lastReceive = {
+    date: createdAt
+  }
   
   events.forEach(event => {
+    if (event.eventName === 'send') {
+      if (moment(lastSend.date).isBefore(event.createdAt)) {
+        lastSend.note = event.note;
+        lastSend.date = event.createdAt;
+      }
+    }
     if (event.eventName === 'receive') {
-      receivedDate = event.createdAt;
-    } else if (event.eventName === 'send') {
-      lastNote = event.note;
+      if (moment(lastSend.date).isBefore(event.createdAt)) {
+        lastReceive.date = event.createdAt;
+      }
     }
   })
   
@@ -17,14 +33,18 @@ export function currentStateInfo({createdAt, taskStatusText, teamName, events}) 
     [
       [
         { id: 'status', title: 'Status', description: taskStatusText, span: 1 },
-        { id: 'receivedDate', title: 'Data de recebimento', description: receivedDate.split("T")[0], span: 1 },
+        { id: 'receivedDate', title: 'Tramitado em', description: moment(lastSend.date).format("DD-MM-YYYY"), span: 1 },
       ],
       [
         { id: 'team', title: 'Equipe', description: teamName, span: 1 },
-        { id: 'totalDays', title: 'Dias com a tarefa', description: 'TODO', span: 1 }
+        { id: 'totalDays', title: 'Recebido em', description: moment(lastReceive.date).format("DD-MM-YYYY"), span: 1 }
       ],
       [
-        { id: 'obs', title: 'Último despacho (tramitação)', description: lastNote, span: 2 },
+        { id: 'team', title: 'Prioridade', description: taskPriorityText, span: 1 },
+        { id: 'totalDays', title: 'Tempo com a tarefa', description: upperCaseFirstLetter(moment(lastSend.date).fromNow(true)), span: 1 }
+      ],
+      [
+        { id: 'obs', title: 'Último despacho (tramitação)', description: lastSend.note, span: 2 },
       ],
     ]
   );
