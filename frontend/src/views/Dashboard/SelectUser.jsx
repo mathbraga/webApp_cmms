@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Select from 'react-select';
 import { useQuery } from '@apollo/react-hooks';
 import { Button, Input } from 'reactstrap';
@@ -7,10 +7,10 @@ import { ALL_TEAMS_QUERY } from './utils/graphql';
 import { UserContext } from '../../context/UserProvider';
 
 export default function SelectUser() {
-  const [ team, setTeam ] = useState(null);
-  const [ user, setUser ] = useState(null);
-  const [ teamOptions, setTeamOptions ] = useState([]);
   const userContext = useContext(UserContext);
+  const [ team, setTeam ] = useState(userContext.user);
+  const [ user, setUser ] = useState(userContext.team);
+  const [ teamOptions, setTeamOptions ] = useState([]);
 
   const { loading } = useQuery(ALL_TEAMS_QUERY, {
     onCompleted: ({ allTeamData: { nodes: data}}) => {
@@ -68,7 +68,7 @@ export default function SelectUser() {
             classNamePrefix="select"
             isClearable
             isSearchable
-            name="team"
+            name="user"
             options={team ? teamOptions.filter(teamOption => teamOption.value == team.value)[0].members : []}
             placeholder={'Usuário ...'}
             onChange={handleUserChange}

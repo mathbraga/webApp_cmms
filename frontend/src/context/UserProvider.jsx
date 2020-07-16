@@ -10,8 +10,9 @@ export function UserProvider({ children }) {
   const [ team, setTeam ] = useState({
     label: 'RCS Tecnologia - Posto 01',
     value: 5,
+    members: [],
   });
-  const [ isLogged, setIsLogged ] = useState(false);
+  const [ isLogged, setIsLogged ] = useState(true);
   
   function login(user, team) {
     if (user && team) {
