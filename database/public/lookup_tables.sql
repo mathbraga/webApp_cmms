@@ -197,3 +197,24 @@ insert into spec_subcategories values
 --   (5, 'Referências Internacionais'),
 --   (6, 'Normas ABNT'),
 --   (7, 'Diretrizes do Senado Federal');
+
+create table depot_states (
+  depot_state_id integer primary key,
+  depot_state_text text not null
+);
+
+insert into depot_states values
+  (1, 'Cadastro'),
+  (2, 'Em processo de licitação'),
+  (3, 'Vigente'),
+  (4, 'Encerrado');
+
+create table depot_categories (
+  depot_category_id integer primary key,
+  depot_category_text text not null
+);
+
+insert into depot_categories values
+  (1, 'Processo de licitação'),
+  (2, 'Contrato'),
+  (3, 'Nota Fiscal');

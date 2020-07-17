@@ -107,6 +107,7 @@ begin transaction;
 \i api/asset/asset_form_data.sql
 \i api/asset/facility_data.sql
 \i api/contract/contract_data.sql
+-- \i api/depot/depot_data.sql
 \i api/spec/spec_data.sql
 \i api/team/team_data.sql
 
@@ -137,6 +138,7 @@ insert into persons overriding system value values
 \i sample/assets.sql
 \i sample/asset_relations.sql
 \i sample/contracts.sql
+-- \i sample/depots.sql
 \i sample/persons.sql
 \i sample/accounts.sql
 \i sample/teams.sql
