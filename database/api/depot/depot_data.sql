@@ -24,5 +24,5 @@ create or replace view api.depot_data as
          s.supplies
   from depots as d
   inner join depot_statuses as ds using (depot_status_id)
-  inner join supplies_of_depot as s using (depot_id)
+  left join supplies_of_depot as s using (depot_id)
 ;
