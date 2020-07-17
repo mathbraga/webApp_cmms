@@ -53,30 +53,30 @@ begin transaction;
 \i roles/privileges.sql
 
 -- create get_person_id function
-\i public/get_person_id.sql
+\i functions/public.get_person_id.sql
 
 -- create composite types
-\i public/types.sql
-
--- create domains
--- \i public/domains.sql
+\i schema/types.sql
 
 -- define db constants
-\i public/get_constant_value.sql
+\i functions/public.get_constant_value.sql
 
 -- create tables
-\i public/lookup_tables.sql
-\i public/tables.sql
+\i schema/lookup_tables.sql
+\i schema/tables.sql
 
 -- create functions
-\i public/get_asset_trees.sql
-\i public/get_exception_message.sql
+\i functions/public.get_asset_trees.sql
+\i functions/public.get_exception_message.sql
+\i functions/web.authenticate.sql
+\i functions/web.get_all_files_uuids.sql
+\i functions/web.refresh_all_materialized_views.sql
 
 -- create views
-\i public/balances.sql
+\i schema/views.sql
 
 -- create materialized views
-\i public/asset_contexts.sql
+\i schema/materialized_views.sql
 
 -- create api schema objects
 -- task basic
@@ -111,11 +111,6 @@ begin transaction;
 \i api/spec/spec_data.sql
 \i api/team/team_data.sql
 
--- create web schema objects
-\i web/authenticate.sql
-\i web/get_all_files_uuids.sql
-\i web/refresh_all_materialized_views.sql
-
 -- create and login with fake user for initial inserts
 set local cookie.session.person_id to 0;
 insert into persons overriding system value values
@@ -134,31 +129,31 @@ insert into persons overriding system value values
 -- \i policies/task_messages.sql
 
 -- populate tables with sample data
-\i sample/asset_categories.sql
-\i sample/assets.sql
-\i sample/asset_relations.sql
-\i sample/contracts.sql
--- \i sample/depots.sql
-\i sample/persons.sql
-\i sample/accounts.sql
-\i sample/teams.sql
-\i sample/team_persons.sql
-\i sample/contract_teams.sql
-\i sample/projects.sql
-\i sample/requests.sql
-\i sample/specs.sql
-\i sample/supplies.sql
+\i samples/asset_categories.sql
+\i samples/assets.sql
+\i samples/asset_relations.sql
+\i samples/contracts.sql
+-- \i samples/depots.sql
+\i samples/persons.sql
+\i samples/accounts.sql
+\i samples/teams.sql
+\i samples/team_persons.sql
+\i samples/contract_teams.sql
+\i samples/projects.sql
+\i samples/requests.sql
+\i samples/specs.sql
+\i samples/supplies.sql
 -- tasks
-\i sample/task1.sql
+\i samples/task1.sql
 
 -- switch back to person_id = 0
 set local cookie.session.person_id to 0;
 
 -- restart sequences
-\i sample/_restart_sequences.sql
+\i samples/_restart_sequences.sql
 
 -- create triggers after populate tables
--- \i trigger/name_of_the_trigger.sql
+-- \i triggers/name_of_the_trigger.sql
 
 -- set ON_ERROR_STOP to off
 \set ON_ERROR_STOP off
@@ -170,7 +165,7 @@ commit transaction;
 select web.refresh_all_materialized_views();
 
 -- create extra indexes
-\i public/indexes.sql
+\i schema/indexes.sql
 
 -- set the default transaction isolation level
 -- alter database :new_db_name set default_transaction_isolation to 'serializable';

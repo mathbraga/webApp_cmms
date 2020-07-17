@@ -198,12 +198,12 @@ insert into spec_subcategories values
 --   (6, 'Normas ABNT'),
 --   (7, 'Diretrizes do Senado Federal');
 
-create table depot_states (
-  depot_state_id integer primary key,
-  depot_state_text text not null
+create table depot_statuses (
+  depot_status_id integer primary key,
+  depot_status_text text not null
 );
 
-insert into depot_states values
+insert into depot_statuses values
   (1, 'Cadastro'),
   (2, 'Em processo de licitação'),
   (3, 'Vigente'),

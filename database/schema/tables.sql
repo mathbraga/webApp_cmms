@@ -50,7 +50,7 @@ create table depots (
   description text not null,
   url text,
   is_active boolean default true
-)
+);
 
 
 create table persons (
