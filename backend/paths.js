@@ -7,6 +7,7 @@ const paths = {
   download: '/download',
   upload: '/api', // Must be the same as api path
   graphiql: '/graphiql',
+  redmine: '/redmine',
 
   // Directories paths
   public: 'public',

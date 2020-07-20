@@ -5,6 +5,7 @@ const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
 const uploadRoute = require('./routes/upload');
 const downloadRoute = require('./routes/download');
+const redmineRoute = require('./routes/redmine');
 const paths = require('./paths');
 const cors = require('./middlewares/cors');
 const expressJson = require('./middlewares/express-json');
@@ -34,6 +35,7 @@ app.use(paths.login, loginRoute);
 app.use(paths.logout, logoutRoute);
 app.use(paths.upload, uploadRoute);
 app.use(paths.download, downloadRoute);
+app.use(paths.redmine, redmineRoute);
 
 // PostGraphile route
 app.use(postgraphile);
